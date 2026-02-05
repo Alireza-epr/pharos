@@ -14,7 +14,7 @@ const config: Config = {
     }
   }, */
   moduleNameMapper: {
-    "\\.(css|scss)$": "<rootDir>/tests/__mocks__/styleMock.js",
+    '\\.(css|scss)$': '<rootDir>/tests/__mocks__/styleMock.js',
   },
 };
 
