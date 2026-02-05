@@ -1,7 +1,7 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  roots: ['./tests'],
+  roots: ['<rootDir>/tests'],
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   transform: {
