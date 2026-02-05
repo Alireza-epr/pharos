@@ -2,7 +2,8 @@ name: PR Checks
 
 on:
   pull_request:
-    branches: ['master']
+    branches: 
+      - master
 
 jobs:
   checks:
@@ -12,11 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: npm
+          node-version-file: .nvmrc
 
       - name: Install dependencies
         run: npm install
