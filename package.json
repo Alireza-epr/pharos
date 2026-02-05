@@ -19,7 +19,7 @@
     "e2e": "playwright test"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alireza Almer <alireza.almer@gmail.com>",
   "license": "ISC",
   "description": "",
   "devDependencies": {
