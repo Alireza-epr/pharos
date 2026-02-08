@@ -1,3 +1,0 @@
-## Problem Statement
-
-AIS data is commonly used to show vessel locations, but sometimes AIS messages are missing or incomplete. SAR satellite data, such as Sentinel-1, can show vessel detections without using AIS, but these detections do not include vessel identity and can be uncertain in time and position. When looking at SAR and AIS data together, it is not always clear whether a SAR detection should match an AIS record or not. The difference may be caused by data gaps or by limitations in the matching process. This project looks at building a small prototype that combines open SAR and AIS data to show how likely a detection is to be matched or unmatched.
