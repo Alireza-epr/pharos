@@ -57,7 +57,7 @@ The canonical event structure is defined in:
 
 Upstream fields are preserved without modification.
 
----
+<!-- ---
 
 ## Context Layers
 
@@ -68,7 +68,7 @@ The following background layers are selected for Iteration 1:
 - Coastline / land mask
 - Bathymetry grid (coarse resolution)
 
-These layers are used only for spatial context.
+These layers are used only for spatial context. -->
 
 ---
 

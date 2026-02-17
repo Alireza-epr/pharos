@@ -64,7 +64,7 @@ This document defines a **simple and minimal event schema** for Iteration 1.
   Information needed to reproduce the run:
   - configuration hash
   - code version
-  - context layer versions
+  <!-- - context layer versions -->
 
 ### Optional
 
@@ -91,7 +91,7 @@ This document defines a **simple and minimal event schema** for Iteration 1.
   "run_metadata": {
     "config_hash": "...",
     "code_version": "...",
-    "context_layer_versions": { "...": "..." }
+    /* "context_layer_versions": { "...": "..." } */
   },
   "ais_context": null
 }
