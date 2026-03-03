@@ -9,7 +9,7 @@ import {
   generateRunMetadata,
 } from '../src/pipeline/normalize';
 import { IConfigJSON } from '../src/types/eventTypes';
-import { hashString } from '../src/utils/generalUtils';
+import { deepSortObject, hashString } from '../src/utils/generalUtils';
 import {
   api4wingsResponse,
   apiEventResponse_no_entry,
@@ -190,7 +190,7 @@ describe('4wings helpers', () => {
       expect(metadata).toEqual(
         expect.objectContaining({
           code_version: '1',
-          config_json: configSet,
+          config_json: deepSortObject(Array.from(configSet)),
           config_hash: expect.any(String),
         }),
       );
