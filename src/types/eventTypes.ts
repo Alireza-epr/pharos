@@ -14,7 +14,7 @@ import {
 
 export interface IRunMetadata {
   config_hash: string;
-  config_json: Set<IConfigJSON>;
+  config_json: IConfigJSON[];
   code_version: string;
 }
 
