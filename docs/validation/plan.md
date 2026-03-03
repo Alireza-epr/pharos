@@ -1,157 +1,175 @@
-# Validation Plan (Iteration 1)
+# Validation Plan (Iteration 1 – Simplified)
 
-## What Is Being Validated
+## 1. What Is Being Checked
 
-This validation evaluates the precision of AIS-unmatched triage events produced by the system.
+This validation checks whether **AIS-unmatched SAR events make sense to a human reviewer**.
 
-Only events marked as AIS-unmatched by the detection provider are included in the validation set.
+Only events marked as **AIS-unmatched** by the system are included in the main validation.
 
-The validation answers the following question:
+The main question is:
 
-When the system flags an AIS-unmatched event, does this classification make sense based on basic
-spatial and contextual inspection?
+> When the system marks an event as AIS-unmatched, does this look reasonable based on basic map and timing checks?
 
-Validation is performed using a fixed labeling rubric applied consistently across all sampled events.
+Each event is reviewed using the **same simple rules**.
 
-Ambiguous cases, where a clear decision cannot be made, are explicitly labeled and tracked
-separately, rather than being forced into correct or incorrect categories.
+If a reviewer cannot clearly decide, the event is marked as **Ambiguous** instead of forcing a yes/no decision.
 
-The validation does not assess:
+This validation **does NOT check**:
 
-- recall or completeness
-- detection accuracy
-- legality or compliance
-- vessel intent or behavior
+- whether the system finds all vessels (recall)
+- whether the SAR detection itself is correct
+- legality, compliance, or intent
+- vessel behavior or threat level
 
-The purpose is only to check whether AIS-unmatched events make sense to a human reviewer.
+The goal is **only** to check whether AIS-unmatched events look reasonable to a person.
 
 ---
 
-## Stratification
+## 2. Validation Setup
 
-To ensure validation covers different event contexts, AIS-unmatched events are
-automatically stratified using provider-supplied fields.
+Validation is done in two parts.
 
-The following stratifications are locked for Iteration 1.
+### Part A - Quick Sanity Check (Small)
 
-### Near-Coast vs Offshore
+A small number of **AIS-matched** events are reviewed first to confirm that:
 
-Events are split based on provider-supplied distance-to-shore values:
+- the review tools work
+- locations and timestamps are readable
+- reviewers understand the rules
+
+These results are **not reported** and are only used to make sure the process works.
+
+### Part B - Main Validation
+
+The main validation uses **only AIS-unmatched events**.
+These results are what matter.
+
+---
+
+## 3. Grouping the Events (Stratification)
+
+To avoid reviewing only similar cases, AIS-unmatched events are grouped using **fields we compute ourselves**.
+
+### 3.1 Near-Coast vs Offshore
+
+Each event is grouped based on how close it is to land.
+
+**How**
+
+- Distance to the coastline is calculated from the event latitude and longitude.
+
+**Groups**
 
 - **near_coast**  
-  distance_from_shore_km < [configured threshold]
+  distance_to_coast_km < threshold
 
 - **offshore**  
-  distance_from_shore_km ≥ [configured threshold]
+  distance_to_coast_km ≥ threshold
 
-This stratification is computed automatically for all events where distance
-information is available.
-
-### High vs Low Confidence Tier
-
-For events where a detection confidence field is provided by the data source
-(e.g. port-related events), confidence is stratified as:
-
-- **low_confidence**  
-  detection_confidence < [configured threshold]
-
-- **high_confidence**  
-  detection_confidence ≥ [configured threshold]
-
-If detection confidence is not provided for an event, this stratification is
-not applied.
-
-Traffic-density-based stratification is not included in Iteration 1, as no
-provider-supplied traffic proxy is available.
+This is applied to all AIS-unmatched events.
 
 ---
 
-## Sample Size and Stratified Selection
+### 3.2 Signal Strength Group (Confidence Tier)
 
-Validation is designed to be executable by a single reviewer.
+The provider does not give a real confidence score.
+So we group events by **how strong the detection looks**, based on simple signals.
 
-A target sample size of **20-30 AIS-unmatched events** is selected for manual review.
-This range is chosen so that one person can complete the review in a reasonable amount of time.
+**Signals used**
 
-To avoid reviewing only similar cases, events are selected across automatically
-computable strata:
+- how long the detection lasts
+- how recent the event is
 
-- near-coast events
-- offshore events
-- low-confidence events (only where confidence data is available)
-- high-confidence events (only where confidence data is available)
+**Groups**
 
-The sample is split approximately evenly across available strata when possible.
-If a stratum contains too few events, all available events from that stratum may be included.
+- **strong_signal**  
+  Longer-lasting, recent or more detected events
 
-Exact counts per stratum may vary depending on data availability, but the overall
-sample size remains within the defined range.
+- **weak_signal**  
+  Short or old events
 
----
-
-## Labeling Rubric
-
-Each AIS-unmatched event is reviewed manually and assigned one primary label.
-The same rubric is applied consistently to all events.
-
-Exactly one of the following labels is assigned to each event.
-
-### TP (True Positive)
-
-**Definition:**  
-The AIS-unmatched classification appears reasonable based on spatial and contextual inspection.
-There is no clear reason to think it is not a vessel.
-
-**Example:**  
-A SAR detection is located offshore, away from the coastline and known static structures.
-Label: TP
+These groups are **not probabilities**.
+They only help us sample different types of events.
 
 ---
 
-### FP (False Positive)
+## 4. Sample Size and Selection
 
-**Definition:**  
-The detection clearly does not represent a vessel, or there is an obvious non-vessel explanation.
+The validation is designed for **one reviewer**.
 
-**Example:**  
-A SAR detection is located directly on the coastline or aligned with a known pier or offshore platform.
-Label: FP  
-Failure mode: static_structure or coast_clutter
+- Total sample size: **20–30 AIS-unmatched events**
 
----
+Events are selected across:
 
-### Ambiguous
+- near-coast and offshore groups
+- strong-signal and weak-signal groups
 
-**Definition:**  
-There is insufficient information to confidently classify the detection as a vessel or non-vessel.
+If a group has only a few events, all of them may be reviewed.
 
-**Example:**  
-A SAR detection is near the coast in shallow water.
-It could represent a small vessel or coastal clutter, and available information is not enough to decide.
-Label: Ambiguous  
-Failure mode: coast_clutter or unknown
+The exact number per group may vary, but the total stays within the target range.
 
 ---
 
-### Failure Mode Tag
+## 5. Review Labels
 
-For events labeled FP or Ambiguous, one failure mode tag is assigned to describe the primary reason.
+Each AIS-unmatched event gets **one label**.
+
+### 5.1 TP — True Positive
+
+**Meaning**  
+The system flagged this event as AIS-unmatched, and this decision makes sense.
+
+**Example**  
+A SAR detection offshore.
+
+---
+
+### 5.2 FP — False Positive
+
+**Meaning**  
+The system flagged this event as AIS-unmatched, but it should not have.
+
+**Example**  
+A detection on a pier, platform, or known fixed structure.
+
+---
+
+### 5.3 Ambiguous — Cannot Decide
+
+**Meaning**  
+There is not enough information to make a clear decision.
+
+**Example**  
+A detection very close to shore where both small vessels and coastal clutter are possible.
+
+---
+
+## 6. Reason Tags
+
+For events marked **FP** or **Ambiguous**, one reason is added.
 
 Allowed values:
 
 - **coast_clutter**  
-  Likely SAR noise or reflections near the coastline.
+  Likely noise near the shoreline.
 
 - **static_structure**  
-  Detection likely corresponds to a fixed structure (e.g. platform, pier, wind turbine).
-
-- **density_ambiguity**  
-  Used when several AIS vessels are present near the SAR detection at similar times, making it unclear which vessel, if any, corresponds to the detection.
-
-- **time_offset**  
-  Used when nearby AIS vessel activity exists, but the AIS timestamps do not clearly align with the SAR detection time.
+  Likely a fixed object (pier, platform, turbine).
 
 - **unknown**  
-  No clear explanation can be identified.
+  No clear reason identified.
 
-Failure mode tags are descriptive only and do not represent claims.
+These tags are descriptive only.
+
+---
+
+## 7. Results
+
+Results are summarized by:
+
+- number of TP / FP / Ambiguous events
+- breakdown by near-coast vs offshore
+- breakdown by strong vs weak signal
+- common reason tags
+
+Results are used as a **human sanity check**, not as a performance score.

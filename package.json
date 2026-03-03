@@ -7,8 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "pipeline:sample": "npm run pipeline:build && node dist/pipeline/sample.js",
-    "pipeline:build": "tsc -p tsconfig.pipeline.json",
+    "pipeline:sample": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js",
     "ui:dev": "vite",
     "ui:build": "vite build",
     "ui:preview": "vite preview",
