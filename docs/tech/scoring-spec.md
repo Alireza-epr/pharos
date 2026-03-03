@@ -1,6 +1,6 @@
 # Scoring and Definitions Specification (Iteration 1)
 
-This document defines how **AIS-unmatched**, triage scoring, uncertainty, and reason codes
+This document defines how triage scoring, uncertainty, and reason codes
 are interpreted in Iteration 1. The purpose is to remove ambiguity and prevent over-claiming.
 
 ---
@@ -34,98 +34,65 @@ The score:
 
 ### Overview
 
-The triage score is a deterministic value in the range **[0, 1]**.
-It is used only to prioritize which events to inspect first.
+The triage score is a deterministic value that **always represents the priority for analyst review**
 
 ### Inputs
 
-Only fields available in Iteration 1 are used:
-
-- **matched_flag**  
-  Provided by the detection source.
-
-- **distance_from_shore**  
-  Provided by the detection source events API  
-  (e.g. `startDistanceFromShoreKm`, `endDistanceFromShoreKm`).
+Field used in Iteration 1:
 
 - **detection_confidence**
-  Provided by the detection source events API (only in in port-related events)
+  Provided by the detection source events API (only in port-related events)
   Reference: https://globalfishingwatch.org/our-apis/documentation#port-visit-events
 
-Fallback: If an input field is not present for a given event, it is ignored and no corresponding
-modifier or reason code is applied.
-
----
+Fallback: If detection confidence is missing, use a default base score (e.g., 1).
 
 ### Base Score
 
-- matched_flag = false then base_score = 0.6
-- matched_flag = true then base_score = 0.2
+- Use `detection_confidence` if available (2, 3, 4).
+- Default base score if confidence is missing: 1 (meaning "not applicable")
+
+### Final Triage
+
+```text
+triage_score = detection_confidence if not null, else 1
+```
 
 ---
 
-### Deterministic Modifiers
-
-distance_from_shore input is availabe:
-
-- near_coast = true then modifier = −0.2
-- near_coast = false then modifier = 0
-
-detection_confidence input is availabe:
-
-- low_detection_confidence = true then modifier = −0.2
-- low_detection_confidence = false then modifier = 0
-
-A modifier is applied only if its required input field is present.
-
----
-
-### Final Score
-
-The final triage score starts from a base value derived from matched status and is adjusted
-by simple additive modifiers based on available context, with the result bounded to [0, 1].
-
-triage_score = clamp(base_score + sum(modifiers), 0, 1)
-
----
-
-## Uncertainty
+## Uncertainty Score
 
 ### Overview
 
 Uncertainty represents how ambiguous the event context is.
 It does not measure detection correctness or intent.
 
----
-
 ### Base Uncertainty
 
 - base_uncertainty = 0.2
 
----
-
 ### Deterministic Modifiers
 
 - near_coast = true then modifier = +0.3
-- near_coast = false then modifier = 0
-
 - low_detection_confidence = true then modifier = +0.3
-- low_detection_confidence = false then modifier = 0
 
 A modifier is applied only if its required input field is present.
 
----
-
 ### Final Uncertainty
 
+```text
 uncertainty = clamp(base_uncertainty + sum(modifiers), 0, 1)
+```
 
 ---
 
 ## Reason Codes
 
-Reason codes explain why score or uncertainty modifiers were applied.
-They are labels only and do not represent claims.
+Reason codes are labels that provide **additional context for analysts**. They can indicate:
+
+1. **Modifiers applied** to the uncertainty score (e.g., near_coast, low_detection_confidence).
+2. **Contextual information** about the event, even if no modifier was applied (e.g., inside_eez, inside_mpa).
+
+Reason codes **do not represent claims** about legality, intent, or detection correctness. They are purely informational to help analysts understand why uncertainty is higher or to provide context for the event.
 
 ### Fixed Vocabulary (Iteration 1)
 
@@ -141,26 +108,34 @@ They are labels only and do not represent claims.
 - inside_mpa  
   Detection is inside a Marine Protected Area (context only).
 
+- unmatched_detection
+  Detection is AIS-Unmatched.
+
 ---
 
 ## Output Fields
 
 Each event may include:
 
-- triage_score (number in [0, 1])
-- uncertainty (number in [0, 1])
-- reason_codes (list of strings)
+- triage_score (1 – 4, higher = more important)
+- uncertainty_score (0.2 - 0.8, higher = more ambiguous)
+- reason_codes (list of applied reasons)
 
 ---
 
 ## Configuration Knobs
 
-The following values are fixed for Iteration 1 but may be adjusted in later iterations:
+Values may be adjusted in later iterations:
 
-- base_score_unmatched = 0.6
-- base_score_matched = 0.2
-- near_coast_threshold_km = [value to be defined]
-- low_detection_confidence_threshold = [value to be defined]
+- **near_coast_threshold = 10 km**  
+  This sets the distance from the coastline at which a detection is considered “near coast.”  
+  It was chosen as a moderate value to flag coastal clutter while avoiding excessive false positives in Iteration 1.
+  Analysts can adjust this based on operational feedback.
+
+- **low_detection_confidence_threshold = 2**  
+  This defines the confidence level below which a port_visit detection is considered low confidence.  
+  It was set to 2 because provider confidence values range from 2–4, and 2 represents the weakest reliable signal.
+  This ensures only genuinely low-confidence events increase uncertainty.
 
 ---
 

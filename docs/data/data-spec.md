@@ -9,8 +9,8 @@ It records what data is used, where, and under which conditions.
 
 The project uses the following Global Fishing Watch datasets:
 
-- public-global-sar-presence (SAR vessel detections)
-- public-global-presence (AIS presence data)
+- SAR Vessel Detections
+- Event API Dataset
 
 No custom detection, matching, or scoring logic is used in Iteration 1.
 
@@ -57,24 +57,11 @@ The canonical event structure is defined in:
 
 Upstream fields are preserved without modification.
 
-<!-- ---
-
-## Context Layers
-
-The following background layers are selected for Iteration 1:
-
-- EEZ boundaries
-- Marine Protected Areas
-- Coastline / land mask
-- Bathymetry grid (coarse resolution)
-
-These layers are used only for spatial context. -->
-
 ---
 
 ## Version Pinning Plan
 
-To ensure reproducibility, fixed versions of all data sources and context layers are used.
+To ensure reproducibility, fixed versions of all data sources are used.
 
 For each run, the following information is recorded:
 

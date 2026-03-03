@@ -29,11 +29,7 @@ This document defines a **simple and minimal event schema** for Iteration 1.
   Latitude in decimal degrees (WGS84).
 
 - `geom` (object)  
-  GeoJSON geometry (Point).
-
-  ```json
-  { "type": "Point", "coordinates": [lon, lat] }
-  ```
+  GeoJSON geometry.
 
 ### Matching indicator
 
@@ -46,31 +42,30 @@ This document defines a **simple and minimal event schema** for Iteration 1.
 ### Source information
 
 - `source` (string)  
-  Name of the SAR detection dataset.
-
-- `source_version` (string)  
-  Dataset version or identifier (if available).
+  Name of the datasets with version.
 
 ### Metadata
 
-- `confidence_fields` (object)  
-  Confidence-related fields from the source, if any.  
-  Empty object `{}` if not provided.
-
+- `confidence_fields` (number or null)  
+  Confidence-related fields from the source, if any.
 - `raw_metadata` (object)  
   Original SAR record stored without modification.
+
+- `raw_event_metadata` (object)  
+  Original event record stored without modification.
 
 - `run_metadata` (object)  
   Information needed to reproduce the run:
   - configuration hash
+  - configuration json
   - code version
-  <!-- - context layer versions -->
 
-### Optional
+### Scoring
 
-- `ais_context` (object or null)  
-  Optional AIS records for reference only.  
-  Not used for matching or decision-making.
+- `triage_score` (number or null)
+- `uncertainty_score` (number or null)
+- `reason_codes` (list of strings)  
+  Explanation in `tech/scoring-spec.md`.
 
 ---
 
@@ -84,16 +79,20 @@ This document defines a **simple and minimal event schema** for Iteration 1.
   "lat": 54.53,
   "geom": { "type": "Point", "coordinates": [12.75, 54.53] },
   "matched_flag": false,
-  "source": "gfw_sar_presence",
-  "source_version": "unknown",
-  "confidence_fields": {},
+  "source": "gfw_sar_presence:v3:0",
+  "confidence_fields": 2,
   "raw_metadata": { "...": "original SAR fields" },
+  "raw_event_metadata": { "...": "original event fields" },
   "run_metadata": {
+    "config_json": "...",
     "config_hash": "...",
-    "code_version": "...",
-    /* "context_layer_versions": { "...": "..." } */
+    "code_version": "..."
   },
-  "ais_context": null
+  "scoring": {
+    "triage_score": null,
+    "uncertainty_score": null,
+    "reason_codes": [""]
+  }
 }
 ```
 
