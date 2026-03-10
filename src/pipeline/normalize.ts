@@ -110,7 +110,7 @@ export const generateRunMetadata = async (
   const config_hash = await hashString(canonicalString);
 
   return {
-    code_version: getGitCommitSHA(),
+    code_version: await getGitCommitSHA(),
     config_json: canonicalObject,
     config_hash,
   };

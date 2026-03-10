@@ -13,7 +13,7 @@ import { IGeometry } from '../types/geoJSONTypes';
 import { IConfigJSON } from '../types/eventTypes';
 import { I4wingsAPIResponse, IEventAPIResponse, IEventPostBodyParams, IEventPostURLParams, IPortVisitEvent } from '../types/gfwTypes';
 import { ELogLevel } from '../enum/generlaEnum';
-import { hashString } from '../utils/generalUtils';
+import { getGitCommitSHA, hashString, log } from '../utils/generalUtils';
 
 const parquetSchema = new parquet.ParquetSchema({
   event_id: { type: 'UTF8' },
@@ -67,7 +67,7 @@ const writeParquet= async (rows) => {
 }
 
 const main = async () => {
-  console.log('pilot starting...');
+  log('pilot starting...','',ELogLevel.message,'3');
   let events = [];
   const configuration = new Set<IConfigJSON>();
   const resp4wings = await fetchPostGFW<I4wingsAPIResponse>(
@@ -221,7 +221,23 @@ const main = async () => {
   );
 
   writeParquet(rows);
-  console.log('pilot finished.');
+
+  const run_metadata = {
+    config_hashes : sortedEvents.map( event => event.run_metadata.config_hash ).sort((a, b) => a.localeCompare(b)),
+    run_time: new Date().toISOString(),
+    data_source_versions: [
+      source4wings,
+      sourceEvent
+    ],
+    git_commit_hash: await getGitCommitSHA()
+  }
+
+  fs.writeFileSync(
+    `${output}run_metadata.json`,
+    JSON.stringify(run_metadata, null, 2), // pretty-print for readability
+  );
+
+  log('pilot finished.','',ELogLevel.message,'3');
 }
 
 main().catch(console.error);

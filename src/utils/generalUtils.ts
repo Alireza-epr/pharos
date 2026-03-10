@@ -12,11 +12,12 @@ export const log = (
   a_Title: string,
   a_Message: any,
   a_Type: ELogLevel = ELogLevel.message,
+  a_logLevel?: string
 ): void => {
   const formattedMessage = `[${formatTimestamp()}] ${a_Title}`;
   const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
   const logLevel = params.get(EURLParams.loglevel);
-  if (logLevel && logLevel === '3') {
+  if ((logLevel && logLevel === '3') || (a_logLevel && a_logLevel === '3')) {
     switch (a_Type) {
       case ELogLevel.message:
         console.log(formattedMessage, a_Message);
@@ -54,9 +55,23 @@ export const deepSortObject = (a_Object: any): any => {
   return a_Object;
 };
 
-export const getGitCommitSHA = (a_Short = true): string => {
+export const getGitCommitSHA = async (a_Short = true): Promise<string> => {
   try {
-    return '1';
+    if (typeof window == 'undefined'){
+      // Node.js version
+      const { execSync  } = await import('child_process');
+      const gitCommit = execSync("git rev-parse HEAD")
+        .toString()
+        .trim()
+      if(gitCommit){
+        return gitCommit
+      } else {
+        return 'N/A'
+      }
+    } else {
+      return 'N/A'
+    }
+    
   } catch (e) {
     return 'N/A';
   }
