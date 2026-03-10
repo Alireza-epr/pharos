@@ -4,31 +4,6 @@
     {
       "type": "Feature",
       "properties": {
-        "event_id": "d11cf5e415439de7a2f98464d5cae268a15034df8b0bf2328ddd6720de765163",
-        "timestamp_utc": "2025-12-04T16:53:26Z",
-        "matched_flag": true,
-        "lat": 55.16,
-        "lon": 14.170000076293945,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "event_id": "149f8be8b626646e3c2cc8b972359516643b7a0303bbf3964daccb3fa87563a3",
         "timestamp_utc": "2025-12-04T16:53:26Z",
         "matched_flag": true,
@@ -42,11 +17,26 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
           ]
         ]
       }
@@ -67,186 +57,26 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "fa65f4fc423e65c24d9928876d786b87ac48443182f4df5139a6dd93bd27c9f2",
-        "timestamp_utc": "2025-12-06T05:25:03Z",
-        "matched_flag": true,
-        "lat": 55.23,
-        "lon": 14.1899995803833,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "d4f97da2afb84fab4aad1f7d56bfaa765f65e2ea3f705be0868badce53fa724b",
-        "timestamp_utc": "2025-12-06T05:25:03Z",
-        "matched_flag": true,
-        "lat": 55.24,
-        "lon": 14.329999923706055,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "9c32dd126e4a2a51a1b5cfb37dd78d158f9c834a6fc758bb7724e7ee59ac200d",
-        "timestamp_utc": "2025-12-04T16:53:26Z",
-        "matched_flag": true,
-        "lat": 55.16,
-        "lon": 14.109999656677246,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "9df5159668a60e1d2dbda76f92f3e2a3f7b2877b7ed18459a3946d2cf3fcfd88",
-        "timestamp_utc": "2025-12-04T16:53:26Z",
-        "matched_flag": false,
-        "lat": 55.2,
-        "lon": 14.210000038146973,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "f1d1c217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c",
-        "timestamp_utc": "2025-12-04T16:53:26Z",
-        "matched_flag": true,
-        "lat": 55.16,
-        "lon": 14.680000305175781,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
-        "inside_eez": ["5674"]
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "e3e6d8cd7ff18f222b3a54a57e4bc107bdaa40a8408908f0b8285a20d6abdd7c",
-        "timestamp_utc": "2025-12-06T05:25:03Z",
-        "matched_flag": true,
-        "lat": 55.23,
-        "lon": 14.289999961853027,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "b8c9955f7c4a36ba3dc11d19c0c79f9dc9d5c3c029249f712e38c79b6f008b74",
-        "timestamp_utc": "2025-12-06T05:25:03Z",
-        "matched_flag": true,
-        "lat": 55.09,
-        "lon": 14.09000015258789,
-        "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
           ]
         ]
       }
@@ -267,11 +97,188 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9c32dd126e4a2a51a1b5cfb37dd78d158f9c834a6fc758bb7724e7ee59ac200d",
+        "timestamp_utc": "2025-12-04T16:53:26Z",
+        "matched_flag": true,
+        "lat": 55.16,
+        "lon": 14.109999656677246,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9df5159668a60e1d2dbda76f92f3e2a3f7b2877b7ed18459a3946d2cf3fcfd88",
+        "timestamp_utc": "2025-12-04T16:53:26Z",
+        "matched_flag": false,
+        "lat": 55.2,
+        "lon": 14.210000038146973,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d11cf5e415439de7a2f98464d5cae268a15034df8b0bf2328ddd6720de765163",
+        "timestamp_utc": "2025-12-04T16:53:26Z",
+        "matched_flag": true,
+        "lat": 55.16,
+        "lon": 14.170000076293945,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "f1d1c217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c",
+        "timestamp_utc": "2025-12-04T16:53:26Z",
+        "matched_flag": true,
+        "lat": 55.16,
+        "lon": 14.680000305175781,
+        "confidence_fields": "4",
+        "distance_to_coast_km": 0,
+        "inside_eez": [
+          "5674"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
           ]
         ]
       }
@@ -292,11 +299,66 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "b8c9955f7c4a36ba3dc11d19c0c79f9dc9d5c3c029249f712e38c79b6f008b74",
+        "timestamp_utc": "2025-12-06T05:25:03Z",
+        "matched_flag": true,
+        "lat": 55.09,
+        "lon": 14.09000015258789,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
           ]
         ]
       }
@@ -317,11 +379,146 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d4f97da2afb84fab4aad1f7d56bfaa765f65e2ea3f705be0868badce53fa724b",
+        "timestamp_utc": "2025-12-06T05:25:03Z",
+        "matched_flag": true,
+        "lat": 55.24,
+        "lon": 14.329999923706055,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e3e6d8cd7ff18f222b3a54a57e4bc107bdaa40a8408908f0b8285a20d6abdd7c",
+        "timestamp_utc": "2025-12-06T05:25:03Z",
+        "matched_flag": true,
+        "lat": 55.23,
+        "lon": 14.289999961853027,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "fa65f4fc423e65c24d9928876d786b87ac48443182f4df5139a6dd93bd27c9f2",
+        "timestamp_utc": "2025-12-06T05:25:03Z",
+        "matched_flag": true,
+        "lat": 55.23,
+        "lon": 14.1899995803833,
+        "confidence_fields": null,
+        "distance_to_coast_km": "N/A",
+        "inside_eez": "N/A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              14.11,
+              55.26
+            ],
+            [
+              14.68,
+              55.27
+            ],
+            [
+              14.69,
+              55.11
+            ],
+            [
+              14.09,
+              55.08
+            ],
+            [
+              14.11,
+              55.26
+            ]
           ]
         ]
       }

@@ -160,9 +160,23 @@ const main = async () => {
     }
   }
 
+  const sortedEvents = events.sort((a, b) => {
+    if (a.timestamp_utc !== b.timestamp_utc)
+      return a.timestamp_utc.localeCompare(b.timestamp_utc);
+
+    if (a.event_id !== b.event_id)
+      return a.event_id.localeCompare(b.event_id);
+
+    if (a.lon !== b.lon)
+      return a.lon - b.lon;
+
+    return a.lat - b.lat;
+  });
+  
+  //event.geojson
   const geojson = {
     type: 'FeatureCollection',
-    features: events.map((event) => ({
+    features: sortedEvents.map((event) => ({
       type: 'Feature',
       properties: {
         event_id: event.event_id,
@@ -184,7 +198,8 @@ const main = async () => {
     })),
   };
 
-  const rows = events.map((event) => {
+  //event.parquet
+  const rows = sortedEvents.map((event) => {
     const distances = event.raw_event_metadata?.distances;
     const eez = event.raw_event_metadata?.regions?.eez;
 
