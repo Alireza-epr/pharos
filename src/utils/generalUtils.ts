@@ -14,9 +14,8 @@ export const log = (
   a_Type: ELogLevel = ELogLevel.message,
 ): void => {
   const formattedMessage = `[${formatTimestamp()}] ${a_Title}`;
-  //const params = new URLSearchParams(window.location.search);
-  //const logLevel = params.get(EURLParams.loglevel);
-  let logLevel = '3';
+  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const logLevel = params.get(EURLParams.loglevel);
   if (logLevel && logLevel === '3') {
     switch (a_Type) {
       case ELogLevel.message:
