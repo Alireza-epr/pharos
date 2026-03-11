@@ -2,7 +2,10 @@ import config from './config/globalFishingWatch.json';
 import { useState } from 'react';
 import appStyle from './App.module.scss';
 import { E4wingsDatasets, EEventDatasets, EFetchMethods } from './enum/gfwEnum';
-import { detectionPostGFW, detectionGetGFW } from './pipeline/ingest/detections';
+import {
+  detectionPostGFW,
+  detectionGetGFW,
+} from './pipeline/ingest/detections';
 import {
   I4wingsReportPostBodyParams,
   I4wingsReportPostURLParams,

@@ -13,10 +13,13 @@ export const log = (
   a_Title: string,
   a_Message: any,
   a_Type: ELogLevel = ELogLevel.message,
-  a_logLevel?: string
+  a_logLevel?: string,
 ): void => {
   const formattedMessage = `[${formatTimestamp()}] ${a_Title}`;
-  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const params =
+    typeof window !== 'undefined'
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
   const logLevel = params.get(EURLParams.loglevel);
   if ((logLevel && logLevel === '3') || (a_logLevel && a_logLevel === '3')) {
     switch (a_Type) {
@@ -58,21 +61,18 @@ export const deepSortObject = (a_Object: any): any => {
 
 export const getGitCommitSHA = async (a_Short = true): Promise<string> => {
   try {
-    if (typeof window == 'undefined'){
+    if (typeof window == 'undefined') {
       // Node.js version
-      const { execSync  } = await import('child_process');
-      const gitCommit = execSync("git rev-parse HEAD")
-        .toString()
-        .trim()
-      if(gitCommit){
-        return gitCommit
+      const { execSync } = await import('child_process');
+      const gitCommit = execSync('git rev-parse HEAD').toString().trim();
+      if (gitCommit) {
+        return gitCommit;
       } else {
-        return 'N/A'
+        return 'N/A';
       }
     } else {
-      return 'N/A'
+      return 'N/A';
     }
-    
   } catch (e) {
     return 'N/A';
   }
@@ -108,12 +108,16 @@ export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
 };
 
 export const sleep = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
-export const writeParquet= async (a_Rows: { [key: string]:any }[], a_ParquetSchema: parquet.ParquetSchema, a_OutputPath: string) => {
+export const writeParquet = async (
+  a_Rows: { [key: string]: any }[],
+  a_ParquetSchema: parquet.ParquetSchema,
+  a_OutputPath: string,
+) => {
   const writer = await parquet.ParquetWriter.openFile(
     a_ParquetSchema,
-    `${a_OutputPath}`,  
+    `${a_OutputPath}`,
   );
 
   for (const row of a_Rows) {
@@ -121,4 +125,4 @@ export const writeParquet= async (a_Rows: { [key: string]:any }[], a_ParquetSche
   }
 
   await writer.close();
-}
+};
