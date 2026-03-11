@@ -23,8 +23,8 @@ import {
   getGitCommitSHA,
   hashString,
   log,
-  writeParquet,
 } from '../utils/generalUtils';
+import { writeParquet } from '../utils/parquetUtils'
 
 const parquetSchema = new parquet.ParquetSchema({
   event_id: { type: 'UTF8' },
