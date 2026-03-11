@@ -190,7 +190,7 @@ describe('4wings helpers', () => {
 
       expect(metadata).toEqual(
         expect.objectContaining({
-          code_version: "N/A",
+          code_version: 'N/A',
           config_json: deepSortObject(Array.from(configSet)),
           config_hash: expect.any(String),
         }),

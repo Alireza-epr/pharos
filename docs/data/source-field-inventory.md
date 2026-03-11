@@ -4,8 +4,8 @@
 
 Dataset observed from upstream API responses:
 
-* `public-global-vessel-identity:v3.0`
-* Event data embedded under `event_metadata` (e.g., `port_visit` events)
+- `public-global-vessel-identity:v3.0`
+- Event data embedded under `event_metadata` (e.g., `port_visit` events)
 
 These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 
@@ -82,14 +82,14 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 
 # `vessel` Subfields
 
-| Field    | Type          | Description                | Notes              |
-| -------- | ------------- | -------------------------- | ------------------ |
-| id       | string        | Vessel identifier          | Same as `vesselId` |
-| name     | string        | Vessel name                |                    |
-| ssvid    | string        | Vessel MMSI identifier     |                    |
-| flag     | string        | Vessel flag country        |                    |
-| type     | string        | Vessel type classification |                    |
-| nextPort | string | null | Next port destination      | Often null         |
+| Field    | Type   | Description                | Notes                 |
+| -------- | ------ | -------------------------- | --------------------- | ---------- |
+| id       | string | Vessel identifier          | Same as `vesselId`    |
+| name     | string | Vessel name                |                       |
+| ssvid    | string | Vessel MMSI identifier     |                       |
+| flag     | string | Vessel flag country        |                       |
+| type     | string | Vessel type classification |                       |
+| nextPort | string | null                       | Next port destination | Often null |
 
 ---
 

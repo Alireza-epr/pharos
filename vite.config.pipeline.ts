@@ -9,7 +9,16 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['fs', 'path', 'os', 'util', 'stream', 'parquetjs', 'crypto', 'child_process'],
+      external: [
+        'fs',
+        'path',
+        'os',
+        'util',
+        'stream',
+        'parquetjs',
+        'crypto',
+        'child_process',
+      ],
     },
     target: 'esnext',
   },
