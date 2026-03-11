@@ -2,7 +2,7 @@ import config from './config/globalFishingWatch.json';
 import { useState } from 'react';
 import appStyle from './App.module.scss';
 import { E4wingsDatasets, EEventDatasets, EFetchMethods } from './enum/gfwEnum';
-import { fetchPostGFW, fetchGetGFW } from './pipeline/ingest';
+import { detectionPostGFW, detectionGetGFW } from './pipeline/ingest/detections';
 import {
   I4wingsReportPostBodyParams,
   I4wingsReportPostURLParams,
@@ -92,7 +92,7 @@ const App = (props: AppProps) => {
 
     try {
       setLoading(true);
-      const resp = await fetchPostGFW<I4wingsAPIResponse>(
+      const resp = await detectionPostGFW<I4wingsAPIResponse>(
         baseURL4wings,
         source4wings,
         urlParams4wings,
@@ -142,7 +142,7 @@ const App = (props: AppProps) => {
           };
 
           try {
-            const portVisitResp = await fetchPostGFW<
+            const portVisitResp = await detectionPostGFW<
               IEventAPIResponse<IPortVisitEvent>
             >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
             if (configuration) configuration.add(portVisitResp.metadata);
@@ -177,7 +177,7 @@ const App = (props: AppProps) => {
               }
             }
           } catch (err) {
-            log('fetchPostGFW event error', err, ELogLevel.error);
+            log('detectionPostGFW event error', err, ELogLevel.error);
           }
         } else {
           try {
@@ -196,7 +196,7 @@ const App = (props: AppProps) => {
       setLoading(false);
       setError(null);
     } catch (err: any) {
-      log('fetchPostGFW 4wings error', err, ELogLevel.error);
+      log('detectionPostGFW 4wings error', err, ELogLevel.error);
       setLoading(false);
       setResponse(null);
       setError(err);
