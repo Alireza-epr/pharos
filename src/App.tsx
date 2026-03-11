@@ -17,6 +17,7 @@ import {
   T4wingsSource,
   TEventSource,
   T4wingsFilter,
+  IEventGetURLParams,
 } from './types/gfwTypes';
 import { getSource, log } from './utils/generalUtils';
 import { ELogLevel } from './enum/generlaEnum';
@@ -144,10 +145,22 @@ const App = (props: AppProps) => {
             geometry: geometry,
           };
 
+          const urlParamsEventGet: IEventGetURLParams = {
+            ...urlParamsEvent,
+            "end-date": endDate,
+            "start-date": startDate,
+            "vessels[0]": thisEntry.vesselId,
+            "datasets[0]": sourceEvent
+          }
+
           try {
             const portVisitResp = await detectionPostGFW<
               IEventAPIResponse<IPortVisitEvent>
             >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
+            /* const portVisitResp = await detectionGetGFW<
+              IEventAPIResponse<IPortVisitEvent>
+            >(baseURLEvent, sourceEvent, urlParamsEventGet) */
+
             if (configuration) configuration.add(portVisitResp.metadata);
 
             if (portVisitResp.results.entries.length == 0) {
