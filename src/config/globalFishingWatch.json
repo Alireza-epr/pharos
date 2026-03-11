@@ -1,28 +1,4 @@
 {
-  "sample": {
-    "body": {
-      "geojson": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [14.11, 55.26],
-            [14.68, 55.27],
-            [14.69, 55.11],
-            [14.09, 55.08],
-            [14.11, 55.26]
-          ]
-        ]
-      }
-    },
-    "urlParams": {
-      "spatial-resolution": "HIGH",
-      "temporal-resolution": "HOURLY",
-      "datasets[0]": "public-global-sar-presence:v3.0",
-      "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-      "format": "JSON",
-      "group-by": "VESSEL_ID"
-    }
-  },
   "url": {
     "4wings": {
       "endpoints": {

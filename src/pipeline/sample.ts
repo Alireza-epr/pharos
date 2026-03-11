@@ -1,5 +1,5 @@
 //@ts-nocheck
-import config from '../config/globalFishingWatch.json';
+import pilot from '../config/pilot.json';
 import {
   createEventSchema,
   getEntriesFrom4wingsResponse,
@@ -9,6 +9,11 @@ import {
 import { fetchPostGFW } from './ingest';
 import fs from 'fs';
 import parquet from 'parquetjs-lite';
+import { IGeometry } from '../types/geoJSONTypes';
+import { IConfigJSON } from '../types/eventTypes';
+import { I4wingsAPIResponse, IEventAPIResponse, IEventPostBodyParams, IEventPostURLParams, IPortVisitEvent } from '../types/gfwTypes';
+import { ELogLevel } from '../enum/generlaEnum';
+import { getGitCommitSHA, hashString, log } from '../utils/generalUtils';
 
 const parquetSchema = new parquet.ParquetSchema({
   event_id: { type: 'UTF8' },
@@ -21,33 +26,37 @@ const parquetSchema = new parquet.ParquetSchema({
   inside_eez: { type: 'UTF8', optional: true },
 });
 
-const dataset4wings = 'public-global-sar-presence';
-const baseURL4wings = config.url['4wings'].endpoints.report;
-const baseURLEvent = config.url['events'].endpoints.filteredByBody;
-const source4wings = config.sample.urlParams['datasets[0]'];
-const sourceEvent = 'public-global-port-visits-events:v3.0';
-const bodyParams4wings = config.sample.body;
-const urlParams4wings = config.sample.urlParams;
-const geometry: IGeometry = {
-  type: 'Polygon',
-  coordinates: [
-    [
-      [14.11, 55.26],
-      [14.68, 55.27],
-      [14.69, 55.11],
-      [14.09, 55.08],
-      [14.11, 55.26],
-    ],
-  ],
+const source4wings = pilot.source;
+const dataset4wings = source4wings.split(":")[0] ?? '';
+const dataset4wingsVersion = source4wings.split(":")[1] ?? '';
+const baseURL4wings = pilot.URL;
+
+const baseURLEvent = pilot.eventURL;
+const sourceEvent = pilot.eventSource;
+const bodyParams4wings = pilot.aoi;
+const urlParams4wings = {
+  "spatial-resolution": pilot['spatial-resolution'],
+  "temporal-resolution": pilot['temporal-resolution'],
+  "datasets[0]": pilot.source,
+  "date-range": `${pilot.startDate},${pilot.endDate}`,
+  format: pilot.format,
+  "group-by": pilot['group-by'],
+}
+
+const geometry = {
+  type: pilot.aoi.geojson.type,
+  coordinates: pilot.aoi.geojson.coordinates
 };
 
-const startDate = `2025-12-04T00:00:00Z`;
-const endDate = `2025-12-06T23:59:59Z`;
+const output = pilot.output
 
-async function writeParquet(rows) {
+const startDate = `${pilot.startDate}`;
+const endDate = `${pilot.endDate}`;
+
+const writeParquet= async (rows) => {
   const writer = await parquet.ParquetWriter.openFile(
     parquetSchema,
-    'data/out/events.parquet',
+    `${output}events.parquet`,
   );
 
   for (const row of rows) {
@@ -57,11 +66,11 @@ async function writeParquet(rows) {
   await writer.close();
 }
 
-async function main() {
-  console.log('starting...');
+const main = async () => {
+  log('pilot starting...','',ELogLevel.message,'3');
   let events = [];
   const configuration = new Set<IConfigJSON>();
-  const resp4wings = await fetchPostGFW(
+  const resp4wings = await fetchPostGFW<I4wingsAPIResponse>(
     baseURL4wings,
     source4wings,
     urlParams4wings,
@@ -76,6 +85,8 @@ async function main() {
     resp4wings.results,
     key4wings,
   );
+
+  if(!entries4wings) return
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -97,7 +108,7 @@ async function main() {
       };
 
       try {
-        const portVisitResp = await fetchPostGFW(
+        const portVisitResp = await fetchPostGFW<IEventAPIResponse<IPortVisitEvent>>(
           baseURLEvent,
           sourceEvent,
           urlParamsEvent,
@@ -111,13 +122,12 @@ async function main() {
               configuration,
               thisEntry,
             );
-            console.log('Matched Event Schema( No event )', eventSchema);
+            //console.log('Matched Event Schema( No event )', eventSchema);
             events.push(eventSchema);
           } catch (error) {
-            console.log(
+            console.error(
               'Matched Event Schema( No event ) error',
-              error,
-              ELogLevel.error,
+              error
             );
           }
         } else {
@@ -129,30 +139,44 @@ async function main() {
                 thisEntry,
                 thisEventEntry,
               );
-              console.log('Matched Event Schema', eventSchema);
+              //console.log('Matched Event Schema', eventSchema);
               events.push(eventSchema);
             } catch (error) {
-              console.log('Matched Event Schema error', error, ELogLevel.error);
+              console.error('Matched Event Schema error', error);
             }
           }
         }
       } catch (err) {
-        console.log('fetchPostGFW event error', err, ELogLevel.error);
+        console.error('fetchPostGFW event error', err);
       }
     } else {
       try {
         const eventSchema = await createEventSchema(configuration, thisEntry);
-        console.log('Unmatched Event Schema', eventSchema);
+        //console.log('Unmatched Event Schema', eventSchema);
         events.push(eventSchema);
       } catch (error) {
-        console.log('Unmatched Event Schema error', error, ELogLevel.error);
+        console.error('Unmatched Event Schema error', error);
       }
     }
   }
 
+  const sortedEvents = events.sort((a, b) => {
+    if (a.timestamp_utc !== b.timestamp_utc)
+      return a.timestamp_utc.localeCompare(b.timestamp_utc);
+
+    if (a.event_id !== b.event_id)
+      return a.event_id.localeCompare(b.event_id);
+
+    if (a.lon !== b.lon)
+      return a.lon - b.lon;
+
+    return a.lat - b.lat;
+  });
+  
+  //event.geojson
   const geojson = {
     type: 'FeatureCollection',
-    features: events.map((event) => ({
+    features: sortedEvents.map((event) => ({
       type: 'Feature',
       properties: {
         event_id: event.event_id,
@@ -166,7 +190,7 @@ async function main() {
           : 'N/A',
         inside_eez:
           event.raw_event_metadata &&
-          event.raw_event_metadata.regions.eez.length > 0
+            event.raw_event_metadata.regions.eez.length > 0
             ? event.raw_event_metadata.regions.eez
             : 'N/A',
       },
@@ -174,7 +198,8 @@ async function main() {
     })),
   };
 
-  const rows = events.map((event) => {
+  //event.parquet
+  const rows = sortedEvents.map((event) => {
     const distances = event.raw_event_metadata?.distances;
     const eez = event.raw_event_metadata?.regions?.eez;
 
@@ -190,18 +215,29 @@ async function main() {
     };
   });
 
-  console.log('geojson');
-  console.log(geojson);
-  console.log('rows');
-  console.log(rows);
-
   fs.writeFileSync(
-    'data/out/events.geojson',
+    `${output}events.geojson`,
     JSON.stringify(geojson, null, 2), // pretty-print for readability
   );
 
   writeParquet(rows);
-  console.log('finished.');
+
+  const run_metadata = {
+    config_hashes : sortedEvents.map( event => event.run_metadata.config_hash ).sort((a, b) => a.localeCompare(b)),
+    run_time: new Date().toISOString(),
+    data_source_versions: [
+      source4wings,
+      sourceEvent
+    ],
+    git_commit_hash: await getGitCommitSHA()
+  }
+
+  fs.writeFileSync(
+    `${output}run_metadata.json`,
+    JSON.stringify(run_metadata, null, 2), // pretty-print for readability
+  );
+
+  log('pilot finished.','',ELogLevel.message,'3');
 }
 
 main().catch(console.error);
