@@ -1,6 +1,7 @@
 import { ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { T4wingsSource, TEventSource } from '../types/gfwTypes';
+import parquet from 'parquetjs';
 
 export const formatTimestamp = (a_Date?: Date): string => {
   const now = a_Date ?? new Date();
@@ -105,3 +106,19 @@ export const getSourceKey = (a_Source: T4wingsSource | TEventSource) => {
 export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
   return a_Source.split(':')[1] as `v${number}.${number}`;
 };
+
+export const sleep = (ms: number) =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
+export const writeParquet= async (a_Rows: { [key: string]:any }[], a_ParquetSchema: parquet.ParquetSchema, a_OutputPath: string) => {
+  const writer = await parquet.ParquetWriter.openFile(
+    a_ParquetSchema,
+    `${a_OutputPath}`,  
+  );
+
+  for (const row of a_Rows) {
+    await writer.appendRow(row);
+  }
+
+  await writer.close();
+}

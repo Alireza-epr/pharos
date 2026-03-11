@@ -1,4 +1,3 @@
-//@ts-nocheck
 import pilot from '../config/pilot.json';
 import {
   createEventSchema,
@@ -6,14 +5,14 @@ import {
   getSourceFrom4wingsResponse,
   isMatchedCase,
 } from './normalize';
-import { fetchPostGFW } from './ingest';
+import { detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
-import parquet from 'parquetjs-lite';
+import parquet from 'parquetjs';
 import { IGeometry } from '../types/geoJSONTypes';
 import { IConfigJSON } from '../types/eventTypes';
 import { I4wingsAPIResponse, IEventAPIResponse, IEventPostBodyParams, IEventPostURLParams, IPortVisitEvent } from '../types/gfwTypes';
 import { ELogLevel } from '../enum/generlaEnum';
-import { getGitCommitSHA, hashString, log } from '../utils/generalUtils';
+import { deepSortObject, getGitCommitSHA, hashString, log, writeParquet } from '../utils/generalUtils';
 
 const parquetSchema = new parquet.ParquetSchema({
   event_id: { type: 'UTF8' },
@@ -26,14 +25,40 @@ const parquetSchema = new parquet.ParquetSchema({
   inside_eez: { type: 'UTF8', optional: true },
 });
 
-const source4wings = pilot.source;
+const parquetSchema_raw_metadata = new parquet.ParquetSchema({
+  callsign: { type: "UTF8" },
+  dataset: { type: "UTF8" },
+  date: { type: "UTF8" },
+  detections: { type: "INT64" },
+
+  entryTimestamp: { type: "TIMESTAMP_MILLIS" },
+  exitTimestamp: { type: "TIMESTAMP_MILLIS" },
+
+  firstTransmissionDate: { type: "UTF8" },
+  flag: { type: "UTF8" },
+  geartype: { type: "UTF8" },
+  imo: { type: "UTF8" },
+  lastTransmissionDate: { type: "UTF8" },
+
+  lat: { type: "DOUBLE" },
+  lon: { type: "DOUBLE" },
+
+  mmsi: { type: "UTF8" },
+  shipName: { type: "UTF8" },
+  vesselId: { type: "UTF8" },
+  vesselType: { type: "UTF8" },
+
+  event_metadata: { type: "UTF8", optional: true }
+});
+
+const source4wings = pilot.source as any;
 const dataset4wings = source4wings.split(":")[0] ?? '';
 const dataset4wingsVersion = source4wings.split(":")[1] ?? '';
 const baseURL4wings = pilot.URL;
 
 const baseURLEvent = pilot.eventURL;
-const sourceEvent = pilot.eventSource;
-const bodyParams4wings = pilot.aoi;
+const sourceEvent = pilot.eventSource as any;
+const bodyParams4wings = pilot.aoi as any;
 const urlParams4wings = {
   "spatial-resolution": pilot['spatial-resolution'],
   "temporal-resolution": pilot['temporal-resolution'],
@@ -41,36 +66,23 @@ const urlParams4wings = {
   "date-range": `${pilot.startDate},${pilot.endDate}`,
   format: pilot.format,
   "group-by": pilot['group-by'],
-}
+} as any
 
 const geometry = {
   type: pilot.aoi.geojson.type,
   coordinates: pilot.aoi.geojson.coordinates
-};
+} as any;
 
 const output = pilot.output
 
 const startDate = `${pilot.startDate}`;
 const endDate = `${pilot.endDate}`;
 
-const writeParquet= async (rows) => {
-  const writer = await parquet.ParquetWriter.openFile(
-    parquetSchema,
-    `${output}events.parquet`,
-  );
-
-  for (const row of rows) {
-    await writer.appendRow(row);
-  }
-
-  await writer.close();
-}
-
 const main = async () => {
-  log('pilot starting...','',ELogLevel.message,'3');
+  log('pilot starting...', '', ELogLevel.message, '3');
   let events = [];
   const configuration = new Set<IConfigJSON>();
-  const resp4wings = await fetchPostGFW<I4wingsAPIResponse>(
+  const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
     baseURL4wings,
     source4wings,
     urlParams4wings,
@@ -86,7 +98,7 @@ const main = async () => {
     key4wings,
   );
 
-  if(!entries4wings) return
+  if (!entries4wings) return
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -108,7 +120,7 @@ const main = async () => {
       };
 
       try {
-        const portVisitResp = await fetchPostGFW<IEventAPIResponse<IPortVisitEvent>>(
+        const portVisitResp = await detectionPostGFW<IEventAPIResponse<IPortVisitEvent>>(
           baseURLEvent,
           sourceEvent,
           urlParamsEvent,
@@ -147,7 +159,7 @@ const main = async () => {
           }
         }
       } catch (err) {
-        console.error('fetchPostGFW event error', err);
+        console.error('detectionPostGFW event error', err);
       }
     } else {
       try {
@@ -172,7 +184,7 @@ const main = async () => {
 
     return a.lat - b.lat;
   });
-  
+
   //event.geojson
   const geojson = {
     type: 'FeatureCollection',
@@ -197,6 +209,10 @@ const main = async () => {
       geometry: event.geom,
     })),
   };
+  fs.writeFileSync(
+    `${output}events.geojson`,
+    JSON.stringify(geojson, null, 2), // pretty-print for readability
+  );
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
@@ -214,16 +230,14 @@ const main = async () => {
       inside_eez: eez && eez.length > 0 ? eez[0] : null,
     };
   });
+  await writeParquet(rows, parquetSchema, `${output}events.parquet`);
 
-  fs.writeFileSync(
-    `${output}events.geojson`,
-    JSON.stringify(geojson, null, 2), // pretty-print for readability
-  );
-
-  writeParquet(rows);
-
+  //run_metadata.json
   const run_metadata = {
-    config_hashes : sortedEvents.map( event => event.run_metadata.config_hash ).sort((a, b) => a.localeCompare(b)),
+    config: sortedEvents.map(event => ({
+      hash: event.run_metadata.config_hash,
+      json: deepSortObject(event.run_metadata.config_json) as IConfigJSON[]
+    })).sort( (a, b) => a.hash.localeCompare(b.hash) ),
     run_time: new Date().toISOString(),
     data_source_versions: [
       source4wings,
@@ -231,13 +245,33 @@ const main = async () => {
     ],
     git_commit_hash: await getGitCommitSHA()
   }
-
   fs.writeFileSync(
     `${output}run_metadata.json`,
     JSON.stringify(run_metadata, null, 2), // pretty-print for readability
   );
 
-  log('pilot finished.','',ELogLevel.message,'3');
+  //raw_metadata.json
+  const raw_metadata = events.map(event => (
+    {
+      ...event.raw_metadata,
+      event_metadata: event.raw_event_metadata
+    }
+  ))
+  fs.writeFileSync(
+    `${output}raw_metadata.json`,
+    JSON.stringify(raw_metadata, null, 2), // pretty-print for readability
+  );
+
+  //raw_metadata.parquet
+  const rows_raw_metadata = raw_metadata.map((r) => ({
+    ...r,
+    event_metadata: r.event_metadata
+      ? JSON.stringify(r.event_metadata)
+      : null
+  }));
+  await writeParquet(rows_raw_metadata, parquetSchema_raw_metadata, `${output}raw_metadata.parquet`);
+
+  log('pilot finished.', '', ELogLevel.message, '3');
 }
 
 main().catch(console.error);

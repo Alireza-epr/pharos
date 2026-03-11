@@ -1,3 +1,4 @@
+jest.mock('parquetjs', () => ({}));
 import { EReasonCodes } from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
 import {
