@@ -214,7 +214,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}events.geojson`,
-    JSON.stringify(geojson, null, 2), // pretty-print for readability
+    JSON.stringify(geojson, null, 2), 
   );
 
   //event.parquet
@@ -249,7 +249,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2), // pretty-print for readability
+    JSON.stringify(run_metadata, null, 2), 
   );
 
   //raw_metadata.json
@@ -259,7 +259,7 @@ const main = async () => {
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
-    JSON.stringify(raw_metadata, null, 2), // pretty-print for readability
+    JSON.stringify(raw_metadata, null, 2), 
   );
 
   //raw_metadata.parquet
@@ -271,6 +271,12 @@ const main = async () => {
     rows_raw_metadata,
     parquetSchema_raw_metadata,
     `${output}raw_metadata.parquet`,
+  );
+
+  //canonicalSchema.json
+  fs.writeFileSync(
+    `${output}canonicalSchema.json`,
+    JSON.stringify(sortedEvents, null, 2),
   );
 
   log('pilot finished.', '', ELogLevel.message, '3');
