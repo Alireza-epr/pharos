@@ -1,4 +1,4 @@
-import { EReasonCodes } from '../enum/generlaEnum';
+import { EReasonCodes, ERejectedEventSchemaReasons } from '../enum/generlaEnum';
 import { EFetchMethods } from '../enum/gfwEnum';
 import { IGeometry } from './geoJSONTypes';
 import {
@@ -25,12 +25,12 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
-  version: number;
+  version: string;
   event_id: string;
   timestamp_utc: string;
   lon: number;
   lat: number;
-  geom: IGeometry | null;
+  geom: IGeometry;
   matched_flag: boolean;
   source: string;
   confidence_fields: 2 | 3 | 4 | null;
@@ -38,6 +38,13 @@ export interface IEventSchema {
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
+  rejected: boolean
+}
+
+export interface IRejectedEventSchema {
+  rejected: boolean,
+  reason: ERejectedEventSchemaReasons,
+  raw_metadata: I4wingsEntry
 }
 
 export interface IConfigJSON {

@@ -1,6 +1,6 @@
 import { ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
-import { T4wingsSource, TEventSource } from '../types/gfwTypes';
+import { I4wingsAPIResponse, T4wingsSource, TEventSource } from '../types/gfwTypes';
 
 export const formatTimestamp = (a_Date?: Date): string => {
   const now = a_Date ?? new Date();
@@ -109,3 +109,25 @@ export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
+
+export const getSourceFrom4wingsResponse = (
+  a_4wingsResponse: I4wingsAPIResponse,
+  a_Dataset: E4wingsDatasets,
+) => {
+  const source = a_4wingsResponse.entries
+    .flatMap((entry) => Object.keys(entry))
+    .find((source) => source.startsWith(a_Dataset));
+  return source as T4wingsSource;
+};
+
+export const getEntriesFrom4wingsResponse = (
+  a_4wingsResponse: I4wingsAPIResponse,
+  a_Source: T4wingsSource,
+) => {
+  for (const responseEntry of a_4wingsResponse.entries) {
+    const entries = responseEntry[a_Source];
+    if (entries) return entries;
+  }
+
+  return undefined;
+};

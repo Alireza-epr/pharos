@@ -1,15 +1,13 @@
 import pilot from '../config/pilot.json';
 import {
   createEventSchema,
-  getEntriesFrom4wingsResponse,
-  getSourceFrom4wingsResponse,
   isMatchedCase,
-} from './normalize';
+} from './normalize/schema';
 import { detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import parquet from 'parquetjs';
 import { IGeometry } from '../types/geoJSONTypes';
-import { IConfigJSON } from '../types/eventTypes';
+import { IConfigJSON, IEventSchema } from '../types/eventTypes';
 import {
   I4wingsAPIResponse,
   IEventAPIResponse,
@@ -21,7 +19,8 @@ import { ELogLevel } from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
-  hashString,
+  getEntriesFrom4wingsResponse,
+  getSourceFrom4wingsResponse,
   log,
 } from '../utils/generalUtils';
 import { writeParquet } from '../utils/parquetUtils'
@@ -178,7 +177,7 @@ const main = async () => {
     }
   }
 
-  const sortedEvents = events.sort((a, b) => {
+  const sortedEvents = (events as IEventSchema[]).sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
 
@@ -215,7 +214,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}events.geojson`,
-    JSON.stringify(geojson, null, 2), // pretty-print for readability
+    JSON.stringify(geojson, null, 2), 
   );
 
   //event.parquet
@@ -250,17 +249,17 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2), // pretty-print for readability
+    JSON.stringify(run_metadata, null, 2), 
   );
 
   //raw_metadata.json
   const raw_metadata = events.map((event) => ({
     ...event.raw_metadata,
-    event_metadata: event.raw_event_metadata,
+    event_metadata: (event as IEventSchema).raw_event_metadata,
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
-    JSON.stringify(raw_metadata, null, 2), // pretty-print for readability
+    JSON.stringify(raw_metadata, null, 2), 
   );
 
   //raw_metadata.parquet
@@ -272,6 +271,12 @@ const main = async () => {
     rows_raw_metadata,
     parquetSchema_raw_metadata,
     `${output}raw_metadata.parquet`,
+  );
+
+  //canonicalSchema.json
+  fs.writeFileSync(
+    `${output}canonicalSchema.json`,
+    JSON.stringify(sortedEvents, null, 2),
   );
 
   log('pilot finished.', '', ELogLevel.message, '3');

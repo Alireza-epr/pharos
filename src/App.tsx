@@ -19,16 +19,14 @@ import {
   T4wingsFilter,
   IEventGetURLParams,
 } from './types/gfwTypes';
-import { getSource, log } from './utils/generalUtils';
+import { getEntriesFrom4wingsResponse, getSource, getSourceFrom4wingsResponse, log } from './utils/generalUtils';
 import { ELogLevel } from './enum/generlaEnum';
 import { IGeometry } from './types/geoJSONTypes';
 import { IConfigJSON } from './types/eventTypes';
 import {
   createEventSchema,
-  getEntriesFrom4wingsResponse,
-  getSourceFrom4wingsResponse,
   isMatchedCase,
-} from './pipeline/normalize';
+} from './pipeline/normalize/schema';
 
 export interface AppProps {}
 

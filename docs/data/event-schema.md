@@ -31,6 +31,9 @@ This document defines a **simple and minimal event schema** for Iteration 1.
 - `geom` (object)  
   GeoJSON geometry.
 
+- `version` (string)  
+  Code version used when the records were fetched.
+
 ### Matching indicator
 
 - `matched_flag` (boolean)  
@@ -69,6 +72,17 @@ This document defines a **simple and minimal event schema** for Iteration 1.
 
 ---
 
+### Rejected Event Schema
+If validation fails during record normalization, the following schema will be returned:
+
+- `rejected` (boolean<true>)
+- `reason` (string)  
+  Description of why the record was rejected.
+- `raw_metadata` (object)  
+  Original SAR record stored without modification.
+
+---
+
 ## Example (Unmatched SAR Event)
 
 ```json
@@ -92,7 +106,8 @@ This document defines a **simple and minimal event schema** for Iteration 1.
     "triage_score": null,
     "uncertainty_score": null,
     "reason_codes": [""]
-  }
+  },
+  "rejected": false
 }
 ```
 

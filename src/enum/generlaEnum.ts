@@ -15,3 +15,7 @@ export enum EReasonCodes {
   inside_mpa = 'inside_mpa',
   unmatched_detection = 'unmatched_detection',
 }
+
+export enum ERejectedEventSchemaReasons {
+  notValidCoordinates = "Not Valid Coordinates"
+}
