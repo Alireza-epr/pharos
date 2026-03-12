@@ -9,11 +9,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -33,22 +48,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["de435d0f3-306c-2869-d119-fff03a975f8f"]
+            "vessels": [
+              "de435d0f3-306c-2869-d119-fff03a975f8f"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -68,11 +102,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -92,22 +141,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["df3528985-5287-a35b-89a0-b2e9c1e6db13"]
+            "vessels": [
+              "df3528985-5287-a35b-89a0-b2e9c1e6db13"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -127,11 +195,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -159,11 +242,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -183,22 +281,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc"]
+            "vessels": [
+              "afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -218,11 +335,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -242,22 +374,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["43c5ec9e1-1026-c273-d280-f0c34b520f53"]
+            "vessels": [
+              "43c5ec9e1-1026-c273-d280-f0c34b520f53"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -277,11 +428,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -301,22 +467,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["369fc1e02-2678-b669-af58-b2f3ae66a515"]
+            "vessels": [
+              "369fc1e02-2678-b669-af58-b2f3ae66a515"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -336,11 +521,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -360,22 +560,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["b867aac71-181e-e3fb-ef3b-1267b81caedc"]
+            "vessels": [
+              "b867aac71-181e-e3fb-ef3b-1267b81caedc"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -395,11 +614,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -419,22 +653,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f"]
+            "vessels": [
+              "ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -454,11 +707,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -478,22 +746,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["e4a2ba1ec-c786-5395-6e67-1fb8e1abe320"]
+            "vessels": [
+              "e4a2ba1ec-c786-5395-6e67-1fb8e1abe320"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -513,11 +800,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -537,22 +839,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf"]
+            "vessels": [
+              "2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -572,11 +893,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -596,22 +932,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["ee20f2f54-4c41-ce6c-ce45-fa136fb6e2cc"]
+            "vessels": [
+              "ee20f2f54-4c41-ce6c-ce45-fa136fb6e2cc"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -631,11 +986,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -655,22 +1025,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["22c7ca42d-df50-18b5-713a-a81e9115052c"]
+            "vessels": [
+              "22c7ca42d-df50-18b5-713a-a81e9115052c"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -690,11 +1079,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -714,22 +1118,41 @@
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
           "body_params": {
-            "datasets": ["public-global-port-visits-events:v3.0"],
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
             "endDate": "2025-12-06T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
             },
             "startDate": "2025-12-04T00:00:00Z",
-            "vessels": ["403dc1002-210e-de4b-331d-b4012153dfa4"]
+            "vessels": [
+              "403dc1002-210e-de4b-331d-b4012153dfa4"
+            ]
           },
           "method": "POST",
           "source": "public-global-port-visits-events:v3.0",
@@ -741,10 +1164,10 @@
       ]
     }
   ],
-  "run_time": "2026-03-11T16:02:32.523Z",
+  "run_time": "2026-03-12T14:11:55.388Z",
   "data_source_versions": [
     "public-global-sar-presence:v3.0",
     "public-global-port-visits-events:v3.0"
   ],
-  "git_commit_hash": "6d20e1495e9dd195a854fbaa6833c45c3bf20325"
+  "git_commit_hash": "4db008b2883b00c6c0e1e3d8da942539bb151359"
 }

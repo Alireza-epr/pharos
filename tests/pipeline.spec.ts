@@ -1,18 +1,22 @@
 jest.mock('parquetjs', () => ({}));
-import { EReasonCodes } from '../src/enum/generlaEnum';
+import { EReasonCodes, ERejectedEventSchemaReasons } from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
 import {
-  getSourceFrom4wingsResponse,
-  getEntriesFrom4wingsResponse,
   isMatchedCase,
   generateScoring,
   generateEventId,
   generateRunMetadata,
-} from '../src/pipeline/normalize';
-import { IConfigJSON } from '../src/types/eventTypes';
-import { deepSortObject, hashString } from '../src/utils/generalUtils';
+  generateSources,
+  generateConfidence,
+  generateGeom,
+  isValidCoordinate,
+  createEventSchema,
+} from '../src/pipeline/normalize/schema';
+import { IConfigJSON, IRejectedEventSchema } from '../src/types/eventTypes';
+import { deepSortObject, getEntriesFrom4wingsResponse, getSourceFrom4wingsResponse, hashString } from '../src/utils/generalUtils';
 import {
   api4wingsResponse,
+  api4wingsResponse_bad_coordinates,
   apiEventResponse_no_entry,
   apiEventResponse_with_entry,
 } from '../tests/fixtures/gfwResponse';
@@ -24,6 +28,73 @@ import {
 } from './fixtures/gfwRequest';
 
 describe('4wings helpers', () => {
+
+  describe('generateSources', () => {
+    it('returns the source keys with the version', () => {
+      const expected = 'public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0'
+      const configSet = new Set<IConfigJSON>()
+
+      configSet.add(sarConfig)
+      configSet.add(eventConfig)
+      const sources = generateSources(configSet);
+      expect(sources).toBe(expected);
+
+      configSet.clear()
+      configSet.add(sarConfig_diff_sorted)
+      configSet.add(eventConfig_diff_sorted)
+      const sources_diff_sorted = generateSources(configSet);
+      expect(sources_diff_sorted).toBe(expected);
+
+    });
+  });
+
+  describe('generateConfidence', () => {
+    it('returns confidence from the port event', () => {
+
+      const eventNoEntries = apiEventResponse_no_entry.entries
+      const confidence_fields_null = generateConfidence(eventNoEntries[0]);
+
+      const eventWithEntries = apiEventResponse_with_entry.entries
+      const confidence_fields = generateConfidence(eventWithEntries[0]);
+
+      expect(confidence_fields_null).toBeNull()
+      expect(confidence_fields).toBe(4)
+      expect(generateConfidence(undefined)).toBeNull()
+
+    });
+  });
+
+  describe('generateGeom', () => {
+    const source = 'public-global-sar-presence:v3.0';
+    const entries = getEntriesFrom4wingsResponse(api4wingsResponse, source);
+
+    it('should return a GeoJSON Point', () => {
+      if (!entries || !entries[0]) return
+
+      const geom = generateGeom(entries[0]);
+
+      expect(geom.type).toBe('Point');
+      expect(Array.isArray(geom.coordinates)).toBe(true);
+      expect(geom.coordinates.length).toBe(2);
+      expect(typeof geom.coordinates[0]).toBe('number');
+      expect(typeof geom.coordinates[1]).toBe('number');
+
+    });
+
+    it('should return GeoJSON coordinates in [lon, lat] order', () => {
+      if (!entries || !entries[0]) return
+
+      const lon = entries[0].lon
+      const lat = entries[0].lat
+      const geom = generateGeom(entries[0]);
+
+      expect(geom.coordinates[0]).toBe(lon);
+      expect(geom.coordinates[1]).toBe(lat);
+
+    });
+
+  });
+
   describe('getSourceFrom4wingsResponse', () => {
     it('returns the correct dataset source key', () => {
       const source = getSourceFrom4wingsResponse(
@@ -227,5 +298,62 @@ describe('4wings helpers', () => {
 
       expect(metaOriginal.config_hash).not.toBe(metaModified.config_hash);
     });
+  });
+
+  describe('isValidCoordinate', () => {
+
+    it('should return true for valid coordinates', () => {
+      expect(isValidCoordinate(0, 0)).toBe(true);
+      expect(isValidCoordinate(45.5, 120.3)).toBe(true);
+      expect(isValidCoordinate(-90, -180)).toBe(true);
+      expect(isValidCoordinate(90, 180)).toBe(true);
+    });
+
+    it('should return false for invalid latitude', () => {
+      expect(isValidCoordinate(-91, 0)).toBe(false);
+      expect(isValidCoordinate(91, 0)).toBe(false);
+      expect(isValidCoordinate(NaN, 0)).toBe(false);
+      expect(isValidCoordinate("0", 0)).toBe(false);
+    });
+
+    it('should return false for invalid longitude', () => {
+      expect(isValidCoordinate(0, -181)).toBe(false);
+      expect(isValidCoordinate(0, 181)).toBe(false);
+      expect(isValidCoordinate(0, NaN)).toBe(false);
+      expect(isValidCoordinate(0, "0")).toBe(false);
+    });
+
+    it('should return false if both coordinates are invalid', () => {
+      expect(isValidCoordinate(200, 200)).toBe(false);
+      expect(isValidCoordinate(NaN, NaN)).toBe(false);
+      expect(isValidCoordinate(undefined, undefined)).toBe(false);
+      expect(isValidCoordinate("0", "0")).toBe(false);
+    });
+
+  });
+
+  describe('createEventSchema', () => {
+
+    it('should return rejected event schema for not valid coordinates', async () => {
+      const configSet = new Set<IConfigJSON>()
+
+      configSet.add(sarConfig)
+      configSet.add(eventConfig)
+      const source = 'public-global-sar-presence:v3.0';
+      //@ts-ignore
+      const entries = getEntriesFrom4wingsResponse(api4wingsResponse_bad_coordinates, source);
+
+      if(!entries) return 
+
+      for(const entry of entries){
+        const eventSchema = await createEventSchema(configSet, entry)
+        console.log("eventSchema")
+        console.log(eventSchema)
+        expect(eventSchema.rejected).toBe(true);
+        expect((eventSchema as IRejectedEventSchema).reason).toEqual(ERejectedEventSchemaReasons.notValidCoordinates);
+      }
+
+    });
+
   });
 });

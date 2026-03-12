@@ -1,36 +1,41 @@
 import {
   IConfigJSON,
   IEventSchema,
+  IRejectedEventSchema,
   IRunMetadata,
   IScoring,
-} from '../types/eventTypes';
+} from '../../types/eventTypes';
 import {
   I4wingsEntry,
-  I4wingsAPIResponse,
   TGlobalEvent,
-  T4wingsSource,
-  I4wingsReportPostBodyParams,
-  IEventPostBodyParams,
-} from '../types/gfwTypes';
+} from '../../types/gfwTypes';
 import {
   deepSortObject,
   getGitCommitSHA,
   hashString,
-  log,
-} from '../utils/generalUtils';
-import config from '../config/globalFishingWatch.json';
-import { EReasonCodes } from '../enum/generlaEnum';
-import { IGeometry } from '../types/geoJSONTypes';
-import { E4wingsDatasets, EEventType } from '../enum/gfwEnum';
+} from '../../utils/generalUtils';
+import config from '../../config/globalFishingWatch.json';
+import { EReasonCodes, ERejectedEventSchemaReasons } from '../../enum/generlaEnum';
+import { IGeometry } from '../../types/geoJSONTypes';
+import { EEventType } from '../../enum/gfwEnum';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent,
-): Promise<IEventSchema> => {
-  const sources = Array.from(a_Configuration)
-    .map((config) => config.source)
-    .join(', ');
+): Promise<IEventSchema | IRejectedEventSchema> => {
+
+  const validCoordinates = isValidCoordinate(a_4wingsEntry.lat, a_4wingsEntry.lon)
+
+  if(!validCoordinates){
+    return {
+      reason: ERejectedEventSchemaReasons.notValidCoordinates,
+      rejected: true,
+      raw_metadata: a_4wingsEntry
+    }
+  }
+
+  const sources = generateSources(a_Configuration)
 
   const event_id = await generateEventId(
     a_4wingsEntry.entryTimestamp,
@@ -41,31 +46,13 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_fields =
-    a_EventEntry && a_EventEntry.type === EEventType.port_visit
-      ? a_EventEntry.port_visit.confidence
-      : null;
+  const confidence_fields = generateConfidence(a_EventEntry)
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
   const scoring = generateScoring(matched_flag, a_EventEntry);
 
-  let geom: IGeometry | undefined;
-
-  const configJSON = Array.from(a_Configuration).find(
-    (config) => config.body_params !== null,
-  );
-  if (configJSON) {
-    if (configJSON.body_params) {
-      // 4wings request
-      if ((configJSON.body_params as I4wingsReportPostBodyParams).geojson) {
-        geom = (configJSON.body_params as I4wingsReportPostBodyParams).geojson;
-      } else if ((configJSON.body_params as IEventPostBodyParams).geometry) {
-        // event request
-        geom = (configJSON.body_params as IEventPostBodyParams).geometry;
-      }
-    }
-  }
+  let geom: IGeometry = generateGeom(a_4wingsEntry)
 
   const eventSchema: IEventSchema = {
     version: 1,
@@ -80,11 +67,18 @@ export const createEventSchema = async (
     raw_event_metadata: a_EventEntry ?? null,
     run_metadata,
     scoring,
-    geom: geom ?? null,
+    geom: geom,
+    rejected: false
   };
 
   return eventSchema;
 };
+
+export const generateSources = (a_Configuration: Set<IConfigJSON>) => {
+  return Array.from(a_Configuration)
+    .map((config) => config.source)
+    .join(', ');
+}
 
 export const generateEventId = (
   a_Timestamps: string,
@@ -101,6 +95,12 @@ export const generateEventId = (
 
   return hashString(canonical);
 };
+
+export const generateConfidence = (a_EventEntry: TGlobalEvent | undefined) => {
+  return a_EventEntry && a_EventEntry.type === EEventType.port_visit
+    ? a_EventEntry.port_visit.confidence
+    : null;
+}
 
 export const generateRunMetadata = async (
   a_Configuration: Set<IConfigJSON>,
@@ -134,7 +134,7 @@ export const generateScoring = (
 
   const near_coast = a_Event
     ? a_Event.distances.startDistanceFromShoreKm <=
-      config.threshold.near_coast_threshold
+    config.threshold.near_coast_threshold
     : false;
   if (near_coast) {
     uncertainty_score += 0.3;
@@ -144,7 +144,7 @@ export const generateScoring = (
   const low_detection_confidence =
     a_Event && a_Event.type === EEventType.port_visit
       ? a_Event.port_visit.confidence <=
-        config.threshold.low_detection_confidence_threshold
+      config.threshold.low_detection_confidence_threshold
       : false;
   if (low_detection_confidence) {
     uncertainty_score += 0.3;
@@ -168,28 +168,22 @@ export const generateScoring = (
   };
 };
 
-export const getSourceFrom4wingsResponse = (
-  a_4wingsResponse: I4wingsAPIResponse,
-  a_Dataset: E4wingsDatasets,
-) => {
-  const source = a_4wingsResponse.entries
-    .flatMap((entry) => Object.keys(entry))
-    .find((source) => source.startsWith(a_Dataset));
-  return source as T4wingsSource;
-};
-
-export const getEntriesFrom4wingsResponse = (
-  a_4wingsResponse: I4wingsAPIResponse,
-  a_Source: T4wingsSource,
-) => {
-  for (const responseEntry of a_4wingsResponse.entries) {
-    const entries = responseEntry[a_Source];
-    if (entries) return entries;
+export const generateGeom = (a_4wingsEntry: I4wingsEntry): IGeometry => {
+  return {
+    type: "Point",
+    coordinates: [a_4wingsEntry.lon, a_4wingsEntry.lat]
   }
-
-  return undefined;
-};
+}
 
 export const isMatchedCase = (a_4wingsEntry: I4wingsEntry) => {
   return a_4wingsEntry.dataset.length !== 0;
 };
+
+export const isValidCoordinate = (a_Lat: any, a_Lon: any) => {
+   if (!Number.isFinite(a_Lat) || !Number.isFinite(a_Lon)) return false;
+
+  if (a_Lat < -90 || a_Lat > 90) return false;
+  if (a_Lon < -180 || a_Lon > 180) return false;
+
+  return true;
+}
