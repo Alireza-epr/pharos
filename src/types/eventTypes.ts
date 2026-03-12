@@ -25,7 +25,7 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
-  version: number;
+  version: string;
   event_id: string;
   timestamp_utc: string;
   lon: number;

@@ -35,6 +35,8 @@ export const createEventSchema = async (
     }
   }
 
+  const version = generateVersion()
+
   const sources = generateSources(a_Configuration)
 
   const event_id = await generateEventId(
@@ -55,7 +57,7 @@ export const createEventSchema = async (
   let geom: IGeometry = generateGeom(a_4wingsEntry)
 
   const eventSchema: IEventSchema = {
-    version: 1,
+    version: version,
     event_id,
     timestamp_utc: a_4wingsEntry.entryTimestamp,
     matched_flag,
@@ -186,4 +188,8 @@ export const isValidCoordinate = (a_Lat: any, a_Lon: any) => {
   if (a_Lon < -180 || a_Lon > 180) return false;
 
   return true;
+}
+
+export const generateVersion = () => {
+  return __APP_VERSION__ ?? '1'
 }
