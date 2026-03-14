@@ -17,7 +17,11 @@ import {
 import config from '../../config/globalFishingWatch.json';
 import { EReasonCodes, ERejectedEventSchemaReasons } from '../../enum/generlaEnum';
 import { IGeometry } from '../../types/geoJSONTypes';
-import { EEventType } from '../../enum/gfwEnum';
+import { EContextLayers, EEventType } from '../../enum/gfwEnum';
+import { generateEEZ } from '../features/eez';
+import { generateRFMO } from '../features/rfmo';
+import { generateMPA } from '../features/mpa';
+import { generateDistanceToCoast } from '../features/coast_distance';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
@@ -56,6 +60,18 @@ export const createEventSchema = async (
 
   let geom: IGeometry = generateGeom(a_4wingsEntry)
 
+  const eez = generateEEZ( a_EventEntry )
+  const mpa = generateMPA( a_EventEntry )
+  const rfmo = generateRFMO( a_EventEntry )
+
+  const context_layers = {
+    [EContextLayers.eez]: eez,
+    [EContextLayers.mpa]: mpa,
+    [EContextLayers.rfmo]: rfmo
+  }
+
+  const distance_to_coast_km = generateDistanceToCoast( a_EventEntry )
+
   const eventSchema: IEventSchema = {
     version: version,
     event_id,
@@ -68,6 +84,8 @@ export const createEventSchema = async (
     raw_metadata: a_4wingsEntry,
     raw_event_metadata: a_EventEntry ?? null,
     run_metadata,
+    context_layers,
+    distance_to_coast_km,
     scoring,
     geom: geom,
     rejected: false

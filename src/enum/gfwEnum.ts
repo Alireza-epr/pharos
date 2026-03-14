@@ -305,6 +305,18 @@ export enum EEventDatasets {
   AISOffEvent = 'public-global-gaps-events',
 }
 
+export enum EContextLayerDatasets {
+  eez = 'public-eez-areas',
+  mpa = 'public-mpa-all',
+  rfmo = 'public-rfmo',
+}
+
+export enum EContextLayers {
+  eez = 'EEZ',
+  mpa = 'MPA',
+  rfmo = 'RFMO',
+}
+
 export enum EEventType {
   gap = 'gap',
   fishing = 'fishing',

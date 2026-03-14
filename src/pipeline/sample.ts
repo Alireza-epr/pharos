@@ -200,14 +200,8 @@ const main = async () => {
         lat: event.lat,
         lon: event.lon,
         confidence_fields: event.confidence_fields,
-        distance_to_coast_km: event.raw_event_metadata
-          ? event.raw_event_metadata.distances.startDistanceFromShoreKm
-          : 'N/A',
-        inside_eez:
-          event.raw_event_metadata &&
-          event.raw_event_metadata.regions.eez.length > 0
-            ? event.raw_event_metadata.regions.eez
-            : 'N/A',
+        distance_to_coast_km: event.distance_to_coast_km,
+        context_layers: event.context_layers,
       },
       geometry: event.geom,
     })),
@@ -219,8 +213,6 @@ const main = async () => {
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
-    const distances = event.raw_event_metadata?.distances;
-    const eez = event.raw_event_metadata?.regions?.eez;
 
     return {
       event_id: event.event_id,
@@ -229,8 +221,8 @@ const main = async () => {
       lat: event.lat,
       lon: event.lon,
       confidence_fields: event.confidence_fields ?? null,
-      distance_to_coast_km: distances?.startDistanceFromShoreKm ?? null,
-      inside_eez: eez && eez.length > 0 ? eez[0] : null,
+      distance_to_coast_km: event.distance_to_coast_km,
+      context_layers: event.context_layers,
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);

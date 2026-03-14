@@ -1,6 +1,6 @@
 # Canonical Event Schema (Iteration 1)
 
-This document defines a **simple and minimal event schema** for Iteration 1.
+This document defines a **event schema** for Iteration 1.
 
 - One event represents **one SAR vessel detection**.
 - AIS data, if present, is stored only as optional context.
@@ -10,7 +10,7 @@ This document defines a **simple and minimal event schema** for Iteration 1.
 
 ---
 
-## Event Fields (Minimum)
+## Event Fields 
 
 ### Core fields
 
@@ -63,6 +63,16 @@ This document defines a **simple and minimal event schema** for Iteration 1.
   - configuration json
   - code version
 
+- `context_layers` (object)  
+  Geographic context information derived from the event record.
+
+  Each context layer includes:
+  - dataset - name of the dataset used for enrichment
+  - version - pinned dataset version
+  - enrichment - attributes including id and label 
+
+- `distance_to_coast_km` (number)
+  Derived from `startDistanceFromShoreKm` in the event record, if available.
 ### Scoring
 
 - `triage_score` (number or null)
@@ -106,6 +116,24 @@ If validation fails during record normalization, the following schema will be re
     "triage_score": null,
     "uncertainty_score": null,
     "reason_codes": [""]
+  },
+  "distance_to_coast_km" : 0,
+  "context_layers:" {
+    "EEZ": {
+        "dataset": "public-eez-areas",
+        "version": "v3",
+        "enrichments": []
+    },
+    "MPA": {
+        "dataset": "public-mpa-all",
+        "version": "v3",
+        "enrichments": []
+    },
+    "RFMO": {
+        "dataset": "public-rfmo",
+        "version": "v3",
+        "enrichments": []
+    }
   },
   "rejected": false
 }
