@@ -10,8 +10,24 @@
         "lat": 55.22,
         "lon": 14.40999984741211,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -30,8 +46,24 @@
         "lat": 55.15,
         "lon": 14.220000267028809,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -50,8 +82,24 @@
         "lat": 55.19,
         "lon": 14.239999771118164,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -70,8 +118,24 @@
         "lat": 55.16,
         "lon": 14.109999656677246,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -90,8 +154,24 @@
         "lat": 55.2,
         "lon": 14.210000038146973,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -110,8 +190,24 @@
         "lat": 55.16,
         "lon": 14.170000076293945,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -131,9 +227,66 @@
         "lon": 14.680000305175781,
         "confidence_fields": "4",
         "distance_to_coast_km": 0,
-        "inside_eez": [
-          "5674"
-        ]
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": [
+              {
+                "id": "555790698",
+                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
+              },
+              {
+                "id": "555543143",
+                "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
+              },
+              {
+                "id": "555522525",
+                "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
+              }
+            ]
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": [
+              {
+                "id": "NASCO",
+                "label": "NASCO"
+              },
+              {
+                "id": "ACAP",
+                "label": "ACAP"
+              },
+              {
+                "id": "NAMMCO",
+                "label": "NAMMCO"
+              },
+              {
+                "id": "ICCAT",
+                "label": "ICCAT"
+              },
+              {
+                "id": "IWC",
+                "label": "IWC"
+              },
+              {
+                "id": "ICES",
+                "label": "ICES"
+              }
+            ]
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -152,8 +305,24 @@
         "lat": 55.15,
         "lon": 14.300000190734863,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -172,8 +341,24 @@
         "lat": 55.09,
         "lon": 14.09000015258789,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -192,8 +377,24 @@
         "lat": 55.21,
         "lon": 14.40999984741211,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -212,8 +413,24 @@
         "lat": 55.24,
         "lon": 14.329999923706055,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -232,8 +449,24 @@
         "lat": 55.23,
         "lon": 14.289999961853027,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",
@@ -252,8 +485,24 @@
         "lat": 55.23,
         "lon": 14.1899995803833,
         "confidence_fields": null,
-        "distance_to_coast_km": "N/A",
-        "inside_eez": "N/A"
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
       },
       "geometry": {
         "type": "Point",

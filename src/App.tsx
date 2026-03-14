@@ -131,17 +131,17 @@ const App = (props: AppProps) => {
 
         if (isMatchedCase(thisEntry)) {
           const urlParamsEvent: IEventPostURLParams = {
-            limit: 2,
+            limit: 1,
             offset: 0,
           };
 
-          const bodyParamsEvent: IEventPostBodyParams = {
+          /* const bodyParamsEvent: IEventPostBodyParams = {
             vessels: [thisEntry.vesselId],
             startDate: startDate,
             endDate: endDate,
             datasets: [sourceEvent],
             geometry: geometry,
-          };
+          }; */
 
           const urlParamsEventGet: IEventGetURLParams = {
             ...urlParamsEvent,
@@ -152,12 +152,12 @@ const App = (props: AppProps) => {
           }
 
           try {
-            const portVisitResp = await detectionPostGFW<
+            /* const portVisitResp = await detectionPostGFW<
               IEventAPIResponse<IPortVisitEvent>
-            >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
-            /* const portVisitResp = await detectionGetGFW<
+            >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
+            const portVisitResp = await detectionGetGFW<
               IEventAPIResponse<IPortVisitEvent>
-            >(baseURLEvent, sourceEvent, urlParamsEventGet) */
+            >(baseURLEvent, sourceEvent, urlParamsEventGet)
 
             if (configuration) configuration.add(portVisitResp.metadata);
 

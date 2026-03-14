@@ -1,5 +1,5 @@
 import { EReasonCodes, ERejectedEventSchemaReasons } from '../enum/generlaEnum';
-import { EFetchMethods } from '../enum/gfwEnum';
+import { EContextLayerDatasets, EContextLayers, EFetchMethods } from '../enum/gfwEnum';
 import { IGeometry } from './geoJSONTypes';
 import {
   I4wingsEntry,
@@ -25,6 +25,8 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
+  distance_to_coast_km: number | null,
+  context_layers: Record< EContextLayers, IContextLayer>
   version: string;
   event_id: string;
   timestamp_utc: string;
@@ -53,4 +55,14 @@ export interface IConfigJSON {
   method: EFetchMethods;
   url_params: I4wingsReportPostURLParams | IEventPostURLParams | null;
   body_params: I4wingsReportPostBodyParams | IEventPostBodyParams | null;
+}
+
+export interface IContextLayerEnrichment {
+  id: string,
+  label: string
+}
+export interface IContextLayer {
+  dataset: EContextLayerDatasets,
+  version: string,
+  enrichments: IContextLayerEnrichment[]
 }
