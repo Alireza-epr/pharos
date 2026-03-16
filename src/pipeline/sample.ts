@@ -11,7 +11,7 @@ import {
   getGeoMin,
   getTimeRange
 } from '../utils/generalUtils'
-import { detectionPostGFW } from './ingest/detections';
+import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import parquet from 'parquetjs';
 import { IGeometry } from '../types/geoJSONTypes';
@@ -19,6 +19,7 @@ import { IConfigJSON, IEventSchema } from '../types/eventTypes';
 import {
   I4wingsAPIResponse,
   IEventAPIResponse,
+  IEventGetURLParams,
   IEventPostBodyParams,
   IEventPostURLParams,
   IPortVisitEvent,
@@ -126,7 +127,7 @@ const main = async () => {
 
     if (isMatchedCase(thisEntry)) {
       const urlParamsEvent: IEventPostURLParams = {
-        limit: 2,
+        limit: 1,
         offset: 0,
       };
 
@@ -138,10 +139,22 @@ const main = async () => {
         geometry: geometry,
       };
 
+       const urlParamsEventGet: IEventGetURLParams = {
+          ...urlParamsEvent,
+          "end-date": endDate,
+          "start-date": startDate,
+          "vessels[0]": thisEntry.vesselId,
+          "datasets[0]": sourceEvent
+        }
+
       try {
-        const portVisitResp = await detectionPostGFW<
+        /* const portVisitResp = await detectionPostGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
+        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
+        const portVisitResp = await detectionGetGFW<
+          IEventAPIResponse<IPortVisitEvent>
+        >(baseURLEvent, sourceEvent, urlParamsEventGet)
+
         if (configuration) configuration.add(portVisitResp.metadata);
 
         if (portVisitResp.results.entries.length == 0) {

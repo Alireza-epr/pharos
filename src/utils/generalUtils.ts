@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs';
 import { EGeoCoordinate, ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { isValidCoordinate } from '../pipeline/normalize/validation';
@@ -90,6 +91,24 @@ export const hashString = async (a_String: string) => {
     // Node.js version
     const { createHash } = await import('crypto');
     return createHash('sha256').update(a_String, 'utf8').digest('hex');
+  }
+};
+
+export const hashFile = async (a_Path: string) => {
+  const content = readFileSync(a_Path);
+  if (typeof window !== 'undefined' && window.crypto?.subtle) {
+    // Browser version
+    const str = typeof content === "string" ? content : content.toString("utf-8");
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str); // convert string to Uint8Array
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  } else {
+    // Node.js version
+    const { createHash } = await import('crypto');
+    return createHash("sha256").update(content).digest("hex");
   }
 };
 

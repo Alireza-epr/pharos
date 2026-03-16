@@ -17,7 +17,104 @@
     "shipName": "VOHBURG",
     "vesselId": "369fc1e02-2678-b669-af58-b2f3ae66a515",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-05T05:13:12.000Z",
+      "end": "2025-12-05T13:26:40.000Z",
+      "id": "1e24ccbfdd8ecf30f3a1e46f38794a82",
+      "type": "port_visit",
+      "position": {
+        "lat": 54.5389,
+        "lon": 18.6349
+      },
+      "regions": {
+        "mpa": [
+          "555543112",
+          "555540807"
+        ],
+        "eez": [
+          "5687"
+        ],
+        "rfmo": [
+          "ACAP",
+          "NASCO",
+          "NAMMCO",
+          "ICCAT",
+          "IWC",
+          "ICES"
+        ],
+        "fao": [
+          "27.3.d.26",
+          "27.3.d",
+          "27.3",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        18.715260402748505,
+        54.51928394542875,
+        18.715260402748505,
+        54.51928394542875
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 9,
+        "endDistanceFromShoreKm": 9,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "369fc1e02-2678-b669-af58-b2f3ae66a515",
+        "name": "VOHBURG",
+        "ssvid": "305773000",
+        "flag": "ATG",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "845ad4c65d94eef96f55002053b0cea3",
+        "confidence": "4",
+        "durationHrs": 8.224444444444444,
+        "startAnchorage": {
+          "anchorageId": "46fd0927",
+          "atDock": false,
+          "distanceFromShoreKm": "9",
+          "flag": "POL",
+          "id": "pol-gdynia",
+          "lat": 54.51928394542875,
+          "lon": 18.715260402748505,
+          "name": "GDYNIA",
+          "topDestination": "GDYNIA"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "46fda68d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "POL",
+          "id": "pol-gdynia",
+          "lat": 54.545704133428536,
+          "lon": 18.505802517185334,
+          "name": "GDYNIA",
+          "topDestination": "GDYNIA"
+        },
+        "endAnchorage": {
+          "anchorageId": "46fd0927",
+          "atDock": false,
+          "distanceFromShoreKm": "9",
+          "flag": "POL",
+          "id": "pol-gdynia",
+          "lat": 54.51928394542875,
+          "lon": 18.715260402748505,
+          "name": "GDYNIA",
+          "topDestination": "GDYNIA"
+        }
+      }
+    }
   },
   {
     "callsign": "5LYK8",
@@ -57,7 +154,105 @@
     "shipName": "HAMMERSHUS",
     "vesselId": "2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf",
     "vesselType": "PASSENGER",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-04T04:35:51.000Z",
+      "end": "2025-12-04T16:09:17.000Z",
+      "id": "12bdb0db12b9ec4d48b7e8f220f9c47a",
+      "type": "port_visit",
+      "position": {
+        "lat": 55.1015,
+        "lon": 14.6589
+      },
+      "regions": {
+        "mpa": [
+          "555790698"
+        ],
+        "eez": [
+          "5674"
+        ],
+        "rfmo": [
+          "NASCO",
+          "ACAP",
+          "ICCAT",
+          "ICES",
+          "NAMMCO",
+          "IWC"
+        ],
+        "fao": [
+          "27",
+          "27.3.d.24",
+          "27.3.d",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5674"
+        ],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        14.691578817044343,
+        55.09914431736455,
+        14.691578817044343,
+        55.09914431736455
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf",
+        "name": "HAMMERSHUS",
+        "ssvid": "219026000",
+        "flag": "DNK",
+        "type": "passenger",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "c1881479759e1cc34e9462528e416fd6",
+        "confidence": "4",
+        "durationHrs": 11.557222222222222,
+        "startAnchorage": {
+          "anchorageId": "46551b03",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.09914431736455,
+          "lon": 14.691578817044343,
+          "name": "ROENNE",
+          "topDestination": "ROENNE DREDGING"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "46551b03",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.09914431736455,
+          "lon": 14.691578817044343,
+          "name": "ROENNE",
+          "topDestination": "ROENNE DREDGING"
+        },
+        "endAnchorage": {
+          "anchorageId": "46551b03",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.09914431736455,
+          "lon": 14.691578817044343,
+          "name": "ROENNE",
+          "topDestination": "ROENNE DREDGING"
+        }
+      }
+    }
   },
   {
     "callsign": "8PXO8",
@@ -77,7 +272,106 @@
     "shipName": "MULE",
     "vesselId": "de435d0f3-306c-2869-d119-fff03a975f8f",
     "vesselType": "OTHER",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-06T14:29:52.000Z",
+      "end": "2025-12-08T21:41:07.000Z",
+      "id": "fd43d88da31d0496633f344c6df04b0b",
+      "type": "port_visit",
+      "position": {
+        "lat": 60.2401,
+        "lon": 28.5972
+      },
+      "regions": {
+        "mpa": [
+          "95395",
+          "555623678"
+        ],
+        "eez": [
+          "5690"
+        ],
+        "rfmo": [
+          "ICES",
+          "ICCAT",
+          "NASCO",
+          "ACAP",
+          "NAMMCO",
+          "IWC"
+        ],
+        "fao": [
+          "27.3",
+          "27.3.d.32",
+          "27",
+          "27.3.d"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        28.748639395345986,
+        60.304309641312,
+        28.69579646922648,
+        60.336221035057235
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 2,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "de435d0f3-306c-2869-d119-fff03a975f8f",
+        "name": "MULE",
+        "ssvid": "314842000",
+        "flag": "BRB",
+        "type": "other",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "bc0cb43c3e031654d6fec4e1b8610c68",
+        "confidence": "4",
+        "durationHrs": 55.1875,
+        "startAnchorage": {
+          "anchorageId": "4696dcf5",
+          "atDock": false,
+          "distanceFromShoreKm": "2",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.304309641312,
+          "lon": 28.748639395345986,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "4696db97",
+          "atDock": false,
+          "distanceFromShoreKm": "0",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.336221035057235,
+          "lon": 28.69579646922648,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        },
+        "endAnchorage": {
+          "anchorageId": "4696db97",
+          "atDock": false,
+          "distanceFromShoreKm": "0",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.336221035057235,
+          "lon": 28.69579646922648,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        }
+      }
+    }
   },
   {
     "callsign": "",
@@ -117,7 +411,96 @@
     "shipName": "VAERMLAND",
     "vesselId": "b867aac71-181e-e3fb-ef3b-1267b81caedc",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-05T08:40:57.000Z",
+      "end": "2025-12-05T10:50:24.000Z",
+      "id": "f1a5bb77ecd2829a5178bf0207a74ace",
+      "type": "port_visit",
+      "position": {
+        "lat": 54.3771,
+        "lon": 10.1317
+      },
+      "regions": {
+        "mpa": [],
+        "eez": [
+          "5669"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3.b, c",
+          "27.3.c.22",
+          "27.3",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        10.203717401203358,
+        54.434394745186026,
+        10.092357697559303,
+        54.37102174314846
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 1,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "b867aac71-181e-e3fb-ef3b-1267b81caedc",
+        "name": "VAERMLAND",
+        "ssvid": "218797000",
+        "flag": "DEU",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "56be85b3923210af8203f2bd5e9828f4",
+        "confidence": "4",
+        "durationHrs": 2.1575,
+        "startAnchorage": {
+          "anchorageId": "47b2f979",
+          "atDock": false,
+          "distanceFromShoreKm": "1",
+          "flag": "DEU",
+          "id": "deu-strande",
+          "lat": 54.434394745186026,
+          "lon": 10.203717401203358,
+          "name": "STRANDE",
+          "topDestination": "KIEL"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "47b2ff5b",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DEU",
+          "id": "deu-kiel",
+          "lat": 54.37038611618526,
+          "lon": 10.104929833885668,
+          "name": "KIEL",
+          "topDestination": "KIEL"
+        },
+        "endAnchorage": {
+          "anchorageId": "47b2ff5d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DEU",
+          "id": "deu-kiel",
+          "lat": 54.37102174314846,
+          "lon": 10.092357697559303,
+          "name": null,
+          "topDestination": "KIEL"
+        }
+      }
+    }
   },
   {
     "callsign": "OVDN",
@@ -138,56 +521,45 @@
     "vesselId": "22c7ca42d-df50-18b5-713a-a81e9115052c",
     "vesselType": "OTHER",
     "event_metadata": {
-      "start": "2025-12-05T12:06:41.000Z",
-      "end": "2025-12-06T12:08:08.000Z",
-      "id": "efc1703a86346486d884cbd5fc5aab74",
+      "start": "2025-12-01T17:44:59.000Z",
+      "end": "2025-12-05T12:00:11.000Z",
+      "id": "bed03144ec8d020bdf77e955040577d7",
       "type": "port_visit",
       "position": {
-        "lat": 55.1155,
-        "lon": 14.6758
+        "lat": 55.2499,
+        "lon": 14.8338
       },
       "regions": {
-        "mpa": [
-          "555790698",
-          "555543143",
-          "555522525"
-        ],
+        "mpa": [],
         "eez": [
           "5674"
         ],
         "rfmo": [
-          "NASCO",
-          "ACAP",
-          "NAMMCO",
-          "ICCAT",
-          "IWC",
-          "ICES"
+          "EIFAAC"
         ],
         "fao": [
-          "27.3.d.24",
-          "27.3.d",
+          "27.3.d.25",
           "27.3",
+          "27.3.d",
           "27"
         ],
         "majorFao": [
           "27"
         ],
-        "eez12Nm": [
-          "5674"
-        ],
+        "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        14.693334446163684,
-        55.105045722833694,
-        14.693334446163684,
-        55.105045722833694
+        14.755144222274847,
+        55.278125438200284,
+        14.702870176962138,
+        55.18546346989264
       ],
       "distances": {
         "startDistanceFromShoreKm": 0,
-        "endDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 1,
         "startDistanceFromPortKm": 0,
         "endDistanceFromPortKm": 0
       },
@@ -200,41 +572,41 @@
         "nextPort": null
       },
       "port_visit": {
-        "visitId": "22efc11c118fb011f640e6328d54744f",
+        "visitId": "a8ea52c4385ac2a55b535335de1677de",
         "confidence": "4",
-        "durationHrs": 24.024166666666666,
+        "durationHrs": 90.25333333333333,
         "startAnchorage": {
-          "anchorageId": "46551b1d",
+          "anchorageId": "4655073d",
           "atDock": true,
           "distanceFromShoreKm": "0",
           "flag": "DNK",
-          "id": "dnk-roenne",
-          "lat": 55.105045722833694,
-          "lon": 14.693334446163684,
-          "name": "ROENNE",
-          "topDestination": "BAY LIGHTER"
+          "id": "dnk-dnk-126",
+          "lat": 55.278125438200284,
+          "lon": 14.755144222274847,
+          "name": "DNK-126",
+          "topDestination": "PILOT SERVICE"
         },
         "intermediateAnchorage": {
-          "anchorageId": "46551b1d",
+          "anchorageId": "4655062d",
           "atDock": true,
           "distanceFromShoreKm": "0",
           "flag": "DNK",
-          "id": "dnk-roenne",
-          "lat": 55.105045722833694,
-          "lon": 14.693334446163684,
-          "name": "ROENNE",
-          "topDestination": "BAY LIGHTER"
+          "id": "dnk-dnk-154",
+          "lat": 55.2495195365315,
+          "lon": 14.835799445194636,
+          "name": "DNK-154",
+          "topDestination": "CNDE BRAZIL"
         },
         "endAnchorage": {
-          "anchorageId": "46551b1d",
+          "anchorageId": "46550461",
           "atDock": true,
-          "distanceFromShoreKm": "0",
+          "distanceFromShoreKm": "1",
           "flag": "DNK",
-          "id": "dnk-roenne",
-          "lat": 55.105045722833694,
-          "lon": 14.693334446163684,
-          "name": "ROENNE",
-          "topDestination": "BAY LIGHTER"
+          "id": "dnk-hasle",
+          "lat": 55.18546346989264,
+          "lon": 14.702870176962138,
+          "name": "HASLE",
+          "topDestination": "FISKERI"
         }
       }
     }
@@ -257,7 +629,106 @@
     "shipName": "COSMO SAIL",
     "vesselId": "ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f",
     "vesselType": "OTHER",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-02T04:03:37.000Z",
+      "end": "2025-12-04T05:20:19.000Z",
+      "id": "4b477e3fd3873d751b9ec2b1265ef7ce",
+      "type": "port_visit",
+      "position": {
+        "lat": 60.261,
+        "lon": 28.6144
+      },
+      "regions": {
+        "mpa": [
+          "555623678",
+          "95395"
+        ],
+        "eez": [
+          "5690"
+        ],
+        "rfmo": [
+          "NASCO",
+          "ICES",
+          "ICCAT",
+          "NAMMCO",
+          "IWC",
+          "ACAP"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3.d.32",
+          "27",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        28.73177246689428,
+        60.31790002243583,
+        28.700916812118116,
+        60.33473885975645
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 1,
+        "endDistanceFromShoreKm": 1,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f",
+        "name": "COSMO SAIL",
+        "ssvid": "314001147",
+        "flag": "BRB",
+        "type": "other",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "cc5dbe6ed27ec2ec0473d8323fa9f1c2",
+        "confidence": "4",
+        "durationHrs": 49.278333333333336,
+        "startAnchorage": {
+          "anchorageId": "4696dc7d",
+          "atDock": false,
+          "distanceFromShoreKm": "1",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.31790002243583,
+          "lon": 28.73177246689428,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "4696db8f",
+          "atDock": true,
+          "distanceFromShoreKm": "1",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.33377976450089,
+          "lon": 28.714239532578286,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        },
+        "endAnchorage": {
+          "anchorageId": "4696db91",
+          "atDock": true,
+          "distanceFromShoreKm": "1",
+          "flag": "RUS",
+          "id": "rus-primorsk",
+          "lat": 60.33473885975645,
+          "lon": 28.700916812118116,
+          "name": null,
+          "topDestination": "PRIMORSK"
+        }
+      }
+    }
   },
   {
     "callsign": "5BNV4",
@@ -277,7 +748,99 @@
     "shipName": "MIRAMAR",
     "vesselId": "afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-01T04:52:22.000Z",
+      "end": "2025-12-04T09:15:18.000Z",
+      "id": "b0fd5380be6ac6e1e4250e14fde8be09",
+      "type": "port_visit",
+      "position": {
+        "lat": 59.9978,
+        "lon": 23.9759
+      },
+      "regions": {
+        "mpa": [
+          "181152"
+        ],
+        "eez": [
+          "5676"
+        ],
+        "rfmo": [
+          "EIFAAC",
+          "ICCAT"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3",
+          "27",
+          "27.3.d.32"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        23.984701500298364,
+        59.99742587153196,
+        23.984701500298364,
+        59.99742587153196
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc",
+        "name": "MIRAMAR",
+        "ssvid": "212584000",
+        "flag": "CYP",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "872e5dc0faf9031eaa3203f974b13483",
+        "confidence": "4",
+        "durationHrs": 76.38222222222223,
+        "startAnchorage": {
+          "anchorageId": "468d98db",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "FIN",
+          "id": "fin-fin-29",
+          "lat": 59.99742587153196,
+          "lon": 23.984701500298364,
+          "name": null,
+          "topDestination": "OFF"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "468da20d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "FIN",
+          "id": "fin-inkoo",
+          "lat": 60.0151675912514,
+          "lon": 23.916748742783106,
+          "name": "INKOO",
+          "topDestination": "INKOO"
+        },
+        "endAnchorage": {
+          "anchorageId": "468d98db",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "FIN",
+          "id": "fin-fin-29",
+          "lat": 59.99742587153196,
+          "lon": 23.984701500298364,
+          "name": null,
+          "topDestination": "OFF"
+        }
+      }
+    }
   },
   {
     "callsign": "5BRS5",
@@ -297,7 +860,100 @@
     "shipName": "NINA B",
     "vesselId": "e4a2ba1ec-c786-5395-6e67-1fb8e1abe320",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-04T22:48:33.000Z",
+      "end": "2025-12-05T01:16:01.000Z",
+      "id": "afaba335ee38fd98ae3df7f44b8b1d89",
+      "type": "port_visit",
+      "position": {
+        "lat": 53.8926,
+        "lon": 9.0932
+      },
+      "regions": {
+        "mpa": [],
+        "eez": [
+          "5669"
+        ],
+        "rfmo": [
+          "NASCO",
+          "IWC",
+          "NEAFC",
+          "ACAP",
+          "ICES",
+          "NAMMCO"
+        ],
+        "fao": [
+          "27",
+          "27.4.b",
+          "27.4"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        8.895224223196754,
+        53.82614491635673,
+        9.19906796571679,
+        53.91569546422484
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "e4a2ba1ec-c786-5395-6e67-1fb8e1abe320",
+        "name": "NINA B",
+        "ssvid": "209982000",
+        "flag": "CYP",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "f23a02458e96eaae9f2cf1e1ed50582f",
+        "confidence": "4",
+        "durationHrs": 2.457777777777778,
+        "startAnchorage": {
+          "anchorageId": "47b3fed9",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DEU",
+          "id": "deu-otterndorf",
+          "lat": 53.82614491635673,
+          "lon": 8.895224223196754,
+          "name": "OTTERNDORF",
+          "topDestination": "BF E"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "47b3e573",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DEU",
+          "id": "deu-brunsbuttel",
+          "lat": 53.89144720714946,
+          "lon": 9.145252516945504,
+          "name": "BRUNSBUTTEL",
+          "topDestination": "BRUNSBUETTEL"
+        },
+        "endAnchorage": {
+          "anchorageId": "47b3ef5d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DEU",
+          "id": "deu-brunsbuttel",
+          "lat": 53.91569546422484,
+          "lon": 9.19906796571679,
+          "name": "BRUNSBUTTEL",
+          "topDestination": "BRUNSBUTTEL"
+        }
+      }
+    }
   },
   {
     "callsign": "PBDI",
@@ -317,7 +973,96 @@
     "shipName": "BALTIC SAIL",
     "vesselId": "43c5ec9e1-1026-c273-d280-f0c34b520f53",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-03T16:50:21.000Z",
+      "end": "2025-12-04T18:08:40.000Z",
+      "id": "b8250c0e02aef33570f58016eb129643",
+      "type": "port_visit",
+      "position": {
+        "lat": 53.4986,
+        "lon": 14.5976
+      },
+      "regions": {
+        "mpa": [],
+        "eez": [
+          "5687"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3",
+          "27.3.d",
+          "27",
+          "27.3.d.24"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        14.620649411224253,
+        53.49520798038211,
+        14.559931954334761,
+        53.57355399075061
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "43c5ec9e1-1026-c273-d280-f0c34b520f53",
+        "name": "BALTIC SAIL",
+        "ssvid": "244067000",
+        "flag": "NLD",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "63f37897aa8f32df8197d259bab18b02",
+        "confidence": "4",
+        "durationHrs": 25.30527777777778,
+        "startAnchorage": {
+          "anchorageId": "47aa0af9",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "POL",
+          "id": "pol-szczecin",
+          "lat": 53.49520798038211,
+          "lon": 14.620649411224253,
+          "name": null,
+          "topDestination": "SZCZECIN"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "47aa099f",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "POL",
+          "id": "pol-szczecin",
+          "lat": 53.434057281352366,
+          "lon": 14.582854058172002,
+          "name": "SZCZECIN",
+          "topDestination": "SZCZECIN"
+        },
+        "endAnchorage": {
+          "anchorageId": "47aa736d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "POL",
+          "id": "pol-pol-29",
+          "lat": 53.57355399075061,
+          "lon": 14.559931954334761,
+          "name": "POL-29",
+          "topDestination": "PLPLC"
+        }
+      }
+    }
   },
   {
     "callsign": "YDJY3",
@@ -337,7 +1082,96 @@
     "shipName": "SAVIR TIGER",
     "vesselId": "403dc1002-210e-de4b-331d-b4012153dfa4",
     "vesselType": "OTHER",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-03T07:16:30.000Z",
+      "end": "2025-12-04T05:32:26.000Z",
+      "id": "b361164ac925aca81495fd0e77922a53",
+      "type": "port_visit",
+      "position": {
+        "lat": 59.7471,
+        "lon": 28.4208
+      },
+      "regions": {
+        "mpa": [],
+        "eez": [
+          "5690"
+        ],
+        "rfmo": [],
+        "fao": [
+          "27",
+          "27.3.d.32",
+          "27.3",
+          "27.3.d"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        28.426394647183148,
+        59.70586350203281,
+        28.426394647183148,
+        59.70586350203281
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "403dc1002-210e-de4b-331d-b4012153dfa4",
+        "name": "SAVIR TIGER",
+        "ssvid": "525121076",
+        "flag": "IDN",
+        "type": "other",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "f886ecc9e79ae76c24cabf0d2c40b701",
+        "confidence": "4",
+        "durationHrs": 22.265555555555554,
+        "startAnchorage": {
+          "anchorageId": "46942773",
+          "atDock": false,
+          "distanceFromShoreKm": "0",
+          "flag": "RUS",
+          "id": "rus-ustluga",
+          "lat": 59.70586350203281,
+          "lon": 28.426394647183148,
+          "name": null,
+          "topDestination": "UST LUGA"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "46942773",
+          "atDock": false,
+          "distanceFromShoreKm": "0",
+          "flag": "RUS",
+          "id": "rus-ustluga",
+          "lat": 59.70586350203281,
+          "lon": 28.426394647183148,
+          "name": null,
+          "topDestination": "UST LUGA"
+        },
+        "endAnchorage": {
+          "anchorageId": "46942773",
+          "atDock": false,
+          "distanceFromShoreKm": "0",
+          "flag": "RUS",
+          "id": "rus-ustluga",
+          "lat": 59.70586350203281,
+          "lon": 28.426394647183148,
+          "name": null,
+          "topDestination": "UST LUGA"
+        }
+      }
+    }
   },
   {
     "callsign": "OURV2",
@@ -357,6 +1191,100 @@
     "shipName": "AMANDA",
     "vesselId": "df3528985-5287-a35b-89a0-b2e9c1e6db13",
     "vesselType": "CARGO",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-04T06:41:37.000Z",
+      "end": "2025-12-04T22:26:54.000Z",
+      "id": "a4e5b758aee3e8919d120161e36fe670",
+      "type": "port_visit",
+      "position": {
+        "lat": 55.6942,
+        "lon": 21.0984
+      },
+      "regions": {
+        "mpa": [
+          "555536418",
+          "555541917",
+          "31552",
+          "555543199"
+        ],
+        "eez": [
+          "5684"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3.d.26",
+          "27",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        21.093338185790476,
+        55.72621493931779,
+        21.093338185790476,
+        55.72621493931779
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "df3528985-5287-a35b-89a0-b2e9c1e6db13",
+        "name": "AMANDA",
+        "ssvid": "219002392",
+        "flag": "DNK",
+        "type": "cargo",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "68ed79e1cdc1544df8ffe74089483b2b",
+        "confidence": "4",
+        "durationHrs": 15.754722222222222,
+        "startAnchorage": {
+          "anchorageId": "46e4dbd5",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "LTU",
+          "id": "ltu-klaipeda",
+          "lat": 55.72621493931779,
+          "lon": 21.093338185790476,
+          "name": "KLAIPEDA",
+          "topDestination": "KLAIPEDA"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "46e4dcef",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "LTU",
+          "id": "ltu-klaipeda",
+          "lat": 55.6565510234022,
+          "lon": 21.156944141430397,
+          "name": "KLAIPEDA",
+          "topDestination": "KLAIPEDA"
+        },
+        "endAnchorage": {
+          "anchorageId": "46e4dbd5",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "LTU",
+          "id": "ltu-klaipeda",
+          "lat": 55.72621493931779,
+          "lon": 21.093338185790476,
+          "name": "KLAIPEDA",
+          "topDestination": "KLAIPEDA"
+        }
+      }
+    }
   }
 ]

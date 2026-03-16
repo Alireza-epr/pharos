@@ -1,4 +1,5 @@
 jest.mock('parquetjs', () => ({}));
+import { execSync } from "child_process";
 import { EGeoCoordinate, EReasonCodes, ERejectedEventSchemaReasons } from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
 import {
@@ -25,7 +26,8 @@ import {
   getEventMissingness,
   getGeoMin,
   getGeoMax,
-  getTimeRange
+  getTimeRange,
+  hashFile
 } from '../src/utils/generalUtils';
 import {
   api4wingsResponse,
@@ -491,3 +493,19 @@ describe('Event statistics utilities', () => {
   })
 
 })
+
+describe("Pipeline determinism", () => {
+  it("should produce identical output when run twice", async () => {
+    const OUTPUT_FILE = "data/out/events.geojson";
+    // run pipeline first time
+    execSync("npm run pipeline:sample", { stdio: "inherit" });
+    const hash1 = await hashFile(OUTPUT_FILE);
+
+    // run pipeline second time
+    execSync("npm run pipeline:sample", { stdio: "inherit" });
+    const hash2 = await hashFile(OUTPUT_FILE);
+
+    expect(hash1).toBe(hash2);
+
+  });
+});

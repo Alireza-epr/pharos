@@ -25,8 +25,9 @@ import { IGeometry } from './types/geoJSONTypes';
 import { IConfigJSON } from './types/eventTypes';
 import {
   createEventSchema,
-  isMatchedCase,
 } from './pipeline/normalize/schema';
+import { isMatchedCase } from './pipeline/normalize/validation';
+
 
 export interface AppProps {}
 
