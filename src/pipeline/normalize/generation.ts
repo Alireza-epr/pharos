@@ -1,16 +1,20 @@
-import { EReasonCodes } from "../../enum/generlaEnum";
-import { EEventType } from "../../enum/gfwEnum";
-import { IConfigJSON, IRunMetadata, IScoring } from "../../types/eventTypes";
-import { IGeometry } from "../../types/geoJSONTypes";
-import { I4wingsEntry, TGlobalEvent } from "../../types/gfwTypes";
-import { deepSortObject, getGitCommitSHA, hashString } from "../../utils/generalUtils";
+import { EReasonCodes } from '../../enum/generlaEnum';
+import { EEventType } from '../../enum/gfwEnum';
+import { IConfigJSON, IRunMetadata, IScoring } from '../../types/eventTypes';
+import { IGeometry } from '../../types/geoJSONTypes';
+import { I4wingsEntry, TGlobalEvent } from '../../types/gfwTypes';
+import {
+  deepSortObject,
+  getGitCommitSHA,
+  hashString,
+} from '../../utils/generalUtils';
 import config from '../../config/globalFishingWatch.json';
 
 export const generateSources = (a_Configuration: Set<IConfigJSON>) => {
   return Array.from(a_Configuration)
     .map((config) => config.source)
     .join(', ');
-}
+};
 
 export const generateEventId = (
   a_Timestamps: string,
@@ -32,7 +36,7 @@ export const generateConfidence = (a_EventEntry: TGlobalEvent | undefined) => {
   return a_EventEntry && a_EventEntry.type === EEventType.port_visit
     ? a_EventEntry.port_visit.confidence
     : null;
-}
+};
 
 export const generateRunMetadata = async (
   a_Configuration: Set<IConfigJSON>,
@@ -66,7 +70,7 @@ export const generateScoring = (
 
   const near_coast = a_Event
     ? a_Event.distances.startDistanceFromShoreKm <=
-    config.threshold.near_coast_threshold
+      config.threshold.near_coast_threshold
     : false;
   if (near_coast) {
     uncertainty_score += 0.3;
@@ -76,7 +80,7 @@ export const generateScoring = (
   const low_detection_confidence =
     a_Event && a_Event.type === EEventType.port_visit
       ? a_Event.port_visit.confidence <=
-      config.threshold.low_detection_confidence_threshold
+        config.threshold.low_detection_confidence_threshold
       : false;
   if (low_detection_confidence) {
     uncertainty_score += 0.3;
@@ -102,13 +106,11 @@ export const generateScoring = (
 
 export const generateGeom = (a_4wingsEntry: I4wingsEntry): IGeometry => {
   return {
-    type: "Point",
-    coordinates: [a_4wingsEntry.lon, a_4wingsEntry.lat]
-  }
-}
-
-
+    type: 'Point',
+    coordinates: [a_4wingsEntry.lon, a_4wingsEntry.lat],
+  };
+};
 
 export const generateVersion = () => {
-  return __APP_VERSION__ ?? '1'
-}
+  return __APP_VERSION__ ?? '1';
+};

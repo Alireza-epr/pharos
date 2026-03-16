@@ -2,8 +2,15 @@ import { readFileSync } from 'fs';
 import { EGeoCoordinate, ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { isValidCoordinate } from '../pipeline/normalize/validation';
-import { EGeoJSONEventMissingness, IGeoJSONEventFeature } from '../types/generalTypes';
-import { I4wingsAPIResponse, T4wingsSource, TEventSource } from '../types/gfwTypes';
+import {
+  EGeoJSONEventMissingness,
+  IGeoJSONEventFeature,
+} from '../types/generalTypes';
+import {
+  I4wingsAPIResponse,
+  T4wingsSource,
+  TEventSource,
+} from '../types/gfwTypes';
 
 export const formatTimestamp = (a_Date?: Date): string => {
   const now = a_Date ?? new Date();
@@ -98,17 +105,18 @@ export const hashFile = async (a_Path: string) => {
   const content = readFileSync(a_Path);
   if (typeof window !== 'undefined' && window.crypto?.subtle) {
     // Browser version
-    const str = typeof content === "string" ? content : content.toString("utf-8");
+    const str =
+      typeof content === 'string' ? content : content.toString('utf-8');
     const encoder = new TextEncoder();
     const data = encoder.encode(str); // convert string to Uint8Array
     const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
     return Array.from(new Uint8Array(hashBuffer))
-      .map(b => b.toString(16).padStart(2, '0'))
+      .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
   } else {
     // Node.js version
     const { createHash } = await import('crypto');
-    return createHash("sha256").update(content).digest("hex");
+    return createHash('sha256').update(content).digest('hex');
   }
 };
 
@@ -129,7 +137,6 @@ export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
 
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
-
 
 export const getSourceFrom4wingsResponse = (
   a_4wingsResponse: I4wingsAPIResponse,
@@ -154,46 +161,43 @@ export const getEntriesFrom4wingsResponse = (
 };
 
 export const getEventMissingness = (
-    a_Features: IGeoJSONEventFeature[]
+  a_Features: IGeoJSONEventFeature[],
 ): Record<EGeoJSONEventMissingness, string> => {
+  const total = a_Features.length;
+  const counts: Record<EGeoJSONEventMissingness, number> = Object.fromEntries(
+    Object.values(EGeoJSONEventMissingness).map((e) => [e, 0]),
+  ) as Record<EGeoJSONEventMissingness, number>;
 
-    const total = a_Features.length;
-    const counts: Record<EGeoJSONEventMissingness, number> =
-        Object.fromEntries(
-            Object.values(EGeoJSONEventMissingness).map(e => [e, 0])
-        ) as Record<EGeoJSONEventMissingness, number>;
+  for (const feature of a_Features) {
+    for (const key of Object.values(EGeoJSONEventMissingness)) {
+      const value = feature.properties[key];
 
-    for (const feature of a_Features) {
-        for (const key of Object.values(EGeoJSONEventMissingness)) {
-
-            const value = feature.properties[key];
-
-            if (value === null || value === undefined) {
-                counts[key]++;
-            }
-        }
+      if (value === null || value === undefined) {
+        counts[key]++;
+      }
     }
+  }
 
-    const missingness: Record<EGeoJSONEventMissingness, string> =
-        Object.fromEntries(
-            Object.entries(counts).map(([key, count]) => [
-                key,
-                `${((count / total) * 100).toFixed(2)}%`
-            ])
-        ) as Record<EGeoJSONEventMissingness, string>;
+  const missingness: Record<EGeoJSONEventMissingness, string> =
+    Object.fromEntries(
+      Object.entries(counts).map(([key, count]) => [
+        key,
+        `${((count / total) * 100).toFixed(2)}%`,
+      ]),
+    ) as Record<EGeoJSONEventMissingness, string>;
 
-    return missingness;
+  return missingness;
 };
 
 export const getGeoMin = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IGeoJSONEventFeature[]
+  a_Features: IGeoJSONEventFeature[],
 ): number => {
-
   let min = Infinity;
 
   for (const feature of a_Features) {
-    if(!isValidCoordinate(feature.properties.lat, feature.properties.lon )) continue
+    if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
+      continue;
 
     const value =
       a_GeoCoordinate === EGeoCoordinate.latitude
@@ -210,13 +214,13 @@ export const getGeoMin = (
 
 export const getGeoMax = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IGeoJSONEventFeature[]
+  a_Features: IGeoJSONEventFeature[],
 ): number => {
-
   let max = -Infinity;
 
   for (const feature of a_Features) {
-    if(!isValidCoordinate(feature.properties.lat, feature.properties.lon )) continue
+    if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
+      continue;
     const value =
       a_GeoCoordinate === EGeoCoordinate.latitude
         ? feature.properties.lat
@@ -231,27 +235,23 @@ export const getGeoMax = (
 };
 
 export const getTimeRange = (a_Features: IGeoJSONEventFeature[]) => {
-    
-  let min = Infinity
-  let max = -Infinity
+  let min = Infinity;
+  let max = -Infinity;
 
-  for(const feature of a_Features){
+  for (const feature of a_Features) {
+    const t = Date.parse(feature.properties.timestamp_utc);
 
-    const t = Date.parse(feature.properties.timestamp_utc)
-
-    if(t < min){
-      min = t
+    if (t < min) {
+      min = t;
     }
 
-    if(t > max){
-      max = t
+    if (t > max) {
+      max = t;
     }
-    
   }
 
   return {
     start: new Date(min).toISOString(),
-    end: new Date(max).toISOString()
-  }
-
-}
+    end: new Date(max).toISOString(),
+  };
+};

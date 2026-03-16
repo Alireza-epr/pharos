@@ -10,7 +10,7 @@ This document defines a **event schema** for Iteration 1.
 
 ---
 
-## Event Fields 
+## Event Fields
 
 ### Core fields
 
@@ -69,10 +69,11 @@ This document defines a **event schema** for Iteration 1.
   Each context layer includes:
   - dataset - name of the dataset used for enrichment
   - version - pinned dataset version
-  - enrichment - attributes including id and label 
+  - enrichment - attributes including id and label
 
 - `distance_to_coast_km` (number)
   Derived from `startDistanceFromShoreKm` in the event record, if available.
+
 ### Scoring
 
 - `triage_score` (number or null)
@@ -83,6 +84,7 @@ This document defines a **event schema** for Iteration 1.
 ---
 
 ### Rejected Event Schema
+
 If validation fails during record normalization, the following schema will be returned:
 
 - `rejected` (boolean<true>)

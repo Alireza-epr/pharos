@@ -17,10 +17,10 @@ export enum EReasonCodes {
 }
 
 export enum ERejectedEventSchemaReasons {
-  notValidCoordinates = "Not Valid Coordinates"
+  notValidCoordinates = 'Not Valid Coordinates',
 }
 
 export enum EGeoCoordinate {
-  latitude= "latitude",
-  longitude= "longitude"
+  latitude = 'latitude',
+  longitude = 'longitude',
 }

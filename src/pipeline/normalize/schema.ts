@@ -3,10 +3,7 @@ import {
   IEventSchema,
   IRejectedEventSchema,
 } from '../../types/eventTypes';
-import {
-  I4wingsEntry,
-  TGlobalEvent,
-} from '../../types/gfwTypes';
+import { I4wingsEntry, TGlobalEvent } from '../../types/gfwTypes';
 import { ERejectedEventSchemaReasons } from '../../enum/generlaEnum';
 import { IGeometry } from '../../types/geoJSONTypes';
 import { EContextLayers } from '../../enum/gfwEnum';
@@ -15,7 +12,7 @@ import { generateRFMO } from '../features/rfmo';
 import { generateMPA } from '../features/mpa';
 import { generateDistanceToCoast } from '../features/coast_distance';
 import { isMatchedCase, isValidCoordinate } from './validation';
-import { 
+import {
   generateConfidence,
   generateEventId,
   generateGeom,
@@ -23,27 +20,29 @@ import {
   generateScoring,
   generateSources,
   generateVersion,
-} from './generation'
+} from './generation';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
+  const validCoordinates = isValidCoordinate(
+    a_4wingsEntry.lat,
+    a_4wingsEntry.lon,
+  );
 
-  const validCoordinates = isValidCoordinate(a_4wingsEntry.lat, a_4wingsEntry.lon)
-
-  if(!validCoordinates){
+  if (!validCoordinates) {
     return {
       reason: ERejectedEventSchemaReasons.notValidCoordinates,
       rejected: true,
-      raw_metadata: a_4wingsEntry
-    }
+      raw_metadata: a_4wingsEntry,
+    };
   }
 
-  const version = generateVersion()
+  const version = generateVersion();
 
-  const sources = generateSources(a_Configuration)
+  const sources = generateSources(a_Configuration);
 
   const event_id = await generateEventId(
     a_4wingsEntry.entryTimestamp,
@@ -54,25 +53,25 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_fields = generateConfidence(a_EventEntry)
+  const confidence_fields = generateConfidence(a_EventEntry);
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
   const scoring = generateScoring(matched_flag, a_EventEntry);
 
-  let geom: IGeometry = generateGeom(a_4wingsEntry)
+  let geom: IGeometry = generateGeom(a_4wingsEntry);
 
-  const eez = generateEEZ( a_EventEntry )
-  const mpa = generateMPA( a_EventEntry )
-  const rfmo = generateRFMO( a_EventEntry )
+  const eez = generateEEZ(a_EventEntry);
+  const mpa = generateMPA(a_EventEntry);
+  const rfmo = generateRFMO(a_EventEntry);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
-    [EContextLayers.rfmo]: rfmo
-  }
+    [EContextLayers.rfmo]: rfmo,
+  };
 
-  const distance_to_coast_km = generateDistanceToCoast( a_EventEntry )
+  const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
 
   const eventSchema: IEventSchema = {
     version: version,
@@ -90,9 +89,8 @@ export const createEventSchema = async (
     distance_to_coast_km,
     scoring,
     geom: geom,
-    rejected: false
+    rejected: false,
   };
 
   return eventSchema;
 };
-
