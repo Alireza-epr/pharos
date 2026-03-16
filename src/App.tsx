@@ -19,14 +19,17 @@ import {
   T4wingsFilter,
   IEventGetURLParams,
 } from './types/gfwTypes';
-import { getEntriesFrom4wingsResponse, getSource, getSourceFrom4wingsResponse, log } from './utils/generalUtils';
+import {
+  getEntriesFrom4wingsResponse,
+  getSource,
+  getSourceFrom4wingsResponse,
+  log,
+} from './utils/generalUtils';
 import { ELogLevel } from './enum/generlaEnum';
 import { IGeometry } from './types/geoJSONTypes';
 import { IConfigJSON } from './types/eventTypes';
-import {
-  createEventSchema,
-  isMatchedCase,
-} from './pipeline/normalize/schema';
+import { createEventSchema } from './pipeline/normalize/schema';
+import { isMatchedCase } from './pipeline/normalize/validation';
 
 export interface AppProps {}
 
@@ -145,11 +148,11 @@ const App = (props: AppProps) => {
 
           const urlParamsEventGet: IEventGetURLParams = {
             ...urlParamsEvent,
-            "end-date": endDate,
-            "start-date": startDate,
-            "vessels[0]": thisEntry.vesselId,
-            "datasets[0]": sourceEvent
-          }
+            'end-date': endDate,
+            'start-date': startDate,
+            'vessels[0]': thisEntry.vesselId,
+            'datasets[0]': sourceEvent,
+          };
 
           try {
             /* const portVisitResp = await detectionPostGFW<
@@ -157,7 +160,7 @@ const App = (props: AppProps) => {
             >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
             const portVisitResp = await detectionGetGFW<
               IEventAPIResponse<IPortVisitEvent>
-            >(baseURLEvent, sourceEvent, urlParamsEventGet)
+            >(baseURLEvent, sourceEvent, urlParamsEventGet);
 
             if (configuration) configuration.add(portVisitResp.metadata);
 

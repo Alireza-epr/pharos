@@ -1,9 +1,13 @@
 import pilot from '../config/pilot.json';
+import { createEventSchema } from './normalize/schema';
+import { isMatchedCase } from './normalize/validation';
 import {
-  createEventSchema,
-  isMatchedCase,
-} from './normalize/schema';
-import { detectionPostGFW } from './ingest/detections';
+  getEventMissingness,
+  getGeoMax,
+  getGeoMin,
+  getTimeRange,
+} from '../utils/generalUtils';
+import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import parquet from 'parquetjs';
 import { IGeometry } from '../types/geoJSONTypes';
@@ -11,11 +15,12 @@ import { IConfigJSON, IEventSchema } from '../types/eventTypes';
 import {
   I4wingsAPIResponse,
   IEventAPIResponse,
+  IEventGetURLParams,
   IEventPostBodyParams,
   IEventPostURLParams,
   IPortVisitEvent,
 } from '../types/gfwTypes';
-import { ELogLevel } from '../enum/generlaEnum';
+import { EGeoCoordinate, ELogLevel } from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
@@ -23,7 +28,7 @@ import {
   getSourceFrom4wingsResponse,
   log,
 } from '../utils/generalUtils';
-import { writeParquet } from '../utils/parquetUtils'
+import { writeParquet } from '../utils/parquetUtils';
 
 const parquetSchema = new parquet.ParquetSchema({
   event_id: { type: 'UTF8' },
@@ -118,7 +123,7 @@ const main = async () => {
 
     if (isMatchedCase(thisEntry)) {
       const urlParamsEvent: IEventPostURLParams = {
-        limit: 2,
+        limit: 1,
         offset: 0,
       };
 
@@ -130,10 +135,22 @@ const main = async () => {
         geometry: geometry,
       };
 
+      const urlParamsEventGet: IEventGetURLParams = {
+        ...urlParamsEvent,
+        'end-date': endDate,
+        'start-date': startDate,
+        'vessels[0]': thisEntry.vesselId,
+        'datasets[0]': sourceEvent,
+      };
+
       try {
-        const portVisitResp = await detectionPostGFW<
+        /* const portVisitResp = await detectionPostGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
+        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
+        const portVisitResp = await detectionGetGFW<
+          IEventAPIResponse<IPortVisitEvent>
+        >(baseURLEvent, sourceEvent, urlParamsEventGet);
+
         if (configuration) configuration.add(portVisitResp.metadata);
 
         if (portVisitResp.results.entries.length == 0) {
@@ -206,14 +223,10 @@ const main = async () => {
       geometry: event.geom,
     })),
   };
-  fs.writeFileSync(
-    `${output}events.geojson`,
-    JSON.stringify(geojson, null, 2), 
-  );
+  fs.writeFileSync(`${output}events.geojson`, JSON.stringify(geojson, null, 2));
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
-
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -241,7 +254,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2), 
+    JSON.stringify(run_metadata, null, 2),
   );
 
   //raw_metadata.json
@@ -251,7 +264,7 @@ const main = async () => {
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
-    JSON.stringify(raw_metadata, null, 2), 
+    JSON.stringify(raw_metadata, null, 2),
   );
 
   //raw_metadata.parquet
@@ -269,6 +282,33 @@ const main = async () => {
   fs.writeFileSync(
     `${output}canonicalSchema.json`,
     JSON.stringify(sortedEvents, null, 2),
+  );
+
+  //data_quality.json
+  const missingnesses = getEventMissingness(geojson.features);
+  const latitudeMin = getGeoMin(EGeoCoordinate.latitude, geojson.features);
+  const longitudeMin = getGeoMin(EGeoCoordinate.longitude, geojson.features);
+  const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features);
+  const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features);
+  const time_range = getTimeRange(geojson.features);
+  const data_quality = {
+    row_count: geojson.features.length,
+    missingness: missingnesses,
+    geo_sanity: {
+      latitude: {
+        min: latitudeMin,
+        max: latitudeMax,
+      },
+      longitude: {
+        min: longitudeMin,
+        max: longitudeMax,
+      },
+    },
+    time_range: time_range,
+  };
+  fs.writeFileSync(
+    `${output}data_quality.json`,
+    JSON.stringify(data_quality, null, 2),
   );
 
   log('pilot finished.', '', ELogLevel.message, '3');

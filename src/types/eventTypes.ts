@@ -1,5 +1,9 @@
 import { EReasonCodes, ERejectedEventSchemaReasons } from '../enum/generlaEnum';
-import { EContextLayerDatasets, EContextLayers, EFetchMethods } from '../enum/gfwEnum';
+import {
+  EContextLayerDatasets,
+  EContextLayers,
+  EFetchMethods,
+} from '../enum/gfwEnum';
 import { IGeometry } from './geoJSONTypes';
 import {
   I4wingsEntry,
@@ -25,8 +29,8 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
-  distance_to_coast_km: number | null,
-  context_layers: Record< EContextLayers, IContextLayer>
+  distance_to_coast_km: number | null;
+  context_layers: Record<EContextLayers, IContextLayer>;
   version: string;
   event_id: string;
   timestamp_utc: string;
@@ -40,13 +44,13 @@ export interface IEventSchema {
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
-  rejected: boolean
+  rejected: boolean;
 }
 
 export interface IRejectedEventSchema {
-  rejected: boolean,
-  reason: ERejectedEventSchemaReasons,
-  raw_metadata: I4wingsEntry
+  rejected: boolean;
+  reason: ERejectedEventSchemaReasons;
+  raw_metadata: I4wingsEntry;
 }
 
 export interface IConfigJSON {
@@ -58,11 +62,11 @@ export interface IConfigJSON {
 }
 
 export interface IContextLayerEnrichment {
-  id: string,
-  label: string
+  id: string;
+  label: string;
 }
 export interface IContextLayer {
-  dataset: EContextLayerDatasets,
-  version: string,
-  enrichments: IContextLayerEnrichment[]
+  dataset: EContextLayerDatasets;
+  version: string;
+  enrichments: IContextLayerEnrichment[];
 }

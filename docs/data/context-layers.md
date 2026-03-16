@@ -13,7 +13,7 @@ src/pipeline/features/
 ## EEZ
 
 Source: Global Fishing Watch  
-Dataset: public-eez-areas:v3  
+Dataset: public-eez-areas:v3
 
 Feature module:
 src/pipeline/features/eez.ts
@@ -21,23 +21,23 @@ src/pipeline/features/eez.ts
 Example record:
 
 {
-  "label": "Jordanian Exclusive Economic Zone",
-  "id": 8491,
-  "iso3": "JOR",
-  "territory1": "Jordan"
+"label": "Jordanian Exclusive Economic Zone",
+"id": 8491,
+"iso3": "JOR",
+"territory1": "Jordan"
 }
 
 Enrichment fields added to event:
+
 - eez_id
 - eez_label
 
 ---
 
-
 ## MPA
 
 Source: Global Fishing Watch  
-Dataset: public-mpa-all:v3  
+Dataset: public-mpa-all:v3
 
 Feature module:
 src/pipeline/features/mpa.ts
@@ -45,11 +45,12 @@ src/pipeline/features/mpa.ts
 Example record:
 
 {
-  "label": "Diamond Reef - Marine Reserve",
-  "id": "1"
+"label": "Diamond Reef - Marine Reserve",
+"id": "1"
 }
 
 Enrichment fields added to event:
+
 - mpa_ids
 - mpa_labels
 
@@ -58,7 +59,7 @@ Enrichment fields added to event:
 ## RFMO
 
 Source: Global Fishing Watch  
-Dataset: public-rfmo:v3  
+Dataset: public-rfmo:v3
 
 Feature module:
 src/pipeline/features/rfmo.ts
@@ -66,11 +67,11 @@ src/pipeline/features/rfmo.ts
 Example record:
 
 {
-  "label": "LTA",
-  "id": "LTA"
+"label": "LTA",
+"id": "LTA"
 }
 
 Enrichment fields added to event:
+
 - rfmo_ids
 - rfmo_labels
-

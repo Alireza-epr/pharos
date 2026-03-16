@@ -1,19 +1,36 @@
 jest.mock('parquetjs', () => ({}));
-import { EReasonCodes, ERejectedEventSchemaReasons } from '../src/enum/generlaEnum';
+import { execSync } from 'child_process';
+import {
+  EGeoCoordinate,
+  EReasonCodes,
+  ERejectedEventSchemaReasons,
+} from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
+import { createEventSchema } from '../src/pipeline/normalize/schema';
 import {
   isMatchedCase,
+  isValidCoordinate,
+} from '../src/pipeline/normalize/validation';
+import {
   generateScoring,
   generateEventId,
   generateRunMetadata,
   generateSources,
   generateConfidence,
   generateGeom,
-  isValidCoordinate,
-  createEventSchema,
-} from '../src/pipeline/normalize/schema';
+} from '../src/pipeline/normalize/generation';
 import { IConfigJSON, IRejectedEventSchema } from '../src/types/eventTypes';
-import { deepSortObject, getEntriesFrom4wingsResponse, getSourceFrom4wingsResponse, hashString } from '../src/utils/generalUtils';
+import {
+  deepSortObject,
+  getEntriesFrom4wingsResponse,
+  getSourceFrom4wingsResponse,
+  hashString,
+  getEventMissingness,
+  getGeoMin,
+  getGeoMax,
+  getTimeRange,
+  hashFile,
+} from '../src/utils/generalUtils';
 import {
   api4wingsResponse,
   api4wingsResponse_bad_coordinates,
@@ -26,41 +43,40 @@ import {
   sarConfig,
   sarConfig_diff_sorted,
 } from './fixtures/gfwRequest';
+import events from './fixtures/events.json';
+import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
 
 describe('4wings helpers', () => {
-
   describe('generateSources', () => {
     it('returns the source keys with the version', () => {
-      const expected = 'public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0'
-      const configSet = new Set<IConfigJSON>()
+      const expected =
+        'public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0';
+      const configSet = new Set<IConfigJSON>();
 
-      configSet.add(sarConfig)
-      configSet.add(eventConfig)
+      configSet.add(sarConfig);
+      configSet.add(eventConfig);
       const sources = generateSources(configSet);
       expect(sources).toBe(expected);
 
-      configSet.clear()
-      configSet.add(sarConfig_diff_sorted)
-      configSet.add(eventConfig_diff_sorted)
+      configSet.clear();
+      configSet.add(sarConfig_diff_sorted);
+      configSet.add(eventConfig_diff_sorted);
       const sources_diff_sorted = generateSources(configSet);
       expect(sources_diff_sorted).toBe(expected);
-
     });
   });
 
   describe('generateConfidence', () => {
     it('returns confidence from the port event', () => {
-
-      const eventNoEntries = apiEventResponse_no_entry.entries
+      const eventNoEntries = apiEventResponse_no_entry.entries;
       const confidence_fields_null = generateConfidence(eventNoEntries[0]);
 
-      const eventWithEntries = apiEventResponse_with_entry.entries
+      const eventWithEntries = apiEventResponse_with_entry.entries;
       const confidence_fields = generateConfidence(eventWithEntries[0]);
 
-      expect(confidence_fields_null).toBeNull()
-      expect(confidence_fields).toBe(4)
-      expect(generateConfidence(undefined)).toBeNull()
-
+      expect(confidence_fields_null).toBeNull();
+      expect(confidence_fields).toBe(4);
+      expect(generateConfidence(undefined)).toBeNull();
     });
   });
 
@@ -69,7 +85,7 @@ describe('4wings helpers', () => {
     const entries = getEntriesFrom4wingsResponse(api4wingsResponse, source);
 
     it('should return a GeoJSON Point', () => {
-      if (!entries || !entries[0]) return
+      if (!entries || !entries[0]) return;
 
       const geom = generateGeom(entries[0]);
 
@@ -78,21 +94,18 @@ describe('4wings helpers', () => {
       expect(geom.coordinates.length).toBe(2);
       expect(typeof geom.coordinates[0]).toBe('number');
       expect(typeof geom.coordinates[1]).toBe('number');
-
     });
 
     it('should return GeoJSON coordinates in [lon, lat] order', () => {
-      if (!entries || !entries[0]) return
+      if (!entries || !entries[0]) return;
 
-      const lon = entries[0].lon
-      const lat = entries[0].lat
+      const lon = entries[0].lon;
+      const lat = entries[0].lat;
       const geom = generateGeom(entries[0]);
 
       expect(geom.coordinates[0]).toBe(lon);
       expect(geom.coordinates[1]).toBe(lat);
-
     });
-
   });
 
   describe('getSourceFrom4wingsResponse', () => {
@@ -301,7 +314,6 @@ describe('4wings helpers', () => {
   });
 
   describe('isValidCoordinate', () => {
-
     it('should return true for valid coordinates', () => {
       expect(isValidCoordinate(0, 0)).toBe(true);
       expect(isValidCoordinate(45.5, 120.3)).toBe(true);
@@ -313,47 +325,166 @@ describe('4wings helpers', () => {
       expect(isValidCoordinate(-91, 0)).toBe(false);
       expect(isValidCoordinate(91, 0)).toBe(false);
       expect(isValidCoordinate(NaN, 0)).toBe(false);
-      expect(isValidCoordinate("0", 0)).toBe(false);
+      expect(isValidCoordinate('0', 0)).toBe(false);
     });
 
     it('should return false for invalid longitude', () => {
       expect(isValidCoordinate(0, -181)).toBe(false);
       expect(isValidCoordinate(0, 181)).toBe(false);
       expect(isValidCoordinate(0, NaN)).toBe(false);
-      expect(isValidCoordinate(0, "0")).toBe(false);
+      expect(isValidCoordinate(0, '0')).toBe(false);
     });
 
     it('should return false if both coordinates are invalid', () => {
       expect(isValidCoordinate(200, 200)).toBe(false);
       expect(isValidCoordinate(NaN, NaN)).toBe(false);
       expect(isValidCoordinate(undefined, undefined)).toBe(false);
-      expect(isValidCoordinate("0", "0")).toBe(false);
+      expect(isValidCoordinate('0', '0')).toBe(false);
     });
-
   });
 
   describe('createEventSchema', () => {
-
     it('should return rejected event schema for not valid coordinates', async () => {
-      const configSet = new Set<IConfigJSON>()
+      const configSet = new Set<IConfigJSON>();
 
-      configSet.add(sarConfig)
-      configSet.add(eventConfig)
+      configSet.add(sarConfig);
+      configSet.add(eventConfig);
       const source = 'public-global-sar-presence:v3.0';
-      //@ts-ignore
-      const entries = getEntriesFrom4wingsResponse(api4wingsResponse_bad_coordinates, source);
+      const entries = getEntriesFrom4wingsResponse(
+        //@ts-ignore
+        api4wingsResponse_bad_coordinates,
+        source,
+      );
 
-      if(!entries) return 
+      if (!entries) return;
 
-      for(const entry of entries){
-        const eventSchema = await createEventSchema(configSet, entry)
-        console.log("eventSchema")
-        console.log(eventSchema)
+      for (const entry of entries) {
+        const eventSchema = await createEventSchema(configSet, entry);
         expect(eventSchema.rejected).toBe(true);
-        expect((eventSchema as IRejectedEventSchema).reason).toEqual(ERejectedEventSchemaReasons.notValidCoordinates);
+        expect((eventSchema as IRejectedEventSchema).reason).toEqual(
+          ERejectedEventSchemaReasons.notValidCoordinates,
+        );
       }
-
     });
+  });
+});
 
+describe('Event statistics utilities', () => {
+  const validEvents = events.features as any;
+
+  const invalidEvents = [
+    {
+      type: 'Feature',
+      properties: {
+        event_id: null,
+        timestamp_utc: null,
+        lat: null,
+        lon: null,
+        confidence_fields: null,
+        distance_to_coast_km: null,
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: [null, null],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: {
+        event_id: 'bad1',
+        timestamp_utc: 'invalid-date',
+        lat: 200,
+        lon: -500,
+        confidence_fields: null,
+        distance_to_coast_km: null,
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: [-500, 200],
+      },
+    },
+  ] as any;
+
+  const mixedEvents = [...validEvents, ...invalidEvents];
+
+  test('getEventMissingness calculates missing rates', () => {
+    const result = getEventMissingness(mixedEvents);
+
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.event_id);
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.timestamp_utc);
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.lat);
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.lon);
+
+    expect(typeof result[EGeoJSONEventMissingness.event_id]).toBe('string');
+  });
+
+  test('getGeoMin returns correct minimum latitude', () => {
+    const minLat = getGeoMin(EGeoCoordinate.latitude, mixedEvents);
+
+    expect(typeof minLat).toBe('number');
+    expect(minLat).toBeLessThanOrEqual(
+      getGeoMin(EGeoCoordinate.latitude, validEvents),
+    );
+  });
+
+  test('getGeoMax returns correct maximum latitude', () => {
+    const maxLat = getGeoMax(EGeoCoordinate.latitude, mixedEvents);
+
+    expect(typeof maxLat).toBe('number');
+    expect(maxLat).toBeGreaterThanOrEqual(
+      getGeoMax(EGeoCoordinate.latitude, validEvents),
+    );
+  });
+
+  test('getGeoMin returns correct minimum longitude', () => {
+    const minLon = getGeoMin(EGeoCoordinate.longitude, mixedEvents);
+
+    expect(typeof minLon).toBe('number');
+    expect(minLon).toBeLessThanOrEqual(
+      getGeoMin(EGeoCoordinate.longitude, validEvents),
+    );
+  });
+
+  test('getGeoMax returns correct maximum longitude', () => {
+    const maxLon = getGeoMax(EGeoCoordinate.longitude, mixedEvents);
+
+    expect(typeof maxLon).toBe('number');
+    expect(maxLon).toBeGreaterThanOrEqual(
+      getGeoMax(EGeoCoordinate.longitude, validEvents),
+    );
+  });
+
+  test('getTimeRange returns correct start and end timestamps', () => {
+    const range = getTimeRange(validEvents);
+
+    expect(range).toHaveProperty('start');
+    expect(range).toHaveProperty('end');
+
+    const start = new Date(range.start).getTime();
+    const end = new Date(range.end).getTime();
+
+    expect(start).toBeLessThanOrEqual(end);
+  });
+
+  test('getTimeRange handles invalid timestamps safely', () => {
+    const range = getTimeRange(mixedEvents);
+
+    expect(range.start).toBeDefined();
+    expect(range.end).toBeDefined();
+  });
+});
+
+describe('Pipeline determinism', () => {
+  it('should produce identical output when run twice', async () => {
+    const OUTPUT_FILE = 'data/out/events.geojson';
+    // run pipeline first time
+    execSync('npm run pipeline:sample', { stdio: 'inherit' });
+    const hash1 = await hashFile(OUTPUT_FILE);
+
+    // run pipeline second time
+    execSync('npm run pipeline:sample', { stdio: 'inherit' });
+    const hash2 = await hashFile(OUTPUT_FILE);
+
+    expect(hash1).toBe(hash2);
   });
 });

@@ -9,71 +9,29 @@
         "matched_flag": true,
         "lat": 55.22,
         "lon": 14.40999984741211,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 9,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5687",
-                "label": "Polish Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "555543112",
-                "label": "Zatoka Pucka - Baltic Sea Protected Area (HELCOM)"
-              },
-              {
-                "id": "555540807",
-                "label": "Zatoka Pucka - Special Protection Area (Birds Directive)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.40999984741211,
-          55.22
-        ]
+        "coordinates": [14.40999984741211, 55.22]
       }
     },
     {
@@ -106,10 +64,7 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.220000267028809,
-          55.15
-        ]
+        "coordinates": [14.220000267028809, 55.15]
       }
     },
     {
@@ -120,67 +75,29 @@
         "matched_flag": true,
         "lat": 55.19,
         "lon": 14.239999771118164,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5674",
-                "label": "Danish Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "555790698",
-                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.239999771118164,
-          55.19
-        ]
+        "coordinates": [14.239999771118164, 55.19]
       }
     },
     {
@@ -191,71 +108,29 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.109999656677246,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 2,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5690",
-                "label": "Russian Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "95395",
-                "label": "Berezovye Islands, Gulf of Finland - Wetland of International Importance (Ramsar Site)"
-              },
-              {
-                "id": "555623678",
-                "label": "Berezovye Islands - Baltic Sea Protected Area (HELCOM)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "ICES",
-                "label": "ICES"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.109999656677246,
-          55.16
-        ]
+        "coordinates": [14.109999656677246, 55.16]
       }
     },
     {
@@ -288,10 +163,7 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.210000038146973,
-          55.2
-        ]
+        "coordinates": [14.210000038146973, 55.2]
       }
     },
     {
@@ -302,18 +174,13 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.170000076293945,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 1,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5669",
-                "label": "German Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -323,21 +190,13 @@
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "EIFAAC",
-                "label": "EIFAAC"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.170000076293945,
-          55.16
-        ]
+        "coordinates": [14.170000076293945, 55.16]
       }
     },
     {
@@ -364,15 +223,48 @@
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": []
+            "enrichments": [
+              {
+                "id": "555790698",
+                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
+              },
+              {
+                "id": "555543143",
+                "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
+              },
+              {
+                "id": "555522525",
+                "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
             "enrichments": [
               {
-                "id": "EIFAAC",
-                "label": "EIFAAC"
+                "id": "NASCO",
+                "label": "NASCO"
+              },
+              {
+                "id": "ACAP",
+                "label": "ACAP"
+              },
+              {
+                "id": "NAMMCO",
+                "label": "NAMMCO"
+              },
+              {
+                "id": "ICCAT",
+                "label": "ICCAT"
+              },
+              {
+                "id": "IWC",
+                "label": "IWC"
+              },
+              {
+                "id": "ICES",
+                "label": "ICES"
               }
             ]
           }
@@ -380,10 +272,7 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.680000305175781,
-          55.16
-        ]
+        "coordinates": [14.680000305175781, 55.16]
       }
     },
     {
@@ -394,71 +283,29 @@
         "matched_flag": true,
         "lat": 55.15,
         "lon": 14.300000190734863,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 1,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5690",
-                "label": "Russian Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "555623678",
-                "label": "Berezovye Islands - Baltic Sea Protected Area (HELCOM)"
-              },
-              {
-                "id": "95395",
-                "label": "Berezovye Islands, Gulf of Finland - Wetland of International Importance (Ramsar Site)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.300000190734863,
-          55.15
-        ]
+        "coordinates": [14.300000190734863, 55.15]
       }
     },
     {
@@ -469,51 +316,29 @@
         "matched_flag": true,
         "lat": 55.09,
         "lon": 14.09000015258789,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5676",
-                "label": "Finnish Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "181152",
-                "label": "STOR-RAMSJÖN LUONNONSUOJELUALUE - Yksityinen luonnonsuojelualue"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "EIFAAC",
-                "label": "EIFAAC"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.09000015258789,
-          55.09
-        ]
+        "coordinates": [14.09000015258789, 55.09]
       }
     },
     {
@@ -524,18 +349,13 @@
         "matched_flag": true,
         "lat": 55.21,
         "lon": 14.40999984741211,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5669",
-                "label": "German Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -545,41 +365,13 @@
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              },
-              {
-                "id": "NEAFC",
-                "label": "NEAFC"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.40999984741211,
-          55.21
-        ]
+        "coordinates": [14.40999984741211, 55.21]
       }
     },
     {
@@ -590,18 +382,13 @@
         "matched_flag": true,
         "lat": 55.24,
         "lon": 14.329999923706055,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5687",
-                "label": "Polish Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -611,21 +398,13 @@
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "EIFAAC",
-                "label": "EIFAAC"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.329999923706055,
-          55.24
-        ]
+        "coordinates": [14.329999923706055, 55.24]
       }
     },
     {
@@ -636,18 +415,13 @@
         "matched_flag": true,
         "lat": 55.23,
         "lon": 14.289999961853027,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5690",
-                "label": "Russian Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -663,10 +437,7 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.289999961853027,
-          55.23
-        ]
+        "coordinates": [14.289999961853027, 55.23]
       }
     },
     {
@@ -677,59 +448,29 @@
         "matched_flag": true,
         "lat": 55.23,
         "lon": 14.1899995803833,
-        "confidence_fields": "4",
-        "distance_to_coast_km": 0,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5684",
-                "label": "Lithuanian Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "555536418",
-                "label": "Kuršių nerija - Site of Community Importance (Habitats Directive)"
-              },
-              {
-                "id": "555541917",
-                "label": "Kuršių nerijos nacionalinis parkas - Special Protection Area (Birds Directive)"
-              },
-              {
-                "id": "31552",
-                "label": "Kuršių nerijos nacionalinis parkas - Valstybinis parkas"
-              },
-              {
-                "id": "555543199",
-                "label": "Curonian Spit National Park - Baltic Sea Protected Area (HELCOM)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "EIFAAC",
-                "label": "EIFAAC"
-              }
-            ]
+            "enrichments": []
           }
         }
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          14.1899995803833,
-          55.23
-        ]
+        "coordinates": [14.1899995803833, 55.23]
       }
     }
   ]

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import path from 'path';
-import packageJson from './package.json'
+import packageJson from './package.json';
 
 export default defineConfig({
   build: {
@@ -24,6 +24,6 @@ export default defineConfig({
     target: 'esnext',
   },
   define: {
-    __APP_VERSION__: JSON.stringify(packageJson.version)
-  }
+    __APP_VERSION__: JSON.stringify(packageJson.version),
+  },
 });

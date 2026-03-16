@@ -485,7 +485,7 @@ export const api4wingsResponse_bad_coordinates = {
           geartype: 'CARGO',
           imo: '9287807',
           lastTransmissionDate: '2026-02-25T23:56:08Z',
-          lat: "55.22",
+          lat: '55.22',
           lon: 14.40999984741211,
           mmsi: '305773000',
           shipName: 'VOHBURG',
