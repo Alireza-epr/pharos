@@ -350,8 +350,8 @@ describe('4wings helpers', () => {
       configSet.add(sarConfig);
       configSet.add(eventConfig);
       const source = 'public-global-sar-presence:v3.0';
-      //@ts-ignore
       const entries = getEntriesFrom4wingsResponse(
+        //@ts-ignore
         api4wingsResponse_bad_coordinates,
         source,
       );

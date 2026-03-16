@@ -37,18 +37,39 @@
         "lon": 18.6349
       },
       "regions": {
-        "mpa": ["555543112", "555540807"],
-        "eez": ["5687"],
-        "rfmo": ["ACAP", "NASCO", "NAMMCO", "ICCAT", "IWC", "ICES"],
-        "fao": ["27.3.d.26", "27.3.d", "27.3", "27"],
-        "majorFao": ["27"],
+        "mpa": [
+          "555543112",
+          "555540807"
+        ],
+        "eez": [
+          "5687"
+        ],
+        "rfmo": [
+          "ACAP",
+          "NASCO",
+          "NAMMCO",
+          "ICCAT",
+          "IWC",
+          "ICES"
+        ],
+        "fao": [
+          "27.3.d.26",
+          "27.3.d",
+          "27.3",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        18.715260402748505, 54.51928394542875, 18.715260402748505,
+        18.715260402748505,
+        54.51928394542875,
+        18.715260402748505,
         54.51928394542875
       ],
       "distances": {
@@ -105,7 +126,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -113,11 +134,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -211,11 +247,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.40999984741211, 55.22]
+      "coordinates": [
+        14.40999984741211,
+        55.22
+      ]
     },
     "rejected": false
   },
@@ -249,7 +292,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -257,11 +300,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -320,7 +378,10 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.220000267028809, 55.15]
+      "coordinates": [
+        14.220000267028809,
+        55.15
+      ]
     },
     "rejected": false
   },
@@ -362,18 +423,40 @@
         "lon": 14.6589
       },
       "regions": {
-        "mpa": ["555790698"],
-        "eez": ["5674"],
-        "rfmo": ["NASCO", "ACAP", "ICCAT", "ICES", "NAMMCO", "IWC"],
-        "fao": ["27", "27.3.d.24", "27.3.d", "27.3"],
-        "majorFao": ["27"],
-        "eez12Nm": ["5674"],
+        "mpa": [
+          "555790698"
+        ],
+        "eez": [
+          "5674"
+        ],
+        "rfmo": [
+          "NASCO",
+          "ACAP",
+          "ICCAT",
+          "ICES",
+          "NAMMCO",
+          "IWC"
+        ],
+        "fao": [
+          "27",
+          "27.3.d.24",
+          "27.3.d",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5674"
+        ],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        14.691578817044343, 55.09914431736455, 14.691578817044343,
+        14.691578817044343,
+        55.09914431736455,
+        14.691578817044343,
         55.09914431736455
       ],
       "distances": {
@@ -430,7 +513,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -438,11 +521,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -532,11 +630,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.239999771118164, 55.19]
+      "coordinates": [
+        14.239999771118164,
+        55.19
+      ]
     },
     "rejected": false
   },
@@ -578,18 +683,41 @@
         "lon": 28.5972
       },
       "regions": {
-        "mpa": ["95395", "555623678"],
-        "eez": ["5690"],
-        "rfmo": ["ICES", "ICCAT", "NASCO", "ACAP", "NAMMCO", "IWC"],
-        "fao": ["27.3", "27.3.d.32", "27", "27.3.d"],
-        "majorFao": ["27"],
-        "eez12Nm": ["5690"],
+        "mpa": [
+          "95395",
+          "555623678"
+        ],
+        "eez": [
+          "5690"
+        ],
+        "rfmo": [
+          "ICES",
+          "ICCAT",
+          "NASCO",
+          "ACAP",
+          "NAMMCO",
+          "IWC"
+        ],
+        "fao": [
+          "27.3",
+          "27.3.d.32",
+          "27",
+          "27.3.d"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        28.748639395345986, 60.304309641312, 28.69579646922648,
+        28.748639395345986,
+        60.304309641312,
+        28.69579646922648,
         60.336221035057235
       ],
       "distances": {
@@ -646,7 +774,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -654,11 +782,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -752,11 +895,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.109999656677246, 55.16]
+      "coordinates": [
+        14.109999656677246,
+        55.16
+      ]
     },
     "rejected": false
   },
@@ -790,7 +940,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -798,11 +948,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -843,11 +1008,16 @@
     "scoring": {
       "triage_score": 1,
       "uncertainty_score": 0.2,
-      "reason_codes": ["unmatched_detection"]
+      "reason_codes": [
+        "unmatched_detection"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.210000038146973, 55.2]
+      "coordinates": [
+        14.210000038146973,
+        55.2
+      ]
     },
     "rejected": false
   },
@@ -890,17 +1060,30 @@
       },
       "regions": {
         "mpa": [],
-        "eez": ["5669"],
-        "rfmo": ["EIFAAC"],
-        "fao": ["27.3.b, c", "27.3.c.22", "27.3", "27"],
-        "majorFao": ["27"],
+        "eez": [
+          "5669"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3.b, c",
+          "27.3.c.22",
+          "27.3",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        10.203717401203358, 54.434394745186026, 10.092357697559303,
+        10.203717401203358,
+        54.434394745186026,
+        10.092357697559303,
         54.37102174314846
       ],
       "distances": {
@@ -957,7 +1140,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -965,11 +1148,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -1034,11 +1232,17 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.170000076293945, 55.16]
+      "coordinates": [
+        14.170000076293945,
+        55.16
+      ]
     },
     "rejected": false
   },
@@ -1081,17 +1285,30 @@
       },
       "regions": {
         "mpa": [],
-        "eez": ["5674"],
-        "rfmo": ["EIFAAC"],
-        "fao": ["27.3.d.25", "27.3", "27.3.d", "27"],
-        "majorFao": ["27"],
+        "eez": [
+          "5674"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3.d.25",
+          "27.3",
+          "27.3.d",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        14.755144222274847, 55.278125438200284, 14.702870176962138,
+        14.755144222274847,
+        55.278125438200284,
+        14.702870176962138,
         55.18546346989264
       ],
       "distances": {
@@ -1148,7 +1365,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1156,11 +1373,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -1225,11 +1457,17 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.680000305175781, 55.16]
+      "coordinates": [
+        14.680000305175781,
+        55.16
+      ]
     },
     "rejected": false
   },
@@ -1271,18 +1509,41 @@
         "lon": 28.6144
       },
       "regions": {
-        "mpa": ["555623678", "95395"],
-        "eez": ["5690"],
-        "rfmo": ["NASCO", "ICES", "ICCAT", "NAMMCO", "IWC", "ACAP"],
-        "fao": ["27.3.d", "27.3.d.32", "27", "27.3"],
-        "majorFao": ["27"],
-        "eez12Nm": ["5690"],
+        "mpa": [
+          "555623678",
+          "95395"
+        ],
+        "eez": [
+          "5690"
+        ],
+        "rfmo": [
+          "NASCO",
+          "ICES",
+          "ICCAT",
+          "NAMMCO",
+          "IWC",
+          "ACAP"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3.d.32",
+          "27",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        28.73177246689428, 60.31790002243583, 28.700916812118116,
+        28.73177246689428,
+        60.31790002243583,
+        28.700916812118116,
         60.33473885975645
       ],
       "distances": {
@@ -1339,7 +1600,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1347,11 +1608,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -1445,11 +1721,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.300000190734863, 55.15]
+      "coordinates": [
+        14.300000190734863,
+        55.15
+      ]
     },
     "rejected": false
   },
@@ -1491,18 +1774,34 @@
         "lon": 23.9759
       },
       "regions": {
-        "mpa": ["181152"],
-        "eez": ["5676"],
-        "rfmo": ["EIFAAC", "ICCAT"],
-        "fao": ["27.3.d", "27.3", "27", "27.3.d.32"],
-        "majorFao": ["27"],
+        "mpa": [
+          "181152"
+        ],
+        "eez": [
+          "5676"
+        ],
+        "rfmo": [
+          "EIFAAC",
+          "ICCAT"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3",
+          "27",
+          "27.3.d.32"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        23.984701500298364, 59.99742587153196, 23.984701500298364,
+        23.984701500298364,
+        59.99742587153196,
+        23.984701500298364,
         59.99742587153196
       ],
       "distances": {
@@ -1559,7 +1858,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1567,11 +1866,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -1645,11 +1959,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.09000015258789, 55.09]
+      "coordinates": [
+        14.09000015258789,
+        55.09
+      ]
     },
     "rejected": false
   },
@@ -1692,17 +2013,34 @@
       },
       "regions": {
         "mpa": [],
-        "eez": ["5669"],
-        "rfmo": ["NASCO", "IWC", "NEAFC", "ACAP", "ICES", "NAMMCO"],
-        "fao": ["27", "27.4.b", "27.4"],
-        "majorFao": ["27"],
+        "eez": [
+          "5669"
+        ],
+        "rfmo": [
+          "NASCO",
+          "IWC",
+          "NEAFC",
+          "ACAP",
+          "ICES",
+          "NAMMCO"
+        ],
+        "fao": [
+          "27",
+          "27.4.b",
+          "27.4"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        8.895224223196754, 53.82614491635673, 9.19906796571679,
+        8.895224223196754,
+        53.82614491635673,
+        9.19906796571679,
         53.91569546422484
       ],
       "distances": {
@@ -1759,7 +2097,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1767,11 +2105,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -1856,11 +2209,17 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.40999984741211, 55.21]
+      "coordinates": [
+        14.40999984741211,
+        55.21
+      ]
     },
     "rejected": false
   },
@@ -1903,17 +2262,30 @@
       },
       "regions": {
         "mpa": [],
-        "eez": ["5687"],
-        "rfmo": ["EIFAAC"],
-        "fao": ["27.3", "27.3.d", "27", "27.3.d.24"],
-        "majorFao": ["27"],
+        "eez": [
+          "5687"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3",
+          "27.3.d",
+          "27",
+          "27.3.d.24"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        14.620649411224253, 53.49520798038211, 14.559931954334761,
+        14.620649411224253,
+        53.49520798038211,
+        14.559931954334761,
         53.57355399075061
       ],
       "distances": {
@@ -1970,7 +2342,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1978,11 +2350,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -2047,11 +2434,17 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.329999923706055, 55.24]
+      "coordinates": [
+        14.329999923706055,
+        55.24
+      ]
     },
     "rejected": false
   },
@@ -2094,17 +2487,30 @@
       },
       "regions": {
         "mpa": [],
-        "eez": ["5690"],
+        "eez": [
+          "5690"
+        ],
         "rfmo": [],
-        "fao": ["27", "27.3.d.32", "27.3", "27.3.d"],
-        "majorFao": ["27"],
-        "eez12Nm": ["5690"],
+        "fao": [
+          "27",
+          "27.3.d.32",
+          "27.3",
+          "27.3.d"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5690"
+        ],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        28.426394647183148, 59.70586350203281, 28.426394647183148,
+        28.426394647183148,
+        59.70586350203281,
+        28.426394647183148,
         59.70586350203281
       ],
       "distances": {
@@ -2161,7 +2567,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2169,11 +2575,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -2233,11 +2654,17 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.289999961853027, 55.23]
+      "coordinates": [
+        14.289999961853027,
+        55.23
+      ]
     },
     "rejected": false
   },
@@ -2279,18 +2706,36 @@
         "lon": 21.0984
       },
       "regions": {
-        "mpa": ["555536418", "555541917", "31552", "555543199"],
-        "eez": ["5684"],
-        "rfmo": ["EIFAAC"],
-        "fao": ["27.3.d", "27.3.d.26", "27", "27.3"],
-        "majorFao": ["27"],
+        "mpa": [
+          "555536418",
+          "555541917",
+          "31552",
+          "555543199"
+        ],
+        "eez": [
+          "5684"
+        ],
+        "rfmo": [
+          "EIFAAC"
+        ],
+        "fao": [
+          "27.3.d",
+          "27.3.d.26",
+          "27",
+          "27.3"
+        ],
+        "majorFao": [
+          "27"
+        ],
         "eez12Nm": [],
         "highSeas": [],
         "mpaNoTakePartial": [],
         "mpaNoTake": []
       },
       "boundingBox": [
-        21.093338185790476, 55.72621493931779, 21.093338185790476,
+        21.093338185790476,
+        55.72621493931779,
+        21.093338185790476,
         55.72621493931779
       ],
       "distances": {
@@ -2347,7 +2792,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "4d31683c1268fe8129f72a2596ca8204f0e2aa58",
+      "code_version": "f939db1f538ecc4435b15513c3c1b518b5c7fa56",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2355,11 +2800,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [14.11, 55.26],
-                  [14.68, 55.27],
-                  [14.69, 55.11],
-                  [14.09, 55.08],
-                  [14.11, 55.26]
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -2441,11 +2901,18 @@
     "scoring": {
       "triage_score": "4",
       "uncertainty_score": 0.5,
-      "reason_codes": ["near_coast", "inside_eez", "inside_mpa"]
+      "reason_codes": [
+        "near_coast",
+        "inside_eez",
+        "inside_mpa"
+      ]
     },
     "geom": {
       "type": "Point",
-      "coordinates": [14.1899995803833, 55.23]
+      "coordinates": [
+        14.1899995803833,
+        55.23
+      ]
     },
     "rejected": false
   }

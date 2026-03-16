@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import { EGeoCoordinate, ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { isValidCoordinate } from '../pipeline/normalize/validation';
@@ -101,21 +100,20 @@ export const hashString = async (a_String: string) => {
   }
 };
 
-export const hashFile = async (a_Path: string) => {
-  const content = readFileSync(a_Path);
+export const hashFile = async (a_Path: string | File) => {
   if (typeof window !== 'undefined' && window.crypto?.subtle) {
-    // Browser version
-    const str =
-      typeof content === 'string' ? content : content.toString('utf-8');
-    const encoder = new TextEncoder();
-    const data = encoder.encode(str); // convert string to Uint8Array
-    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+    // Browser: assume 'a_Path' is a File object
+    const file = a_Path as File;
+    const arrayBuffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
     return Array.from(new Uint8Array(hashBuffer))
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
   } else {
-    // Node.js version
+    // Node.js
+    const fs = await import('fs'); // dynamic import
     const { createHash } = await import('crypto');
+    const content = fs.readFileSync(a_Path as string);
     return createHash('sha256').update(content).digest('hex');
   }
 };
