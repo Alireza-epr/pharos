@@ -1,0 +1,25 @@
+{
+  "row_count": 13,
+  "missingness": {
+    "event_id": "0.00%",
+    "timestamp_utc": "0.00%",
+    "lat": "0.00%",
+    "lon": "0.00%",
+    "confidence_fields": "92.31%",
+    "distance_to_coast_km": "92.31%"
+  },
+  "geo_sanity": {
+    "latitude": {
+      "min": 55.09,
+      "max": 55.24
+    },
+    "longitude": {
+      "min": 14.09000015258789,
+      "max": 14.680000305175781
+    }
+  },
+  "time_range": {
+    "start": "2025-12-04T16:53:26.000Z",
+    "end": "2025-12-06T05:25:03.000Z"
+  }
+}

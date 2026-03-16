@@ -1,8 +1,16 @@
 import pilot from '../config/pilot.json';
 import {
   createEventSchema,
-  isMatchedCase,
 } from './normalize/schema';
+import {
+  isMatchedCase
+} from './normalize/validation'
+import {
+  getEventMissingness,
+  getGeoMax,
+  getGeoMin,
+  getTimeRange
+} from '../utils/generalUtils'
 import { detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import parquet from 'parquetjs';
@@ -15,7 +23,7 @@ import {
   IEventPostURLParams,
   IPortVisitEvent,
 } from '../types/gfwTypes';
-import { ELogLevel } from '../enum/generlaEnum';
+import { EGeoCoordinate, ELogLevel } from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
@@ -208,7 +216,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}events.geojson`,
-    JSON.stringify(geojson, null, 2), 
+    JSON.stringify(geojson, null, 2),
   );
 
   //event.parquet
@@ -241,7 +249,7 @@ const main = async () => {
   };
   fs.writeFileSync(
     `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2), 
+    JSON.stringify(run_metadata, null, 2),
   );
 
   //raw_metadata.json
@@ -251,7 +259,7 @@ const main = async () => {
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
-    JSON.stringify(raw_metadata, null, 2), 
+    JSON.stringify(raw_metadata, null, 2),
   );
 
   //raw_metadata.parquet
@@ -270,6 +278,34 @@ const main = async () => {
     `${output}canonicalSchema.json`,
     JSON.stringify(sortedEvents, null, 2),
   );
+
+  //data_quality.json
+  const missingnesses = getEventMissingness(geojson.features)
+  const latitudeMin = getGeoMin(EGeoCoordinate.latitude, geojson.features)
+  const longitudeMin = getGeoMin(EGeoCoordinate.longitude, geojson.features)
+  const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features)
+  const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features)
+  const time_range = getTimeRange(geojson.features)
+  const data_quality = {
+    row_count: geojson.features.length,
+    missingness: missingnesses,
+    geo_sanity: {
+      latitude: {
+        min: latitudeMin,
+        max: latitudeMax
+      },
+      longitude: {
+        min: longitudeMin,
+        max: longitudeMax
+      }
+    },
+    time_range: time_range
+  }
+  fs.writeFileSync(
+    `${output}data_quality.json`,
+    JSON.stringify(data_quality, null, 2),
+  );
+
 
   log('pilot finished.', '', ELogLevel.message, '3');
 };

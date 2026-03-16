@@ -1,19 +1,32 @@
 jest.mock('parquetjs', () => ({}));
-import { EReasonCodes, ERejectedEventSchemaReasons } from '../src/enum/generlaEnum';
+import { EGeoCoordinate, EReasonCodes, ERejectedEventSchemaReasons } from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
 import {
+  createEventSchema,
+} from '../src/pipeline/normalize/schema';
+import {
   isMatchedCase,
+  isValidCoordinate,
+} from '../src/pipeline/normalize/validation'
+import {
   generateScoring,
   generateEventId,
   generateRunMetadata,
   generateSources,
   generateConfidence,
   generateGeom,
-  isValidCoordinate,
-  createEventSchema,
-} from '../src/pipeline/normalize/schema';
+} from '../src/pipeline/normalize/generation'
 import { IConfigJSON, IRejectedEventSchema } from '../src/types/eventTypes';
-import { deepSortObject, getEntriesFrom4wingsResponse, getSourceFrom4wingsResponse, hashString } from '../src/utils/generalUtils';
+import {
+  deepSortObject,
+  getEntriesFrom4wingsResponse,
+  getSourceFrom4wingsResponse,
+  hashString,
+  getEventMissingness,
+  getGeoMin,
+  getGeoMax,
+  getTimeRange
+} from '../src/utils/generalUtils';
 import {
   api4wingsResponse,
   api4wingsResponse_bad_coordinates,
@@ -26,6 +39,8 @@ import {
   sarConfig,
   sarConfig_diff_sorted,
 } from './fixtures/gfwRequest';
+import events from './fixtures/events.json'
+import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
 
 describe('4wings helpers', () => {
 
@@ -343,12 +358,10 @@ describe('4wings helpers', () => {
       //@ts-ignore
       const entries = getEntriesFrom4wingsResponse(api4wingsResponse_bad_coordinates, source);
 
-      if(!entries) return 
+      if (!entries) return
 
-      for(const entry of entries){
+      for (const entry of entries) {
         const eventSchema = await createEventSchema(configSet, entry)
-        console.log("eventSchema")
-        console.log(eventSchema)
         expect(eventSchema.rejected).toBe(true);
         expect((eventSchema as IRejectedEventSchema).reason).toEqual(ERejectedEventSchemaReasons.notValidCoordinates);
       }
@@ -357,3 +370,124 @@ describe('4wings helpers', () => {
 
   });
 });
+
+describe('Event statistics utilities', () => {
+
+  const validEvents = events.features as any
+
+  const invalidEvents = [
+    {
+      type: "Feature",
+      properties: {
+        event_id: null,
+        timestamp_utc: null,
+        lat: null,
+        lon: null,
+        confidence_fields: null,
+        distance_to_coast_km: null
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [null, null]
+      }
+    },
+    {
+      type: "Feature",
+      properties: {
+        event_id: "bad1",
+        timestamp_utc: "invalid-date",
+        lat: 200,
+        lon: -500,
+        confidence_fields: null,
+        distance_to_coast_km: null
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-500, 200]
+      }
+    }
+  ] as any
+
+  const mixedEvents = [...validEvents, ...invalidEvents]
+
+  test('getEventMissingness calculates missing rates', () => {
+
+    const result = getEventMissingness(mixedEvents)
+
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.event_id)
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.timestamp_utc)
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.lat)
+    expect(result).toHaveProperty(EGeoJSONEventMissingness.lon)
+
+    expect(typeof result[EGeoJSONEventMissingness.event_id]).toBe("string")
+  })
+
+
+  test('getGeoMin returns correct minimum latitude', () => {
+
+    const minLat = getGeoMin(EGeoCoordinate.latitude, mixedEvents)
+
+    expect(typeof minLat).toBe("number")
+    expect(minLat).toBeLessThanOrEqual(
+      getGeoMin(EGeoCoordinate.latitude, validEvents)
+    )
+  })
+
+
+  test('getGeoMax returns correct maximum latitude', () => {
+
+    const maxLat = getGeoMax(EGeoCoordinate.latitude, mixedEvents)
+
+    expect(typeof maxLat).toBe("number")
+    expect(maxLat).toBeGreaterThanOrEqual(
+      getGeoMax(EGeoCoordinate.latitude, validEvents)
+    )
+  })
+
+
+  test('getGeoMin returns correct minimum longitude', () => {
+
+    const minLon = getGeoMin(EGeoCoordinate.longitude, mixedEvents)
+
+    expect(typeof minLon).toBe("number")
+    expect(minLon).toBeLessThanOrEqual(
+      getGeoMin(EGeoCoordinate.longitude, validEvents)
+    )
+  })
+
+
+  test('getGeoMax returns correct maximum longitude', () => {
+
+    const maxLon = getGeoMax(EGeoCoordinate.longitude, mixedEvents)
+
+    expect(typeof maxLon).toBe("number")
+    expect(maxLon).toBeGreaterThanOrEqual(
+      getGeoMax(EGeoCoordinate.longitude, validEvents)
+    )
+  })
+
+
+  test('getTimeRange returns correct start and end timestamps', () => {
+
+    const range = getTimeRange(validEvents)
+
+    expect(range).toHaveProperty("start")
+    expect(range).toHaveProperty("end")
+
+    const start = new Date(range.start).getTime()
+    const end = new Date(range.end).getTime()
+
+    expect(start).toBeLessThanOrEqual(end)
+  })
+
+
+  test('getTimeRange handles invalid timestamps safely', () => {
+
+    const range = getTimeRange(mixedEvents)
+
+    expect(range.start).toBeDefined()
+    expect(range.end).toBeDefined()
+
+  })
+
+})

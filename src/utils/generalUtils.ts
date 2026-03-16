@@ -1,5 +1,7 @@
-import { ELogLevel, EURLParams } from '../enum/generlaEnum';
+import { EGeoCoordinate, ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
+import { isValidCoordinate } from '../pipeline/normalize/validation';
+import { EGeoJSONEventMissingness, IGeoJSONEventFeature } from '../types/generalTypes';
 import { I4wingsAPIResponse, T4wingsSource, TEventSource } from '../types/gfwTypes';
 
 export const formatTimestamp = (a_Date?: Date): string => {
@@ -131,3 +133,106 @@ export const getEntriesFrom4wingsResponse = (
 
   return undefined;
 };
+
+export const getEventMissingness = (
+    a_Features: IGeoJSONEventFeature[]
+): Record<EGeoJSONEventMissingness, string> => {
+
+    const total = a_Features.length;
+    const counts: Record<EGeoJSONEventMissingness, number> =
+        Object.fromEntries(
+            Object.values(EGeoJSONEventMissingness).map(e => [e, 0])
+        ) as Record<EGeoJSONEventMissingness, number>;
+
+    for (const feature of a_Features) {
+        for (const key of Object.values(EGeoJSONEventMissingness)) {
+
+            const value = feature.properties[key];
+
+            if (value === null || value === undefined) {
+                counts[key]++;
+            }
+        }
+    }
+
+    const missingness: Record<EGeoJSONEventMissingness, string> =
+        Object.fromEntries(
+            Object.entries(counts).map(([key, count]) => [
+                key,
+                `${((count / total) * 100).toFixed(2)}%`
+            ])
+        ) as Record<EGeoJSONEventMissingness, string>;
+
+    return missingness;
+};
+
+export const getGeoMin = (
+  a_GeoCoordinate: EGeoCoordinate,
+  a_Features: IGeoJSONEventFeature[]
+): number => {
+
+  let min = Infinity;
+
+  for (const feature of a_Features) {
+    if(!isValidCoordinate(feature.properties.lat, feature.properties.lon )) continue
+
+    const value =
+      a_GeoCoordinate === EGeoCoordinate.latitude
+        ? feature.properties.lat
+        : feature.properties.lon;
+
+    if (value < min) {
+      min = value;
+    }
+  }
+
+  return min;
+};
+
+export const getGeoMax = (
+  a_GeoCoordinate: EGeoCoordinate,
+  a_Features: IGeoJSONEventFeature[]
+): number => {
+
+  let max = -Infinity;
+
+  for (const feature of a_Features) {
+    if(!isValidCoordinate(feature.properties.lat, feature.properties.lon )) continue
+    const value =
+      a_GeoCoordinate === EGeoCoordinate.latitude
+        ? feature.properties.lat
+        : feature.properties.lon;
+
+    if (value > max) {
+      max = value;
+    }
+  }
+
+  return max;
+};
+
+export const getTimeRange = (a_Features: IGeoJSONEventFeature[]) => {
+    
+  let min = Infinity
+  let max = -Infinity
+
+  for(const feature of a_Features){
+
+    const t = Date.parse(feature.properties.timestamp_utc)
+
+    if(t < min){
+      min = t
+    }
+
+    if(t > max){
+      max = t
+    }
+    
+  }
+
+  return {
+    start: new Date(min).toISOString(),
+    end: new Date(max).toISOString()
+  }
+
+}
