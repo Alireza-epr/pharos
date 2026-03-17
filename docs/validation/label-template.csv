@@ -1,1 +1,1 @@
-event_id;timestamp_utc;lon;lat;matched_flag;source;triage_score;uncertainty;label;failure_mode;notes
+event_id;timestamp_utc;lon;lat;matched_flag;source;triage_score;uncertainty_score;label;failure_mode;notes
