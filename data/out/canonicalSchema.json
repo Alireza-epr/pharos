@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -142,9 +142,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
-      "reason_codes": []
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_confidence_proxy"
+      ]
     },
     "geom": {
       "type": "Point",
@@ -275,7 +277,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -456,7 +458,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -569,9 +571,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
-      "reason_codes": []
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_confidence_proxy"
+      ]
     },
     "geom": {
       "type": "Point",
@@ -612,7 +616,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -725,9 +729,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
-      "reason_codes": []
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_confidence_proxy"
+      ]
     },
     "geom": {
       "type": "Point",
@@ -768,7 +774,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -881,9 +887,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
-      "reason_codes": []
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_confidence_proxy"
+      ]
     },
     "geom": {
       "type": "Point",
@@ -924,7 +932,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1037,9 +1045,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
-      "reason_codes": []
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_confidence_proxy"
+      ]
     },
     "geom": {
       "type": "Point",
@@ -1166,7 +1176,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1330,7 +1340,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1397,10 +1407,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
+      "triage_score": null,
+      "uncertainty_score": 0.5,
       "reason_codes": [
-        "unmatched_detection"
+        "unmatched_detection",
+        "missing_confidence_proxy"
       ]
     },
     "geom": {
@@ -1527,7 +1538,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1691,7 +1702,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "6070b8cbbdb78eaf5810f2ec8dd4e9a6a8cd078d",
+      "code_version": "e14af2f6e92f212661f779f04d7a5b0c25a8edcf",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1758,10 +1769,11 @@
     },
     "distance_to_coast_km": null,
     "scoring": {
-      "triage_score": 1,
-      "uncertainty_score": 0.2,
+      "triage_score": null,
+      "uncertainty_score": 0.5,
       "reason_codes": [
-        "unmatched_detection"
+        "unmatched_detection",
+        "missing_confidence_proxy"
       ]
     },
     "geom": {

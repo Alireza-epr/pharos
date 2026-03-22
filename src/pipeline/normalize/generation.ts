@@ -56,10 +56,12 @@ export const generateScoring = (
   a_Matched: boolean,
   a_Event: TGlobalEvent | undefined,
 ): IScoring => {
-  const triage_score =
-    a_Event && a_Event.type === EEventType.port_visit
-      ? a_Event.port_visit.confidence
-      : 1;
+  const confidence_proxy = 
+    a_Event && a_Event.type === EEventType.port_visit 
+    ? a_Event.port_visit.confidence
+    : null
+
+  const triage_score = confidence_proxy
 
   let reason_codes: EReasonCodes[] = [];
   let uncertainty_score = 0.2;
@@ -77,12 +79,10 @@ export const generateScoring = (
     reason_codes.push(EReasonCodes.near_coast);
   }
 
-  const low_detection_confidence =
-    a_Event && a_Event.type === EEventType.port_visit
-      ? a_Event.port_visit.confidence <=
-        config.threshold.low_detection_confidence_threshold
-      : false;
-  if (low_detection_confidence) {
+  if(confidence_proxy === null){
+    uncertainty_score += 0.3;
+    reason_codes.push(EReasonCodes.missing_confidence_proxy);
+  } else if(confidence_proxy <= config.threshold.low_detection_confidence_threshold) {
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodes.low_detection_confidence);
   }

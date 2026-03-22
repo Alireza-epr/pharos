@@ -49,12 +49,12 @@ Fallback: If detection confidence is missing, use a default base score (e.g., 1)
 ### Base Score
 
 - Use `detection_confidence` if available (2, 3, 4).
-- Default base score if confidence is missing: 1 (meaning "not applicable")
+- If confidence is missing: null (meaning "not applicable")
 
 ### Final Triage
 
 ```text
-triage_score = detection_confidence if not null, else 1
+triage_score = detection_confidence
 ```
 
 ---
@@ -74,6 +74,8 @@ It does not measure detection correctness or intent.
 
 - near_coast = true then modifier = +0.3
 - low_detection_confidence = true then modifier = +0.3
+  or 
+  missing_confidence_proxy = true then modifier = +0.3
 
 A modifier is applied only if its required input field is present.
 
@@ -99,8 +101,8 @@ Reason codes **do not represent claims** about legality, intent, or detection co
 - near_coast  
   Detection is close to coastline; coastal clutter risk exists.
 
-- low_detection_confidence  
-  Detection confidence is low according to source metadata.
+- low_detection_confidence or missing_confidence_proxy
+  Detection confidence is low or undefined according to source metadata.
 
 - inside_eez  
   Detection is inside an Exclusive Economic Zone (context only).
@@ -109,7 +111,7 @@ Reason codes **do not represent claims** about legality, intent, or detection co
   Detection is inside a Marine Protected Area (context only).
 
 - unmatched_detection
-  Detection is AIS-Unmatched.
+  Detection is AIS-Unmatched according to source metadata.
 
 ---
 
@@ -117,7 +119,7 @@ Reason codes **do not represent claims** about legality, intent, or detection co
 
 Each event may include:
 
-- triage_score (1 – 4, higher = more important)
+- triage_score (null or 2 - 4, higher = more important)
 - uncertainty_score (0.2 - 0.8, higher = more ambiguous)
 - reason_codes (list of applied reasons)
 

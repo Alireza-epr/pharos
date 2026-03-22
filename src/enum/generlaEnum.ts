@@ -11,6 +11,7 @@ export enum EURLParams {
 export enum EReasonCodes {
   near_coast = 'near_coast',
   low_detection_confidence = 'low_detection_confidence',
+  missing_confidence_proxy = 'missing_confidence_proxy',
   inside_eez = 'inside_eez',
   inside_mpa = 'inside_mpa',
   unmatched_detection = 'unmatched_detection',
