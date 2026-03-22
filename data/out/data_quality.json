@@ -1,25 +1,25 @@
 {
-  "row_count": 13,
+  "row_count": 10,
   "missingness": {
     "event_id": "0.00%",
     "timestamp_utc": "0.00%",
     "lat": "0.00%",
     "lon": "0.00%",
-    "confidence_fields": "15.38%",
-    "distance_to_coast_km": "15.38%"
+    "confidence_fields": "70.00%",
+    "distance_to_coast_km": "70.00%"
   },
   "geo_sanity": {
     "latitude": {
-      "min": 55.09,
-      "max": 55.24
+      "min": 29.89,
+      "max": 31.28
     },
     "longitude": {
-      "min": 14.09000015258789,
-      "max": 14.680000305175781
+      "min": 32.34000015258789,
+      "max": 32.54999923706055
     }
   },
   "time_range": {
-    "start": "2025-12-04T16:53:26.000Z",
-    "end": "2025-12-06T05:25:03.000Z"
+    "start": "2025-12-05T15:48:40.000Z",
+    "end": "2025-12-05T15:49:05.000Z"
   }
 }

@@ -82,6 +82,7 @@ const urlParams4wings = {
   'date-range': `${pilot.startDate},${pilot.endDate}`,
   format: pilot.format,
   'group-by': pilot['group-by'],
+  'filters[0]': pilot.filters
 } as any;
 
 const geometry = {
@@ -95,7 +96,7 @@ const startDate = `${pilot.startDate}`;
 const endDate = `${pilot.endDate}`;
 
 const main = async () => {
-  log('pilot starting...', '', ELogLevel.message, '3');
+  log('Pilot starting...', '', ELogLevel.message, '3');
   let events = [];
   const configuration = new Set<IConfigJSON>();
   const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
@@ -114,7 +115,12 @@ const main = async () => {
     key4wings,
   );
 
-  if (!entries4wings) return;
+  if (!entries4wings) {
+    log('Pilot finished with no entry.', '', ELogLevel.message, '3');
+    return
+  };
+
+  log(`Getting events for ${entries4wings.length} entries...`, '', ELogLevel.message, '3');
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -144,12 +150,12 @@ const main = async () => {
       };
 
       try {
-        /* const portVisitResp = await detectionPostGFW<
+        const portVisitResp = await detectionPostGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
-        const portVisitResp = await detectionGetGFW<
+        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
+        /* const portVisitResp = await detectionGetGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEventGet);
+        >(baseURLEvent, sourceEvent, urlParamsEventGet); */
 
         if (configuration) configuration.add(portVisitResp.metadata);
 
@@ -193,6 +199,8 @@ const main = async () => {
       }
     }
   }
+
+  log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
 
   const sortedEvents = (events as IEventSchema[]).sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
@@ -311,7 +319,7 @@ const main = async () => {
     JSON.stringify(data_quality, null, 2),
   );
 
-  log('pilot finished.', '', ELogLevel.message, '3');
+  log('Pilot finished.', '', ELogLevel.message, '3');
 };
 
 main().catch(console.error);
