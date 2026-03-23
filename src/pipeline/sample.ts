@@ -9,8 +9,6 @@ import {
 } from '../utils/generalUtils';
 import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
-import parquet from 'parquetjs';
-import { IGeometry } from '../types/geoJSONTypes';
 import { IConfigJSON, IEventSchema } from '../types/eventTypes';
 import {
   I4wingsAPIResponse,
@@ -20,7 +18,7 @@ import {
   IEventPostURLParams,
   IPortVisitEvent,
 } from '../types/gfwTypes';
-import { EGeoCoordinate, ELogLevel } from '../enum/generlaEnum';
+import { EGeoCoordinate, ELogLevel, EReasonCodes, EReasonCodesStatic } from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
@@ -29,43 +27,9 @@ import {
   log,
 } from '../utils/generalUtils';
 import { writeParquet } from '../utils/parquetUtils';
+import { parquetSchema, parquetSchema_raw_metadata } from '../types/parquetTypes';
 
-const parquetSchema = new parquet.ParquetSchema({
-  event_id: { type: 'UTF8' },
-  timestamp_utc: { type: 'UTF8' },
-  matched_flag: { type: 'BOOLEAN' },
-  lat: { type: 'DOUBLE' },
-  lon: { type: 'DOUBLE' },
-  confidence_fields: { type: 'UTF8', optional: true },
-  distance_to_coast_km: { type: 'DOUBLE', optional: true },
-  inside_eez: { type: 'UTF8', optional: true },
-});
 
-const parquetSchema_raw_metadata = new parquet.ParquetSchema({
-  callsign: { type: 'UTF8' },
-  dataset: { type: 'UTF8' },
-  date: { type: 'UTF8' },
-  detections: { type: 'INT64' },
-
-  entryTimestamp: { type: 'TIMESTAMP_MILLIS' },
-  exitTimestamp: { type: 'TIMESTAMP_MILLIS' },
-
-  firstTransmissionDate: { type: 'UTF8' },
-  flag: { type: 'UTF8' },
-  geartype: { type: 'UTF8' },
-  imo: { type: 'UTF8' },
-  lastTransmissionDate: { type: 'UTF8' },
-
-  lat: { type: 'DOUBLE' },
-  lon: { type: 'DOUBLE' },
-
-  mmsi: { type: 'UTF8' },
-  shipName: { type: 'UTF8' },
-  vesselId: { type: 'UTF8' },
-  vesselType: { type: 'UTF8' },
-
-  event_metadata: { type: 'UTF8', optional: true },
-});
 
 const source4wings = pilot.source as any;
 const dataset4wings = source4wings.split(':')[0] ?? '';
@@ -235,6 +199,26 @@ const main = async () => {
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
+
+    const reason_codes = event.scoring.reason_codes
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } = {
+      [EReasonCodesStatic.near_coast]: false,
+      [EReasonCodesStatic.low_detection_confidence]: false,
+      [EReasonCodesStatic.missing_confidence_proxy]: false,
+      [EReasonCodesStatic.inside_eez]: false,
+      [EReasonCodesStatic.inside_mpa]: false,
+      [EReasonCodesStatic.unmatched_to_public_ais]: false,
+      [EReasonCodesStatic.matched_to_public_ais]: false,
+      [EReasonCodesStatic.noisy_vessel]: false
+    };
+
+    if (reason_codes) {
+      for (const reason_code of reason_codes) {
+        edge_case_flags[reason_code] = true;
+      }
+    }
+
+  
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -244,6 +228,7 @@ const main = async () => {
       confidence_fields: event.confidence_fields ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
+      ...edge_case_flags
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
