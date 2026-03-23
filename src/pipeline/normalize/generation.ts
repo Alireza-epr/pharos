@@ -1,4 +1,4 @@
-import { EReasonCodes } from '../../enum/generlaEnum';
+import { EReasonCodes, EReasonCodesStatic } from '../../enum/generlaEnum';
 import { EEventType } from '../../enum/gfwEnum';
 import { IConfigJSON, IRunMetadata, IScoring } from '../../types/eventTypes';
 import { IGeometry } from '../../types/geoJSONTypes';
@@ -9,6 +9,7 @@ import {
   hashString,
 } from '../../utils/generalUtils';
 import config from '../../config/globalFishingWatch.json';
+import { isMatchedCase, isNoisyCase, missingRequiredFields } from './validation';
 
 export const generateSources = (a_Configuration: Set<IConfigJSON>) => {
   return Array.from(a_Configuration)
@@ -53,7 +54,7 @@ export const generateRunMetadata = async (
 };
 
 export const generateScoring = (
-  a_Matched: boolean,
+  a_4wingsEntry: I4wingsEntry,
   a_Event: TGlobalEvent | undefined,
 ): IScoring => {
   const confidence_proxy = 
@@ -66,8 +67,21 @@ export const generateScoring = (
   let reason_codes: EReasonCodes[] = [];
   let uncertainty_score = 0.2;
 
-  if (!a_Matched) {
-    reason_codes.push(EReasonCodes.unmatched_detection);
+  const missingFields = missingRequiredFields(a_4wingsEntry)
+  for(const field of missingFields){
+    reason_codes.push(`missing_required_field:${field}`);
+  }
+
+  const noisy = isNoisyCase(a_4wingsEntry)
+  if (noisy) {
+    reason_codes.push(EReasonCodesStatic.noisy_vessel);
+  }
+
+  const matched = isMatchedCase(a_4wingsEntry)
+  if (!matched) {
+    reason_codes.push(EReasonCodesStatic.unmatched_to_public_ais);
+  } else {
+    reason_codes.push(EReasonCodesStatic.matched_to_public_ais);
   }
 
   const near_coast = a_Event
@@ -76,25 +90,25 @@ export const generateScoring = (
     : false;
   if (near_coast) {
     uncertainty_score += 0.3;
-    reason_codes.push(EReasonCodes.near_coast);
+    reason_codes.push(EReasonCodesStatic.near_coast);
   }
 
   if(confidence_proxy === null){
     uncertainty_score += 0.3;
-    reason_codes.push(EReasonCodes.missing_confidence_proxy);
+    reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if(confidence_proxy <= config.threshold.low_detection_confidence_threshold) {
     uncertainty_score += 0.3;
-    reason_codes.push(EReasonCodes.low_detection_confidence);
+    reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
   const inside_eez = a_Event ? a_Event.regions.eez.length > 0 : false;
   if (inside_eez) {
-    reason_codes.push(EReasonCodes.inside_eez);
+    reason_codes.push(EReasonCodesStatic.inside_eez);
   }
 
   const inside_mpa = a_Event ? a_Event.regions.mpa.length > 0 : false;
   if (inside_mpa) {
-    reason_codes.push(EReasonCodes.inside_mpa);
+    reason_codes.push(EReasonCodesStatic.inside_mpa);
   }
 
   return {

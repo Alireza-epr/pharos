@@ -110,9 +110,21 @@ Reason codes **do not represent claims** about legality, intent, or detection co
 - inside_mpa  
   Detection is inside a Marine Protected Area (context only).
 
-- unmatched_detection
-  Detection is AIS-Unmatched according to source metadata.
+- unmatched_to_public_ais
+  Detection is AIS-unmatched according to source metadata.
 
+- matched_to_public_ais
+  Detection is AIS-matched according to the source metadata.
+
+- noisy_vessel
+  Detection is flagged as noisy according to the source metadata.
+  Reference: https://globalfishingwatch.org/our-apis/documentation#example-9-report-indonesia-filter-by-matched-detections-example-of-noisy-vessel
+
+- missing_required_field:<fieldname>
+  Indicates a missing required field.
+  Required fields: dataset, date, lat, lon, vesselId, mmsi, shipName, vesselType
+
+ 
 ---
 
 ## Output Fields

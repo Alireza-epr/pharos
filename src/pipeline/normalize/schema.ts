@@ -57,7 +57,7 @@ export const createEventSchema = async (
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
-  const scoring = generateScoring(matched_flag, a_EventEntry);
+  const scoring = generateScoring(a_4wingsEntry, a_EventEntry);
 
   let geom: IGeometry = generateGeom(a_4wingsEntry);
 
