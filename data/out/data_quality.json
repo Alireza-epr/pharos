@@ -1,12 +1,12 @@
 {
-  "row_count": 11,
+  "row_count": 13,
   "missingness": {
     "event_id": "0.00%",
     "timestamp_utc": "0.00%",
     "lat": "0.00%",
     "lon": "0.00%",
-    "confidence_fields": "90.91%",
-    "distance_to_coast_km": "90.91%"
+    "confidence_fields": "92.31%",
+    "distance_to_coast_km": "92.31%"
   },
   "geo_sanity": {
     "latitude": {
