@@ -83,13 +83,13 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 # `vessel` Subfields
 
 | Field    | Type   | Description                | Notes                 |
-| -------- | ------ | -------------------------- | --------------------- | ---------- |
+| -------- | ------ | -------------------------- | --------------------- | 
 | id       | string | Vessel identifier          | Same as `vesselId`    |
 | name     | string | Vessel name                |                       |
 | ssvid    | string | Vessel MMSI identifier     |                       |
 | flag     | string | Vessel flag country        |                       |
 | type     | string | Vessel type classification |                       |
-| nextPort | string | null                       | Next port destination | Often null |
+| nextPort | string | null                       | Next port destination | 
 
 ---
 

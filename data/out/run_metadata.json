@@ -1,7 +1,7 @@
 {
   "config": [
     {
-      "hash": "0af4052021f777402036378056255e397f5141b480149235ac9de699c1d250fe",
+      "hash": "07791bfbab17652c2bbd251cd8e93d91facb5dc02c0d401af311cc3f957089a4",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -38,7 +38,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -52,7 +52,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -80,9 +80,9 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
-              "2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf"
+              "de435d0f3-306c-2869-d119-fff03a975f8f"
             ]
           },
           "method": "POST",
@@ -95,7 +95,7 @@
       ]
     },
     {
-      "hash": "2bab7abff4917ab5e74c5032f2040cd7741e73a8a3eda927c360b1985cb97ce6",
+      "hash": "1c4158ae1c4a3b2c7779f7abcb7458ea15c103f6b33b0cda2f54afb93eb343c6",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -132,7 +132,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -146,7 +146,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -174,7 +174,149 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "59242eddd-d20a-05f3-f8c1-65aa83466888"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        }
+      ]
+    },
+    {
+      "hash": "27e148fd501a4d3151c7c9d0dae4478300cd7f659c7cda6aa7288c8bebde8b40",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
               "369fc1e02-2678-b669-af58-b2f3ae66a515"
             ]
@@ -189,7 +331,7 @@
       ]
     },
     {
-      "hash": "2f6e91dc1bdc2a25dc607ccfc263cedff96d548dbb71a6acd56d9f9caa6fd1ff",
+      "hash": "3027b6de80f3e47fc1722f258f502d4aeccbc9064884d37dbaff54f07bd48d74",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -226,7 +368,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -240,7 +382,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -268,9 +410,9 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
-              "ee20f2f54-4c41-ce6c-ce45-fa136fb6e2cc"
+              "3b60c55c1-15dd-0f53-dfd5-edb954370ccb"
             ]
           },
           "method": "POST",
@@ -283,7 +425,7 @@
       ]
     },
     {
-      "hash": "4c64f96f1e61b8ab687b4e5c8097ef38ca6239c6ae3b1786c4c08d6eaa0e2e6f",
+      "hash": "4288a37e9a577a4977971c40fa19dd60270c659b5c5ec349db84279c289b4059",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -320,55 +462,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-            "filters[0]": "",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        }
-      ]
-    },
-    {
-      "hash": "534f9af3c32775fa4780e819e7c6589188821ac770b4c1cb431d1a798943ad96",
-      "json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -382,7 +476,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -410,9 +504,9 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
-              "22c7ca42d-df50-18b5-713a-a81e9115052c"
+              "846cb1608-81e6-54d7-c0b8-4bee06ce3f5c"
             ]
           },
           "method": "POST",
@@ -425,7 +519,7 @@
       ]
     },
     {
-      "hash": "6a6699a2a8e64d27fb25d1da6cdd31c904b3de38a532c8e1c716b74df7608081",
+      "hash": "64e3c22b2141f78b348b69d6effcb8e95df50762cd1f2a2c88d0dbc6d853b68f",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -462,7 +556,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -476,7 +570,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -504,289 +598,7 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
-            "vessels": [
-              "df3528985-5287-a35b-89a0-b2e9c1e6db13"
-            ]
-          },
-          "method": "POST",
-          "source": "public-global-port-visits-events:v3.0",
-          "url_params": {
-            "limit": 1,
-            "offset": 0
-          }
-        }
-      ]
-    },
-    {
-      "hash": "899f2e51c00248421757ae682e3878ef610d2f395354686afb57d170b499f29b",
-      "json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-            "filters[0]": "",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        },
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
-          "body_params": {
-            "datasets": [
-              "public-global-port-visits-events:v3.0"
-            ],
-            "endDate": "2025-12-06T23:59:59Z",
-            "geometry": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            },
-            "startDate": "2025-12-04T00:00:00Z",
-            "vessels": [
-              "b867aac71-181e-e3fb-ef3b-1267b81caedc"
-            ]
-          },
-          "method": "POST",
-          "source": "public-global-port-visits-events:v3.0",
-          "url_params": {
-            "limit": 1,
-            "offset": 0
-          }
-        }
-      ]
-    },
-    {
-      "hash": "9edf19c5947c531a8d81c49acc8c7623a66d9e1382682fbda6ff60b5bfb30c85",
-      "json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-            "filters[0]": "",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        },
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
-          "body_params": {
-            "datasets": [
-              "public-global-port-visits-events:v3.0"
-            ],
-            "endDate": "2025-12-06T23:59:59Z",
-            "geometry": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            },
-            "startDate": "2025-12-04T00:00:00Z",
-            "vessels": [
-              "ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f"
-            ]
-          },
-          "method": "POST",
-          "source": "public-global-port-visits-events:v3.0",
-          "url_params": {
-            "limit": 1,
-            "offset": 0
-          }
-        }
-      ]
-    },
-    {
-      "hash": "aee6210cb44e1096ba8029e86bc646b52c4eb458358b86354c512645a797c2f4",
-      "json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-            "filters[0]": "",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        },
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
-          "body_params": {
-            "datasets": [
-              "public-global-port-visits-events:v3.0"
-            ],
-            "endDate": "2025-12-06T23:59:59Z",
-            "geometry": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
               "e4a2ba1ec-c786-5395-6e67-1fb8e1abe320"
             ]
@@ -801,7 +613,7 @@
       ]
     },
     {
-      "hash": "afb52194a83286b96e79175064eefeb2510cd6f3c61439012b8cebb9e856e922",
+      "hash": "694530d8e2586d1db846152ef0b17f22037755394a1f5433d41e8e8596620e5e",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -838,7 +650,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -852,7 +664,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -880,9 +692,9 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
-              "afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc"
+              "df3528985-5287-a35b-89a0-b2e9c1e6db13"
             ]
           },
           "method": "POST",
@@ -895,7 +707,7 @@
       ]
     },
     {
-      "hash": "ba179aa9cb6c919fd771892bf2121958381423c2d90b5b006d4243865dee8727",
+      "hash": "94d5ab42294a795532b7b49762f24dfeaf8f7ff56375a08c4e7cbb0715c3b4ea",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -932,7 +744,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -946,7 +758,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -974,101 +786,7 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
-            "vessels": [
-              "403dc1002-210e-de4b-331d-b4012153dfa4"
-            ]
-          },
-          "method": "POST",
-          "source": "public-global-port-visits-events:v3.0",
-          "url_params": {
-            "limit": 1,
-            "offset": 0
-          }
-        }
-      ]
-    },
-    {
-      "hash": "d1bde6535c15f3ec88533bc138b9869c3a3f8fdf160a78247def99afdffefa9e",
-      "json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
-            "filters[0]": "",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        },
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
-          "body_params": {
-            "datasets": [
-              "public-global-port-visits-events:v3.0"
-            ],
-            "endDate": "2025-12-06T23:59:59Z",
-            "geometry": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
               "43c5ec9e1-1026-c273-d280-f0c34b520f53"
             ]
@@ -1083,7 +801,7 @@
       ]
     },
     {
-      "hash": "ea06fea8d0cf8b85d822f4bb6d31bed52f0960db0b2872ce2d805a573c121c6a",
+      "hash": "9550aed7671f6848694388f08754e10c1d670c709acca3528eb55d2a5c723425",
       "json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1120,7 +838,7 @@
           "source": "public-global-sar-presence:v3.0",
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-12-04T00:00:00Z,2025-12-06T23:59:59Z",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
             "filters[0]": "",
             "format": "JSON",
             "group-by": "VESSEL_ID",
@@ -1134,7 +852,7 @@
             "datasets": [
               "public-global-port-visits-events:v3.0"
             ],
-            "endDate": "2025-12-06T23:59:59Z",
+            "endDate": "2025-12-07T23:59:59Z",
             "geometry": {
               "coordinates": [
                 [
@@ -1162,9 +880,761 @@
               ],
               "type": "Polygon"
             },
-            "startDate": "2025-12-04T00:00:00Z",
+            "startDate": "2025-12-01T00:00:00Z",
             "vessels": [
-              "de435d0f3-306c-2869-d119-fff03a975f8f"
+              "2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "9feaa58bde91ef9a6d398fedfbc0d8f7cc316c79a1e30771f26b5bae6c24e4a5",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "ddd3f8ebb-b915-bcf6-9d8f-5f463eb99b7f"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "a1ea79088bf80e87cb389a3bc0af3cf3cc1c7eb1250604bdfb1c0984792a6c0d",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "b867aac71-181e-e3fb-ef3b-1267b81caedc"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "a92763cdc5253be87e81f311249bbc0d6903fdec1ad0c72620012d4e9f70d888",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "4d30bebfa-abbd-6e47-fbab-4f04b7cf5616"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "c6d47bc157d41a2e4bb374be85ae2fff63ab79a26669398c69bfba174215b547",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "22c7ca42d-df50-18b5-713a-a81e9115052c"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "dfcc11dd849264047f62ede3e41a63aa1c3864cf057a76a34c412d315b949aba",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "ee20f2f54-4c41-ce6c-ce45-fa136fb6e2cc"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "e328eada85280ede01ad233e47a3ae9c1e55cd5e0fe44a01dbb359df51e7e2ef",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "afdb60bd6-6d97-eb03-ef84-c1e3b26c10cc"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "ec09baa6e1ae4d0642f20ae3a29c9719c49fc5715f4d2d1eb0b3548027d69006",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "403dc1002-210e-de4b-331d-b4012153dfa4"
+            ]
+          },
+          "method": "POST",
+          "source": "public-global-port-visits-events:v3.0",
+          "url_params": {
+            "limit": 1,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    {
+      "hash": "f71a72c5a8c09fb863017e1e357028e255c8bde800120ed4d8c8092f51273351",
+      "json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/events",
+          "body_params": {
+            "datasets": [
+              "public-global-port-visits-events:v3.0"
+            ],
+            "endDate": "2025-12-07T23:59:59Z",
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "startDate": "2025-12-01T00:00:00Z",
+            "vessels": [
+              "3ce0a8aef-f01b-80eb-68bd-a1ba0c6c12c8"
             ]
           },
           "method": "POST",
@@ -1177,10 +1647,10 @@
       ]
     }
   ],
-  "run_time": "2026-03-24T10:56:21.658Z",
+  "run_time": "2026-03-24T17:11:38.281Z",
   "data_source_versions": [
     "public-global-sar-presence:v3.0",
     "public-global-port-visits-events:v3.0"
   ],
-  "git_commit_hash": "ccd6ad33b9dc33c67102181aa1bc5803269cbb6f"
+  "git_commit_hash": "30d5cc0f3384e59e2ba80c1fc8b1aad14fa81bee"
 }

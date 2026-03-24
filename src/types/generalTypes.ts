@@ -2,19 +2,15 @@ import { EContextLayers } from '../enum/gfwEnum';
 import { IContextLayer } from './eventTypes';
 import { IGeometry } from './geoJSONTypes';
 
-export interface IGeoJSONEventFeature {
-  type: string;
-  properties: {
-    event_id: string;
-    timestamp_utc: string;
-    matched_flag: boolean;
-    lat: number;
-    lon: number;
-    confidence_fields: 2 | 3 | 4 | null;
-    distance_to_coast_km: number | null;
-    context_layers: Record<EContextLayers, IContextLayer>;
-  };
-  geometry: IGeometry;
+export interface IEventProperties {
+  event_id: string;
+  timestamp_utc: string;
+  matched_flag: boolean;
+  lat: number;
+  lon: number;
+  confidence_fields: 2 | 3 | 4 | null;
+  distance_to_coast_km: number | null;
+  context_layers: Record<EContextLayers, IContextLayer>;
 }
 
 export enum EGeoJSONEventMissingness {

@@ -3,8 +3,9 @@ import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { isValidCoordinate } from '../pipeline/normalize/validation';
 import {
   EGeoJSONEventMissingness,
-  IGeoJSONEventFeature,
+  IEventProperties,
 } from '../types/generalTypes';
+import { IFeature, IGeometry } from '../types/geoJSONTypes';
 import {
   I4wingsAPIResponse,
   T4wingsSource,
@@ -159,7 +160,7 @@ export const getEntriesFrom4wingsResponse = (
 };
 
 export const getEventMissingness = (
-  a_Features: IGeoJSONEventFeature[],
+  a_Features: IFeature<IGeometry, IEventProperties>[],
 ): Record<EGeoJSONEventMissingness, string> => {
   const total = a_Features.length;
   const counts: Record<EGeoJSONEventMissingness, number> = Object.fromEntries(
@@ -168,6 +169,7 @@ export const getEventMissingness = (
 
   for (const feature of a_Features) {
     for (const key of Object.values(EGeoJSONEventMissingness)) {
+      if(!feature.properties) continue
       const value = feature.properties[key];
 
       if (value === null || value === undefined) {
@@ -189,11 +191,12 @@ export const getEventMissingness = (
 
 export const getGeoMin = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IGeoJSONEventFeature[],
+  a_Features: IFeature<IGeometry, IEventProperties>[],
 ): number => {
   let min = Infinity;
 
   for (const feature of a_Features) {
+    if(!feature.properties) continue
     if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
       continue;
 
@@ -212,11 +215,12 @@ export const getGeoMin = (
 
 export const getGeoMax = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IGeoJSONEventFeature[],
+  a_Features: IFeature<IGeometry, IEventProperties>[],
 ): number => {
   let max = -Infinity;
 
   for (const feature of a_Features) {
+    if(!feature.properties) continue
     if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
       continue;
     const value =
@@ -232,11 +236,12 @@ export const getGeoMax = (
   return max;
 };
 
-export const getTimeRange = (a_Features: IGeoJSONEventFeature[]) => {
+export const getTimeRange = (a_Features: IFeature<IGeometry, IEventProperties>[]) => {
   let min = Infinity;
   let max = -Infinity;
 
   for (const feature of a_Features) {
+    if(!feature.properties) continue
     const t = Date.parse(feature.properties.timestamp_utc);
 
     if (t < min) {
@@ -253,3 +258,7 @@ export const getTimeRange = (a_Features: IGeoJSONEventFeature[]) => {
     end: new Date(max).toISOString(),
   };
 };
+
+export const getDate = (a_Datetime: string) => {
+  return a_Datetime.slice(0, 10)
+}

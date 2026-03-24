@@ -44,6 +44,7 @@
   },
   "type": "module",
   "dependencies": {
+    "h3-js": "^4.4.0",
     "maplibre-gl": "^5.17.0",
     "parquetjs": "^0.11.2",
     "react": "^19.2.4",

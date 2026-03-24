@@ -11,7 +11,7 @@ import { generateEEZ } from '../features/eez';
 import { generateRFMO } from '../features/rfmo';
 import { generateMPA } from '../features/mpa';
 import { generateDistanceToCoast } from '../features/coast_distance';
-import { isMatchedCase, isValidCoordinate } from './validation';
+import { isISO8601Timestamp, isMatchedCase, isValidCoordinate } from './validation';
 import {
   generateConfidence,
   generateEventId,
@@ -27,6 +27,16 @@ export const createEventSchema = async (
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
+
+  const validTimestamp = isISO8601Timestamp(a_4wingsEntry.entryTimestamp)
+  if (!validTimestamp) {
+    return {
+      reason: ERejectedEventSchemaReasons.notValidTimestamp,
+      rejected: true,
+      raw_metadata: a_4wingsEntry,
+    };
+  }
+
   const validCoordinates = isValidCoordinate(
     a_4wingsEntry.lat,
     a_4wingsEntry.lon,

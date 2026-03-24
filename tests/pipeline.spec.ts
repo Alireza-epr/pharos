@@ -20,7 +20,7 @@ import {
   generateConfidence,
   generateGeom,
 } from '../src/pipeline/normalize/generation';
-import { IConfigJSON, IRejectedEventSchema } from '../src/types/eventTypes';
+import { IConfigJSON, IEventSchema, IRejectedEventSchema } from '../src/types/eventTypes';
 import {
   deepSortObject,
   getEntriesFrom4wingsResponse,
@@ -49,8 +49,10 @@ import {
   sarConfig_diff_sorted,
 } from './fixtures/gfwRequest';
 import events from './fixtures/events.json';
+import canonicalSchema from './fixtures/canonicalSchema.json';
 import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
 import { TGlobalEvent } from '../src/types/gfwTypes';
+import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
 
 describe('4wings helpers', () => {
   describe('generateSources', () => {
@@ -534,5 +536,18 @@ describe('Pipeline determinism', () => {
     const hash2 = await hashFile(OUTPUT_FILE);
 
     expect(hash1).toBe(hash2);
+  });
+});
+
+describe('Hotspot generation', () => {
+  it('should create hotspots using canonical events', async () => {
+    const hotspots_reso_3 = generateHotspots( canonicalSchema as IEventSchema[], 3 )
+    expect(hotspots_reso_3.length).toBe(3)
+    expect(hotspots_reso_3[0]?.cell_id).toEqual(hotspots_reso_3[1]?.cell_id)
+    expect(hotspots_reso_3[0]?.time_bin).not.toEqual(hotspots_reso_3[1]?.time_bin)
+
+    const hotspots_reso_5 = generateHotspots( canonicalSchema as IEventSchema[], 5 )
+    expect(hotspots_reso_5.length).toBe(9)
+  
   });
 });

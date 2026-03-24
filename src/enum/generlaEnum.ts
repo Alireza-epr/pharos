@@ -23,6 +23,7 @@ export type EReasonCodes = EReasonCodesStatic | `missing_required_field:${string
 
 export enum ERejectedEventSchemaReasons {
   notValidCoordinates = 'Not Valid Coordinates',
+  notValidTimestamp = 'Not Valid Timestamp',
 }
 
 export enum EGeoCoordinate {

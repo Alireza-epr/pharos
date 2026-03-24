@@ -44,11 +44,11 @@ export interface IEventSchema {
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
-  rejected: boolean;
+  rejected: false;
 }
 
 export interface IRejectedEventSchema {
-  rejected: boolean;
+  rejected: true;
   reason: ERejectedEventSchemaReasons;
   raw_metadata: I4wingsEntry;
 }

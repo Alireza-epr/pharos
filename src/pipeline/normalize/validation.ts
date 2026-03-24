@@ -46,3 +46,15 @@ export const missingRequiredFields = (a_4wingsEntry: I4wingsEntry) => {
 
 
 }
+
+export const isISO8601Timestamp = (a_Value: string): boolean => {
+  const isoRegex =
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
+
+  if (!isoRegex.test(a_Value)) {
+    return false;
+  }
+
+  const date = new Date(a_Value);
+  return !isNaN(date.getTime());
+}

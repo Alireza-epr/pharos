@@ -27,8 +27,10 @@ import {
   log,
 } from '../utils/generalUtils';
 import { writeParquet } from '../utils/parquetUtils';
-import { parquetSchema, parquetSchema_raw_metadata } from '../types/parquetTypes';
-
+import { parquetSchema, parquetSchema_hotspot, parquetSchema_raw_metadata } from '../types/parquetTypes';
+import { featureFromHotspot, generateHotspots } from './aggregate/hotspots';
+import { FeatureCollection, IGeometry } from '../types/geoJSONTypes';
+import { IEventProperties } from '../types/generalTypes';
 
 
 const source4wings = pilot.source as any;
@@ -166,7 +168,8 @@ const main = async () => {
 
   log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
 
-  const sortedEvents = (events as IEventSchema[]).sort((a, b) => {
+  const notRejectedEvents = events.filter( e => !e.rejected )
+  const sortedEvents = notRejectedEvents.sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
 
@@ -178,7 +181,7 @@ const main = async () => {
   });
 
   //event.geojson
-  const geojson = {
+  const geojson: FeatureCollection<IGeometry, IEventProperties>= {
     type: 'FeatureCollection',
     features: sortedEvents.map((event) => ({
       type: 'Feature',
@@ -251,9 +254,9 @@ const main = async () => {
   );
 
   //raw_metadata.json
-  const raw_metadata = events.map((event) => ({
+  const raw_metadata = sortedEvents.map((event) => ({
     ...event.raw_metadata,
-    event_metadata: (event as IEventSchema).raw_event_metadata,
+    event_metadata: event.raw_event_metadata,
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
@@ -303,6 +306,22 @@ const main = async () => {
     `${output}data_quality.json`,
     JSON.stringify(data_quality, null, 2),
   );
+
+  //hotspots.geojson
+  const resolution = 5
+  const hotspots = generateHotspots(sortedEvents, resolution)
+
+  const hotspotsGeoJSON = featureFromHotspot(hotspots)
+  fs.writeFileSync(`${output}hotspots.geojson`, JSON.stringify(hotspotsGeoJSON, null, 2));
+  
+  //hotspots.parquet
+  await writeParquet(
+    hotspots,
+    parquetSchema_hotspot,
+    `${output}hotspots.parquet`,
+  );
+
+  
 
   log('Pilot finished.', '', ELogLevel.message, '3');
 };

@@ -4,6 +4,186 @@
     {
       "type": "Feature",
       "properties": {
+        "event_id": "3f7dc094021ba19ce92a71c73e9b43f518846265408576d2bd21198725c1cb6d",
+        "timestamp_utc": "2025-12-01T05:16:55Z",
+        "matched_flag": true,
+        "lat": 55.11,
+        "lon": 14.130000114440918,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.130000114440918,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "837394ef5c74ff311802e402a409d1ed3e1a221b3e3cef4876d0ba54635b3b9b",
+        "timestamp_utc": "2025-12-01T05:16:55Z",
+        "matched_flag": true,
+        "lat": 55.18,
+        "lon": 14.199999809265137,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.199999809265137,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "86246240e8cd1ee7265c12b5d457bc34fe25766fbf083b9df64cb9fc8df2f65b",
+        "timestamp_utc": "2025-12-01T05:16:55Z",
+        "matched_flag": true,
+        "lat": 55.24,
+        "lon": 14.130000114440918,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.130000114440918,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "917cc0ae656c9f6ad7cab3fb22fa584b63aa6ecc6cfb0d9968948e91dd17fa76",
+        "timestamp_utc": "2025-12-01T05:16:55Z",
+        "matched_flag": true,
+        "lat": 55.21,
+        "lon": 14.399999618530273,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.399999618530273,
+          55.21
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "cdfb718b254d04febbe7d63d586599b8872bae59d49a2b16e5f5c6ed268f0350",
+        "timestamp_utc": "2025-12-01T05:16:55Z",
+        "matched_flag": true,
+        "lat": 55.25,
+        "lon": 14.300000190734863,
+        "confidence_fields": null,
+        "distance_to_coast_km": null,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.300000190734863,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "event_id": "149f8be8b626646e3c2cc8b972359516643b7a0303bbf3964daccb3fa87563a3",
         "timestamp_utc": "2025-12-04T16:53:26Z",
         "matched_flag": true,
