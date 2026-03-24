@@ -3,6 +3,7 @@ import { execSync } from 'child_process';
 import {
   EGeoCoordinate,
   EReasonCodes,
+  EReasonCodesStatic,
   ERejectedEventSchemaReasons,
 } from '../src/enum/generlaEnum';
 import { E4wingsDatasets } from '../src/enum/gfwEnum';
@@ -32,6 +33,10 @@ import {
   hashFile,
 } from '../src/utils/generalUtils';
 import {
+  api4wingsEntry_missing_coordinates,
+  api4wingsEntry_missing_date,
+  api4wingsEntry_noisy,
+  api4wingsEntry_unmatched,
   api4wingsResponse,
   api4wingsResponse_bad_coordinates,
   apiEventResponse_no_entry,
@@ -45,6 +50,7 @@ import {
 } from './fixtures/gfwRequest';
 import events from './fixtures/events.json';
 import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
+import { TGlobalEvent } from '../src/types/gfwTypes';
 
 describe('4wings helpers', () => {
   describe('generateSources', () => {
@@ -164,50 +170,92 @@ describe('4wings helpers', () => {
 
   describe('generateScoring', () => {
     it('handles unmatched case with no event', () => {
-      const scoring = generateScoring(false, undefined);
+      const scoring = generateScoring(api4wingsEntry_unmatched, undefined);
 
-      expect(scoring.triage_score).toBe(1);
-      expect(scoring.reason_codes).toContain(EReasonCodes.unmatched_detection);
-      expect(scoring.uncertainty_score).toBeCloseTo(0.2);
+      expect(scoring.triage_score).toBe(null);
+      expect(scoring.reason_codes).toContain(EReasonCodesStatic.missing_confidence_proxy);
+      expect(scoring.uncertainty_score).toBeCloseTo(0.5);
     });
 
     it('adds port visit confidence as triage score', () => {
+      if (!api4wingsResponse.entries[0]) return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
+        return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
+        return;
+
       const event = apiEventResponse_with_entry.entries[0];
       if (!event) return;
-      const scoring = generateScoring(true, event);
+      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
 
       expect(scoring.triage_score).toBe(event.port_visit.confidence);
     });
 
     it('adds near coast and inside EEZ/MPA reasons', () => {
+      if (!api4wingsResponse.entries[0]) return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
+        return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
+        return;
       const event = apiEventResponse_with_entry.entries[0];
 
-      const scoring = generateScoring(true, event);
+      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
 
       expect(scoring.reason_codes).toEqual(
         expect.arrayContaining([
-          EReasonCodes.near_coast,
-          EReasonCodes.inside_eez,
-          EReasonCodes.inside_mpa,
+          EReasonCodesStatic.near_coast,
+          EReasonCodesStatic.inside_eez,
+          EReasonCodesStatic.inside_mpa,
         ]),
       );
     });
 
     it('adds low detection confidence when threshold is met', () => {
+      if (!api4wingsResponse.entries[0]) return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
+        return;
+      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
+        return;
       if (!apiEventResponse_with_entry.entries[0]) return;
-      const event = {
+      const event: TGlobalEvent  = {
         ...apiEventResponse_with_entry.entries[0],
         port_visit: {
           ...apiEventResponse_with_entry.entries[0].port_visit,
-          confidence: 1,
+          confidence: 2,
         },
       };
-      if (event) return;
-      const scoring = generateScoring(true, event);
+      if (!event) return;
+      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
 
       expect(scoring.reason_codes).toContain(
-        EReasonCodes.low_detection_confidence,
+        EReasonCodesStatic.low_detection_confidence,
       );
+    });
+
+    it('detect missing fields', () => {
+      const event = undefined
+      const scoring_missing_date = generateScoring(api4wingsEntry_missing_date, event);
+
+      expect(scoring_missing_date.reason_codes).toContain(
+        `missing_required_field:date`
+      );
+      const scoring_missing_coordinates = generateScoring(api4wingsEntry_missing_coordinates, event);
+      expect(scoring_missing_coordinates.reason_codes).toContain(
+        `missing_required_field:lat`
+      );
+      expect(scoring_missing_coordinates.reason_codes).toContain(
+        `missing_required_field:lon`
+      );
+
+    });
+
+    it('detect noisy vessel', () => {
+      const event = undefined
+      const scoring_noisy = generateScoring(api4wingsEntry_noisy, event);
+      expect(scoring_noisy.reason_codes).toContain(
+        EReasonCodesStatic.noisy_vessel
+      );
+
     });
   });
 

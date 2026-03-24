@@ -199,6 +199,7 @@ const sar_noisy = {
 import { EEventType } from '../../src/enum/gfwEnum';
 import {
   I4wingsAPIResponse,
+  I4wingsEntry,
   IEventAPIResponse,
   IPortVisitEvent,
 } from '../../src/types/gfwTypes';
@@ -534,6 +535,107 @@ export const api4wingsResponse_bad_coordinates = {
     },
   ],
 };
+
+export const api4wingsEntry_matched: I4wingsEntry = {
+  callsign: 'V2OW7',
+  dataset: 'public-global-vessel-identity:v3.0',
+  date: '2025-12-04 16:00',
+  detections: 1,
+  entryTimestamp: '2025-12-04T16:53:26Z',
+  exitTimestamp: '2025-12-04T16:53:26Z',
+  firstTransmissionDate: '2012-01-02T16:28:28Z',
+  flag: 'ATG',
+  geartype: 'CARGO',
+  imo: '9287807',
+  lastTransmissionDate: '2026-02-25T23:56:08Z',
+  lat: 55.22,
+  lon: 14.40999984741211,
+  mmsi: '305773000',
+  shipName: 'VOHBURG',
+  vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
+  vesselType: 'CARGO',
+}
+
+export const api4wingsEntry_unmatched: I4wingsEntry = {
+  callsign: '',
+  dataset: '',
+  date: '2025-12-04 16:00',
+  detections: 1,
+  entryTimestamp: '2025-12-04T16:53:26Z',
+  exitTimestamp: '2025-12-04T16:53:26Z',
+  firstTransmissionDate: '',
+  flag: '',
+  geartype: '',
+  imo: '',
+  lastTransmissionDate: '',
+  lat: 55.2,
+  lon: 14.210000038146973,
+  mmsi: '',
+  shipName: '',
+  vesselId: '',
+  vesselType: '',
+}
+
+export const api4wingsEntry_noisy: I4wingsEntry = {
+  callsign: "",
+  dataset: "",
+  date: "2017-01-01 22:00",
+  detections: 1,
+  entryTimestamp: "2017-01-01T22:33:41Z",
+  exitTimestamp: "2017-01-01T22:33:41Z",
+  firstTransmissionDate: "",
+  flag: "",
+  geartype: "",
+  imo: "",
+  lastTransmissionDate: "",
+  lat: -6.09,
+  lon: 106.89,
+  mmsi: "",
+  shipName: "",
+  vesselId: "74934b786-6f6f-d027-c06f-bf814d7da7f3",
+  vesselType: ""
+}
+
+export const api4wingsEntry_missing_date: I4wingsEntry = {
+  callsign: 'V2OW7',
+  dataset: 'public-global-vessel-identity:v3.0',
+  date: '',
+  detections: 1,
+  entryTimestamp: '2025-12-04T16:53:26Z',
+  exitTimestamp: '2025-12-04T16:53:26Z',
+  firstTransmissionDate: '2012-01-02T16:28:28Z',
+  flag: 'ATG',
+  geartype: 'CARGO',
+  imo: '9287807',
+  lastTransmissionDate: '2026-02-25T23:56:08Z',
+  lat: 55.22,
+  lon: 14.40999984741211,
+  mmsi: '305773000',
+  shipName: 'VOHBURG',
+  vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
+  vesselType: 'CARGO',
+}
+
+//@ts-ignore
+export const api4wingsEntry_missing_coordinates: I4wingsEntry = {
+  callsign: 'V2OW7',
+  dataset: 'public-global-vessel-identity:v3.0',
+  date: '2025-12-04 16:00',
+  detections: 1,
+  entryTimestamp: '2025-12-04T16:53:26Z',
+  exitTimestamp: '2025-12-04T16:53:26Z',
+  firstTransmissionDate: '2012-01-02T16:28:28Z',
+  flag: 'ATG',
+  geartype: 'CARGO',
+  imo: '9287807',
+  lastTransmissionDate: '2026-02-25T23:56:08Z',
+  /* lat: 55.22,
+  lon: 14.40999984741211, */
+  mmsi: '305773000',
+  shipName: 'VOHBURG',
+  vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
+  vesselType: 'CARGO',
+}
 
 export const apiEventResponse_no_entry: IEventAPIResponse<IPortVisitEvent> = {
   metadata: {

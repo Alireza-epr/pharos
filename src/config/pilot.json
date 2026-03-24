@@ -9,11 +9,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [14.11, 55.26],
-          [14.68, 55.27],
-          [14.69, 55.11],
-          [14.09, 55.08],
-          [14.11, 55.26]
+          [
+            14.11,
+            55.26
+          ],
+          [
+            14.68,
+            55.27
+          ],
+          [
+            14.69,
+            55.11
+          ],
+          [
+            14.09,
+            55.08
+          ],
+          [
+            14.11,
+            55.26
+          ]
         ]
       ]
     }
@@ -23,5 +38,6 @@
   "group-by": "VESSEL_ID",
   "spatial-resolution": "HIGH",
   "temporal-resolution": "HOURLY",
-  "format": "JSON"
+  "format": "JSON",
+  "filters": ""
 }

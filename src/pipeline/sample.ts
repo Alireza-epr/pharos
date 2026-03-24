@@ -9,8 +9,6 @@ import {
 } from '../utils/generalUtils';
 import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
-import parquet from 'parquetjs';
-import { IGeometry } from '../types/geoJSONTypes';
 import { IConfigJSON, IEventSchema } from '../types/eventTypes';
 import {
   I4wingsAPIResponse,
@@ -20,7 +18,7 @@ import {
   IEventPostURLParams,
   IPortVisitEvent,
 } from '../types/gfwTypes';
-import { EGeoCoordinate, ELogLevel } from '../enum/generlaEnum';
+import { EGeoCoordinate, ELogLevel, EReasonCodes, EReasonCodesStatic } from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
@@ -29,43 +27,9 @@ import {
   log,
 } from '../utils/generalUtils';
 import { writeParquet } from '../utils/parquetUtils';
+import { parquetSchema, parquetSchema_raw_metadata } from '../types/parquetTypes';
 
-const parquetSchema = new parquet.ParquetSchema({
-  event_id: { type: 'UTF8' },
-  timestamp_utc: { type: 'UTF8' },
-  matched_flag: { type: 'BOOLEAN' },
-  lat: { type: 'DOUBLE' },
-  lon: { type: 'DOUBLE' },
-  confidence_fields: { type: 'UTF8', optional: true },
-  distance_to_coast_km: { type: 'DOUBLE', optional: true },
-  inside_eez: { type: 'UTF8', optional: true },
-});
 
-const parquetSchema_raw_metadata = new parquet.ParquetSchema({
-  callsign: { type: 'UTF8' },
-  dataset: { type: 'UTF8' },
-  date: { type: 'UTF8' },
-  detections: { type: 'INT64' },
-
-  entryTimestamp: { type: 'TIMESTAMP_MILLIS' },
-  exitTimestamp: { type: 'TIMESTAMP_MILLIS' },
-
-  firstTransmissionDate: { type: 'UTF8' },
-  flag: { type: 'UTF8' },
-  geartype: { type: 'UTF8' },
-  imo: { type: 'UTF8' },
-  lastTransmissionDate: { type: 'UTF8' },
-
-  lat: { type: 'DOUBLE' },
-  lon: { type: 'DOUBLE' },
-
-  mmsi: { type: 'UTF8' },
-  shipName: { type: 'UTF8' },
-  vesselId: { type: 'UTF8' },
-  vesselType: { type: 'UTF8' },
-
-  event_metadata: { type: 'UTF8', optional: true },
-});
 
 const source4wings = pilot.source as any;
 const dataset4wings = source4wings.split(':')[0] ?? '';
@@ -82,6 +46,7 @@ const urlParams4wings = {
   'date-range': `${pilot.startDate},${pilot.endDate}`,
   format: pilot.format,
   'group-by': pilot['group-by'],
+  'filters[0]': pilot.filters
 } as any;
 
 const geometry = {
@@ -95,7 +60,7 @@ const startDate = `${pilot.startDate}`;
 const endDate = `${pilot.endDate}`;
 
 const main = async () => {
-  log('pilot starting...', '', ELogLevel.message, '3');
+  log('Pilot starting...', '', ELogLevel.message, '3');
   let events = [];
   const configuration = new Set<IConfigJSON>();
   const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
@@ -114,7 +79,12 @@ const main = async () => {
     key4wings,
   );
 
-  if (!entries4wings) return;
+  if (!entries4wings) {
+    log('Pilot finished with no entry.', '', ELogLevel.message, '3');
+    return
+  };
+
+  log(`Getting events for ${entries4wings.length} entries...`, '', ELogLevel.message, '3');
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -144,12 +114,12 @@ const main = async () => {
       };
 
       try {
-        /* const portVisitResp = await detectionPostGFW<
+        const portVisitResp = await detectionPostGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent); */
-        const portVisitResp = await detectionGetGFW<
+        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
+        /* const portVisitResp = await detectionGetGFW<
           IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEventGet);
+        >(baseURLEvent, sourceEvent, urlParamsEventGet); */
 
         if (configuration) configuration.add(portVisitResp.metadata);
 
@@ -194,6 +164,8 @@ const main = async () => {
     }
   }
 
+  log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
+
   const sortedEvents = (events as IEventSchema[]).sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
@@ -227,6 +199,26 @@ const main = async () => {
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
+
+    const reason_codes = event.scoring.reason_codes
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } = {
+      [EReasonCodesStatic.near_coast]: false,
+      [EReasonCodesStatic.low_detection_confidence]: false,
+      [EReasonCodesStatic.missing_confidence_proxy]: false,
+      [EReasonCodesStatic.inside_eez]: false,
+      [EReasonCodesStatic.inside_mpa]: false,
+      [EReasonCodesStatic.unmatched_to_public_ais]: false,
+      [EReasonCodesStatic.matched_to_public_ais]: false,
+      [EReasonCodesStatic.noisy_vessel]: false
+    };
+
+    if (reason_codes) {
+      for (const reason_code of reason_codes) {
+        edge_case_flags[reason_code] = true;
+      }
+    }
+
+  
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -236,6 +228,7 @@ const main = async () => {
       confidence_fields: event.confidence_fields ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
+      ...edge_case_flags
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
@@ -311,7 +304,7 @@ const main = async () => {
     JSON.stringify(data_quality, null, 2),
   );
 
-  log('pilot finished.', '', ELogLevel.message, '3');
+  log('Pilot finished.', '', ELogLevel.message, '3');
 };
 
 main().catch(console.error);
