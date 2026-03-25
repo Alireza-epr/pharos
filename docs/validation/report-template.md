@@ -1,6 +1,6 @@
 # Validation Report (Iteration 1)
 
-This document reports the results of the manual validation of AIS-unmatched events.
+This document reports the results of the manual validation of unmatched events provided by the source.
 All values will be filled after validation is completed.
 
 ---

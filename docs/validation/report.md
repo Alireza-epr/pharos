@@ -1,6 +1,6 @@
 # Validation Report (Iteration 1)
 
-This document reports the results of the manual validation of AIS-unmatched events.
+This document reports the results of the manual validation of unmatched events provided by the source.
 All values will be filled after validation is completed.
 
 ---
@@ -8,6 +8,7 @@ All values will be filled after validation is completed.
 ## Validation Scope
 
 - Area of Interest: 
+    - Offshore
     ```js
     {
         "geojson": {
@@ -24,6 +25,8 @@ All values will be filled after validation is completed.
         }
     }
     ```
+
+    - Near Coast
     ```js
     {
         "geojson": {
@@ -54,8 +57,8 @@ All values will be filled after validation is completed.
     }
     ```
 - Total Events Reviewed: 
-    - First AOI: 25
-    - Second AOI: 22 
+    - Near Coast AOI: 25
+    - Offshore AOI: 22 
 
 ---
 
