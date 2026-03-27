@@ -74,7 +74,7 @@ It does not measure detection correctness or intent.
 
 - near_coast = true then modifier = +0.3
 - low_detection_confidence = true then modifier = +0.3
-  or 
+  or
   missing_confidence_proxy = true then modifier = +0.3
 
 A modifier is applied only if its required input field is present.
@@ -124,7 +124,6 @@ Reason codes **do not represent claims** about legality, intent, or detection co
   Indicates a missing required field.
   Required fields: dataset, date, lat, lon, vesselId, mmsi, shipName, vesselType
 
- 
 ---
 
 ## Output Fields

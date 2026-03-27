@@ -29,7 +29,7 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
-  distance_to_coast_km: number | null;
+  distance_to_coast_km: number;
   context_layers: Record<EContextLayers, IContextLayer>;
   version: string;
   event_id: string;
@@ -44,11 +44,11 @@ export interface IEventSchema {
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
-  rejected: boolean;
+  rejected: false;
 }
 
 export interface IRejectedEventSchema {
-  rejected: boolean;
+  rejected: true;
   reason: ERejectedEventSchemaReasons;
   raw_metadata: I4wingsEntry;
 }

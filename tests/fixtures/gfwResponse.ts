@@ -554,7 +554,7 @@ export const api4wingsEntry_matched: I4wingsEntry = {
   shipName: 'VOHBURG',
   vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
   vesselType: 'CARGO',
-}
+};
 
 export const api4wingsEntry_unmatched: I4wingsEntry = {
   callsign: '',
@@ -574,27 +574,27 @@ export const api4wingsEntry_unmatched: I4wingsEntry = {
   shipName: '',
   vesselId: '',
   vesselType: '',
-}
+};
 
 export const api4wingsEntry_noisy: I4wingsEntry = {
-  callsign: "",
-  dataset: "",
-  date: "2017-01-01 22:00",
+  callsign: '',
+  dataset: '',
+  date: '2017-01-01 22:00',
   detections: 1,
-  entryTimestamp: "2017-01-01T22:33:41Z",
-  exitTimestamp: "2017-01-01T22:33:41Z",
-  firstTransmissionDate: "",
-  flag: "",
-  geartype: "",
-  imo: "",
-  lastTransmissionDate: "",
+  entryTimestamp: '2017-01-01T22:33:41Z',
+  exitTimestamp: '2017-01-01T22:33:41Z',
+  firstTransmissionDate: '',
+  flag: '',
+  geartype: '',
+  imo: '',
+  lastTransmissionDate: '',
   lat: -6.09,
   lon: 106.89,
-  mmsi: "",
-  shipName: "",
-  vesselId: "74934b786-6f6f-d027-c06f-bf814d7da7f3",
-  vesselType: ""
-}
+  mmsi: '',
+  shipName: '',
+  vesselId: '74934b786-6f6f-d027-c06f-bf814d7da7f3',
+  vesselType: '',
+};
 
 export const api4wingsEntry_missing_date: I4wingsEntry = {
   callsign: 'V2OW7',
@@ -614,7 +614,7 @@ export const api4wingsEntry_missing_date: I4wingsEntry = {
   shipName: 'VOHBURG',
   vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
   vesselType: 'CARGO',
-}
+};
 
 //@ts-ignore
 export const api4wingsEntry_missing_coordinates: I4wingsEntry = {
@@ -635,7 +635,7 @@ export const api4wingsEntry_missing_coordinates: I4wingsEntry = {
   shipName: 'VOHBURG',
   vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
   vesselType: 'CARGO',
-}
+};
 
 export const apiEventResponse_no_entry: IEventAPIResponse<IPortVisitEvent> = {
   metadata: {
@@ -749,7 +749,7 @@ export const apiEventResponse_with_entry: IEventAPIResponse<IPortVisitEvent> = {
       },
       port_visit: {
         visitId: '22efc11c118fb011f640e6328d54744f',
-        confidence: 4,
+        confidence: '4',
         durationHrs: 24.024166666666666,
         startAnchorage: {
           anchorageId: '46551b1d',

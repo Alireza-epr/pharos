@@ -31,8 +31,8 @@ AOI geometry (WGS84) is defined by the following polygon coordinates:
 
 ## Time Window
 
-- Start: 2025-12-16T00:00:00Z
-- End: 2025-12-22T23:59:59Z
+- Start: 2025-12-01T00:00:00Z
+- End: 2025-12-07T23:59:59Z
 
 This one-week window is short enough for testing and reproducible analysis.
 
@@ -40,8 +40,7 @@ This one-week window is short enough for testing and reproducible analysis.
 
 ## Data Scale (Initial Pull)
 
-- SAR detections: 2
-- AIS records: 13
+- SAR detections: 18
 
 This confirms the AOI and time window are manageable.
 

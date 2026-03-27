@@ -2,6 +2,7 @@ import pilot from '../config/pilot.json';
 import { createEventSchema } from './normalize/schema';
 import { isMatchedCase } from './normalize/validation';
 import {
+  csvString,
   getEventMissingness,
   getGeoMax,
   getGeoMin,
@@ -18,7 +19,12 @@ import {
   IEventPostURLParams,
   IPortVisitEvent,
 } from '../types/gfwTypes';
-import { EGeoCoordinate, ELogLevel, EReasonCodes, EReasonCodesStatic } from '../enum/generlaEnum';
+import {
+  EGeoCoordinate,
+  ELogLevel,
+  EReasonCodes,
+  EReasonCodesStatic,
+} from '../enum/generlaEnum';
 import {
   deepSortObject,
   getGitCommitSHA,
@@ -27,40 +33,62 @@ import {
   log,
 } from '../utils/generalUtils';
 import { writeParquet } from '../utils/parquetUtils';
-import { parquetSchema, parquetSchema_raw_metadata } from '../types/parquetTypes';
+import {
+  parquetSchema,
+  parquetSchema_hotspot,
+  parquetSchema_raw_metadata,
+} from '../types/parquetTypes';
+import { featureFromHotspot, generateHotspots } from './aggregate/hotspots';
+import { FeatureCollection, IGeometry } from '../types/geoJSONTypes';
+import { IEventProperties } from '../types/generalTypes';
+import {
+  EValidationStrata,
+  IValidationSample,
+  IValidationStrata,
+} from '../types/validationTypes';
+import {
+  getValidationSamples,
+  postValidationSamples,
+} from './validation/sample';
+import { readCoastlinePolylines, readLandPolygons } from './validation/dataset';
+import { distanceToCoast, isNearCoast } from './features/coast_distance';
+const args = process.argv.slice(2);
 
+export const coastlinePolylines = readCoastlinePolylines();
+export const landPolygons = readLandPolygons();
 
-
-const source4wings = pilot.source as any;
-const dataset4wings = source4wings.split(':')[0] ?? '';
-const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 const baseURL4wings = pilot.URL;
-
-const baseURLEvent = pilot.eventURL;
-const sourceEvent = pilot.eventSource as any;
-const bodyParams4wings = pilot.aoi as any;
-const urlParams4wings = {
-  'spatial-resolution': pilot['spatial-resolution'],
-  'temporal-resolution': pilot['temporal-resolution'],
-  'datasets[0]': pilot.source,
-  'date-range': `${pilot.startDate},${pilot.endDate}`,
-  format: pilot.format,
-  'group-by': pilot['group-by'],
-  'filters[0]': pilot.filters
-} as any;
-
-const geometry = {
-  type: pilot.aoi.geojson.type,
-  coordinates: pilot.aoi.geojson.coordinates,
-} as any;
-
+const source4wings = pilot.source as any;
 const output = pilot.output;
-
-const startDate = `${pilot.startDate}`;
-const endDate = `${pilot.endDate}`;
 
 const main = async () => {
   log('Pilot starting...', '', ELogLevel.message, '3');
+  const dataset4wings = source4wings.split(':')[0] ?? '';
+  const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
+
+  const baseURLEvent = pilot.eventURL;
+  const sourceEvent = pilot.eventSource as any;
+  const bodyParams4wings = pilot.aoi as any;
+  const urlParams4wings = {
+    'spatial-resolution': pilot['spatial-resolution'],
+    'temporal-resolution': pilot['temporal-resolution'],
+    'datasets[0]': pilot.source,
+    'date-range': `${pilot.startDate},${pilot.endDate}`,
+    format: pilot.format,
+    'group-by': pilot['group-by'],
+    'filters[0]': pilot.filters,
+  } as any;
+
+  let geometry: any;
+  if ((pilot.aoi as any).geojson) {
+    geometry = {
+      type: (pilot.aoi as any).geojson.type,
+      coordinates: (pilot.aoi as any).geojson.coordinates,
+    } as any;
+  }
+
+  const startDate = `${pilot.startDate}`;
+  const endDate = `${pilot.endDate}`;
   let events = [];
   const configuration = new Set<IConfigJSON>();
   const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
@@ -81,10 +109,15 @@ const main = async () => {
 
   if (!entries4wings) {
     log('Pilot finished with no entry.', '', ELogLevel.message, '3');
-    return
-  };
+    return;
+  }
 
-  log(`Getting events for ${entries4wings.length} entries...`, '', ELogLevel.message, '3');
+  log(
+    `Getting events for ${entries4wings.length} entries...`,
+    '',
+    ELogLevel.message,
+    '3',
+  );
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -102,7 +135,7 @@ const main = async () => {
         startDate: startDate,
         endDate: endDate,
         datasets: [sourceEvent],
-        geometry: geometry,
+        geometry: geometry ?? null,
       };
 
       const urlParamsEventGet: IEventGetURLParams = {
@@ -166,7 +199,8 @@ const main = async () => {
 
   log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
 
-  const sortedEvents = (events as IEventSchema[]).sort((a, b) => {
+  const notRejectedEvents = events.filter((e) => !e.rejected);
+  const sortedEvents = notRejectedEvents.sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
 
@@ -178,7 +212,7 @@ const main = async () => {
   });
 
   //event.geojson
-  const geojson = {
+  const geojson: FeatureCollection<IGeometry, IEventProperties> = {
     type: 'FeatureCollection',
     features: sortedEvents.map((event) => ({
       type: 'Feature',
@@ -199,8 +233,7 @@ const main = async () => {
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
-
-    const reason_codes = event.scoring.reason_codes
+    const reason_codes = event.scoring.reason_codes;
     let edge_case_flags: { [key in EReasonCodes]?: boolean } = {
       [EReasonCodesStatic.near_coast]: false,
       [EReasonCodesStatic.low_detection_confidence]: false,
@@ -209,7 +242,7 @@ const main = async () => {
       [EReasonCodesStatic.inside_mpa]: false,
       [EReasonCodesStatic.unmatched_to_public_ais]: false,
       [EReasonCodesStatic.matched_to_public_ais]: false,
-      [EReasonCodesStatic.noisy_vessel]: false
+      [EReasonCodesStatic.noisy_vessel]: false,
     };
 
     if (reason_codes) {
@@ -218,7 +251,6 @@ const main = async () => {
       }
     }
 
-  
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -228,7 +260,7 @@ const main = async () => {
       confidence_fields: event.confidence_fields ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
-      ...edge_case_flags
+      ...edge_case_flags,
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
@@ -251,9 +283,9 @@ const main = async () => {
   );
 
   //raw_metadata.json
-  const raw_metadata = events.map((event) => ({
+  const raw_metadata = sortedEvents.map((event) => ({
     ...event.raw_metadata,
-    event_metadata: (event as IEventSchema).raw_event_metadata,
+    event_metadata: event.raw_event_metadata,
   }));
   fs.writeFileSync(
     `${output}raw_metadata.json`,
@@ -304,7 +336,299 @@ const main = async () => {
     JSON.stringify(data_quality, null, 2),
   );
 
+  //hotspots.geojson
+  const resolution = 5;
+  const hotspots = generateHotspots(sortedEvents, resolution);
+
+  const hotspotsGeoJSON = featureFromHotspot(hotspots);
+  fs.writeFileSync(
+    `${output}hotspots.geojson`,
+    JSON.stringify(hotspotsGeoJSON, null, 2),
+  );
+
+  //hotspots.parquet
+  await writeParquet(
+    hotspots,
+    parquetSchema_hotspot,
+    `${output}hotspots.parquet`,
+  );
+
   log('Pilot finished.', '', ELogLevel.message, '3');
 };
 
-main().catch(console.error);
+const validation = async () => {
+  log('Starting validation...', '', ELogLevel.message, '3');
+  const mapStrata = new Map<EValidationStrata, IValidationStrata>();
+
+  try {
+    log(
+      `Getting samples for ${EValidationStrata.distance_to_coast} strata...`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+    const strata_1_url = {
+      'spatial-resolution': 'HIGH',
+      'temporal-resolution': 'HOURLY',
+      'datasets[0]': 'public-global-sar-presence:v3.0',
+      format: 'JSON',
+      'group-by': 'VESSEL_ID',
+      'filters[0]': "matched='false'",
+      'date-range': '2025-01-01T00:00:00Z,2025-12-07T23:59:59Z',
+      'region-dataset': 'public-eez-areas',
+      'region-id': 5669,
+    } as any;
+
+    const strata_1_samples = await getValidationSamples(
+      baseURL4wings,
+      source4wings,
+      strata_1_url,
+      50,
+    );
+
+    let near_coast: IValidationSample[] = [];
+    let offshore: IValidationSample[] = [];
+    for (const s of strata_1_samples.validationSamples) {
+      const distance = distanceToCoast(coastlinePolylines, s.lon, s.lat);
+      if (isNearCoast(distance)) {
+        near_coast.push(s);
+      } else {
+        offshore.push(s);
+      }
+    }
+    const strata_1_csv = csvString(
+      'Near coast',
+      near_coast,
+      'Offshore',
+      offshore,
+    );
+
+    mapStrata.set(EValidationStrata.distance_to_coast, {
+      geoJSON: strata_1_samples.validationSamplesGeoJSON,
+      csv: strata_1_csv + '\n' + '\n',
+    });
+
+    log(
+      `Getting samples for ${EValidationStrata.distance_to_coast} strata done.`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+  } catch (error) {
+    log(
+      `[validation] Failed to get samples for ${EValidationStrata.distance_to_coast}`,
+      error,
+      ELogLevel.error,
+      '3',
+    );
+    return;
+  }
+
+  try {
+    log(
+      `Getting samples for ${EValidationStrata.confidence_tier} strata...`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+    const strata_2_url_1 = {
+      'spatial-resolution': 'HIGH',
+      'temporal-resolution': 'HOURLY',
+      'datasets[0]': 'public-global-sar-presence:v3.0',
+      format: 'JSON',
+      'group-by': 'VESSEL_ID',
+      'filters[0]': "matched='false'",
+      'date-range': '2025-12-07T00:00:00Z,2025-12-07T23:59:59Z',
+      'region-dataset': 'public-eez-areas',
+      'region-id': 5669,
+    } as any;
+
+    const strata_2_url_2 = {
+      'spatial-resolution': 'HIGH',
+      'temporal-resolution': 'HOURLY',
+      'datasets[0]': 'public-global-sar-presence:v3.0',
+      format: 'JSON',
+      'group-by': 'VESSEL_ID',
+      'filters[0]': "matched='false'",
+      'date-range': '2018-12-07T00:00:00Z,2018-12-07T23:59:59Z',
+      'region-dataset': 'public-eez-areas',
+      'region-id': 5669,
+    } as any;
+
+    const strata_2_samples_1 = await getValidationSamples(
+      baseURL4wings,
+      source4wings,
+      strata_2_url_1,
+      25,
+    );
+
+    const strata_2_samples_2 = await getValidationSamples(
+      baseURL4wings,
+      source4wings,
+      strata_2_url_2,
+      25,
+    );
+
+    const strata_2_csv = csvString(
+      'High Confidence',
+      strata_2_samples_1.validationSamples,
+      'Low Confidence',
+      strata_2_samples_2.validationSamples,
+    );
+
+    mapStrata.set(EValidationStrata.confidence_tier, {
+      geoJSON: [
+        ...strata_2_samples_1.validationSamplesGeoJSON,
+        ...strata_2_samples_2.validationSamplesGeoJSON,
+      ],
+      csv: strata_2_csv + '\n' + '\n',
+    });
+
+    log(
+      `Getting samples for ${EValidationStrata.confidence_tier} strata done.`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+  } catch (error) {
+    log(
+      `[validation] Failed to get samples for ${EValidationStrata.confidence_tier}`,
+      error,
+      ELogLevel.error,
+      '3',
+    );
+    return;
+  }
+
+  try {
+    log(
+      `Getting samples for ${EValidationStrata.density} strata...`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+    const strata_3_url_1 = {
+      'spatial-resolution': 'HIGH',
+      'temporal-resolution': 'HOURLY',
+      'datasets[0]': 'public-global-sar-presence:v3.0',
+      format: 'JSON',
+      'group-by': 'VESSEL_ID',
+      'filters[0]': "matched='false'",
+      'date-range': '2025-07-07T00:00:00Z,2025-12-07T23:59:59Z',
+    } as any;
+
+    // English Channel
+    const strata_3_body_1 = {
+      geojson: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [0.5, 50.5],
+            [2.5, 50.5],
+            [2.5, 51.5],
+            [0.5, 51.5],
+            [0.5, 50.5],
+          ],
+        ],
+      },
+    };
+
+    const strata_3_url_2 = {
+      'spatial-resolution': 'HIGH',
+      'temporal-resolution': 'HOURLY',
+      'datasets[0]': 'public-global-sar-presence:v3.0',
+      format: 'JSON',
+      'group-by': 'VESSEL_ID',
+      'filters[0]': "matched='false'",
+      'date-range': '2025-07-07T00:00:00Z,2025-12-07T23:59:59Z',
+    } as any;
+
+    // Open Atlantic Ocean
+    const strata_3_body_2 = {
+      geojson: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [-32.0, 34.0],
+            [-28.0, 34.0],
+            [-28.0, 38.0],
+            [-32.0, 38.0],
+            [-32.0, 34.0],
+          ],
+        ],
+      },
+    };
+
+    const strata_3_samples_1 = await postValidationSamples(
+      baseURL4wings,
+      source4wings,
+      strata_3_url_1,
+      strata_3_body_1 as any,
+      25,
+    );
+
+    const strata_3_samples_2 = await postValidationSamples(
+      baseURL4wings,
+      source4wings,
+      strata_3_url_2,
+      strata_3_body_2 as any,
+      25,
+    );
+
+    const strata_3_csv = csvString(
+      'High Density',
+      strata_3_samples_1.validationSamples,
+      'Low Density',
+      strata_3_samples_2.validationSamples,
+    );
+
+    mapStrata.set(EValidationStrata.density, {
+      geoJSON: [
+        ...strata_3_samples_1.validationSamplesGeoJSON,
+        ...strata_3_samples_2.validationSamplesGeoJSON,
+      ],
+      csv: strata_3_csv + '\n' + '\n',
+    });
+
+    log(
+      `Getting samples for ${EValidationStrata.density} strata done.`,
+      '',
+      ELogLevel.message,
+      '3',
+    );
+  } catch (error) {
+    log(
+      `[validation] Failed to get samples for ${EValidationStrata.density}`,
+      error,
+      ELogLevel.error,
+      '3',
+    );
+    return;
+  }
+
+  log(`Generating outputs in ${output}...`, '', ELogLevel.message, '3');
+
+  //validation_sample.geojson
+  const geoJSON_strata = Array.from(mapStrata).flatMap(
+    ([key, value]) => value.geoJSON,
+  );
+  fs.writeFileSync(
+    `${output}validation_sample.geojson`,
+    JSON.stringify(geoJSON_strata, null, 2),
+  );
+
+  //validation_sample.csv
+  const csv_strata = Array.from(mapStrata).flatMap(([key, value]) => value.csv);
+  const csv_strata_string = csv_strata.join(' ');
+  fs.writeFileSync(`${output}validation_sample.csv`, csv_strata_string, 'utf8');
+
+  log('Validation finished.', '', ELogLevel.message, '3');
+};
+
+if (args.includes('--main')) {
+  main().catch(console.error);
+} else if (args.includes('--validation')) {
+  validation().catch(console.error);
+} else {
+  main().catch(console.error);
+}

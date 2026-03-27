@@ -61,14 +61,14 @@ export interface I4wingsReportPostURLParams {
 export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
   'region-dataset': 'public-eez-areas' | 'public-mpa-all';
   'region-id': string;
-  'buffer-operation': 'DIFFERENCE' | 'DISSOLVE';
-  'buffer-unit':
+  'buffer-operation'?: 'DIFFERENCE' | 'DISSOLVE';
+  'buffer-unit'?:
     | 'MILES'
     | 'NAUTICALMILES'
     | 'KILOMETERS'
     | 'RADIANS'
     | 'DEGREES';
-  'buffer-value': string;
+  'buffer-value'?: string;
 }
 
 /**
@@ -291,7 +291,7 @@ export interface IPortVisitEvent extends IBaseEvent {
   type: EEventType.port_visit;
   port_visit: {
     visitId: string;
-    confidence: 2 | 3 | 4;
+    confidence: '2' | '3' | '4';
     durationHrs: number;
     startAnchorage: IAnchorage;
     intermediateAnchorage: IAnchorage;

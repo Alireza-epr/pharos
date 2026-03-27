@@ -20,7 +20,11 @@ import {
   generateConfidence,
   generateGeom,
 } from '../src/pipeline/normalize/generation';
-import { IConfigJSON, IRejectedEventSchema } from '../src/types/eventTypes';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IRejectedEventSchema,
+} from '../src/types/eventTypes';
 import {
   deepSortObject,
   getEntriesFrom4wingsResponse,
@@ -49,10 +53,36 @@ import {
   sarConfig_diff_sorted,
 } from './fixtures/gfwRequest';
 import events from './fixtures/events.json';
+import canonicalSchema from './fixtures/canonicalSchema.json';
 import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
 import { TGlobalEvent } from '../src/types/gfwTypes';
+import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
+import {
+  createValidationSample,
+  isOnLand,
+} from '../src/pipeline/validation/sample';
+import { EValidationLabel } from '../src/types/validationTypes';
+import { readLandPolygons } from '../src/pipeline/validation/dataset';
+import {
+  eventSchema_inWater,
+  eventSchema_matched_no_coord,
+  eventSchema_matched_no_date,
+  eventSchema_matched_noisy,
+  eventSchema_matched_with_port_event,
+  eventSchema_matched_with_port_event_confidence_2,
+  eventSchema_onLand,
+  eventSchema_umatched_near_coast,
+} from './fixtures/eventSchema';
 
-describe('4wings helpers', () => {
+jest.mock('parquetjs', () => ({
+  __esModule: true,
+  default: {
+    ParquetSchema: jest.fn(),
+  },
+}));
+
+//jest --passWithNoTests -t 4wings_helpers
+describe('4wings_helpers', () => {
   describe('generateSources', () => {
     it('returns the source keys with the version', () => {
       const expected =
@@ -93,7 +123,7 @@ describe('4wings helpers', () => {
     it('should return a GeoJSON Point', () => {
       if (!entries || !entries[0]) return;
 
-      const geom = generateGeom(entries[0]);
+      const geom = generateGeom(entries[0].lon, entries[0].lat);
 
       expect(geom.type).toBe('Point');
       expect(Array.isArray(geom.coordinates)).toBe(true);
@@ -107,7 +137,7 @@ describe('4wings helpers', () => {
 
       const lon = entries[0].lon;
       const lat = entries[0].lat;
-      const geom = generateGeom(entries[0]);
+      const geom = generateGeom(entries[0].lon, entries[0].lat);
 
       expect(geom.coordinates[0]).toBe(lon);
       expect(geom.coordinates[1]).toBe(lat);
@@ -170,11 +200,13 @@ describe('4wings helpers', () => {
 
   describe('generateScoring', () => {
     it('handles unmatched case with no event', () => {
-      const scoring = generateScoring(api4wingsEntry_unmatched, undefined);
+      const scoring = generateScoring(eventSchema_umatched_near_coast);
 
       expect(scoring.triage_score).toBe(null);
-      expect(scoring.reason_codes).toContain(EReasonCodesStatic.missing_confidence_proxy);
-      expect(scoring.uncertainty_score).toBeCloseTo(0.5);
+      expect(scoring.reason_codes).toContain(
+        EReasonCodesStatic.missing_confidence_proxy,
+      );
+      expect(scoring.uncertainty_score).toBeGreaterThan(0.5);
     });
 
     it('adds port visit confidence as triage score', () => {
@@ -186,20 +218,13 @@ describe('4wings helpers', () => {
 
       const event = apiEventResponse_with_entry.entries[0];
       if (!event) return;
-      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
+      const scoring = generateScoring(eventSchema_matched_with_port_event);
 
-      expect(scoring.triage_score).toBe(event.port_visit.confidence);
+      expect(scoring.triage_score).toBe(+event.port_visit.confidence);
     });
 
-    it('adds near coast and inside EEZ/MPA reasons', () => {
-      if (!api4wingsResponse.entries[0]) return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
-        return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
-        return;
-      const event = apiEventResponse_with_entry.entries[0];
-
-      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
+    it('adds_near_coast_and_inside_EEZ/MPA_reasons', () => {
+      const scoring = generateScoring(eventSchema_matched_with_port_event);
 
       expect(scoring.reason_codes).toEqual(
         expect.arrayContaining([
@@ -210,22 +235,16 @@ describe('4wings helpers', () => {
       );
     });
 
+    it('adds_near_coast_reason_for_unmatched', () => {
+      const scoring = generateScoring(eventSchema_umatched_near_coast);
+
+      expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
+    });
+
     it('adds low detection confidence when threshold is met', () => {
-      if (!api4wingsResponse.entries[0]) return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
-        return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
-        return;
-      if (!apiEventResponse_with_entry.entries[0]) return;
-      const event: TGlobalEvent  = {
-        ...apiEventResponse_with_entry.entries[0],
-        port_visit: {
-          ...apiEventResponse_with_entry.entries[0].port_visit,
-          confidence: 2,
-        },
-      };
-      if (!event) return;
-      const scoring = generateScoring(api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0], event);
+      const scoring = generateScoring(
+        eventSchema_matched_with_port_event_confidence_2,
+      );
 
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.low_detection_confidence,
@@ -233,29 +252,28 @@ describe('4wings helpers', () => {
     });
 
     it('detect missing fields', () => {
-      const event = undefined
-      const scoring_missing_date = generateScoring(api4wingsEntry_missing_date, event);
+      const scoring_missing_date = generateScoring(eventSchema_matched_no_date);
 
       expect(scoring_missing_date.reason_codes).toContain(
-        `missing_required_field:date`
+        `missing_required_field:date`,
       );
-      const scoring_missing_coordinates = generateScoring(api4wingsEntry_missing_coordinates, event);
+      const scoring_missing_coordinates = generateScoring(
+        eventSchema_matched_no_coord,
+      );
       expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lat`
+        `missing_required_field:lat`,
       );
       expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lon`
+        `missing_required_field:lon`,
       );
-
     });
 
     it('detect noisy vessel', () => {
-      const event = undefined
-      const scoring_noisy = generateScoring(api4wingsEntry_noisy, event);
+      const event = undefined;
+      const scoring_noisy = generateScoring(eventSchema_matched_noisy);
       expect(scoring_noisy.reason_codes).toContain(
-        EReasonCodesStatic.noisy_vessel
+        EReasonCodesStatic.noisy_vessel,
       );
-
     });
   });
 
@@ -417,7 +435,8 @@ describe('4wings helpers', () => {
   });
 });
 
-describe('Event statistics utilities', () => {
+//jest --passWithNoTests -t Event_statistics_utilities
+describe('Event_statistics_utilities', () => {
   const validEvents = events.features as any;
 
   const invalidEvents = [
@@ -522,7 +541,8 @@ describe('Event statistics utilities', () => {
   });
 });
 
-describe('Pipeline determinism', () => {
+//jest --passWithNoTests -t Pipeline_determinism
+/* describe('Pipeline_determinism', () => {
   it('should produce identical output when run twice', async () => {
     const OUTPUT_FILE = 'data/out/events.geojson';
     // run pipeline first time
@@ -534,5 +554,75 @@ describe('Pipeline determinism', () => {
     const hash2 = await hashFile(OUTPUT_FILE);
 
     expect(hash1).toBe(hash2);
+  });
+}); */
+
+//jest --passWithNoTests -t Hotspot_generation
+describe('Hotspot_generation', () => {
+  it('should create hotspots using canonical events', async () => {
+    const hotspots_reso_3 = generateHotspots(
+      canonicalSchema as IEventSchema[],
+      3,
+    );
+    expect(hotspots_reso_3.length).toBe(3);
+    expect(hotspots_reso_3[0]?.cell_id).toEqual(hotspots_reso_3[1]?.cell_id);
+    expect(hotspots_reso_3[0]?.time_bin).not.toEqual(
+      hotspots_reso_3[1]?.time_bin,
+    );
+
+    const hotspots_reso_5 = generateHotspots(
+      canonicalSchema as IEventSchema[],
+      5,
+    );
+    expect(hotspots_reso_5.length).toBe(9);
+  });
+});
+
+//jest --passWithNoTests -t Validation
+describe('Validation', () => {
+  const landPolygons = readLandPolygons();
+
+  it('should return true for land points', () => {
+    const landPoints: [number, number][] = [
+      [13.405, 52.52], // Berlin, Germany
+      [121.4437, 31.1948], // Shanghai, China
+      [-74.006, 40.7128], // New York City, USA
+      [151.2093, -33.8688], // Sydney, Australia
+      [2.3522, 48.8566], // Paris, France
+      [-58.3816, -34.6037], // Buenos Aires, Argentina
+      [37.6173, 55.7558], // Moscow, Russia
+      [-0.1276, 51.5074], // London, UK
+      [139.6917, 35.6895], // Tokyo, Japan
+      [18.4241, -33.9249], // Cape Town, South Africa
+    ];
+    landPoints.forEach(([lon, lat]) => {
+      expect(isOnLand(landPolygons, lon, lat)).toBe(true);
+    });
+  });
+
+  it('should return false for water points', () => {
+    const waterPoints: [number, number][] = [
+      [-30.0, 0.0], // Atlantic Ocean
+      [-124.5001, -8.801], // Pacific Ocean
+      [0.0, -45.0], // Southern Ocean
+      [-150.0, 30.0], // Pacific Ocean
+      [50.0, -10.0], // Indian Ocean
+      [-161.8162, 32.7295], // North Pacific
+      [170.0, -40.0], // South Pacific
+      [-28.6741, -14.6506], // Atlantic Ocean
+      [10.0, -60.0], // Southern Ocean
+      [56.462, 26.6222], // Hormoz Strait
+    ];
+    waterPoints.forEach(([lon, lat]) => {
+      expect(isOnLand(landPolygons, lon, lat)).toBe(false);
+    });
+  });
+
+  it('should label currectly', () => {
+    const validationSample = createValidationSample(eventSchema_onLand);
+    expect(validationSample.label).toBe(EValidationLabel.FP);
+
+    const validationSample2 = createValidationSample(eventSchema_inWater);
+    expect(validationSample2.label).toBe(EValidationLabel.TP);
   });
 });

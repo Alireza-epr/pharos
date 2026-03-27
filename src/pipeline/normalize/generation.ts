@@ -1,6 +1,11 @@
 import { EReasonCodes, EReasonCodesStatic } from '../../enum/generlaEnum';
 import { EEventType } from '../../enum/gfwEnum';
-import { IConfigJSON, IRunMetadata, IScoring } from '../../types/eventTypes';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IRunMetadata,
+  IScoring,
+} from '../../types/eventTypes';
 import { IGeometry } from '../../types/geoJSONTypes';
 import { I4wingsEntry, TGlobalEvent } from '../../types/gfwTypes';
 import {
@@ -8,8 +13,13 @@ import {
   getGitCommitSHA,
   hashString,
 } from '../../utils/generalUtils';
-import config from '../../config/globalFishingWatch.json';
-import { isMatchedCase, isNoisyCase, missingRequiredFields } from './validation';
+import config from '../../config/pilot.json';
+import {
+  isMatchedCase,
+  isNoisyCase,
+  missingRequiredFields,
+} from './validation';
+import { isNearCoast } from '../features/coast_distance';
 
 export const generateSources = (a_Configuration: Set<IConfigJSON>) => {
   return Array.from(a_Configuration)
@@ -33,9 +43,11 @@ export const generateEventId = (
   return hashString(canonical);
 };
 
-export const generateConfidence = (a_EventEntry: TGlobalEvent | undefined) => {
+export const generateConfidence = (
+  a_EventEntry: TGlobalEvent | undefined,
+): 2 | 3 | 4 | null => {
   return a_EventEntry && a_EventEntry.type === EEventType.port_visit
-    ? a_EventEntry.port_visit.confidence
+    ? (Number(a_EventEntry.port_visit.confidence) as 2 | 3 | 4)
     : null;
 };
 
@@ -53,60 +65,58 @@ export const generateRunMetadata = async (
   };
 };
 
-export const generateScoring = (
-  a_4wingsEntry: I4wingsEntry,
-  a_Event: TGlobalEvent | undefined,
-): IScoring => {
-  const confidence_proxy = 
-    a_Event && a_Event.type === EEventType.port_visit 
-    ? a_Event.port_visit.confidence
-    : null
+export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
+  const event = a_EventSchema.raw_event_metadata;
+  const entry = a_EventSchema.raw_metadata;
+  const confidence_proxy =
+    event && event.type === EEventType.port_visit
+      ? +event.port_visit.confidence
+      : null;
 
-  const triage_score = confidence_proxy
+  const triage_score = confidence_proxy;
 
   let reason_codes: EReasonCodes[] = [];
   let uncertainty_score = 0.2;
 
-  const missingFields = missingRequiredFields(a_4wingsEntry)
-  for(const field of missingFields){
+  const missingFields = missingRequiredFields(entry);
+  for (const field of missingFields) {
     reason_codes.push(`missing_required_field:${field}`);
   }
 
-  const noisy = isNoisyCase(a_4wingsEntry)
+  const noisy = isNoisyCase(entry);
   if (noisy) {
     reason_codes.push(EReasonCodesStatic.noisy_vessel);
   }
 
-  const matched = isMatchedCase(a_4wingsEntry)
+  const matched = isMatchedCase(entry);
   if (!matched) {
     reason_codes.push(EReasonCodesStatic.unmatched_to_public_ais);
   } else {
     reason_codes.push(EReasonCodesStatic.matched_to_public_ais);
   }
 
-  const near_coast = a_Event
-    ? a_Event.distances.startDistanceFromShoreKm <=
-      config.threshold.near_coast_threshold
-    : false;
+  const near_coast = isNearCoast(a_EventSchema.distance_to_coast_km);
   if (near_coast) {
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.near_coast);
   }
 
-  if(confidence_proxy === null){
+  if (confidence_proxy === null) {
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
-  } else if(confidence_proxy <= config.threshold.low_detection_confidence_threshold) {
+  } else if (
+    confidence_proxy <= config.threshold.low_detection_confidence_threshold
+  ) {
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  const inside_eez = a_Event ? a_Event.regions.eez.length > 0 : false;
+  const inside_eez = event ? event.regions.eez.length > 0 : false;
   if (inside_eez) {
     reason_codes.push(EReasonCodesStatic.inside_eez);
   }
 
-  const inside_mpa = a_Event ? a_Event.regions.mpa.length > 0 : false;
+  const inside_mpa = event ? event.regions.mpa.length > 0 : false;
   if (inside_mpa) {
     reason_codes.push(EReasonCodesStatic.inside_mpa);
   }
@@ -118,13 +128,17 @@ export const generateScoring = (
   };
 };
 
-export const generateGeom = (a_4wingsEntry: I4wingsEntry): IGeometry => {
+export const generateGeom = (a_Lon: number, a_Lat: number): IGeometry => {
   return {
     type: 'Point',
-    coordinates: [a_4wingsEntry.lon, a_4wingsEntry.lat],
+    coordinates: [a_Lon, a_Lat],
   };
 };
 
 export const generateVersion = () => {
   return __APP_VERSION__ ?? '1';
+};
+
+export const generateCoordinate = (a_Coordinate: number) => {
+  return +a_Coordinate.toFixed(3);
 };
