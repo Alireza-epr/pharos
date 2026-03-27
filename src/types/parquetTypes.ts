@@ -51,14 +51,14 @@ export const parquetSchema_raw_metadata = new parquet.ParquetSchema({
 });
 
 export const parquetSchema_hotspot = new parquet.ParquetSchema({
-  cell_id: { type: 'UTF8' },                 
-  time_bin: { type: 'UTF8' },                
-  count_total: { type: 'DOUBLE' },           
-  count_unmatched: { type: 'DOUBLE' },       
-  count_high_score_unmatched: { type: 'DOUBLE' }, 
-  mean_score: { type: 'DOUBLE', optional: true }, 
-  mean_uncertainty: { type: 'DOUBLE', optional: true }, 
-  pct_near_coast: { type: 'DOUBLE' },        
-  recurrence_count: { type: 'DOUBLE' },      
-  days_with_unmatched: { type: 'DOUBLE' }    
-})
+  cell_id: { type: 'UTF8' },
+  time_bin: { type: 'UTF8' },
+  count_total: { type: 'DOUBLE' },
+  count_unmatched: { type: 'DOUBLE' },
+  count_high_score_unmatched: { type: 'DOUBLE' },
+  mean_score: { type: 'DOUBLE', optional: true },
+  mean_uncertainty: { type: 'DOUBLE', optional: true },
+  pct_near_coast: { type: 'DOUBLE' },
+  recurrence_count: { type: 'DOUBLE' },
+  days_with_unmatched: { type: 'DOUBLE' },
+});

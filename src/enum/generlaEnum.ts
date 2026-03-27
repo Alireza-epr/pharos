@@ -16,10 +16,12 @@ export enum EReasonCodesStatic {
   inside_mpa = 'inside_mpa',
   unmatched_to_public_ais = 'unmatched_to_public_ais',
   matched_to_public_ais = 'matched_to_public_ais',
-  noisy_vessel = 'noisy_vessel'
+  noisy_vessel = 'noisy_vessel',
 }
 
-export type EReasonCodes = EReasonCodesStatic | `missing_required_field:${string}`;
+export type EReasonCodes =
+  | EReasonCodesStatic
+  | `missing_required_field:${string}`;
 
 export enum ERejectedEventSchemaReasons {
   notValidCoordinates = 'Not Valid Coordinates',

@@ -18,6 +18,7 @@ The `unmatched` tag is used as a **triage indicator only** and must not be inter
 - It does not imply illegal activity, suspicious behavior, or the presence of a “dark vessel”
 
 Several non-critical factors may lead to an unmatched result, including:
+
 - AIS transmission gaps
 - Temporal misalignment between SAR acquisition and AIS signals
 - Position inaccuracies
@@ -31,10 +32,12 @@ All unmatched cases should be treated as candidates for further review rather th
 Accuracy may be reduced in complex maritime environments.
 
 ### Coastal Areas
+
 - Proximity to land and infrastructure can introduce noise in SAR detections
 - Increased likelihood of false positives or positional uncertainty
 
 ### Dense Shipping Lanes
+
 - High vessel density may result in:
   - Overlapping AIS tracks
   - Ambiguous or multiple potential matches
@@ -49,18 +52,22 @@ Outputs generated in these regions inherently carry higher uncertainty.
 The pipeline depends on AIS data and derived datasets (e.g., Global Fishing Watch), which have known limitations.
 
 ### AIS Coverage
+
 - Not all vessels transmit AIS (e.g., smaller vessels or disabled transponders)
 - Coverage varies by geographic region and reception conditions (satellite vs. terrestrial)
 
 ### Temporal Availability
+
 - AIS data is not guaranteed to be real-time
 - Data ingestion and processing delays may occur, leading to temporal gaps
 
 ### Sampling Resolution
+
 - Some datasets are temporally downsampled (e.g., one position per vessel per hour)
 - Only approximate vessel positions are recorded, not every movement
 
 ### Data Quality
+
 - AIS records may be incomplete, inconsistent, or noisy
 - Position inaccuracies and missing transmissions are possible
 
@@ -95,10 +102,10 @@ AIS information is primarily **broadcast automatically** by a vessel’s transpo
 
 ## 7. Summary
 
-- The `unmatched` tag is an upstream-provided triage indicator and not a system-generated claim  
-- Coastal and high-density maritime regions introduce increased uncertainty  
-- AIS data is subject to coverage gaps, delays, and sampling limitations  
-- Upstream datasets may include model-based interpretations rather than direct observations  
-- Data completeness and freshness are not guaranteed  
+- The `unmatched` tag is an upstream-provided triage indicator and not a system-generated claim
+- Coastal and high-density maritime regions introduce increased uncertainty
+- AIS data is subject to coverage gaps, delays, and sampling limitations
+- Upstream datasets may include model-based interpretations rather than direct observations
+- Data completeness and freshness are not guaranteed
 
 All outputs should be interpreted within these constraints.

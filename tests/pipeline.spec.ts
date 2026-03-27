@@ -20,7 +20,11 @@ import {
   generateConfidence,
   generateGeom,
 } from '../src/pipeline/normalize/generation';
-import { IConfigJSON, IEventSchema, IRejectedEventSchema } from '../src/types/eventTypes';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IRejectedEventSchema,
+} from '../src/types/eventTypes';
 import {
   deepSortObject,
   getEntriesFrom4wingsResponse,
@@ -53,10 +57,22 @@ import canonicalSchema from './fixtures/canonicalSchema.json';
 import { EGeoJSONEventMissingness } from '../src/types/generalTypes';
 import { TGlobalEvent } from '../src/types/gfwTypes';
 import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
-import { createValidationSample, isOnLand } from '../src/pipeline/validation/sample';
+import {
+  createValidationSample,
+  isOnLand,
+} from '../src/pipeline/validation/sample';
 import { EValidationLabel } from '../src/types/validationTypes';
 import { readLandPolygons } from '../src/pipeline/validation/dataset';
-import { eventSchema_inWater, eventSchema_matched_no_coord, eventSchema_matched_no_date, eventSchema_matched_noisy, eventSchema_matched_with_port_event, eventSchema_matched_with_port_event_confidence_2, eventSchema_onLand, eventSchema_umatched_near_coast } from './fixtures/eventSchema';
+import {
+  eventSchema_inWater,
+  eventSchema_matched_no_coord,
+  eventSchema_matched_no_date,
+  eventSchema_matched_noisy,
+  eventSchema_matched_with_port_event,
+  eventSchema_matched_with_port_event_confidence_2,
+  eventSchema_onLand,
+  eventSchema_umatched_near_coast,
+} from './fixtures/eventSchema';
 
 //jest --passWithNoTests -t 4wings_helpers
 describe('4wings_helpers', () => {
@@ -180,7 +196,9 @@ describe('4wings_helpers', () => {
       const scoring = generateScoring(eventSchema_umatched_near_coast);
 
       expect(scoring.triage_score).toBe(null);
-      expect(scoring.reason_codes).toContain(EReasonCodesStatic.missing_confidence_proxy);
+      expect(scoring.reason_codes).toContain(
+        EReasonCodesStatic.missing_confidence_proxy,
+      );
       expect(scoring.uncertainty_score).toBeGreaterThan(0.5);
     });
 
@@ -213,13 +231,13 @@ describe('4wings_helpers', () => {
     it('adds_near_coast_reason_for_unmatched', () => {
       const scoring = generateScoring(eventSchema_umatched_near_coast);
 
-      expect(scoring.reason_codes).toContain(
-        EReasonCodesStatic.near_coast
-      );
+      expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
     });
 
     it('adds low detection confidence when threshold is met', () => {
-      const scoring = generateScoring(eventSchema_matched_with_port_event_confidence_2);
+      const scoring = generateScoring(
+        eventSchema_matched_with_port_event_confidence_2,
+      );
 
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.low_detection_confidence,
@@ -230,25 +248,25 @@ describe('4wings_helpers', () => {
       const scoring_missing_date = generateScoring(eventSchema_matched_no_date);
 
       expect(scoring_missing_date.reason_codes).toContain(
-        `missing_required_field:date`
+        `missing_required_field:date`,
       );
-      const scoring_missing_coordinates = generateScoring(eventSchema_matched_no_coord);
+      const scoring_missing_coordinates = generateScoring(
+        eventSchema_matched_no_coord,
+      );
       expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lat`
+        `missing_required_field:lat`,
       );
       expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lon`
+        `missing_required_field:lon`,
       );
-
     });
 
     it('detect noisy vessel', () => {
-      const event = undefined
+      const event = undefined;
       const scoring_noisy = generateScoring(eventSchema_matched_noisy);
       expect(scoring_noisy.reason_codes).toContain(
-        EReasonCodesStatic.noisy_vessel
+        EReasonCodesStatic.noisy_vessel,
       );
-
     });
   });
 
@@ -535,63 +553,69 @@ describe('Pipeline_determinism', () => {
 //jest --passWithNoTests -t Hotspot_generation
 describe('Hotspot_generation', () => {
   it('should create hotspots using canonical events', async () => {
-    const hotspots_reso_3 = generateHotspots( canonicalSchema as IEventSchema[], 3 )
-    expect(hotspots_reso_3.length).toBe(3)
-    expect(hotspots_reso_3[0]?.cell_id).toEqual(hotspots_reso_3[1]?.cell_id)
-    expect(hotspots_reso_3[0]?.time_bin).not.toEqual(hotspots_reso_3[1]?.time_bin)
+    const hotspots_reso_3 = generateHotspots(
+      canonicalSchema as IEventSchema[],
+      3,
+    );
+    expect(hotspots_reso_3.length).toBe(3);
+    expect(hotspots_reso_3[0]?.cell_id).toEqual(hotspots_reso_3[1]?.cell_id);
+    expect(hotspots_reso_3[0]?.time_bin).not.toEqual(
+      hotspots_reso_3[1]?.time_bin,
+    );
 
-    const hotspots_reso_5 = generateHotspots( canonicalSchema as IEventSchema[], 5 )
-    expect(hotspots_reso_5.length).toBe(9)
-  
+    const hotspots_reso_5 = generateHotspots(
+      canonicalSchema as IEventSchema[],
+      5,
+    );
+    expect(hotspots_reso_5.length).toBe(9);
   });
 });
 
 //jest --passWithNoTests -t Validation
 describe('Validation', () => {
-  const landPolygons = readLandPolygons()
+  const landPolygons = readLandPolygons();
 
   it('should return true for land points', () => {
     const landPoints: [number, number][] = [
-      [13.4050, 52.5200],    // Berlin, Germany
-      [121.4437, 31.1948],   // Shanghai, China
-      [-74.0060, 40.7128],   // New York City, USA
-      [151.2093, -33.8688],  // Sydney, Australia
-      [2.3522, 48.8566],     // Paris, France
-      [-58.3816, -34.6037],  // Buenos Aires, Argentina
-      [37.6173, 55.7558],    // Moscow, Russia
-      [-0.1276, 51.5074],    // London, UK
-      [139.6917, 35.6895],   // Tokyo, Japan
-      [18.4241, -33.9249],   // Cape Town, South Africa
-    ]
+      [13.405, 52.52], // Berlin, Germany
+      [121.4437, 31.1948], // Shanghai, China
+      [-74.006, 40.7128], // New York City, USA
+      [151.2093, -33.8688], // Sydney, Australia
+      [2.3522, 48.8566], // Paris, France
+      [-58.3816, -34.6037], // Buenos Aires, Argentina
+      [37.6173, 55.7558], // Moscow, Russia
+      [-0.1276, 51.5074], // London, UK
+      [139.6917, 35.6895], // Tokyo, Japan
+      [18.4241, -33.9249], // Cape Town, South Africa
+    ];
     landPoints.forEach(([lon, lat]) => {
-      expect(isOnLand(landPolygons, lon, lat)).toBe(true)
-    })
-  })
+      expect(isOnLand(landPolygons, lon, lat)).toBe(true);
+    });
+  });
 
   it('should return false for water points', () => {
     const waterPoints: [number, number][] = [
-      [-30.0000, 0.0000],    // Atlantic Ocean
-      [-124.5001, -8.8010],  // Pacific Ocean
-      [0.0000, -45.0000],    // Southern Ocean
-      [-150.0000, 30.0000],  // Pacific Ocean
-      [50.0000, -10.0000],   // Indian Ocean
-      [-161.8162, 32.7295],  // North Pacific
-      [170.0000, -40.0000],  // South Pacific
-      [-28.6741, -14.6506],  // Atlantic Ocean
-      [10.0000, -60.0000],   // Southern Ocean
-      [56.4620, 26.6222],    // Hormoz Strait
-    ]
+      [-30.0, 0.0], // Atlantic Ocean
+      [-124.5001, -8.801], // Pacific Ocean
+      [0.0, -45.0], // Southern Ocean
+      [-150.0, 30.0], // Pacific Ocean
+      [50.0, -10.0], // Indian Ocean
+      [-161.8162, 32.7295], // North Pacific
+      [170.0, -40.0], // South Pacific
+      [-28.6741, -14.6506], // Atlantic Ocean
+      [10.0, -60.0], // Southern Ocean
+      [56.462, 26.6222], // Hormoz Strait
+    ];
     waterPoints.forEach(([lon, lat]) => {
-      expect(isOnLand(landPolygons, lon, lat)).toBe(false)
-    })
-  })
+      expect(isOnLand(landPolygons, lon, lat)).toBe(false);
+    });
+  });
 
   it('should label currectly', () => {
-    const validationSample = createValidationSample(eventSchema_onLand)
-    expect(validationSample.label).toBe(EValidationLabel.FP)
+    const validationSample = createValidationSample(eventSchema_onLand);
+    expect(validationSample.label).toBe(EValidationLabel.FP);
 
-    const validationSample2 = createValidationSample(eventSchema_inWater)
-    expect(validationSample2.label).toBe(EValidationLabel.TP)
-  })
-})
-
+    const validationSample2 = createValidationSample(eventSchema_inWater);
+    expect(validationSample2.label).toBe(EValidationLabel.TP);
+  });
+});

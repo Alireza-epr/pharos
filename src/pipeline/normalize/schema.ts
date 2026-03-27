@@ -10,8 +10,15 @@ import { EContextLayers } from '../../enum/gfwEnum';
 import { generateEEZ } from '../features/eez';
 import { generateRFMO } from '../features/rfmo';
 import { generateMPA } from '../features/mpa';
-import { distanceToCoast, generateDistanceToCoast } from '../features/coast_distance';
-import { isISO8601Timestamp, isMatchedCase, isValidCoordinate } from './validation';
+import {
+  distanceToCoast,
+  generateDistanceToCoast,
+} from '../features/coast_distance';
+import {
+  isISO8601Timestamp,
+  isMatchedCase,
+  isValidCoordinate,
+} from './validation';
 import {
   generateConfidence,
   generateCoordinate,
@@ -29,8 +36,7 @@ export const createEventSchema = async (
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
-
-  const validTimestamp = isISO8601Timestamp(a_4wingsEntry.entryTimestamp)
+  const validTimestamp = isISO8601Timestamp(a_4wingsEntry.entryTimestamp);
   if (!validTimestamp) {
     return {
       reason: ERejectedEventSchemaReasons.notValidTimestamp,
@@ -39,7 +45,7 @@ export const createEventSchema = async (
     };
   }
 
-  const timestamp_utc = a_4wingsEntry.entryTimestamp
+  const timestamp_utc = a_4wingsEntry.entryTimestamp;
 
   const validCoordinates = isValidCoordinate(
     a_4wingsEntry.lat,
@@ -54,19 +60,14 @@ export const createEventSchema = async (
     };
   }
 
-  const lon = generateCoordinate(a_4wingsEntry.lon) 
-  const lat = generateCoordinate(a_4wingsEntry.lat) 
+  const lon = generateCoordinate(a_4wingsEntry.lon);
+  const lat = generateCoordinate(a_4wingsEntry.lat);
 
   const version = generateVersion();
 
   const sources = generateSources(a_Configuration);
 
-  const event_id = await generateEventId(
-    timestamp_utc,
-    lon,
-    lat,
-    sources,
-  );
+  const event_id = await generateEventId(timestamp_utc, lon, lat, sources);
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
@@ -87,8 +88,12 @@ export const createEventSchema = async (
   };
 
   //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
-  const distance_to_coast_km = distanceToCoast(coastlinePolylines,a_4wingsEntry.lon, a_4wingsEntry.lat);
-  
+  const distance_to_coast_km = distanceToCoast(
+    coastlinePolylines,
+    a_4wingsEntry.lon,
+    a_4wingsEntry.lat,
+  );
+
   const eventSchema: IEventSchema = {
     version: version,
     event_id,
@@ -106,7 +111,7 @@ export const createEventSchema = async (
     scoring: {
       triage_score: null,
       uncertainty_score: null,
-      reason_codes: null
+      reason_codes: null,
     },
     geom: geom,
     rejected: false,
@@ -116,6 +121,6 @@ export const createEventSchema = async (
 
   return {
     ...eventSchema,
-    scoring
+    scoring,
   };
 };

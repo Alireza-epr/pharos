@@ -1,27 +1,43 @@
-import { FeatureCollection, IMultiLineStringGeometry, IMultiPolygonGeometry } from "../../types/geoJSONTypes";
-import { ICoastlinePolylineProperties, ILandPolygonProperties } from "../../types/validationTypes";
+import {
+  FeatureCollection,
+  IMultiLineStringGeometry,
+  IMultiPolygonGeometry,
+} from '../../types/geoJSONTypes';
+import {
+  ICoastlinePolylineProperties,
+  ILandPolygonProperties,
+} from '../../types/validationTypes';
 import fs from 'fs';
 
 export const readLandPolygons = () => {
-    const landPolygons: FeatureCollection<IMultiPolygonGeometry, ILandPolygonProperties> = JSON.parse(
-        fs.readFileSync('./data/land_polygons/land_polygons.geojson', 'utf8')
-    );
+  const landPolygons: FeatureCollection<
+    IMultiPolygonGeometry,
+    ILandPolygonProperties
+  > = JSON.parse(
+    fs.readFileSync('./data/land_polygons/land_polygons.geojson', 'utf8'),
+  );
 
-    if(!landPolygons){
-      throw new Error("Failed to read land polygons")
-    }
+  if (!landPolygons) {
+    throw new Error('Failed to read land polygons');
+  }
 
-    return landPolygons
-}
+  return landPolygons;
+};
 
 export const readCoastlinePolylines = () => {
-    const coastlinePolylines: FeatureCollection<IMultiLineStringGeometry, ICoastlinePolylineProperties> = JSON.parse(
-        fs.readFileSync('./data/coastline_polylines/coastline_polylines.geojson', 'utf8')
-    );
+  const coastlinePolylines: FeatureCollection<
+    IMultiLineStringGeometry,
+    ICoastlinePolylineProperties
+  > = JSON.parse(
+    fs.readFileSync(
+      './data/coastline_polylines/coastline_polylines.geojson',
+      'utf8',
+    ),
+  );
 
-    if(!coastlinePolylines){
-      throw new Error("Failed to read coastline polylines")
-    }
+  if (!coastlinePolylines) {
+    throw new Error('Failed to read coastline polylines');
+  }
 
-    return coastlinePolylines
-}
+  return coastlinePolylines;
+};

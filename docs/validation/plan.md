@@ -155,7 +155,7 @@ Allowed values:
 - **static_structure**  
   Likely a fixed object (pier, platform, turbine).
 
-- **on_land** 
+- **on_land**
   The coordinate is located on solid ground, not water.
 
 - **unknown**  

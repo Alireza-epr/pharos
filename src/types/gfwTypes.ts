@@ -291,7 +291,7 @@ export interface IPortVisitEvent extends IBaseEvent {
   type: EEventType.port_visit;
   port_visit: {
     visitId: string;
-    confidence: "2" | "3" | "4";
+    confidence: '2' | '3' | '4';
     durationHrs: number;
     startAnchorage: IAnchorage;
     intermediateAnchorage: IAnchorage;
