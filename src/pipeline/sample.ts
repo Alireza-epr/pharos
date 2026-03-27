@@ -630,6 +630,5 @@ if (args.includes('--main')) {
 } else if (args.includes('--validation')) {
   validation().catch(console.error);
 } else {
-  console.error('Please provide --main or --validation');
-  process.exit(1);
+  main().catch(console.error);
 }
