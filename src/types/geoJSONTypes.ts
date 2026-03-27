@@ -28,11 +28,21 @@ export interface IPolygonGeometry extends IGeometry {
   coordinates: [[number, number][]]; // array of rings
 }
 
+export interface IMultiPolygonGeometry extends IGeometry {
+  type: 'MultiPolygon';
+  coordinates: number[][][][]; // array of rings
+}
+
+export interface IMultiLineStringGeometry extends IGeometry {
+  type: 'MultiLineString';
+  coordinates: number[][][]; // array of rings
+}
+
 // Feature Interface
 export interface IFeature<G extends IGeometry = IGeometry, P = any> {
   type: 'Feature';
   geometry: G;
-  properties?: P; // optional metadata
+  properties: P; // optional metadata
 }
 
 // FeatureCollection Interface

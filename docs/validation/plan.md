@@ -77,16 +77,15 @@ So we group events by **how strong the detection looks**, based on simple signal
 
 **Signals used**
 
-- how long the detection lasts
 - how recent the event is
 
 **Groups**
 
 - **strong_signal**  
-  Longer-lasting, recent or more detected events
+  recent events
 
 - **weak_signal**  
-  Short or old events
+  old events
 
 These groups are **not probabilities**.
 They only help us sample different types of events.
@@ -155,6 +154,9 @@ Allowed values:
 
 - **static_structure**  
   Likely a fixed object (pier, platform, turbine).
+
+- **on_land** 
+  The coordinate is located on solid ground, not water.
 
 - **unknown**  
   No clear reason identified.

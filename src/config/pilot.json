@@ -1,6 +1,10 @@
 {
   "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
   "eventURL": "https://gateway.api.globalfishingwatch.org/v3/events",
+  "threshold": {
+    "near_coast_threshold": 10,
+    "low_detection_confidence_threshold": 2
+  },
   "source": "public-global-sar-presence:v3.0",
   "eventSource": "public-global-port-visits-events:v3.0",
   "output": "data/out/",

@@ -262,3 +262,69 @@ export const getTimeRange = (a_Features: IFeature<IGeometry, IEventProperties>[]
 export const getDate = (a_Datetime: string) => {
   return a_Datetime.slice(0, 10)
 }
+
+export const jsonToCsv = <T>(
+  a_Title: string,
+  a_Samples: T[],
+) => {
+  if (!a_Samples.length) return "";
+  let s0 = a_Samples[0]
+  if(!s0) return ""
+  const headers = Object.keys(s0);
+
+  const delimiter = ";";
+
+  const csvRows = [
+    `### ${a_Title} ###`,
+    headers.join(delimiter), // header row
+    ...a_Samples.map((sample) =>
+      headers
+        .map((header) => {
+          const value = sample[header as keyof T];
+          // handle null / undefined safely
+          return value === null || value === undefined
+            ? "N/A"
+            : typeof value === 'number'
+              ? `="${value}"`             
+              : `"${String(value).replace(/"/g, '""')}"`; //If a value itself contains a double quote ("), CSV requires it to be escaped by doubling it.
+        })
+        .join(delimiter),
+    ),
+  ];
+
+  return csvRows.join("\n");
+};
+
+export const csvString = <T, N>(
+  a_Title1: string,
+  a_Samples1: T[],
+  a_Title2?: string,
+  a_Samples2?: N[],
+) => {
+
+  const sections: string[] = [];
+  
+  sections.push(
+    jsonToCsv<T>(
+      a_Title1,
+      a_Samples1
+    ),
+  );
+
+  if (a_Samples2 && a_Title2) {
+    sections.push(""); // blank line
+    sections.push(""); // blank line
+
+    sections.push(
+      jsonToCsv<N>(
+        a_Title2,
+        a_Samples2
+      ),
+    );
+  }
+
+  
+  const csvString = sections.join("\n");
+
+  return csvString
+};

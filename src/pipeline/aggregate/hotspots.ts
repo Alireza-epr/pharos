@@ -1,7 +1,7 @@
 import { latLngToCell, cellToBoundary } from "h3-js"
 import { IEventSchema } from "../../types/eventTypes"
 import { IHotspot } from "../../types/h3Types"
-import config from '../../config/globalFishingWatch.json';
+import config from '../../config/pilot.json';
 import { IFeature, IPolygonGeometry } from "../../types/geoJSONTypes";
 import { getDate } from "../../utils/generalUtils";
 

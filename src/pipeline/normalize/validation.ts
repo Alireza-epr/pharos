@@ -36,7 +36,7 @@ export const missingRequiredFields = (a_4wingsEntry: I4wingsEntry) => {
 
   for(const field of requiredFields){
     const value = a_4wingsEntry[field];
-    if (value === undefined || value === null || value === "") {
+    if (value === undefined || value === null || value === "" || Number.isNaN(value)) {
       missingFields.push(field);
     }
 

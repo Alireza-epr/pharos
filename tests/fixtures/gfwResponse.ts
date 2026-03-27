@@ -749,7 +749,7 @@ export const apiEventResponse_with_entry: IEventAPIResponse<IPortVisitEvent> = {
       },
       port_visit: {
         visitId: '22efc11c118fb011f640e6328d54744f',
-        confidence: 4,
+        confidence: "4",
         durationHrs: 24.024166666666666,
         startAnchorage: {
           anchorageId: '46551b1d',

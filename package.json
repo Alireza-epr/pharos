@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "pipeline:sample": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js",
+    "pipeline:sample": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js --main",
+    "pipeline:validation": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js --validation",
     "ui:dev": "vite",
     "ui:build": "vite build",
     "ui:preview": "vite preview",
@@ -44,6 +45,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@turf/turf": "^7.3.4",
     "h3-js": "^4.4.0",
     "maplibre-gl": "^5.17.0",
     "parquetjs": "^0.11.2",

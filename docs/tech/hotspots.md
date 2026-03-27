@@ -54,7 +54,7 @@ Added to support **temporal analysis**:
 
 ## 5. Thresholds
 
-Thresholds are defined in `src/config/globalFishingWatch.json`:
+Thresholds are defined in `src/config/pilot.json`:
 
 - `low_detection_confidence_threshold` → minimum score for high-score unmatched  
 - `near_coast_threshold` → maximum distance in km to consider “near coast”  

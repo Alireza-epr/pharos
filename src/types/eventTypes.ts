@@ -29,7 +29,7 @@ export interface IScoring {
 }
 
 export interface IEventSchema {
-  distance_to_coast_km: number | null;
+  distance_to_coast_km: number;
   context_layers: Record<EContextLayers, IContextLayer>;
   version: string;
   event_id: string;

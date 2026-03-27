@@ -1712,7 +1712,7 @@
     "event_id": "f1d1c217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c",
     "timestamp_utc": "2025-12-04T16:53:26Z",
     "matched_flag": true,
-    "confidence_fields": "4",
+    "confidence_fields": 4,
     "lat": 55.16,
     "lon": 14.680000305175781,
     "source": "public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0",
@@ -1804,7 +1804,7 @@
         "startAnchorage": {
           "anchorageId": "46551b1d",
           "atDock": true,
-          "distanceFromShoreKm": "0",
+          "distanceFromShoreKm": 0,
           "flag": "DNK",
           "id": "dnk-roenne",
           "lat": 55.105045722833694,
@@ -1815,7 +1815,7 @@
         "intermediateAnchorage": {
           "anchorageId": "46551b1d",
           "atDock": true,
-          "distanceFromShoreKm": "0",
+          "distanceFromShoreKm": 0,
           "flag": "DNK",
           "id": "dnk-roenne",
           "lat": 55.105045722833694,
@@ -1826,7 +1826,7 @@
         "endAnchorage": {
           "anchorageId": "46551b1d",
           "atDock": true,
-          "distanceFromShoreKm": "0",
+          "distanceFromShoreKm": 0,
           "flag": "DNK",
           "id": "dnk-roenne",
           "lat": 55.105045722833694,
@@ -1993,7 +1993,7 @@
     },
     "distance_to_coast_km": 0,
     "scoring": {
-      "triage_score": "4",
+      "triage_score": 4,
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",

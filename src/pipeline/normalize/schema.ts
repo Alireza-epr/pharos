@@ -10,10 +10,11 @@ import { EContextLayers } from '../../enum/gfwEnum';
 import { generateEEZ } from '../features/eez';
 import { generateRFMO } from '../features/rfmo';
 import { generateMPA } from '../features/mpa';
-import { generateDistanceToCoast } from '../features/coast_distance';
+import { distanceToCoast, generateDistanceToCoast } from '../features/coast_distance';
 import { isISO8601Timestamp, isMatchedCase, isValidCoordinate } from './validation';
 import {
   generateConfidence,
+  generateCoordinate,
   generateEventId,
   generateGeom,
   generateRunMetadata,
@@ -21,6 +22,7 @@ import {
   generateSources,
   generateVersion,
 } from './generation';
+import { coastlinePolylines } from '../sample';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
@@ -37,6 +39,8 @@ export const createEventSchema = async (
     };
   }
 
+  const timestamp_utc = a_4wingsEntry.entryTimestamp
+
   const validCoordinates = isValidCoordinate(
     a_4wingsEntry.lat,
     a_4wingsEntry.lon,
@@ -50,14 +54,17 @@ export const createEventSchema = async (
     };
   }
 
+  const lon = generateCoordinate(a_4wingsEntry.lon) 
+  const lat = generateCoordinate(a_4wingsEntry.lat) 
+
   const version = generateVersion();
 
   const sources = generateSources(a_Configuration);
 
   const event_id = await generateEventId(
-    a_4wingsEntry.entryTimestamp,
-    a_4wingsEntry.lon,
-    a_4wingsEntry.lat,
+    timestamp_utc,
+    lon,
+    lat,
     sources,
   );
 
@@ -67,9 +74,7 @@ export const createEventSchema = async (
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
-  const scoring = generateScoring(a_4wingsEntry, a_EventEntry);
-
-  let geom: IGeometry = generateGeom(a_4wingsEntry);
+  let geom: IGeometry = generateGeom(lon, lat);
 
   const eez = generateEEZ(a_EventEntry);
   const mpa = generateMPA(a_EventEntry);
@@ -81,26 +86,36 @@ export const createEventSchema = async (
     [EContextLayers.rfmo]: rfmo,
   };
 
-  const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
-
+  //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
+  const distance_to_coast_km = distanceToCoast(coastlinePolylines,a_4wingsEntry.lon, a_4wingsEntry.lat);
+  
   const eventSchema: IEventSchema = {
     version: version,
     event_id,
-    timestamp_utc: a_4wingsEntry.entryTimestamp,
+    timestamp_utc,
     matched_flag,
     confidence_fields,
-    lat: a_4wingsEntry.lat,
-    lon: a_4wingsEntry.lon,
+    lat,
+    lon,
     source: sources,
     raw_metadata: a_4wingsEntry,
     raw_event_metadata: a_EventEntry ?? null,
     run_metadata,
     context_layers,
     distance_to_coast_km,
-    scoring,
+    scoring: {
+      triage_score: null,
+      uncertainty_score: null,
+      reason_codes: null
+    },
     geom: geom,
     rejected: false,
   };
 
-  return eventSchema;
+  const scoring = generateScoring(eventSchema);
+
+  return {
+    ...eventSchema,
+    scoring
+  };
 };

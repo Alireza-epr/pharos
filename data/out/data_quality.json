@@ -6,7 +6,7 @@
     "lat": "0.00%",
     "lon": "0.00%",
     "confidence_fields": "94.44%",
-    "distance_to_coast_km": "94.44%"
+    "distance_to_coast_km": "0.00%"
   },
   "geo_sanity": {
     "latitude": {
@@ -14,8 +14,8 @@
       "max": 55.25
     },
     "longitude": {
-      "min": 14.09000015258789,
-      "max": 14.680000305175781
+      "min": 14.09,
+      "max": 14.68
     }
   },
   "time_range": {

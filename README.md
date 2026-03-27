@@ -50,6 +50,9 @@ Common scripts (from repo root):
 # run a fixed sample pipeline and write outputs
 npm run pipeline:sample
 
+# run a fixed sample validation and write outputs
+npm run pipeline:validation
+
 # start UI in dev mode
 npm run ui:dev
 
