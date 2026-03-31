@@ -1,4 +1,4 @@
-import { IConfigJSON, IEventSchema } from './eventTypes';
+import { IConfigJSON, IEventSchema, IRunMetadata } from './eventTypes';
 import { FeatureCollection, IFeature, IPointGeometry } from './geoJSONTypes';
 
 export interface ILandPolygonProperties {
@@ -56,4 +56,12 @@ export enum EValidationStrata {
 export interface IValidationStrata {
   geoJSON: TValidationGeoJSON[];
   csv: string;
+}
+
+export interface IValidationManifest {
+  strata: EValidationStrata,
+  stratum_sample_sizes: {
+    [key: string]: number
+  },
+  run_metadata: IRunMetadata
 }

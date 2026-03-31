@@ -1,0 +1,178 @@
+[
+  {
+    "strata": "distance_to_coast",
+    "stratum_sample_sizes": {
+      "near_coast": 23,
+      "offshore": 27
+    },
+    "run_metadata": {
+      "code_version": "99d1b77c9bb81b792d44135e3277b41e964b1ea6",
+      "config_json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": null,
+          "method": "GET",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-01-01T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "region-dataset": "public-eez-areas",
+            "region-id": 5669,
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        }
+      ],
+      "config_hash": "9e2d2050cf852b47e6a44e1dda9fea5e0dab1b86ea605a7106c901ae194b502a"
+    }
+  },
+  {
+    "strata": "confidence_tier",
+    "stratum_sample_sizes": {
+      "high_confidence": 25,
+      "low_confidence": 25
+    },
+    "run_metadata": {
+      "code_version": "99d1b77c9bb81b792d44135e3277b41e964b1ea6",
+      "config_json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": null,
+          "method": "GET",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-12-07T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "region-dataset": "public-eez-areas",
+            "region-id": 5669,
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": null,
+          "method": "GET",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2018-12-07T00:00:00Z,2018-12-07T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "region-dataset": "public-eez-areas",
+            "region-id": 5669,
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        }
+      ],
+      "config_hash": "8b01f96d642eb8746f642330babf953fc19353d6fb98af6930c4744429ccd65f"
+    }
+  },
+  {
+    "strata": "density",
+    "stratum_sample_sizes": {
+      "high_density": 25,
+      "low_density": 25
+    },
+    "run_metadata": {
+      "code_version": "99d1b77c9bb81b792d44135e3277b41e964b1ea6",
+      "config_json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    0.5,
+                    50.5
+                  ],
+                  [
+                    2.5,
+                    50.5
+                  ],
+                  [
+                    2.5,
+                    51.5
+                  ],
+                  [
+                    0.5,
+                    51.5
+                  ],
+                  [
+                    0.5,
+                    50.5
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-07-07T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        },
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    -32,
+                    34
+                  ],
+                  [
+                    -28,
+                    34
+                  ],
+                  [
+                    -28,
+                    38
+                  ],
+                  [
+                    -32,
+                    38
+                  ],
+                  [
+                    -32,
+                    34
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-07-07T00:00:00Z,2025-12-07T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        }
+      ],
+      "config_hash": "795209f56da4ed4a778341e5b9d895ef53e566dcccc125026384142616469247"
+    }
+  }
+]

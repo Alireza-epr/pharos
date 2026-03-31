@@ -7,6 +7,7 @@ import {
   getGeoMax,
   getGeoMin,
   getTimeRange,
+  sortEventSchema,
 } from '../utils/generalUtils';
 import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
@@ -43,6 +44,7 @@ import { FeatureCollection, IGeometry } from '../types/geoJSONTypes';
 import { IEventProperties } from '../types/generalTypes';
 import {
   EValidationStrata,
+  IValidationManifest,
   IValidationSample,
   IValidationStrata,
 } from '../types/validationTypes';
@@ -52,6 +54,7 @@ import {
 } from './validation/sample';
 import { readCoastlinePolylines, readLandPolygons } from './validation/dataset';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
+import { generateRunMetadata } from './normalize/generation';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -200,16 +203,7 @@ const main = async () => {
   log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
-  const sortedEvents = notRejectedEvents.sort((a, b) => {
-    if (a.timestamp_utc !== b.timestamp_utc)
-      return a.timestamp_utc.localeCompare(b.timestamp_utc);
-
-    if (a.event_id !== b.event_id) return a.event_id.localeCompare(b.event_id);
-
-    if (a.lon !== b.lon) return a.lon - b.lon;
-
-    return a.lat - b.lat;
-  });
+  const sortedEvents = sortEventSchema(notRejectedEvents)
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -359,6 +353,7 @@ const main = async () => {
 const validation = async () => {
   log('Starting validation...', '', ELogLevel.message, '3');
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
+  const setManifest = new Set<IValidationManifest>();
 
   try {
     log(
@@ -407,6 +402,18 @@ const validation = async () => {
       geoJSON: strata_1_samples.validationSamplesGeoJSON,
       csv: strata_1_csv + '\n' + '\n',
     });
+
+    const configSets = new Set<IConfigJSON>()
+    configSets.add(strata_1_samples.metadata)
+    const strata_1_manifest: IValidationManifest = {
+      strata: EValidationStrata.distance_to_coast,
+      stratum_sample_sizes: {
+        near_coast: near_coast.length,
+        offshore: offshore.length
+      },
+      run_metadata: await generateRunMetadata(configSets)
+    } 
+    setManifest.add(strata_1_manifest)
 
     log(
       `Getting samples for ${EValidationStrata.distance_to_coast} strata done.`,
@@ -483,6 +490,19 @@ const validation = async () => {
       ],
       csv: strata_2_csv + '\n' + '\n',
     });
+
+    const configSets = new Set<IConfigJSON>()
+    configSets.add(strata_2_samples_1.metadata)
+    configSets.add(strata_2_samples_2.metadata)
+    const strata_2_manifest: IValidationManifest = {
+      strata: EValidationStrata.confidence_tier,
+      stratum_sample_sizes: {
+        high_confidence: strata_2_samples_1.validationSamples.length,
+        low_confidence: strata_2_samples_2.validationSamples.length
+      },
+      run_metadata: await generateRunMetadata(configSets)
+    } 
+    setManifest.add(strata_2_manifest)
 
     log(
       `Getting samples for ${EValidationStrata.confidence_tier} strata done.`,
@@ -590,6 +610,19 @@ const validation = async () => {
       csv: strata_3_csv + '\n' + '\n',
     });
 
+    const configSets = new Set<IConfigJSON>()
+    configSets.add(strata_3_samples_1.metadata)
+    configSets.add(strata_3_samples_2.metadata)
+    const strata_3_manifest: IValidationManifest = {
+      strata: EValidationStrata.density,
+      stratum_sample_sizes: {
+        high_density: strata_3_samples_1.validationSamples.length,
+        low_density: strata_3_samples_2.validationSamples.length
+      },
+      run_metadata: await generateRunMetadata(configSets)
+    } 
+    setManifest.add(strata_3_manifest)
+
     log(
       `Getting samples for ${EValidationStrata.density} strata done.`,
       '',
@@ -623,6 +656,13 @@ const validation = async () => {
   fs.writeFileSync(`${output}validation_sample.csv`, csv_strata_string, 'utf8');
 
   log('Validation finished.', '', ELogLevel.message, '3');
+
+  //validation_manifest.json
+  const manifest_strata = Array.from(setManifest);
+  fs.writeFileSync(
+    `${output}validation_manifest.json`,
+    JSON.stringify(manifest_strata, null, 2),
+  );
 };
 
 if (args.includes('--main')) {
