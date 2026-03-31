@@ -542,7 +542,7 @@ describe('Event_statistics_utilities', () => {
 });
 
 //jest --passWithNoTests -t Pipeline_determinism
-/* describe('Pipeline_determinism', () => {
+describe('Pipeline_determinism', () => {
   it('should produce identical output when run twice', async () => {
     const OUTPUT_FILE = 'data/out/events.geojson';
     // run pipeline first time
@@ -555,7 +555,7 @@ describe('Event_statistics_utilities', () => {
 
     expect(hash1).toBe(hash2);
   });
-}); */
+});
 
 //jest --passWithNoTests -t Hotspot_generation
 describe('Hotspot_generation', () => {

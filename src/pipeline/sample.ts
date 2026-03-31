@@ -629,6 +629,4 @@ if (args.includes('--main')) {
   main().catch(console.error);
 } else if (args.includes('--validation')) {
   validation().catch(console.error);
-} else {
-  main().catch(console.error);
 }
