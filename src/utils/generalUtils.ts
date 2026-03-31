@@ -1,6 +1,7 @@
 import { EGeoCoordinate, ELogLevel, EURLParams } from '../enum/generlaEnum';
 import { E4wingsDatasets, EEventDatasets } from '../enum/gfwEnum';
 import { isValidCoordinate } from '../pipeline/normalize/validation';
+import { IEventSchema } from '../types/eventTypes';
 import {
   EGeoJSONEventMissingness,
   IEventProperties,
@@ -315,3 +316,16 @@ export const csvString = <T, N>(
 
   return csvString;
 };
+
+export const sortEventSchema = (a_EventSchema: IEventSchema[]): IEventSchema[] => {
+  return a_EventSchema.sort((a, b) => {
+    if (a.timestamp_utc !== b.timestamp_utc)
+      return a.timestamp_utc.localeCompare(b.timestamp_utc);
+
+    if (a.event_id !== b.event_id) return a.event_id.localeCompare(b.event_id);
+
+    if (a.lon !== b.lon) return a.lon - b.lon;
+
+    return a.lat - b.lat;
+  });
+}

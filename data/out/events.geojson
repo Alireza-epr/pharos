@@ -225,7 +225,7 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.68,
-        "confidence_fields": "4",
+        "confidence_fields": 4,
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {

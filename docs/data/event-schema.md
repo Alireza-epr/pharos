@@ -72,7 +72,7 @@ This document defines a **event schema** for Iteration 1.
   - enrichment - attributes including id and label
 
 - `distance_to_coast_km` (number)
-  Derived from `startDistanceFromShoreKm` in the event record, if available.
+  Calculating by the Coastline Polylines dataset
 
 ### Scoring
 

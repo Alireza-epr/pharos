@@ -24,7 +24,7 @@ import {
   T4wingsSource,
   TEventSource,
 } from '../../types/gfwTypes';
-import { getEntriesFrom4wingsResponse, log } from '../../utils/generalUtils';
+import { getEntriesFrom4wingsResponse, log, sortEventSchema } from '../../utils/generalUtils';
 import { ELogLevel } from '../../enum/generlaEnum';
 import { createEventSchema } from '../normalize/schema';
 import { EFetchMethods } from '../../enum/gfwEnum';
@@ -138,16 +138,7 @@ export const getValidationSamples = async (
     }
   }
 
-  const sortedEvents = eventSchemas.sort((a, b) => {
-    if (a.timestamp_utc !== b.timestamp_utc)
-      return a.timestamp_utc.localeCompare(b.timestamp_utc);
-
-    if (a.event_id !== b.event_id) return a.event_id.localeCompare(b.event_id);
-
-    if (a.lon !== b.lon) return a.lon - b.lon;
-
-    return a.lat - b.lat;
-  });
+  const sortedEvents = sortEventSchema(eventSchemas)
   log('Creating validation GeoJSON samples...', '', ELogLevel.message, '3');
   for (const eventSchema of sortedEvents) {
     const validationSample = createValidationSample(eventSchema);
@@ -174,9 +165,9 @@ export const postValidationSamples = async (
   const metadata: IConfigJSON = {
     source: a_Source,
     base_url: a_BaseURL,
-    method: EFetchMethods.get,
+    method: EFetchMethods.post,
     url_params: a_URLParam,
-    body_params: null,
+    body_params: a_BodyParam,
   };
   const configuration = new Set<IConfigJSON>();
   //log("Params:", JSON.stringify({...a_URLParam, ...a_BodyParam}), ELogLevel.message, "3")

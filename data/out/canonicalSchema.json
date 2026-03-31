@@ -19,7 +19,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-03-24T23:59:53Z",
+      "lastTransmissionDate": "2026-03-29T23:59:58Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -178,7 +178,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-03-24T23:55:38Z",
+      "lastTransmissionDate": "2026-03-29T23:58:44Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -188,7 +188,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -337,7 +337,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-03-24T23:59:52Z",
+      "lastTransmissionDate": "2026-03-29T23:59:52Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -347,7 +347,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -496,7 +496,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-03-24T23:56:27Z",
+      "lastTransmissionDate": "2026-03-29T23:59:55Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -506,7 +506,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -655,7 +655,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-03-24T23:55:15Z",
+      "lastTransmissionDate": "2026-03-29T23:58:59Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -665,7 +665,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -814,7 +814,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-03-24T23:57:19Z",
+      "lastTransmissionDate": "2026-03-29T23:58:23Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -824,7 +824,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -958,7 +958,7 @@
     "event_id": "874df96e65c6dc650d39eb98943ce25e7b3a82173e88f29c404609050a85c02e",
     "timestamp_utc": "2025-12-04T16:53:26Z",
     "matched_flag": true,
-    "confidence_fields": "4",
+    "confidence_fields": 4,
     "lat": 55.16,
     "lon": 14.68,
     "source": "public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0",
@@ -1083,7 +1083,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1287,7 +1287,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1395,7 +1395,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-03-24T23:59:44Z",
+      "lastTransmissionDate": "2026-03-29T23:59:00Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1405,7 +1405,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1554,7 +1554,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-03-24T23:59:26Z",
+      "lastTransmissionDate": "2026-03-29T23:59:26Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -1564,7 +1564,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1713,7 +1713,7 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-03-24T23:59:13Z",
+      "lastTransmissionDate": "2026-03-29T23:58:56Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
@@ -1723,7 +1723,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1872,7 +1872,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-03-24T23:59:17Z",
+      "lastTransmissionDate": "2026-03-29T23:59:46Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -1882,7 +1882,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2031,7 +2031,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-03-24T23:59:44Z",
+      "lastTransmissionDate": "2026-03-29T23:59:21Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2041,7 +2041,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2190,7 +2190,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-03-24T23:59:54Z",
+      "lastTransmissionDate": "2026-03-29T23:55:00Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -2200,7 +2200,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2349,7 +2349,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-03-24T23:58:13Z",
+      "lastTransmissionDate": "2026-03-29T23:58:26Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -2359,7 +2359,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2508,7 +2508,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-03-24T23:55:39Z",
+      "lastTransmissionDate": "2026-03-29T23:59:14Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -2518,7 +2518,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2667,7 +2667,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-03-24T23:58:32Z",
+      "lastTransmissionDate": "2026-03-29T23:58:57Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -2677,7 +2677,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2826,7 +2826,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-03-24T23:45:58Z",
+      "lastTransmissionDate": "2026-03-29T23:59:36Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -2836,7 +2836,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "dd74db4ef5f175802c660c4fc5879850cd02dd82",
+      "code_version": "12fab494d77b0976f03d6f077651259a5cdde44c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
