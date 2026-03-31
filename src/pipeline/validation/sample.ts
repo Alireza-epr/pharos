@@ -24,7 +24,11 @@ import {
   T4wingsSource,
   TEventSource,
 } from '../../types/gfwTypes';
-import { getEntriesFrom4wingsResponse, log, sortEventSchema } from '../../utils/generalUtils';
+import {
+  getEntriesFrom4wingsResponse,
+  log,
+  sortEventSchema,
+} from '../../utils/generalUtils';
 import { ELogLevel } from '../../enum/generlaEnum';
 import { createEventSchema } from '../normalize/schema';
 import { EFetchMethods } from '../../enum/gfwEnum';
@@ -138,7 +142,7 @@ export const getValidationSamples = async (
     }
   }
 
-  const sortedEvents = sortEventSchema(eventSchemas)
+  const sortedEvents = sortEventSchema(eventSchemas);
   log('Creating validation GeoJSON samples...', '', ELogLevel.message, '3');
   for (const eventSchema of sortedEvents) {
     const validationSample = createValidationSample(eventSchema);

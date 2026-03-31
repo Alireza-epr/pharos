@@ -213,7 +213,7 @@ describe('4wings_helpers', () => {
       expect(scoring.uncertainty_score).toBeGreaterThan(0.5);
     });
 
-    it("match state logic produces correct match reason code", () => {
+    it('match state logic produces correct match reason code', () => {
       const scoring = generateScoring(eventSchema_matched_with_port_event);
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
@@ -223,20 +223,39 @@ describe('4wings_helpers', () => {
       expect(scoring_2.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
       );
-    })
+    });
 
-    it("uncertainty increases for near-coast vs offshore", () => {
-      const scoring_unmatched_near_coast = generateScoring(eventSchema_umatched_near_coast);
-      const scoring_unmatched_offshore = generateScoring(eventSchema_umatched_offshore);
-      if( !scoring_unmatched_near_coast.uncertainty_score || !scoring_unmatched_offshore.uncertainty_score) return
-      expect(scoring_unmatched_near_coast.uncertainty_score).toBeGreaterThan(scoring_unmatched_offshore.uncertainty_score);
+    it('uncertainty increases for near-coast vs offshore', () => {
+      const scoring_unmatched_near_coast = generateScoring(
+        eventSchema_umatched_near_coast,
+      );
+      const scoring_unmatched_offshore = generateScoring(
+        eventSchema_umatched_offshore,
+      );
+      if (
+        !scoring_unmatched_near_coast.uncertainty_score ||
+        !scoring_unmatched_offshore.uncertainty_score
+      )
+        return;
+      expect(scoring_unmatched_near_coast.uncertainty_score).toBeGreaterThan(
+        scoring_unmatched_offshore.uncertainty_score,
+      );
 
-      const scoring_matched_near_coast = generateScoring(eventSchema_matched_near_coast);
-      const scoring_matched_offshore = generateScoring(eventSchema_matched_offshore);
-      if( !scoring_matched_near_coast.uncertainty_score || !scoring_matched_offshore.uncertainty_score) return
-      expect(scoring_matched_near_coast.uncertainty_score).toBeGreaterThan(scoring_matched_offshore.uncertainty_score);
-
-    })
+      const scoring_matched_near_coast = generateScoring(
+        eventSchema_matched_near_coast,
+      );
+      const scoring_matched_offshore = generateScoring(
+        eventSchema_matched_offshore,
+      );
+      if (
+        !scoring_matched_near_coast.uncertainty_score ||
+        !scoring_matched_offshore.uncertainty_score
+      )
+        return;
+      expect(scoring_matched_near_coast.uncertainty_score).toBeGreaterThan(
+        scoring_matched_offshore.uncertainty_score,
+      );
+    });
 
     it('adds port visit confidence as triage score', () => {
       if (!api4wingsResponse.entries[0]) return;

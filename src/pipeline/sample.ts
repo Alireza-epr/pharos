@@ -203,7 +203,7 @@ const main = async () => {
   log(`Preparing outputs in ${output}...`, '', ELogLevel.message, '3');
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
-  const sortedEvents = sortEventSchema(notRejectedEvents)
+  const sortedEvents = sortEventSchema(notRejectedEvents);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -403,17 +403,17 @@ const validation = async () => {
       csv: strata_1_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>()
-    configSets.add(strata_1_samples.metadata)
+    const configSets = new Set<IConfigJSON>();
+    configSets.add(strata_1_samples.metadata);
     const strata_1_manifest: IValidationManifest = {
       strata: EValidationStrata.distance_to_coast,
       stratum_sample_sizes: {
         near_coast: near_coast.length,
-        offshore: offshore.length
+        offshore: offshore.length,
       },
-      run_metadata: await generateRunMetadata(configSets)
-    } 
-    setManifest.add(strata_1_manifest)
+      run_metadata: await generateRunMetadata(configSets),
+    };
+    setManifest.add(strata_1_manifest);
 
     log(
       `Getting samples for ${EValidationStrata.distance_to_coast} strata done.`,
@@ -491,18 +491,18 @@ const validation = async () => {
       csv: strata_2_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>()
-    configSets.add(strata_2_samples_1.metadata)
-    configSets.add(strata_2_samples_2.metadata)
+    const configSets = new Set<IConfigJSON>();
+    configSets.add(strata_2_samples_1.metadata);
+    configSets.add(strata_2_samples_2.metadata);
     const strata_2_manifest: IValidationManifest = {
       strata: EValidationStrata.confidence_tier,
       stratum_sample_sizes: {
         high_confidence: strata_2_samples_1.validationSamples.length,
-        low_confidence: strata_2_samples_2.validationSamples.length
+        low_confidence: strata_2_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(configSets)
-    } 
-    setManifest.add(strata_2_manifest)
+      run_metadata: await generateRunMetadata(configSets),
+    };
+    setManifest.add(strata_2_manifest);
 
     log(
       `Getting samples for ${EValidationStrata.confidence_tier} strata done.`,
@@ -610,18 +610,18 @@ const validation = async () => {
       csv: strata_3_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>()
-    configSets.add(strata_3_samples_1.metadata)
-    configSets.add(strata_3_samples_2.metadata)
+    const configSets = new Set<IConfigJSON>();
+    configSets.add(strata_3_samples_1.metadata);
+    configSets.add(strata_3_samples_2.metadata);
     const strata_3_manifest: IValidationManifest = {
       strata: EValidationStrata.density,
       stratum_sample_sizes: {
         high_density: strata_3_samples_1.validationSamples.length,
-        low_density: strata_3_samples_2.validationSamples.length
+        low_density: strata_3_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(configSets)
-    } 
-    setManifest.add(strata_3_manifest)
+      run_metadata: await generateRunMetadata(configSets),
+    };
+    setManifest.add(strata_3_manifest);
 
     log(
       `Getting samples for ${EValidationStrata.density} strata done.`,

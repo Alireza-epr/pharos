@@ -59,9 +59,9 @@ export interface IValidationStrata {
 }
 
 export interface IValidationManifest {
-  strata: EValidationStrata,
+  strata: EValidationStrata;
   stratum_sample_sizes: {
-    [key: string]: number
-  },
-  run_metadata: IRunMetadata
+    [key: string]: number;
+  };
+  run_metadata: IRunMetadata;
 }

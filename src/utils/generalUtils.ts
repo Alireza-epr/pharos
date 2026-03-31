@@ -317,7 +317,9 @@ export const csvString = <T, N>(
   return csvString;
 };
 
-export const sortEventSchema = (a_EventSchema: IEventSchema[]): IEventSchema[] => {
+export const sortEventSchema = (
+  a_EventSchema: IEventSchema[],
+): IEventSchema[] => {
   return a_EventSchema.sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
@@ -328,4 +330,4 @@ export const sortEventSchema = (a_EventSchema: IEventSchema[]): IEventSchema[] =
 
     return a.lat - b.lat;
   });
-}
+};
