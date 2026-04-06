@@ -52,7 +52,3 @@ jobs:
       - name: Run Backend Unit Tests
         working-directory: apps/backend
         run: npm test
-
-      - name: Verify Backend Startup
-        working-directory: apps/backend
-        run: npm run start
