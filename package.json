@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build:packages": "npm run build --workspace=@packages/types && npm run build --workspace=@packages/utils && npm run build --workspace=@packages/enum"
+    "frontend:build": "npm --prefix apps/frontend run build",
+    "packages:build": "npm run build --workspace=@packages/types && npm run build --workspace=@packages/utils && npm run build --workspace=@packages/enum"
   },
   "devDependencies": {
     "typescript": "^6.0.2"
