@@ -1,0 +1,3452 @@
+[
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        13.85,
+        54.2
+      ]
+    },
+    "properties": {
+      "event_id": "05e065111dd7cf10b153effa86f6ece5a57fcafdeb7cc15df49b5f6bb37a7f11",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 13.85,
+      "lat": 54.2,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.17,
+        54.04
+      ]
+    },
+    "properties": {
+      "event_id": "06babe212f296cd3cb9d8ab8857dbc3ecc9bcb0998015ba2d8edeac997ec2034",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.17,
+      "lat": 54.04,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.08,
+        54.02
+      ]
+    },
+    "properties": {
+      "event_id": "075bf1ba4b631d9ed9297a40ab2c9c7032838eb12c3b0b66cea7b8bc43f114a3",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 7.08,
+      "lat": 54.02,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.57,
+        54.27
+      ]
+    },
+    "properties": {
+      "event_id": "09351a16886dcb6875cb6324df5b25ab6800194d8cefbefdde41fdbe92d1ef3f",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.57,
+      "lat": 54.27,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.18,
+        54.62
+      ]
+    },
+    "properties": {
+      "event_id": "0afc7f914a5ccdc249320d8993b9f50c575b739ad0bed40444e39d334d31d387",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.18,
+      "lat": 54.62,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.54,
+        54.02
+      ]
+    },
+    "properties": {
+      "event_id": "0d4aac77fb73d4df4f66fbae0aff3ccef1352850b6f0862697e0ea91240bc729",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.54,
+      "lat": 54.02,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.06,
+        54.2
+      ]
+    },
+    "properties": {
+      "event_id": "149a5289ed0e9f09798501203a6c1e28c180579d154a6753cd170105549037d6",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 12.06,
+      "lat": 54.2,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.3,
+        54.44
+      ]
+    },
+    "properties": {
+      "event_id": "154d1c0727819af83134de66a45ccb654c2d0b4974d5669cc74788feae3ec0d4",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.3,
+      "lat": 54.44,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.99,
+        54.48
+      ]
+    },
+    "properties": {
+      "event_id": "1c09aeae542dcd314dbfd242a410d1b55205cc7d0b60a259ea53d60d89f91ba4",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.99,
+      "lat": 54.48,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.07,
+        54.06
+      ]
+    },
+    "properties": {
+      "event_id": "1f381a26632b540edaabf9dbce2caa83033db66edf81bcc4b147e9a64ddc5a1d",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 7.07,
+      "lat": 54.06,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.32,
+        53.87
+      ]
+    },
+    "properties": {
+      "event_id": "247ead8b9ecfefefbd7ae2a4c58ffb25d947e2b50b628df0c1e224d9624e95d9",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.32,
+      "lat": 53.87,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.43,
+        54.02
+      ]
+    },
+    "properties": {
+      "event_id": "2c3d8f7461ecfe034b6f231db80656200430c43678dbdee675f9778c88882085",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.43,
+      "lat": 54.02,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.9,
+        54.44
+      ]
+    },
+    "properties": {
+      "event_id": "3156672bd0e30c4d255ae326d4df91bd8ebd2caa0141fc7b5da0dca1178b541b",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.9,
+      "lat": 54.44,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.86,
+        53.89
+      ]
+    },
+    "properties": {
+      "event_id": "31b1cac1e81bdc012abdefab07603b7ecdd32935d57295eb619aaa768d235527",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 7.86,
+      "lat": 53.89,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.93,
+        53.54
+      ]
+    },
+    "properties": {
+      "event_id": "32b300abd048716597d3fd3f0098ac8ce1fe90678265d66135d3e808fcf18e70",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.93,
+      "lat": 53.54,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.47,
+        54.35
+      ]
+    },
+    "properties": {
+      "event_id": "41b15e10f40a1e2953a70d9cfbd1583567ac93492e52510329a39a43480d43cd",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 11.47,
+      "lat": 54.35,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        14.23,
+        53.96
+      ]
+    },
+    "properties": {
+      "event_id": "4331ef89afa149ff21b593875ebf4cf5343091f5a8389e7c12686bf41cca17cf",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 14.23,
+      "lat": 53.96,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.42,
+        53.87
+      ]
+    },
+    "properties": {
+      "event_id": "4cf7a5c6b260e3d4778fd3091efa9e972bb7cf397a2d34f8e794e62636694d1a",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.42,
+      "lat": 53.87,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        10.33,
+        54.45
+      ]
+    },
+    "properties": {
+      "event_id": "5e36309bac12a8498544b75f82c1ddaf959cb7d1e0ea0bf8cbec1f6ada7737ff",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 10.33,
+      "lat": 54.45,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.52,
+        53.76
+      ]
+    },
+    "properties": {
+      "event_id": "6581c0b03cef653ecfb8b33a6ed8e12b02aacce99a865c0cebde924af7774322",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.52,
+      "lat": 53.76,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.44,
+        53.85
+      ]
+    },
+    "properties": {
+      "event_id": "67ecf4b74118ce43bb2de9688536a910a132dd13a0c86a2d9a41f0c272572cbc",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.44,
+      "lat": 53.85,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.27,
+        53.81
+      ]
+    },
+    "properties": {
+      "event_id": "6a4e6d6c5651c081c4600d746daa2b70a34d4e77379790e63b60381270c9caa4",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.27,
+      "lat": 53.81,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.36,
+        54.16
+      ]
+    },
+    "properties": {
+      "event_id": "717b5d49f79e1fc8c9dfc80b5452eaf333e66cb8b774ac7e2394d68dfd98d09a",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 11.36,
+      "lat": 54.16,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        14.35,
+        54.74
+      ]
+    },
+    "properties": {
+      "event_id": "722e6f2902e356b880bfb0e62bdc19f45b6b0d6f87a174984475785cd9356239",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 14.35,
+      "lat": 54.74,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.53,
+        54.73
+      ]
+    },
+    "properties": {
+      "event_id": "736d3ded552a978008fd627ffb93338e89eb6f0081f25e09c9b677534f0e73a6",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 5.53,
+      "lat": 54.73,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.12,
+        54.35
+      ]
+    },
+    "properties": {
+      "event_id": "7716f51432e21f100e1f214c71cf678b7e7f7e881e041119c976889c8c63c484",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.12,
+      "lat": 54.35,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.1,
+        54.06
+      ]
+    },
+    "properties": {
+      "event_id": "8c123cb39b88149883a2849595fafa063675b0e183b5aa0755396541b89bb09d",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.1,
+      "lat": 54.06,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.92,
+        53.82
+      ]
+    },
+    "properties": {
+      "event_id": "95c88f30ada67cca79a423d6510512f6f101b07b9f694028b5a88918d393115a",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 7.92,
+      "lat": 53.82,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.44,
+        54.29
+      ]
+    },
+    "properties": {
+      "event_id": "9cd6dbdc514e5e74ff53039884422675a3999ef85142559794ad1bdc1860f612",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.44,
+      "lat": 54.29,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.25,
+        53.96
+      ]
+    },
+    "properties": {
+      "event_id": "9f0aaec70addc0eeb27f8cac43b34916a10f2e8d0542673d5f2b367e4d2dbd06",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.25,
+      "lat": 53.96,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.59,
+        54.02
+      ]
+    },
+    "properties": {
+      "event_id": "a03289a73cde9f07712307a854a995232af963d2e2a7c6ea6b8a2f00d4f361ca",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.59,
+      "lat": 54.02,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.27,
+        54.06
+      ]
+    },
+    "properties": {
+      "event_id": "a06108b0c28db2d136fab2777484c3d8d600bdce079ea7e443e560b7a267db9f",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.27,
+      "lat": 54.06,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.69,
+        53.56
+      ]
+    },
+    "properties": {
+      "event_id": "ad85a92950997892bcf3a4b894707b8b987586d30377ebbd6c62af7f21fcb140",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.69,
+      "lat": 53.56,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.63,
+        54.05
+      ]
+    },
+    "properties": {
+      "event_id": "add16c0ad5bbed57b1aaff5cec92ec1321ef8734ee2d3b6ad96097972f11317b",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.63,
+      "lat": 54.05,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.77,
+        54.59
+      ]
+    },
+    "properties": {
+      "event_id": "b3283be53717d771438ee371466562f688fcc68f392d0481dfaad44a05b18a73",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.77,
+      "lat": 54.59,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.61,
+        53.57
+      ]
+    },
+    "properties": {
+      "event_id": "b5074252122114b32f28215d7ebeca8e48ae25752b6f80a45e73d6a87c2f6c05",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.61,
+      "lat": 53.57,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.07,
+        54.21
+      ]
+    },
+    "properties": {
+      "event_id": "b53e3dcbeca8bbddf4a2073e7d64e2b3c28c245e497e981e660603b261402fa2",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 12.07,
+      "lat": 54.21,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.46,
+        54.04
+      ]
+    },
+    "properties": {
+      "event_id": "ba5dc69a8721cbda056acee637e27ae5628fa10cfa27e261bca97e7bd679c99b",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.46,
+      "lat": 54.04,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.06,
+        54.24
+      ]
+    },
+    "properties": {
+      "event_id": "c1b1f51276b00994b945384462f95a58a1c2fdb59cb21fd727111cedf6c267b2",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 12.06,
+      "lat": 54.24,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.51,
+        54.28
+      ]
+    },
+    "properties": {
+      "event_id": "c3b68dc2443a5405560f72b4cb6b5b7d0f9855949ffd41872f09d228cb430f4a",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 11.51,
+      "lat": 54.28,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.1,
+        53.67
+      ]
+    },
+    "properties": {
+      "event_id": "cb59078992d9764d325503dcfa056378175e95156d32af4ac566bee7d66bb15b",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.1,
+      "lat": 53.67,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.43,
+        54.24
+      ]
+    },
+    "properties": {
+      "event_id": "d3c7200e09d3fea35cae5845746efe2b3227795b418d10a58a67535290f9c10f",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.43,
+      "lat": 54.24,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.65,
+        54.43
+      ]
+    },
+    "properties": {
+      "event_id": "d487c939fd23445732fc838d349ead77e567df82d222c27116a27ee7233da20d",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.65,
+      "lat": 54.43,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.24,
+        54.33
+      ]
+    },
+    "properties": {
+      "event_id": "d74582c45fb291d254355b368f0e61df8525aea91219f8df88fe4d2e46ce876c",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.24,
+      "lat": 54.33,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.5,
+        53.96
+      ]
+    },
+    "properties": {
+      "event_id": "d8d671fd8e22b569ac9272dffa91f5959ef41bc602b981c638d7102ff26b690a",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.5,
+      "lat": 53.96,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.9,
+        54.99
+      ]
+    },
+    "properties": {
+      "event_id": "e44973243dc617ed62f25fd498e61df1a3d19552368b308045cb42af125c97b7",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 7.9,
+      "lat": 54.99,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.8,
+        53.51
+      ]
+    },
+    "properties": {
+      "event_id": "f612e68170c0625d6230e80debf2ddb9d913195b7c8b73fe628a52f5ad166576",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.8,
+      "lat": 53.51,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.04,
+        54.12
+      ]
+    },
+    "properties": {
+      "event_id": "faf04bbf642d09b2b13e5c8b4b07b7d9632f2018de0fde981f250a9e9521284c",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.04,
+      "lat": 54.12,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.7,
+        53.99
+      ]
+    },
+    "properties": {
+      "event_id": "fc887542f018468cc77fcd82838cfb0ea383302ef2a8c9ecb6646ee7c263b903",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 8.7,
+      "lat": 53.99,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.4,
+        53.68
+      ]
+    },
+    "properties": {
+      "event_id": "ff65a7961306be80d3e18af09ae1d578e2ecb96d5729af9a59c7ce8cb83af8d0",
+      "timestamp_utc": "2025-01-02T05:41:46Z",
+      "lon": 6.4,
+      "lat": 53.68,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.6,
+        54.05
+      ]
+    },
+    "properties": {
+      "event_id": "04f73a7d56441687f8305e3521a0def8549083938d8c15524ed2240053bd0a99",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.6,
+      "lat": 54.05,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.95,
+        54.96
+      ]
+    },
+    "properties": {
+      "event_id": "09c569739ed4ff77049f2ec65c0907225f597f66c89a3e3288e903a9745c8962",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 7.95,
+      "lat": 54.96,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.13,
+        55.17
+      ]
+    },
+    "properties": {
+      "event_id": "15e3dbdb0f876cf729f4c6383c185203e3f4ec3848a8a2a1482f647fe4a9a832",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 6.13,
+      "lat": 55.17,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.28,
+        55.03
+      ]
+    },
+    "properties": {
+      "event_id": "1bb14ddab16197d57e3478b049b471b33c5f951da60903c3927e2cc2f531dfe9",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.28,
+      "lat": 55.03,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.22,
+        54.03
+      ]
+    },
+    "properties": {
+      "event_id": "32017be115d216394845aa9bf38140b159af72e3a9192987bbba6d7feafaafdc",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.22,
+      "lat": 54.03,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.31,
+        54.52
+      ]
+    },
+    "properties": {
+      "event_id": "439e6ddeb9b71d605a6f76cbdb59627a21de8fe2375c0a276d772c2cf449b98f",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.31,
+      "lat": 54.52,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.24,
+        53.93
+      ]
+    },
+    "properties": {
+      "event_id": "4ab60982262f1501e3c0c24be7324be981d200461c5d1cf3795b5d25077cfd7e",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.24,
+      "lat": 53.93,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.48,
+        53.8
+      ]
+    },
+    "properties": {
+      "event_id": "58eb21d760329a6e8b216eafb4c5c1ca68404c1ca2f3d7e08a457a835175e63b",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.48,
+      "lat": 53.8,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.52,
+        55.17
+      ]
+    },
+    "properties": {
+      "event_id": "5d866bc6ec57ef3f04bd8c31cf6d8f117478e92e94f6beb77b3432f5a5d3b186",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 5.52,
+      "lat": 55.17,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.63,
+        54.1
+      ]
+    },
+    "properties": {
+      "event_id": "6447f7ca5a8db8e70905d620dcf21c715364cc4d661a9672dadd915c90ec6208",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.63,
+      "lat": 54.1,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.29,
+        54.54
+      ]
+    },
+    "properties": {
+      "event_id": "66764ca60e9f2e917f87a8af4d871d931d65d2780d2cd5a5966ece49320919aa",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.29,
+      "lat": 54.54,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.42,
+        54.61
+      ]
+    },
+    "properties": {
+      "event_id": "729487d59f9dbaa62dd4aebd2edd77b31a7af3155c302148003b727f04ec7c44",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.42,
+      "lat": 54.61,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.29,
+        54.43
+      ]
+    },
+    "properties": {
+      "event_id": "74bef0beb9ee83e2564da273a56dc939f298efe413a0435464dbeb586e313bbd",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.29,
+      "lat": 54.43,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.27,
+        54.54
+      ]
+    },
+    "properties": {
+      "event_id": "7ddda115d28474dbb25597dba6ca554172d50f145d4e93fd53bbf8743e626e3e",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 7.27,
+      "lat": 54.54,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.58,
+        54.67
+      ]
+    },
+    "properties": {
+      "event_id": "8376016ae2abd8de3ad9c5191b3e79a7691a4703cde1e80acbee533faaf28f75",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.58,
+      "lat": 54.67,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.98,
+        54.48
+      ]
+    },
+    "properties": {
+      "event_id": "882edd21f24eadf04f31fa2afc3fdf56dc315c20f65c5c6338f309f4f494ead3",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.98,
+      "lat": 54.48,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.8,
+        55.49
+      ]
+    },
+    "properties": {
+      "event_id": "88898d9b299a7ce1afdb26f5a1f8200791277e9fe63e49877ccf39dc7c96bd91",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 5.8,
+      "lat": 55.49,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.42,
+        53.73
+      ]
+    },
+    "properties": {
+      "event_id": "8e83a6d39ef52f5b565d60dda1acf8f17c03cf38dac54161f7fc0d018e2898c0",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.42,
+      "lat": 53.73,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.57,
+        54.03
+      ]
+    },
+    "properties": {
+      "event_id": "948b533a592eb3995ebd6bf72bd41efac9ab0372aa6e159d75f37d32b865307a",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.57,
+      "lat": 54.03,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.04,
+        53.74
+      ]
+    },
+    "properties": {
+      "event_id": "c6e539abea6c22da68a42e743e92913d9c4bc677553225fac46298f28c5e9dfd",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 7.04,
+      "lat": 53.74,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.6,
+        53.68
+      ]
+    },
+    "properties": {
+      "event_id": "e5ae32e999bb7daf480ed5da93c2df7474d805aff68e12aac19329ce1881e9ed",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 6.6,
+      "lat": 53.68,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.81,
+        54.43
+      ]
+    },
+    "properties": {
+      "event_id": "e89ea77d448957b295c720853a6eaae7b89d9ccda7c6e9962c959cb21429a05c",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.81,
+      "lat": 54.43,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.07,
+        53.7
+      ]
+    },
+    "properties": {
+      "event_id": "ea6c11449423a9f2149873e8d9ac15a4b27de2ff6a03552dfafaf0bd35b74588",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.07,
+      "lat": 53.7,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.2,
+        54.38
+      ]
+    },
+    "properties": {
+      "event_id": "eacf2102156b8f3912503e612859b77e277e19ecd1b62d51f30144fc01aa9474",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 6.2,
+      "lat": 54.38,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        8.36,
+        53.69
+      ]
+    },
+    "properties": {
+      "event_id": "f75bdc8f3b45c088fdae8af675562a078b3ae029d3cd9a1ee883715cacf2c345",
+      "timestamp_utc": "2025-12-07T17:17:24Z",
+      "lon": 8.36,
+      "lat": 53.69,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.45,
+        53.97
+      ]
+    },
+    "properties": {
+      "event_id": "00d6604211221ba889a79758d2164afd808d320a3ef574fe49e35eb7d4b617cf",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.45,
+      "lat": 53.97,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        10.98,
+        54.02
+      ]
+    },
+    "properties": {
+      "event_id": "018467e56e27f8c823ab9502fcfa4fbdd3bb47f2b75e1782e8d6697aadbcc5b6",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 10.98,
+      "lat": 54.02,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.5,
+        55.22
+      ]
+    },
+    "properties": {
+      "event_id": "07f77f351a7c1837c45c39ff933ff73481ec0ec365dfb6db2d33d6eefe092e00",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 5.5,
+      "lat": 55.22,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.05,
+        54.06
+      ]
+    },
+    "properties": {
+      "event_id": "082d4deb7010479a56b4632b9a64d03449d7e95904ad7835bf590ff3694897a9",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 11.05,
+      "lat": 54.06,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.91,
+        54.26
+      ]
+    },
+    "properties": {
+      "event_id": "0917ad19a874e001ccceff66635e64fd89b4700cbce12031c3f28b34d641b66b",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 5.91,
+      "lat": 54.26,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.9,
+        54.27
+      ]
+    },
+    "properties": {
+      "event_id": "2aaecc2ef75111ec74d8dfb136140c1ed1be292a82648c823f90028580107f45",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 5.9,
+      "lat": 54.27,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.52,
+        53.68
+      ]
+    },
+    "properties": {
+      "event_id": "31a9b148484674e48e2f2f19da194266567965db85693e006abc5b3ba633e11a",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.52,
+      "lat": 53.68,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.58,
+        53.92
+      ]
+    },
+    "properties": {
+      "event_id": "3e0ff58fca29f6babb8e650823e08a862d9e43b6e45fe4ac15c252c7f4fb9a2f",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.58,
+      "lat": 53.92,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.1,
+        54.1
+      ]
+    },
+    "properties": {
+      "event_id": "4dd021f9160555a5cde05d7d3a7fcd505ec33ea3d33f0925891fce7cc8a0d6ae",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 11.1,
+      "lat": 54.1,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.24,
+        54.28
+      ]
+    },
+    "properties": {
+      "event_id": "4e3150962e70fec40af15ae1152f52b1f92aa9b6a64cd7f2b33d57c0c7ceeaff",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 11.24,
+      "lat": 54.28,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.54,
+        53.91
+      ]
+    },
+    "properties": {
+      "event_id": "537d616f7f8d228354a58c6acea4d8d3b0e707b8cfa4e48bfdbf60087b8a6882",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.54,
+      "lat": 53.91,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.28,
+        54.33
+      ]
+    },
+    "properties": {
+      "event_id": "662d8f52ea5e7ecebda4996c87dfd05392087f872ece88be86833eaf137be3a6",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 11.28,
+      "lat": 54.33,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.61,
+        53.92
+      ]
+    },
+    "properties": {
+      "event_id": "668b2f51a2c97ed5c180da6ba214369aca8218c96afd4f3a1ced4f9fe143bcad",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.61,
+      "lat": 53.92,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        14.11,
+        54.05
+      ]
+    },
+    "properties": {
+      "event_id": "6d2372b1054b8500932100a2bb3108eda0263f083d6d2d2f23f5d9b6a4ad315c",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 14.11,
+      "lat": 54.05,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        11.23,
+        54.29
+      ]
+    },
+    "properties": {
+      "event_id": "7eca36e2247e78b6c0ac05e55ddaf48cd1ec85c733aabc0605e4ecd0fab75f1a",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 11.23,
+      "lat": 54.29,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.87,
+        54.26
+      ]
+    },
+    "properties": {
+      "event_id": "8c97fc7ab7facdbd651040fcf96c7e8d84ed434076b3498efe577af4aa8ab056",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 5.87,
+      "lat": 54.26,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.6,
+        53.92
+      ]
+    },
+    "properties": {
+      "event_id": "949e11724a20ee696870ad29f9748e50601e941ed498cfc1bce94f7e3c293fc4",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.6,
+      "lat": 53.92,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        7.03,
+        54.04
+      ]
+    },
+    "properties": {
+      "event_id": "9b581b73f2a20b9d7bf3994d51877375c928f7ac97a454f69736f2b5a8a28bda",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 7.03,
+      "lat": 54.04,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.97,
+        54.83
+      ]
+    },
+    "properties": {
+      "event_id": "9c5638880d6046276e3ae04f02a34e957125971d9e0e2324ea9a43cb16626e8a",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 12.97,
+      "lat": 54.83,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        14.24,
+        54.51
+      ]
+    },
+    "properties": {
+      "event_id": "a306607c766d0f42ab49678ea99cb9182f568bf380d4930b2921b341b0f2dc27",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 14.24,
+      "lat": 54.51,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.93,
+        54.7
+      ]
+    },
+    "properties": {
+      "event_id": "a39e81d62db9bc3c1a430c01881b19fa53f55348ca5e05f7f74930031b3fd34c",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 12.93,
+      "lat": 54.7,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        6.36,
+        53.99
+      ]
+    },
+    "properties": {
+      "event_id": "be14e308afbcd1c418197da6a748e51e333db212bd860eca1e3f0e5dca9f8151",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 6.36,
+      "lat": 53.99,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.17,
+        54.63
+      ]
+    },
+    "properties": {
+      "event_id": "d011500597abde59f72a271731cefdef8e89c40040345288122c1bb0fca9322e",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 5.17,
+      "lat": 54.63,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.55,
+        54.68
+      ]
+    },
+    "properties": {
+      "event_id": "dcaafc4980faf09b674b378930ddd346a4990913511a808276da28a509aa95fd",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 12.55,
+      "lat": 54.68,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        12.25,
+        54.52
+      ]
+    },
+    "properties": {
+      "event_id": "e9904ef68d38c15f0f66cf5eead9cce46eeef2bd0157e3b6cb8b52b010b56bfd",
+      "timestamp_utc": "2018-12-07T05:24:49Z",
+      "lon": 12.25,
+      "lat": 54.52,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.37,
+        50.66
+      ]
+    },
+    "properties": {
+      "event_id": "61777eccf687dab6c6283b04d2fe221c2855c4d2b1177a7265ce21a97d0bad08",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.37,
+      "lat": 50.66,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.57,
+        50.99
+      ]
+    },
+    "properties": {
+      "event_id": "f627def25dbee0537bc75871d0d09a354a79648de2f1ddf1f51808a03e759165",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.57,
+      "lat": 50.99,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.25,
+        51.38
+      ]
+    },
+    "properties": {
+      "event_id": "879d8785e806b6c8b046bb4387a2f78d5c7d545dc0e5a1b1f27b8949598a7e7b",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.25,
+      "lat": 51.38,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.27,
+        51.43
+      ]
+    },
+    "properties": {
+      "event_id": "8dab32b5aaf00a43640e24ffeb1e411cc004282c09919bc68efe865d3e6818a1",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.27,
+      "lat": 51.43,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.97,
+        50.88
+      ]
+    },
+    "properties": {
+      "event_id": "044cece717b3171792489796287088b19a7d1227203d9720ae9373aeb4b483f9",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.97,
+      "lat": 50.88,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.25,
+        51.4
+      ]
+    },
+    "properties": {
+      "event_id": "ba522aeaf6b478bd850f999f7dfd515fb77b81dc3cf9ec21583611e7009ed0c0",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.25,
+      "lat": 51.4,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.61,
+        51.22
+      ]
+    },
+    "properties": {
+      "event_id": "61e1dd80d79a2f7b6544857231148380cd1de3e45ed4ee9c5339082db1bb5a6d",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.61,
+      "lat": 51.22,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.96,
+        51.38
+      ]
+    },
+    "properties": {
+      "event_id": "24bff5743e0e0f8adbe0879729703b396989aba1c66da0b14731729dba5b537e",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.96,
+      "lat": 51.38,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.58,
+        50.71
+      ]
+    },
+    "properties": {
+      "event_id": "af2fdb6a585f3eb5e2638b88df5dc1e6a26ddd490c1f84d44b4e2e424eaa0613",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.58,
+      "lat": 50.71,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.59,
+        50.67
+      ]
+    },
+    "properties": {
+      "event_id": "bdaef6b47a509414f0c891698411b2aa6386e0c5adde41c7cd416e750b2deb09",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.59,
+      "lat": 50.67,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.49,
+        51.12
+      ]
+    },
+    "properties": {
+      "event_id": "e1628b076e081ec8d453f4b861d9587c3a0edfe580203b833e035bae34d43730",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.49,
+      "lat": 51.12,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.44,
+        51.1
+      ]
+    },
+    "properties": {
+      "event_id": "14e303a4883234c19ae002a0d59be74e759985bddd42f9eb9845b897611b574b",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.44,
+      "lat": 51.1,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.52,
+        50.76
+      ]
+    },
+    "properties": {
+      "event_id": "c076951fcc810c20390975c385a1bf5ec668ebdacd953c33033b70feeb411316",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.52,
+      "lat": 50.76,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.82,
+        50.54
+      ]
+    },
+    "properties": {
+      "event_id": "f24bc0ab5e4bfc52650085cee4fafe840b776e47ce434adb58844d4fecc6c27d",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.82,
+      "lat": 50.54,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.37,
+        50.59
+      ]
+    },
+    "properties": {
+      "event_id": "ecb9b2bca1f0b54a6ae5e0b2f47cbb16624f85405466ff8d39dd42bb142776e6",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.37,
+      "lat": 50.59,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.29,
+        51.47
+      ]
+    },
+    "properties": {
+      "event_id": "8464169a5493dd7e8c5df2c236e78be8d151fd1b25ec7b306ff57d09abb7b2e5",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.29,
+      "lat": 51.47,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.64,
+        51.49
+      ]
+    },
+    "properties": {
+      "event_id": "f89882933a8e890eb60175550590da760f75d2aad4988dcc9660d6f38a81de75",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.64,
+      "lat": 51.49,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.32,
+        51.07
+      ]
+    },
+    "properties": {
+      "event_id": "c91457bd622e397397e7e2ae44fa54d9a01a4326e1cf19a8860b8c7cda0e7552",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.32,
+      "lat": 51.07,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.75,
+        51.23
+      ]
+    },
+    "properties": {
+      "event_id": "cbf535105094171e056b4456f56f092e08f50a663ab6072ed2ee2cefadc0d947",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.75,
+      "lat": 51.23,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        0.73,
+        51.49
+      ]
+    },
+    "properties": {
+      "event_id": "5c1af04bb5f1605fe11acf53f93fbc7162f40d3175b66e131e0eef625ee92e2e",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 0.73,
+      "lat": 51.49,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.5,
+        50.68
+      ]
+    },
+    "properties": {
+      "event_id": "118c63e1e3d092b3361e2a7d92aabaf71380e5aab8067079324071a3d4aa4d58",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.5,
+      "lat": 50.68,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.46,
+        50.9
+      ]
+    },
+    "properties": {
+      "event_id": "51c656f0949678ad2e16b858e4adb97f78b7290150f64ddf4a77a2be664cd514",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 1.46,
+      "lat": 50.9,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.8,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.16,
+        51.29
+      ]
+    },
+    "properties": {
+      "event_id": "b22e730e1c0d55636c9280795d4e5ce9dec294dac39e5266260ec37b344df9be",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.16,
+      "lat": 51.29,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.07,
+        51.4
+      ]
+    },
+    "properties": {
+      "event_id": "0a9c716674be746d2b1f66b5370a35d10b13d49f99ab9b4c940c990194ccd6cb",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.07,
+      "lat": 51.4,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        2.14,
+        51.34
+      ]
+    },
+    "properties": {
+      "event_id": "26a2f7f6f80ed1086240404bd69ee3b8b63c92ecd058728c8528ec7ae05c8d51",
+      "timestamp_utc": "2025-07-07T17:41:46Z",
+      "lon": 2.14,
+      "lat": 51.34,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.69,
+        37.56
+      ]
+    },
+    "properties": {
+      "event_id": "f0e62daa90d4f09c133c3422694fe0932fda0714c02377130969a2241f30b7b9",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.69,
+      "lat": 37.56,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.92,
+        37.88
+      ]
+    },
+    "properties": {
+      "event_id": "56fb334f2b9e1a25c30d0d20220589967e5bfb4fff41b6f1e3b05d7985322494",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.92,
+      "lat": 37.88,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.46,
+        36.59
+      ]
+    },
+    "properties": {
+      "event_id": "dc2c16701a34a4f3a0d7e4653f1f2ba731dfacaafb6ab9fb3e4734fc6fcbc890",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.46,
+      "lat": 36.59,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.56,
+        35.45
+      ]
+    },
+    "properties": {
+      "event_id": "f100a0b6c4aa7fdac94ada8c5844a196ebd35b3bdb4606683d09f2c846c9c6e1",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.56,
+      "lat": 35.45,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.01,
+        34.86
+      ]
+    },
+    "properties": {
+      "event_id": "60046055adb41bf43da3d60e103d0c47e9cd5fd5445d3ab5bab82d50706f2ddc",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.01,
+      "lat": 34.86,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.3,
+        36.62
+      ]
+    },
+    "properties": {
+      "event_id": "fd31bec100c93c02ddfdf9b5bb22b53f31e2c15d9faed7fc96cf53d51add0221",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.3,
+      "lat": 36.62,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.75,
+        37.88
+      ]
+    },
+    "properties": {
+      "event_id": "6212af3d1bb66401758b644dba22fa55c969632dc87746407e8176979d4bbb1c",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.75,
+      "lat": 37.88,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.72,
+        37.52
+      ]
+    },
+    "properties": {
+      "event_id": "c1a8699247b4d064931ef2f5d4e2efb93774f30d497f9cf46062cea631db35be",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.72,
+      "lat": 37.52,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.85,
+        36.96
+      ]
+    },
+    "properties": {
+      "event_id": "ae029304939640caa29f68713b6449de228515729136f602d844608f6ce90bcc",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.85,
+      "lat": 36.96,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.17,
+        35.44
+      ]
+    },
+    "properties": {
+      "event_id": "fb7caa1f569ec1144510d8c1c62fee6615a65f2a80bbde4a7cc079dda44a3519",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.17,
+      "lat": 35.44,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.03,
+        36.47
+      ]
+    },
+    "properties": {
+      "event_id": "9f17b2eae2469c06f2462cbb5344d467a6f5fadae27dd3396b1e3fbec042a4b4",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.03,
+      "lat": 36.47,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.95,
+        34.85
+      ]
+    },
+    "properties": {
+      "event_id": "78af22f94292e9946b5c802835ff6942df28175824833d1ad3e07a44b61f271b",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.95,
+      "lat": 34.85,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.28,
+        37.99
+      ]
+    },
+    "properties": {
+      "event_id": "9c1531e82db4c0660b8715d6ecdb909726d1eb38164e2289f53d294b621f19e0",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.28,
+      "lat": 37.99,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.38,
+        36.51
+      ]
+    },
+    "properties": {
+      "event_id": "9fd2bf79a326a5493bd6639fa78ee8fb369b96a80a4c00421d0b506eaa3431ac",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.38,
+      "lat": 36.51,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.13,
+        37.78
+      ]
+    },
+    "properties": {
+      "event_id": "3dd42fc0df8c3bdb90e68ad9b9417baed139391b7a15623bbaf3803c6ebed97a",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.13,
+      "lat": 37.78,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.19,
+        35.35
+      ]
+    },
+    "properties": {
+      "event_id": "0d97ac07cfb97c24da20ba008eac4bc39ba1fc7ef3fa683480fd469f16444036",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.19,
+      "lat": 35.35,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.32,
+        34.11
+      ]
+    },
+    "properties": {
+      "event_id": "e262f892f2987e7306414f289a2e786877fd33405409aa4248c3d6d407b8835e",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.32,
+      "lat": 34.11,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.18,
+        35.38
+      ]
+    },
+    "properties": {
+      "event_id": "64b25fd51046de3c3128b7cd691f5e765b7f97e64a27fb605f78db2b5c3e8cd1",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.18,
+      "lat": 35.38,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.95,
+        37.73
+      ]
+    },
+    "properties": {
+      "event_id": "6231b2fbd2c577d66c984000987a2c7dc6e72540e003510abf32e8ee53141ba6",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.95,
+      "lat": 37.73,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.8,
+        36.23
+      ]
+    },
+    "properties": {
+      "event_id": "eb1812003a78cec75d821380d077db691614ffca6705414ae721770cacbbc0c0",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.8,
+      "lat": 36.23,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -29.73,
+        36.43
+      ]
+    },
+    "properties": {
+      "event_id": "ec17861b3c574c2093b8077d585ccfd341176af60e5298b43eb6a808ef82a8de",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -29.73,
+      "lat": 36.43,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.84,
+        35.33
+      ]
+    },
+    "properties": {
+      "event_id": "e27689ad41b18d0d21a10f08f381d0e61894255773ae1c518dd09ac5d87d0727",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.84,
+      "lat": 35.33,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -31.55,
+        36.11
+      ]
+    },
+    "properties": {
+      "event_id": "741747ea4ee72169f4367015637f3e74a704040a0cb37423f4c2c4522aa1dece",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -31.55,
+      "lat": 36.11,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -28.13,
+        37.58
+      ]
+    },
+    "properties": {
+      "event_id": "0689a5de1ab9f11475eadebba23a9feca25fa3f62d4ad932c60cf94a049dcd7c",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -28.13,
+      "lat": 37.58,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -30.12,
+        37.21
+      ]
+    },
+    "properties": {
+      "event_id": "ec51e7f9e57042cdd463516796eaa018df3847a0b46a231d49cb7453548bdc14",
+      "timestamp_utc": "2025-07-08T19:57:13Z",
+      "lon": -30.12,
+      "lat": 37.21,
+      "matched_flag": false,
+      "source": "public-global-sar-presence:v3.0",
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "label": "TP",
+      "failure_mode": "",
+      "notes": ""
+    }
+  }
+]

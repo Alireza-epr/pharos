@@ -1,0 +1,52 @@
+{
+  "name": "pharos-backend",
+  "version": "1.0.0",
+  "main": "dist/core/server.js",
+  "author": "Alireza Almer <alireza.almer@gmail.com>",
+  "description": "Pharos API and data pipeline",
+  "license": "ISC",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "ts-node src/core/server.ts",
+    "start": "tsc && node dist/src/core/server.js",
+    "pipeline:sample": "tsc && node dist/src/pipeline/sample.js --main",
+    "pipeline:validation": "tsc && node dist/src/pipeline/sample.js --validation",
+    "lint": "eslint ./**/*.{ts,js}",
+    "format": "prettier --write ./**/*.{ts,js,json,md}",
+    "typecheck": "tsc --noEmit",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.60.0",
+    "@turf/turf": "^7.3.4",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "h3-js": "^4.4.0",
+    "parquetjs": "^0.11.2"
+  },
+  "devDependencies": {
+    "jest-environment-jsdom": "^30.2.0",
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "@types/parquetjs": "^0.10.6",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "typescript-eslint": "^8.54.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "@packages/types": "file:../../packages/types",
+    "@packages/utils": "file:../../packages/utils",
+    "@packages/enum": "file:../../packages/enum"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Modern JS for Node 14+
+    "module": "CommonJS", // Use CommonJS to avoid ES module import issues
+    "outDir": "dist", // Compiled JS goes here
+    "strict": true, // Full type safety
+    "esModuleInterop": true, // Allows `import express from 'express'`
+    "skipLibCheck": true, // Skip node_modules type checking
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["node", "express", "jest"],
+    "resolveJsonModule": true, // Allow importing JSON files
+    "sourceMap": true // Optional: helpful for debugging
+  },
+  "include": ["src/**/*", "tests/**/*"], // Compile all TS source and type files
+  "exclude": ["node_modules", "dist"] // Exclude dependencies and compiled JS
+}

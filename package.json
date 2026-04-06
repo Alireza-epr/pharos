@@ -1,56 +1,13 @@
 {
   "name": "pharos",
-  "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "test": "tests"
-  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "pipeline:sample": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js --main",
-    "pipeline:validation": "vite build --config vite.config.pipeline.ts && node dist/pipeline/pharos.js --validation",
-    "ui:dev": "vite",
-    "ui:build": "vite build",
-    "ui:preview": "vite preview",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "typecheck": "tsc --noEmit",
-    "test": "jest --passWithNoTests",
-    "e2e": "playwright test"
+    "build:packages": "npm run build --workspace=@packages/types && npm run build --workspace=@packages/utils && npm run build --workspace=@packages/enum"
   },
-  "keywords": [],
-  "author": "Alireza Almer <alireza.almer@gmail.com>",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^25.2.0",
-    "@types/parquetjs": "^0.10.6",
-    "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.3",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
-    "playwright": "^1.58.1",
-    "prettier": "^3.8.1",
-    "sass": "^1.97.3",
-    "ts-jest": "^29.4.6",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0",
-    "vite": "^7.3.1"
-  },
-  "type": "module",
-  "dependencies": {
-    "@turf/turf": "^7.3.4",
-    "h3-js": "^4.4.0",
-    "maplibre-gl": "^5.17.0",
-    "parquetjs": "^0.11.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "zustand": "^5.0.11"
+    "typescript": "^6.0.2"
   }
 }
