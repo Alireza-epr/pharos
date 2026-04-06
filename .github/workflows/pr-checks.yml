@@ -30,7 +30,7 @@ jobs:
 
       # Build shared packages
       - name: Build shared packages
-        run: npm run build:packages
+        run: npm run packages:build
 
       # Install backend dependencies
       - name: Install backend dependencies
