@@ -1,12 +1,15 @@
-name: PR Checks
+name: Backend PR Checks
 
 on:
   pull_request:
     branches:
       - master
+    paths:
+      - 'apps/backend/**'
+      - 'packages/**'
 
 jobs:
-  checks:
+  backend-checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,22 +20,37 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
+          cache: 'npm'
+      
 
-      - name: Install dependencies
+
+      # Install root dependencies (for packages)
+      - name: Install root dependencies
         run: npm install
 
-      - name: Lint
+      # Build shared packages
+      - name: Build shared packages
+        run: npm run packages:build
+
+      # Install backend dependencies
+      - name: Install backend dependencies
+        working-directory: apps/backend
+        run: npm install
+
+      - name: Create .env file for CI
+        working-directory: apps/backend
+        run: |
+          echo "GFW_TOKEN=${{ secrets.GFW_TOKEN }}" >> .env
+
+      # Run backend checks
+      - name: Run Backend Lint
+        working-directory: apps/backend
         run: npm run lint
 
-      - name: Typecheck
+      - name: Run Backend Type Check
+        working-directory: apps/backend
         run: npm run typecheck
 
-      - name: Unit tests
+      - name: Run Backend Unit Tests
+        working-directory: apps/backend
         run: npm test
-
-      - name: Build UI
-        run: npm run ui:build
-
-      - name: E2E smoke test
-        run: npm run e2e
-        continue-on-error: true

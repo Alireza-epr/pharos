@@ -1,0 +1,52 @@
+{
+  "url": {
+    "4wings": {
+      "endpoints": {
+        "base": "https://gateway.api.globalfishingwatch.org/v3/4wings",
+        "report": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+        "lastReport": "https://gateway.api.globalfishingwatch.org/v3/4wings/last-report/",
+        "generatePNG": "https://gateway.api.globalfishingwatch.org/v3/4wings/generate-png/",
+        "tile": "https://gateway.api.globalfishingwatch.org/v3/4wings/tile/heatmap/",
+        "bins": "https://gateway.api.globalfishingwatch.org/v3/4wings/bins/",
+        "interaction": "https://gateway.api.globalfishingwatch.org/v3/4wings/interaction/"
+      },
+      "datasets": {
+        "fishingEffort": "public-global-fishing-effort:latest",
+        "SARVesselDetections": "public-global-sar-presence:latest",
+        "AISVesselPresence": "public-global-presence:latest"
+      }
+    },
+    "vessels": {
+      "endpoints": {
+        "filteredByIds": "https://gateway.api.globalfishingwatch.org/v3/vessels?",
+        "filteredById": "https://gateway.api.globalfishingwatch.org/v3/vessels/",
+        "filteredByQuery": "https://gateway.api.globalfishingwatch.org/v3/vessels/search?"
+      },
+      "datasets": {
+        "vesselIdentity": "public-global-vessel-identity:latest"
+      }
+    },
+    "events": {
+      "endpoints": {
+        "filteredByBody": "https://gateway.api.globalfishingwatch.org/v3/events",
+        "filteredById": "https://gateway.api.globalfishingwatch.org/v3/events/",
+        "stats": "https://gateway.api.globalfishingwatch.org/v3/events/stats"
+      },
+      "datasets": {
+        "Fishing": "public-global-fishing-events:latest",
+        "Encounters": "public-global-encounters-events:latest",
+        "loitering": "public-global-loitering-events:latest",
+        "portVisits": "public-global-port-visits-events:latest",
+        "gaps": "public-global-gaps-events:latest"
+      }
+    },
+    "insights": {
+      "endpoints": {
+        "vessels": "https://gateway.api.globalfishingwatch.org/v3/insights/vessels"
+      },
+      "datasets": {
+        "vesselIdentity": "public-global-vessel-identity:latest"
+      }
+    }
+  }
+}

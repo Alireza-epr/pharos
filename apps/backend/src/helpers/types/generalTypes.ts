@@ -1,0 +1,42 @@
+import { EContextLayers } from '@packages/enum';
+import { IContextLayer } from '@packages/types';
+
+export interface IBackendConfig {
+  logging: {
+    enable_console_log: boolean;
+    enable_log: boolean;
+    log_file_path: string;
+  };
+  auth: {
+    gfw_token: string;
+  };
+  port: number;
+}
+
+export enum ELogType {
+  info = 'INFO',
+  warn = 'WARN',
+  error = 'ERROR',
+  request = 'REQUEST',
+  success = 'SUCCESS',
+}
+
+export interface IEventProperties {
+  event_id: string;
+  timestamp_utc: string;
+  matched_flag: boolean;
+  lat: number;
+  lon: number;
+  confidence_fields: 2 | 3 | 4 | null;
+  distance_to_coast_km: number | null;
+  context_layers: Record<EContextLayers, IContextLayer>;
+}
+
+export enum EGeoJSONEventMissingness {
+  event_id = 'event_id',
+  timestamp_utc = 'timestamp_utc',
+  lat = 'lat',
+  lon = 'lon',
+  confidence_fields = 'confidence_fields',
+  distance_to_coast_km = 'distance_to_coast_km',
+}
