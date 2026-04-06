@@ -21,6 +21,11 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: 'npm'
+      
+      - name: Create .env file for CI
+        working-directory: apps/backend
+        run: |
+          echo "GFW_TOKEN=${{ secrets.GFW_TOKEN }}" >> .env
 
       # Install root dependencies (for packages)
       - name: Install root dependencies
