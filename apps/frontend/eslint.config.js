@@ -6,13 +6,7 @@ import prettier from 'eslint-config-prettier';
 export default [
   // ignore build outputs and dependencies
   {
-    ignores: [
-      'node_modules/**',
-      'dist/**',
-      'build/**',
-      'coverage/**',
-      'misc/**',
-    ],
+    ignores: ['node_modules/**', 'dist/**', 'eslint.config.js'],
   },
 
   // base JS recommended rules
@@ -32,6 +26,15 @@ export default [
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
+    },
+  },
+
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
 ];

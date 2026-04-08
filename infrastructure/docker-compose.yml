@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/backend.Dockerfile
+    container_name: pharos-backend
+    ports:
+      - "1370:1370"
+    env_file:
+      - ../apps/backend/.env
+    restart: unless-stopped
+
+    # ---------- Health check ----------
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:1370/health"]
+      interval: 30s
+      timeout: 2s
+      retries: 5
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/frontend.Dockerfile
+    container_name: pharos-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

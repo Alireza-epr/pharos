@@ -3,6 +3,10 @@ import dotenv from '@dotenvx/dotenvx';
 dotenv.config();
 import { IBackendConfig } from '../helpers/types/generalTypes';
 
+if (!process.env.GFW_TOKEN || process.env.GFW_TOKEN.length === 0) {
+  throw new Error("GFW_TOKEN is required. For more information, please refer to docs/runbook.md." )
+}
+
 export const config: IBackendConfig = {
   logging: {
     enable_console_log: process.env['ENABLE_CONSOLE_LOG'] === '1', // true if env var is '1',

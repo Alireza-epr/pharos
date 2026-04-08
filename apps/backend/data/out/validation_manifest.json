@@ -6,7 +6,7 @@
       "offshore": 30
     },
     "run_metadata": {
-      "code_version": "7ca8813a63e4577cad5c360ef6a0a632184caa78",
+      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -36,7 +36,7 @@
       "low_confidence": 25
     },
     "run_metadata": {
-      "code_version": "7ca8813a63e4577cad5c360ef6a0a632184caa78",
+      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -83,7 +83,7 @@
       "low_density": 25
     },
     "run_metadata": {
-      "code_version": "7ca8813a63e4577cad5c360ef6a0a632184caa78",
+      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -91,11 +91,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [0.5, 50.5],
-                  [2.5, 50.5],
-                  [2.5, 51.5],
-                  [0.5, 51.5],
-                  [0.5, 50.5]
+                  [
+                    0.5,
+                    50.5
+                  ],
+                  [
+                    2.5,
+                    50.5
+                  ],
+                  [
+                    2.5,
+                    51.5
+                  ],
+                  [
+                    0.5,
+                    51.5
+                  ],
+                  [
+                    0.5,
+                    50.5
+                  ]
                 ]
               ],
               "type": "Polygon"
@@ -119,11 +134,26 @@
             "geojson": {
               "coordinates": [
                 [
-                  [-32, 34],
-                  [-28, 34],
-                  [-28, 38],
-                  [-32, 38],
-                  [-32, 34]
+                  [
+                    -32,
+                    34
+                  ],
+                  [
+                    -28,
+                    34
+                  ],
+                  [
+                    -28,
+                    38
+                  ],
+                  [
+                    -32,
+                    38
+                  ],
+                  [
+                    -32,
+                    34
+                  ]
                 ]
               ],
               "type": "Polygon"

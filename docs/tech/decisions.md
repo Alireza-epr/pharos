@@ -5,7 +5,7 @@ The goal is to keep the prototype small, reproducible, and easy to validate.
 
 ---
 
-## 1) Pipeline (ingest + normalize + score)
+## 1) Backend (ingest + normalize + score)
 
 ### Language
 
@@ -58,7 +58,7 @@ Why:
 
 ---
 
-## 3) UI
+## 3) Frontend
 
 - React + TypeScript
 - MapLibre

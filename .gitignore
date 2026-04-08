@@ -1,2 +1,5 @@
 /misc
 /node_modules
+/packages/enum/dist
+/packages/types/dist
+/packages/utils/dist

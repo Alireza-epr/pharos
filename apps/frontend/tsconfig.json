@@ -2,7 +2,7 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src",
+    //"rootDir": "./src",
     "outDir": "./dist",
 
     // Environment Settings
@@ -41,11 +41,15 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": ["./types", "./node_modules/@types", "../../node_modules/@types"],
   },
   "include": [
     "src/**/*",
-    "tests/**/*"
+    "tests/**/*",
+    "jest.config.ts",
+    "playwright.config.ts",
+    "vite.config.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }

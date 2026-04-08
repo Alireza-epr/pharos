@@ -7,11 +7,15 @@
     "esModuleInterop": true, // Allows `import express from 'express'`
     "skipLibCheck": true, // Skip node_modules type checking
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types",
+      "../../node_modules/@types"
+    ],
     "types": ["node", "express", "jest"],
     "resolveJsonModule": true, // Allow importing JSON files
     "sourceMap": true // Optional: helpful for debugging
   },
-  "include": ["src/**/*", "tests/**/*"], // Compile all TS source and type files
+  "include": ["src/**/*", "tests/**/*", "jest.config.ts"], // Compile all TS source and type files
   "exclude": ["node_modules", "dist"] // Exclude dependencies and compiled JS
 }

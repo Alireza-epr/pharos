@@ -1,7 +1,7 @@
 # PHAROS
 
 PHAROS is an early-stage prototype for exploring **AIS–SAR alignment** using open maritime datasets.
-The focus of Iteration 1 is on **data access, normalization, transparency, and reproducibility** — not on real-time monitoring or enforcement claims.
+The focus of Iteration 1 is on **data access, normalization, transparency, and reproducibility** - not on real-time monitoring or enforcement claims.
 
 ---
 
@@ -26,24 +26,18 @@ PHAROS **does not**:
 ## Repository Structure
 
 ```text
-src/
-  pipeline/
-    ingest/        # data access
-    normalize/     # canonical event shaping
-    features/      # simple derived fields
-    scoring/       # triage score & uncertainty
-    export/        # parquet / geojson outputs
-    sample.ts      # sample pipeline run
+apps/
+  backend/         # Node.js + Express backend
+  frontend/        # React + Vite frontend
 
-  ui/              # React + Vite UI shell
-
-docs/              # design, specs, validation docs
-tests/             # unit tests
-e2e/               # end-to-end smoke tests
+docs/              # Design, specifications, and validation documents
+packages/          # Shared helpers and utilities for both backend and frontend
+infrastructure/    # Docker, deployment configuration, and scripts
 ```
 
-## Scripts
+---
 
+## Scripts
 Common scripts (from repo root):
 
 ```bash
@@ -54,18 +48,36 @@ npm run pipeline:sample
 npm run pipeline:validation
 
 # start UI in dev mode
-npm run ui:dev
+npm run frontend:dev
 
 # build UI
-npm run ui:build
+npm run frontend:build
 
-# lint / format / typecheck
-npm run lint
-npm run format
-npm run typecheck
+# preview production build
+npm run frontend:preview
+
 ```
 
 For more information, please refer to [the runbook](docs/runbook.md).
+
+Important: Obtain your GFW_TOKEN from Global Fishing Watch API Token
+ and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
+
+---
+
+## Docker
+
+From `infrastructure/` folder:
+
+```bash
+cp .env.example .env 
+docker-compose up --build
+```
+
+- Backend: port `1370`  
+- Frontend: port `5173`  
+
+> Backend health is checked every 30s. Frontend waits at startup for backend.
 
 ---
 
@@ -82,7 +94,8 @@ This repository uses **GitHub Actions** to automatically:
 
 ## Data & Terminology Notes
 
-- **AIS-unmatched** means: _unmatched to publicly available AIS used by the detection provider_
-- Unmatched ≠ illegal
-- Unmatched ≠ confirmed dark vessel
+- **AIS-unmatched** means: _unmatched to publicly available AIS used by the detection provider_  
+- Unmatched ≠ illegal  
+- Unmatched ≠ confirmed dark vessel  
 - Scores are for **triage and inspection only**, not probabilities or risk indicators
+
