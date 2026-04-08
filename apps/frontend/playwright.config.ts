@@ -1,7 +1,7 @@
 import { defineConfig } from 'playwright/test';
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './tests/e2e',
 
   use: {
     baseURL: 'http://localhost:4173',
@@ -9,7 +9,7 @@ export default defineConfig({
   },
 
   webServer: {
-    command: 'npm run ui:build && npm run ui:preview',
+    command: 'npm run build && npm run preview',
     //command: 'npm run ui:dev',
     url: 'http://localhost:4173/',
     timeout: 60 * 1000,

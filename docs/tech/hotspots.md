@@ -14,7 +14,7 @@ We use **H3 hexagons** for spatial aggregation. Hexagons provide:
 
 ## 2. Grid Parameters
 
-- **Resolution:** 5
+- **Default resolution:** 5
 - Provides a balance between **spatial granularity** and **number of hexes** for the AOI defined in `src/config/pilot.json`.
 
 ---
@@ -54,7 +54,7 @@ Added to support **temporal analysis**:
 
 ## 5. Thresholds
 
-Thresholds are defined in `src/config/pilot.json`:
+Thresholds are defined in `apps/backend/src/config/pilot.json`:
 
 - `low_detection_confidence_threshold` → minimum score for high-score unmatched
 - `near_coast_threshold` → maximum distance in km to consider “near coast”
@@ -65,8 +65,8 @@ Thresholds are defined in `src/config/pilot.json`:
 
 | File                        | Description                                                   |
 | --------------------------- | ------------------------------------------------------------- |
-| `data/out/hotspots.parquet` | Full dataset of hotspots with metrics, suitable for analytics |
-| `data/out/hotspots.geojson` | Simplified polygons for UI visualization, one feature per hex |
+| `apps/backend/data/out/hotspots.parquet` | Full dataset of hotspots with metrics, suitable for analytics |
+| `apps/backend/data/out/hotspots.geojson` | Simplified polygons for UI visualization, one feature per hex |
 
 ---
 

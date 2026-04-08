@@ -6,7 +6,7 @@ All datasets are version pinned to ensure deterministic results.
 
 Feature extraction is implemented in:
 
-src/pipeline/features/
+rootDir = apps/backend/src/pipeline/features/
 
 ---
 
@@ -16,7 +16,7 @@ Source: Global Fishing Watch
 Dataset: public-eez-areas:v3
 
 Feature module:
-src/pipeline/features/eez.ts
+rootDir/eez.ts
 
 Example record:
 
@@ -40,7 +40,7 @@ Source: Global Fishing Watch
 Dataset: public-mpa-all:v3
 
 Feature module:
-src/pipeline/features/mpa.ts
+rootDir/mpa.ts
 
 Example record:
 
@@ -51,8 +51,8 @@ Example record:
 
 Enrichment fields added to event:
 
-- mpa_ids
-- mpa_labels
+- mpa_id
+- mpa_label
 
 ---
 
@@ -62,7 +62,7 @@ Source: Global Fishing Watch
 Dataset: public-rfmo:v3
 
 Feature module:
-src/pipeline/features/rfmo.ts
+rootDir/rfmo.ts
 
 Example record:
 
@@ -73,5 +73,5 @@ Example record:
 
 Enrichment fields added to event:
 
-- rfmo_ids
-- rfmo_labels
+- rfmo_id
+- rfmo_label

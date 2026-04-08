@@ -38,15 +38,13 @@
   },
   "type": "module",
   "dependencies": {
+    "@packages/types": "*",
+    "@packages/utils": "*",
+    "@packages/enum": "*",
     "@turf/turf": "^7.3.4",
     "maplibre-gl": "^5.17.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "zustand": "^5.0.11"
-  },
-  "peerDependencies": {
-    "@packages/types": "file:../../packages/types",
-    "@packages/utils": "file:../../packages/utils",
-    "@packages/enum": "file:../../packages/enum"
   }
 }

@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "ts-node src/core/server.ts",
-    "start": "tsc && node dist/src/core/server.js",
+    "build": "tsc",
+    "start": "node dist/src/core/server.js",
     "pipeline:sample": "tsc && node dist/src/pipeline/sample.js --main",
     "pipeline:validation": "tsc && node dist/src/pipeline/sample.js --validation",
     "lint": "eslint ./**/*.{ts,js}",
@@ -19,6 +20,9 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@packages/types": "*",
+    "@packages/utils": "*",
+    "@packages/enum": "*",
     "@dotenvx/dotenvx": "^1.60.0",
     "@turf/turf": "^7.3.4",
     "cors": "^2.8.6",
@@ -43,10 +47,5 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
-  },
-  "peerDependencies": {
-    "@packages/types": "file:../../packages/types",
-    "@packages/utils": "file:../../packages/utils",
-    "@packages/enum": "file:../../packages/enum"
   }
 }
