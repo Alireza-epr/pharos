@@ -3,3 +3,4 @@
 /packages/enum/dist
 /packages/types/dist
 /packages/utils/dist
+*raw*.md

@@ -3,8 +3,10 @@ import { log, formatTimestamp } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 import { requestLogger, responseLogger } from '../middlewares/loggerMiddleware';
 import { config } from '../config/api';
-import { EBaseRoute, EResponseError, EStatusCode } from '@packages/types';
-import { healthController } from '../modules/health/health.controller';
+import { EResponseError, EStatusCode } from '@packages/enum';
+import { EBaseRoutes } from '@packages/enum';
+import systemRoutes from '../modules/system/system.routes';
+import authRoutes from '../modules/auth/auth.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 
 const app = express();
@@ -21,8 +23,12 @@ app.use(requestLogger);
 // Logs all responses automatically
 app.use(responseLogger);
 
-// Health check 
-app.use( EBaseRoute.health, healthController );
+// --- Endpoints ---
+
+// System - no auth required 
+app.use( EBaseRoutes.system, systemRoutes );
+// Auth
+app.use( EBaseRoutes.auth, authRoutes );
 
 // Not found handler
 app.use((req: Request, res: Response) => {
