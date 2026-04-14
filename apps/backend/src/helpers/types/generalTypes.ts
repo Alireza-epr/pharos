@@ -9,6 +9,9 @@ export interface IBackendConfig {
   };
   auth: {
     gfw_token: string;
+    jwt_secret: string;
+    jwt_expiry: string; // JWT expiration time
+    refresh_token_expiry: string; // Refresh token expiration time
   };
   port: number;
 }

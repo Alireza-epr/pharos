@@ -12,7 +12,7 @@ services:
 
     # ---------- Health check ----------
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:1370/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:1370/system/health"]
       interval: 30s
       timeout: 2s
       retries: 5

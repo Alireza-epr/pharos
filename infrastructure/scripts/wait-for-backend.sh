@@ -1,7 +1,7 @@
 #!/bin/sh
 # wait-for-backend.sh
 
-BACKEND_URL=${BACKEND_URL:-http://backend:1370/health}
+BACKEND_URL=${BACKEND_URL:-http://backend:1370/system/health}
 
 echo "Checking backend once before starting frontend..."
 

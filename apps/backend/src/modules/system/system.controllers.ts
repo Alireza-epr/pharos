@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { controllerResponse } from "../../helpers/utils/controllerUtils";
-import { EResponseMessage, EStatusCode } from "@packages/types";
+import { EResponseMessage, EStatusCode } from "@packages/enum";
 
 export const healthController = (a_Req: Request, a_Res: Response) => {
 
