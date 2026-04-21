@@ -1,5 +1,5 @@
 import { EContextLayers } from '@packages/enum';
-import { IContextLayer } from '@packages/types';
+import { IContextLayer, IScoring } from '@packages/types';
 
 export interface IBackendConfig {
   logging: {
@@ -33,6 +33,7 @@ export interface IEventProperties {
   confidence_fields: 2 | 3 | 4 | null;
   distance_to_coast_km: number | null;
   context_layers: Record<EContextLayers, IContextLayer>;
+  scoring: IScoring
 }
 
 export enum EGeoJSONEventMissingness {

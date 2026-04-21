@@ -16,6 +16,8 @@ const baseSchema: Record<string, TParquetField> = {
   confidence_fields: { type: 'DOUBLE', optional: true },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
   inside_eez: { type: 'UTF8', optional: true },
+  triage_score: { type: 'DOUBLE', optional: true},
+  uncertainty_score: { type: 'DOUBLE', optional: true},
 };
 
 for (const code of allReasonCodes) {

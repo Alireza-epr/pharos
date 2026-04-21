@@ -27,6 +27,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -63,6 +71,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -99,6 +115,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -135,6 +159,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -171,6 +203,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -207,6 +247,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -225,67 +273,33 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.68,
-        "confidence_fields": 4,
+        "confidence_fields": null,
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "5674",
-                "label": "Danish Exclusive Economic Zone"
-              }
-            ]
+            "enrichments": []
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "555790698",
-                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
-              },
-              {
-                "id": "555543143",
-                "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
-              },
-              {
-                "id": "555522525",
-                "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
-              }
-            ]
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": [
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              }
-            ]
+            "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -322,6 +336,19 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -358,6 +385,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -394,6 +429,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -430,6 +473,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -466,6 +517,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -502,6 +561,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -538,6 +605,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -574,6 +649,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -610,6 +693,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -646,6 +737,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {
@@ -682,6 +781,14 @@
             "version": "v3",
             "enrichments": []
           }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
         }
       },
       "geometry": {

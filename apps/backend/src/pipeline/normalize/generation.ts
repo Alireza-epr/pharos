@@ -101,9 +101,11 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   }
 
   if (confidence_proxy === null) {
+    //unmatched or without port event
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if (
+    //matched with port event
     confidence_proxy <= config.threshold.low_detection_confidence_threshold
   ) {
     uncertainty_score += 0.3;

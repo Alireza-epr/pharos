@@ -262,8 +262,8 @@
       "count_total": 1,
       "count_unmatched": 0,
       "count_high_score_unmatched": 0,
-      "mean_score": 4,
-      "mean_uncertainty": 0.5,
+      "mean_score": null,
+      "mean_uncertainty": 0.8,
       "pct_near_coast": 100,
       "recurrence_count": 0,
       "days_with_unmatched": 0

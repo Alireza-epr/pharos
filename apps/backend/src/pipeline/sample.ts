@@ -214,6 +214,7 @@ const main = async () => {
         confidence_fields: event.confidence_fields,
         distance_to_coast_km: event.distance_to_coast_km,
         context_layers: event.context_layers,
+        scoring: event.scoring
       },
       geometry: event.geom,
     })),
@@ -249,6 +250,8 @@ const main = async () => {
       confidence_fields: event.confidence_fields ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
+      triage_score: event.scoring.triage_score ?? null,
+      uncertainty_score: event.scoring.uncertainty_score ?? null,
       ...edge_case_flags,
     };
   });
