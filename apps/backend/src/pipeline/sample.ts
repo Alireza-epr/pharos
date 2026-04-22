@@ -6,6 +6,7 @@ import {
   getEventMissingness,
   getGeoMax,
   getGeoMin,
+  getMatchingStats,
   getTimeRange,
   sortEventSchema,
 } from '../helpers/utils/backendUtils';
@@ -304,8 +305,10 @@ const main = async () => {
   const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features);
   const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features);
   const time_range = getTimeRange(geojson.features);
+  const matching_stats = getMatchingStats(geojson.features)
   const data_quality = {
     row_count: geojson.features.length,
+    matching_stats: matching_stats,
     missingness: missingnesses,
     geo_sanity: {
       latitude: {

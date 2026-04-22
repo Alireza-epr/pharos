@@ -11,6 +11,7 @@ import {
   EGeoJSONEventMissingness,
   ELogType,
   IEventProperties,
+  IMatchingStats,
 } from '../types/generalTypes';
 import {
   IEventSchema,
@@ -327,3 +328,21 @@ export const sortEventSchema = (
     return a.lat - b.lat;
   });
 };
+
+export const getMatchingStats = (a_Features: IFeature<IGeometry, IEventProperties>[]): IMatchingStats => {
+  let matched = 0
+  let unmatched = 0
+
+  for( const feature of a_Features ){
+    if(feature.properties.matched_flag){
+      ++matched
+    } else {
+      ++unmatched
+    }
+  }
+
+  return {
+    matched,
+    unmatched
+  }
+}

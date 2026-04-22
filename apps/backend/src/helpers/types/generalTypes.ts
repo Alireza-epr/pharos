@@ -44,3 +44,8 @@ export enum EGeoJSONEventMissingness {
   confidence_fields = 'confidence_fields',
   distance_to_coast_km = 'distance_to_coast_km',
 }
+
+export interface IMatchingStats {
+  matched: number,
+  unmatched: number
+}

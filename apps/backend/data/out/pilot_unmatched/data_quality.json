@@ -1,5 +1,9 @@
 {
   "row_count": 69,
+  "matching_stats": {
+    "matched": 0,
+    "unmatched": 69
+  },
   "missingness": {
     "event_id": "0.00%",
     "timestamp_utc": "0.00%",
