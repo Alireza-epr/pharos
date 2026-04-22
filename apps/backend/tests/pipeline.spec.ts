@@ -471,7 +471,7 @@ describe('4wings_helpers', () => {
       if (!entries) return;
 
       for (const entry of entries) {
-        const eventSchema = await createEventSchema(configSet, entry);
+        const eventSchema = await createEventSchema(configSet, 5, entry);
         expect(eventSchema.rejected).toBe(true);
         expect((eventSchema as IRejectedEventSchema).reason).toEqual(
           ERejectedEventSchemaReasons.notValidCoordinates,

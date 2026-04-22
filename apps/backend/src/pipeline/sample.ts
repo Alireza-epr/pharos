@@ -155,6 +155,7 @@ const main = async () => {
           try {
             const eventSchema = await createEventSchema(
               configuration,
+              resolution,
               thisEntry,
             );
             //console.log('Matched Event Schema( No event )', eventSchema);
@@ -168,6 +169,7 @@ const main = async () => {
             try {
               const eventSchema = await createEventSchema(
                 configuration,
+                resolution,
                 thisEntry,
                 thisEventEntry,
               );
@@ -183,7 +185,7 @@ const main = async () => {
       }
     } else {
       try {
-        const eventSchema = await createEventSchema(configuration, thisEntry);
+        const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
         //console.log('Unmatched Event Schema', eventSchema);
         events.push(eventSchema);
       } catch (error) {
@@ -196,7 +198,6 @@ const main = async () => {
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
   const sortedEvents = sortEventSchema(notRejectedEvents);
-  const resolution = 5;
   const hotspots = generateHotspots(sortedEvents, resolution);
 
   //event.geojson
@@ -373,6 +374,7 @@ const validation = async () => {
       source4wings,
       strata_1_url,
       50,
+      resolution
     );
 
     let near_coast: IValidationSample[] = [];
@@ -455,6 +457,7 @@ const validation = async () => {
       source4wings,
       strata_2_url_1,
       25,
+      resolution
     );
 
     const strata_2_samples_2 = await getValidationSamples(
@@ -462,6 +465,7 @@ const validation = async () => {
       source4wings,
       strata_2_url_2,
       25,
+      resolution
     );
 
     const strata_2_csv = csvString(
@@ -567,6 +571,7 @@ const validation = async () => {
       strata_3_url_1,
       strata_3_body_1 as any,
       25,
+      resolution
     );
 
     const strata_3_samples_2 = await postValidationSamples(
@@ -575,6 +580,7 @@ const validation = async () => {
       strata_3_url_2,
       strata_3_body_2 as any,
       25,
+      resolution
     );
 
     const strata_3_csv = csvString(
@@ -658,6 +664,7 @@ if(!pilot){
 const baseURL4wings = pilot.URL;
 const source4wings = pilot.source as any;
 const output = pilot.output;
+const resolution = pilot.hotspotResolution
 
 if (args.includes('--main')) {
   main().catch(console.error);

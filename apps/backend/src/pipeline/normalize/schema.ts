@@ -30,9 +30,11 @@ import {
   generateVersion,
 } from './generation';
 import { coastlinePolylines } from '../sample';
+import { getHotspotCellId } from '../aggregate/hotspots';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
+  a_HotspotResolution: number,
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
@@ -94,6 +96,8 @@ export const createEventSchema = async (
     a_4wingsEntry.lat,
   );
 
+  const hotspot_cell_id = getHotspotCellId(lat, lon, a_HotspotResolution)
+
   const eventSchema: IEventSchema = {
     version: version,
     event_id,
@@ -115,7 +119,7 @@ export const createEventSchema = async (
     },
     geom: geom,
     rejected: false,
-    hotspot_context: null,
+    hotspot_cell_id,
   };
 
   const scoring = generateScoring(eventSchema);

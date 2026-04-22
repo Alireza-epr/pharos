@@ -66,7 +66,7 @@ export interface IEventSchema {
   run_metadata: IRunMetadata;
   scoring: IScoring;
   rejected: false;
-  hotspot_context: IHotspot | null
+  hotspot_cell_id: string
 }
 
 export interface IRejectedEventSchema {

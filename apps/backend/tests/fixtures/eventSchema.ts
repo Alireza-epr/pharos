@@ -1064,7 +1064,7 @@ export const eventSchema_onLand: IEventSchema = {
   event_id: '9df5159668a60e1d2dbda76f92f3e2a3f7b2877b7ed18459a3946d2cf3fcfd88',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: false,
-  hotspot_context: null,
+  hotspot_cell_id: 'test',
   context_layers: {
     EEZ: {
       dataset: EContextLayerDatasets.eez,
@@ -1164,7 +1164,7 @@ export const eventSchema_onLand: IEventSchema = {
 
 export const eventSchema_inWater: IEventSchema = {
   version: '1.0.0',
-  hotspot_context: null,
+  hotspot_cell_id: 'test',
   event_id: '0255652b698fcd8a5ea84bd2808999a95855b243e3bb646a48994d801fa56b16',
   timestamp_utc: '2025-12-07T17:17:24Z',
   matched_flag: false,

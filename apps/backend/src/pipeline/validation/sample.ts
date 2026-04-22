@@ -87,6 +87,7 @@ export const getValidationSamples = async (
   a_Source: T4wingsSource,
   a_URLParam: I4wingsReportGetURLParams,
   a_Length: number,
+  a_Resolution: number
 ): Promise<IValidationResp> => {
   const metadata: IConfigJSON = {
     source: a_Source,
@@ -130,7 +131,7 @@ export const getValidationSamples = async (
   for (const entry4wings of reducedEntriesNr) {
     configuration.clear();
     configuration.add(resp4wings.metadata);
-    const eventSchema = await createEventSchema(configuration, entry4wings);
+    const eventSchema = await createEventSchema(configuration, a_Resolution, entry4wings);
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
@@ -160,6 +161,7 @@ export const postValidationSamples = async (
   a_URLParam: I4wingsReportPostURLParams,
   a_BodyParam: I4wingsReportPostBodyParams,
   a_Length: number,
+  a_Resolution: number
 ): Promise<IValidationResp> => {
   const metadata: IConfigJSON = {
     source: a_Source,
@@ -206,7 +208,7 @@ export const postValidationSamples = async (
   for (const entry4wings of reducedEntriesNr) {
     configuration.clear();
     configuration.add(resp4wings.metadata);
-    const eventSchema = await createEventSchema(configuration, entry4wings);
+    const eventSchema = await createEventSchema(configuration, a_Resolution, entry4wings);
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);

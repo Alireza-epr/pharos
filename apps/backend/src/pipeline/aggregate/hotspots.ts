@@ -11,7 +11,7 @@ export const generateHotspots = (
   const h3Indexes = new Map<string, IEventSchema[]>();
 
   for (const event of a_Events) {
-    const h3Index = latLngToCell(event.lat, event.lon, a_Resolution);
+    const h3Index = getHotspotCellId(event.lat, event.lon, a_Resolution);
     const key = `${h3Index}_${getDate(event.timestamp_utc)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
@@ -164,3 +164,7 @@ export const featureFromHotspot = (
     };
   });
 };
+
+export const getHotspotCellId = (a_Lat: number, a_Lon: number, a_Resolution:number) => {
+  return latLngToCell(a_Lat, a_Lon, a_Resolution);
+}

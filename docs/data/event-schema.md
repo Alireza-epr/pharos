@@ -97,10 +97,9 @@ If validation fails during record normalization, the following schema will be re
 
 ### Hotspot
 
-This defines the H3 context in which the event is located based on its spatial position.
-For more information, please refer to [the hotspot documentation](../tech/hotspots.md).
+This defines the H3 cell id in which the event is located based on its spatial position.
 
-- `hotspot_context`: (Hotspot interface or null)
+- `hotspot_cell_id`: (string)
 
 ---
 
@@ -147,7 +146,7 @@ For more information, please refer to [the hotspot documentation](../tech/hotspo
     }
   },
   "rejected": false,
-  "hotspot_context": null
+  "hotspot_cell_id": "851f2a43fffffff"
 }
 ```
 

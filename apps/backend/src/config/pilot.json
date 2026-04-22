@@ -28,5 +28,6 @@
   "spatial-resolution": "HIGH",
   "temporal-resolution": "HOURLY",
   "format": "JSON",
-  "filters": ""
+  "filters": "",
+  "hotspotResolution": 5
 }
