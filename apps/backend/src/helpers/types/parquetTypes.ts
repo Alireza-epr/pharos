@@ -62,5 +62,6 @@ export const parquetSchema_hotspot = new parquet.ParquetSchema({
   mean_uncertainty: { type: 'DOUBLE', optional: true },
   pct_near_coast: { type: 'DOUBLE' },
   recurrence_count: { type: 'DOUBLE' },
+  days: { type: 'DOUBLE' },
   days_with_unmatched: { type: 'DOUBLE' },
 });
