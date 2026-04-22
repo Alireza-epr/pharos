@@ -8,5 +8,6 @@ export interface IHotspot {
   mean_uncertainty: number | null;
   pct_near_coast: number;
   recurrence_count: number;
+  days: number;
   days_with_unmatched: number;
 }
