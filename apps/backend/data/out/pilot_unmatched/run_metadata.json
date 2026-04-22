@@ -3313,10 +3313,10 @@
       ]
     }
   ],
-  "run_time": "2026-04-22T07:53:27.441Z",
+  "run_time": "2026-04-22T09:10:14.729Z",
   "data_source_versions": [
     "public-global-sar-presence:v3.0",
     ""
   ],
-  "git_commit_hash": "3624d328bac46c2dba97e8fa542ec3646c6428a6"
+  "git_commit_hash": "35828c4055124beba809f1a007c845e8ede8fb44"
 }

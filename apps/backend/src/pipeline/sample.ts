@@ -111,7 +111,7 @@ const main = async () => {
     return;
   }
 
-  log(`Getting events for ${entries4wings.length} entries...`, ELogType.info);
+  log(`Preparing event schema for ${entries4wings.length} entries...`, ELogType.info);
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;

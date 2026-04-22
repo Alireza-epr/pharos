@@ -50,6 +50,7 @@
       "mean_uncertainty": 0.5,
       "pct_near_coast": 0,
       "recurrence_count": 14,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -104,6 +105,7 @@
       "mean_uncertainty": 0.73,
       "pct_near_coast": 75,
       "recurrence_count": 4,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -158,6 +160,7 @@
       "mean_uncertainty": 0.59,
       "pct_near_coast": 30,
       "recurrence_count": 10,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -212,6 +215,7 @@
       "mean_uncertainty": 0.5,
       "pct_near_coast": 0,
       "recurrence_count": 6,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -266,6 +270,7 @@
       "mean_uncertainty": 0.5,
       "pct_near_coast": 0,
       "recurrence_count": 19,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -320,6 +325,7 @@
       "mean_uncertainty": 0.5,
       "pct_near_coast": 0,
       "recurrence_count": 15,
+      "days": 1,
       "days_with_unmatched": 1
     }
   },
@@ -374,6 +380,7 @@
       "mean_uncertainty": 0.8,
       "pct_near_coast": 100,
       "recurrence_count": 1,
+      "days": 1,
       "days_with_unmatched": 1
     }
   }
