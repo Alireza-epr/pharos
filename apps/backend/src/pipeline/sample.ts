@@ -1,4 +1,4 @@
-import pilot from '../config/pilot.json';
+//import pilot from '../config/pilot.json';
 import { createEventSchema } from './normalize/schema';
 import { isMatchedCase } from './normalize/validation';
 import {
@@ -60,17 +60,13 @@ const args = process.argv.slice(2);
 export const coastlinePolylines = readCoastlinePolylines();
 export const landPolygons = readLandPolygons();
 
-const baseURL4wings = pilot.URL;
-const source4wings = pilot.source as any;
-const output = pilot.output;
-
 const main = async () => {
   log('Pilot starting...', ELogType.info);
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
-  const baseURLEvent = pilot.eventURL;
-  const sourceEvent = pilot.eventSource as any;
+  const baseURLEvent = pilot.eventURL ?? '';
+  const sourceEvent = pilot.eventSource ?? '';
   const bodyParams4wings = pilot.aoi as any;
   const urlParams4wings = {
     'spatial-resolution': pilot['spatial-resolution'],
@@ -644,6 +640,22 @@ const validation = async () => {
     JSON.stringify(manifest_strata, null, 2),
   );
 };
+
+const configIndex = args.indexOf('--config');
+let configPath = null;
+
+if (configIndex !== -1 && args[configIndex + 1]) {
+  configPath = args[configIndex + 1];
+} else {
+  configPath = "src/config/pilot.json";
+}
+const pilot = JSON.parse( fs.readFileSync(configPath, 'utf8'))
+if(!pilot){
+  throw new Error(`Config file not found: ${configPath}`);
+}
+const baseURL4wings = pilot.URL;
+const source4wings = pilot.source as any;
+const output = pilot.output;
 
 if (args.includes('--main')) {
   main().catch(console.error);

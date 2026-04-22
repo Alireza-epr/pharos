@@ -10,7 +10,7 @@
     "flag": "NLD",
     "geartype": "CARGO",
     "imo": "9508794",
-    "lastTransmissionDate": "2026-04-19T23:59:03Z",
+    "lastTransmissionDate": "2026-04-20T23:57:13Z",
     "lat": 55.24,
     "lon": 14.130000114440918,
     "mmsi": "246629000",
@@ -30,7 +30,7 @@
     "flag": "CYP",
     "geartype": "CARGO",
     "imo": "9136204",
-    "lastTransmissionDate": "2026-04-19T23:59:57Z",
+    "lastTransmissionDate": "2026-04-20T23:59:18Z",
     "lat": 55.18,
     "lon": 14.199999809265137,
     "mmsi": "210549000",
@@ -50,7 +50,7 @@
     "flag": "CYP",
     "geartype": "OTHER",
     "imo": "9504035",
-    "lastTransmissionDate": "2026-04-19T23:59:53Z",
+    "lastTransmissionDate": "2026-04-20T23:59:07Z",
     "lat": 55.11,
     "lon": 14.130000114440918,
     "mmsi": "209276000",
@@ -70,7 +70,7 @@
     "flag": "MHL",
     "geartype": "CARGO",
     "imo": "9743215",
-    "lastTransmissionDate": "2026-04-19T23:59:38Z",
+    "lastTransmissionDate": "2026-04-20T23:59:37Z",
     "lat": 55.21,
     "lon": 14.399999618530273,
     "mmsi": "538011815",
@@ -90,7 +90,7 @@
     "flag": "FIN",
     "geartype": "CARGO",
     "imo": "9194282",
-    "lastTransmissionDate": "2026-04-19T23:59:09Z",
+    "lastTransmissionDate": "2026-04-20T23:55:55Z",
     "lat": 55.25,
     "lon": 14.300000190734863,
     "mmsi": "230673000",
@@ -110,7 +110,7 @@
     "flag": "DNK",
     "geartype": "PASSENGER",
     "imo": "9812107",
-    "lastTransmissionDate": "2026-04-19T23:59:03Z",
+    "lastTransmissionDate": "2026-04-20T23:59:52Z",
     "lat": 55.19,
     "lon": 14.239999771118164,
     "mmsi": "219026000",
@@ -130,14 +130,114 @@
     "flag": "DNK",
     "geartype": "OTHER",
     "imo": "",
-    "lastTransmissionDate": "2026-04-17T00:02:32Z",
+    "lastTransmissionDate": "2026-04-20T23:59:37Z",
     "lat": 55.16,
     "lon": 14.680000305175781,
     "mmsi": "219000217",
     "shipName": "HDMS SOELOEVEN",
     "vesselId": "22c7ca42d-df50-18b5-713a-a81e9115052c",
     "vesselType": "OTHER",
-    "event_metadata": null
+    "event_metadata": {
+      "start": "2025-12-05T12:06:41.000Z",
+      "end": "2025-12-06T12:08:08.000Z",
+      "id": "efc1703a86346486d884cbd5fc5aab74",
+      "type": "port_visit",
+      "position": {
+        "lat": 55.1155,
+        "lon": 14.6758
+      },
+      "regions": {
+        "mpa": [
+          "555790698",
+          "555543143",
+          "555522525"
+        ],
+        "eez": [
+          "5674"
+        ],
+        "rfmo": [
+          "NASCO",
+          "ACAP",
+          "NAMMCO",
+          "ICCAT",
+          "IWC",
+          "ICES"
+        ],
+        "fao": [
+          "27.3.d.24",
+          "27.3.d",
+          "27.3",
+          "27"
+        ],
+        "majorFao": [
+          "27"
+        ],
+        "eez12Nm": [
+          "5674"
+        ],
+        "highSeas": [],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+      },
+      "boundingBox": [
+        14.693334446163684,
+        55.105045722833694,
+        14.693334446163684,
+        55.105045722833694
+      ],
+      "distances": {
+        "startDistanceFromShoreKm": 0,
+        "endDistanceFromShoreKm": 0,
+        "startDistanceFromPortKm": 0,
+        "endDistanceFromPortKm": 0
+      },
+      "vessel": {
+        "id": "22c7ca42d-df50-18b5-713a-a81e9115052c",
+        "name": "HDMS SOELOEVEN",
+        "ssvid": "219000217",
+        "flag": "DNK",
+        "type": "other",
+        "nextPort": null
+      },
+      "port_visit": {
+        "visitId": "22efc11c118fb011f640e6328d54744f",
+        "confidence": "4",
+        "durationHrs": 24.024166666666666,
+        "startAnchorage": {
+          "anchorageId": "46551b1d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.105045722833694,
+          "lon": 14.693334446163684,
+          "name": "ROENNE",
+          "topDestination": "BAY LIGHTER"
+        },
+        "intermediateAnchorage": {
+          "anchorageId": "46551b1d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.105045722833694,
+          "lon": 14.693334446163684,
+          "name": "ROENNE",
+          "topDestination": "BAY LIGHTER"
+        },
+        "endAnchorage": {
+          "anchorageId": "46551b1d",
+          "atDock": true,
+          "distanceFromShoreKm": "0",
+          "flag": "DNK",
+          "id": "dnk-roenne",
+          "lat": 55.105045722833694,
+          "lon": 14.693334446163684,
+          "name": "ROENNE",
+          "topDestination": "BAY LIGHTER"
+        }
+      }
+    }
   },
   {
     "callsign": "",
@@ -170,7 +270,7 @@
     "flag": "ATG",
     "geartype": "CARGO",
     "imo": "9287807",
-    "lastTransmissionDate": "2026-04-19T23:59:57Z",
+    "lastTransmissionDate": "2026-04-20T10:09:48Z",
     "lat": 55.22,
     "lon": 14.40999984741211,
     "mmsi": "305773000",
@@ -190,7 +290,7 @@
     "flag": "DEU",
     "geartype": "CARGO",
     "imo": "9196254",
-    "lastTransmissionDate": "2026-04-19T23:59:02Z",
+    "lastTransmissionDate": "2026-04-20T23:58:39Z",
     "lat": 55.16,
     "lon": 14.170000076293945,
     "mmsi": "218797000",
@@ -230,7 +330,7 @@
     "flag": "BRB",
     "geartype": "OTHER",
     "imo": "9298662",
-    "lastTransmissionDate": "2026-04-19T23:59:33Z",
+    "lastTransmissionDate": "2026-04-20T23:57:38Z",
     "lat": 55.16,
     "lon": 14.109999656677246,
     "mmsi": "314842000",
@@ -250,7 +350,7 @@
     "flag": "NLD",
     "geartype": "CARGO",
     "imo": "1046104",
-    "lastTransmissionDate": "2026-04-19T23:59:08Z",
+    "lastTransmissionDate": "2026-04-20T23:56:21Z",
     "lat": 55.24,
     "lon": 14.329999923706055,
     "mmsi": "244067000",
@@ -270,7 +370,7 @@
     "flag": "DNK",
     "geartype": "CARGO",
     "imo": "8104565",
-    "lastTransmissionDate": "2026-04-19T23:58:20Z",
+    "lastTransmissionDate": "2026-04-20T23:59:52Z",
     "lat": 55.23,
     "lon": 14.1899995803833,
     "mmsi": "219002392",
@@ -290,7 +390,7 @@
     "flag": "IDN",
     "geartype": "OTHER",
     "imo": "9388730",
-    "lastTransmissionDate": "2026-04-19T23:57:02Z",
+    "lastTransmissionDate": "2026-04-20T23:58:49Z",
     "lat": 55.23,
     "lon": 14.289999961853027,
     "mmsi": "525121076",
@@ -310,7 +410,7 @@
     "flag": "BRB",
     "geartype": "OTHER",
     "imo": "9318096",
-    "lastTransmissionDate": "2026-04-19T23:58:02Z",
+    "lastTransmissionDate": "2026-04-20T23:59:14Z",
     "lat": 55.15,
     "lon": 14.300000190734863,
     "mmsi": "314001147",
@@ -330,7 +430,7 @@
     "flag": "CYP",
     "geartype": "CARGO",
     "imo": "9552044",
-    "lastTransmissionDate": "2026-04-19T23:59:07Z",
+    "lastTransmissionDate": "2026-04-20T23:58:08Z",
     "lat": 55.09,
     "lon": 14.09000015258789,
     "mmsi": "212584000",
@@ -350,7 +450,7 @@
     "flag": "CYP",
     "geartype": "CARGO",
     "imo": "9213703",
-    "lastTransmissionDate": "2026-04-19T23:59:05Z",
+    "lastTransmissionDate": "2026-04-20T23:59:13Z",
     "lat": 55.21,
     "lon": 14.40999984741211,
     "mmsi": "209982000",

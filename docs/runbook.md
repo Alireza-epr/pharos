@@ -83,6 +83,19 @@ npm run pipeline:validation
 apps/backend/dist/pipeline/sample.js
 ```
 
+### Configuration
+
+The sample pipeline supports a --config parameter. The config path is relative to the backend src directory.
+Do not include backend in the path.
+- Default config:
+```text
+src/config/pilot.json
+```
+- Example alternative config (unmatched-heavy export):
+```text
+src/config/pilot_unmatched.json
+```
+
 ---
 
 ## 4. Output Location

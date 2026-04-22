@@ -273,32 +273,76 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.68,
-        "confidence_fields": null,
+        "confidence_fields": 4,
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {
             "dataset": "public-eez-areas",
             "version": "v3",
-            "enrichments": []
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
             "version": "v3",
-            "enrichments": []
+            "enrichments": [
+              {
+                "id": "555790698",
+                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
+              },
+              {
+                "id": "555543143",
+                "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
+              },
+              {
+                "id": "555522525",
+                "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
             "version": "v3",
-            "enrichments": []
+            "enrichments": [
+              {
+                "id": "NASCO",
+                "label": "NASCO"
+              },
+              {
+                "id": "ACAP",
+                "label": "ACAP"
+              },
+              {
+                "id": "NAMMCO",
+                "label": "NAMMCO"
+              },
+              {
+                "id": "ICCAT",
+                "label": "ICCAT"
+              },
+              {
+                "id": "IWC",
+                "label": "IWC"
+              },
+              {
+                "id": "ICES",
+                "label": "ICES"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 4,
+          "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
