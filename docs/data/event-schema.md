@@ -49,7 +49,7 @@ This document defines a **event schema** for Iteration 1.
 
 ### Metadata
 
-- `confidence_fields` (number or null)  
+- `confidence_proxy` (number or null)  
   Confidence-related fields from the source, if any.
 - `raw_metadata` (object)  
   Original SAR record stored without modification.
@@ -95,6 +95,15 @@ If validation fails during record normalization, the following schema will be re
 
 ---
 
+### Hotspot
+
+This defines the H3 context in which the event is located based on its spatial position.
+For more information, please refer to [the hotspot documentation](../tech/hotspots.md).
+
+- `hotspot_context`: (Hotspot interface or null)
+
+---
+
 ## Example (Unmatched SAR Event)
 
 ```json
@@ -106,7 +115,7 @@ If validation fails during record normalization, the following schema will be re
   "geom": { "type": "Point", "coordinates": [12.75, 54.53] },
   "matched_flag": false,
   "source": "gfw_sar_presence:v3:0",
-  "confidence_fields": 2,
+  "confidence_proxy": 2,
   "raw_metadata": { "...": "original SAR fields" },
   "raw_event_metadata": { "...": "original event fields" },
   "run_metadata": {
@@ -137,7 +146,8 @@ If validation fails during record normalization, the following schema will be re
         "enrichments": []
     }
   },
-  "rejected": false
+  "rejected": false,
+  "hotspot_context": null
 }
 ```
 

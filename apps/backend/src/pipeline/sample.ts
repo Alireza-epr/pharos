@@ -196,6 +196,8 @@ const main = async () => {
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
   const sortedEvents = sortEventSchema(notRejectedEvents);
+  const resolution = 5;
+  const hotspots = generateHotspots(sortedEvents, resolution);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -208,7 +210,7 @@ const main = async () => {
         matched_flag: event.matched_flag,
         lat: event.lat,
         lon: event.lon,
-        confidence_fields: event.confidence_fields,
+        confidence_proxy: event.confidence_proxy,
         distance_to_coast_km: event.distance_to_coast_km,
         context_layers: event.context_layers,
         scoring: event.scoring
@@ -244,7 +246,7 @@ const main = async () => {
       matched_flag: event.matched_flag,
       lat: event.lat,
       lon: event.lon,
-      confidence_fields: event.confidence_fields ?? null,
+      confidence_proxy: event.confidence_proxy ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
       triage_score: event.scoring.triage_score ?? null,
@@ -328,9 +330,6 @@ const main = async () => {
   );
 
   //hotspots.geojson
-  const resolution = 5;
-  const hotspots = generateHotspots(sortedEvents, resolution);
-
   const hotspotsGeoJSON = featureFromHotspot(hotspots);
   fs.writeFileSync(
     `${output}hotspots.geojson`,

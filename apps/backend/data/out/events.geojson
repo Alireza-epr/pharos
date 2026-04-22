@@ -9,7 +9,7 @@
         "matched_flag": true,
         "lat": 55.24,
         "lon": 14.13,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 16.38,
         "context_layers": {
           "EEZ": {
@@ -53,7 +53,7 @@
         "matched_flag": true,
         "lat": 55.18,
         "lon": 14.2,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 23.19,
         "context_layers": {
           "EEZ": {
@@ -97,7 +97,7 @@
         "matched_flag": true,
         "lat": 55.11,
         "lon": 14.13,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 30.83,
         "context_layers": {
           "EEZ": {
@@ -141,7 +141,7 @@
         "matched_flag": true,
         "lat": 55.21,
         "lon": 14.4,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 19.31,
         "context_layers": {
           "EEZ": {
@@ -185,7 +185,7 @@
         "matched_flag": true,
         "lat": 55.25,
         "lon": 14.3,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 17.37,
         "context_layers": {
           "EEZ": {
@@ -229,7 +229,7 @@
         "matched_flag": true,
         "lat": 55.19,
         "lon": 14.24,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 22.53,
         "context_layers": {
           "EEZ": {
@@ -273,7 +273,7 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.68,
-        "confidence_fields": 4,
+        "confidence_proxy": 4,
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {
@@ -362,7 +362,7 @@
         "matched_flag": false,
         "lat": 55.2,
         "lon": 14.21,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 21.07,
         "context_layers": {
           "EEZ": {
@@ -411,7 +411,7 @@
         "matched_flag": true,
         "lat": 55.22,
         "lon": 14.41,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 18.72,
         "context_layers": {
           "EEZ": {
@@ -455,7 +455,7 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.17,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 25.27,
         "context_layers": {
           "EEZ": {
@@ -499,7 +499,7 @@
         "matched_flag": true,
         "lat": 55.15,
         "lon": 14.22,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 26.66,
         "context_layers": {
           "EEZ": {
@@ -543,7 +543,7 @@
         "matched_flag": true,
         "lat": 55.16,
         "lon": 14.11,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 25.28,
         "context_layers": {
           "EEZ": {
@@ -587,7 +587,7 @@
         "matched_flag": true,
         "lat": 55.24,
         "lon": 14.33,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 19.23,
         "context_layers": {
           "EEZ": {
@@ -631,7 +631,7 @@
         "matched_flag": true,
         "lat": 55.23,
         "lon": 14.19,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 17.59,
         "context_layers": {
           "EEZ": {
@@ -675,7 +675,7 @@
         "matched_flag": true,
         "lat": 55.23,
         "lon": 14.29,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 19.16,
         "context_layers": {
           "EEZ": {
@@ -719,7 +719,7 @@
         "matched_flag": true,
         "lat": 55.15,
         "lon": 14.3,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 25.02,
         "context_layers": {
           "EEZ": {
@@ -763,7 +763,7 @@
         "matched_flag": true,
         "lat": 55.09,
         "lon": 14.09,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 33.07,
         "context_layers": {
           "EEZ": {
@@ -807,7 +807,7 @@
         "matched_flag": true,
         "lat": 55.21,
         "lon": 14.41,
-        "confidence_fields": null,
+        "confidence_proxy": null,
         "distance_to_coast_km": 18.68,
         "context_layers": {
           "EEZ": {

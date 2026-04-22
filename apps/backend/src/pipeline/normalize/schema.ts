@@ -71,7 +71,7 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_fields = generateConfidence(a_EventEntry);
+  const confidence_proxy = generateConfidence(a_EventEntry);
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
@@ -99,7 +99,7 @@ export const createEventSchema = async (
     event_id,
     timestamp_utc,
     matched_flag,
-    confidence_fields,
+    confidence_proxy,
     lat,
     lon,
     source: sources,
@@ -115,6 +115,7 @@ export const createEventSchema = async (
     },
     geom: geom,
     rejected: false,
+    hotspot_context: null,
   };
 
   const scoring = generateScoring(eventSchema);

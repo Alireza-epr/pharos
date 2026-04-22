@@ -10,7 +10,7 @@ export const eventSchema_matched_near_coast: any = {
   event_id: 'd4f97da2afb84fab4aad1f7d56bfaa765f65e2ea3f705be0868badce53fa724b',
   timestamp_utc: '2025-12-06T05:25:03Z',
   matched_flag: true,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 55.24,
   lon: 14.329999923706055,
   source:
@@ -132,7 +132,7 @@ export const eventSchema_matched_offshore: any = {
   event_id: 'd4f97da2afb84fab4aad1f7d56bfaa765f65e2ea3f705be0868badce53fa724b',
   timestamp_utc: '2025-12-06T05:25:03Z',
   matched_flag: true,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 55.24,
   lon: 14.329999923706055,
   source:
@@ -255,7 +255,7 @@ export const eventSchema_matched_with_port_event: any = {
   event_id: '874df96e65c6dc650d39eb98943ce25e7b3a82173e88f29c404609050a85c02e',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: true,
-  confidence_fields: 4,
+  confidence_proxy: 4,
   lat: 55.16,
   lon: 14.68,
   source:
@@ -503,7 +503,7 @@ export const eventSchema_matched_with_port_event_confidence_2: any = {
   event_id: '874df96e65c6dc650d39eb98943ce25e7b3a82173e88f29c404609050a85c02e',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: true,
-  confidence_fields: '4',
+  confidence_proxy: '4',
   lat: 55.16,
   lon: 14.68,
   source:
@@ -751,7 +751,7 @@ export const eventSchema_umatched_near_coast: any = {
   event_id: 'umatchedee84562aa0d7b4a168e9f211771cb2b0f7b02398af7ef38e3f98ef04',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: false,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 36.1,
   lon: -5.43,
   source: 'public-global-sar-presence:v3.0',
@@ -846,7 +846,7 @@ export const eventSchema_umatched_offshore: any = {
   event_id: 'umatchedee84562aa0d7b4a168e9f211771cb2b0f7b02398af7ef38e3f98ef04',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: false,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 36.1,
   lon: -5.43,
   source: 'public-global-sar-presence:v3.0',
@@ -941,7 +941,7 @@ export const eventSchema_matched_without_port_event: any = {
   event_id: 'b8a1dba64ba8f546e5ae181413c6dcf0001fa7bd6dcfcc90c03b546f07e74abd',
   timestamp_utc: '2025-12-01T05:16:55Z',
   matched_flag: true,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 55.25,
   lon: 14.3,
   source:
@@ -1064,6 +1064,7 @@ export const eventSchema_onLand: IEventSchema = {
   event_id: '9df5159668a60e1d2dbda76f92f3e2a3f7b2877b7ed18459a3946d2cf3fcfd88',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: false,
+  hotspot_context: null,
   context_layers: {
     EEZ: {
       dataset: EContextLayerDatasets.eez,
@@ -1083,7 +1084,7 @@ export const eventSchema_onLand: IEventSchema = {
   },
   rejected: false,
   distance_to_coast_km: 2,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 52.52,
   lon: 13.405,
   source: 'public-global-sar-presence:v3.0',
@@ -1163,10 +1164,11 @@ export const eventSchema_onLand: IEventSchema = {
 
 export const eventSchema_inWater: IEventSchema = {
   version: '1.0.0',
+  hotspot_context: null,
   event_id: '0255652b698fcd8a5ea84bd2808999a95855b243e3bb646a48994d801fa56b16',
   timestamp_utc: '2025-12-07T17:17:24Z',
   matched_flag: false,
-  confidence_fields: null,
+  confidence_proxy: null,
   lat: 55.19,
   lon: 6.639999866485596,
   source: 'public-global-sar-presence:v3.0',
@@ -1267,7 +1269,7 @@ export const eventSchema_matched_no_date: any = {
   event_id: 'f1d1c217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c',
   timestamp_utc: '',
   matched_flag: true,
-  confidence_fields: '4',
+  confidence_proxy: '4',
   lat: 55.16,
   lon: 14.680000305175781,
   source:
@@ -1454,7 +1456,7 @@ export const eventSchema_matched_no_coord: any = {
   event_id: 'Nod1c217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c',
   timestamp_utc: '',
   matched_flag: true,
-  confidence_fields: '4',
+  confidence_proxy: '4',
   lat: NaN,
   lon: undefined,
   source:
@@ -1633,7 +1635,7 @@ export const eventSchema_matched_noisy: any = {
   event_id: 'Nois217a627d08e035daba502d2ce66b9c873f1b138d0fb070eecf43cd6565c',
   timestamp_utc: '',
   matched_flag: true,
-  confidence_fields: '4',
+  confidence_proxy: '4',
   lat: NaN,
   lon: undefined,
   source:

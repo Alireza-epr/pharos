@@ -13,7 +13,7 @@ const baseSchema: Record<string, TParquetField> = {
   matched_flag: { type: 'BOOLEAN' },
   lat: { type: 'DOUBLE' },
   lon: { type: 'DOUBLE' },
-  confidence_fields: { type: 'DOUBLE', optional: true },
+  confidence_proxy: { type: 'DOUBLE', optional: true },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
   inside_eez: { type: 'UTF8', optional: true },
   triage_score: { type: 'DOUBLE', optional: true},

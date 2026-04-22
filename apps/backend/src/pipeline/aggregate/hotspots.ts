@@ -1,6 +1,5 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IEventSchema } from '@packages/types';
-import { IHotspot } from '../../helpers/types/h3Types';
+import { IEventSchema, IHotspot } from '@packages/types';
 import config from '../../config/pilot.json';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate } from '../../helpers/utils/backendUtils';
