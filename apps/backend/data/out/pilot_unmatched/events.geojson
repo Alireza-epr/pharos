@@ -1,0 +1,3393 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "01db0066c6513d64549db45d43f29bc71447c0847e9cdd087a48d6ad90a289c0",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.19,
+        "lon": 14.37,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 21.14,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.37,
+          55.19
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "115765d3951098311cdb482d471b393d7438cd5721a4484b7c3d91f8281c206a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.58,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 8.13,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "1dd546583326edd8f6bec88cfdaece4d5fa5539b344bd38fb5ec6f0ba1f8cc93",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.13,
+        "lon": 14.58,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 7.3,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58,
+          55.13
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "3ac4f07cb0995660373217058f7c9185de3c0aa78469fd0c42ef499f2befcdbd",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.46,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 14.41,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.46,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "410c8014d2fb50546d11deae9ce2b6d318bc7846eee43bf235ceb1c55458f747",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.16,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 29.71,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "4626181c739eb7ae399489ef7e3f1027878dc57e0555eb244bc307252f7c2b6c",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.15,
+        "lon": 14.23,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 26.76,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.23,
+          55.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "469d1efd84c38ba255cbaf9331e666b56332c7903d3028a85dd5ad6892545380",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.1,
+        "lon": 14.12,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 31.95,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.12,
+          55.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "489a0a49f5ac11b3ae919d43d42965c43bd75e7f2f5e2de69021233a3b73ac51",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.2,
+        "lon": 14.21,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 21.07,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.21,
+          55.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "4a78f9837ac17f720b7c4393127abcf5b13541d015b9c92edc831d25ecdf4f73",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.27,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "55cb8c9b1cfc7f1829d92ddb4064ba1773742540a2b81115e7ff90f7efcc9c03",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.44,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.86,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "5e193584b5a6a157d9fc3d99e48d4fdaf0db60abb3dac0fdbc1d859d80627cd9",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.15,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.26,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.15,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "64cde6418e13725b459b526268cf04128bb107e61ca777b848c8148e9734fa46",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.14,
+        "lon": 14.13,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 27.5,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.13,
+          55.14
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "69b568f120bdba239fcab4218b3e16b455a6dff132b72140ad88b5f62814d931",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.62,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 5.64,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.62,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6a8e91b7c909fee9846dea6415067f20b49e04d588124c78b78316096d493c87",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.16,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.37,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6a8e91b7c909fee9846dea6415067f20b49e04d588124c78b78316096d493c87",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.16,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.37,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6ad84dc56f9aee94dc309959639b37d4535e9095e93a79f48d361c6fe9e38a33",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.11,
+        "lon": 14.47,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 13.66,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.47,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6afe44c3a2ca716dbdd64bfb411a28ddaffbde51c9bc4019a29bc86e02597db4",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.13,
+        "lon": 14.59,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 6.7,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.59,
+          55.13
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6afe44c3a2ca716dbdd64bfb411a28ddaffbde51c9bc4019a29bc86e02597db4",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.13,
+        "lon": 14.59,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 6.7,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.59,
+          55.13
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "6e2d59532e95e8e1de47429ba98bfe3d491fccdd5b69c0a99032b2913e40fdb3",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.22,
+        "lon": 14.22,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 19,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.22,
+          55.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "737cd7d81f3d25b3e6c418e5c4bd77db23c28bf4a68df1dfec3154a9960bfb3a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.39,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 20.03,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "7390cf5147f56551c7412d33f3f15d1fce66e1c9e4ab7f4a6ad5ad8783197aa0",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.15,
+        "lon": 14.65,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 3.16,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.65,
+          55.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "76ef095b001e5bb6ca6635c60a3f8a9611a2690490858c6678596d5adf2f0d30",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.22,
+        "lon": 14.19,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 18.7,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.19,
+          55.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "7fb086b0215efcb619a3a19ff8f8c097bfdece316c8600e2d7d8cac489436519",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.49,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "8a1faa8f581eccd5f0e4b1e2dc982753a80b8e99930d1b6506e033b617e5240d",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.11,
+        "lon": 14.52,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 10.49,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.52,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "8a1faa8f581eccd5f0e4b1e2dc982753a80b8e99930d1b6506e033b617e5240d",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.11,
+        "lon": 14.52,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 10.49,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.52,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "901fd4760a57f918a5730fd3a82ff28e6c362aef84afcf2ac7aa82eb93e29741",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.26,
+        "lon": 14.13,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 14.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.13,
+          55.26
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "901fd4760a57f918a5730fd3a82ff28e6c362aef84afcf2ac7aa82eb93e29741",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.26,
+        "lon": 14.13,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 14.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.13,
+          55.26
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "92ebdb431e0e9ce28283696066381cb4c6e99572e82afe91f5c5c7fcd66d51a9",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.37,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 21.1,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.37,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "93eb90e263c0e8851b48a2d9aa53a5197cf8c693994f773297774c6358594170",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.17,
+        "lon": 14.16,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 24.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16,
+          55.17
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "95898ad2ed5e35d0dd804227ad894678f18393fb2db37ba36e1bff0d0246d72b",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.45,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.04,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "95898ad2ed5e35d0dd804227ad894678f18393fb2db37ba36e1bff0d0246d72b",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.45,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.04,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "97cdb120637a1058833ed36d2ec6d95950398d6bc38c4efb3883bba1c3b1df8a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.26,
+        "lon": 14.15,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 14.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.15,
+          55.26
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9b1c6a1093092294cc9bd78de317266c9457973122fde66a4c56be97b41b5c86",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.13,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 29.72,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.13,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.32,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.32,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.32,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.32,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd4106b9c69edb3e033fca89b8dfa1faac75ede8c77bc0e6cb5f67a2d5cf731",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.26,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.5,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.26,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9c38ddbfedc716af245a19cb123c70bb527dd49ae6512c090571e30ce1570212",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 29.72,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "a1604bc812bb9b9956fabdc086e5ddcd38e57383c45d47a6e288ce3e09685e94",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.22,
+        "lon": 14.41,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 18.72,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41,
+          55.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "a9a82289bf88f987ce85d460dd08606ae5df6437fa7495d31fe5ccf8e22e4aee",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.16,
+        "lon": 14.2,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 25.4,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.2,
+          55.16
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "afc52b7dda0f36002a2860c8cbff9d7b943c8ec1509a245bcf9d5edef4ff4b4f",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.22,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 23.37,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.22,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "b6a5e8aceb62f30f44ad28c3a0305deafe501588504dca991244e407e7500b5e",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.15,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 26.38,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "be518b9fc6a06d6104ef0273be121ee8e76f2b6d888f193b63880b7f4393e70d",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.09,
+        "lon": 14.12,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 33.06,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.12,
+          55.09
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "bff8177b1c3b4662af4de748985c0c13503ec288dfcc3ed0f2113f1b689119c0",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.53,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 11.16,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.53,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "c0b26984e86a16519688ec3d6fe16aec9f6117eeafce48f3c3ea460c3cb8c2cc",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 23.76,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "c752c303e6db385474e498d3edb38a21c4824941a393c69d0dc6fed97d3e7e4b",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.17,
+        "lon": 14.24,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 24.7,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.24,
+          55.17
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "c7e3daf17109a6b2b8f187b7b85674123e438a50cd833917135be0339aa5955a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.35,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 22.37,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.35,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "c8228797d127e9c28dc9861a8a716659764acaf7d091a65a5fc55ae5589903a3",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.41,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 18.76,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "c99c93fe56f059944b0a41a9f31f7cf23af86df882a1b8b23a5d696af552b1f2",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.12,
+        "lon": 14.48,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 13.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.48,
+          55.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "ca89baf7f3b9883f2fcfaaddba03efec7ebc6d5c63afcbb6cc47c21bd6e76383",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.11,
+        "lon": 14.21,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 30.18,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.21,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d24221398ee699fed0fdc6d05d5eb02992bebf9bebee4b55a0d855b5e84858da",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.26,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d24221398ee699fed0fdc6d05d5eb02992bebf9bebee4b55a0d855b5e84858da",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.26,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d24221398ee699fed0fdc6d05d5eb02992bebf9bebee4b55a0d855b5e84858da",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.26,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d764ec5977ee43950676f859d98abe04f11b54c18945448ca1b62b2bc091778a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.38,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "d764ec5977ee43950676f859d98abe04f11b54c18945448ca1b62b2bc091778a",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.38,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "dd14f50d318a236c49ee95ae2d64aaa1632bda85024fa9183885e5a93335913d",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.41,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 18.56,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e1d4c2fddba4ce7a6a728f7ffe8425865364131ed86cd0132a13c75e94416c8c",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 16.37,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e23f96c05b558261c059ee5bcbfc49bf588701511ac819920a19ad8573d1c2db",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.11,
+        "lon": 14.64,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 2.97,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.8,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "near_coast",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.64,
+          55.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e3ef60ea84072444a2574f27d493bf8df578c9b011509eb34cc97fdcd17a191e",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.18,
+        "lon": 14.32,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 24.27,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32,
+          55.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e69e20a074cfff66f37c581b268c35cae76ff698727fbba839c14e04d6963e36",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.27,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.69,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.27,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "e7d01767bb756d1de3fd586038736f540e8d24f31a86eda2484cb7c9dddc44bf",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.15,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.48,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.15,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "ebd9d6e0d9cad258e1808ef3692f28408ff94e9a5f3f3cf39a5e66378c1cfab3",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.25,
+        "lon": 14.16,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 15.26,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16,
+          55.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "ed13bfdcb6e681720296b57d7c1f9babd0e5241453ad5444a9802bf2a2569e9e",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.2,
+        "lon": 14.36,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 21.81,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.36,
+          55.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "ee128d4109ca7ab7ae5e52547a9fcc6aedfc30bddd584e0b96ed2fc284ad21e2",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.14,
+        "lon": 14.2,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 27.61,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.2,
+          55.14
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "f0875917c911d93a74cc6b0109dbdc8b224f6f1c46418f0dbb85b640994774c7",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.23,
+        "lon": 14.4,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 19.39,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4,
+          55.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "f0998d34c82c014c7d84c5b6f75067ff4c3cdab6fa865caf9449f316bcd05527",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.16,
+        "lon": 14.17,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 25.27,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.17,
+          55.16
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "f45a022f1a5ce77019c4e58d502440657a868ef6c89d029ef36d9fbfdb24944b",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.26,
+        "lon": 14.14,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 14.15,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.14,
+          55.26
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "f839a25a1004cbce7aff2411da4e0dd850c58407b9f554c8bc78d56bc3526536",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.15,
+        "lon": 14.15,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 26.38,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "public-eez-areas",
+            "version": "v3",
+            "enrichments": []
+          },
+          "MPA": {
+            "dataset": "public-mpa-all",
+            "version": "v3",
+            "enrichments": []
+          },
+          "RFMO": {
+            "dataset": "public-rfmo",
+            "version": "v3",
+            "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.15,
+          55.15
+        ]
+      }
+    }
+  ]
+}

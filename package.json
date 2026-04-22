@@ -10,7 +10,7 @@
     "frontend:build": "npm --prefix apps/frontend run build",
     "frontend:preview": "npm --prefix apps/frontend run preview",
     "backend:dev": "npm --prefix apps/backend run dev",
-    "pipeline:sample": "npm --prefix apps/backend run pipeline:sample",
+    "pipeline:sample": "npm --prefix apps/backend run pipeline:sample -- --config src/config/pilot.json",
     "pipeline:validation": "npm --prefix apps/backend run pipeline:validation",
     "packages:build": "npm run build --workspace=@packages/enum && npm run build --workspace=@packages/types && npm run build --workspace=@packages/utils"
   },

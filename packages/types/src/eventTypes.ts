@@ -35,6 +35,20 @@ export interface IScoring {
   reason_codes: EReasonCodes[] | null;
 }
 
+export interface IHotspot {
+  cell_id: string;
+  time_bin: string;
+  count_total: number;
+  count_unmatched: number;
+  count_high_score_unmatched: number;
+  mean_score: number | null;
+  mean_uncertainty: number | null;
+  pct_near_coast: number;
+  recurrence_count: number;
+  days: number;
+  days_with_unmatched: number;
+}
+
 export interface IEventSchema {
   distance_to_coast_km: number;
   context_layers: Record<EContextLayers, IContextLayer>;
@@ -46,12 +60,13 @@ export interface IEventSchema {
   geom: IGeometry;
   matched_flag: boolean;
   source: string;
-  confidence_fields: 2 | 3 | 4 | null;
+  confidence_proxy: 2 | 3 | 4 | null;
   raw_metadata: I4wingsEntry;
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
   rejected: false;
+  hotspot_cell_id: string
 }
 
 export interface IRejectedEventSchema {

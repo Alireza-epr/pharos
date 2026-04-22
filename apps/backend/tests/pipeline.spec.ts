@@ -107,13 +107,13 @@ describe('4wings_helpers', () => {
   describe('generateConfidence', () => {
     it('returns confidence from the port event', () => {
       const eventNoEntries = apiEventResponse_no_entry.entries;
-      const confidence_fields_null = generateConfidence(eventNoEntries[0]);
+      const confidence_proxy_null = generateConfidence(eventNoEntries[0]);
 
       const eventWithEntries = apiEventResponse_with_entry.entries;
-      const confidence_fields = generateConfidence(eventWithEntries[0]);
+      const confidence_proxy = generateConfidence(eventWithEntries[0]);
 
-      expect(confidence_fields_null).toBeNull();
-      expect(confidence_fields).toBe(4);
+      expect(confidence_proxy_null).toBeNull();
+      expect(confidence_proxy).toBe(4);
       expect(generateConfidence(undefined)).toBeNull();
     });
   });
@@ -471,7 +471,7 @@ describe('4wings_helpers', () => {
       if (!entries) return;
 
       for (const entry of entries) {
-        const eventSchema = await createEventSchema(configSet, entry);
+        const eventSchema = await createEventSchema(configSet, 5, entry);
         expect(eventSchema.rejected).toBe(true);
         expect((eventSchema as IRejectedEventSchema).reason).toEqual(
           ERejectedEventSchemaReasons.notValidCoordinates,
@@ -493,7 +493,7 @@ describe('Event_statistics_utilities', () => {
         timestamp_utc: null,
         lat: null,
         lon: null,
-        confidence_fields: null,
+        confidence_proxy: null,
         distance_to_coast_km: null,
       },
       geometry: {
@@ -508,7 +508,7 @@ describe('Event_statistics_utilities', () => {
         timestamp_utc: 'invalid-date',
         lat: 200,
         lon: -500,
-        confidence_fields: null,
+        confidence_proxy: null,
         distance_to_coast_km: null,
       },
       geometry: {

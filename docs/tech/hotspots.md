@@ -45,6 +45,7 @@ Added to support **temporal analysis**:
 | Field                 | Description                                                        |
 | --------------------- | ------------------------------------------------------------------ |
 | `recurrence_count`    | Total unmatched events in the hex **across the full pilot period** |
+| `days`                | Number of days in this hex |
 | `days_with_unmatched` | Number of days with **at least one unmatched event** in this hex   |
 
 - These metrics allow identification of **persistent hotspots** over time.

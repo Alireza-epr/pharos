@@ -1,5 +1,5 @@
 import { EContextLayers } from '@packages/enum';
-import { IContextLayer } from '@packages/types';
+import { IContextLayer, IScoring } from '@packages/types';
 
 export interface IBackendConfig {
   logging: {
@@ -30,9 +30,10 @@ export interface IEventProperties {
   matched_flag: boolean;
   lat: number;
   lon: number;
-  confidence_fields: 2 | 3 | 4 | null;
+  confidence_proxy: 2 | 3 | 4 | null;
   distance_to_coast_km: number | null;
   context_layers: Record<EContextLayers, IContextLayer>;
+  scoring: IScoring
 }
 
 export enum EGeoJSONEventMissingness {
@@ -40,6 +41,11 @@ export enum EGeoJSONEventMissingness {
   timestamp_utc = 'timestamp_utc',
   lat = 'lat',
   lon = 'lon',
-  confidence_fields = 'confidence_fields',
+  confidence_proxy = 'confidence_proxy',
   distance_to_coast_km = 'distance_to_coast_km',
+}
+
+export interface IMatchingStats {
+  matched: number,
+  unmatched: number
 }

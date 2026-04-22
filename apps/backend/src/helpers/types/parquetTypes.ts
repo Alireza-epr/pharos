@@ -13,9 +13,11 @@ const baseSchema: Record<string, TParquetField> = {
   matched_flag: { type: 'BOOLEAN' },
   lat: { type: 'DOUBLE' },
   lon: { type: 'DOUBLE' },
-  confidence_fields: { type: 'DOUBLE', optional: true },
+  confidence_proxy: { type: 'DOUBLE', optional: true },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
   inside_eez: { type: 'UTF8', optional: true },
+  triage_score: { type: 'DOUBLE', optional: true},
+  uncertainty_score: { type: 'DOUBLE', optional: true},
 };
 
 for (const code of allReasonCodes) {
@@ -60,5 +62,6 @@ export const parquetSchema_hotspot = new parquet.ParquetSchema({
   mean_uncertainty: { type: 'DOUBLE', optional: true },
   pct_near_coast: { type: 'DOUBLE' },
   recurrence_count: { type: 'DOUBLE' },
+  days: { type: 'DOUBLE' },
   days_with_unmatched: { type: 'DOUBLE' },
 });

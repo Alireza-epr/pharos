@@ -1,4 +1,4 @@
-import pilot from '../config/pilot.json';
+//import pilot from '../config/pilot.json';
 import { createEventSchema } from './normalize/schema';
 import { isMatchedCase } from './normalize/validation';
 import {
@@ -6,6 +6,7 @@ import {
   getEventMissingness,
   getGeoMax,
   getGeoMin,
+  getMatchingStats,
   getTimeRange,
   sortEventSchema,
 } from '../helpers/utils/backendUtils';
@@ -60,17 +61,13 @@ const args = process.argv.slice(2);
 export const coastlinePolylines = readCoastlinePolylines();
 export const landPolygons = readLandPolygons();
 
-const baseURL4wings = pilot.URL;
-const source4wings = pilot.source as any;
-const output = pilot.output;
-
 const main = async () => {
   log('Pilot starting...', ELogType.info);
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
-  const baseURLEvent = pilot.eventURL;
-  const sourceEvent = pilot.eventSource as any;
+  const baseURLEvent = pilot.eventURL ?? '';
+  const sourceEvent = pilot.eventSource ?? '';
   const bodyParams4wings = pilot.aoi as any;
   const urlParams4wings = {
     'spatial-resolution': pilot['spatial-resolution'],
@@ -115,7 +112,7 @@ const main = async () => {
     return;
   }
 
-  log(`Getting events for ${entries4wings.length} entries...`, ELogType.info);
+  log(`Preparing event schema for ${entries4wings.length} entries...`, ELogType.info);
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -158,6 +155,7 @@ const main = async () => {
           try {
             const eventSchema = await createEventSchema(
               configuration,
+              resolution,
               thisEntry,
             );
             //console.log('Matched Event Schema( No event )', eventSchema);
@@ -171,6 +169,7 @@ const main = async () => {
             try {
               const eventSchema = await createEventSchema(
                 configuration,
+                resolution,
                 thisEntry,
                 thisEventEntry,
               );
@@ -186,7 +185,7 @@ const main = async () => {
       }
     } else {
       try {
-        const eventSchema = await createEventSchema(configuration, thisEntry);
+        const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
         //console.log('Unmatched Event Schema', eventSchema);
         events.push(eventSchema);
       } catch (error) {
@@ -199,6 +198,7 @@ const main = async () => {
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
   const sortedEvents = sortEventSchema(notRejectedEvents);
+  const hotspots = generateHotspots(sortedEvents, resolution);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -211,9 +211,10 @@ const main = async () => {
         matched_flag: event.matched_flag,
         lat: event.lat,
         lon: event.lon,
-        confidence_fields: event.confidence_fields,
+        confidence_proxy: event.confidence_proxy,
         distance_to_coast_km: event.distance_to_coast_km,
         context_layers: event.context_layers,
+        scoring: event.scoring
       },
       geometry: event.geom,
     })),
@@ -246,9 +247,11 @@ const main = async () => {
       matched_flag: event.matched_flag,
       lat: event.lat,
       lon: event.lon,
-      confidence_fields: event.confidence_fields ?? null,
+      confidence_proxy: event.confidence_proxy ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
       context_layers: event.context_layers,
+      triage_score: event.scoring.triage_score ?? null,
+      uncertainty_score: event.scoring.uncertainty_score ?? null,
       ...edge_case_flags,
     };
   });
@@ -305,8 +308,10 @@ const main = async () => {
   const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features);
   const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features);
   const time_range = getTimeRange(geojson.features);
+  const matching_stats = getMatchingStats(geojson.features)
   const data_quality = {
     row_count: geojson.features.length,
+    matching_stats: matching_stats,
     missingness: missingnesses,
     geo_sanity: {
       latitude: {
@@ -326,9 +331,6 @@ const main = async () => {
   );
 
   //hotspots.geojson
-  const resolution = 5;
-  const hotspots = generateHotspots(sortedEvents, resolution);
-
   const hotspotsGeoJSON = featureFromHotspot(hotspots);
   fs.writeFileSync(
     `${output}hotspots.geojson`,
@@ -372,6 +374,7 @@ const validation = async () => {
       source4wings,
       strata_1_url,
       50,
+      resolution
     );
 
     let near_coast: IValidationSample[] = [];
@@ -454,6 +457,7 @@ const validation = async () => {
       source4wings,
       strata_2_url_1,
       25,
+      resolution
     );
 
     const strata_2_samples_2 = await getValidationSamples(
@@ -461,6 +465,7 @@ const validation = async () => {
       source4wings,
       strata_2_url_2,
       25,
+      resolution
     );
 
     const strata_2_csv = csvString(
@@ -566,6 +571,7 @@ const validation = async () => {
       strata_3_url_1,
       strata_3_body_1 as any,
       25,
+      resolution
     );
 
     const strata_3_samples_2 = await postValidationSamples(
@@ -574,6 +580,7 @@ const validation = async () => {
       strata_3_url_2,
       strata_3_body_2 as any,
       25,
+      resolution
     );
 
     const strata_3_csv = csvString(
@@ -641,6 +648,23 @@ const validation = async () => {
     JSON.stringify(manifest_strata, null, 2),
   );
 };
+
+const configIndex = args.indexOf('--config');
+let configPath = null;
+
+if (configIndex !== -1 && args[configIndex + 1]) {
+  configPath = args[configIndex + 1];
+} else {
+  configPath = "src/config/pilot.json";
+}
+const pilot = JSON.parse( fs.readFileSync(configPath, 'utf8'))
+if(!pilot){
+  throw new Error(`Config file not found: ${configPath}`);
+}
+const baseURL4wings = pilot.URL;
+const source4wings = pilot.source as any;
+const output = pilot.output;
+const resolution = pilot.hotspotResolution
 
 if (args.includes('--main')) {
   main().catch(console.error);

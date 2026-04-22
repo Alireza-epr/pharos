@@ -1,6 +1,5 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IEventSchema } from '@packages/types';
-import { IHotspot } from '../../helpers/types/h3Types';
+import { IEventSchema, IHotspot } from '@packages/types';
 import config from '../../config/pilot.json';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate } from '../../helpers/utils/backendUtils';
@@ -12,7 +11,7 @@ export const generateHotspots = (
   const h3Indexes = new Map<string, IEventSchema[]>();
 
   for (const event of a_Events) {
-    const h3Index = latLngToCell(event.lat, event.lon, a_Resolution);
+    const h3Index = getHotspotCellId(event.lat, event.lon, a_Resolution);
     const key = `${h3Index}_${getDate(event.timestamp_utc)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
@@ -32,6 +31,7 @@ export const generateHotspots = (
     let uncertaintyCount = 0;
     let nearCoastCount = 0;
     let recurrence_count = 0;
+    let days = 0;
     let days_with_unmatched = 0;
 
     for (const event of events) {
@@ -82,6 +82,7 @@ export const generateHotspots = (
         ((nearCoastCount / events.length) * 100).toFixed(2),
       ),
       recurrence_count,
+      days,
       days_with_unmatched,
     };
   });
@@ -96,13 +97,14 @@ export const generateHotspots = (
 
   const recurrenceMap = new Map<
     string,
-    { recurrence_count: number; days_with_unmatched: number }
+    { recurrence_count: number; days: number;days_with_unmatched: number }
   >();
   for (const [cell_id, hs] of groupedHotspots) {
     recurrenceMap.set(cell_id, {
       recurrence_count: hs
         .map((h) => h.count_unmatched)
         .reduce((a, b) => a + b, 0),
+      days: hs.length,
       days_with_unmatched: hs.filter((h) => h.count_unmatched !== 0).length,
     });
   }
@@ -113,6 +115,7 @@ export const generateHotspots = (
       return {
         ...h,
         recurrence_count: rh.recurrence_count,
+        days: rh.days,
         days_with_unmatched: rh.days_with_unmatched,
       };
     }
@@ -161,3 +164,7 @@ export const featureFromHotspot = (
     };
   });
 };
+
+export const getHotspotCellId = (a_Lat: number, a_Lon: number, a_Resolution:number) => {
+  return latLngToCell(a_Lat, a_Lon, a_Resolution);
+}
