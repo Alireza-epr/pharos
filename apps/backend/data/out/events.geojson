@@ -13,9 +13,14 @@
         "distance_to_coast_km": 16.38,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -57,9 +62,14 @@
         "distance_to_coast_km": 23.19,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -101,9 +111,14 @@
         "distance_to_coast_km": 30.83,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -145,9 +160,14 @@
         "distance_to_coast_km": 19.31,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -189,9 +209,14 @@
         "distance_to_coast_km": 17.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -233,9 +258,14 @@
         "distance_to_coast_km": 22.53,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -277,8 +307,8 @@
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
             "enrichments": [
               {
                 "id": "5674",
@@ -366,9 +396,14 @@
         "distance_to_coast_km": 21.07,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -415,9 +450,14 @@
         "distance_to_coast_km": 18.72,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -459,9 +499,14 @@
         "distance_to_coast_km": 25.27,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -503,9 +548,14 @@
         "distance_to_coast_km": 26.66,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -547,9 +597,14 @@
         "distance_to_coast_km": 25.28,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -591,9 +646,14 @@
         "distance_to_coast_km": 19.23,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -635,9 +695,14 @@
         "distance_to_coast_km": 17.59,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -679,9 +744,14 @@
         "distance_to_coast_km": 19.16,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -723,9 +793,14 @@
         "distance_to_coast_km": 25.02,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -767,9 +842,14 @@
         "distance_to_coast_km": 33.07,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",
@@ -811,9 +891,14 @@
         "distance_to_coast_km": 18.68,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
             "dataset": "public-mpa-all",

@@ -309,6 +309,7 @@ export enum EContextLayerDatasets {
   eez = 'public-eez-areas',
   mpa = 'public-mpa-all',
   rfmo = 'public-rfmo',
+  marineregions = "World_EEZ_20231025_LR",
 }
 
 export enum EEventType {

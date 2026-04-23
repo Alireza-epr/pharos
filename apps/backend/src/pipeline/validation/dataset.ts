@@ -5,6 +5,7 @@ import {
 } from '@packages/types';
 import {
   ICoastlinePolylineProperties,
+  IEEZPolygonProperties,
   ILandPolygonProperties,
 } from '../../helpers/types/validationTypes';
 import fs from 'fs';
@@ -40,4 +41,19 @@ export const readCoastlinePolylines = () => {
   }
 
   return coastlinePolylines;
+};
+
+export const readEEZPolygons = () => {
+  const eezPolygons: FeatureCollection<
+    IMultiPolygonGeometry,
+    IEEZPolygonProperties
+  > = JSON.parse(
+    fs.readFileSync('./data/eez_polygons/eez_polygons.geojson', 'utf8'),
+  );
+
+  if (!eezPolygons) {
+    throw new Error('Failed to read EEZ polygons');
+  }
+
+  return eezPolygons;
 };

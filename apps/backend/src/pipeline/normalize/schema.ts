@@ -7,7 +7,7 @@ import {
   IGeometry,
 } from '@packages/types';
 import { ERejectedEventSchemaReasons, EContextLayers } from '@packages/enum';
-import { generateEEZ } from '../features/eez';
+import { generateEEZ, getEEZContext } from '../features/eez';
 import { generateRFMO } from '../features/rfmo';
 import { generateMPA } from '../features/mpa';
 import {
@@ -29,7 +29,7 @@ import {
   generateSources,
   generateVersion,
 } from './generation';
-import { coastlinePolylines } from '../sample';
+import { coastlinePolylines, eezPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
 
 export const createEventSchema = async (
@@ -79,7 +79,8 @@ export const createEventSchema = async (
 
   let geom: IGeometry = generateGeom(lon, lat);
 
-  const eez = generateEEZ(a_EventEntry);
+  //const eez = generateEEZ(a_EventEntry);
+  const eez = getEEZContext(eezPolygons, lon, lat);
   const mpa = generateMPA(a_EventEntry);
   const rfmo = generateRFMO(a_EventEntry);
 
