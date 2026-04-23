@@ -15,6 +15,6 @@
     "packages:build": "npm run build --workspace=@packages/enum && npm run build --workspace=@packages/types && npm run build --workspace=@packages/utils"
   },
   "devDependencies": {
-    "typescript": "^6.0.2"
+    "typescript": "^5.9.2"
   }
 }
