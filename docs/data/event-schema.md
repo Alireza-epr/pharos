@@ -64,7 +64,7 @@ This document defines a **event schema** for Iteration 1.
   - code version
 
 - `context_layers` (object)  
-  Geographic context information derived from the event record.
+  Geographic context information derived from either the event record or a dataset.
 
   Each context layer includes:
   - dataset - name of the dataset used for enrichment

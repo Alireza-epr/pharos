@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -110,7 +110,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -153,7 +154,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -235,7 +236,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -278,7 +280,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -360,7 +362,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -403,7 +406,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -484,7 +487,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -527,7 +531,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -608,7 +612,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -651,7 +656,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -732,7 +737,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -775,7 +781,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -856,7 +862,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -899,7 +906,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -980,7 +987,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1023,7 +1031,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1104,7 +1112,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1147,7 +1156,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1228,7 +1237,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1271,7 +1281,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1352,7 +1362,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1395,7 +1406,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1476,7 +1487,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1519,7 +1531,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1601,7 +1613,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1644,7 +1657,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1725,7 +1738,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1768,7 +1782,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1849,7 +1863,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1892,7 +1907,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1973,7 +1988,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2016,7 +2032,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2098,7 +2114,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2141,7 +2158,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2223,7 +2240,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2266,7 +2284,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2347,7 +2365,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2390,7 +2409,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2471,7 +2490,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2514,7 +2534,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2596,7 +2616,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2639,7 +2660,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2720,7 +2741,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2763,7 +2785,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2844,7 +2866,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2887,7 +2910,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2968,7 +2991,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3011,7 +3035,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3092,7 +3116,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3135,7 +3160,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3216,7 +3241,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3259,7 +3285,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3340,7 +3366,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3383,7 +3410,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3464,7 +3491,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3507,7 +3535,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3588,7 +3616,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3631,7 +3660,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3712,7 +3741,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3755,7 +3785,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3836,7 +3866,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -3879,7 +3910,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3960,7 +3991,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4003,7 +4035,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4084,7 +4116,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4127,7 +4160,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4208,7 +4241,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4251,7 +4285,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4332,7 +4366,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4375,7 +4410,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4456,7 +4491,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4499,7 +4535,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4580,7 +4616,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4623,7 +4660,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4704,7 +4741,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4747,7 +4785,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4828,7 +4866,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4871,7 +4910,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4952,7 +4991,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -4995,7 +5035,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5076,7 +5116,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5119,7 +5160,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5200,7 +5241,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5243,7 +5285,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5324,7 +5366,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5367,7 +5410,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5448,7 +5491,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5491,7 +5535,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5572,7 +5616,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5615,7 +5660,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5696,7 +5741,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5739,7 +5785,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5820,7 +5866,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5863,7 +5910,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5944,7 +5991,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -5987,7 +6035,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6068,7 +6116,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6111,7 +6160,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6192,7 +6241,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6235,7 +6285,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6316,7 +6366,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6359,7 +6410,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6440,7 +6491,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6483,7 +6535,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6564,7 +6616,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6607,7 +6660,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6688,7 +6741,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6731,7 +6785,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6812,7 +6866,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6855,7 +6910,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6936,7 +6991,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -6979,7 +7035,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7060,7 +7116,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7103,7 +7160,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7184,7 +7241,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7227,7 +7285,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7309,7 +7367,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "near_coast",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7352,7 +7411,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7433,7 +7492,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7476,7 +7536,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7557,7 +7617,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7600,7 +7661,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7681,7 +7742,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7724,7 +7786,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7805,7 +7867,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7848,7 +7911,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7929,7 +7992,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -7972,7 +8036,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8053,7 +8117,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -8096,7 +8161,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8177,7 +8242,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -8220,7 +8286,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8301,7 +8367,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -8344,7 +8411,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8425,7 +8492,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -8468,7 +8536,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "137c48bfa75ebd37b2f4191e77d8f1d848771770",
+      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8549,7 +8617,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {

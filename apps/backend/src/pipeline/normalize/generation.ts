@@ -112,7 +112,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  const inside_eez = event ? event.regions.eez.length > 0 : false;
+  const inside_eez = a_EventSchema.context_layers.EEZ.enrichments.length > 0 ? true : false
   if (inside_eez) {
     reason_codes.push(EReasonCodesStatic.inside_eez);
   }

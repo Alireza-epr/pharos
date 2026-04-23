@@ -38,7 +38,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -87,7 +88,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -136,7 +138,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -185,7 +188,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -234,7 +238,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -283,7 +288,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -426,7 +432,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -475,7 +482,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -524,7 +532,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -573,7 +582,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -622,7 +632,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -671,7 +682,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -720,7 +732,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -769,7 +782,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -818,7 +832,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -867,7 +882,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -916,7 +932,8 @@
           "uncertainty_score": 0.5,
           "reason_codes": [
             "matched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
