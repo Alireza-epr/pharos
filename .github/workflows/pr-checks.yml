@@ -51,10 +51,6 @@ jobs:
         working-directory: apps/backend
         run: npm run typecheck
 
-      - name: Run Backend Unit Tests
-        working-directory: apps/backend
-        run: npm test
-      
       - name: Verify Backend Startup (Smoke Test)
         working-directory: apps/backend
         run: |
@@ -64,3 +60,7 @@ jobs:
           sleep 5
           curl -X GET "localhost:1370/system/health"
           kill $(cat server.pid)
+
+      - name: Run Backend Unit Tests
+        working-directory: apps/backend
+        run: npm test
