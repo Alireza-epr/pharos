@@ -49,3 +49,6 @@ export interface IMatchingStats {
   matched: number,
   unmatched: number
 }
+
+export type TFixedLengthArray<T, N extends number, R extends T[] = []> =
+  R['length'] extends N ? R : TFixedLengthArray<T, N, [...R, T]>;
