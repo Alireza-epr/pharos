@@ -43,7 +43,7 @@ export const generateRefreshToken = (a_Payload: JwtPayload) => {
 export const generateToken = (a_Payload: JwtPayload) => {
   try {
     const jwt_expiry = ms(config.auth.jwt_expiry)
-    const token = jwt.sign(a_Payload, config.auth.jwt_secret, { expiresIn: jwt_expiry });
+    const token = jwt.sign(a_Payload, config.auth.jwt_secret, { expiresIn: jwt_expiry /1000});
     //log(`[Token] Access token generated for user: ${a_Payload.username}`, ELogType.success);
     return token;
   } catch (error) {
@@ -55,7 +55,8 @@ export const generateToken = (a_Payload: JwtPayload) => {
 export const verifyToken = (a_Token: string) => {
   try {
     const decoded = jwt.verify(a_Token, config.auth.jwt_secret);
-    log(`[Token] Token verified successfully for user: ${decoded}`, ELogType.success);
+    const user = typeof decoded === 'string' ? decoded : decoded.username
+    log(`[Token] Token verified successfully for username: ${user}`, ELogType.success);
     logTokenExpiry(decoded);
     return decoded;
   } catch (error) {
