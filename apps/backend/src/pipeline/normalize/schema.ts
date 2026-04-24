@@ -83,12 +83,12 @@ export const createEventSchema = async (
   const eez = getEEZContext(eezPolygons, lon, lat);
   //const mpa = generateMPA(a_EventEntry);
   const mpa = getMPAContext(mpaPolygons, lon, lat);
-  const rfmo = generateRFMO(a_EventEntry);
+  //const rfmo = generateRFMO(a_EventEntry);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
-    [EContextLayers.rfmo]: rfmo,
+    //[EContextLayers.rfmo]: rfmo,
   };
 
   //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);

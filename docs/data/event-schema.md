@@ -138,11 +138,6 @@ This defines the H3 cell id in which the event is located based on its spatial p
         "dataset": "public-mpa-all",
         "version": "v3",
         "enrichments": []
-    },
-    "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
-        "enrichments": []
     }
   },
   "rejected": false,

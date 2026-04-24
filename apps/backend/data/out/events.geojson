@@ -26,11 +26,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -75,11 +70,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -126,11 +116,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -175,11 +160,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -226,11 +206,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -275,11 +250,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -326,36 +296,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": [
-              {
-                "id": "NASCO",
-                "label": "NASCO"
-              },
-              {
-                "id": "ACAP",
-                "label": "ACAP"
-              },
-              {
-                "id": "NAMMCO",
-                "label": "NAMMCO"
-              },
-              {
-                "id": "ICCAT",
-                "label": "ICCAT"
-              },
-              {
-                "id": "IWC",
-                "label": "IWC"
-              },
-              {
-                "id": "ICES",
-                "label": "ICES"
-              }
-            ]
           }
         },
         "scoring": {
@@ -400,11 +340,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -461,11 +396,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -512,11 +442,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -561,11 +486,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -612,11 +532,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -661,11 +576,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -712,11 +622,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -761,11 +666,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -812,11 +712,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -862,11 +757,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -911,11 +801,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },

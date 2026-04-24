@@ -26,11 +26,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -80,11 +75,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -137,11 +127,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -193,11 +178,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -247,11 +227,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -303,11 +278,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -357,11 +327,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -413,11 +378,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -467,11 +427,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -528,11 +483,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -584,11 +534,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -639,11 +584,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -693,11 +633,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -750,11 +685,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -804,11 +734,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -860,11 +785,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -914,11 +834,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -970,11 +885,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1026,11 +936,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1087,11 +992,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1142,11 +1042,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1199,11 +1094,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1253,11 +1143,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1309,11 +1194,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1364,11 +1244,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1419,11 +1294,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1473,11 +1343,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1529,11 +1394,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1583,11 +1443,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1639,11 +1494,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1693,11 +1543,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1749,11 +1594,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1803,11 +1643,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -1859,10 +1694,55 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          }
+        },
+        "scoring": {
+          "triage_score": null,
+          "uncertainty_score": 0.5,
+          "reason_codes": [
+            "missing_required_field:dataset",
+            "missing_required_field:vesselId",
+            "missing_required_field:mmsi",
+            "missing_required_field:shipName",
+            "missing_required_field:vesselType",
+            "unmatched_to_public_ais",
+            "missing_confidence_proxy",
+            "inside_eez"
+          ]
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.25,
+          55.24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+        "timestamp_utc": "2025-01-11T05:17:01Z",
+        "matched_flag": false,
+        "lat": 55.24,
+        "lon": 14.25,
+        "confidence_proxy": null,
+        "distance_to_coast_km": 17.32,
+        "context_layers": {
+          "EEZ": {
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+          "MPA": {
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1914,11 +1794,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -1968,66 +1843,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
-          }
-        },
-        "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
-          "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
-            "unmatched_to_public_ais",
-            "missing_confidence_proxy",
-            "inside_eez"
-          ]
-        }
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          14.25,
-          55.24
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
-        "timestamp_utc": "2025-01-11T05:17:01Z",
-        "matched_flag": false,
-        "lat": 55.24,
-        "lon": 14.25,
-        "confidence_proxy": null,
-        "distance_to_coast_km": 17.32,
-        "context_layers": {
-          "EEZ": {
-            "dataset": "World_EEZ_20231025_LR",
-            "version": "v12",
-            "enrichments": [
-              {
-                "id": "5694",
-                "label": "Swedish Exclusive Economic Zone"
-              }
-            ]
-          },
-          "MPA": {
-            "dataset": "WDPA_WDOECM_APR2026",
-            "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2079,11 +1894,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2133,11 +1943,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2194,11 +1999,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2250,11 +2050,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2304,11 +2099,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2360,11 +2150,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2414,11 +2199,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2475,11 +2255,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2531,11 +2306,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2586,11 +2356,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2640,11 +2405,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2701,11 +2461,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2757,11 +2512,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2811,11 +2561,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -2867,11 +2612,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2922,11 +2662,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -2976,11 +2711,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3031,11 +2761,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3086,11 +2811,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3142,11 +2862,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3196,11 +2911,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3257,11 +2967,6 @@
                 "label": "Rønne Banke"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3314,11 +3019,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3368,11 +3068,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3424,11 +3119,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3478,11 +3168,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3534,11 +3219,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3588,11 +3268,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },
@@ -3649,11 +3324,6 @@
                 "label": "I"
               }
             ]
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3705,11 +3375,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3760,11 +3425,6 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
           }
         },
         "scoring": {
@@ -3814,11 +3474,6 @@
           "MPA": {
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
             "enrichments": []
           }
         },

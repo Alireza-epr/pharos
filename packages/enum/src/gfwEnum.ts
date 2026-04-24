@@ -324,5 +324,5 @@ export enum EEventType {
 export enum EContextLayers {
   eez = 'EEZ',
   mpa = 'MPA',
-  rfmo = 'RFMO',
+  //rfmo = 'RFMO',
 }
