@@ -23,8 +23,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -73,8 +73,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -123,8 +123,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -173,8 +173,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -223,8 +223,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -273,8 +273,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -323,22 +323,9 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": [
-              {
-                "id": "555790698",
-                "label": "Rønne Banke - Special Protection Area (Birds Directive)"
-              },
-              {
-                "id": "555543143",
-                "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
-              },
-              {
-                "id": "555522525",
-                "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
-              }
-            ]
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": []
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -377,8 +364,7 @@
           "reason_codes": [
             "matched_to_public_ais",
             "near_coast",
-            "inside_eez",
-            "inside_mpa"
+            "inside_eez"
           ]
         }
       },
@@ -412,8 +398,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -467,9 +453,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -483,7 +474,8 @@
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -517,8 +509,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -567,8 +559,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -617,8 +609,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -667,8 +659,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -717,8 +709,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -767,8 +759,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -817,8 +809,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -867,8 +859,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -917,8 +909,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {

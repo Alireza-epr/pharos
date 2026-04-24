@@ -1647,10 +1647,10 @@
       ]
     }
   ],
-  "run_time": "2026-04-23T13:43:06.207Z",
+  "run_time": "2026-04-24T09:09:43.692Z",
   "data_source_versions": [
     "public-global-sar-presence:v3.0",
     "public-global-port-visits-events:v3.0"
   ],
-  "git_commit_hash": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd"
+  "git_commit_hash": "445facc61ca3f77054cf8b6bfb3b1440524029d4"
 }

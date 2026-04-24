@@ -117,7 +117,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.inside_eez);
   }
 
-  const inside_mpa = event ? event.regions.mpa.length > 0 : false;
+  const inside_mpa = a_EventSchema.context_layers.MPA.enrichments.length > 0 ? true : false
   if (inside_mpa) {
     reason_codes.push(EReasonCodesStatic.inside_mpa);
   }

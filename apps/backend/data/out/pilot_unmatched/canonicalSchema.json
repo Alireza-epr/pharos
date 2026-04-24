@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -89,8 +89,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -154,7 +154,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -214,8 +214,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -280,7 +280,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -340,8 +340,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -406,7 +406,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -466,8 +466,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -531,7 +531,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -591,8 +591,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -656,7 +656,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -716,8 +716,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -781,7 +781,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -841,8 +841,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -906,7 +906,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -966,8 +966,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1031,7 +1031,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1091,8 +1091,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1156,7 +1156,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1216,9 +1216,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -1238,7 +1243,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -1281,7 +1287,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1341,8 +1347,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1406,7 +1412,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1466,8 +1472,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1531,7 +1537,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1591,8 +1597,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1657,7 +1663,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1717,8 +1723,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1782,7 +1788,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1842,8 +1848,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -1907,7 +1913,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1967,8 +1973,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2014,7 +2020,7 @@
     "raw_metadata": {
       "callsign": "",
       "dataset": "",
-      "date": "2025-04-27 16:00",
+      "date": "2025-05-09 16:00",
       "detections": 1,
       "entryTimestamp": "2025-01-11T05:17:01Z",
       "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -2032,7 +2038,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2092,8 +2098,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2140,7 +2146,7 @@
     "raw_metadata": {
       "callsign": "",
       "dataset": "",
-      "date": "2025-05-09 16:00",
+      "date": "2025-04-27 16:00",
       "detections": 1,
       "entryTimestamp": "2025-01-11T05:17:01Z",
       "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -2158,7 +2164,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2218,8 +2224,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2284,7 +2290,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2344,8 +2350,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2409,7 +2415,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2469,9 +2475,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -2491,7 +2502,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -2534,7 +2546,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2594,8 +2606,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2660,7 +2672,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2720,8 +2732,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2785,7 +2797,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2845,8 +2857,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -2910,7 +2922,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2970,8 +2982,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3035,7 +3047,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3095,8 +3107,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3160,7 +3172,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3220,8 +3232,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3285,7 +3297,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3345,8 +3357,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3410,7 +3422,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3470,8 +3482,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3535,7 +3547,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3595,8 +3607,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3660,7 +3672,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3720,8 +3732,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3785,7 +3797,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3845,8 +3857,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -3910,7 +3922,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -3970,8 +3982,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4035,7 +4047,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4095,8 +4107,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4160,7 +4172,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4220,8 +4232,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4285,7 +4297,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4345,133 +4357,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
-        "enrichments": []
-      }
-    },
-    "distance_to_coast_km": 17.32,
-    "scoring": {
-      "triage_score": null,
-      "uncertainty_score": 0.5,
-      "reason_codes": [
-        "missing_required_field:dataset",
-        "missing_required_field:vesselId",
-        "missing_required_field:mmsi",
-        "missing_required_field:shipName",
-        "missing_required_field:vesselType",
-        "unmatched_to_public_ais",
-        "missing_confidence_proxy",
-        "inside_eez"
-      ]
-    },
-    "geom": {
-      "type": "Point",
-      "coordinates": [
-        14.25,
-        55.24
-      ]
-    },
-    "rejected": false,
-    "hotspot_cell_id": "851f2a57fffffff"
-  },
-  {
-    "version": "1.0.0",
-    "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
-    "timestamp_utc": "2025-01-11T05:17:01Z",
-    "matched_flag": false,
-    "confidence_proxy": null,
-    "lat": 55.24,
-    "lon": 14.25,
-    "source": "public-global-sar-presence:v3.0",
-    "raw_metadata": {
-      "callsign": "",
-      "dataset": "",
-      "date": "2025-05-28 05:00",
-      "detections": 1,
-      "entryTimestamp": "2025-01-11T05:17:01Z",
-      "exitTimestamp": "2025-12-16T16:53:25Z",
-      "firstTransmissionDate": "",
-      "flag": "",
-      "geartype": "",
-      "imo": "",
-      "lastTransmissionDate": "",
-      "lat": 55.24,
-      "lon": 14.25,
-      "mmsi": "",
-      "shipName": "",
-      "vesselId": "",
-      "vesselType": ""
-    },
-    "raw_event_metadata": null,
-    "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
-      "config_json": [
-        {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-          "body_params": {
-            "geojson": {
-              "coordinates": [
-                [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
-                ]
-              ],
-              "type": "Polygon"
-            }
-          },
-          "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
-          "url_params": {
-            "datasets[0]": "public-global-sar-presence:v3.0",
-            "date-range": "2025-01-01T00:00:00Z,2025-12-31T23:59:59Z",
-            "filters[0]": "matched='false'",
-            "format": "JSON",
-            "group-by": "VESSEL_ID",
-            "spatial-resolution": "HIGH",
-            "temporal-resolution": "HOURLY"
-          }
-        }
-      ],
-      "config_hash": "bf605830646075562f3e85e76491e7ab402a3191183ffe3aa8af3fd71df110f9"
-    },
-    "context_layers": {
-      "EEZ": {
-        "dataset": "World_EEZ_20231025_LR",
-        "version": "v12",
-        "enrichments": [
-          {
-            "id": "5694",
-            "label": "Swedish Exclusive Economic Zone"
-          }
-        ]
-      },
-      "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4535,7 +4422,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4595,8 +4482,133 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": []
+      },
+      "RFMO": {
+        "dataset": "public-rfmo",
         "version": "v3",
+        "enrichments": []
+      }
+    },
+    "distance_to_coast_km": 17.32,
+    "scoring": {
+      "triage_score": null,
+      "uncertainty_score": 0.5,
+      "reason_codes": [
+        "missing_required_field:dataset",
+        "missing_required_field:vesselId",
+        "missing_required_field:mmsi",
+        "missing_required_field:shipName",
+        "missing_required_field:vesselType",
+        "unmatched_to_public_ais",
+        "missing_confidence_proxy",
+        "inside_eez"
+      ]
+    },
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        14.25,
+        55.24
+      ]
+    },
+    "rejected": false,
+    "hotspot_cell_id": "851f2a57fffffff"
+  },
+  {
+    "version": "1.0.0",
+    "event_id": "9bd3f94290db69e316fab0ac360687b6259898cbd1d58877b3f82abc145b78af",
+    "timestamp_utc": "2025-01-11T05:17:01Z",
+    "matched_flag": false,
+    "confidence_proxy": null,
+    "lat": 55.24,
+    "lon": 14.25,
+    "source": "public-global-sar-presence:v3.0",
+    "raw_metadata": {
+      "callsign": "",
+      "dataset": "",
+      "date": "2025-05-28 05:00",
+      "detections": 1,
+      "entryTimestamp": "2025-01-11T05:17:01Z",
+      "exitTimestamp": "2025-12-16T16:53:25Z",
+      "firstTransmissionDate": "",
+      "flag": "",
+      "geartype": "",
+      "imo": "",
+      "lastTransmissionDate": "",
+      "lat": 55.24,
+      "lon": 14.25,
+      "mmsi": "",
+      "shipName": "",
+      "vesselId": "",
+      "vesselType": ""
+    },
+    "raw_event_metadata": null,
+    "run_metadata": {
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
+      "config_json": [
+        {
+          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "body_params": {
+            "geojson": {
+              "coordinates": [
+                [
+                  [
+                    14.11,
+                    55.26
+                  ],
+                  [
+                    14.68,
+                    55.27
+                  ],
+                  [
+                    14.69,
+                    55.11
+                  ],
+                  [
+                    14.09,
+                    55.08
+                  ],
+                  [
+                    14.11,
+                    55.26
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            }
+          },
+          "method": "POST",
+          "source": "public-global-sar-presence:v3.0",
+          "url_params": {
+            "datasets[0]": "public-global-sar-presence:v3.0",
+            "date-range": "2025-01-01T00:00:00Z,2025-12-31T23:59:59Z",
+            "filters[0]": "matched='false'",
+            "format": "JSON",
+            "group-by": "VESSEL_ID",
+            "spatial-resolution": "HIGH",
+            "temporal-resolution": "HOURLY"
+          }
+        }
+      ],
+      "config_hash": "bf605830646075562f3e85e76491e7ab402a3191183ffe3aa8af3fd71df110f9"
+    },
+    "context_layers": {
+      "EEZ": {
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
+      },
+      "MPA": {
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4660,7 +4672,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4720,8 +4732,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4785,7 +4797,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4845,8 +4857,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -4910,7 +4922,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -4970,9 +4982,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -4992,7 +5009,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -5035,7 +5053,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5095,8 +5113,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5160,7 +5178,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5220,8 +5238,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5285,7 +5303,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5345,8 +5363,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5410,7 +5428,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5470,8 +5488,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5535,7 +5553,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5595,9 +5613,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -5617,7 +5640,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -5660,7 +5684,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5720,8 +5744,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5785,7 +5809,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5845,8 +5869,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -5910,7 +5934,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -5970,8 +5994,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6035,7 +6059,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6095,9 +6119,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -6117,7 +6146,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -6160,7 +6190,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6220,8 +6250,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6285,7 +6315,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6345,8 +6375,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6410,7 +6440,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6470,8 +6500,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6535,7 +6565,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6595,8 +6625,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6660,7 +6690,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6720,8 +6750,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6767,7 +6797,7 @@
     "raw_metadata": {
       "callsign": "",
       "dataset": "",
-      "date": "2025-09-20 05:00",
+      "date": "2025-08-03 05:00",
       "detections": 1,
       "entryTimestamp": "2025-01-11T05:17:01Z",
       "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -6785,7 +6815,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6845,8 +6875,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -6892,7 +6922,7 @@
     "raw_metadata": {
       "callsign": "",
       "dataset": "",
-      "date": "2025-08-03 05:00",
+      "date": "2025-09-20 05:00",
       "detections": 1,
       "entryTimestamp": "2025-01-11T05:17:01Z",
       "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -6910,7 +6940,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -6970,8 +7000,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7035,7 +7065,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7095,8 +7125,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7160,7 +7190,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7220,8 +7250,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7285,7 +7315,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7345,9 +7375,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555790698",
+            "label": "Rønne Banke"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -7368,7 +7403,8 @@
         "unmatched_to_public_ais",
         "near_coast",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -7411,7 +7447,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7471,8 +7507,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7536,7 +7572,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7596,8 +7632,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7661,7 +7697,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7721,8 +7757,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7786,7 +7822,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7846,8 +7882,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -7911,7 +7947,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -7971,8 +8007,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -8036,7 +8072,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8096,8 +8132,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -8161,7 +8197,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8221,9 +8257,14 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       },
       "RFMO": {
         "dataset": "public-rfmo",
@@ -8243,7 +8284,8 @@
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
         "missing_confidence_proxy",
-        "inside_eez"
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -8286,7 +8328,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8346,8 +8388,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -8411,7 +8453,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8471,8 +8513,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {
@@ -8536,7 +8578,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "11fdd46d1403694c41d2b98cbf32bd735e0f6fcd",
+      "code_version": "445facc61ca3f77054cf8b6bfb3b1440524029d4",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -8596,8 +8638,8 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
+        "dataset": "WDPA_APR2026",
+        "version": "v1.6",
         "enrichments": []
       },
       "RFMO": {

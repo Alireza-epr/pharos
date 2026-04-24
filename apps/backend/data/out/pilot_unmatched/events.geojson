@@ -23,8 +23,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -78,8 +78,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -134,8 +134,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -190,8 +190,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -245,8 +245,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -300,8 +300,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -355,8 +355,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -410,8 +410,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -465,8 +465,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -520,9 +520,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -541,7 +546,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -575,8 +581,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -630,8 +636,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -685,8 +691,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -741,8 +747,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -796,8 +802,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -851,8 +857,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -906,8 +912,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -962,8 +968,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1018,8 +1024,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1073,9 +1079,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -1094,7 +1105,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -1128,8 +1140,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1184,8 +1196,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1239,8 +1251,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1294,8 +1306,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1349,8 +1361,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1404,8 +1416,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1459,8 +1471,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1514,8 +1526,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1569,8 +1581,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1624,8 +1636,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1679,8 +1691,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1734,8 +1746,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1789,8 +1801,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1844,8 +1856,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1899,8 +1911,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -1954,8 +1966,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2009,8 +2021,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2064,8 +2076,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2119,8 +2131,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2174,9 +2186,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -2195,7 +2212,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2229,8 +2247,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2284,8 +2302,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2339,8 +2357,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2394,8 +2412,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2449,9 +2467,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -2470,7 +2493,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2504,8 +2528,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2559,8 +2583,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2614,8 +2638,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2669,9 +2693,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -2690,7 +2719,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2724,8 +2754,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2779,8 +2809,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2834,8 +2864,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2889,8 +2919,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2944,8 +2974,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -2999,8 +3029,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3054,8 +3084,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3109,8 +3139,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3164,8 +3194,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3219,9 +3249,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555790698",
+                "label": "Rønne Banke"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -3241,7 +3276,8 @@
             "unmatched_to_public_ais",
             "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -3275,8 +3311,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3330,8 +3366,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3385,8 +3421,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3440,8 +3476,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3495,8 +3531,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3550,8 +3586,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3605,9 +3641,14 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           },
           "RFMO": {
             "dataset": "public-rfmo",
@@ -3626,7 +3667,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -3660,8 +3702,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3715,8 +3757,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
@@ -3770,8 +3812,8 @@
             ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
+            "dataset": "WDPA_APR2026",
+            "version": "v1.6",
             "enrichments": []
           },
           "RFMO": {
