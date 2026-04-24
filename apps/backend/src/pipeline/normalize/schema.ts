@@ -7,9 +7,9 @@ import {
   IGeometry,
 } from '@packages/types';
 import { ERejectedEventSchemaReasons, EContextLayers } from '@packages/enum';
-import { generateEEZ } from '../features/eez';
+import { generateEEZ, getEEZContext } from '../features/eez';
 import { generateRFMO } from '../features/rfmo';
-import { generateMPA } from '../features/mpa';
+import { generateMPA, getMPAContext } from '../features/mpa';
 import {
   distanceToCoast,
   generateDistanceToCoast,
@@ -29,7 +29,7 @@ import {
   generateSources,
   generateVersion,
 } from './generation';
-import { coastlinePolylines } from '../sample';
+import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
 
 export const createEventSchema = async (
@@ -79,14 +79,16 @@ export const createEventSchema = async (
 
   let geom: IGeometry = generateGeom(lon, lat);
 
-  const eez = generateEEZ(a_EventEntry);
-  const mpa = generateMPA(a_EventEntry);
-  const rfmo = generateRFMO(a_EventEntry);
+  //const eez = generateEEZ(a_EventEntry);
+  const eez = getEEZContext(eezPolygons, lon, lat);
+  //const mpa = generateMPA(a_EventEntry);
+  const mpa = getMPAContext(mpaPolygons, lon, lat);
+  //const rfmo = generateRFMO(a_EventEntry);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
-    [EContextLayers.rfmo]: rfmo,
+    //[EContextLayers.rfmo]: rfmo,
   };
 
   //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);

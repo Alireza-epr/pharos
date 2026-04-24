@@ -309,6 +309,8 @@ export enum EContextLayerDatasets {
   eez = 'public-eez-areas',
   mpa = 'public-mpa-all',
   rfmo = 'public-rfmo',
+  marineregions = "World_EEZ_20231025_LR",
+  wdpa = "WDPA_WDOECM_APR2026",
 }
 
 export enum EEventType {
@@ -322,5 +324,5 @@ export enum EEventType {
 export enum EContextLayers {
   eez = 'EEZ',
   mpa = 'MPA',
-  rfmo = 'RFMO',
+  //rfmo = 'RFMO',
 }

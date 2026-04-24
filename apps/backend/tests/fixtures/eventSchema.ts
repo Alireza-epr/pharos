@@ -109,11 +109,6 @@ export const eventSchema_matched_near_coast: any = {
       version: 'v3',
       enrichments: [],
     },
-    RFMO: {
-      dataset: 'public-rfmo',
-      version: 'v3',
-      enrichments: [],
-    },
   },
   distance_to_coast_km: 2,
   scoring: {
@@ -1075,12 +1070,7 @@ export const eventSchema_onLand: IEventSchema = {
       dataset: EContextLayerDatasets.mpa,
       version: 'v3',
       enrichments: [],
-    },
-    RFMO: {
-      dataset: EContextLayerDatasets.rfmo,
-      version: 'v3',
-      enrichments: [],
-    },
+    }
   },
   rejected: false,
   distance_to_coast_km: 2,
@@ -1239,11 +1229,6 @@ export const eventSchema_inWater: IEventSchema = {
       version: 'v3',
       enrichments: [],
     },
-    RFMO: {
-      dataset: EContextLayerDatasets.rfmo,
-      version: 'v3',
-      enrichments: [],
-    },
   },
   distance_to_coast_km: 2,
   scoring: {
@@ -1305,7 +1290,6 @@ export const eventSchema_matched_no_date: any = {
     regions: {
       mpa: ['555790698', '555543143', '555522525'],
       eez: ['5674'],
-      rfmo: ['NASCO', 'ACAP', 'NAMMCO', 'ICCAT', 'IWC', 'ICES'],
       fao: ['27.3.d.24', '27.3.d', '27.3', '27'],
       majorFao: ['27'],
       eez12Nm: ['5674'],
@@ -1436,6 +1420,23 @@ export const eventSchema_matched_no_date: any = {
     triage_score: '4',
     uncertainty_score: 0.5,
     reason_codes: ['near_coast', 'inside_eez', 'inside_mpa'],
+  },
+  "context_layers": {
+    "EEZ": {
+      "dataset": "World_EEZ_20231025_LR",
+      "version": "v12",
+      "enrichments": [
+        {
+          "id": "5694",
+          "label": "Swedish Exclusive Economic Zone"
+        }
+      ]
+    },
+    "MPA": {
+      "dataset": "WDPA_WDOECM_APR2026",
+      "version": "v1.6",
+      "enrichments": []
+    }
   },
   geom: {
     type: 'Polygon',
@@ -1628,6 +1629,23 @@ export const eventSchema_matched_no_coord: any = {
     type: 'Point',
     coordinates: [[[NaN, undefined]]],
   },
+  "context_layers": {
+    "EEZ": {
+      "dataset": "World_EEZ_20231025_LR",
+      "version": "v12",
+      "enrichments": [
+        {
+          "id": "5694",
+          "label": "Swedish Exclusive Economic Zone"
+        }
+      ]
+    },
+    "MPA": {
+      "dataset": "WDPA_WDOECM_APR2026",
+      "version": "v1.6",
+      "enrichments": []
+    }
+  }
 };
 
 export const eventSchema_matched_noisy: any = {
@@ -1807,4 +1825,21 @@ export const eventSchema_matched_noisy: any = {
     type: 'Point',
     coordinates: [[[NaN, undefined]]],
   },
+  "context_layers": {
+    "EEZ": {
+      "dataset": "World_EEZ_20231025_LR",
+      "version": "v12",
+      "enrichments": [
+        {
+          "id": "5694",
+          "label": "Swedish Exclusive Economic Zone"
+        }
+      ]
+    },
+    "MPA": {
+      "dataset": "WDPA_WDOECM_APR2026",
+      "version": "v1.6",
+      "enrichments": []
+    }
+  }
 };

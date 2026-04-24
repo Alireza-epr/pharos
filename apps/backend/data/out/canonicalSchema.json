@@ -19,7 +19,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-04-20T23:57:13Z",
+      "lastTransmissionDate": "2026-04-22T23:58:03Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -125,18 +125,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -146,7 +146,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -179,7 +180,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-04-20T23:59:18Z",
+      "lastTransmissionDate": "2026-04-22T23:58:44Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -189,7 +190,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -285,18 +286,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -306,7 +307,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -339,7 +341,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-04-20T23:59:07Z",
+      "lastTransmissionDate": "2026-04-22T23:59:38Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -349,7 +351,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -445,18 +447,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -466,7 +468,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -499,7 +502,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-04-20T23:59:37Z",
+      "lastTransmissionDate": "2026-04-22T23:59:24Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -509,7 +512,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -605,18 +608,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5674",
+            "label": "Danish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -626,7 +629,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -659,7 +663,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-04-20T23:55:55Z",
+      "lastTransmissionDate": "2026-04-22T23:58:36Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -669,7 +673,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -765,18 +769,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -786,7 +790,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -819,7 +824,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-04-20T23:59:52Z",
+      "lastTransmissionDate": "2026-04-22T23:59:47Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -829,7 +834,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -925,18 +930,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -946,7 +951,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -979,7 +985,7 @@
       "flag": "DNK",
       "geartype": "OTHER",
       "imo": "",
-      "lastTransmissionDate": "2026-04-20T23:59:37Z",
+      "lastTransmissionDate": "2026-04-22T23:58:14Z",
       "lat": 55.16,
       "lon": 14.680000305175781,
       "mmsi": "219000217",
@@ -1089,7 +1095,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1185,8 +1191,8 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
         "enrichments": [
           {
             "id": "5674",
@@ -1195,52 +1201,9 @@
         ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": [
-          {
-            "id": "555790698",
-            "label": "Rønne Banke - Special Protection Area (Birds Directive)"
-          },
-          {
-            "id": "555543143",
-            "label": "Hvideodde Rev - Baltic Sea Protected Area (HELCOM)"
-          },
-          {
-            "id": "555522525",
-            "label": "Hvideodde Rev - Special Areas of Conservation (Habitats Directive)"
-          }
-        ]
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
-        "enrichments": [
-          {
-            "id": "NASCO",
-            "label": "NASCO"
-          },
-          {
-            "id": "ACAP",
-            "label": "ACAP"
-          },
-          {
-            "id": "NAMMCO",
-            "label": "NAMMCO"
-          },
-          {
-            "id": "ICCAT",
-            "label": "ICCAT"
-          },
-          {
-            "id": "IWC",
-            "label": "IWC"
-          },
-          {
-            "id": "ICES",
-            "label": "ICES"
-          }
-        ]
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
+        "enrichments": []
       }
     },
     "distance_to_coast_km": 1.33,
@@ -1250,8 +1213,7 @@
       "reason_codes": [
         "matched_to_public_ais",
         "near_coast",
-        "inside_eez",
-        "inside_mpa"
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1294,7 +1256,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1344,18 +1306,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -1370,7 +1332,8 @@
         "missing_required_field:shipName",
         "missing_required_field:vesselType",
         "unmatched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1403,7 +1366,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-04-20T10:09:48Z",
+      "lastTransmissionDate": "2026-04-22T23:59:58Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1413,7 +1376,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1509,19 +1472,24 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5674",
+            "label": "Danish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
+        "enrichments": [
+          {
+            "id": "555774273",
+            "label": "I"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 18.72,
@@ -1530,7 +1498,9 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez",
+        "inside_mpa"
       ]
     },
     "geom": {
@@ -1563,7 +1533,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-04-20T23:58:39Z",
+      "lastTransmissionDate": "2026-04-22T23:59:18Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -1573,7 +1543,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1669,18 +1639,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -1690,7 +1660,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1723,7 +1694,7 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-04-12T16:36:12Z",
+      "lastTransmissionDate": "2026-04-22T16:28:41Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
@@ -1733,7 +1704,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1829,18 +1800,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -1850,7 +1821,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -1883,7 +1855,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-04-20T23:57:38Z",
+      "lastTransmissionDate": "2026-04-22T23:56:11Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -1893,7 +1865,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1989,18 +1961,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2010,7 +1982,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2043,7 +2016,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-04-20T23:56:21Z",
+      "lastTransmissionDate": "2026-04-22T23:59:42Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2053,7 +2026,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2149,18 +2122,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2170,7 +2143,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2203,7 +2177,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-04-20T23:59:52Z",
+      "lastTransmissionDate": "2026-04-22T23:57:40Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -2213,7 +2187,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2309,18 +2283,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2330,7 +2304,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2363,7 +2338,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-04-20T23:58:49Z",
+      "lastTransmissionDate": "2026-04-22T23:59:28Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -2373,7 +2348,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2469,18 +2444,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2490,7 +2465,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2523,7 +2499,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-04-20T23:59:14Z",
+      "lastTransmissionDate": "2026-04-22T23:59:37Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -2533,7 +2509,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2629,18 +2605,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5674",
+            "label": "Danish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2650,7 +2626,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2683,7 +2660,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-04-20T23:58:08Z",
+      "lastTransmissionDate": "2026-04-22T23:59:47Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -2693,7 +2670,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2789,18 +2766,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5694",
+            "label": "Swedish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2810,7 +2787,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {
@@ -2843,7 +2821,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-04-20T23:59:13Z",
+      "lastTransmissionDate": "2026-04-22T23:57:25Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -2853,7 +2831,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "1e444b559e6d0f55d226c1cc1acd3d6ef8d001d2",
+      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2949,18 +2927,18 @@
     },
     "context_layers": {
       "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+        "dataset": "World_EEZ_20231025_LR",
+        "version": "v12",
+        "enrichments": [
+          {
+            "id": "5674",
+            "label": "Danish Exclusive Economic Zone"
+          }
+        ]
       },
       "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-      },
-      "RFMO": {
-        "dataset": "public-rfmo",
-        "version": "v3",
+        "dataset": "WDPA_WDOECM_APR2026",
+        "version": "v1.6",
         "enrichments": []
       }
     },
@@ -2970,7 +2948,8 @@
       "uncertainty_score": 0.5,
       "reason_codes": [
         "matched_to_public_ais",
-        "missing_confidence_proxy"
+        "missing_confidence_proxy",
+        "inside_eez"
       ]
     },
     "geom": {

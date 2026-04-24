@@ -64,7 +64,7 @@ This document defines a **event schema** for Iteration 1.
   - code version
 
 - `context_layers` (object)  
-  Geographic context information derived from the event record.
+  Geographic context information derived from either the event record or a dataset.
 
   Each context layer includes:
   - dataset - name of the dataset used for enrichment
@@ -136,11 +136,6 @@ This defines the H3 cell id in which the event is located based on its spatial p
     },
     "MPA": {
         "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
-    },
-    "RFMO": {
-        "dataset": "public-rfmo",
         "version": "v3",
         "enrichments": []
     }

@@ -5,7 +5,9 @@ import {
 } from '@packages/types';
 import {
   ICoastlinePolylineProperties,
+  IEEZPolygonProperties,
   ILandPolygonProperties,
+  IMPAPolygonProperties,
 } from '../../helpers/types/validationTypes';
 import fs from 'fs';
 
@@ -40,4 +42,34 @@ export const readCoastlinePolylines = () => {
   }
 
   return coastlinePolylines;
+};
+
+export const readEEZPolygons = () => {
+  const eezPolygons: FeatureCollection<
+    IMultiPolygonGeometry,
+    IEEZPolygonProperties
+  > = JSON.parse(
+    fs.readFileSync('./data/eez_polygons/eez_polygons.geojson', 'utf8'),
+  );
+
+  if (!eezPolygons) {
+    throw new Error('Failed to read EEZ polygons');
+  }
+
+  return eezPolygons;
+};
+
+export const readMPAPolygons = () => {
+  const mpaPolygons: FeatureCollection<
+    IMultiPolygonGeometry,
+    IMPAPolygonProperties
+  > = JSON.parse(
+    fs.readFileSync('./data/mpa_polygons/mpa_polygons.geojson', 'utf8'),
+  );
+
+  if (!mpaPolygons) {
+    throw new Error('Failed to read MPA polygons');
+  }
+
+  return mpaPolygons;
 };

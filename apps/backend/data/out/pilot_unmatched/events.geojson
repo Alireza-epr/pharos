@@ -13,18 +13,18 @@
         "distance_to_coast_km": 21.14,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -38,7 +38,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -62,18 +63,18 @@
         "distance_to_coast_km": 8.13,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -88,7 +89,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -112,18 +114,18 @@
         "distance_to_coast_km": 7.3,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -138,7 +140,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -162,18 +165,18 @@
         "distance_to_coast_km": 14.41,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -187,7 +190,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -211,18 +215,18 @@
         "distance_to_coast_km": 29.71,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -236,7 +240,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -260,18 +265,18 @@
         "distance_to_coast_km": 26.76,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -285,7 +290,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -309,18 +315,18 @@
         "distance_to_coast_km": 31.95,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -334,7 +340,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -358,18 +365,18 @@
         "distance_to_coast_km": 21.07,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -383,7 +390,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -407,18 +415,18 @@
         "distance_to_coast_km": 15.27,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -432,7 +440,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -456,19 +465,24 @@
         "distance_to_coast_km": 16.86,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -481,7 +495,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -505,18 +521,18 @@
         "distance_to_coast_km": 15.26,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -530,7 +546,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -554,18 +571,18 @@
         "distance_to_coast_km": 27.5,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -579,7 +596,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -603,18 +621,18 @@
         "distance_to_coast_km": 5.64,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -629,7 +647,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -653,18 +672,18 @@
         "distance_to_coast_km": 16.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -678,7 +697,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -702,18 +722,18 @@
         "distance_to_coast_km": 16.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -727,7 +747,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -751,18 +772,18 @@
         "distance_to_coast_km": 13.66,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -776,7 +797,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -800,18 +822,18 @@
         "distance_to_coast_km": 6.7,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -826,7 +848,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -850,18 +873,18 @@
         "distance_to_coast_km": 6.7,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -876,7 +899,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -900,18 +924,18 @@
         "distance_to_coast_km": 19,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -925,7 +949,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -949,19 +974,24 @@
         "distance_to_coast_km": 20.03,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -974,7 +1004,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -998,18 +1030,18 @@
         "distance_to_coast_km": 3.16,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1024,7 +1056,8 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1048,18 +1081,18 @@
         "distance_to_coast_km": 18.7,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1073,7 +1106,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1097,18 +1131,18 @@
         "distance_to_coast_km": 17.49,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1122,7 +1156,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1146,18 +1181,18 @@
         "distance_to_coast_km": 10.49,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1171,7 +1206,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1195,18 +1231,18 @@
         "distance_to_coast_km": 10.49,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1220,7 +1256,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1244,18 +1281,18 @@
         "distance_to_coast_km": 14.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1269,7 +1306,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1293,18 +1331,18 @@
         "distance_to_coast_km": 14.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1318,7 +1356,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1342,18 +1381,18 @@
         "distance_to_coast_km": 21.1,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1367,7 +1406,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1391,18 +1431,18 @@
         "distance_to_coast_km": 24.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1416,7 +1456,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1440,18 +1481,18 @@
         "distance_to_coast_km": 15.04,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1465,7 +1506,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1489,18 +1531,18 @@
         "distance_to_coast_km": 15.04,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1514,7 +1556,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1538,18 +1581,18 @@
         "distance_to_coast_km": 14.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1563,7 +1606,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1587,18 +1631,18 @@
         "distance_to_coast_km": 29.72,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1612,7 +1656,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1636,18 +1681,18 @@
         "distance_to_coast_km": 17.32,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1661,7 +1706,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1685,18 +1731,18 @@
         "distance_to_coast_km": 17.32,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1710,7 +1756,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1734,18 +1781,18 @@
         "distance_to_coast_km": 17.32,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1759,7 +1806,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1783,18 +1831,18 @@
         "distance_to_coast_km": 17.32,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1808,7 +1856,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1832,18 +1881,18 @@
         "distance_to_coast_km": 17.5,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1857,7 +1906,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1881,18 +1931,18 @@
         "distance_to_coast_km": 29.72,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -1906,7 +1956,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -1930,19 +1981,24 @@
         "distance_to_coast_km": 18.72,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -1955,7 +2011,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -1979,18 +2037,18 @@
         "distance_to_coast_km": 25.4,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2004,7 +2062,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2028,18 +2087,18 @@
         "distance_to_coast_km": 23.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2053,7 +2112,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2077,18 +2137,18 @@
         "distance_to_coast_km": 26.38,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2102,7 +2162,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2126,18 +2187,18 @@
         "distance_to_coast_km": 33.06,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2151,7 +2212,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2175,19 +2237,24 @@
         "distance_to_coast_km": 11.16,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -2200,7 +2267,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2224,18 +2293,18 @@
         "distance_to_coast_km": 23.76,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2249,7 +2318,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2273,18 +2343,18 @@
         "distance_to_coast_km": 24.7,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2298,7 +2368,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2322,18 +2393,18 @@
         "distance_to_coast_km": 22.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2347,7 +2418,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2371,19 +2443,24 @@
         "distance_to_coast_km": 18.76,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -2396,7 +2473,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2420,18 +2499,18 @@
         "distance_to_coast_km": 13.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2445,7 +2524,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2469,18 +2549,18 @@
         "distance_to_coast_km": 30.18,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2494,7 +2574,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2518,18 +2599,18 @@
         "distance_to_coast_km": 15.26,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2543,7 +2624,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2567,18 +2649,18 @@
         "distance_to_coast_km": 15.26,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2592,7 +2674,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2616,18 +2699,18 @@
         "distance_to_coast_km": 15.26,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2641,7 +2724,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2665,18 +2749,18 @@
         "distance_to_coast_km": 16.38,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2690,7 +2774,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2714,18 +2799,18 @@
         "distance_to_coast_km": 16.38,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2739,7 +2824,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2763,18 +2849,18 @@
         "distance_to_coast_km": 18.56,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2788,7 +2874,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2812,18 +2899,18 @@
         "distance_to_coast_km": 16.37,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2837,7 +2924,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2861,19 +2949,24 @@
         "distance_to_coast_km": 2.97,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555790698",
+                "label": "Rønne Banke"
+              }
+            ]
           }
         },
         "scoring": {
@@ -2887,7 +2980,9 @@
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "near_coast",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -2911,18 +3006,18 @@
         "distance_to_coast_km": 24.27,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2936,7 +3031,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -2960,18 +3056,18 @@
         "distance_to_coast_km": 17.69,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -2985,7 +3081,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3009,18 +3106,18 @@
         "distance_to_coast_km": 17.48,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3034,7 +3131,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3058,18 +3156,18 @@
         "distance_to_coast_km": 15.26,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3083,7 +3181,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3107,18 +3206,18 @@
         "distance_to_coast_km": 21.81,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3132,7 +3231,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3156,18 +3256,18 @@
         "distance_to_coast_km": 27.61,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3181,7 +3281,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3205,19 +3306,24 @@
         "distance_to_coast_km": 19.39,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
+            "enrichments": [
+              {
+                "id": "555774273",
+                "label": "I"
+              }
+            ]
           }
         },
         "scoring": {
@@ -3230,7 +3336,9 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez",
+            "inside_mpa"
           ]
         }
       },
@@ -3254,18 +3362,18 @@
         "distance_to_coast_km": 25.27,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3279,7 +3387,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3303,18 +3412,18 @@
         "distance_to_coast_km": 14.15,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3328,7 +3437,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },
@@ -3352,18 +3462,18 @@
         "distance_to_coast_km": 26.38,
         "context_layers": {
           "EEZ": {
-            "dataset": "public-eez-areas",
-            "version": "v3",
-            "enrichments": []
+            "dataset": "World_EEZ_20231025_LR",
+            "version": "v12",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ]
           },
           "MPA": {
-            "dataset": "public-mpa-all",
-            "version": "v3",
-            "enrichments": []
-          },
-          "RFMO": {
-            "dataset": "public-rfmo",
-            "version": "v3",
+            "dataset": "WDPA_WDOECM_APR2026",
+            "version": "v1.6",
             "enrichments": []
           }
         },
@@ -3377,7 +3487,8 @@
             "missing_required_field:shipName",
             "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "missing_confidence_proxy"
+            "missing_confidence_proxy",
+            "inside_eez"
           ]
         }
       },

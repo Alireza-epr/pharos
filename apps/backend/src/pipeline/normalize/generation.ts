@@ -67,12 +67,7 @@ export const generateRunMetadata = async (
 export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   const event = a_EventSchema.raw_event_metadata;
   const entry = a_EventSchema.raw_metadata;
-  const confidence_proxy =
-    event && event.type === EEventType.port_visit
-      ? +event.port_visit.confidence
-      : null;
-
-  const triage_score = confidence_proxy;
+  const triage_score = generateConfidence(event ?? undefined)
 
   let reason_codes: EReasonCodes[] = [];
   let uncertainty_score = 0.2;
@@ -100,24 +95,24 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.near_coast);
   }
 
-  if (confidence_proxy === null) {
+  if (triage_score === null) {
     //unmatched or without port event
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if (
     //matched with port event
-    confidence_proxy <= config.threshold.low_detection_confidence_threshold
+    triage_score <= config.threshold.low_detection_confidence_threshold
   ) {
     uncertainty_score += 0.3;
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  const inside_eez = event ? event.regions.eez.length > 0 : false;
+  const inside_eez = a_EventSchema.context_layers.EEZ.enrichments.length > 0 ? true : false
   if (inside_eez) {
     reason_codes.push(EReasonCodesStatic.inside_eez);
   }
 
-  const inside_mpa = event ? event.regions.mpa.length > 0 : false;
+  const inside_mpa = a_EventSchema.context_layers.MPA.enrichments.length > 0 ? true : false
   if (inside_mpa) {
     reason_codes.push(EReasonCodesStatic.inside_mpa);
   }

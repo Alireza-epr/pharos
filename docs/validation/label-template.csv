@@ -1,1 +1,6 @@
+### Stratum 1 Label ###;;;;;;;;;;
+event_id;timestamp_utc;lon;lat;matched_flag;source;triage_score;uncertainty_score;label;failure_mode;notes
+;;;;;;;;;;
+;;;;;;;;;;
+### Stratum 2 Label ###;;;;;;;;;;
 event_id;timestamp_utc;lon;lat;matched_flag;source;triage_score;uncertainty_score;label;failure_mode;notes

@@ -83,6 +83,10 @@ jest.mock('@dotenvx/dotenvx', () => ({
   config: jest.fn(),
 }));
 
+jest.mock('@turf/turf', () => ({
+  config: jest.fn(),
+}))
+
 //jest --passWithNoTests -t 4wings_helpers
 describe('4wings_helpers', () => {
   describe('generateSources', () => {

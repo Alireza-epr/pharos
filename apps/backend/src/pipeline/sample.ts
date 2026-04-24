@@ -53,13 +53,15 @@ import {
   getValidationSamples,
   postValidationSamples,
 } from './validation/sample';
-import { readCoastlinePolylines, readLandPolygons } from './validation/dataset';
+import { readCoastlinePolylines, readLandPolygons, readEEZPolygons, readMPAPolygons } from './validation/dataset';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
 export const landPolygons = readLandPolygons();
+export const eezPolygons = readEEZPolygons();
+export const mpaPolygons = readMPAPolygons();
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
