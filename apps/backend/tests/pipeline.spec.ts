@@ -56,7 +56,7 @@ import {
   isOnLand,
 } from '../src/pipeline/validation/sample';
 import { EValidationLabel } from '../src/helpers/types/validationTypes';
-import { readLandPolygons } from '../src/pipeline/validation/dataset';
+import { readLandPolygons } from '../src/helpers/utils/datasetUtils';
 import {
   eventSchema_inWater,
   eventSchema_matched_near_coast,

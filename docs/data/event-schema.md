@@ -64,12 +64,12 @@ This document defines a **event schema** for Iteration 1.
   - code version
 
 - `context_layers` (object)  
-  Geographic context information derived from either the event record or a dataset.
+  Geographic context information derived from datasets.
 
   Each context layer includes:
   - dataset - name of the dataset used for enrichment
   - version - pinned dataset version
-  - enrichment - attributes including id and label
+  - enrichment - attributes
 
 - `distance_to_coast_km` (number)
   Calculating by the Coastline Polylines dataset
@@ -128,16 +128,30 @@ This defines the H3 cell id in which the event is located based on its spatial p
     "reason_codes": [""]
   },
   "distance_to_coast_km" : 0,
-  "context_layers:" {
+  "context_layers" : {
     "EEZ": {
-        "dataset": "public-eez-areas",
-        "version": "v3",
-        "enrichments": []
+      "dataset": "World_EEZ_20231025_LR",
+      "version": "v12",
+      "enrichments": [
+        {
+          "id": "5694",
+          "label": "Swedish Exclusive Economic Zone"
+        }
+      ]
     },
     "MPA": {
-        "dataset": "public-mpa-all",
-        "version": "v3",
-        "enrichments": []
+      "dataset": "WDPA_WDOECM_APR2026",
+      "version": "v1.6",
+      "enrichments": []
+    },
+    "Bathymetry": {
+      "dataset": "gebco_2025_sub_ice_topo",
+      "version": "v2.7",
+      "enrichments": [
+        {
+          "value": "-36"
+        }
+      ]
     }
   },
   "rejected": false,

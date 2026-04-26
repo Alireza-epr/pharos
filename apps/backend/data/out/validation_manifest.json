@@ -6,7 +6,7 @@
       "offshore": 30
     },
     "run_metadata": {
-      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -36,7 +36,7 @@
       "low_confidence": 25
     },
     "run_metadata": {
-      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -83,7 +83,7 @@
       "low_density": 25
     },
     "run_metadata": {
-      "code_version": "a64ab8a2002e8cc20f4721d85029da29dc51032c",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",

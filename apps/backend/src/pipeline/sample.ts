@@ -53,7 +53,13 @@ import {
   getValidationSamples,
   postValidationSamples,
 } from './validation/sample';
-import { readCoastlinePolylines, readLandPolygons, readEEZPolygons, readMPAPolygons } from './validation/dataset';
+import { 
+  readCoastlinePolylines, 
+  readLandPolygons, 
+  readEEZPolygons, 
+  readMPAPolygons, 
+  readBathymetryTiles
+} from '../helpers/utils/datasetUtils';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
 const args = process.argv.slice(2);
@@ -65,6 +71,7 @@ export const mpaPolygons = readMPAPolygons();
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
+  await readBathymetryTiles()
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
@@ -254,6 +261,7 @@ const main = async () => {
       context_layers: event.context_layers,
       triage_score: event.scoring.triage_score ?? null,
       uncertainty_score: event.scoring.uncertainty_score ?? null,
+      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
       ...edge_case_flags,
     };
   });
@@ -351,6 +359,7 @@ const main = async () => {
 
 const validation = async () => {
   log('Starting validation...', ELogType.info);
+  await readBathymetryTiles()
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
   const setManifest = new Set<IValidationManifest>();
 

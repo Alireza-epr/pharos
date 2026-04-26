@@ -1070,6 +1070,11 @@ export const eventSchema_onLand: IEventSchema = {
       dataset: EContextLayerDatasets.mpa,
       version: 'v3',
       enrichments: [],
+    },
+    Bathymetry: {
+      dataset: EContextLayerDatasets.bathymetry,
+      version: 'v3',
+      enrichments: [],
     }
   },
   rejected: false,
@@ -1229,6 +1234,11 @@ export const eventSchema_inWater: IEventSchema = {
       version: 'v3',
       enrichments: [],
     },
+    Bathymetry: {
+      dataset: EContextLayerDatasets.bathymetry,
+      version: 'v3',
+      enrichments: [],
+    }
   },
   distance_to_coast_km: 2,
   scoring: {

@@ -44,6 +44,21 @@ Enrichment fields added to event:
 
 ---
 
+## Bathymetry
+
+- Source – https://www.gebco.net/
+- Dataset – GEBCO_2025:v2.7
+- Attribution – GEBCO Compilation Group (2025) GEBCO 2025 Grid (doi:10.5285/ 37c52e96-24ea-67cee063-7086abc05f29)
+
+Feature module:
+rootDir/bathymetry_cached.ts
+
+Enrichment fields added to event:
+
+- value ( in meter )
+
+---
+
 <!-- ## RFMO
 
 Source: Global Fishing Watch  

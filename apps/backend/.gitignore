@@ -3,4 +3,5 @@
 /misc
 /test-results
 .env
-/logs
+/logs   
+/data/bathymetry_rasters/*.tif

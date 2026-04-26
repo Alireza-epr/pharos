@@ -19,7 +19,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-04-22T23:58:03Z",
+      "lastTransmissionDate": "2026-04-24T20:53:12Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -138,6 +138,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-36"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 16.38,
@@ -180,7 +189,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-04-22T23:58:44Z",
+      "lastTransmissionDate": "2026-04-24T23:58:00Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -190,7 +199,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -299,6 +308,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-44"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 23.19,
@@ -341,7 +359,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-04-22T23:59:38Z",
+      "lastTransmissionDate": "2026-04-24T23:58:06Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -351,7 +369,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -460,6 +478,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-46"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 30.83,
@@ -502,7 +529,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-04-22T23:59:24Z",
+      "lastTransmissionDate": "2026-04-24T23:48:22Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -512,7 +539,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -621,6 +648,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-43"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 19.31,
@@ -663,7 +699,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-04-22T23:58:36Z",
+      "lastTransmissionDate": "2026-04-24T23:59:49Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -673,7 +709,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -782,6 +818,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-44"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 17.37,
@@ -824,7 +869,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-04-22T23:59:47Z",
+      "lastTransmissionDate": "2026-04-24T23:59:56Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -834,7 +879,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -943,6 +988,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-44"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 22.53,
@@ -985,7 +1039,7 @@
       "flag": "DNK",
       "geartype": "OTHER",
       "imo": "",
-      "lastTransmissionDate": "2026-04-22T23:58:14Z",
+      "lastTransmissionDate": "2026-04-24T18:28:20Z",
       "lat": 55.16,
       "lon": 14.680000305175781,
       "mmsi": "219000217",
@@ -1095,7 +1149,7 @@
       }
     },
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1204,6 +1258,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-22"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 1.33,
@@ -1256,7 +1319,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1319,6 +1382,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-43"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 21.07,
@@ -1366,7 +1438,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-04-22T23:59:58Z",
+      "lastTransmissionDate": "2026-04-24T23:57:57Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1376,7 +1448,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1490,6 +1562,15 @@
             "label": "I"
           }
         ]
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-43"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 18.72,
@@ -1533,7 +1614,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-04-22T23:59:18Z",
+      "lastTransmissionDate": "2026-04-24T23:59:58Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -1543,7 +1624,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1652,6 +1733,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-44"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 25.27,
@@ -1694,7 +1784,7 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-04-22T16:28:41Z",
+      "lastTransmissionDate": "2026-04-24T13:12:14Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
@@ -1704,7 +1794,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1813,6 +1903,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-45"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 26.66,
@@ -1855,7 +1954,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-04-22T23:56:11Z",
+      "lastTransmissionDate": "2026-04-24T23:59:54Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -1865,7 +1964,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1974,6 +2073,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-44"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 25.28,
@@ -2016,7 +2124,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-04-22T23:59:42Z",
+      "lastTransmissionDate": "2026-04-24T23:59:50Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2026,7 +2134,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2135,6 +2243,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-45"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 19.23,
@@ -2177,7 +2294,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-04-22T23:57:40Z",
+      "lastTransmissionDate": "2026-04-24T23:59:39Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -2187,7 +2304,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2296,6 +2413,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-39"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 17.59,
@@ -2338,7 +2464,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-04-22T23:59:28Z",
+      "lastTransmissionDate": "2026-04-24T23:54:22Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -2348,7 +2474,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2457,6 +2583,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-45"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 19.16,
@@ -2499,7 +2634,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-04-22T23:59:37Z",
+      "lastTransmissionDate": "2026-04-24T23:59:54Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -2509,7 +2644,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2618,6 +2753,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-46"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 25.02,
@@ -2660,7 +2804,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-04-22T23:59:47Z",
+      "lastTransmissionDate": "2026-04-24T23:59:35Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -2670,7 +2814,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2779,6 +2923,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-46"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 33.07,
@@ -2821,7 +2974,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-04-22T23:57:25Z",
+      "lastTransmissionDate": "2026-04-24T23:59:42Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -2831,7 +2984,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "fae718ab354902d54584e9aabea33ca55da54fd8",
+      "code_version": "f243132bcf82f20d8897637ccc4c744d4e1a1152",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2940,6 +3093,15 @@
         "dataset": "WDPA_WDOECM_APR2026",
         "version": "v1.6",
         "enrichments": []
+      },
+      "Bathymetry": {
+        "dataset": "gebco_2025_sub_ice_topo",
+        "version": "v2.7",
+        "enrichments": [
+          {
+            "value": "-43"
+          }
+        ]
       }
     },
     "distance_to_coast_km": 18.68,

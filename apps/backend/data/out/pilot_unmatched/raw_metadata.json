@@ -322,7 +322,7 @@
   {
     "callsign": "",
     "dataset": "",
-    "date": "2025-05-09 16:00",
+    "date": "2025-04-27 16:00",
     "detections": 1,
     "entryTimestamp": "2025-01-11T05:17:01Z",
     "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -342,7 +342,7 @@
   {
     "callsign": "",
     "dataset": "",
-    "date": "2025-04-27 16:00",
+    "date": "2025-05-09 16:00",
     "detections": 1,
     "entryTimestamp": "2025-01-11T05:17:01Z",
     "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -702,7 +702,7 @@
   {
     "callsign": "",
     "dataset": "",
-    "date": "2025-02-07 16:00",
+    "date": "2025-05-28 05:00",
     "detections": 1,
     "entryTimestamp": "2025-01-11T05:17:01Z",
     "exitTimestamp": "2025-12-16T16:53:25Z",
@@ -722,7 +722,7 @@
   {
     "callsign": "",
     "dataset": "",
-    "date": "2025-05-28 05:00",
+    "date": "2025-02-07 16:00",
     "detections": 1,
     "entryTimestamp": "2025-01-11T05:17:01Z",
     "exitTimestamp": "2025-12-16T16:53:25Z",

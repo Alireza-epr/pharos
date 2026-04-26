@@ -52,3 +52,14 @@ export interface IMatchingStats {
 
 export type TFixedLengthArray<T, N extends number, R extends T[] = []> =
   R['length'] extends N ? R : TFixedLengthArray<T, N, [...R, T]>;
+
+export interface IBathymetryTile {
+  file: string
+  bbox: [number, number, number, number]
+};
+
+export interface IBathymetryCachedTile {
+  file: string
+  image: any
+  bbox: [number, number, number, number]
+};

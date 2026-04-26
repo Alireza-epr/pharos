@@ -26,6 +26,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-36"
+              }
+            ]
           }
         },
         "scoring": {
@@ -71,6 +80,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
@@ -116,6 +134,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
@@ -161,6 +188,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
@@ -206,6 +242,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
@@ -251,6 +296,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
@@ -296,6 +350,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-22"
+              }
+            ]
           }
         },
         "scoring": {
@@ -341,6 +404,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
@@ -396,6 +468,15 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
@@ -442,6 +523,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
@@ -487,6 +577,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
@@ -532,6 +631,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
@@ -577,6 +685,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
@@ -622,6 +739,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-39"
+              }
+            ]
           }
         },
         "scoring": {
@@ -667,6 +793,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
@@ -712,6 +847,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
@@ -757,6 +901,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
@@ -802,6 +955,15 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {

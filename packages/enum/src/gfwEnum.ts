@@ -311,6 +311,7 @@ export enum EContextLayerDatasets {
   rfmo = 'public-rfmo',
   marineregions = "World_EEZ_20231025_LR",
   wdpa = "WDPA_WDOECM_APR2026",
+  bathymetry = "gebco_2025_sub_ice_topo"
 }
 
 export enum EEventType {
@@ -324,5 +325,6 @@ export enum EEventType {
 export enum EContextLayers {
   eez = 'EEZ',
   mpa = 'MPA',
+  bathymetry = 'Bathymetry'
   //rfmo = 'RFMO',
 }

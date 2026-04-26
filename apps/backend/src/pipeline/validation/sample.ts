@@ -19,7 +19,6 @@ import {
   IValidationSample,
   TValidationGeoJSON,
 } from '../../helpers/types/validationTypes';
-import { readLandPolygons } from './dataset';
 import { detectionGetGFW, detectionPostGFW } from '../ingest/detections';
 import {
   getEntriesFrom4wingsResponse,
@@ -29,6 +28,7 @@ import {
 import { createEventSchema } from '../normalize/schema';
 import { EFetchMethods } from '@packages/enum';
 import { ELogType } from '../../helpers/types/generalTypes';
+import { landPolygons } from '../sample';
 
 export const isOnLand = (
   a_LandPolygons: FeatureCollection<
@@ -48,7 +48,7 @@ export const isOnLand = (
 export const createValidationSample = (
   a_EventSchema: IEventSchema,
 ): IValidationSample => {
-  const landPolygons = readLandPolygons();
+  
   const isEventOnLand = isOnLand(
     landPolygons,
     a_EventSchema.lon,
@@ -60,6 +60,7 @@ export const createValidationSample = (
     lon: a_EventSchema.lon,
     lat: a_EventSchema.lat,
     matched_flag: a_EventSchema.matched_flag,
+    bathymetry: a_EventSchema.context_layers.Bathymetry.enrichments[0].value ?? "",
     source: a_EventSchema.source,
     triage_score: a_EventSchema.scoring.triage_score,
     uncertainty_score: a_EventSchema.scoring.uncertainty_score,

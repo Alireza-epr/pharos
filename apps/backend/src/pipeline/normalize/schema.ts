@@ -7,12 +7,10 @@ import {
   IGeometry,
 } from '@packages/types';
 import { ERejectedEventSchemaReasons, EContextLayers } from '@packages/enum';
-import { generateEEZ, getEEZContext } from '../features/eez';
-import { generateRFMO } from '../features/rfmo';
-import { generateMPA, getMPAContext } from '../features/mpa';
+import { getEEZContext } from '../features/eez';
+import { getMPAContext } from '../features/mpa';
 import {
   distanceToCoast,
-  generateDistanceToCoast,
 } from '../features/coast_distance';
 import {
   isISO8601Timestamp,
@@ -31,6 +29,7 @@ import {
 } from './generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
+import { getBathymetryContext } from '../features/bathymetry_cached';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
@@ -84,10 +83,12 @@ export const createEventSchema = async (
   //const mpa = generateMPA(a_EventEntry);
   const mpa = getMPAContext(mpaPolygons, lon, lat);
   //const rfmo = generateRFMO(a_EventEntry);
+  const bathymetry = await getBathymetryContext(lon, lat)
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
+    [EContextLayers.bathymetry]: bathymetry,
     //[EContextLayers.rfmo]: rfmo,
   };
 

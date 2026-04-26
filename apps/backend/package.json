@@ -28,6 +28,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "geotiff": "^3.0.5",
     "h3-js": "^4.4.0",
     "jsonwebtoken": "^9.0.3",
     "parquetjs": "^0.11.2"
