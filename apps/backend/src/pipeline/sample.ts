@@ -128,78 +128,12 @@ const main = async () => {
     configuration.clear();
     configuration.add(resp4wings.metadata);
 
-    if (isMatchedCase(thisEntry)) {
-      const urlParamsEvent: IEventPostURLParams = {
-        limit: 1,
-        offset: 0,
-      };
-
-      const bodyParamsEvent: IEventPostBodyParams = {
-        vessels: [thisEntry.vesselId],
-        startDate: startDate,
-        endDate: endDate,
-        datasets: [sourceEvent],
-        geometry: geometry ?? null,
-      };
-
-      const urlParamsEventGet: IEventGetURLParams = {
-        ...urlParamsEvent,
-        'end-date': endDate,
-        'start-date': startDate,
-        'vessels[0]': thisEntry.vesselId,
-        'datasets[0]': sourceEvent,
-      };
-
-      try {
-        const portVisitResp = await detectionPostGFW<
-          IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
-        /* const portVisitResp = await detectionGetGFW<
-          IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEventGet); */
-
-        if (configuration) configuration.add(portVisitResp.metadata);
-
-        if (portVisitResp.results.entries.length == 0) {
-          try {
-            const eventSchema = await createEventSchema(
-              configuration,
-              resolution,
-              thisEntry,
-            );
-            //console.log('Matched Event Schema( No event )', eventSchema);
-            events.push(eventSchema);
-          } catch (error) {
-            console.error('Matched Event Schema( No event ) error', error);
-          }
-        } else {
-          for (const entriesEvent of portVisitResp.results.entries) {
-            const thisEventEntry = entriesEvent;
-            try {
-              const eventSchema = await createEventSchema(
-                configuration,
-                resolution,
-                thisEntry,
-                thisEventEntry,
-              );
-              //console.log('Matched Event Schema', eventSchema);
-              events.push(eventSchema);
-            } catch (error) {
-              console.error('Matched Event Schema error', error);
-            }
-          }
-        }
-      } catch (err) {
-        console.error('detectionPostGFW event error', err);
-      }
-    } else {
-      try {
-        const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
-        //console.log('Unmatched Event Schema', eventSchema);
-        events.push(eventSchema);
-      } catch (error) {
-        console.error('Unmatched Event Schema error', error);
-      }
+    try {
+      const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
+      //console.log('Event Schema', eventSchema);
+      events.push(eventSchema);
+    } catch (error) {
+      console.error('Event Schema error', error);
     }
   }
 
