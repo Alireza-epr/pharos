@@ -98,7 +98,63 @@ src/config/pilot_unmatched.json
 
 ---
 
-## 4. Output Location
+## 4. Dataset Setup (Bathymetry Rasters)
+
+Some backend features depend on a large bathymetry dataset that is not included in the repository due to its size.
+After starting the system, run the following command to download and extract the dataset:
+```bash
+npm run setup:data
+```
+This will:
+  - Download the dataset from S3
+  - Extract it into:
+  ```text
+  apps/backend/data/bathymetry_rasters/
+  ```
+  - Remove the temporary .zip file
+
+**Important Notes**
+- The dataset size is approximately **4.5GB**
+  - Download time depends on your internet speed
+  - May incur bandwidth costs depending on your network/provider
+- If this step is skipped or fails:
+  - `bathymetry` data in events will **NOT be available**
+  - All other application features will continue to work normally
+
+### System Requirements
+
+To run `npm run setup:data`, ensure your system has:
+
+- curl
+- tar (with zip support) or a compatible extraction tool
+
+#### Windows
+- Works in PowerShell (Windows 10+)
+- Uses built-in curl and tar
+
+#### Linux (Ubuntu/Debian)
+sudo apt install curl
+
+#### macOS
+brew install curl
+
+
+### Troubleshooting
+
+If the command fails:
+
+- Ensure the output directory exists:
+  mkdir -p apps/backend/data/bathymetry_rasters
+
+- Check if curl is available:
+  curl --version
+
+- Retry the command:
+  npm run setup:data
+
+---
+
+## 5. Output Location
 
 By default, pipeline outputs are stored in:
 
@@ -116,7 +172,7 @@ apps/backend/src/config/pilot.json
 
 ---
 
-## 5. Running via Docker Compose
+## 6. Running via Docker Compose
 
 From the `infrastructure/` folder:
 
@@ -131,7 +187,7 @@ docker-compose up --build
 
 ---
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 If something goes wrong, use the following scripts to diagnose issues:
 
@@ -164,7 +220,7 @@ npm run e2e --workspace=apps/frontend
 
 ---
 
-## 7. Common Issues
+## 8. Common Issues
 
 ### Pipeline build fails
 
@@ -192,7 +248,7 @@ docker-compose logs frontend
 
 ---
 
-## 8. Notes
+## 9. Notes
 
 - Rebuild packages before running pipeline if changes were made:
 
