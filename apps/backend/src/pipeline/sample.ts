@@ -3,6 +3,7 @@ import { createEventSchema } from './normalize/schema';
 import { isMatchedCase } from './normalize/validation';
 import {
   csvString,
+  formatTimestamp,
   getEventMissingness,
   getGeoMax,
   getGeoMin,
@@ -62,6 +63,7 @@ import {
 } from '../helpers/utils/datasetUtils';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
+import { export_run_metadata } from './export/export';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -71,6 +73,7 @@ export const mpaPolygons = readMPAPolygons();
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
+  const start = formatTimestamp()
   await readBathymetryTiles()
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
@@ -201,23 +204,6 @@ const main = async () => {
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
 
-  //run_metadata.json
-  const run_metadata = {
-    config: sortedEvents
-      .map((event) => ({
-        hash: event.run_metadata.config_hash,
-        json: deepSortObject(event.run_metadata.config_json) as IConfigJSON[],
-      }))
-      .sort((a, b) => a.hash.localeCompare(b.hash)),
-    run_time: new Date().toISOString(),
-    data_source_versions: [source4wings, sourceEvent],
-    git_commit_hash: await getGitCommitSHA(),
-  };
-  fs.writeFileSync(
-    `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2),
-  );
-
   //raw_metadata.json
   const raw_metadata = sortedEvents.map((event) => ({
     ...event.raw_metadata,
@@ -286,6 +272,14 @@ const main = async () => {
     hotspots,
     parquetSchema_hotspot,
     `${output}hotspots.parquet`,
+  );
+
+  //run_metadata.json
+  const end = formatTimestamp()
+  const run_metadata = await export_run_metadata(sortedEvents, start, end)
+  fs.writeFileSync(
+    `${output}run_metadata.json`,
+    JSON.stringify(run_metadata, null, 2),
   );
 
   log('Pilot finished.', ELogType.info);
