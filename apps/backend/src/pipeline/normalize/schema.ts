@@ -7,17 +7,16 @@ import {
   IGeometry,
 } from '@packages/types';
 import { ERejectedEventSchemaReasons, EContextLayers } from '@packages/enum';
-import { generateEEZ, getEEZContext } from '../features/eez';
-import { generateRFMO } from '../features/rfmo';
-import { generateMPA, getMPAContext } from '../features/mpa';
+import { getEEZContext } from '../features/eez';
+import { getMPAContext } from '../features/mpa';
 import {
   distanceToCoast,
-  generateDistanceToCoast,
 } from '../features/coast_distance';
 import {
   isISO8601Timestamp,
   isMatchedCase,
   isValidCoordinate,
+  isVesselTypeValid,
 } from './validation';
 import {
   generateConfidence,
@@ -31,17 +30,26 @@ import {
 } from './generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
+import { getBathymetryContext } from '../features/bathymetry_cached';
 
 export const createEventSchema = async (
   a_Configuration: Set<IConfigJSON>,
   a_HotspotResolution: number,
   a_4wingsEntry: I4wingsEntry,
-  a_EventEntry?: TGlobalEvent,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
   const validTimestamp = isISO8601Timestamp(a_4wingsEntry.entryTimestamp);
   if (!validTimestamp) {
     return {
       reason: ERejectedEventSchemaReasons.notValidTimestamp,
+      rejected: true,
+      raw_metadata: a_4wingsEntry,
+    };
+  }
+
+  const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType)
+  if (!validVesselType) {
+    return {
+      reason: ERejectedEventSchemaReasons.notValidVesselType,
       rejected: true,
       raw_metadata: a_4wingsEntry,
     };
@@ -73,7 +81,7 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_proxy = generateConfidence(a_EventEntry);
+  //const confidence_proxy = generateConfidence(a_EventEntry);
 
   const run_metadata = await generateRunMetadata(a_Configuration);
 
@@ -84,10 +92,12 @@ export const createEventSchema = async (
   //const mpa = generateMPA(a_EventEntry);
   const mpa = getMPAContext(mpaPolygons, lon, lat);
   //const rfmo = generateRFMO(a_EventEntry);
+  const bathymetry = await getBathymetryContext(lon, lat)
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
+    [EContextLayers.bathymetry]: bathymetry,
     //[EContextLayers.rfmo]: rfmo,
   };
 
@@ -105,12 +115,12 @@ export const createEventSchema = async (
     event_id,
     timestamp_utc,
     matched_flag,
-    confidence_proxy,
+    confidence_proxy: null,
     lat,
     lon,
     source: sources,
     raw_metadata: a_4wingsEntry,
-    raw_event_metadata: a_EventEntry ?? null,
+    raw_event_metadata: null,
     run_metadata,
     context_layers,
     distance_to_coast_km,

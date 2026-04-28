@@ -1,8 +1,8 @@
 //import pilot from '../config/pilot.json';
 import { createEventSchema } from './normalize/schema';
-import { isMatchedCase } from './normalize/validation';
 import {
   csvString,
+  formatTimestamp,
   getEventMissingness,
   getGeoMax,
   getGeoMin,
@@ -10,16 +10,11 @@ import {
   getTimeRange,
   sortEventSchema,
 } from '../helpers/utils/backendUtils';
-import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
+import { detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import {
   IConfigJSON,
   I4wingsAPIResponse,
-  IEventAPIResponse,
-  IEventGetURLParams,
-  IEventPostBodyParams,
-  IEventPostURLParams,
-  IPortVisitEvent,
   FeatureCollection,
   IGeometry,
 } from '@packages/types';
@@ -28,9 +23,7 @@ import {
   EReasonCodes,
   EReasonCodesStatic,
 } from '@packages/enum';
-import { deepSortObject } from '@packages/utils';
 import {
-  getGitCommitSHA,
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,
   log,
@@ -53,9 +46,17 @@ import {
   getValidationSamples,
   postValidationSamples,
 } from './validation/sample';
-import { readCoastlinePolylines, readLandPolygons, readEEZPolygons, readMPAPolygons } from './validation/dataset';
+import { 
+  readCoastlinePolylines, 
+  readLandPolygons, 
+  readEEZPolygons, 
+  readMPAPolygons, 
+  readBathymetryTiles
+} from '../helpers/utils/datasetUtils';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
+import { export_run_metadata } from './export/export';
+import { getExecutionDuration } from '@packages/utils';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -65,6 +66,8 @@ export const mpaPolygons = readMPAPolygons();
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
+  const start = formatTimestamp()
+  await readBathymetryTiles()
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
@@ -121,86 +124,23 @@ const main = async () => {
     configuration.clear();
     configuration.add(resp4wings.metadata);
 
-    if (isMatchedCase(thisEntry)) {
-      const urlParamsEvent: IEventPostURLParams = {
-        limit: 1,
-        offset: 0,
-      };
-
-      const bodyParamsEvent: IEventPostBodyParams = {
-        vessels: [thisEntry.vesselId],
-        startDate: startDate,
-        endDate: endDate,
-        datasets: [sourceEvent],
-        geometry: geometry ?? null,
-      };
-
-      const urlParamsEventGet: IEventGetURLParams = {
-        ...urlParamsEvent,
-        'end-date': endDate,
-        'start-date': startDate,
-        'vessels[0]': thisEntry.vesselId,
-        'datasets[0]': sourceEvent,
-      };
-
-      try {
-        const portVisitResp = await detectionPostGFW<
-          IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEvent, bodyParamsEvent);
-        /* const portVisitResp = await detectionGetGFW<
-          IEventAPIResponse<IPortVisitEvent>
-        >(baseURLEvent, sourceEvent, urlParamsEventGet); */
-
-        if (configuration) configuration.add(portVisitResp.metadata);
-
-        if (portVisitResp.results.entries.length == 0) {
-          try {
-            const eventSchema = await createEventSchema(
-              configuration,
-              resolution,
-              thisEntry,
-            );
-            //console.log('Matched Event Schema( No event )', eventSchema);
-            events.push(eventSchema);
-          } catch (error) {
-            console.error('Matched Event Schema( No event ) error', error);
-          }
-        } else {
-          for (const entriesEvent of portVisitResp.results.entries) {
-            const thisEventEntry = entriesEvent;
-            try {
-              const eventSchema = await createEventSchema(
-                configuration,
-                resolution,
-                thisEntry,
-                thisEventEntry,
-              );
-              //console.log('Matched Event Schema', eventSchema);
-              events.push(eventSchema);
-            } catch (error) {
-              console.error('Matched Event Schema error', error);
-            }
-          }
-        }
-      } catch (err) {
-        console.error('detectionPostGFW event error', err);
+    try {
+      const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
+      //console.log('Event Schema', eventSchema);
+      if(eventSchema.rejected){
+        log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
       }
-    } else {
-      try {
-        const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
-        //console.log('Unmatched Event Schema', eventSchema);
-        events.push(eventSchema);
-      } catch (error) {
-        console.error('Unmatched Event Schema error', error);
-      }
+      events.push(eventSchema);
+    } catch (error) {
+      console.error('Event Schema error', error);
     }
   }
-
-  log(`Preparing outputs in ${output}...`, ELogType.info);
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
   const sortedEvents = sortEventSchema(notRejectedEvents);
   const hotspots = generateHotspots(sortedEvents, resolution);
+
+  log(`Preparing outputs in ${output}, no. entry: ${notRejectedEvents.length}`, ELogType.info);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -226,16 +166,9 @@ const main = async () => {
   //event.parquet
   const rows = sortedEvents.map((event) => {
     const reason_codes = event.scoring.reason_codes;
-    let edge_case_flags: { [key in EReasonCodes]?: boolean } = {
-      [EReasonCodesStatic.near_coast]: false,
-      [EReasonCodesStatic.low_detection_confidence]: false,
-      [EReasonCodesStatic.missing_confidence_proxy]: false,
-      [EReasonCodesStatic.inside_eez]: false,
-      [EReasonCodesStatic.inside_mpa]: false,
-      [EReasonCodesStatic.unmatched_to_public_ais]: false,
-      [EReasonCodesStatic.matched_to_public_ais]: false,
-      [EReasonCodesStatic.noisy_vessel]: false,
-    };
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } = Object.fromEntries(
+      Object.keys(EReasonCodesStatic).map((key) => [key, false])
+    );
 
     if (reason_codes) {
       for (const reason_code of reason_codes) {
@@ -251,30 +184,13 @@ const main = async () => {
       lon: event.lon,
       confidence_proxy: event.confidence_proxy ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
-      context_layers: event.context_layers,
+      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
       triage_score: event.scoring.triage_score ?? null,
       uncertainty_score: event.scoring.uncertainty_score ?? null,
       ...edge_case_flags,
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
-
-  //run_metadata.json
-  const run_metadata = {
-    config: sortedEvents
-      .map((event) => ({
-        hash: event.run_metadata.config_hash,
-        json: deepSortObject(event.run_metadata.config_json) as IConfigJSON[],
-      }))
-      .sort((a, b) => a.hash.localeCompare(b.hash)),
-    run_time: new Date().toISOString(),
-    data_source_versions: [source4wings, sourceEvent],
-    git_commit_hash: await getGitCommitSHA(),
-  };
-  fs.writeFileSync(
-    `${output}run_metadata.json`,
-    JSON.stringify(run_metadata, null, 2),
-  );
 
   //raw_metadata.json
   const raw_metadata = sortedEvents.map((event) => ({
@@ -346,11 +262,20 @@ const main = async () => {
     `${output}hotspots.parquet`,
   );
 
+  //run_metadata.json
+  const end = formatTimestamp()
+  const run_metadata = await export_run_metadata(sortedEvents, start, end)
+  fs.writeFileSync(
+    `${output}run_metadata.json`,
+    JSON.stringify(run_metadata, null, 2),
+  );
+
   log('Pilot finished.', ELogType.info);
 };
 
 const validation = async () => {
   log('Starting validation...', ELogType.info);
+  await readBathymetryTiles()
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
   const setManifest = new Set<IValidationManifest>();
 
@@ -370,7 +295,7 @@ const validation = async () => {
       'region-dataset': 'public-eez-areas',
       'region-id': 5669,
     } as any;
-
+    const strata_1_start = formatTimestamp();
     const strata_1_samples = await getValidationSamples(
       baseURL4wings,
       source4wings,
@@ -403,6 +328,7 @@ const validation = async () => {
 
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_1_samples.metadata);
+    const strata_1_end = formatTimestamp();
     const strata_1_manifest: IValidationManifest = {
       strata: EValidationStrata.distance_to_coast,
       stratum_sample_sizes: {
@@ -410,6 +336,7 @@ const validation = async () => {
         offshore: offshore.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_1_start, strata_1_end) / 1000)
     };
     setManifest.add(strata_1_manifest);
 
@@ -453,7 +380,7 @@ const validation = async () => {
       'region-dataset': 'public-eez-areas',
       'region-id': 5669,
     } as any;
-
+    const strata_2_start = formatTimestamp()
     const strata_2_samples_1 = await getValidationSamples(
       baseURL4wings,
       source4wings,
@@ -488,6 +415,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_2_samples_1.metadata);
     configSets.add(strata_2_samples_2.metadata);
+    const strata_2_end = formatTimestamp()
     const strata_2_manifest: IValidationManifest = {
       strata: EValidationStrata.confidence_tier,
       stratum_sample_sizes: {
@@ -495,6 +423,7 @@ const validation = async () => {
         low_confidence: strata_2_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_2_start, strata_2_end) / 1000)
     };
     setManifest.add(strata_2_manifest);
 
@@ -566,7 +495,7 @@ const validation = async () => {
         ],
       },
     };
-
+    const strata_3_start = formatTimestamp()
     const strata_3_samples_1 = await postValidationSamples(
       baseURL4wings,
       source4wings,
@@ -603,6 +532,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_3_samples_1.metadata);
     configSets.add(strata_3_samples_2.metadata);
+    const strata_3_end = formatTimestamp()
     const strata_3_manifest: IValidationManifest = {
       strata: EValidationStrata.density,
       stratum_sample_sizes: {
@@ -610,6 +540,7 @@ const validation = async () => {
         low_density: strata_3_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_3_start, strata_3_end) / 1000)
     };
     setManifest.add(strata_3_manifest);
 

@@ -84,8 +84,9 @@ export interface IConfigJSON {
 }
 
 export interface IContextLayerEnrichment {
-  id: string;
-  label: string;
+  id?: string;
+  label?: string;
+  value?: string
 }
 export interface IContextLayer {
   dataset: EContextLayerDatasets;

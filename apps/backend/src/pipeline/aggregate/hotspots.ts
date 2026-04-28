@@ -43,7 +43,7 @@ export const generateHotspots = (
         !event.matched_flag &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
-          config.threshold.low_detection_confidence_threshold
+          config.threshold.medium_triage_score_threshold
       ) {
         count_high_score_unmatched++;
       }

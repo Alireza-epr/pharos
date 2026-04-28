@@ -10,6 +10,10 @@ import {
   IMPAPolygonProperties,
 } from '../../helpers/types/validationTypes';
 import fs from 'fs';
+import { IBathymetryCachedTile } from '../types/generalTypes';
+//import { fromFile } from "geotiff";
+import path from "path";
+import { log } from './backendUtils';
 
 export const readLandPolygons = () => {
   const landPolygons: FeatureCollection<
@@ -73,3 +77,40 @@ export const readMPAPolygons = () => {
 
   return mpaPolygons;
 };
+
+const bathymetryTiles: IBathymetryCachedTile[] = [];
+
+export const readBathymetryTiles = async () => {
+    const geotiff =  await import("geotiff"); 
+    const BASE_PATH = "data/bathymetry_rasters"
+    const dir = path.resolve(BASE_PATH);
+    const files = fs.readdirSync(dir).filter(f => f.endsWith(".tif"));
+
+    for (const file of files) {
+        const fullPath = path.join(dir, file);
+
+        const tiff = await geotiff.fromFile(fullPath);
+        const image = await tiff.getImage();
+
+        bathymetryTiles.push({
+            file,
+            image,
+            bbox: image.getBoundingBox() as IBathymetryCachedTile["bbox"]
+        });
+    }
+
+    log(`[Bathymetry] Loaded ${bathymetryTiles.length} bathymetry tiles into memory`);
+}
+
+export const findTile = (a_Lon: number, a_Lat: number) => {
+    return bathymetryTiles.find(t => {
+        const [minX, minY, maxX, maxY] = t.bbox;
+
+        return (
+            a_Lon >= minX &&
+            a_Lon <= maxX &&
+            a_Lat >= minY &&
+            a_Lat <= maxY
+        );
+    }) || null;
+}

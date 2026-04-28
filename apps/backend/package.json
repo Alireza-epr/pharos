@@ -17,7 +17,7 @@
     "lint": "eslint ./**/*.{ts,js}",
     "format": "prettier --write ./**/*.{ts,js,json,md}",
     "typecheck": "tsc --noEmit",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests -t .*"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.60.0",
@@ -28,6 +28,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "geotiff": "^3.0.5",
     "h3-js": "^4.4.0",
     "jsonwebtoken": "^9.0.3",
     "parquetjs": "^0.11.2"

@@ -20,16 +20,17 @@ export enum EGearType {
 }
 
 export enum EVessleType {
-  carrier = 'carrier',
-  seismic_vessel = 'seismic_vessel',
-  passenger = 'passenger',
-  other = 'other',
-  support = 'support',
-  bunker = 'bunker',
-  gear = 'gear',
-  cargo = 'cargo',
-  fishing = 'fishing',
-  discrepancy = 'discrepancy',
+  CARRIER = 'CARRIER',
+  SEISMIC_VESSEL = 'SEISMIC_VESSEL',
+  PASSENGER = 'PASSENGER',
+  OTHER = 'OTHER',
+  SUPPORT = 'SUPPORT',
+  BUNKER = 'BUNKER',
+  GEAR = 'GEAR',
+  CARGO = 'CARGO',
+  FISHING = 'FISHING',
+  DISCREPANCY = 'DISCREPANCY',
+  NOTAPPLICABLE = ''
 }
 
 export enum EMaritimeIdentificationDigits {
@@ -311,6 +312,7 @@ export enum EContextLayerDatasets {
   rfmo = 'public-rfmo',
   marineregions = "World_EEZ_20231025_LR",
   wdpa = "WDPA_WDOECM_APR2026",
+  bathymetry = "gebco_2025_sub_ice_topo"
 }
 
 export enum EEventType {
@@ -324,5 +326,6 @@ export enum EEventType {
 export enum EContextLayers {
   eez = 'EEZ',
   mpa = 'MPA',
+  bathymetry = 'Bathymetry'
   //rfmo = 'RFMO',
 }

@@ -57,3 +57,11 @@ export const deepSortObject = (a_Object: any): any => {
 
   return a_Object;
 };
+
+export const getExecutionDuration = (
+  a_Start: string, a_End: string
+) => {
+  const startDate = new Date(a_Start.replace(" ", "T"))
+  const endDate = new Date(a_End.replace(" ", "T"))
+  return endDate.getTime() - startDate.getTime()
+}

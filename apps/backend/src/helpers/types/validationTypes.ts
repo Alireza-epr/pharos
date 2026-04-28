@@ -83,6 +83,7 @@ export interface IValidationSample {
   lon: number;
   lat: number;
   matched_flag: boolean;
+  bathymetry: string;
   source: string;
   triage_score: number | null;
   uncertainty_score: number | null;
@@ -117,4 +118,5 @@ export interface IValidationManifest {
     [key: string]: number;
   };
   run_metadata: IRunMetadata;
+  execution_duration_sec: number;
 }

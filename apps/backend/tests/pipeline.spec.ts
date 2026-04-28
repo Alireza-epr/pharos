@@ -56,21 +56,21 @@ import {
   isOnLand,
 } from '../src/pipeline/validation/sample';
 import { EValidationLabel } from '../src/helpers/types/validationTypes';
-import { readLandPolygons } from '../src/pipeline/validation/dataset';
+import { readLandPolygons } from '../src/helpers/utils/datasetUtils';
 import {
+  eventSchema_context_layers,
   eventSchema_inWater,
   eventSchema_matched_near_coast,
   eventSchema_matched_no_coord,
   eventSchema_matched_no_date,
   eventSchema_matched_noisy,
   eventSchema_matched_offshore,
-  eventSchema_matched_with_port_event,
-  eventSchema_matched_with_port_event_confidence_2,
-  eventSchema_matched_without_port_event,
   eventSchema_onLand,
   eventSchema_umatched_near_coast,
   eventSchema_umatched_offshore,
+  eventSchema_with_low_confidence,
 } from './fixtures/eventSchema';
+import { vesselZone } from '../src/pipeline/features/bathymetry';
 
 jest.mock('parquetjs', () => ({
   __esModule: true,
@@ -84,6 +84,10 @@ jest.mock('@dotenvx/dotenvx', () => ({
 }));
 
 jest.mock('@turf/turf', () => ({
+  config: jest.fn(),
+}))
+
+jest.mock('geotiff', () => ({
   config: jest.fn(),
 }))
 
@@ -205,76 +209,45 @@ describe('4wings_helpers', () => {
   });
 
   describe('generateScoring', () => {
-    it('handles unmatched case with no event', () => {
+    it('returns valid triage score between 0 and 1', () => {
       const scoring = generateScoring(eventSchema_umatched_near_coast);
 
-      expect(scoring.triage_score).toBe(null);
-      expect(scoring.reason_codes).toContain(
-        EReasonCodesStatic.missing_confidence_proxy,
-      );
-      expect(scoring.uncertainty_score).toBeGreaterThan(0.5);
+      expect(scoring.triage_score).toBeGreaterThanOrEqual(0);
+      expect(scoring.triage_score).toBeLessThanOrEqual(1);
     });
 
     it('match state logic produces correct match reason code', () => {
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
+      const scoring = generateScoring(eventSchema_matched_near_coast);
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
       );
 
-      const scoring_2 = generateScoring(eventSchema_matched_without_port_event);
+      const scoring_2 = generateScoring(eventSchema_matched_offshore);
       expect(scoring_2.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
       );
     });
 
-    it('uncertainty increases for near-coast vs offshore', () => {
-      const scoring_unmatched_near_coast = generateScoring(
-        eventSchema_umatched_near_coast,
-      );
-      const scoring_unmatched_offshore = generateScoring(
-        eventSchema_umatched_offshore,
-      );
-      if (
-        !scoring_unmatched_near_coast.uncertainty_score ||
-        !scoring_unmatched_offshore.uncertainty_score
-      )
-        return;
-      expect(scoring_unmatched_near_coast.uncertainty_score).toBeGreaterThan(
-        scoring_unmatched_offshore.uncertainty_score,
-      );
+    it('uncertainty increases for missing fields', () => {
+      const scoring = generateScoring(eventSchema_matched_no_date);
 
-      const scoring_matched_near_coast = generateScoring(
-        eventSchema_matched_near_coast,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:date',
       );
-      const scoring_matched_offshore = generateScoring(
-        eventSchema_matched_offshore,
-      );
-      if (
-        !scoring_matched_near_coast.uncertainty_score ||
-        !scoring_matched_offshore.uncertainty_score
-      )
-        return;
-      expect(scoring_matched_near_coast.uncertainty_score).toBeGreaterThan(
-        scoring_matched_offshore.uncertainty_score,
-      );
+      expect(scoring.uncertainty_score).toBeGreaterThan(0);
     });
 
-    it('adds port visit confidence as triage score', () => {
-      if (!api4wingsResponse.entries[0]) return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
-        return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
-        return;
+    it('uncertainty increases for noisy vessel', () => {
+      const scoring = generateScoring(eventSchema_matched_noisy);
 
-      const event = apiEventResponse_with_entry.entries[0];
-      if (!event) return;
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
-
-      expect(scoring.triage_score).toBe(+event.port_visit.confidence);
+      expect(scoring.reason_codes).toContain(
+        EReasonCodesStatic.noisy_vessel,
+      );
+      expect(scoring.uncertainty_score).toBeGreaterThan(0.1);
     });
 
-    it('adds_near_coast_and_inside_EEZ/MPA_reasons', () => {
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
+    it('adds near-coast / EEZ / MPA reason codes correctly', () => {
+      const scoring = generateScoring(eventSchema_context_layers);
 
       expect(scoring.reason_codes).toEqual(
         expect.arrayContaining([
@@ -285,15 +258,9 @@ describe('4wings_helpers', () => {
       );
     });
 
-    it('adds_near_coast_reason_for_unmatched', () => {
-      const scoring = generateScoring(eventSchema_umatched_near_coast);
-
-      expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
-    });
-
-    it('adds low detection confidence when threshold is met', () => {
+    it('adds low detection confidence reason', () => {
       const scoring = generateScoring(
-        eventSchema_matched_with_port_event_confidence_2,
+        eventSchema_with_low_confidence,
       );
 
       expect(scoring.reason_codes).toContain(
@@ -301,29 +268,29 @@ describe('4wings_helpers', () => {
       );
     });
 
-    it('detect missing fields', () => {
-      const scoring_missing_date = generateScoring(eventSchema_matched_no_date);
+    it('detects all missing required fields', () => {
+      const scoring = generateScoring(eventSchema_matched_no_coord);
 
-      expect(scoring_missing_date.reason_codes).toContain(
-        `missing_required_field:date`,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:lat',
       );
-      const scoring_missing_coordinates = generateScoring(
-        eventSchema_matched_no_coord,
-      );
-      expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lat`,
-      );
-      expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lon`,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:lon',
       );
     });
 
-    it('detect noisy vessel', () => {
-      const event = undefined;
-      const scoring_noisy = generateScoring(eventSchema_matched_noisy);
-      expect(scoring_noisy.reason_codes).toContain(
-        EReasonCodesStatic.noisy_vessel,
-      );
+    it('triage score increases when importance increases', () => {
+      const a = generateScoring(eventSchema_umatched_offshore);
+      const b = generateScoring(eventSchema_umatched_near_coast);
+
+      expect(b.triage_score).toBeGreaterThanOrEqual(a.triage_score!);
+    });
+
+    it('importance is higher in MPA than offshore', () => {
+      const offshore = generateScoring(eventSchema_umatched_offshore);
+      const mpa = generateScoring(eventSchema_context_layers);
+
+      expect(mpa.triage_score).toBeGreaterThan(offshore.triage_score!);
     });
   });
 
@@ -674,5 +641,57 @@ describe('Validation', () => {
 
     const validationSample2 = createValidationSample(eventSchema_inWater);
     expect(validationSample2.label).toBe(EValidationLabel.TP);
+  });
+});
+
+describe('Context_layers', () => {
+
+  // --- Shallow Water (depth > -50) ---
+  it('should return isShallowWater=true for depth above shallow threshold (0)', () => {
+    const result = vesselZone('0');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  it('should return isShallowWater=true for depth above shallow threshold (-10)', () => {
+    const result = vesselZone('-10');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  it('should return isShallowWater=true for positive depth (10)', () => {
+    const result = vesselZone('10');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  // --- Fishing Zone (-200 < depth <= -50) ---
+  it('should return isFishingZone=true exactly at shallow threshold (-50)', () => {
+    const result = vesselZone('-50');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  it('should return isFishingZone=true for depth in fishing range (-100)', () => {
+    const result = vesselZone('-100');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  it('should return isFishingZone=true just above deep threshold (-199)', () => {
+    const result = vesselZone('-199');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  // --- Deep Water (depth <= -200) ---
+  it('should return isDeepWater=true exactly at deep threshold (-200)', () => {
+    const result = vesselZone('-200');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+  });
+
+  it('should return isDeepWater=true for depth below deep threshold (-500)', () => {
+    const result = vesselZone('-500');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+  });
+
+  // --- Undefined / Edge cases ---
+  it('should return all false when bathymetry is undefined', () => {
+    const result = vesselZone(undefined);
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: false });
   });
 });

@@ -56,6 +56,9 @@ npm run frontend:build
 # preview production build
 npm run frontend:preview
 
+# download dataset
+npm run setup:data
+
 ```
 
 For more information, please refer to [the runbook](docs/runbook.md).

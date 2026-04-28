@@ -31,7 +31,7 @@ We use **H3 hexagons** for spatial aggregation. Hexagons provide:
 | `time_bin`                   | Aggregation period (daily)                                                       |
 | `count_total`                | Total events in the hexagon for that day                                         |
 | `count_unmatched`            | Number of events **without a match**                                             |
-| `count_high_score_unmatched` | Unmatched events above `low_detection_confidence_threshold`                      |
+| `count_high_score_unmatched` | Unmatched events above `medium_triage_score_threshold`                           |
 | `mean_score`                 | Average `triage_score` of events in the hex                                      |
 | `mean_uncertainty`           | Average `uncertainty_score` of events in the hex                                 |
 | `pct_near_coast`             | Percentage of events near coast (`distance_to_coast_km <= near_coast_threshold`) |
@@ -57,7 +57,7 @@ Added to support **temporal analysis**:
 
 Thresholds are defined in `apps/backend/src/config/pilot.json`:
 
-- `low_detection_confidence_threshold` → minimum score for high-score unmatched
+- `medium_triage_score_threshold` → minimum score for high-score unmatched
 - `near_coast_threshold` → maximum distance in km to consider “near coast”
 
 ---

@@ -26,20 +26,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -76,21 +81,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -127,21 +137,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-42"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -178,20 +193,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -228,20 +248,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -278,20 +303,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -328,20 +358,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -378,20 +413,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -428,20 +468,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -483,21 +528,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-41"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -534,20 +585,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -584,20 +640,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -634,21 +695,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-39"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -685,20 +751,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-37"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -735,20 +806,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-37"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -785,20 +861,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -835,21 +916,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-41"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -886,21 +972,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-41"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -937,20 +1028,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-40"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -992,21 +1088,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-40"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -1043,21 +1145,26 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-32"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.86,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1094,20 +1201,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-40"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1144,20 +1256,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-38"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1194,20 +1311,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1244,20 +1366,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1294,20 +1421,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-31"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1344,20 +1476,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-31"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1394,20 +1531,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1444,20 +1586,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1494,20 +1641,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1544,20 +1696,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1594,20 +1751,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-31"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1644,20 +1806,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1694,20 +1861,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-27"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1744,20 +1916,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-27"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1794,20 +1971,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-27"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1844,20 +2026,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-27"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1894,20 +2081,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-33"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1944,20 +2136,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -1999,21 +2196,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -2050,20 +2253,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2100,20 +2308,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2150,20 +2363,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2200,20 +2418,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-46"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2255,21 +2478,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-47"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -2306,20 +2535,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2356,20 +2590,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2406,20 +2645,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2461,21 +2705,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-42"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -2512,20 +2762,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2562,20 +2817,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-47"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2612,20 +2872,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2662,20 +2927,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2712,20 +2982,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2762,20 +3037,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-37"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2812,20 +3092,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-37"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2862,20 +3147,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2912,20 +3202,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-36"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -2967,22 +3262,28 @@
                 "label": "Rønne Banke"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-23"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -3019,20 +3320,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3069,20 +3375,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-37"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3119,20 +3430,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-38"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3169,20 +3485,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-34"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3219,20 +3540,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3269,20 +3595,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3324,21 +3655,27 @@
                 "label": "I"
               }
             ]
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-41"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone"
           ]
         }
       },
@@ -3375,20 +3712,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-44"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3425,20 +3767,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-32"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -3475,20 +3822,25 @@
             "dataset": "WDPA_WDOECM_APR2026",
             "version": "v1.6",
             "enrichments": []
+          },
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "version": "v2.7",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ]
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
