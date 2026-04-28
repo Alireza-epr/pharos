@@ -1,4 +1,4 @@
-import { EReasonCodes, EReasonCodesStatic, EEventType } from '@packages/enum';
+import { EReasonCodes, EReasonCodesStatic, EEventType, EVessleType } from '@packages/enum';
 import {
   IConfigJSON,
   IEventSchema,
@@ -17,6 +17,7 @@ import {
 } from './validation';
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
+import { vesselZone } from '../features/bathymetry';
 
 export const backendVersion = pkg.version;
 
@@ -65,58 +66,146 @@ export const generateRunMetadata = async (
 };
 
 export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
+  const WEIGHTS = {
+    base_uncertainty: 0.1,
+
+    missing_field: 0.08,
+    noisy: 0.15,
+    unmatched: 0.2,
+
+    near_coast_importance: 0.3,
+    eez_importance: 0.2,
+    mpa_importance: 0.5,
+
+    missing_confidence: 0.25,
+    low_confidence: 0.2,
+  };
+
   const event = a_EventSchema.raw_event_metadata;
   const entry = a_EventSchema.raw_metadata;
-  const triage_score = generateConfidence(event ?? undefined)
+
+  const confidence_proxy = generateConfidence(event ?? undefined);
 
   let reason_codes: EReasonCodes[] = [];
-  let uncertainty_score = 0.2;
+
+  // =========================
+  // A. UNCERTAINTY (DATA QUALITY) - How much do we distrust this event?
+  // =========================
+  let uncertainty_score = WEIGHTS.base_uncertainty;
+  const matched = isMatchedCase(entry);
 
   const missingFields = missingRequiredFields(entry);
-  for (const field of missingFields) {
-    reason_codes.push(`missing_required_field:${field}`);
+
+  if (missingFields.length > 0 && matched) {
+    uncertainty_score += Math.min(
+      missingFields.length * WEIGHTS.missing_field,
+      0.4
+    );
+
+    for (const field of missingFields) {
+      reason_codes.push(`missing_required_field:${field}`);
+    }
   }
 
-  const noisy = isNoisyCase(entry);
-  if (noisy) {
+  if (isNoisyCase(entry)) {
+    uncertainty_score += WEIGHTS.noisy;
     reason_codes.push(EReasonCodesStatic.noisy_vessel);
   }
 
-  const matched = isMatchedCase(entry);
+  
+
   if (!matched) {
+    uncertainty_score += WEIGHTS.unmatched;
     reason_codes.push(EReasonCodesStatic.unmatched_to_public_ais);
   } else {
     reason_codes.push(EReasonCodesStatic.matched_to_public_ais);
+    uncertainty_score -= 0.05; // slight confidence boost
   }
 
-  const near_coast = isNearCoast(a_EventSchema.distance_to_coast_km);
-  if (near_coast) {
-    uncertainty_score += 0.3;
-    reason_codes.push(EReasonCodesStatic.near_coast);
-  }
-
-  if (triage_score === null) {
-    //unmatched or without port event
-    uncertainty_score += 0.3;
+  if (confidence_proxy === null) {
+    uncertainty_score += WEIGHTS.missing_confidence;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if (
-    //matched with port event
-    triage_score <= config.threshold.low_detection_confidence_threshold
+    confidence_proxy <= config.threshold.low_detection_confidence_threshold
   ) {
-    uncertainty_score += 0.3;
+    uncertainty_score += WEIGHTS.low_confidence;
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  const inside_eez = a_EventSchema.context_layers.EEZ.enrichments.length > 0 ? true : false
+  uncertainty_score = Number(Math.max(0, Math.min(1, uncertainty_score)).toFixed(2));
+
+  // =========================
+  // B. IMPORTANCE (DOMAIN VALUE) - If this event is real, how important is it?
+  // =========================
+  let importance_score = 0;
+
+  const inside_eez =
+    a_EventSchema.context_layers.EEZ.enrichments.length > 0;
+
+  const inside_mpa =
+    a_EventSchema.context_layers.MPA.enrichments.length > 0;
+
   if (inside_eez) {
+    importance_score += WEIGHTS.eez_importance;
     reason_codes.push(EReasonCodesStatic.inside_eez);
   }
 
-  const inside_mpa = a_EventSchema.context_layers.MPA.enrichments.length > 0 ? true : false
   if (inside_mpa) {
+    importance_score += WEIGHTS.mpa_importance;
     reason_codes.push(EReasonCodesStatic.inside_mpa);
   }
 
+  if (isNearCoast(a_EventSchema.distance_to_coast_km)) {
+    importance_score += WEIGHTS.near_coast_importance;
+    reason_codes.push(EReasonCodesStatic.near_coast);
+  }
+
+  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && inside_mpa) {
+    importance_score += 0.4; // high-risk combo
+  }
+
+  const {isShallowWater, isFishingZone, isDeepWater} = vesselZone(a_EventSchema.context_layers.Bathymetry.enrichments[0].value)
+
+  // 1. Fishing-relevant zone (core maritime activity zone)
+  if (isFishingZone) {
+    importance_score += 0.15;
+    reason_codes.push(EReasonCodesStatic.bathymetry_fishing_zone);
+  }
+
+  // 2. Shallow water + EEZ = high human activity pressure zone
+  if (isShallowWater && inside_eez) {
+    importance_score += 0.25;
+    reason_codes.push(EReasonCodesStatic.bathymetry_shallow_eez_hotspot);
+  }
+
+  // 3. Shallow water + MPA = ecological sensitivity (very important)
+  if (isShallowWater && inside_mpa) {
+    importance_score += 0.3;
+    reason_codes.push(EReasonCodesStatic.bathymetry_mpa_shallow_zone);
+  }
+
+  // 4. Cargo vessel in fishing/shallow zones = anomaly signal
+  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && (isFishingZone || isShallowWater)) {
+    importance_score += 0.2;
+    reason_codes.push(EReasonCodesStatic.bathymetry_cargo_anomaly_zone);
+  }
+
+  // 5. Deep water = low interaction area (slight context boost only if MPA)
+  if (isDeepWater && inside_mpa) {
+    importance_score += 0.05;
+    reason_codes.push(EReasonCodesStatic.bathymetry_deep_mpa);
+  }
+
+  importance_score = Math.max(0, Math.min(1, importance_score));
+
+  // =========================
+  // C. TRIAGE SCORE - What should a human/system investigate first?
+  // =========================
+  const triage_score = Math.min(
+    1,
+    Number((importance_score + uncertainty_score * 0.2).toFixed(2))
+  );
+  
   return {
     triage_score,
     uncertainty_score,

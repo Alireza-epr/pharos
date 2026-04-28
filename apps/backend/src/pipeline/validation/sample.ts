@@ -54,6 +54,8 @@ export const createValidationSample = (
     a_EventSchema.lon,
     a_EventSchema.lat,
   );
+
+  let reason_codes = a_EventSchema.scoring.reason_codes?.join(", ").trim()
   return {
     event_id: a_EventSchema.event_id,
     timestamp_utc: a_EventSchema.timestamp_utc,
@@ -66,7 +68,7 @@ export const createValidationSample = (
     uncertainty_score: a_EventSchema.scoring.uncertainty_score,
     label: isEventOnLand ? EValidationLabel.FP : EValidationLabel.TP,
     failure_mode: isEventOnLand ? EValidationFailureMode.on_land : '',
-    notes: '',
+    notes: reason_codes ?? "",
   };
 };
 
@@ -136,6 +138,8 @@ export const getValidationSamples = async (
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
+    } else {
+      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
     }
   }
 
@@ -213,6 +217,8 @@ export const postValidationSamples = async (
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
+    } else {
+      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
     }
   }
 

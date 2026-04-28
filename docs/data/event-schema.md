@@ -65,6 +65,7 @@ This document defines a **event schema** for Iteration 1.
 
 - `context_layers` (object)  
   Geographic context information derived from datasets.
+  Explanation in [context-layers](./context-layers.md).
 
   Each context layer includes:
   - dataset - name of the dataset used for enrichment
@@ -79,7 +80,7 @@ This document defines a **event schema** for Iteration 1.
 - `triage_score` (number or null)
 - `uncertainty_score` (number or null)
 - `reason_codes` (list of strings)  
-  Explanation in `tech/scoring-spec.md`.
+  Explanation in [scoring-spec](../tech/scoring-spec.md).
 
 ---
 
@@ -132,12 +133,7 @@ This defines the H3 cell id in which the event is located based on its spatial p
     "EEZ": {
       "dataset": "World_EEZ_20231025_LR",
       "version": "v12",
-      "enrichments": [
-        {
-          "id": "5694",
-          "label": "Swedish Exclusive Economic Zone"
-        }
-      ]
+      "enrichments": []
     },
     "MPA": {
       "dataset": "WDPA_WDOECM_APR2026",
@@ -147,11 +143,7 @@ This defines the H3 cell id in which the event is located based on its spatial p
     "Bathymetry": {
       "dataset": "gebco_2025_sub_ice_topo",
       "version": "v2.7",
-      "enrichments": [
-        {
-          "value": "-36"
-        }
-      ]
+      "enrichments": []
     }
   },
   "rejected": false,

@@ -1,6 +1,5 @@
 //import pilot from '../config/pilot.json';
 import { createEventSchema } from './normalize/schema';
-import { isMatchedCase } from './normalize/validation';
 import {
   csvString,
   formatTimestamp,
@@ -11,16 +10,11 @@ import {
   getTimeRange,
   sortEventSchema,
 } from '../helpers/utils/backendUtils';
-import { detectionGetGFW, detectionPostGFW } from './ingest/detections';
+import { detectionPostGFW } from './ingest/detections';
 import fs from 'fs';
 import {
   IConfigJSON,
   I4wingsAPIResponse,
-  IEventAPIResponse,
-  IEventGetURLParams,
-  IEventPostBodyParams,
-  IEventPostURLParams,
-  IPortVisitEvent,
   FeatureCollection,
   IGeometry,
 } from '@packages/types';
@@ -29,9 +23,7 @@ import {
   EReasonCodes,
   EReasonCodesStatic,
 } from '@packages/enum';
-import { deepSortObject } from '@packages/utils';
 import {
-  getGitCommitSHA,
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,
   log,
@@ -134,17 +126,20 @@ const main = async () => {
     try {
       const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
       //console.log('Event Schema', eventSchema);
+      if(eventSchema.rejected){
+        log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
+      }
       events.push(eventSchema);
     } catch (error) {
       console.error('Event Schema error', error);
     }
   }
 
-  log(`Preparing outputs in ${output}...`, ELogType.info);
-
   const notRejectedEvents = events.filter((e) => !e.rejected);
   const sortedEvents = sortEventSchema(notRejectedEvents);
   const hotspots = generateHotspots(sortedEvents, resolution);
+
+  log(`Preparing outputs in ${output}, no. entry: ${notRejectedEvents.length}`, ELogType.info);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -170,16 +165,9 @@ const main = async () => {
   //event.parquet
   const rows = sortedEvents.map((event) => {
     const reason_codes = event.scoring.reason_codes;
-    let edge_case_flags: { [key in EReasonCodes]?: boolean } = {
-      [EReasonCodesStatic.near_coast]: false,
-      [EReasonCodesStatic.low_detection_confidence]: false,
-      [EReasonCodesStatic.missing_confidence_proxy]: false,
-      [EReasonCodesStatic.inside_eez]: false,
-      [EReasonCodesStatic.inside_mpa]: false,
-      [EReasonCodesStatic.unmatched_to_public_ais]: false,
-      [EReasonCodesStatic.matched_to_public_ais]: false,
-      [EReasonCodesStatic.noisy_vessel]: false,
-    };
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } = Object.fromEntries(
+      Object.keys(EReasonCodesStatic).map((key) => [key, false])
+    );
 
     if (reason_codes) {
       for (const reason_code of reason_codes) {
@@ -195,10 +183,9 @@ const main = async () => {
       lon: event.lon,
       confidence_proxy: event.confidence_proxy ?? null,
       distance_to_coast_km: event.distance_to_coast_km,
-      context_layers: event.context_layers,
+      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
       triage_score: event.scoring.triage_score ?? null,
       uncertainty_score: event.scoring.uncertainty_score ?? null,
-      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
       ...edge_case_flags,
     };
   });

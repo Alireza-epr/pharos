@@ -38,12 +38,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -92,12 +94,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -146,12 +150,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -200,12 +205,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -254,12 +261,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -308,12 +317,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -362,12 +372,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -416,12 +427,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -470,13 +482,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.8,
+          "triage_score": 0.81,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
-            "near_coast",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "near_coast",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -525,17 +538,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.56,
+          "uncertainty_score": 0.55,
           "reason_codes": [
-            "missing_required_field:dataset",
-            "missing_required_field:vesselId",
-            "missing_required_field:mmsi",
-            "missing_required_field:shipName",
-            "missing_required_field:vesselType",
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -589,13 +598,16 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 1,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
             "inside_eez",
-            "inside_mpa"
+            "inside_mpa",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_mpa_shallow_zone",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -644,12 +656,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -698,12 +712,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -752,12 +767,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -806,12 +823,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -860,12 +879,13 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.51,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot"
           ]
         }
       },
@@ -914,12 +934,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },
@@ -968,12 +990,14 @@
           }
         },
         "scoring": {
-          "triage_score": null,
-          "uncertainty_score": 0.5,
+          "triage_score": 0.71,
+          "uncertainty_score": 0.3,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
-            "inside_eez"
+            "inside_eez",
+            "bathymetry_shallow_eez_hotspot",
+            "bathymetry_cargo_anomaly_zone"
           ]
         }
       },

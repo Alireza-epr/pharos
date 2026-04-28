@@ -7,6 +7,11 @@ export enum EReasonCodesStatic {
   unmatched_to_public_ais = 'unmatched_to_public_ais',
   matched_to_public_ais = 'matched_to_public_ais',
   noisy_vessel = 'noisy_vessel',
+  bathymetry_fishing_zone = "bathymetry_fishing_zone",
+  bathymetry_shallow_eez_hotspot = "bathymetry_shallow_eez_hotspot",
+  bathymetry_mpa_shallow_zone = "bathymetry_mpa_shallow_zone",
+  bathymetry_cargo_anomaly_zone = "bathymetry_cargo_anomaly_zone",
+  bathymetry_deep_mpa = "bathymetry_deep_mpa"
 }
 
 export type EReasonCodes =
@@ -16,6 +21,7 @@ export type EReasonCodes =
 export enum ERejectedEventSchemaReasons {
   notValidCoordinates = 'Not Valid Coordinates',
   notValidTimestamp = 'Not Valid Timestamp',
+  notValidVesselType = 'Not Valid Vessel Type',
 }
 
 export enum EGeoCoordinate {

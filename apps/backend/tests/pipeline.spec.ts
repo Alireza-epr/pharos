@@ -87,6 +87,10 @@ jest.mock('@turf/turf', () => ({
   config: jest.fn(),
 }))
 
+jest.mock('geotiff', () => ({
+  config: jest.fn(),
+}))
+
 //jest --passWithNoTests -t 4wings_helpers
 describe('4wings_helpers', () => {
   describe('generateSources', () => {
@@ -205,14 +209,11 @@ describe('4wings_helpers', () => {
   });
 
   describe('generateScoring', () => {
-    it('handles unmatched case with no event', () => {
+    it('returns valid triage score between 0 and 1', () => {
       const scoring = generateScoring(eventSchema_umatched_near_coast);
 
-      expect(scoring.triage_score).toBe(null);
-      expect(scoring.reason_codes).toContain(
-        EReasonCodesStatic.missing_confidence_proxy,
-      );
-      expect(scoring.uncertainty_score).toBeGreaterThan(0.5);
+      expect(scoring.triage_score).toBeGreaterThanOrEqual(0);
+      expect(scoring.triage_score).toBeLessThanOrEqual(1);
     });
 
     it('match state logic produces correct match reason code', () => {
@@ -227,53 +228,25 @@ describe('4wings_helpers', () => {
       );
     });
 
-    it('uncertainty increases for near-coast vs offshore', () => {
-      const scoring_unmatched_near_coast = generateScoring(
-        eventSchema_umatched_near_coast,
-      );
-      const scoring_unmatched_offshore = generateScoring(
-        eventSchema_umatched_offshore,
-      );
-      if (
-        !scoring_unmatched_near_coast.uncertainty_score ||
-        !scoring_unmatched_offshore.uncertainty_score
-      )
-        return;
-      expect(scoring_unmatched_near_coast.uncertainty_score).toBeGreaterThan(
-        scoring_unmatched_offshore.uncertainty_score,
-      );
+    it('uncertainty increases for missing fields', () => {
+      const scoring = generateScoring(eventSchema_matched_no_date);
 
-      const scoring_matched_near_coast = generateScoring(
-        eventSchema_matched_near_coast,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:date',
       );
-      const scoring_matched_offshore = generateScoring(
-        eventSchema_matched_offshore,
-      );
-      if (
-        !scoring_matched_near_coast.uncertainty_score ||
-        !scoring_matched_offshore.uncertainty_score
-      )
-        return;
-      expect(scoring_matched_near_coast.uncertainty_score).toBeGreaterThan(
-        scoring_matched_offshore.uncertainty_score,
-      );
+      expect(scoring.uncertainty_score).toBeGreaterThan(0);
     });
 
-    it('adds port visit confidence as triage score', () => {
-      if (!api4wingsResponse.entries[0]) return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'])
-        return;
-      if (!api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0])
-        return;
+    it('uncertainty increases for noisy vessel', () => {
+      const scoring = generateScoring(eventSchema_matched_noisy);
 
-      const event = apiEventResponse_with_entry.entries[0];
-      if (!event) return;
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
-
-      expect(scoring.triage_score).toBe(+event.port_visit.confidence);
+      expect(scoring.reason_codes).toContain(
+        EReasonCodesStatic.noisy_vessel,
+      );
+      expect(scoring.uncertainty_score).toBeGreaterThan(0.1);
     });
 
-    it('adds_near_coast_and_inside_EEZ/MPA_reasons', () => {
+    it('adds near-coast / EEZ / MPA reason codes correctly', () => {
       const scoring = generateScoring(eventSchema_matched_with_port_event);
 
       expect(scoring.reason_codes).toEqual(
@@ -285,13 +258,7 @@ describe('4wings_helpers', () => {
       );
     });
 
-    it('adds_near_coast_reason_for_unmatched', () => {
-      const scoring = generateScoring(eventSchema_umatched_near_coast);
-
-      expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
-    });
-
-    it('adds low detection confidence when threshold is met', () => {
+    it('adds low detection confidence reason', () => {
       const scoring = generateScoring(
         eventSchema_matched_with_port_event_confidence_2,
       );
@@ -301,29 +268,29 @@ describe('4wings_helpers', () => {
       );
     });
 
-    it('detect missing fields', () => {
-      const scoring_missing_date = generateScoring(eventSchema_matched_no_date);
+    it('detects all missing required fields', () => {
+      const scoring = generateScoring(eventSchema_matched_no_coord);
 
-      expect(scoring_missing_date.reason_codes).toContain(
-        `missing_required_field:date`,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:lat',
       );
-      const scoring_missing_coordinates = generateScoring(
-        eventSchema_matched_no_coord,
-      );
-      expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lat`,
-      );
-      expect(scoring_missing_coordinates.reason_codes).toContain(
-        `missing_required_field:lon`,
+      expect(scoring.reason_codes).toContain(
+        'missing_required_field:lon',
       );
     });
 
-    it('detect noisy vessel', () => {
-      const event = undefined;
-      const scoring_noisy = generateScoring(eventSchema_matched_noisy);
-      expect(scoring_noisy.reason_codes).toContain(
-        EReasonCodesStatic.noisy_vessel,
-      );
+    it('triage score increases when importance increases', () => {
+      const a = generateScoring(eventSchema_umatched_offshore);
+      const b = generateScoring(eventSchema_umatched_near_coast);
+
+      expect(b.triage_score).toBeGreaterThanOrEqual(a.triage_score!);
+    });
+
+    it('importance is higher in MPA than offshore', () => {
+      const offshore = generateScoring(eventSchema_umatched_offshore);
+      const mpa = generateScoring(eventSchema_matched_with_port_event);
+
+      expect(mpa.triage_score).toBeGreaterThan(offshore.triage_score!);
     });
   });
 

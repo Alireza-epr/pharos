@@ -3,6 +3,7 @@ import path from "path";
 import { ELogType, IBathymetryTile } from "../../helpers/types/generalTypes";
 import { fromFile } from "geotiff";
 import { log } from "../../helpers/utils/backendUtils";
+import pilot from '../../config/pilot.json';
 const BASE_PATH = "data/bathymetry_rasters"
 const INDEX_PATH = path.resolve(`${BASE_PATH}/index.json`);
 
@@ -32,7 +33,7 @@ const findTile = (a_Lon: number, a_Lat: number): string | null => {
                 );
 
                 if (!fs.existsSync(filePath)) {
-                    log("[Bathymetry] Failed to get COG file: "+filePath, ELogType.error)
+                    log("[Bathymetry] Failed to get COG file: " + filePath, ELogType.error)
                     return null;
                 }
 
@@ -47,44 +48,61 @@ const findTile = (a_Lon: number, a_Lat: number): string | null => {
 }
 
 const getBathymetry = async (
-  a_Lon: number,
-  a_Lat: number
+    a_Lon: number,
+    a_Lat: number
 ): Promise<number | null> => {
-  try {
-    const tilePath = findTile(a_Lon, a_Lat);
+    try {
+        const tilePath = findTile(a_Lon, a_Lat);
 
-    if (!tilePath) {
-      return null;
-    }
+        if (!tilePath) {
+            return null;
+        }
 
-    //log("[Bathymetry] Starting for "+a_Lon+"x"+a_Lat)
+        //log("[Bathymetry] Starting for "+a_Lon+"x"+a_Lat)
 
-    const tiff = await fromFile(tilePath);
-    const image = await tiff.getImage();
+        const tiff = await fromFile(tilePath);
+        const image = await tiff.getImage();
 
-    const [minX, minY, maxX, maxY] = image.getBoundingBox();
-    const width = image.getWidth();
-    const height = image.getHeight();
-    const x = Math.floor(((a_Lon - minX) / (maxX - minX)) * width);
-    const y = Math.floor(((maxY - a_Lat) / (maxY - minY)) * height);
+        const [minX, minY, maxX, maxY] = image.getBoundingBox();
+        const width = image.getWidth();
+        const height = image.getHeight();
+        const x = Math.floor(((a_Lon - minX) / (maxX - minX)) * width);
+        const y = Math.floor(((maxY - a_Lat) / (maxY - minY)) * height);
 
-    const rasters = await image.readRasters({
-      window: [x, y, x + 1, y + 1],
-    });
+        const rasters = await image.readRasters({
+            window: [x, y, x + 1, y + 1],
+        });
 
-    const value = rasters[0][0];
-    //log("[Bathymetry] Result for "+a_Lon+"x"+a_Lat+ " : "+value)
-    
-    // handle nodata
-    if (value === -32767) {
-        log("[Bathymetry] There is NO valid data for pixel at: "+a_Lon+"_"+a_Lat, ELogType.error)
+        const value = rasters[0][0];
+        //log("[Bathymetry] Result for "+a_Lon+"x"+a_Lat+ " : "+value)
+
+        // handle nodata
+        if (value === -32767) {
+            log("[Bathymetry] There is NO valid data for pixel at: " + a_Lon + "_" + a_Lat, ELogType.error)
+            return null;
+        }
+
+        return value;
+
+    } catch {
+
         return null;
     }
+}
 
-    return value;
+export const vesselZone = (a_Bathymetry: string | undefined) => {
+    const depth = a_Bathymetry !== undefined ? Number(a_Bathymetry) : null;
 
-  } catch {
+    const shallow = pilot.threshold.shallow_water_threshold
+    const deep = pilot.threshold.deep_water_threshold
 
-    return null;
-  }
+    const isShallowWater = depth !== null && depth > shallow;      // coastal / high activity
+    const isFishingZone = depth !== null && depth > deep && depth <= shallow; // optimal fishing range
+    const isDeepWater = depth !== null && depth <= deep;       // transit / low interaction
+
+    return {
+        isShallowWater,
+        isFishingZone,
+        isDeepWater
+    }
 }

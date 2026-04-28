@@ -498,7 +498,7 @@ export const eventSchema_matched_with_port_event_confidence_2: any = {
   event_id: '874df96e65c6dc650d39eb98943ce25e7b3a82173e88f29c404609050a85c02e',
   timestamp_utc: '2025-12-04T16:53:26Z',
   matched_flag: true,
-  confidence_proxy: '4',
+  confidence_proxy: '2',
   lat: 55.16,
   lon: 14.68,
   source:
@@ -725,7 +725,7 @@ export const eventSchema_matched_with_port_event_confidence_2: any = {
   },
   distance_to_coast_km: 1.33,
   scoring: {
-    triage_score: 4,
+    triage_score: 0.5,
     uncertainty_score: 0.5,
     reason_codes: [
       'matched_to_public_ais',

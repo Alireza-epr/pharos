@@ -16,6 +16,7 @@ import {
   isISO8601Timestamp,
   isMatchedCase,
   isValidCoordinate,
+  isVesselTypeValid,
 } from './validation';
 import {
   generateConfidence,
@@ -40,6 +41,15 @@ export const createEventSchema = async (
   if (!validTimestamp) {
     return {
       reason: ERejectedEventSchemaReasons.notValidTimestamp,
+      rejected: true,
+      raw_metadata: a_4wingsEntry,
+    };
+  }
+
+  const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType)
+  if (!validVesselType) {
+    return {
+      reason: ERejectedEventSchemaReasons.notValidVesselType,
       rejected: true,
       raw_metadata: a_4wingsEntry,
     };
