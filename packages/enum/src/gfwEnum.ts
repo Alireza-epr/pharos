@@ -20,16 +20,17 @@ export enum EGearType {
 }
 
 export enum EVessleType {
-  carrier = 'carrier',
-  seismic_vessel = 'seismic_vessel',
-  passenger = 'passenger',
-  other = 'other',
-  support = 'support',
-  bunker = 'bunker',
-  gear = 'gear',
-  cargo = 'cargo',
-  fishing = 'fishing',
-  discrepancy = 'discrepancy',
+  CARRIER = 'CARRIER',
+  SEISMIC_VESSEL = 'SEISMIC_VESSEL',
+  PASSENGER = 'PASSENGER',
+  OTHER = 'OTHER',
+  SUPPORT = 'SUPPORT',
+  BUNKER = 'BUNKER',
+  GEAR = 'GEAR',
+  CARGO = 'CARGO',
+  FISHING = 'FISHING',
+  DISCREPANCY = 'DISCREPANCY',
+  NOTAPPLICABLE = ''
 }
 
 export enum EMaritimeIdentificationDigits {
