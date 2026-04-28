@@ -13,7 +13,7 @@ import {
   TGlobalEvent,
 } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
-import { getGitCommitSHA, hashString } from '../../helpers/utils/backendUtils';
+import { hashString } from '../../helpers/utils/backendUtils';
 import config from '../../config/pilot.json';
 import {
   isMatchedCase,
@@ -23,6 +23,7 @@ import {
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
 import { vesselZone } from '../features/bathymetry';
+import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
@@ -62,9 +63,9 @@ export const generateRunMetadata = async (
   const canonicalObject = deepSortObject(Array.from(a_Configuration));
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
-
+  
   return {
-    code_version: await getGitCommitSHA(),
+    code_version: gitCommitSHA,
     config_json: canonicalObject,
     config_hash,
   };

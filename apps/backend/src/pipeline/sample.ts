@@ -6,6 +6,7 @@ import {
   getEventMissingness,
   getGeoMax,
   getGeoMin,
+  getGitCommitSHA,
   getMatchingStats,
   getTimeRange,
   sortEventSchema,
@@ -63,11 +64,13 @@ export const coastlinePolylines = readCoastlinePolylines();
 export const landPolygons = readLandPolygons();
 export const eezPolygons = readEEZPolygons();
 export const mpaPolygons = readMPAPolygons();
+export let gitCommitSHA = ""
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
   const start = formatTimestamp();
   await readBathymetryTiles();
+  gitCommitSHA = await getGitCommitSHA()
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
@@ -286,6 +289,7 @@ const main = async () => {
 
 const validation = async () => {
   log('Starting validation...', ELogType.info);
+  gitCommitSHA = await getGitCommitSHA()
   await readBathymetryTiles();
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
   const setManifest = new Set<IValidationManifest>();
