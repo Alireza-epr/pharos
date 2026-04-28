@@ -25,7 +25,7 @@ import {
   log,
   sortEventSchema,
 } from '../../helpers/utils/backendUtils';
-import { createEventSchema } from '../normalize/schema';
+import { createEventSchema } from '../schema/main';
 import { EFetchMethods } from '@packages/enum';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';

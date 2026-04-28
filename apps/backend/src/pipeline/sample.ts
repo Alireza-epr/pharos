@@ -1,5 +1,5 @@
 //import pilot from '../config/pilot.json';
-import { createEventSchema } from './normalize/schema';
+import { createEventSchema } from './schema/main';
 import {
   csvString,
   formatTimestamp,
@@ -45,7 +45,7 @@ import {
 import {
   getValidationSamples,
   postValidationSamples,
-} from './validation/sample';
+} from './validation/main';
 import {
   readCoastlinePolylines,
   readLandPolygons,

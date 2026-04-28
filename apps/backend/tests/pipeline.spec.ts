@@ -6,7 +6,7 @@ import {
   ERejectedEventSchemaReasons,
   E4wingsDatasets,
 } from '@packages/enum';
-import { createEventSchema } from '../src/pipeline/normalize/schema';
+import { createEventSchema } from '../src/pipeline/schema/main';
 import {
   isMatchedCase,
   isValidCoordinate,
@@ -54,7 +54,7 @@ import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
 import {
   createValidationSample,
   isOnLand,
-} from '../src/pipeline/validation/sample';
+} from '../src/pipeline/validation/main';
 import { EValidationLabel } from '../src/helpers/types/validationTypes';
 import { readLandPolygons } from '../src/helpers/utils/datasetUtils';
 import {

@@ -15,7 +15,7 @@ import {
   isMatchedCase,
   isValidCoordinate,
   isVesselTypeValid,
-} from './validation';
+} from '../normalize/validation';
 import {
   generateConfidence,
   generateCoordinate,
@@ -25,7 +25,7 @@ import {
   generateScoring,
   generateSources,
   generateVersion,
-} from './generation';
+} from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
 import { getBathymetryContext } from '../features/bathymetry_cached';
