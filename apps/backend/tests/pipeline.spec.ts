@@ -58,19 +58,19 @@ import {
 import { EValidationLabel } from '../src/helpers/types/validationTypes';
 import { readLandPolygons } from '../src/helpers/utils/datasetUtils';
 import {
+  eventSchema_context_layers,
   eventSchema_inWater,
   eventSchema_matched_near_coast,
   eventSchema_matched_no_coord,
   eventSchema_matched_no_date,
   eventSchema_matched_noisy,
   eventSchema_matched_offshore,
-  eventSchema_matched_with_port_event,
-  eventSchema_matched_with_port_event_confidence_2,
-  eventSchema_matched_without_port_event,
   eventSchema_onLand,
   eventSchema_umatched_near_coast,
   eventSchema_umatched_offshore,
+  eventSchema_with_low_confidence,
 } from './fixtures/eventSchema';
+import { vesselZone } from '../src/pipeline/features/bathymetry';
 
 jest.mock('parquetjs', () => ({
   __esModule: true,
@@ -217,12 +217,12 @@ describe('4wings_helpers', () => {
     });
 
     it('match state logic produces correct match reason code', () => {
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
+      const scoring = generateScoring(eventSchema_matched_near_coast);
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
       );
 
-      const scoring_2 = generateScoring(eventSchema_matched_without_port_event);
+      const scoring_2 = generateScoring(eventSchema_matched_offshore);
       expect(scoring_2.reason_codes).toContain(
         EReasonCodesStatic.matched_to_public_ais,
       );
@@ -247,7 +247,7 @@ describe('4wings_helpers', () => {
     });
 
     it('adds near-coast / EEZ / MPA reason codes correctly', () => {
-      const scoring = generateScoring(eventSchema_matched_with_port_event);
+      const scoring = generateScoring(eventSchema_context_layers);
 
       expect(scoring.reason_codes).toEqual(
         expect.arrayContaining([
@@ -260,7 +260,7 @@ describe('4wings_helpers', () => {
 
     it('adds low detection confidence reason', () => {
       const scoring = generateScoring(
-        eventSchema_matched_with_port_event_confidence_2,
+        eventSchema_with_low_confidence,
       );
 
       expect(scoring.reason_codes).toContain(
@@ -288,7 +288,7 @@ describe('4wings_helpers', () => {
 
     it('importance is higher in MPA than offshore', () => {
       const offshore = generateScoring(eventSchema_umatched_offshore);
-      const mpa = generateScoring(eventSchema_matched_with_port_event);
+      const mpa = generateScoring(eventSchema_context_layers);
 
       expect(mpa.triage_score).toBeGreaterThan(offshore.triage_score!);
     });
@@ -641,5 +641,57 @@ describe('Validation', () => {
 
     const validationSample2 = createValidationSample(eventSchema_inWater);
     expect(validationSample2.label).toBe(EValidationLabel.TP);
+  });
+});
+
+describe('Context_layers', () => {
+
+  // --- Shallow Water (depth > -50) ---
+  it('should return isShallowWater=true for depth above shallow threshold (0)', () => {
+    const result = vesselZone('0');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  it('should return isShallowWater=true for depth above shallow threshold (-10)', () => {
+    const result = vesselZone('-10');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  it('should return isShallowWater=true for positive depth (10)', () => {
+    const result = vesselZone('10');
+    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+  });
+
+  // --- Fishing Zone (-200 < depth <= -50) ---
+  it('should return isFishingZone=true exactly at shallow threshold (-50)', () => {
+    const result = vesselZone('-50');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  it('should return isFishingZone=true for depth in fishing range (-100)', () => {
+    const result = vesselZone('-100');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  it('should return isFishingZone=true just above deep threshold (-199)', () => {
+    const result = vesselZone('-199');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+  });
+
+  // --- Deep Water (depth <= -200) ---
+  it('should return isDeepWater=true exactly at deep threshold (-200)', () => {
+    const result = vesselZone('-200');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+  });
+
+  it('should return isDeepWater=true for depth below deep threshold (-500)', () => {
+    const result = vesselZone('-500');
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+  });
+
+  // --- Undefined / Edge cases ---
+  it('should return all false when bathymetry is undefined', () => {
+    const result = vesselZone(undefined);
+    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: false });
   });
 });

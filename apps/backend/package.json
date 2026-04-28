@@ -17,7 +17,7 @@
     "lint": "eslint ./**/*.{ts,js}",
     "format": "prettier --write ./**/*.{ts,js,json,md}",
     "typecheck": "tsc --noEmit",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests -t .*"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.60.0",

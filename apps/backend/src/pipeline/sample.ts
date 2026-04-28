@@ -56,6 +56,7 @@ import {
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
 import { export_run_metadata } from './export/export';
+import { getExecutionDuration } from '@packages/utils';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -294,7 +295,7 @@ const validation = async () => {
       'region-dataset': 'public-eez-areas',
       'region-id': 5669,
     } as any;
-
+    const strata_1_start = formatTimestamp();
     const strata_1_samples = await getValidationSamples(
       baseURL4wings,
       source4wings,
@@ -327,6 +328,7 @@ const validation = async () => {
 
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_1_samples.metadata);
+    const strata_1_end = formatTimestamp();
     const strata_1_manifest: IValidationManifest = {
       strata: EValidationStrata.distance_to_coast,
       stratum_sample_sizes: {
@@ -334,6 +336,7 @@ const validation = async () => {
         offshore: offshore.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_1_start, strata_1_end) / 1000)
     };
     setManifest.add(strata_1_manifest);
 
@@ -377,7 +380,7 @@ const validation = async () => {
       'region-dataset': 'public-eez-areas',
       'region-id': 5669,
     } as any;
-
+    const strata_2_start = formatTimestamp()
     const strata_2_samples_1 = await getValidationSamples(
       baseURL4wings,
       source4wings,
@@ -412,6 +415,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_2_samples_1.metadata);
     configSets.add(strata_2_samples_2.metadata);
+    const strata_2_end = formatTimestamp()
     const strata_2_manifest: IValidationManifest = {
       strata: EValidationStrata.confidence_tier,
       stratum_sample_sizes: {
@@ -419,6 +423,7 @@ const validation = async () => {
         low_confidence: strata_2_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_2_start, strata_2_end) / 1000)
     };
     setManifest.add(strata_2_manifest);
 
@@ -490,7 +495,7 @@ const validation = async () => {
         ],
       },
     };
-
+    const strata_3_start = formatTimestamp()
     const strata_3_samples_1 = await postValidationSamples(
       baseURL4wings,
       source4wings,
@@ -527,6 +532,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_3_samples_1.metadata);
     configSets.add(strata_3_samples_2.metadata);
+    const strata_3_end = formatTimestamp()
     const strata_3_manifest: IValidationManifest = {
       strata: EValidationStrata.density,
       stratum_sample_sizes: {
@@ -534,6 +540,7 @@ const validation = async () => {
         low_density: strata_3_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
+      execution_duration_sec: Math.floor(getExecutionDuration(strata_3_start, strata_3_end) / 1000)
     };
     setManifest.add(strata_3_manifest);
 

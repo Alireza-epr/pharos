@@ -1,5 +1,5 @@
 import { IConfigJSON, IEventSchema } from "@packages/types";
-import { deepSortObject } from "@packages/utils";
+import { deepSortObject, getExecutionDuration } from "@packages/utils";
 import { getGitCommitSHA } from "../../helpers/utils/backendUtils";
 
 
@@ -12,9 +12,7 @@ export const export_run_metadata = async (a_Events: IEventSchema[], a_Start: str
         }
     }
 
-    const startDate = new Date(a_Start.replace(" ", "T"))
-    const endDate = new Date(a_End.replace(" ", "T"))
-    const execution_duration_ms = endDate.getTime() - startDate.getTime()
+    const execution_duration_ms = getExecutionDuration(a_Start, a_End)
 
     const sources = a_Events.flatMap(event => event.run_metadata.config_json.flatMap(json => json.source))
     const uniqueSources = [...new Set(sources)];

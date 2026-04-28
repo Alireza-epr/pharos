@@ -118,4 +118,5 @@ export interface IValidationManifest {
     [key: string]: number;
   };
   run_metadata: IRunMetadata;
+  execution_duration_sec: number;
 }
