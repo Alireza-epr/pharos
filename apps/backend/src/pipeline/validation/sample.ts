@@ -48,27 +48,27 @@ export const isOnLand = (
 export const createValidationSample = (
   a_EventSchema: IEventSchema,
 ): IValidationSample => {
-  
   const isEventOnLand = isOnLand(
     landPolygons,
     a_EventSchema.lon,
     a_EventSchema.lat,
   );
 
-  let reason_codes = a_EventSchema.scoring.reason_codes?.join(", ").trim()
+  let reason_codes = a_EventSchema.scoring.reason_codes?.join(', ').trim();
   return {
     event_id: a_EventSchema.event_id,
     timestamp_utc: a_EventSchema.timestamp_utc,
     lon: a_EventSchema.lon,
     lat: a_EventSchema.lat,
     matched_flag: a_EventSchema.matched_flag,
-    bathymetry: a_EventSchema.context_layers.Bathymetry.enrichments[0].value ?? "",
+    bathymetry:
+      a_EventSchema.context_layers.Bathymetry.enrichments[0].value ?? '',
     source: a_EventSchema.source,
     triage_score: a_EventSchema.scoring.triage_score,
     uncertainty_score: a_EventSchema.scoring.uncertainty_score,
     label: isEventOnLand ? EValidationLabel.FP : EValidationLabel.TP,
     failure_mode: isEventOnLand ? EValidationFailureMode.on_land : '',
-    notes: reason_codes ?? "",
+    notes: reason_codes ?? '',
   };
 };
 
@@ -90,7 +90,7 @@ export const getValidationSamples = async (
   a_Source: T4wingsSource,
   a_URLParam: I4wingsReportGetURLParams,
   a_Length: number,
-  a_Resolution: number
+  a_Resolution: number,
 ): Promise<IValidationResp> => {
   const metadata: IConfigJSON = {
     source: a_Source,
@@ -134,12 +134,16 @@ export const getValidationSamples = async (
   for (const entry4wings of reducedEntriesNr) {
     configuration.clear();
     configuration.add(resp4wings.metadata);
-    const eventSchema = await createEventSchema(configuration, a_Resolution, entry4wings);
+    const eventSchema = await createEventSchema(
+      configuration,
+      a_Resolution,
+      entry4wings,
+    );
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
     } else {
-      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
+      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
     }
   }
 
@@ -166,7 +170,7 @@ export const postValidationSamples = async (
   a_URLParam: I4wingsReportPostURLParams,
   a_BodyParam: I4wingsReportPostBodyParams,
   a_Length: number,
-  a_Resolution: number
+  a_Resolution: number,
 ): Promise<IValidationResp> => {
   const metadata: IConfigJSON = {
     source: a_Source,
@@ -213,12 +217,16 @@ export const postValidationSamples = async (
   for (const entry4wings of reducedEntriesNr) {
     configuration.clear();
     configuration.add(resp4wings.metadata);
-    const eventSchema = await createEventSchema(configuration, a_Resolution, entry4wings);
+    const eventSchema = await createEventSchema(
+      configuration,
+      a_Resolution,
+      entry4wings,
+    );
 
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
     } else {
-      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
+      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
     }
   }
 

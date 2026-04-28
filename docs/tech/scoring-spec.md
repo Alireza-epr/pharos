@@ -33,6 +33,7 @@ Importance answers:
 > "If this event is real, how important is it?"
 
 It is based on environmental and contextual factors such as:
+
 - inside EEZ
 - inside MPA
 - near coast
@@ -50,6 +51,7 @@ Uncertainty answers:
 > "How unreliable or incomplete is this event?"
 
 It is based on:
+
 - missing required fields
 - noisy vessel signals
 - AIS matching status
@@ -68,8 +70,9 @@ Triage answers:
 Triage is a deterministic value in the range **[0, 1]**.
 
 This ensures:
-  - Important events are always prioritized
-  - Uncertainty increases urgency without overpowering importance
+
+- Important events are always prioritized
+- Uncertainty increases urgency without overpowering importance
 
 ---
 
@@ -85,12 +88,12 @@ This ensures:
 
 ### Example Contributions
 
-- inside_eez → +0.2  
-- inside_mpa → +0.5  
-- near_coast → +0.3  
-- shallow water + EEZ → +0.25  
-- shallow water + MPA → +0.3  
-- cargo vessel in fishing/shallow zone → +0.2  
+- inside_eez → +0.2
+- inside_mpa → +0.5
+- near_coast → +0.3
+- shallow water + EEZ → +0.25
+- shallow water + MPA → +0.3
+- cargo vessel in fishing/shallow zone → +0.2
 
 Final importance is clamped:
 
@@ -126,10 +129,10 @@ Reason codes provide explainability.
 They include:
 
 - `inside_eez`  
-  Detection is inside an Exclusive Economic Zone. 
+  Detection is inside an Exclusive Economic Zone.
 
 - `inside_mpa`  
-  Detection is inside a Marine Protected Area.   
+  Detection is inside a Marine Protected Area.
 
 - `near_coast`  
   Detection is close to coastline
@@ -157,7 +160,7 @@ They include:
 
 - `noisy_vessel`  
   Detection is flagged as noisy according to the source metadata.
-  Reference: https://globalfishingwatch.org/our-apis/documentation#example-9-report-indonesia-filter-by-matched-detections-example-of-noisy-vessel  
+  Reference: https://globalfishingwatch.org/our-apis/documentation#example-9-report-indonesia-filter-by-matched-detections-example-of-noisy-vessel
 
 - `missing_confidence_proxy`  
   `low_detection_confidence`  
@@ -165,7 +168,7 @@ They include:
 
 - `missing_required_field:<fieldname>`  
   Indicates a missing required field.
-  Required fields: dataset, date, lat, lon, vesselId, mmsi, shipName, vesselType  
+  Required fields: dataset, date, lat, lon, vesselId, mmsi, shipName, vesselType
 
 They do not imply legality or intent.
 
@@ -187,7 +190,7 @@ Default thresholds used to calculate scoring(configurable):
 
 - near_coast_threshold = 10,
 - shallow_water_threshold = -50,
-- deep_water_threshold = -200,   
+- deep_water_threshold = -200,
 - low_detection_confidence_threshold = 2
 
 These values are **defaults only** and can be adjusted via configuration:
@@ -200,9 +203,9 @@ These values are **defaults only** and can be adjusted via configuration:
 
 This framework does not:
 
-- detect illegal activity  
-- infer intent  
-- confirm dark vessels  
-- replace human analysis  
+- detect illegal activity
+- infer intent
+- confirm dark vessels
+- replace human analysis
 
 It is designed for prioritization and transparency only.

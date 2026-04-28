@@ -43,7 +43,7 @@ export const deepSortObject = (a_Object: any): any => {
     return a_Object.map(deepSortObject);
   }
 
-  if (a_Object && typeof a_Object === 'object') {
+  if (a_Object && typeof a_Object === "object") {
     return Object.keys(a_Object)
       .sort()
       .reduce((acc: any, key) => {
@@ -58,10 +58,8 @@ export const deepSortObject = (a_Object: any): any => {
   return a_Object;
 };
 
-export const getExecutionDuration = (
-  a_Start: string, a_End: string
-) => {
-  const startDate = new Date(a_Start.replace(" ", "T"))
-  const endDate = new Date(a_End.replace(" ", "T"))
-  return endDate.getTime() - startDate.getTime()
-}
+export const getExecutionDuration = (a_Start: string, a_End: string) => {
+  const startDate = new Date(a_Start.replace(" ", "T"));
+  const endDate = new Date(a_End.replace(" ", "T"));
+  return endDate.getTime() - startDate.getTime();
+};

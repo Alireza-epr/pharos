@@ -26,6 +26,7 @@ AOI geometry (WGS84) is defined by the following polygon coordinates:
 - Longitude 14.68, Latitude 55.27
 - Longitude 14.69, Latitude 55.11
 - Longitude 14.09, Latitude 55.08
+
 ---
 
 ## Time Window

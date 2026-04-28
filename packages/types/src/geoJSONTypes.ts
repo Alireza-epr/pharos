@@ -1,11 +1,11 @@
 // Geometry Interfaces
 export type TGeoJSONGeometryType =
-  | 'Point'
-  | 'LineString'
-  | 'Polygon'
-  | 'MultiPoint'
-  | 'MultiLineString'
-  | 'MultiPolygon';
+  | "Point"
+  | "LineString"
+  | "Polygon"
+  | "MultiPoint"
+  | "MultiLineString"
+  | "MultiPolygon";
 
 export interface IGeometry {
   type: TGeoJSONGeometryType;
@@ -14,39 +14,39 @@ export interface IGeometry {
 
 // Specific geometries
 export interface IPointGeometry extends IGeometry {
-  type: 'Point';
+  type: "Point";
   coordinates: [number, number]; // [lng, lat]
 }
 
 export interface ILineStringGeometry extends IGeometry {
-  type: 'LineString';
+  type: "LineString";
   coordinates: [number, number][];
 }
 
 export interface IPolygonGeometry extends IGeometry {
-  type: 'Polygon';
+  type: "Polygon";
   coordinates: [[number, number][]]; // array of rings
 }
 
 export interface IMultiPolygonGeometry extends IGeometry {
-  type: 'MultiPolygon';
+  type: "MultiPolygon";
   coordinates: number[][][][]; // array of rings
 }
 
 export interface IMultiLineStringGeometry extends IGeometry {
-  type: 'MultiLineString';
+  type: "MultiLineString";
   coordinates: number[][][]; // array of rings
 }
 
 // Feature Interface
 export interface IFeature<G extends IGeometry = IGeometry, P = any> {
-  type: 'Feature';
+  type: "Feature";
   geometry: G;
   properties: P; // optional metadata
 }
 
 // FeatureCollection Interface
 export interface FeatureCollection<G extends IGeometry = IGeometry, P = any> {
-  type: 'FeatureCollection';
+  type: "FeatureCollection";
   features: IFeature<G, P>[];
 }

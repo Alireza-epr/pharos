@@ -97,7 +97,7 @@ export const generateHotspots = (
 
   const recurrenceMap = new Map<
     string,
-    { recurrence_count: number; days: number;days_with_unmatched: number }
+    { recurrence_count: number; days: number; days_with_unmatched: number }
   >();
   for (const [cell_id, hs] of groupedHotspots) {
     recurrenceMap.set(cell_id, {
@@ -165,6 +165,10 @@ export const featureFromHotspot = (
   });
 };
 
-export const getHotspotCellId = (a_Lat: number, a_Lon: number, a_Resolution:number) => {
+export const getHotspotCellId = (
+  a_Lat: number,
+  a_Lon: number,
+  a_Resolution: number,
+) => {
   return latLngToCell(a_Lat, a_Lon, a_Resolution);
-}
+};

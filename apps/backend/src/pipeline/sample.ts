@@ -46,12 +46,12 @@ import {
   getValidationSamples,
   postValidationSamples,
 } from './validation/sample';
-import { 
-  readCoastlinePolylines, 
-  readLandPolygons, 
-  readEEZPolygons, 
-  readMPAPolygons, 
-  readBathymetryTiles
+import {
+  readCoastlinePolylines,
+  readLandPolygons,
+  readEEZPolygons,
+  readMPAPolygons,
+  readBathymetryTiles,
 } from '../helpers/utils/datasetUtils';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
@@ -66,8 +66,8 @@ export const mpaPolygons = readMPAPolygons();
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
-  const start = formatTimestamp()
-  await readBathymetryTiles()
+  const start = formatTimestamp();
+  await readBathymetryTiles();
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
@@ -117,7 +117,10 @@ const main = async () => {
     return;
   }
 
-  log(`Preparing event schema for ${entries4wings.length} entries...`, ELogType.info);
+  log(
+    `Preparing event schema for ${entries4wings.length} entries...`,
+    ELogType.info,
+  );
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -125,10 +128,14 @@ const main = async () => {
     configuration.add(resp4wings.metadata);
 
     try {
-      const eventSchema = await createEventSchema(configuration, resolution, thisEntry);
+      const eventSchema = await createEventSchema(
+        configuration,
+        resolution,
+        thisEntry,
+      );
       //console.log('Event Schema', eventSchema);
-      if(eventSchema.rejected){
-        log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error)
+      if (eventSchema.rejected) {
+        log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
       }
       events.push(eventSchema);
     } catch (error) {
@@ -140,7 +147,10 @@ const main = async () => {
   const sortedEvents = sortEventSchema(notRejectedEvents);
   const hotspots = generateHotspots(sortedEvents, resolution);
 
-  log(`Preparing outputs in ${output}, no. entry: ${notRejectedEvents.length}`, ELogType.info);
+  log(
+    `Preparing outputs in ${output}, no. entry: ${notRejectedEvents.length}`,
+    ELogType.info,
+  );
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, IEventProperties> = {
@@ -156,7 +166,7 @@ const main = async () => {
         confidence_proxy: event.confidence_proxy,
         distance_to_coast_km: event.distance_to_coast_km,
         context_layers: event.context_layers,
-        scoring: event.scoring
+        scoring: event.scoring,
       },
       geometry: event.geom,
     })),
@@ -166,9 +176,10 @@ const main = async () => {
   //event.parquet
   const rows = sortedEvents.map((event) => {
     const reason_codes = event.scoring.reason_codes;
-    let edge_case_flags: { [key in EReasonCodes]?: boolean } = Object.fromEntries(
-      Object.keys(EReasonCodesStatic).map((key) => [key, false])
-    );
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } =
+      Object.fromEntries(
+        Object.keys(EReasonCodesStatic).map((key) => [key, false]),
+      );
 
     if (reason_codes) {
       for (const reason_code of reason_codes) {
@@ -226,7 +237,7 @@ const main = async () => {
   const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features);
   const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features);
   const time_range = getTimeRange(geojson.features);
-  const matching_stats = getMatchingStats(geojson.features)
+  const matching_stats = getMatchingStats(geojson.features);
   const data_quality = {
     row_count: geojson.features.length,
     matching_stats: matching_stats,
@@ -263,8 +274,8 @@ const main = async () => {
   );
 
   //run_metadata.json
-  const end = formatTimestamp()
-  const run_metadata = await export_run_metadata(sortedEvents, start, end)
+  const end = formatTimestamp();
+  const run_metadata = await export_run_metadata(sortedEvents, start, end);
   fs.writeFileSync(
     `${output}run_metadata.json`,
     JSON.stringify(run_metadata, null, 2),
@@ -275,7 +286,7 @@ const main = async () => {
 
 const validation = async () => {
   log('Starting validation...', ELogType.info);
-  await readBathymetryTiles()
+  await readBathymetryTiles();
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
   const setManifest = new Set<IValidationManifest>();
 
@@ -301,7 +312,7 @@ const validation = async () => {
       source4wings,
       strata_1_url,
       50,
-      resolution
+      resolution,
     );
 
     let near_coast: IValidationSample[] = [];
@@ -336,7 +347,9 @@ const validation = async () => {
         offshore: offshore.length,
       },
       run_metadata: await generateRunMetadata(configSets),
-      execution_duration_sec: Math.floor(getExecutionDuration(strata_1_start, strata_1_end) / 1000)
+      execution_duration_sec: Math.floor(
+        getExecutionDuration(strata_1_start, strata_1_end) / 1000,
+      ),
     };
     setManifest.add(strata_1_manifest);
 
@@ -380,13 +393,13 @@ const validation = async () => {
       'region-dataset': 'public-eez-areas',
       'region-id': 5669,
     } as any;
-    const strata_2_start = formatTimestamp()
+    const strata_2_start = formatTimestamp();
     const strata_2_samples_1 = await getValidationSamples(
       baseURL4wings,
       source4wings,
       strata_2_url_1,
       25,
-      resolution
+      resolution,
     );
 
     const strata_2_samples_2 = await getValidationSamples(
@@ -394,7 +407,7 @@ const validation = async () => {
       source4wings,
       strata_2_url_2,
       25,
-      resolution
+      resolution,
     );
 
     const strata_2_csv = csvString(
@@ -415,7 +428,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_2_samples_1.metadata);
     configSets.add(strata_2_samples_2.metadata);
-    const strata_2_end = formatTimestamp()
+    const strata_2_end = formatTimestamp();
     const strata_2_manifest: IValidationManifest = {
       strata: EValidationStrata.confidence_tier,
       stratum_sample_sizes: {
@@ -423,7 +436,9 @@ const validation = async () => {
         low_confidence: strata_2_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
-      execution_duration_sec: Math.floor(getExecutionDuration(strata_2_start, strata_2_end) / 1000)
+      execution_duration_sec: Math.floor(
+        getExecutionDuration(strata_2_start, strata_2_end) / 1000,
+      ),
     };
     setManifest.add(strata_2_manifest);
 
@@ -495,14 +510,14 @@ const validation = async () => {
         ],
       },
     };
-    const strata_3_start = formatTimestamp()
+    const strata_3_start = formatTimestamp();
     const strata_3_samples_1 = await postValidationSamples(
       baseURL4wings,
       source4wings,
       strata_3_url_1,
       strata_3_body_1 as any,
       25,
-      resolution
+      resolution,
     );
 
     const strata_3_samples_2 = await postValidationSamples(
@@ -511,7 +526,7 @@ const validation = async () => {
       strata_3_url_2,
       strata_3_body_2 as any,
       25,
-      resolution
+      resolution,
     );
 
     const strata_3_csv = csvString(
@@ -532,7 +547,7 @@ const validation = async () => {
     const configSets = new Set<IConfigJSON>();
     configSets.add(strata_3_samples_1.metadata);
     configSets.add(strata_3_samples_2.metadata);
-    const strata_3_end = formatTimestamp()
+    const strata_3_end = formatTimestamp();
     const strata_3_manifest: IValidationManifest = {
       strata: EValidationStrata.density,
       stratum_sample_sizes: {
@@ -540,7 +555,9 @@ const validation = async () => {
         low_density: strata_3_samples_2.validationSamples.length,
       },
       run_metadata: await generateRunMetadata(configSets),
-      execution_duration_sec: Math.floor(getExecutionDuration(strata_3_start, strata_3_end) / 1000)
+      execution_duration_sec: Math.floor(
+        getExecutionDuration(strata_3_start, strata_3_end) / 1000,
+      ),
     };
     setManifest.add(strata_3_manifest);
 
@@ -588,16 +605,16 @@ let configPath = null;
 if (configIndex !== -1 && args[configIndex + 1]) {
   configPath = args[configIndex + 1];
 } else {
-  configPath = "src/config/pilot.json";
+  configPath = 'src/config/pilot.json';
 }
-const pilot = JSON.parse( fs.readFileSync(configPath, 'utf8'))
-if(!pilot){
+const pilot = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+if (!pilot) {
   throw new Error(`Config file not found: ${configPath}`);
 }
 const baseURL4wings = pilot.URL;
 const source4wings = pilot.source as any;
 const output = pilot.output;
-const resolution = pilot.hotspotResolution
+const resolution = pilot.hotspotResolution;
 
 if (args.includes('--main')) {
   main().catch(console.error);

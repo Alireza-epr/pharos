@@ -12,7 +12,7 @@ https://<DOMAIN>/api/v1
 
 ## Table of Contents
 
-* [{{Endpoint Name}}](#{{endpoint-anchor}})
+- [{{Endpoint Name}}](#{{endpoint-anchor}})
 
 ---
 
@@ -51,23 +51,22 @@ https://<DOMAIN>/api/v1
 
 ### Errors:
 
-* `400 Bad Request` – {{Reason}}
-* `401 Unauthorized` – {{Reason}}
-* `403 Forbidden` – {{Reason}}
-* `404 Not Found` – {{Reason}}
-* `409 Conflict` – {{Reason}}
-* `500 Internal Server Error` – {{Reason}}
+- `400 Bad Request` – {{Reason}}
+- `401 Unauthorized` – {{Reason}}
+- `403 Forbidden` – {{Reason}}
+- `404 Not Found` – {{Reason}}
+- `409 Conflict` – {{Reason}}
+- `500 Internal Server Error` – {{Reason}}
 
 ---
-
 
 ---
 
 ## Notes
 
-* {{Any important notes or constraints}}
-* {{Rate limiting, pagination, etc.}}
+- {{Any important notes or constraints}}
+- {{Rate limiting, pagination, etc.}}
 
 ---
 
-*End of Documentation*
+_End of Documentation_

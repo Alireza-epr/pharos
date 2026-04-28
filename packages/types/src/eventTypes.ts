@@ -1,11 +1,11 @@
 import {
-  EReasonCodes, 
+  EReasonCodes,
   ERejectedEventSchemaReasons,
   EContextLayerDatasets,
   EContextLayers,
   EFetchMethods,
-} from '@packages/enum';
-import { IGeometry } from './geoJSONTypes';
+} from "@packages/enum";
+import { IGeometry } from "./geoJSONTypes";
 import {
   I4wingsEntry,
   I4wingsReportPostBodyParams,
@@ -15,7 +15,7 @@ import {
   T4wingsSource,
   TEventSource,
   TGlobalEvent,
-} from './gfwTypes';
+} from "./gfwTypes";
 
 export interface IContextLayer {
   dataset: EContextLayerDatasets;
@@ -66,7 +66,7 @@ export interface IEventSchema {
   run_metadata: IRunMetadata;
   scoring: IScoring;
   rejected: false;
-  hotspot_cell_id: string
+  hotspot_cell_id: string;
 }
 
 export interface IRejectedEventSchema {
@@ -86,7 +86,7 @@ export interface IConfigJSON {
 export interface IContextLayerEnrichment {
   id?: string;
   label?: string;
-  value?: string
+  value?: string;
 }
 export interface IContextLayer {
   dataset: EContextLayerDatasets;

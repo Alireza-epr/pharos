@@ -29,7 +29,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -37,26 +37,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -117,10 +102,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.3,
-        55.25
-      ]
+      "coordinates": [14.3, 55.25]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -155,7 +137,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -163,26 +145,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -243,10 +210,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.4,
-        55.21
-      ]
+      "coordinates": [14.4, 55.21]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -281,7 +245,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -289,26 +253,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -368,10 +317,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.13,
-        55.11
-      ]
+      "coordinates": [14.13, 55.11]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a4ffffffff"
@@ -406,7 +352,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -414,26 +360,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -494,10 +425,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.2,
-        55.18
-      ]
+      "coordinates": [14.2, 55.18]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -532,7 +460,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -540,26 +468,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -620,10 +533,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.13,
-        55.24
-      ]
+      "coordinates": [14.13, 55.24]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -658,7 +568,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -666,26 +576,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -745,10 +640,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.24,
-        55.19
-      ]
+      "coordinates": [14.24, 55.19]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -783,7 +675,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -791,26 +683,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -870,10 +747,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.11,
-        55.16
-      ]
+      "coordinates": [14.11, 55.16]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -908,7 +782,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -916,26 +790,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -995,10 +854,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.22,
-        55.15
-      ]
+      "coordinates": [14.22, 55.15]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -1033,7 +889,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1041,26 +897,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1121,10 +962,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.68,
-        55.16
-      ]
+      "coordinates": [14.68, 55.16]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a73fffffff"
@@ -1159,7 +997,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1167,26 +1005,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1246,10 +1069,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.21,
-        55.2
-      ]
+      "coordinates": [14.21, 55.2]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -1284,7 +1104,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1292,26 +1112,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1379,10 +1184,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.41,
-        55.22
-      ]
+      "coordinates": [14.41, 55.22]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -1417,7 +1219,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1425,26 +1227,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1505,10 +1292,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.17,
-        55.16
-      ]
+      "coordinates": [14.17, 55.16]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -1543,7 +1327,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1551,26 +1335,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1630,10 +1399,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.3,
-        55.15
-      ]
+      "coordinates": [14.3, 55.15]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -1668,7 +1434,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1676,26 +1442,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1756,10 +1507,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.09,
-        55.09
-      ]
+      "coordinates": [14.09, 55.09]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a4bfffffff"
@@ -1794,7 +1542,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1802,26 +1550,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -1882,10 +1615,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.33,
-        55.24
-      ]
+      "coordinates": [14.33, 55.24]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -1920,7 +1650,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1928,26 +1658,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -2007,10 +1722,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.29,
-        55.23
-      ]
+      "coordinates": [14.29, 55.23]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"
@@ -2045,7 +1757,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2053,26 +1765,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -2133,10 +1830,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.19,
-        55.23
-      ]
+      "coordinates": [14.19, 55.23]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a43fffffff"
@@ -2171,7 +1865,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "0a4b6e2b67fce410fa9b74082c4592968530777a",
+      "code_version": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
       "config_json": [
         {
           "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2179,26 +1873,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -2259,10 +1938,7 @@
     },
     "geom": {
       "type": "Point",
-      "coordinates": [
-        14.41,
-        55.21
-      ]
+      "coordinates": [14.41, 55.21]
     },
     "rejected": false,
     "hotspot_cell_id": "851f2a47fffffff"

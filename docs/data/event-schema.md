@@ -128,8 +128,8 @@ This defines the H3 cell id in which the event is located based on its spatial p
     "uncertainty_score": null,
     "reason_codes": [""]
   },
-  "distance_to_coast_km" : 0,
-  "context_layers" : {
+  "distance_to_coast_km": 0,
+  "context_layers": {
     "EEZ": {
       "dataset": "World_EEZ_20231025_LR",
       "version": "v12",

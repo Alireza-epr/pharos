@@ -76,7 +76,7 @@ npm run pipeline:validation
 
 ### What this does:
 
-1. Builds the pipeline using the root workspace setup  
+1. Builds the pipeline using the root workspace setup
 2. Executes the pipeline script in:
 
 ```text
@@ -87,11 +87,15 @@ apps/backend/dist/pipeline/sample.js
 
 The sample pipeline supports a --config parameter. The config path is relative to the backend src directory.
 Do not include backend in the path.
+
 - Default config:
+
 ```text
 src/config/pilot.json
 ```
+
 - Example alternative config (unmatched-heavy export):
+
 ```text
 src/config/pilot_unmatched.json
 ```
@@ -102,18 +106,24 @@ src/config/pilot_unmatched.json
 
 Some backend features depend on a large bathymetry dataset that is not included in the repository due to its size.
 After starting the system, run the following command to download and extract the dataset:
+
 ```bash
 npm run setup:data
 ```
+
 This will:
-  - Download the dataset from S3
-  - Extract it into:
-  ```text
-  apps/backend/data/bathymetry_rasters/
-  ```
-  - Remove the temporary .zip file
+
+- Download the dataset from S3
+- Extract it into:
+
+```text
+apps/backend/data/bathymetry_rasters/
+```
+
+- Remove the temporary .zip file
 
 **Important Notes**
+
 - The dataset size is approximately **4.5GB**
   - Download time depends on your internet speed
   - May incur bandwidth costs depending on your network/provider
@@ -129,15 +139,17 @@ To run `npm run setup:data`, ensure your system has:
 - tar (with zip support) or a compatible extraction tool
 
 #### Windows
+
 - Works in PowerShell (Windows 10+)
 - Uses built-in curl and tar
 
 #### Linux (Ubuntu/Debian)
+
 sudo apt install curl
 
 #### macOS
-brew install curl
 
+brew install curl
 
 ### Troubleshooting
 
@@ -180,8 +192,8 @@ From the `infrastructure/` folder:
 docker-compose up --build
 ```
 
-- Backend container runs on port `1370` (default, can be overridden via `.env`)  
-- Frontend container runs on port `5173`  
+- Backend container runs on port `1370` (default, can be overridden via `.env`)
+- Frontend container runs on port `5173`
 
 > Backend health is checked periodically every 30s. Frontend will wait until backend container is available at startup.
 
@@ -234,7 +246,7 @@ npm run e2e --workspace=apps/frontend
 
 ### UI not loading
 
-- Run `npm install`  
+- Run `npm install`
 - Restart with `npm run frontend:dev`
 
 ### Docker-related issues
@@ -257,4 +269,3 @@ npm run packages:build
 ```
 
 - Keep `pilot.json` updated for correct execution
-

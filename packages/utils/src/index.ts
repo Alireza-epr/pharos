@@ -1,1 +1,1 @@
-export * from "./generalUtils"
+export * from "./generalUtils";

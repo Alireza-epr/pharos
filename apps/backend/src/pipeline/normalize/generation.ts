@@ -1,4 +1,9 @@
-import { EReasonCodes, EReasonCodesStatic, EEventType, EVessleType } from '@packages/enum';
+import {
+  EReasonCodes,
+  EReasonCodesStatic,
+  EEventType,
+  EVessleType,
+} from '@packages/enum';
 import {
   IConfigJSON,
   IEventSchema,
@@ -99,7 +104,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   if (missingFields.length > 0 && matched) {
     uncertainty_score += Math.min(
       missingFields.length * WEIGHTS.missing_field,
-      0.4
+      0.4,
     );
 
     for (const field of missingFields) {
@@ -111,8 +116,6 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     uncertainty_score += WEIGHTS.noisy;
     reason_codes.push(EReasonCodesStatic.noisy_vessel);
   }
-
-  
 
   if (!matched) {
     uncertainty_score += WEIGHTS.unmatched;
@@ -132,18 +135,18 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  uncertainty_score = Number(Math.max(0, Math.min(1, uncertainty_score)).toFixed(2));
+  uncertainty_score = Number(
+    Math.max(0, Math.min(1, uncertainty_score)).toFixed(2),
+  );
 
   // =========================
   // B. IMPORTANCE (DOMAIN VALUE) - If this event is real, how important is it?
   // =========================
   let importance_score = 0;
 
-  const inside_eez =
-    a_EventSchema.context_layers.EEZ.enrichments.length > 0;
+  const inside_eez = a_EventSchema.context_layers.EEZ.enrichments.length > 0;
 
-  const inside_mpa =
-    a_EventSchema.context_layers.MPA.enrichments.length > 0;
+  const inside_mpa = a_EventSchema.context_layers.MPA.enrichments.length > 0;
 
   if (inside_eez) {
     importance_score += WEIGHTS.eez_importance;
@@ -160,11 +163,16 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.near_coast);
   }
 
-  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && inside_mpa) {
+  if (
+    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    inside_mpa
+  ) {
     importance_score += 0.4; // high-risk combo
   }
 
-  const {isShallowWater, isFishingZone, isDeepWater} = vesselZone(a_EventSchema.context_layers.Bathymetry.enrichments[0].value)
+  const { isShallowWater, isFishingZone, isDeepWater } = vesselZone(
+    a_EventSchema.context_layers.Bathymetry.enrichments[0].value,
+  );
 
   // 1. Fishing-relevant zone (core maritime activity zone)
   if (isFishingZone) {
@@ -185,7 +193,10 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   }
 
   // 4. Cargo vessel in fishing/shallow zones = anomaly signal
-  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && (isFishingZone || isShallowWater)) {
+  if (
+    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    (isFishingZone || isShallowWater)
+  ) {
     importance_score += 0.2;
     reason_codes.push(EReasonCodesStatic.bathymetry_cargo_anomaly_zone);
   }
@@ -203,9 +214,9 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   // =========================
   const triage_score = Math.min(
     1,
-    Number((importance_score + uncertainty_score * 0.2).toFixed(2))
+    Number((importance_score + uncertainty_score * 0.2).toFixed(2)),
   );
-  
+
   return {
     triage_score,
     uncertainty_score,

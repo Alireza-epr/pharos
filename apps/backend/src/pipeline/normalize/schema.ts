@@ -9,9 +9,7 @@ import {
 import { ERejectedEventSchemaReasons, EContextLayers } from '@packages/enum';
 import { getEEZContext } from '../features/eez';
 import { getMPAContext } from '../features/mpa';
-import {
-  distanceToCoast,
-} from '../features/coast_distance';
+import { distanceToCoast } from '../features/coast_distance';
 import {
   isISO8601Timestamp,
   isMatchedCase,
@@ -46,7 +44,7 @@ export const createEventSchema = async (
     };
   }
 
-  const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType)
+  const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType);
   if (!validVesselType) {
     return {
       reason: ERejectedEventSchemaReasons.notValidVesselType,
@@ -92,7 +90,7 @@ export const createEventSchema = async (
   //const mpa = generateMPA(a_EventEntry);
   const mpa = getMPAContext(mpaPolygons, lon, lat);
   //const rfmo = generateRFMO(a_EventEntry);
-  const bathymetry = await getBathymetryContext(lon, lat)
+  const bathymetry = await getBathymetryContext(lon, lat);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
@@ -108,7 +106,7 @@ export const createEventSchema = async (
     a_4wingsEntry.lat,
   );
 
-  const hotspot_cell_id = getHotspotCellId(lat, lon, a_HotspotResolution)
+  const hotspot_cell_id = getHotspotCellId(lat, lon, a_HotspotResolution);
 
   const eventSchema: IEventSchema = {
     version: version,

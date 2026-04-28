@@ -9,26 +9,11 @@
             "geojson": {
               "coordinates": [
                 [
-                  [
-                    14.11,
-                    55.26
-                  ],
-                  [
-                    14.68,
-                    55.27
-                  ],
-                  [
-                    14.69,
-                    55.11
-                  ],
-                  [
-                    14.09,
-                    55.08
-                  ],
-                  [
-                    14.11,
-                    55.26
-                  ]
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26]
                 ]
               ],
               "type": "Polygon"
@@ -49,10 +34,8 @@
       ]
     }
   ],
-  "run_time": "2026-04-28T11:45:58.815Z",
-  "data_source_versions": [
-    "public-global-sar-presence:v3.0"
-  ],
-  "git_commit_hash": "0a4b6e2b67fce410fa9b74082c4592968530777a",
-  "execution_duration_sec": 22
+  "run_time": "2026-04-28T14:43:50.730Z",
+  "data_source_versions": ["public-global-sar-presence:v3.0"],
+  "git_commit_hash": "df366b22dfd72d2ab0b04e47ec42b84b2ecfbb0a",
+  "execution_duration_sec": 23
 }
