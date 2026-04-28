@@ -10,7 +10,7 @@
         "lat": 55.19,
         "lon": 14.37,
         "confidence_proxy": null,
-        "distance_to_coast_km": 21.14,
+        "distance_to_coast_km": 21.13,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -1067,7 +1067,7 @@
         "lat": 55.23,
         "lon": 14.39,
         "confidence_proxy": null,
-        "distance_to_coast_km": 20.03,
+        "distance_to_coast_km": 20.02,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -1515,7 +1515,7 @@
         "lat": 55.18,
         "lon": 14.37,
         "confidence_proxy": null,
-        "distance_to_coast_km": 21.1,
+        "distance_to_coast_km": 21.09,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -2065,7 +2065,7 @@
         "lat": 55.24,
         "lon": 14.26,
         "confidence_proxy": null,
-        "distance_to_coast_km": 17.5,
+        "distance_to_coast_km": 17.49,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -2347,7 +2347,7 @@
         "lat": 55.15,
         "lon": 14.17,
         "confidence_proxy": null,
-        "distance_to_coast_km": 26.38,
+        "distance_to_coast_km": 26.39,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -2457,7 +2457,7 @@
         "lat": 55.23,
         "lon": 14.53,
         "confidence_proxy": null,
-        "distance_to_coast_km": 11.16,
+        "distance_to_coast_km": 11.15,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -2629,7 +2629,7 @@
         "lat": 55.18,
         "lon": 14.35,
         "confidence_proxy": null,
-        "distance_to_coast_km": 22.37,
+        "distance_to_coast_km": 22.36,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
@@ -3359,7 +3359,7 @@
         "lat": 55.24,
         "lon": 14.27,
         "confidence_proxy": null,
-        "distance_to_coast_km": 17.69,
+        "distance_to_coast_km": 17.68,
         "context_layers": {
           "EEZ": {
             "dataset": "World_EEZ_20231025_LR",
