@@ -14,6 +14,7 @@ import {
   isISO8601Timestamp,
   isMatchedCase,
   isValidCoordinate,
+  isValidDate,
   isVesselTypeValid,
 } from '../normalize/validation';
 import {
@@ -25,6 +26,7 @@ import {
   generateScoring,
   generateSources,
   generateVersion,
+  getISO8601,
 } from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getHotspotCellId } from '../aggregate/hotspots';
@@ -35,7 +37,7 @@ export const createEventSchema = async (
   a_HotspotResolution: number,
   a_4wingsEntry: I4wingsEntry,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
-  const validTimestamp = isISO8601Timestamp(a_4wingsEntry.entryTimestamp);
+  const validTimestamp = isValidDate(a_4wingsEntry.date);
   if (!validTimestamp) {
     return {
       reason: ERejectedEventSchemaReasons.notValidTimestamp,
@@ -53,7 +55,7 @@ export const createEventSchema = async (
     };
   }
 
-  const timestamp_utc = a_4wingsEntry.entryTimestamp;
+  const timestamp_utc = getISO8601(a_4wingsEntry.date)
 
   const validCoordinates = isValidCoordinate(
     a_4wingsEntry.lat,

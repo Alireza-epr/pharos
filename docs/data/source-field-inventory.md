@@ -17,17 +17,17 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 | --------------------- | ---------------- | --------------------------------------- | --------------------------------------------- |
 | callsign              | string           | Vessel radio callsign                   | May be missing or empty for some vessels      |
 | dataset               | string           | Dataset identifier and version          | Example: `public-global-vessel-identity:v3.0` |
-| date                  | string           | Hourly aggregated timestamp             | Format `"YYYY-MM-DD HH:mm"` (not ISO)         |
-| detections            | integer          | Number of detections within time bucket | Usually `1` in pilot observations             |
-| entryTimestamp        | string (ISO8601) | Detection entry time                    | Example: `2025-12-04T16:53:26Z`               |
-| exitTimestamp         | string (ISO8601) | Detection exit time                     | Often identical to `entryTimestamp`           |
+| date                  | string           | aggregated timestamp             | Not ISO. Format depends on temporal resolution; if ‘Entire’, use date-range query parameter value |
+| detections            | integer          | Number of SAR detections in the grid cell within time bucket | If ‘Matched’, count detections of the same vessel multiple times. If ‘Unmatched’, identity is unknown (same or different object).               |
+| entryTimestamp        | string (ISO8601) | Detection entry time                    | The earliest timestamp at which the vessel appears in any of the returned records for the selected query. |
+| exitTimestamp         | string (ISO8601) | Detection exit time                     | The latest timestamp at which the vessel appears in any of the returned records for the selected query.           |
 | firstTransmissionDate | string (ISO8601) | First AIS transmission observed         | Historical vessel metadata                    |
 | flag                  | string           | Vessel flag state (ISO country code)    | Example: `DNK`                                |
 | geartype              | string           | Vessel gear classification              | Observed value `OTHER`                        |
 | imo                   | string           | IMO vessel identifier                   | May be empty string                           |
 | lastTransmissionDate  | string (ISO8601) | Most recent AIS transmission            | May be far in the future relative to event    |
-| lat                   | number           | Latitude of detection                   | WGS84 coordinates                             |
-| lon                   | number           | Longitude of detection                  | High floating precision                       |
+| lat                   | number           | Latitude of the center of the grid cell                   | WGS84 coordinates. Format depends on spatial resolution                            |
+| lon                   | number           | Longitude of the center of the grid cell                  | WGS84 coordinates. Format depends on spatial resolution                       |
 | mmsi                  | string           | Maritime Mobile Service Identity        | Numeric but stored as string                  |
 | shipName              | string           | Vessel name                             | Capitalization varies                         |
 | vesselId              | string           | Unique vessel identifier in GFW dataset | UUID-like format                              |
@@ -119,6 +119,67 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 | lon                 | number  | Anchorage longitude        |                                  |
 | name                | string  | Port name                  |                                  |
 | topDestination      | string  | Destination classification |                                  |
+
+---
+
+# Examples 
+
+- Multiple detections — unmatched (hourly)
+```json
+    {
+        "callsign": "",
+        "dataset": "",
+        "date": "2025-10-15 05:00",
+        "detections": 2,
+        "entryTimestamp": "2025-01-01T17:49:54Z",
+        "exitTimestamp": "2025-12-31T06:07:20Z",
+        "firstTransmissionDate": "",
+        "flag": "",
+        "geartype": "",
+        "imo": "",
+        "lastTransmissionDate": "",
+        "lat": 51.1,
+        "lon": 2.440000057220459,
+        "mmsi": "",
+        "shipName": "",
+        "vesselId": "",
+        "vesselType": "",
+        "event_metadata": null
+    }
+```
+interpretation:
+During the time bucket 2025-10-15 05:00–05:59, within the grid cell centered at (51.1, 2.44), the system recorded 2 SAR detection events. No AIS match was found, so vessel identity cannot be determined. The detections may correspond to one or multiple vessels.
+For unmatched records, entryTimestamp and exitTimestamp do not describe the specific record. They represent the overall temporal bounds of the query results, and therefore are identical across all unmatched records in the same response.
+
+- Multiple detections — matched (hourly)
+```json
+    {
+        "callsign": "FOBQ",
+        "dataset": "public-global-vessel-identity:v3.0",
+        "date": "2025-10-15 05:00",
+        "detections": 2,
+        "entryTimestamp": "2025-01-08T17:41:50Z",
+        "exitTimestamp": "2025-12-19T06:07:21Z",
+        "firstTransmissionDate": "2012-01-01T02:35:28Z",
+        "flag": "FRA",
+        "geartype": "PASSENGER",
+        "imo": "9232527",
+        "lastTransmissionDate": "2026-04-27T23:59:58Z",
+        "lat": 50.97,
+        "lon": 1.7599999904632568,
+        "mmsi": "227022800",
+        "shipName": "COTE DES DUNES",
+        "vesselId": "6bf433ccd-dd6f-16f3-6b7d-5594faae8e72",
+        "vesselType": "PASSENGER",
+        "event_metadata": null
+    }
+```
+interpretation:
+During the time bucket 2025-10-15 05:00–05:59, within the grid cell centered at (50.97, 1.76), 2 SAR detection events were recorded and matched to the AIS-tracked vessel “COTE DES DUNES” (MMSI: 227022800). The exact detection timestamps within the time bucket are not available.
+Since entryTimestamp and exitTimestamp are not identical, this indicates that the vessel appears in multiple records within the query results.
+Multiple records for the same vessel may appear because the data is aggregated by both time (temporal buckets - hourly here) and space (grid cells).
+Each record represents a unique combination of a time bucket and a grid cell.
+entryTimestamp represents the earliest observation time of this vessel across all returned records, while exitTimestamp represents the latest observation time.
 
 ---
 

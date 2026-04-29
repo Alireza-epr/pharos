@@ -239,3 +239,12 @@ export const generateVersion = () => {
 export const generateCoordinate = (a_Coordinate: number) => {
   return +a_Coordinate.toFixed(3);
 };
+
+export const getISO8601 = (a_DateStr: string): string => {
+  // Convert "YYYY-MM-DD HH:mm" → "YYYY-MM-DDTHH:mm:00Z"
+  const iso = a_DateStr
+    .replace(" ", "T")   // "2025-10-15T05:00"
+    + ":00Z";            // "2025-10-15T05:00:00Z"
+
+  return iso;
+}

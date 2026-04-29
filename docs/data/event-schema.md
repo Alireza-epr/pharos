@@ -2,9 +2,8 @@
 
 This document defines a **event schema** for Iteration 1.
 
-- One event represents **one SAR vessel detection**.
+- A record represents the aggregated observation of vessel activity (or detections) within a specific grid cell during a specific time bucket.
 - AIS data, if present, is stored only as optional context.
-- No additional inference or scoring is added.
 - All coordinates use **WGS84**.
 - All timestamps use **UTC (ISO 8601)**.
 
@@ -19,8 +18,7 @@ This document defines a **event schema** for Iteration 1.
   Created as a hash of basic fields (source, time, location).
 
 - `timestamp_utc` (string)  
-  Event time in ISO 8601 UTC.  
-  Source: SAR `entryTimestamp`.
+  Derived from the start of the aggregation bucket (date) and represents the beginning of the time interval in which the detection occurred. It is not the exact detection time.
 
 - `lon` (number)  
   Longitude in decimal degrees (WGS84).
