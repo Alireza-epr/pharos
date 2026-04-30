@@ -6,7 +6,7 @@ import {
   ERejectedEventSchemaReasons,
   E4wingsDatasets,
 } from '@packages/enum';
-import { createEventSchema } from '../src/pipeline/normalize/schema';
+import { createEventSchema } from '../src/pipeline/schema/main';
 import {
   isMatchedCase,
   isValidCoordinate,
@@ -54,7 +54,7 @@ import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
 import {
   createValidationSample,
   isOnLand,
-} from '../src/pipeline/validation/sample';
+} from '../src/pipeline/validation/main';
 import { EValidationLabel } from '../src/helpers/types/validationTypes';
 import { readLandPolygons } from '../src/helpers/utils/datasetUtils';
 import {
@@ -85,11 +85,11 @@ jest.mock('@dotenvx/dotenvx', () => ({
 
 jest.mock('@turf/turf', () => ({
   config: jest.fn(),
-}))
+}));
 
 jest.mock('geotiff', () => ({
   config: jest.fn(),
-}))
+}));
 
 //jest --passWithNoTests -t 4wings_helpers
 describe('4wings_helpers', () => {
@@ -231,18 +231,14 @@ describe('4wings_helpers', () => {
     it('uncertainty increases for missing fields', () => {
       const scoring = generateScoring(eventSchema_matched_no_date);
 
-      expect(scoring.reason_codes).toContain(
-        'missing_required_field:date',
-      );
+      expect(scoring.reason_codes).toContain('missing_required_field:date');
       expect(scoring.uncertainty_score).toBeGreaterThan(0);
     });
 
     it('uncertainty increases for noisy vessel', () => {
       const scoring = generateScoring(eventSchema_matched_noisy);
 
-      expect(scoring.reason_codes).toContain(
-        EReasonCodesStatic.noisy_vessel,
-      );
+      expect(scoring.reason_codes).toContain(EReasonCodesStatic.noisy_vessel);
       expect(scoring.uncertainty_score).toBeGreaterThan(0.1);
     });
 
@@ -259,9 +255,7 @@ describe('4wings_helpers', () => {
     });
 
     it('adds low detection confidence reason', () => {
-      const scoring = generateScoring(
-        eventSchema_with_low_confidence,
-      );
+      const scoring = generateScoring(eventSchema_with_low_confidence);
 
       expect(scoring.reason_codes).toContain(
         EReasonCodesStatic.low_detection_confidence,
@@ -271,12 +265,8 @@ describe('4wings_helpers', () => {
     it('detects all missing required fields', () => {
       const scoring = generateScoring(eventSchema_matched_no_coord);
 
-      expect(scoring.reason_codes).toContain(
-        'missing_required_field:lat',
-      );
-      expect(scoring.reason_codes).toContain(
-        'missing_required_field:lon',
-      );
+      expect(scoring.reason_codes).toContain('missing_required_field:lat');
+      expect(scoring.reason_codes).toContain('missing_required_field:lon');
     });
 
     it('triage score increases when importance increases', () => {
@@ -645,53 +635,88 @@ describe('Validation', () => {
 });
 
 describe('Context_layers', () => {
-
   // --- Shallow Water (depth > -50) ---
   it('should return isShallowWater=true for depth above shallow threshold (0)', () => {
     const result = vesselZone('0');
-    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: true,
+      isFishingZone: false,
+      isDeepWater: false,
+    });
   });
 
   it('should return isShallowWater=true for depth above shallow threshold (-10)', () => {
     const result = vesselZone('-10');
-    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: true,
+      isFishingZone: false,
+      isDeepWater: false,
+    });
   });
 
   it('should return isShallowWater=true for positive depth (10)', () => {
     const result = vesselZone('10');
-    expect(result).toEqual({ isShallowWater: true, isFishingZone: false, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: true,
+      isFishingZone: false,
+      isDeepWater: false,
+    });
   });
 
   // --- Fishing Zone (-200 < depth <= -50) ---
   it('should return isFishingZone=true exactly at shallow threshold (-50)', () => {
     const result = vesselZone('-50');
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: true,
+      isDeepWater: false,
+    });
   });
 
   it('should return isFishingZone=true for depth in fishing range (-100)', () => {
     const result = vesselZone('-100');
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: true,
+      isDeepWater: false,
+    });
   });
 
   it('should return isFishingZone=true just above deep threshold (-199)', () => {
     const result = vesselZone('-199');
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: true, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: true,
+      isDeepWater: false,
+    });
   });
 
   // --- Deep Water (depth <= -200) ---
   it('should return isDeepWater=true exactly at deep threshold (-200)', () => {
     const result = vesselZone('-200');
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: false,
+      isDeepWater: true,
+    });
   });
 
   it('should return isDeepWater=true for depth below deep threshold (-500)', () => {
     const result = vesselZone('-500');
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: true });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: false,
+      isDeepWater: true,
+    });
   });
 
   // --- Undefined / Edge cases ---
   it('should return all false when bathymetry is undefined', () => {
     const result = vesselZone(undefined);
-    expect(result).toEqual({ isShallowWater: false, isFishingZone: false, isDeepWater: false });
+    expect(result).toEqual({
+      isShallowWater: false,
+      isFishingZone: false,
+      isDeepWater: false,
+    });
   });
 });

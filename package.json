@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "format": "prettier --write ./**/*.{ts,js,json,md}",
     "frontend:dev": "npm --prefix apps/frontend run dev",
     "frontend:build": "npm --prefix apps/frontend run build",
     "frontend:preview": "npm --prefix apps/frontend run preview",

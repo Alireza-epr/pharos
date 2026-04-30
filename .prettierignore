@@ -1,0 +1,5 @@
+apps/backend/dist/
+apps/backend/data/
+apps/backend/logs/
+
+apps/frontend/dist/

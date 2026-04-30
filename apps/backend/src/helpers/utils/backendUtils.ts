@@ -329,20 +329,22 @@ export const sortEventSchema = (
   });
 };
 
-export const getMatchingStats = (a_Features: IFeature<IGeometry, IEventProperties>[]): IMatchingStats => {
-  let matched = 0
-  let unmatched = 0
+export const getMatchingStats = (
+  a_Features: IFeature<IGeometry, IEventProperties>[],
+): IMatchingStats => {
+  let matched = 0;
+  let unmatched = 0;
 
-  for( const feature of a_Features ){
-    if(feature.properties.matched_flag){
-      ++matched
+  for (const feature of a_Features) {
+    if (feature.properties.matched_flag) {
+      ++matched;
     } else {
-      ++unmatched
+      ++unmatched;
     }
   }
 
   return {
     matched,
-    unmatched
-  }
-}
+    unmatched,
+  };
+};

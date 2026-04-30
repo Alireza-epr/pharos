@@ -17,7 +17,7 @@ export const config: IBackendConfig = {
     gfw_token: process.env.GFW_TOKEN ?? '',
     jwt_secret: process.env.JWT_SECRET ?? '',
     jwt_expiry: '1h',
-    refresh_token_expiry: '7d'
+    refresh_token_expiry: '7d',
   },
   port: parseInt(process.env.PORT || '1370', 10),
 };

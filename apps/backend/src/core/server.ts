@@ -25,15 +25,17 @@ app.use(responseLogger);
 
 // --- Endpoints ---
 
-// System - no auth required 
-app.use( EBaseRoutes.system, systemRoutes );
+// System - no auth required
+app.use(EBaseRoutes.system, systemRoutes);
 // Auth
-app.use( EBaseRoutes.auth, authRoutes );
+app.use(EBaseRoutes.auth, authRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {
   log(`Endpoint not found: ${req.method} ${req.originalUrl}`, ELogType.error);
-  return controllerResponse(res, EStatusCode.NOT_FOUND_404 , { error: EResponseError.EndpointNotFound })
+  return controllerResponse(res, EStatusCode.NOT_FOUND_404, {
+    error: EResponseError.EndpointNotFound,
+  });
 });
 
 // Start the server

@@ -38,6 +38,7 @@ infrastructure/    # Docker, deployment configuration, and scripts
 ---
 
 ## Scripts
+
 Common scripts (from repo root):
 
 ```bash
@@ -64,7 +65,7 @@ npm run setup:data
 For more information, please refer to [the runbook](docs/runbook.md).
 
 Important: Obtain your GFW_TOKEN from Global Fishing Watch API Token
- and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
+and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
 
 ---
 
@@ -73,12 +74,12 @@ Important: Obtain your GFW_TOKEN from Global Fishing Watch API Token
 From `infrastructure/` folder:
 
 ```bash
-cp .env.example .env 
+cp .env.example .env
 docker-compose up --build
 ```
 
-- Backend: port `1370`  
-- Frontend: port `5173`  
+- Backend: port `1370`
+- Frontend: port `5173`
 
 > Backend health is checked every 30s. Frontend waits at startup for backend.
 
@@ -97,8 +98,7 @@ This repository uses **GitHub Actions** to automatically:
 
 ## Data & Terminology Notes
 
-- **AIS-unmatched** means: _unmatched to publicly available AIS used by the detection provider_  
-- Unmatched ≠ illegal  
-- Unmatched ≠ confirmed dark vessel  
+- **AIS-unmatched** means: _unmatched to publicly available AIS used by the detection provider_
+- Unmatched ≠ illegal
+- Unmatched ≠ confirmed dark vessel
 - Scores are for **triage and inspection only**, not probabilities or risk indicators
-

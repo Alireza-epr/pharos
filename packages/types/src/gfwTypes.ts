@@ -7,8 +7,8 @@ import {
   ENeuralVesselType,
   ESpeedRange,
   EVessleType,
-} from '@packages/enum';
-import { IGeometry } from './geoJSONTypes';
+} from "@packages/enum";
+import { IGeometry } from "./geoJSONTypes";
 
 export interface IFishingEffortFilters {
   flag: EMaritimeIdentificationDigits; // flag in ('ESP', 'USA')
@@ -41,14 +41,14 @@ export type T4wingsFilter =
  * Report - URL Parameters for both POST and GET requests
  */
 export interface I4wingsReportPostURLParams {
-  'spatial-resolution'?: 'LOW' | 'HIGH'; // Low means at 10th degree resolution, High means at 100th degree resolution
-  format: 'CSV' | 'TIF' | 'JSON';
-  'group-by'?: 'VESSEL_ID' | 'FLAG' | 'GEARTYPE' | 'FLAGANDGEARTYPE' | 'MMSI';
-  'temporal-resolution': 'HOURLY' | 'DAILY' | 'MONTHLY' | 'YEARLY' | 'ENTIRE';
+  "spatial-resolution"?: "LOW" | "HIGH"; // Low means at 10th degree resolution, High means at 100th degree resolution
+  format: "CSV" | "TIF" | "JSON";
+  "group-by"?: "VESSEL_ID" | "FLAG" | "GEARTYPE" | "FLAGANDGEARTYPE" | "MMSI";
+  "temporal-resolution": "HOURLY" | "DAILY" | "MONTHLY" | "YEARLY" | "ENTIRE";
   [key: `datasets[${number}]`]: T4wingsSource;
   [key: `filters[${number}]`]: string;
-  'date-range'?: string;
-  'spatial-aggregation'?: boolean;
+  "date-range"?: string;
+  "spatial-aggregation"?: boolean;
 }
 
 /**
@@ -59,16 +59,16 @@ export interface I4wingsReportPostURLParams {
  * If a user is expected to call the same URL multiple times, this can result in a substantial performance improvement.
  */
 export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
-  'region-dataset': 'public-eez-areas' | 'public-mpa-all';
-  'region-id': string;
-  'buffer-operation'?: 'DIFFERENCE' | 'DISSOLVE';
-  'buffer-unit'?:
-    | 'MILES'
-    | 'NAUTICALMILES'
-    | 'KILOMETERS'
-    | 'RADIANS'
-    | 'DEGREES';
-  'buffer-value'?: string;
+  "region-dataset": "public-eez-areas" | "public-mpa-all";
+  "region-id": string;
+  "buffer-operation"?: "DIFFERENCE" | "DISSOLVE";
+  "buffer-unit"?:
+    | "MILES"
+    | "NAUTICALMILES"
+    | "KILOMETERS"
+    | "RADIANS"
+    | "DEGREES";
+  "buffer-value"?: string;
 }
 
 /**
@@ -79,16 +79,16 @@ export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
 export interface I4wingsReportPostBodyParams {
   geojson?: IGeometry;
   region?: string;
-  'region.dataset'?: 'public-eez-areas' | 'public-mpa-all';
-  'region.id'?: string;
-  'region.bufferOperation'?: 'DIFFERENCE' | 'DISSOLVE';
-  'region.bufferUnit'?:
-    | 'MILES'
-    | 'NAUTICALMILES'
-    | 'KILOMETERS'
-    | 'RADIANS'
-    | 'DEGREES';
-  'region.bufferValue'?: string;
+  "region.dataset"?: "public-eez-areas" | "public-mpa-all";
+  "region.id"?: string;
+  "region.bufferOperation"?: "DIFFERENCE" | "DISSOLVE";
+  "region.bufferUnit"?:
+    | "MILES"
+    | "NAUTICALMILES"
+    | "KILOMETERS"
+    | "RADIANS"
+    | "DEGREES";
+  "region.bufferValue"?: string;
 }
 
 export interface I4wingsAPIResponse {
@@ -137,46 +137,46 @@ export interface IEventPostURLParams {
 export interface IEventGetURLParams extends IEventPostURLParams {
   [key: `datasets[${number}]`]: TEventSource;
   [key: `vessels[${number}]`]: string;
-  types?: 'ENCOUNTER' | 'FISHING' | 'LOITERING' | 'GAP' | 'PORT_VISIT';
-  'start-date'?: string;
-  'end-date'?: string;
-  'include-regions'?: boolean;
+  types?: "ENCOUNTER" | "FISHING" | "LOITERING" | "GAP" | "PORT_VISIT";
+  "start-date"?: string;
+  "end-date"?: string;
+  "include-regions"?: boolean;
   confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
-  'encounter-types'?:
-    | 'FISHING-CARRIER'
-    | 'FISHING-SUPPORT'
-    | 'FISHING-BUNKER'
-    | 'FISHING-FISHING'
-    | 'FISHING-TANKER'
-    | 'CARRIER-BUNKER'
-    | 'BUNKER-SUPPORT';
-  'vessel-types'?: EVessleType;
+  "encounter-types"?:
+    | "FISHING-CARRIER"
+    | "FISHING-SUPPORT"
+    | "FISHING-BUNKER"
+    | "FISHING-FISHING"
+    | "FISHING-TANKER"
+    | "CARRIER-BUNKER"
+    | "BUNKER-SUPPORT";
+  "vessel-types"?: EVessleType;
 }
 
 export interface IEventPostBodyParams {
   datasets: TEventSource[];
   vessels: string[];
-  types?: 'ENCOUNTER' | 'FISHING' | 'LOITERING' | 'GAP' | 'PORT_VISIT';
+  types?: "ENCOUNTER" | "FISHING" | "LOITERING" | "GAP" | "PORT_VISIT";
   startDate?: string;
   endDate?: string;
   //"include-regions"?: boolean,
   confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
   encounterTypes?:
-    | 'FISHING-CARRIER'
-    | 'FISHING-SUPPORT'
-    | 'FISHING-BUNKER'
-    | 'FISHING-FISHING'
-    | 'FISHING-TANKER'
-    | 'CARRIER-BUNKER'
-    | 'BUNKER-SUPPORT';
+    | "FISHING-CARRIER"
+    | "FISHING-SUPPORT"
+    | "FISHING-BUNKER"
+    | "FISHING-FISHING"
+    | "FISHING-TANKER"
+    | "CARRIER-BUNKER"
+    | "BUNKER-SUPPORT";
   duration?: number; // Minimum duration (greater than or equal to), in minutes, of the event. Example: 30
   vesselTypes?: EVessleType[];
   vesselGroups?: string[]; // Ids of the vessel groups. Must be an array Example: ['my-vessel-group']
   flags?: string[]; // Flags of the vessels involved in the events, in ISO3. Must be an array. Example: ['ESP', 'FRA']
   geometry?: IGeometry; // Region where the events happen.
   region?: {};
-  'region.id'?: {};
-  'region.dataset'?: {};
+  "region.id"?: {};
+  "region.dataset"?: {};
 }
 
 export interface IEventAPIResponse<T> {
@@ -291,7 +291,7 @@ export interface IPortVisitEvent extends IBaseEvent {
   type: EEventType.port_visit;
   port_visit: {
     visitId: string;
-    confidence: '2' | '3' | '4';
+    confidence: "2" | "3" | "4";
     durationHrs: number;
     startAnchorage: IAnchorage;
     intermediateAnchorage: IAnchorage;

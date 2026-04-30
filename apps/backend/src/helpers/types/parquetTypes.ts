@@ -15,9 +15,9 @@ const baseSchema: Record<string, TParquetField> = {
   lon: { type: 'DOUBLE' },
   confidence_proxy: { type: 'DOUBLE', optional: true },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
-  bathymetry_m: { type: 'UTF8'},
-  triage_score: { type: 'DOUBLE', optional: true},
-  uncertainty_score: { type: 'DOUBLE', optional: true},
+  bathymetry_m: { type: 'UTF8' },
+  triage_score: { type: 'DOUBLE', optional: true },
+  uncertainty_score: { type: 'DOUBLE', optional: true },
 };
 
 for (const code of allReasonCodes) {
@@ -48,8 +48,6 @@ export const parquetSchema_raw_metadata = new parquet.ParquetSchema({
   shipName: { type: 'UTF8' },
   vesselId: { type: 'UTF8' },
   vesselType: { type: 'UTF8' },
-
-  event_metadata: { type: 'UTF8', optional: true },
 });
 
 export const parquetSchema_hotspot = new parquet.ParquetSchema({

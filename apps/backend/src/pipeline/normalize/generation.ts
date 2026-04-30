@@ -1,4 +1,9 @@
-import { EReasonCodes, EReasonCodesStatic, EEventType, EVessleType } from '@packages/enum';
+import {
+  EReasonCodes,
+  EReasonCodesStatic,
+  EEventType,
+  EVessleType,
+} from '@packages/enum';
 import {
   IConfigJSON,
   IEventSchema,
@@ -8,7 +13,7 @@ import {
   TGlobalEvent,
 } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
-import { getGitCommitSHA, hashString } from '../../helpers/utils/backendUtils';
+import { hashString } from '../../helpers/utils/backendUtils';
 import config from '../../config/pilot.json';
 import {
   isMatchedCase,
@@ -18,6 +23,7 @@ import {
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
 import { vesselZone } from '../features/bathymetry';
+import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
@@ -59,7 +65,7 @@ export const generateRunMetadata = async (
   const config_hash = await hashString(canonicalString);
 
   return {
-    code_version: await getGitCommitSHA(),
+    code_version: gitCommitSHA.length === 0 ? "N/A" : gitCommitSHA,
     config_json: canonicalObject,
     config_hash,
   };
@@ -99,7 +105,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   if (missingFields.length > 0 && matched) {
     uncertainty_score += Math.min(
       missingFields.length * WEIGHTS.missing_field,
-      0.4
+      0.4,
     );
 
     for (const field of missingFields) {
@@ -111,8 +117,6 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     uncertainty_score += WEIGHTS.noisy;
     reason_codes.push(EReasonCodesStatic.noisy_vessel);
   }
-
-  
 
   if (!matched) {
     uncertainty_score += WEIGHTS.unmatched;
@@ -132,18 +136,18 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.low_detection_confidence);
   }
 
-  uncertainty_score = Number(Math.max(0, Math.min(1, uncertainty_score)).toFixed(2));
+  uncertainty_score = Number(
+    Math.max(0, Math.min(1, uncertainty_score)).toFixed(2),
+  );
 
   // =========================
   // B. IMPORTANCE (DOMAIN VALUE) - If this event is real, how important is it?
   // =========================
   let importance_score = 0;
 
-  const inside_eez =
-    a_EventSchema.context_layers.EEZ.enrichments.length > 0;
+  const inside_eez = a_EventSchema.context_layers.EEZ.enrichments.length > 0;
 
-  const inside_mpa =
-    a_EventSchema.context_layers.MPA.enrichments.length > 0;
+  const inside_mpa = a_EventSchema.context_layers.MPA.enrichments.length > 0;
 
   if (inside_eez) {
     importance_score += WEIGHTS.eez_importance;
@@ -160,11 +164,16 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     reason_codes.push(EReasonCodesStatic.near_coast);
   }
 
-  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && inside_mpa) {
+  if (
+    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    inside_mpa
+  ) {
     importance_score += 0.4; // high-risk combo
   }
 
-  const {isShallowWater, isFishingZone, isDeepWater} = vesselZone(a_EventSchema.context_layers.Bathymetry.enrichments[0].value)
+  const { isShallowWater, isFishingZone, isDeepWater } = vesselZone(
+    a_EventSchema.context_layers.Bathymetry.enrichments[0].value,
+  );
 
   // 1. Fishing-relevant zone (core maritime activity zone)
   if (isFishingZone) {
@@ -185,7 +194,10 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   }
 
   // 4. Cargo vessel in fishing/shallow zones = anomaly signal
-  if (entry.vesselType.trim().toUpperCase() === EVessleType.CARGO && (isFishingZone || isShallowWater)) {
+  if (
+    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    (isFishingZone || isShallowWater)
+  ) {
     importance_score += 0.2;
     reason_codes.push(EReasonCodesStatic.bathymetry_cargo_anomaly_zone);
   }
@@ -203,9 +215,9 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   // =========================
   const triage_score = Math.min(
     1,
-    Number((importance_score + uncertainty_score * 0.2).toFixed(2))
+    Number((importance_score + uncertainty_score * 0.2).toFixed(2)),
   );
-  
+
   return {
     triage_score,
     uncertainty_score,
@@ -226,4 +238,13 @@ export const generateVersion = () => {
 
 export const generateCoordinate = (a_Coordinate: number) => {
   return +a_Coordinate.toFixed(3);
+};
+
+export const getISO8601 = (a_DateStr: string): string => {
+  // Convert "YYYY-MM-DD HH:mm" → "YYYY-MM-DDTHH:mm:00Z"
+  const iso =
+    a_DateStr.replace(' ', 'T') + // "2025-10-15T05:00"
+    ':00Z'; // "2025-10-15T05:00:00Z"
+
+  return iso;
 };
