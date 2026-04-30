@@ -43,6 +43,7 @@ export interface IFeature<G extends IGeometry = IGeometry, P = any> {
   type: "Feature";
   geometry: G;
   properties: P; // optional metadata
+  bbox?: [number, number, number, number]
 }
 
 // FeatureCollection Interface
