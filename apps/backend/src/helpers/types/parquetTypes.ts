@@ -49,7 +49,6 @@ export const parquetSchema_raw_metadata = new parquet.ParquetSchema({
   vesselId: { type: 'UTF8' },
   vesselType: { type: 'UTF8' },
 
-  event_metadata: { type: 'UTF8', optional: true },
 });
 
 export const parquetSchema_hotspot = new parquet.ParquetSchema({

@@ -5,7 +5,7 @@
 Dataset observed from upstream API responses:
 
 - `public-global-vessel-identity:v3.0`
-- Event data embedded under `event_metadata` (e.g., `port_visit` events)
+- Event data (e.g., `port_visit` events)
 
 These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 
@@ -32,11 +32,10 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
 | shipName              | string           | Vessel name                             | Capitalization varies                         |
 | vesselId              | string           | Unique vessel identifier in GFW dataset | UUID-like format                              |
 | vesselType            | string           | Vessel classification                   | Observed value `OTHER`                        |
-| event_metadata        | object           | Nested event information                | Contains port visit and region context        |
 
 ---
 
-# `event_metadata` Fields
+#  Event data Fields
 
 | Field       | Type             | Description                                 | Notes                                |
 | ----------- | ---------------- | ------------------------------------------- | ------------------------------------ |
@@ -143,8 +142,7 @@ These fields were observed during pilot ingestion for the SAR–AIS pipeline.
         "mmsi": "",
         "shipName": "",
         "vesselId": "",
-        "vesselType": "",
-        "event_metadata": null
+        "vesselType": ""
     }
 ```
 interpretation:
@@ -170,8 +168,7 @@ For unmatched records, entryTimestamp and exitTimestamp do not describe the spec
         "mmsi": "227022800",
         "shipName": "COTE DES DUNES",
         "vesselId": "6bf433ccd-dd6f-16f3-6b7d-5594faae8e72",
-        "vesselType": "PASSENGER",
-        "event_metadata": null
+        "vesselType": "PASSENGER"
     }
 ```
 interpretation:

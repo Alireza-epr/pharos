@@ -121,7 +121,25 @@ const main = async () => {
   }
 
   log(
-    `Preparing event schema for ${entries4wings.length} entries...`,
+    `Exporting raw metadata to ${output}; no. entry: ${entries4wings.length}`,
+    ELogType.info,
+  );
+
+  //raw_metadata.json
+  fs.writeFileSync(
+    `${output}raw_metadata.json`,
+    JSON.stringify(entries4wings, null, 2),
+  );
+
+  //raw_metadata.parquet
+  await writeParquet(
+    entries4wings,
+    parquetSchema_raw_metadata,
+    `${output}raw_metadata.parquet`,
+  );
+
+  log(
+    `Creating event schemas.`,
     ELogType.info,
   );
 
@@ -151,7 +169,7 @@ const main = async () => {
   const hotspots = generateHotspots(sortedEvents, resolution);
 
   log(
-    `Preparing outputs in ${output}, no. entry: ${notRejectedEvents.length}`,
+    `Exporting outputs to ${output}; no. entry: ${notRejectedEvents.length}`,
     ELogType.info,
   );
 
@@ -205,27 +223,6 @@ const main = async () => {
     };
   });
   await writeParquet(rows, parquetSchema, `${output}events.parquet`);
-
-  //raw_metadata.json
-  const raw_metadata = sortedEvents.map((event) => ({
-    ...event.raw_metadata,
-    event_metadata: event.raw_event_metadata,
-  }));
-  fs.writeFileSync(
-    `${output}raw_metadata.json`,
-    JSON.stringify(raw_metadata, null, 2),
-  );
-
-  //raw_metadata.parquet
-  const rows_raw_metadata = raw_metadata.map((r) => ({
-    ...r,
-    event_metadata: r.event_metadata ? JSON.stringify(r.event_metadata) : null,
-  }));
-  await writeParquet(
-    rows_raw_metadata,
-    parquetSchema_raw_metadata,
-    `${output}raw_metadata.parquet`,
-  );
 
   //canonicalSchema.json
   fs.writeFileSync(
