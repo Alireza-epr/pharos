@@ -99,10 +99,9 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     low_confidence: 0.2,
   };
 
-  const event = a_EventSchema.raw_event_metadata;
   const entry = a_EventSchema.raw_metadata;
 
-  const confidence_proxy = generateConfidence(event ?? undefined);
+  const confidence_proxy = generateConfidence_heuristic(entry);
 
   let reason_codes: EReasonCodes[] = [];
 
