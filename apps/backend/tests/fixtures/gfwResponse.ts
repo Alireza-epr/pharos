@@ -358,6 +358,16 @@ export const api4wingsEntry_matched: I4wingsEntry = {
   vesselType: 'CARGO',
 };
 
+export const api4wingsEntry_matched_detections_2: I4wingsEntry = {
+  ...api4wingsEntry_matched,
+  detections: 2
+};
+
+export const api4wingsEntry_matched_detections_5: I4wingsEntry = {
+  ...api4wingsEntry_matched,
+  detections: 5
+};
+
 export const api4wingsEntry_unmatched: I4wingsEntry = {
   callsign: '',
   dataset: '',
@@ -376,6 +386,16 @@ export const api4wingsEntry_unmatched: I4wingsEntry = {
   shipName: '',
   vesselId: '',
   vesselType: '',
+};
+
+export const api4wingsEntry_unmatched_detections_2: I4wingsEntry = {
+  ...api4wingsEntry_unmatched,
+  detections: 2
+};
+
+export const api4wingsEntry_unmatched_detections_5: I4wingsEntry = {
+  ...api4wingsEntry_unmatched,
+  detections: 5
 };
 
 export const api4wingsEntry_noisy: I4wingsEntry = {

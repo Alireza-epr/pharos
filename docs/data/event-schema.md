@@ -48,7 +48,7 @@ This document defines a **event schema** for Iteration 1.
 ### Metadata
 
 - `confidence_proxy` (number or null)  
-  Confidence-related fields from the source, if any.
+  Indicates the strength of repeated SAR detections within the same grid cell and time bucket, derived from the provider data. It reflects observation intensity, not probability or certainty of vessel identity.
 - `raw_metadata` (object)  
   Original SAR record stored without modification.
 
