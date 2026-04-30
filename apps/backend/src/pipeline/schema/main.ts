@@ -55,7 +55,7 @@ export const createEventSchema = async (
     };
   }
 
-  const timestamp_utc = getISO8601(a_4wingsEntry.date)
+  const timestamp_utc = getISO8601(a_4wingsEntry.date);
 
   const validCoordinates = isValidCoordinate(
     a_4wingsEntry.lat,

@@ -36,7 +36,7 @@ export const distanceToCoast = (
     if (b && !pointInBbox(a_Lon, a_Lat, b)) continue;
 
     const nearest = nearestPointOnLine(feature, pt);
-    const distKm = distance(pt, nearest, { units: "kilometers" });
+    const distKm = distance(pt, nearest, { units: 'kilometers' });
 
     if (distKm < minDist) minDist = distKm;
 
@@ -51,7 +51,7 @@ const pointInBbox = (
   lon: number,
   lat: number,
   b: [number, number, number, number],
-  buffer = 0.5 // degrees buffer (~50km)
+  buffer = 0.5, // degrees buffer (~50km)
 ) => {
   return (
     lon >= b[0] - buffer &&

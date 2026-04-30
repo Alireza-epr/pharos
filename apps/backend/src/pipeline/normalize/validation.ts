@@ -64,7 +64,7 @@ export const isISO8601Timestamp = (a_Value: string): boolean => {
 
 export const isValidDate = (a_DateStr: string) => {
   return /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(a_DateStr);
-}
+};
 
 export const isVesselTypeValid = (a_VesselType: string): boolean => {
   const normalized = a_VesselType.trim().toUpperCase() as EVessleType;

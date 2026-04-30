@@ -63,7 +63,7 @@ export const generateRunMetadata = async (
   const canonicalObject = deepSortObject(Array.from(a_Configuration));
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
-  
+
   return {
     code_version: gitCommitSHA,
     config_json: canonicalObject,
@@ -242,9 +242,9 @@ export const generateCoordinate = (a_Coordinate: number) => {
 
 export const getISO8601 = (a_DateStr: string): string => {
   // Convert "YYYY-MM-DD HH:mm" → "YYYY-MM-DDTHH:mm:00Z"
-  const iso = a_DateStr
-    .replace(" ", "T")   // "2025-10-15T05:00"
-    + ":00Z";            // "2025-10-15T05:00:00Z"
+  const iso =
+    a_DateStr.replace(' ', 'T') + // "2025-10-15T05:00"
+    ':00Z'; // "2025-10-15T05:00:00Z"
 
   return iso;
-}
+};

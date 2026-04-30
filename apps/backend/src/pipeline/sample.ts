@@ -43,10 +43,7 @@ import {
   IValidationSample,
   IValidationStrata,
 } from '../helpers/types/validationTypes';
-import {
-  getValidationSamples,
-  postValidationSamples,
-} from './validation/main';
+import { getValidationSamples, postValidationSamples } from './validation/main';
 import {
   readCoastlinePolylines,
   readLandPolygons,
@@ -64,13 +61,13 @@ export const coastlinePolylines = readCoastlinePolylines();
 export const landPolygons = readLandPolygons();
 export const eezPolygons = readEEZPolygons();
 export const mpaPolygons = readMPAPolygons();
-export let gitCommitSHA = ""
+export let gitCommitSHA = '';
 
 const main = async () => {
   log('Pilot starting...', ELogType.info);
   const start = formatTimestamp();
   await readBathymetryTiles();
-  gitCommitSHA = await getGitCommitSHA()
+  gitCommitSHA = await getGitCommitSHA();
   const dataset4wings = source4wings.split(':')[0] ?? '';
   const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
@@ -138,10 +135,7 @@ const main = async () => {
     `${output}raw_metadata.parquet`,
   );
 
-  log(
-    `Creating event schemas.`,
-    ELogType.info,
-  );
+  log(`Creating event schemas.`, ELogType.info);
 
   for (const entries4wing of entries4wings) {
     const thisEntry = entries4wing;
@@ -286,7 +280,7 @@ const main = async () => {
 
 const validation = async () => {
   log('Starting validation...', ELogType.info);
-  gitCommitSHA = await getGitCommitSHA()
+  gitCommitSHA = await getGitCommitSHA();
   await readBathymetryTiles();
   const mapStrata = new Map<EValidationStrata, IValidationStrata>();
   const setManifest = new Set<IValidationManifest>();

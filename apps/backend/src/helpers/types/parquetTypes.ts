@@ -48,7 +48,6 @@ export const parquetSchema_raw_metadata = new parquet.ParquetSchema({
   shipName: { type: 'UTF8' },
   vesselId: { type: 'UTF8' },
   vesselType: { type: 'UTF8' },
-
 });
 
 export const parquetSchema_hotspot = new parquet.ParquetSchema({
