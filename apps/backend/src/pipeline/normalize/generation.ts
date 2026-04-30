@@ -11,6 +11,7 @@ import {
   IScoring,
   IGeometry,
   TGlobalEvent,
+  I4wingsEntry,
 } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
 import { hashString } from '../../helpers/utils/backendUtils';
@@ -57,6 +58,17 @@ export const generateConfidence = (
     : null;
 };
 
+export const generateConfidence_heuristic = (
+  a_4wingsEntry: I4wingsEntry,
+): 2 | 3 | 4 | null => {
+  let confidence_proxy: 2 | 3 | 4 | null = null
+  if (a_4wingsEntry.detections <= 1) confidence_proxy = null;
+  if (a_4wingsEntry.detections === 2) confidence_proxy = 2;
+  if (a_4wingsEntry.detections === 3) confidence_proxy = 3;
+  if (a_4wingsEntry.detections >= 4) confidence_proxy = 4;
+  return confidence_proxy
+};
+
 export const generateRunMetadata = async (
   a_Configuration: Set<IConfigJSON>,
 ): Promise<IRunMetadata> => {
@@ -87,10 +99,9 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     low_confidence: 0.2,
   };
 
-  const event = a_EventSchema.raw_event_metadata;
   const entry = a_EventSchema.raw_metadata;
 
-  const confidence_proxy = generateConfidence(event ?? undefined);
+  const confidence_proxy = generateConfidence_heuristic(entry);
 
   let reason_codes: EReasonCodes[] = [];
 

@@ -4,6 +4,7 @@ import {
   EFetchMethods,
 } from '@packages/enum';
 import { IEventSchema } from '@packages/types';
+import { api4wingsEntry_unmatched_detections_2, api4wingsEntry_unmatched_detections_5 } from './gfwResponse';
 
 export const eventSchema_matched_near_coast: any = {
   version: '1.0.0',
@@ -565,20 +566,14 @@ export const eventSchema_context_layers: IEventSchema = {
 
 export const eventSchema_with_low_confidence: IEventSchema = {
   ...eventSchema_umatched_near_coast,
-  raw_event_metadata: {
-    type: 'port_visit',
-    port_visit: {
-      confidence: 2,
-    },
+  raw_metadata: {
+    ...api4wingsEntry_unmatched_detections_2
   },
 };
 
 export const eventSchema_with_high_confidence: IEventSchema = {
   ...eventSchema_umatched_near_coast,
-  raw_event_metadata: {
-    type: 'port_visit',
-    port_visit: {
-      confidence: 4,
-    },
+  raw_metadata: {
+    ...api4wingsEntry_unmatched_detections_5
   },
 };

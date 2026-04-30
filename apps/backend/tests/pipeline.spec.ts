@@ -18,6 +18,7 @@ import {
   generateSources,
   generateConfidence,
   generateGeom,
+  generateConfidence_heuristic,
 } from '../src/pipeline/normalize/generation';
 import {
   IConfigJSON,
@@ -36,6 +37,12 @@ import {
   hashFile,
 } from '../src/helpers/utils/backendUtils';
 import {
+  api4wingsEntry_matched,
+  api4wingsEntry_matched_detections_2,
+  api4wingsEntry_matched_detections_5,
+  api4wingsEntry_unmatched,
+  api4wingsEntry_unmatched_detections_2,
+  api4wingsEntry_unmatched_detections_5,
   api4wingsResponse,
   api4wingsResponse_bad_coordinates,
   apiEventResponse_no_entry,
@@ -123,6 +130,28 @@ describe('4wings_helpers', () => {
       expect(confidence_proxy_null).toBeNull();
       expect(confidence_proxy).toBe(4);
       expect(generateConfidence(undefined)).toBeNull();
+    });
+  });
+
+  describe('generateConfidence_heuristic', () => {
+    it('returns confidence from the detection', () => {
+      const confidence_proxy_matched_null = generateConfidence_heuristic(api4wingsEntry_matched);
+      expect(confidence_proxy_matched_null).toBeNull();
+
+      const confidence_proxy_unmatched_null = generateConfidence_heuristic(api4wingsEntry_unmatched);
+      expect(confidence_proxy_unmatched_null).toBeNull();
+
+      const confidence_proxy_matched_2 = generateConfidence_heuristic(api4wingsEntry_matched_detections_2);
+      expect(confidence_proxy_matched_2).toBe(2);
+
+      const confidence_proxy_matched_5 = generateConfidence_heuristic(api4wingsEntry_matched_detections_5);
+      expect(confidence_proxy_matched_5).toBe(4);
+
+      const confidence_proxy_unmatched_2 = generateConfidence_heuristic(api4wingsEntry_unmatched_detections_2);
+      expect(confidence_proxy_unmatched_2).toBe(2);
+
+      const confidence_proxy_unmatched_5 = generateConfidence_heuristic(api4wingsEntry_unmatched_detections_5);
+      expect(confidence_proxy_unmatched_5).toBe(4);
     });
   });
 

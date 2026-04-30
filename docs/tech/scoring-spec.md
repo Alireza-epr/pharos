@@ -164,7 +164,7 @@ They include:
 
 - `missing_confidence_proxy`  
   `low_detection_confidence`  
-  Detection confidence is low or undefined according to source metadata.
+  Detection confidence is low or undefined.
 
 - `missing_required_field:<fieldname>`  
   Indicates a missing required field.
