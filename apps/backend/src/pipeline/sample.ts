@@ -74,6 +74,10 @@ const main = async () => {
   const baseURLEvent = pilot.eventURL ?? '';
   const sourceEvent = pilot.eventSource ?? '';
   const bodyParams4wings = pilot.aoi as any;
+
+
+  // Low spatial resolution uses cells of 0.1° × 0.1° (~10 km scale) at the equator
+  // High spatial resolution uses cells of 0.01° × 0.01° (~1 km scale) at the equator
   // Hourly temporal resolution > date = YYYY-MM-DD HH:00:00 > Data is grouped by:(grid cell + 1 hour bucket)
   // ENTIRE temporal resolution > date = date-range > Data is grouped by:(grid cell + full date-range)
   const urlParams4wings = {
