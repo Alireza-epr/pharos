@@ -5,6 +5,7 @@ import {
   E4wingsDatasets,
   EEventDatasets,
   EGeoCoordinate,
+  EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
 import {
@@ -262,6 +263,10 @@ export const getTimeRange = (
 export const getDate = (a_Datetime: string) => {
   return a_Datetime.slice(0, 10);
 };
+
+export const getDateBucket = (a_Datetime: string, a_TimeBucket: EHotspotTimeBins) => {
+  return a_TimeBucket === EHotspotTimeBins.DAILY ? getDate(a_Datetime) : a_Datetime.slice( 0, 13 ).replace("T", " ") + ":00:00"
+}
 
 export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
   if (!a_Samples.length) return '';

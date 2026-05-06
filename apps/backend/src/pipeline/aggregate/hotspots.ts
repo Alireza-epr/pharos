@@ -2,7 +2,8 @@ import { latLngToCell, cellToBoundary } from 'h3-js';
 import { IEventSchema, IHotspot } from '@packages/types';
 import config from '../../config/pilot.json';
 import { IFeature, IPolygonGeometry } from '@packages/types';
-import { getDate } from '../../helpers/utils/backendUtils';
+import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
+import { EHotspotTimeBins } from '@packages/enum';
 
 export const generateHotspots = (
   a_Events: IEventSchema[],
@@ -12,7 +13,11 @@ export const generateHotspots = (
 
   for (const event of a_Events) {
     const h3Index = getHotspotCellId(event.lat, event.lon, a_Resolution);
-    const key = `${h3Index}_${getDate(event.timestamp_utc)}`;
+    const timeBucket = config.hotspotTimeBin
+    if(timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY){
+      throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
+    }
+    const key = `${h3Index}_${getDateBucket(event.timestamp_utc, timeBucket)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
     }
@@ -31,8 +36,8 @@ export const generateHotspots = (
     let uncertaintyCount = 0;
     let nearCoastCount = 0;
     let recurrence_count = 0;
-    let days = 0;
-    let days_with_unmatched = 0;
+    let time_bins_total = 0;
+    let time_bins_with_unmatched = 0;
 
     for (const event of events) {
       if (!event.matched_flag) {
@@ -82,8 +87,8 @@ export const generateHotspots = (
         ((nearCoastCount / events.length) * 100).toFixed(2),
       ),
       recurrence_count,
-      days,
-      days_with_unmatched,
+      time_bins_total,
+      time_bins_with_unmatched,
     };
   });
   const groupedHotspots = new Map<string, IHotspot[]>();
@@ -97,15 +102,15 @@ export const generateHotspots = (
 
   const recurrenceMap = new Map<
     string,
-    { recurrence_count: number; days: number; days_with_unmatched: number }
+    { recurrence_count: number; time_bins_total: number; time_bins_with_unmatched: number }
   >();
   for (const [cell_id, hs] of groupedHotspots) {
     recurrenceMap.set(cell_id, {
       recurrence_count: hs
         .map((h) => h.count_unmatched)
         .reduce((a, b) => a + b, 0),
-      days: hs.length,
-      days_with_unmatched: hs.filter((h) => h.count_unmatched !== 0).length,
+      time_bins_total: hs.length,
+      time_bins_with_unmatched: hs.filter((h) => h.count_unmatched !== 0).length,
     });
   }
 
@@ -115,8 +120,8 @@ export const generateHotspots = (
       return {
         ...h,
         recurrence_count: rh.recurrence_count,
-        days: rh.days,
-        days_with_unmatched: rh.days_with_unmatched,
+        time_bins_total: rh.time_bins_total,
+        time_bins_with_unmatched: rh.time_bins_with_unmatched,
       };
     }
     return h;

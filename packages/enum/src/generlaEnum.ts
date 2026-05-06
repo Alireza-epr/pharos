@@ -28,3 +28,8 @@ export enum EGeoCoordinate {
   latitude = "latitude",
   longitude = "longitude",
 }
+
+export enum EHotspotTimeBins {
+  DAILY = "DAILY",
+  HOURLY = "HOURLY"
+}

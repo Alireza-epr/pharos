@@ -27,5 +27,6 @@
   "temporal-resolution": "HOURLY",
   "format": "JSON",
   "filters": "matched='false'",
-  "hotspotResolution": 5
+  "hotspotResolution": 5,
+  "hotspotTimeBin": "HOURLY"
 }
