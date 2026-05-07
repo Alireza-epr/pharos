@@ -102,20 +102,9 @@ jest.mock('geotiff', () => ({
 describe('4wings_helpers', () => {
   describe('generateSources', () => {
     it('returns the source keys with the version', () => {
-      const expected =
-        'public-global-sar-presence:v3.0, public-global-port-visits-events:v3.0';
-      const configSet = new Set<IConfigJSON>();
-
-      configSet.add(sarConfig);
-      configSet.add(eventConfig);
-      const sources = generateSources(configSet);
+      const expected = (sarConfig as IConfigJSON).url_params["datasets[0]"];
+      const sources = generateSources(sarConfig);
       expect(sources).toBe(expected);
-
-      configSet.clear();
-      configSet.add(sarConfig_diff_sorted);
-      configSet.add(eventConfig_diff_sorted);
-      const sources_diff_sorted = generateSources(configSet);
-      expect(sources_diff_sorted).toBe(expected);
     });
   });
 
@@ -157,7 +146,8 @@ describe('4wings_helpers', () => {
 
   describe('generateGeom', () => {
     const source = 'public-global-sar-presence:v3.0';
-    const entries = getEntriesFrom4wingsResponse(api4wingsResponse, source);
+    const entriesMap = getEntriesFrom4wingsResponse(sarConfig, api4wingsResponse);
+    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
 
     it('should return a GeoJSON Point', () => {
       if (!entries || !entries[0]) return;
@@ -197,16 +187,16 @@ describe('4wings_helpers', () => {
   describe('getEntriesFrom4wingsResponse', () => {
     it('returns entries for a valid source', () => {
       const source = 'public-global-sar-presence:v3.0';
-      const entries = getEntriesFrom4wingsResponse(api4wingsResponse, source);
-
+      const entriesMap = getEntriesFrom4wingsResponse(sarConfig, api4wingsResponse);
+      const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
       expect(entries).toBeDefined();
       expect(entries!.length).toBeGreaterThan(0);
     });
 
     it('returns undefined for an unknown source', () => {
       const entries = getEntriesFrom4wingsResponse(
-        api4wingsResponse,
-        'unknown-source' as any,
+        {...sarConfig, url_params: { ...sarConfig.url_params, "datasets[0]": 'unknown-source' }  },
+        api4wingsResponse
       );
 
       expect(entries).toBeUndefined();
@@ -370,7 +360,7 @@ describe('4wings_helpers', () => {
 
   describe('generateRunMetadata', () => {
     it('generates deterministic metadata for a set of configs', async () => {
-      const configSet = new Set<IConfigJSON>([sarConfig, eventConfig]);
+      const configSet = [sarConfig, eventConfig];
 
       const metadata = await generateRunMetadata(configSet);
 
@@ -384,11 +374,11 @@ describe('4wings_helpers', () => {
     });
 
     it('produces the same config_hash regardless of Set order', async () => {
-      const setA = new Set<IConfigJSON>([sarConfig, eventConfig]);
-      const setB = new Set<IConfigJSON>([
+      const setA = [sarConfig, eventConfig];
+      const setB = [
         sarConfig_diff_sorted,
         eventConfig_diff_sorted,
-      ]);
+      ]
 
       const metaA = await generateRunMetadata(setA);
       const metaB = await generateRunMetadata(setB);
@@ -405,11 +395,11 @@ describe('4wings_helpers', () => {
         },
       } as IConfigJSON;
 
-      const original = new Set<IConfigJSON>([sarConfig, eventConfig]);
-      const modified = new Set<IConfigJSON>([modifiedSarConfig, eventConfig]);
+      const original = [sarConfig, eventConfig];
+      const modified = [modifiedSarConfig, eventConfig];
 
       const metaOriginal = await generateRunMetadata(original);
-      const metaModified = await generateRunMetadata(modified);
+      const metaModified = await generateRunMetadata(modified as any);
 
       expect(metaOriginal.config_hash).not.toBe(metaModified.config_hash);
     });
@@ -447,21 +437,19 @@ describe('4wings_helpers', () => {
 
   describe('createEventSchema', () => {
     it('should return rejected event schema for not valid coordinates', async () => {
-      const configSet = new Set<IConfigJSON>();
 
-      configSet.add(sarConfig);
-      configSet.add(eventConfig);
       const source = 'public-global-sar-presence:v3.0';
-      const entries = getEntriesFrom4wingsResponse(
+      const entriesMap = getEntriesFrom4wingsResponse(
         //@ts-ignore
         api4wingsResponse_bad_coordinates,
-        source,
+        sarConfig,
       );
+      const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
 
       if (!entries) return;
 
       for (const entry of entries) {
-        const eventSchema = await createEventSchema(configSet, 5, entry);
+        const eventSchema = await createEventSchema(sarConfig, entry);
         expect(eventSchema.rejected).toBe(true);
         expect((eventSchema as IRejectedEventSchema).reason).toEqual(
           ERejectedEventSchemaReasons.notValidCoordinates,
@@ -597,8 +585,8 @@ describe('Pipeline_determinism', () => {
 describe('Hotspot_generation', () => {
   it('should create hotspots using canonical events', async () => {
     const hotspots_reso_3 = generateHotspots(
-      canonicalSchema as IEventSchema[],
-      3,
+      {...sarConfig, hotspot: { ...sarConfig.hotspot, resolution: 3 }} as IConfigJSON,
+      canonicalSchema as any,
     );
     expect(hotspots_reso_3.length).toBe(3);
     expect(hotspots_reso_3[0]?.cell_id).toEqual(hotspots_reso_3[1]?.cell_id);
@@ -607,8 +595,8 @@ describe('Hotspot_generation', () => {
     );
 
     const hotspots_reso_5 = generateHotspots(
-      canonicalSchema as IEventSchema[],
-      5,
+      {...sarConfig, hotspot: { ...sarConfig.hotspot, resolution:5 }} as IConfigJSON,
+      canonicalSchema as any,
     );
     expect(hotspots_reso_5.length).toBe(9);
   });

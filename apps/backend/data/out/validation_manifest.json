@@ -2,17 +2,30 @@
   {
     "strata": "distance_to_coast",
     "stratum_sample_sizes": {
-      "near_coast": 22,
-      "offshore": 28
+      "near_coast": 20,
+      "offshore": 30
     },
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": null,
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "GET",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-01-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -26,9 +39,9 @@
           }
         }
       ],
-      "config_hash": "9e2d2050cf852b47e6a44e1dda9fea5e0dab1b86ea605a7106c901ae194b502a"
+      "config_hash": "f62fe98be779a0e28fcf6a96917c9d49630c25a919b4fce6a09862c6314867ec"
     },
-    "execution_duration_sec": 20
+    "execution_duration_sec": 9
   },
   {
     "strata": "confidence_tier",
@@ -37,13 +50,26 @@
       "low_confidence": 25
     },
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": null,
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "GET",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-07T00:00:00Z,2025-12-07T23:59:59Z",
@@ -57,10 +83,23 @@
           }
         },
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": null,
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "GET",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2018-12-07T00:00:00Z,2018-12-07T23:59:59Z",
@@ -74,9 +113,9 @@
           }
         }
       ],
-      "config_hash": "8b01f96d642eb8746f642330babf953fc19353d6fb98af6930c4744429ccd65f"
+      "config_hash": "ed7a7e76c4f554888a0ab566daab99c9a4e109dabedb691d118a31117d5d31ae"
     },
-    "execution_duration_sec": 6
+    "execution_duration_sec": 8
   },
   {
     "strata": "density",
@@ -85,10 +124,10 @@
       "low_density": 25
     },
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -118,8 +157,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-07-07T00:00:00Z,2025-12-07T23:59:59Z",
@@ -131,7 +183,7 @@
           }
         },
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -161,8 +213,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-07-07T00:00:00Z,2025-12-07T23:59:59Z",
@@ -174,7 +239,7 @@
           }
         }
       ],
-      "config_hash": "795209f56da4ed4a778341e5b9d895ef53e566dcccc125026384142616469247"
+      "config_hash": "f15810ea87df5efaa0457fb3782a510280f9816710d09c8f4a8f329235a54358"
     },
     "execution_duration_sec": 4
   }

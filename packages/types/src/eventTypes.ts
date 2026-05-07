@@ -4,10 +4,12 @@ import {
   EContextLayerDatasets,
   EContextLayers,
   EFetchMethods,
+  EHotspotTimeBins,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
   I4wingsEntry,
+  I4wingsReportGetURLParams,
   I4wingsReportPostBodyParams,
   I4wingsReportPostURLParams,
   IEventPostBodyParams,
@@ -16,6 +18,7 @@ import {
   TEventSource,
   TGlobalEvent,
 } from "./gfwTypes";
+import { TBuildRange } from "./generalTypes";
 
 export interface IContextLayer {
   dataset: EContextLayerDatasets;
@@ -76,11 +79,28 @@ export interface IRejectedEventSchema {
 }
 
 export interface IConfigJSON {
-  source: T4wingsSource | TEventSource;
-  base_url: string;
-  method: EFetchMethods;
-  url_params: I4wingsReportPostURLParams | IEventPostURLParams | null;
-  body_params: I4wingsReportPostBodyParams | IEventPostBodyParams | null;
+  URL: string;
+  method: EFetchMethods
+  body_params: I4wingsReportPostBodyParams;
+  url_params: I4wingsReportGetURLParams;
+  threshold: IThresholdConfig;
+  hotspot: IHotspotConfig;
+  output: string;
+}
+
+export interface IThresholdConfig {
+  near_coast_threshold: number,
+  low_detection_confidence_threshold: number,
+  shallow_water_threshold: number,
+  deep_water_threshold: number,
+  low_triage_score_threshold: number,
+  medium_triage_score_threshold: number,
+  high_triage_score_threshold: number
+}
+
+export interface IHotspotConfig {
+  resolution: TBuildRange<16>,
+  timeBin: EHotspotTimeBins
 }
 
 export interface IContextLayerEnrichment {

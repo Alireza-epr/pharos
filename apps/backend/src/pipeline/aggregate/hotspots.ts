@@ -1,19 +1,18 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IEventSchema, IHotspot } from '@packages/types';
-import config from '../../config/pilot.json';
+import { IConfigJSON, IEventSchema, IHotspot } from '@packages/types';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
 import { EHotspotTimeBins } from '@packages/enum';
 
 export const generateHotspots = (
+  a_Config: IConfigJSON,
   a_Events: IEventSchema[],
-  a_Resolution: number,
 ) => {
   const h3Indexes = new Map<string, IEventSchema[]>();
 
   for (const event of a_Events) {
-    const h3Index = getHotspotCellId(event.lat, event.lon, a_Resolution);
-    const timeBucket = config.hotspotTimeBin
+    const h3Index = getHotspotCellId(event.lat, event.lon, a_Config.hotspot.resolution);
+    const timeBucket = a_Config.hotspot.timeBin
     if(timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY){
       throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
     }
@@ -48,7 +47,7 @@ export const generateHotspots = (
         !event.matched_flag &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
-          config.threshold.medium_triage_score_threshold
+          a_Config.threshold.medium_triage_score_threshold
       ) {
         count_high_score_unmatched++;
       }
@@ -65,7 +64,7 @@ export const generateHotspots = (
 
       if (
         event.distance_to_coast_km !== null &&
-        event.distance_to_coast_km <= config.threshold.near_coast_threshold
+        event.distance_to_coast_km <= a_Config.threshold.near_coast_threshold
       ) {
         nearCoastCount++;
       }

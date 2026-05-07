@@ -95,7 +95,7 @@ export interface IValidationSample {
 export type TValidationGeoJSON = IFeature<IPointGeometry, IValidationSample>;
 
 export interface IValidationResp {
-  metadata: IConfigJSON;
+  metadata?: Partial<IConfigJSON>;
   events: IEventSchema[];
   validationSamples: IValidationSample[];
   validationSamplesGeoJSON: TValidationGeoJSON[];

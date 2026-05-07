@@ -14,20 +14,21 @@ import {
 } from '@packages/types';
 import { log, sleep } from '../../helpers/utils/backendUtils';
 
+const token = config.auth.gfw_token;
+
 export const detectionPostGFW = async <T>(
   a_BaseURL: string,
-  a_Source: T4wingsSource | TEventSource,
-  a_URLParam: I4wingsReportPostURLParams | IEventPostURLParams,
-  a_BodyParam: I4wingsReportPostBodyParams | IEventPostBodyParams,
+  a_Source: T4wingsSource,
+  a_URLParam: I4wingsReportGetURLParams,
+  a_BodyParam: I4wingsReportPostBodyParams,
 ) => {
-  const metadata: IConfigJSON = {
-    source: a_Source,
-    base_url: a_BaseURL,
+  const metadata: Partial<IConfigJSON> = {
+    URL: a_BaseURL,
     method: EFetchMethods.post,
     url_params: a_URLParam,
     body_params: a_BodyParam,
   };
-  const token = config.auth.gfw_token;
+  
   const searchParams = Object.entries(a_URLParam).reduce<
     Record<string, string>
   >((acc, [key, value]) => {
@@ -73,17 +74,15 @@ export const detectionPostGFW = async <T>(
 
 export const detectionGetGFW = async <T>(
   a_BaseURL: string,
-  a_Source: T4wingsSource | TEventSource,
-  a_URLParam: I4wingsReportGetURLParams | IEventGetURLParams,
+  a_Source: T4wingsSource,
+  a_URLParam: I4wingsReportGetURLParams,
 ) => {
-  const metadata: IConfigJSON = {
-    source: a_Source,
-    base_url: a_BaseURL,
+  const metadata: Partial<IConfigJSON> = {
+    URL: a_BaseURL,
     method: EFetchMethods.get,
     url_params: a_URLParam,
-    body_params: null,
   };
-  const token = config.auth.gfw_token;
+
   const searchParams = Object.entries(a_URLParam).reduce<
     Record<string, string>
   >((acc, [key, value]) => {
@@ -149,9 +148,17 @@ export const fetchWithRetry = async (
 
       return response;
     } catch (error) {
+      if ((error as Error).message.includes("Non-retryable error")) {
+        log(
+          `${error}`,
+          ELogType.error,
+        );
+        throw error;
+      }
+
       if (attempt === a_Retries) {
         log(
-          `[fetchWithRetry] Giving up after ${a_Retries} attempts ${JSON.stringify(error)}`,
+          `[fetchWithRetry] Giving up after ${a_Retries} attempts ${error})}`,
           ELogType.error,
         );
         throw error;
@@ -169,3 +176,51 @@ export const fetchWithRetry = async (
 
   throw new Error('[fetchWithRetry] failed unexpectedly');
 };
+
+export const detectionGFW = async <T>(
+  a_Config: IConfigJSON
+) => {
+  const searchParams = Object.entries(a_Config.url_params).reduce<
+    Record<string, string>
+  >((acc, [key, value]) => {
+    acc[key] = String(value);
+    return acc;
+  }, {});
+
+  const params = new URLSearchParams(searchParams);
+  // Low spatial resolution uses cells of 0.1° × 0.1° (~10 km scale) at the equator
+  // High spatial resolution uses cells of 0.01° × 0.01° (~1 km scale) at the equator
+  // Hourly temporal resolution > date = YYYY-MM-DD HH:00:00 > Data is grouped by:(grid cell + 1 hour bucket)
+  // ENTIRE temporal resolution > date = date-range > Data is grouped by:(grid cell + full date-range)
+  log('[detectionGFW] Metadata ' + JSON.stringify(a_Config), ELogType.info);
+  try {
+    const res = await fetchWithRetry(
+      `${a_Config.URL}?${params.toString()}`,
+      {
+        method: a_Config.method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: a_Config.body_params ? JSON.stringify(a_Config.body_params) : null,
+      },
+      5,
+      200,
+    );
+
+    if (!res.ok) {
+      throw `response not ok`;
+    }
+
+    const results: T = await res.json();
+    log(
+      '[detectionGFW] Response ' + JSON.stringify(results),
+      ELogType.info,
+    );
+
+    return results;
+  } catch (error) {
+    throw new Error(`[detectionGFW] Error: ${error}`);
+  }
+
+}

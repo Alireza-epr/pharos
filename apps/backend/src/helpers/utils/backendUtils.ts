@@ -21,7 +21,10 @@ import {
   I4wingsAPIResponse,
   T4wingsSource,
   TEventSource,
+  IConfigJSON,
+  I4wingsEntry,
 } from '@packages/types';
+import { generateSources } from '../../pipeline/normalize/generation';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -146,16 +149,43 @@ export const getSourceFrom4wingsResponse = (
   return source as T4wingsSource;
 };
 
-export const getEntriesFrom4wingsResponse = (
-  a_4wingsResponse: I4wingsAPIResponse,
-  a_Source: T4wingsSource,
+export const getSourcesFromEvents = (
+  a_Events: IEventSchema[],
 ) => {
-  for (const responseEntry of a_4wingsResponse.entries) {
-    const entries = responseEntry[a_Source];
-    if (entries) return entries;
+
+  const configs = a_Events.flatMap( event => event.run_metadata.config_json )
+  const sources = new Set<string>()
+  for(const config of configs) {
+    const source = generateSources(config)
+    if(!sources.has(source)) sources.add(source)
+  }
+  return Array.from(sources).map( s => s ).join(", ");
+};
+
+export const getEntriesFrom4wingsResponse = (
+  a_Config: IConfigJSON,
+  a_4wingsResponse: I4wingsAPIResponse,
+) => {
+  const requestedSources = Object.entries(a_Config.url_params).filter( ([key, value]) => key.startsWith("datasets[") ).map( ([key, value]) => value )
+  if(requestedSources.length === 0) {
+    throw new Error("No dataset is requested")
+  } 
+  
+  const entries = new Map<T4wingsSource, I4wingsEntry[]>() 
+
+  for(const requestedSource of requestedSources){
+    for (const responseEntry of a_4wingsResponse.entries){
+      const requestedSourceEntries = responseEntry[requestedSource];
+      if (requestedSourceEntries) {
+        entries.set( requestedSource, requestedSourceEntries )
+      } else {
+        log(`No entry is found for ${requestedSource}`, ELogType.warn)
+        continue
+      }
+    }
   }
 
-  return undefined;
+  return entries;
 };
 
 export const getEventMissingness = (

@@ -1,10 +1,10 @@
 {
   "config": [
     {
-      "hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689",
+      "hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162",
       "json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -34,8 +34,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -49,10 +62,8 @@
       ]
     }
   ],
-  "run_time": "2026-04-30T08:39:44.003Z",
-  "data_source_versions": [
-    "public-global-sar-presence:v3.0"
-  ],
-  "git_commit_hash": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
-  "execution_duration_sec": 2
+  "run_time": "2026-05-07T13:37:11.055Z",
+  "data_source_versions": "public-global-sar-presence:v3.0",
+  "git_commit_hash": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
+  "execution_duration_sec": 3
 }

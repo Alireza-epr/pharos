@@ -19,7 +19,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-04-27T23:59:58Z",
+      "lastTransmissionDate": "2026-05-05T23:59:48Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -29,10 +29,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -62,8 +62,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -75,7 +88,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -145,7 +158,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-04-27T23:57:10Z",
+      "lastTransmissionDate": "2026-05-05T23:57:52Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -155,10 +168,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -188,8 +201,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -201,7 +227,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -271,7 +297,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-04-27T23:53:26Z",
+      "lastTransmissionDate": "2026-05-05T23:58:00Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -281,10 +307,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -314,8 +340,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -327,7 +366,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -397,7 +436,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-04-27T23:59:51Z",
+      "lastTransmissionDate": "2026-05-05T23:59:51Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -407,10 +446,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -440,8 +479,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -453,7 +505,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -523,7 +575,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-04-27T23:58:45Z",
+      "lastTransmissionDate": "2026-05-05T23:59:59Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -533,10 +585,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -566,8 +618,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -579,7 +644,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -648,7 +713,7 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-04-26T16:25:07Z",
+      "lastTransmissionDate": "2026-05-05T16:21:45Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
@@ -658,10 +723,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -691,8 +756,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -704,7 +782,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -773,7 +851,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-04-27T23:59:03Z",
+      "lastTransmissionDate": "2026-05-05T22:18:28Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -783,10 +861,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -816,8 +894,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -829,7 +920,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -898,7 +989,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-04-27T23:59:56Z",
+      "lastTransmissionDate": "2026-05-05T23:59:58Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -908,10 +999,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -941,8 +1032,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -954,7 +1058,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1023,7 +1127,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-04-27T23:59:59Z",
+      "lastTransmissionDate": "2026-05-05T23:59:59Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1033,10 +1137,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1066,8 +1170,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1079,7 +1196,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1166,10 +1283,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1199,8 +1316,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1212,7 +1342,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1281,7 +1411,7 @@
       "flag": "DNK",
       "geartype": "OTHER",
       "imo": "",
-      "lastTransmissionDate": "2026-04-27T23:49:51Z",
+      "lastTransmissionDate": "2026-05-05T23:58:18Z",
       "lat": 55.16,
       "lon": 14.680000305175781,
       "mmsi": "219000217",
@@ -1291,10 +1421,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1324,8 +1454,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1337,7 +1480,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1407,7 +1550,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-04-27T23:59:59Z",
+      "lastTransmissionDate": "2026-05-05T23:51:52Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -1417,10 +1560,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1450,8 +1593,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1463,7 +1619,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1533,7 +1689,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-04-27T23:59:55Z",
+      "lastTransmissionDate": "2026-05-05T23:57:28Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -1543,10 +1699,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1576,8 +1732,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1589,7 +1758,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1659,7 +1828,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-04-27T23:59:57Z",
+      "lastTransmissionDate": "2026-05-05T23:57:11Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -1669,10 +1838,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1702,8 +1871,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1715,7 +1897,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1784,7 +1966,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-04-27T23:59:54Z",
+      "lastTransmissionDate": "2026-05-05T23:57:51Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -1794,10 +1976,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1827,8 +2009,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1840,7 +2035,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -1910,7 +2105,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-04-27T23:58:22Z",
+      "lastTransmissionDate": "2026-05-05T23:57:17Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -1920,10 +2115,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -1953,8 +2148,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -1966,7 +2174,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -2036,7 +2244,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-04-27T23:55:38Z",
+      "lastTransmissionDate": "2026-05-05T23:59:54Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2046,10 +2254,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -2079,8 +2287,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -2092,7 +2313,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {
@@ -2162,7 +2383,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-04-27T23:59:57Z",
+      "lastTransmissionDate": "2026-05-05T23:16:30Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -2172,10 +2393,10 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "b0b6a4ddf7f9beef5051940df57e9f09197e9547",
+      "code_version": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
       "config_json": [
         {
-          "base_url": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+          "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
           "body_params": {
             "geojson": {
               "coordinates": [
@@ -2205,8 +2426,21 @@
               "type": "Polygon"
             }
           },
+          "hotspot": {
+            "resolution": 5,
+            "timeBin": "HOURLY"
+          },
           "method": "POST",
-          "source": "public-global-sar-presence:v3.0",
+          "output": "data/out/",
+          "threshold": {
+            "deep_water_threshold": -200,
+            "high_triage_score_threshold": 0.85,
+            "low_detection_confidence_threshold": 2,
+            "low_triage_score_threshold": 0.3,
+            "medium_triage_score_threshold": 0.6,
+            "near_coast_threshold": 10,
+            "shallow_water_threshold": -50
+          },
           "url_params": {
             "datasets[0]": "public-global-sar-presence:v3.0",
             "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
@@ -2218,7 +2452,7 @@
           }
         }
       ],
-      "config_hash": "1e9584ccfd82f114fda158e04431edd7188a905602984e70ced01f73d1f08689"
+      "config_hash": "e98667b9c1e83d0b7674dd26332aec8e5c87b32881cd723301b7d7267aca3162"
     },
     "context_layers": {
       "EEZ": {

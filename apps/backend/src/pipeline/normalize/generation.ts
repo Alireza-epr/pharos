@@ -28,11 +28,9 @@ import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
-export const generateSources = (a_Configuration: Set<IConfigJSON>) => {
-  return Array.from(a_Configuration)
-    .map((config) => config.source)
-    .join(', ');
-};
+export const generateSources = (a_Config: IConfigJSON) => {
+  return  Object.entries(a_Config.url_params).filter( ([key, value]) => key.startsWith("datasets[") ).map( ([key, value]) => value ).join(", ")
+}
 
 export const generateEventId = (
   a_Timestamps: string,
@@ -70,9 +68,9 @@ export const generateConfidence_heuristic = (
 };
 
 export const generateRunMetadata = async (
-  a_Configuration: Set<IConfigJSON>,
+  a_Configurations: IConfigJSON[],
 ): Promise<IRunMetadata> => {
-  const canonicalObject = deepSortObject(Array.from(a_Configuration));
+  const canonicalObject = deepSortObject(a_Configurations);
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
