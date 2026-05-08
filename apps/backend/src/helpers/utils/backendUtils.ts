@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { isValidCoordinate } from '../../pipeline/normalize/validation';
+import { is4wingsSource, isValidCoordinate } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
   EEventDatasets,
@@ -165,13 +165,21 @@ export const getEntriesFrom4wingsResponse = (
   a_Config: IConfigJSON,
   a_4wingsResponse: I4wingsAPIResponse,
 ) => {
-  const requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
+  const entries = new Map<T4wingsSource, I4wingsEntry[]>()
+  let requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
+  requestedSources = requestedSources.filter( s => {
+    if(is4wingsSource(s)){
+      return s
+    } else {
+      log(`Not valid dataset: ${s}`)
+    }
+  })
+
   if (requestedSources.length === 0) {
-    throw new Error("No dataset is requested")
+    return entries
   }
 
-  const entries = new Map<T4wingsSource, I4wingsEntry[]>()
-
+  
   for (const responseEntry of a_4wingsResponse.entries) {
     for (const requestedSource of requestedSources) {
       const requestedSourceEntries = responseEntry[requestedSource];
@@ -215,6 +223,7 @@ export const getEventMissingness = (
       if (value === null || value === undefined) {
         counts[key]++;
       }
+
     }
   }
 

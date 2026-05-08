@@ -1,5 +1,5 @@
 import { EVessleType } from '@packages/enum';
-import { I4wingsEntry } from '@packages/types';
+import { I4wingsEntry, T4wingsSource } from '@packages/types';
 
 export const isMatchedCase = (a_4wingsEntry: I4wingsEntry) => {
   if(a_4wingsEntry.detections){
@@ -73,6 +73,13 @@ export const isValidDate = (a_DateStr: string) => {
 };
 
 export const isVesselTypeValid = (a_VesselType: string): boolean => {
+  if(typeof a_VesselType !== "string") return false
   const normalized = a_VesselType.trim().toUpperCase() as EVessleType;
   return Object.values(EVessleType).includes(normalized);
+};
+
+export const is4wingsSource = (a_Value: string): a_Value is T4wingsSource => {
+  return /^(public-global-(fishing-effort|sar-presence|presence)):v\d+\.\d+$/.test(
+    a_Value
+  );
 };
