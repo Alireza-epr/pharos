@@ -12,7 +12,7 @@ import {
   EValidationLabel,
   ILandPolygonProperties,
   IValidationResp,
-  IValidationSample,
+  TValidationSample,
   TValidationGeoJSON,
 } from '../../helpers/types/validationTypes';
 import { detectionGFW } from '../ingest/detections';
@@ -41,7 +41,7 @@ export const isOnLand = (
 
 export const createValidationSample = (
   a_EventSchema: IEventSchema,
-): IValidationSample => {
+): TValidationSample => {
   const isEventOnLand = isOnLand(
     landPolygons,
     a_EventSchema.lon,
@@ -67,7 +67,7 @@ export const createValidationSample = (
 };
 
 export const generateValidationGeoJSON = (
-  a_ValidationSample: IValidationSample,
+  a_ValidationSample: TValidationSample,
 ): TValidationGeoJSON => {
   return {
     type: 'Feature',
@@ -109,9 +109,9 @@ export const validationSamples = async (
 
   let eventSchemas: IEventSchema[] = [];
   let validationSamplesGeoJSON: TValidationGeoJSON[] = [];
-  let validationSamples: IValidationSample[] = [];
+  let validationSamples: TValidationSample[] = [];
   log(
-    `Creating event schemas, no. entry: ${reducedEntriesNr.length}...`,
+    `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
 

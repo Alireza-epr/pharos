@@ -62,8 +62,8 @@
       ]
     }
   ],
-  "run_time": "2026-05-07T13:37:11.055Z",
-  "data_source_versions": "public-global-sar-presence:v3.0",
-  "git_commit_hash": "c9a4e55fc8b4d33971e136853c23a1e2f22f8e7e",
-  "execution_duration_sec": 3
+  "run_time": "2026-05-08T10:53:33.232Z",
+  "data_source_versions": "public-global-vessel-identity:v3.0, public-global-sar-presence:v3.0",
+  "git_commit_hash": "53e7396d256e067cbb98f69f8f30400d208bbc89",
+  "execution_duration_sec": 13
 }

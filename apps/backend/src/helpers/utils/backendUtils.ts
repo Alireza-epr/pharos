@@ -9,10 +9,11 @@ import {
 } from '@packages/enum';
 import { config } from '../../config/api';
 import {
-  EGeoJSONEventMissingness,
+  TGeoJSONEventMissingness,
   ELogType,
-  IEventProperties,
+  TEventProperties,
   IMatchingStats,
+  EVENT_MISSINGNESS_KEYS,
 } from '../types/generalTypes';
 import {
   IEventSchema,
@@ -195,16 +196,20 @@ export const getEntriesFrom4wingsResponse = (
 };
 
 export const getEventMissingness = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
-): Record<EGeoJSONEventMissingness, string> => {
+  a_Features: IFeature<IGeometry, TEventProperties>[],
+): Record<TGeoJSONEventMissingness, string> => {
   const total = a_Features.length;
-  const counts: Record<EGeoJSONEventMissingness, number> = Object.fromEntries(
-    Object.values(EGeoJSONEventMissingness).map((e) => [e, 0]),
-  ) as Record<EGeoJSONEventMissingness, number>;
+
+  const keys = Object.values(EVENT_MISSINGNESS_KEYS);
+
+  const counts: Record<TGeoJSONEventMissingness, number> = Object.fromEntries(
+    keys.map((k) => [k, 0]),
+  ) as Record<TGeoJSONEventMissingness, number>;
 
   for (const feature of a_Features) {
-    for (const key of Object.values(EGeoJSONEventMissingness)) {
-      if (!feature.properties) continue;
+    if (!feature.properties) continue;
+
+    for (const key of keys) {
       const value = feature.properties[key];
 
       if (value === null || value === undefined) {
@@ -213,20 +218,17 @@ export const getEventMissingness = (
     }
   }
 
-  const missingness: Record<EGeoJSONEventMissingness, string> =
-    Object.fromEntries(
-      Object.entries(counts).map(([key, count]) => [
-        key,
-        `${((count / total) * 100).toFixed(2)}%`,
-      ]),
-    ) as Record<EGeoJSONEventMissingness, string>;
-
-  return missingness;
+  return Object.fromEntries(
+    keys.map((key) => [
+      key,
+      `${((counts[key] / total) * 100).toFixed(2)}%`,
+    ]),
+  ) as Record<TGeoJSONEventMissingness, string>;
 };
 
 export const getGeoMin = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): number => {
   let min = Infinity;
 
@@ -250,7 +252,7 @@ export const getGeoMin = (
 
 export const getGeoMax = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): number => {
   let max = -Infinity;
 
@@ -272,7 +274,7 @@ export const getGeoMax = (
 };
 
 export const getTimeRange = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ) => {
   let min = Infinity;
   let max = -Infinity;
@@ -371,7 +373,7 @@ export const sortEventSchema = (
 };
 
 export const getMatchingStats = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): IMatchingStats => {
   let matched = 0;
   let unmatched = 0;

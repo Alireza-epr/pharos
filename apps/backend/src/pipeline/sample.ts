@@ -28,7 +28,7 @@ import {
   getEntriesFrom4wingsResponse,
   log,
 } from '../helpers/utils/backendUtils';
-import { ELogType, IEventProperties } from '../helpers/types/generalTypes';
+import { ELogType, TEventProperties } from '../helpers/types/generalTypes';
 import { writeParquet } from '../helpers/utils/parquetUtils';
 import {
   parquetSchema,
@@ -39,7 +39,7 @@ import { featureFromHotspot, generateHotspots } from './aggregate/hotspots';
 import {
   EValidationStrata,
   IValidationManifest,
-  IValidationSample,
+  TValidationSample,
   IValidationStrata,
 } from '../helpers/types/validationTypes';
 import { validationSamples } from './validation/main';
@@ -137,12 +137,12 @@ const main = async (a_Config: IConfigJSON) => {
   const hotspots = generateHotspots(a_Config, sortedEvents);
 
   log(
-    `Exporting outputs to ${a_Config.output}; aggregated entry count: ${notRejectedEvents.length}`,
+    `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
     ELogType.info,
   );
 
   //event.geojson
-  const geojson: FeatureCollection<IGeometry, IEventProperties> = {
+  const geojson: FeatureCollection<IGeometry, TEventProperties> = {
     type: 'FeatureCollection',
     features: sortedEvents.map((event) => ({
       type: 'Feature',
@@ -273,8 +273,8 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
       50,
     );
 
-    let near_coast: IValidationSample[] = [];
-    let offshore: IValidationSample[] = [];
+    let near_coast: TValidationSample[] = [];
+    let offshore: TValidationSample[] = [];
     for (const s of strata_1_samples.validationSamples) {
       const distance = distanceToCoast(coastlinePolylines, s.lon, s.lat);
       if (isNearCoast(distance)) {
@@ -315,7 +315,7 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.distance_to_coast}`,
+      `[validation] Failed to get samples for ${EValidationStrata.distance_to_coast}: ${error}`,
       ELogType.info,
     );
     return;
@@ -372,7 +372,7 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.confidence_tier}`,
+      `[validation] Failed to get samples for ${EValidationStrata.confidence_tier}: ${error}`,
       ELogType.info,
     );
     return;
@@ -430,7 +430,7 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.density}`,
+      `[validation] Failed to get samples for ${EValidationStrata.density}: ${error}`,
       ELogType.info,
     );
     return;
@@ -439,7 +439,7 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
   log(`Generating outputs in ${a_Configs.confidence_tier[0].output}...`, ELogType.info);
 
   //validation_sample.geojson
-  const geoJSON_strata: FeatureCollection<IGeometry, IValidationSample> = {
+  const geoJSON_strata: FeatureCollection<IGeometry, TValidationSample> = {
     type: "FeatureCollection",
     features: Array.from(mapStrata).flatMap(
       ([key, value]) => value.geoJSON,

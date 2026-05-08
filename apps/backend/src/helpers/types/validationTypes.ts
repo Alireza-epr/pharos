@@ -4,6 +4,7 @@ import {
   IRunMetadata,
   IFeature,
   IPointGeometry,
+  IScoring,
 } from '@packages/types';
 
 export interface ILandPolygonProperties {
@@ -77,27 +78,28 @@ export enum EValidationFailureMode {
   unknown = 'unknown',
 }
 
-export interface IValidationSample {
-  event_id: string;
-  timestamp_utc: string;
-  lon: number;
-  lat: number;
-  matched_flag: boolean | undefined;
-  bathymetry: string;
-  source: string;
-  triage_score: number | null;
-  uncertainty_score: number | null;
-  label: EValidationLabel;
-  failure_mode: EValidationFailureMode | '';
-  notes: string;
-}
+export type TValidationSample =
+  Pick<
+    IEventSchema,
+    "event_id" | "timestamp_utc" | "lon" | "lat" | "matched_flag" | "source"
+  > &
+  Pick<
+    IScoring,
+    "triage_score" | "uncertainty_score"
+  > &
+  {
+    bathymetry: string;
+    label: EValidationLabel;
+    failure_mode: EValidationFailureMode | '';
+    notes: string;
+  }
 
-export type TValidationGeoJSON = IFeature<IPointGeometry, IValidationSample>;
+export type TValidationGeoJSON = IFeature<IPointGeometry, TValidationSample>;
 
 export interface IValidationResp {
   metadata?: Partial<IConfigJSON>;
   events: IEventSchema[];
-  validationSamples: IValidationSample[];
+  validationSamples: TValidationSample[];
   validationSamplesGeoJSON: TValidationGeoJSON[];
 }
 

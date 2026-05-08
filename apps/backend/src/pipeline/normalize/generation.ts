@@ -31,7 +31,7 @@ export const backendVersion = pkg.version;
 export const generateSources = (a_Config: IConfigJSON, a_4wingsEntry: I4wingsEntry) => {
   if (a_4wingsEntry.dataset.length !== 0) return a_4wingsEntry.dataset
   // In unmatched cases, the dataset field is empty and we use the requested SAR dataset as the source.
-  const sarDataset = Object.entries(a_Config.url_params).filter( ([,value]) => value.toLowerCase().includes("sar") ).map( ([, value]) => value )[0]
+  const sarDataset = Object.entries(a_Config.url_params).filter( ([,value]) => typeof value === "string" && value.includes("sar") ).map( ([, value]) => value )[0]
   return sarDataset
 }
 

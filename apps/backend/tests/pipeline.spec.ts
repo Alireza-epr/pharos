@@ -56,7 +56,7 @@ import {
 } from './fixtures/gfwRequest';
 import events from './fixtures/events.json';
 import canonicalSchema from './fixtures/canonicalSchema.json';
-import { EGeoJSONEventMissingness } from '../src/helpers/types/generalTypes';
+import { EVENT_MISSINGNESS_KEYS, TGeoJSONEventMissingness } from '../src/helpers/types/generalTypes';
 import { generateHotspots } from '../src/pipeline/aggregate/hotspots';
 import {
   createValidationSample,
@@ -501,12 +501,12 @@ describe('Event_statistics_utilities', () => {
   test('getEventMissingness calculates missing rates', () => {
     const result = getEventMissingness(mixedEvents);
 
-    expect(result).toHaveProperty(EGeoJSONEventMissingness.event_id);
-    expect(result).toHaveProperty(EGeoJSONEventMissingness.timestamp_utc);
-    expect(result).toHaveProperty(EGeoJSONEventMissingness.lat);
-    expect(result).toHaveProperty(EGeoJSONEventMissingness.lon);
+    expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.event_id);
+    expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.timestamp_utc);
+    expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.lat);
+    expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.lon);
 
-    expect(typeof result[EGeoJSONEventMissingness.event_id]).toBe('string');
+    expect(typeof result["event_id"]).toBe('string');
   });
 
   test('getGeoMin returns correct minimum latitude', () => {
