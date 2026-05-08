@@ -1,17 +1,19 @@
 import fs from 'fs';
 import path from 'path';
-import { isValidCoordinate } from '../../pipeline/normalize/validation';
+import { is4wingsSource, isValidCoordinate } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
   EEventDatasets,
   EGeoCoordinate,
+  EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
 import {
-  EGeoJSONEventMissingness,
+  TGeoJSONEventMissingness,
   ELogType,
-  IEventProperties,
+  TEventProperties,
   IMatchingStats,
+  EVENT_MISSINGNESS_KEYS,
 } from '../types/generalTypes';
 import {
   IEventSchema,
@@ -20,7 +22,10 @@ import {
   I4wingsAPIResponse,
   T4wingsSource,
   TEventSource,
+  IConfigJSON,
+  I4wingsEntry,
 } from '@packages/types';
+import { generateSources } from '../../pipeline/normalize/generation';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -145,51 +150,94 @@ export const getSourceFrom4wingsResponse = (
   return source as T4wingsSource;
 };
 
-export const getEntriesFrom4wingsResponse = (
-  a_4wingsResponse: I4wingsAPIResponse,
-  a_Source: T4wingsSource,
+export const getSourcesFromEvents = (
+  a_Events: IEventSchema[],
 ) => {
-  for (const responseEntry of a_4wingsResponse.entries) {
-    const entries = responseEntry[a_Source];
-    if (entries) return entries;
+  const sources = new Set<string>()
+  for(const event of a_Events) {
+    const source = event.source
+    if(!sources.has(source)) sources.add(source)
+  }
+  return Array.from(sources).map( s => s ).join(", ");
+};
+
+export const getEntriesFrom4wingsResponse = (
+  a_Config: IConfigJSON,
+  a_4wingsResponse: I4wingsAPIResponse,
+) => {
+  const entries = new Map<T4wingsSource, I4wingsEntry[]>()
+  let requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
+  requestedSources = requestedSources.filter( s => {
+    if(is4wingsSource(s)){
+      return s
+    } else {
+      log(`Not valid dataset: ${s}`)
+    }
+  })
+
+  if (requestedSources.length === 0) {
+    return entries
   }
 
-  return undefined;
+  
+  for (const responseEntry of a_4wingsResponse.entries) {
+    for (const requestedSource of requestedSources) {
+      const requestedSourceEntries = responseEntry[requestedSource];
+      if (!requestedSourceEntries) {
+        continue;
+      }
+      const existingEntries = entries.get(requestedSource) ?? [];
+      entries.set(
+        requestedSource,
+        [...existingEntries, ...requestedSourceEntries]
+      );
+    }
+  }
+
+  for (const requestedSource of requestedSources) {
+    if (!entries.has(requestedSource)) {
+      log(`No entry is found for ${requestedSource}`, ELogType.warn)
+    }
+  }
+
+  return entries;
 };
 
 export const getEventMissingness = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
-): Record<EGeoJSONEventMissingness, string> => {
+  a_Features: IFeature<IGeometry, TEventProperties>[],
+): Record<TGeoJSONEventMissingness, string> => {
   const total = a_Features.length;
-  const counts: Record<EGeoJSONEventMissingness, number> = Object.fromEntries(
-    Object.values(EGeoJSONEventMissingness).map((e) => [e, 0]),
-  ) as Record<EGeoJSONEventMissingness, number>;
+
+  const keys = Object.values(EVENT_MISSINGNESS_KEYS);
+
+  const counts: Record<TGeoJSONEventMissingness, number> = Object.fromEntries(
+    keys.map((k) => [k, 0]),
+  ) as Record<TGeoJSONEventMissingness, number>;
 
   for (const feature of a_Features) {
-    for (const key of Object.values(EGeoJSONEventMissingness)) {
-      if (!feature.properties) continue;
+    if (!feature.properties) continue;
+
+    for (const key of keys) {
       const value = feature.properties[key];
 
       if (value === null || value === undefined) {
         counts[key]++;
       }
+
     }
   }
 
-  const missingness: Record<EGeoJSONEventMissingness, string> =
-    Object.fromEntries(
-      Object.entries(counts).map(([key, count]) => [
-        key,
-        `${((count / total) * 100).toFixed(2)}%`,
-      ]),
-    ) as Record<EGeoJSONEventMissingness, string>;
-
-  return missingness;
+  return Object.fromEntries(
+    keys.map((key) => [
+      key,
+      `${((counts[key] / total) * 100).toFixed(2)}%`,
+    ]),
+  ) as Record<TGeoJSONEventMissingness, string>;
 };
 
 export const getGeoMin = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): number => {
   let min = Infinity;
 
@@ -213,7 +261,7 @@ export const getGeoMin = (
 
 export const getGeoMax = (
   a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): number => {
   let max = -Infinity;
 
@@ -235,7 +283,7 @@ export const getGeoMax = (
 };
 
 export const getTimeRange = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ) => {
   let min = Infinity;
   let max = -Infinity;
@@ -262,6 +310,10 @@ export const getTimeRange = (
 export const getDate = (a_Datetime: string) => {
   return a_Datetime.slice(0, 10);
 };
+
+export const getDateBucket = (a_Datetime: string, a_TimeBucket: EHotspotTimeBins) => {
+  return a_TimeBucket === EHotspotTimeBins.DAILY ? getDate(a_Datetime) : a_Datetime.slice( 0, 13 ).replace("T", " ") + ":00:00"
+}
 
 export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
   if (!a_Samples.length) return '';
@@ -330,7 +382,7 @@ export const sortEventSchema = (
 };
 
 export const getMatchingStats = (
-  a_Features: IFeature<IGeometry, IEventProperties>[],
+  a_Features: IFeature<IGeometry, TEventProperties>[],
 ): IMatchingStats => {
   let matched = 0;
   let unmatched = 0;
@@ -338,7 +390,7 @@ export const getMatchingStats = (
   for (const feature of a_Features) {
     if (feature.properties.matched_flag) {
       ++matched;
-    } else {
+    } else if(feature.properties.matched_flag === false) {
       ++unmatched;
     }
   }

@@ -1,5 +1,5 @@
 import { EContextLayers } from '@packages/enum';
-import { IContextLayer, IScoring } from '@packages/types';
+import { IContextLayer, IEventSchema, IScoring } from '@packages/types';
 
 export interface IBackendConfig {
   logging: {
@@ -24,37 +24,27 @@ export enum ELogType {
   success = 'SUCCESS',
 }
 
-export interface IEventProperties {
-  event_id: string;
-  timestamp_utc: string;
-  matched_flag: boolean;
-  lat: number;
-  lon: number;
-  confidence_proxy: 2 | 3 | 4 | null;
-  distance_to_coast_km: number | null;
-  context_layers: Record<EContextLayers, IContextLayer>;
-  scoring: IScoring;
-}
+export const EVENT_MISSINGNESS_KEYS = {
+  event_id: 'event_id',
+  timestamp_utc: 'timestamp_utc',
+  lat: 'lat',
+  lon: 'lon',
+  confidence_proxy: 'confidence_proxy',
+  distance_to_coast_km: 'distance_to_coast_km',
+} as const satisfies Record<string, keyof IEventSchema>;
 
-export enum EGeoJSONEventMissingness {
-  event_id = 'event_id',
-  timestamp_utc = 'timestamp_utc',
-  lat = 'lat',
-  lon = 'lon',
-  confidence_proxy = 'confidence_proxy',
-  distance_to_coast_km = 'distance_to_coast_km',
-}
+export type TGeoJSONEventMissingness =
+    keyof typeof EVENT_MISSINGNESS_KEYS;
+
+export type TEventProperties = Omit<
+  IEventSchema,
+  "version"|"geom"|"source"|"raw_metadata"|"raw_event_metadata"|"run_metadata"|"rejected"|"hotspot_cell_id"
+>
 
 export interface IMatchingStats {
   matched: number;
   unmatched: number;
 }
-
-export type TFixedLengthArray<
-  T,
-  N extends number,
-  R extends T[] = [],
-> = R['length'] extends N ? R : TFixedLengthArray<T, N, [...R, T]>;
 
 export interface IBathymetryTile {
   file: string;

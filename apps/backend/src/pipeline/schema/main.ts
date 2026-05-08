@@ -34,8 +34,7 @@ import { getHotspotCellId } from '../aggregate/hotspots';
 import { getBathymetryContext } from '../features/bathymetry_cached';
 
 export const createEventSchema = async (
-  a_Configuration: Set<IConfigJSON>,
-  a_HotspotResolution: number,
+  a_Configuration: IConfigJSON,
   a_4wingsEntry: I4wingsEntry,
 ): Promise<IEventSchema | IRejectedEventSchema> => {
   const validTimestamp = isValidDate(a_4wingsEntry.date);
@@ -76,7 +75,7 @@ export const createEventSchema = async (
 
   const version = generateVersion();
 
-  const sources = generateSources(a_Configuration);
+  const sources = generateSources(a_Configuration, a_4wingsEntry);
 
   const event_id = await generateEventId(timestamp_utc, lon, lat, sources);
 
@@ -84,7 +83,7 @@ export const createEventSchema = async (
 
   const confidence_proxy = generateConfidence_heuristic(a_4wingsEntry);
 
-  const run_metadata = await generateRunMetadata(a_Configuration);
+  const run_metadata = await generateRunMetadata([a_Configuration]);
 
   let geom: IGeometry = generateGeom(lon, lat);
 
@@ -109,7 +108,7 @@ export const createEventSchema = async (
     a_4wingsEntry.lat,
   );
 
-  const hotspot_cell_id = getHotspotCellId(lat, lon, a_HotspotResolution);
+  const hotspot_cell_id = getHotspotCellId(lat, lon, a_Configuration.hotspot.resolution);
 
   const eventSchema: IEventSchema = {
     version: version,

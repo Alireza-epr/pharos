@@ -6,27 +6,21 @@ import {
   IConfigJSON,
   IEventSchema,
   I4wingsAPIResponse,
-  I4wingsReportGetURLParams,
-  I4wingsReportPostBodyParams,
-  I4wingsReportPostURLParams,
-  T4wingsSource,
 } from '@packages/types';
 import {
   EValidationFailureMode,
   EValidationLabel,
   ILandPolygonProperties,
   IValidationResp,
-  IValidationSample,
+  TValidationSample,
   TValidationGeoJSON,
 } from '../../helpers/types/validationTypes';
-import { detectionGetGFW, detectionPostGFW } from '../ingest/detections';
+import { detectionGFW } from '../ingest/detections';
 import {
   getEntriesFrom4wingsResponse,
   log,
-  sortEventSchema,
 } from '../../helpers/utils/backendUtils';
 import { createEventSchema } from '../schema/main';
-import { EFetchMethods } from '@packages/enum';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';
 
@@ -47,7 +41,7 @@ export const isOnLand = (
 
 export const createValidationSample = (
   a_EventSchema: IEventSchema,
-): IValidationSample => {
+): TValidationSample => {
   const isEventOnLand = isOnLand(
     landPolygons,
     a_EventSchema.lon,
@@ -73,7 +67,7 @@ export const createValidationSample = (
 };
 
 export const generateValidationGeoJSON = (
-  a_ValidationSample: IValidationSample,
+  a_ValidationSample: TValidationSample,
 ): TValidationGeoJSON => {
   return {
     type: 'Feature',
@@ -85,37 +79,27 @@ export const generateValidationGeoJSON = (
   };
 };
 
-export const getValidationSamples = async (
-  a_BaseURL: string,
-  a_Source: T4wingsSource,
-  a_URLParam: I4wingsReportGetURLParams,
+export const validationSamples = async (
+  a_Config: IConfigJSON,
   a_Length: number,
-  a_Resolution: number,
 ): Promise<IValidationResp> => {
-  const metadata: IConfigJSON = {
-    source: a_Source,
-    base_url: a_BaseURL,
-    method: EFetchMethods.get,
-    url_params: a_URLParam,
-    body_params: null,
-  };
-  const configuration = new Set<IConfigJSON>();
-  log('Params: ' + JSON.stringify(a_URLParam), ELogType.info);
-
-  const resp4wings = await detectionGetGFW<I4wingsAPIResponse>(
-    a_BaseURL,
-    a_Source,
-    a_URLParam,
+  log(
+    'Params: ' + JSON.stringify(a_Config),
+    ELogType.info,
+  );
+  const resp4wings = await detectionGFW<I4wingsAPIResponse>(
+    a_Config
   );
 
-  const entries4wings = getEntriesFrom4wingsResponse(
-    resp4wings.results,
-    a_Source as T4wingsSource,
+  const entriesMap = getEntriesFrom4wingsResponse(
+    a_Config,
+    resp4wings,
   );
+
+  const entries4wings = Array.from(entriesMap).flatMap( ([source, entries]) => entries )
   if (!entries4wings || entries4wings.length == 0) {
-    log('[getValidationSamples] No entry found!', ELogType.warn);
+    log('[validationSamples] No entry found!', ELogType.warn);
     return {
-      metadata,
       events: [],
       validationSamples: [],
       validationSamplesGeoJSON: [],
@@ -125,101 +109,15 @@ export const getValidationSamples = async (
 
   let eventSchemas: IEventSchema[] = [];
   let validationSamplesGeoJSON: TValidationGeoJSON[] = [];
-  let validationSamples: IValidationSample[] = [];
+  let validationSamples: TValidationSample[] = [];
   log(
-    `Creating event schemas, no. entry: ${reducedEntriesNr.length}...`,
+    `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
 
   for (const entry4wings of reducedEntriesNr) {
-    configuration.clear();
-    configuration.add(resp4wings.metadata);
     const eventSchema = await createEventSchema(
-      configuration,
-      a_Resolution,
-      entry4wings,
-    );
-
-    if (!eventSchema.rejected) {
-      eventSchemas.push(eventSchema);
-    } else {
-      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
-    }
-  }
-
-  const sortedEvents = sortEventSchema(eventSchemas);
-  log('Creating validation GeoJSON samples...', ELogType.info);
-  for (const eventSchema of sortedEvents) {
-    const validationSample = createValidationSample(eventSchema);
-    validationSamples.push(validationSample);
-    const validationSampleGeoJSON = generateValidationGeoJSON(validationSample);
-    validationSamplesGeoJSON.push(validationSampleGeoJSON);
-  }
-
-  return {
-    metadata,
-    events: eventSchemas,
-    validationSamples,
-    validationSamplesGeoJSON,
-  };
-};
-
-export const postValidationSamples = async (
-  a_BaseURL: string,
-  a_Source: T4wingsSource,
-  a_URLParam: I4wingsReportPostURLParams,
-  a_BodyParam: I4wingsReportPostBodyParams,
-  a_Length: number,
-  a_Resolution: number,
-): Promise<IValidationResp> => {
-  const metadata: IConfigJSON = {
-    source: a_Source,
-    base_url: a_BaseURL,
-    method: EFetchMethods.post,
-    url_params: a_URLParam,
-    body_params: a_BodyParam,
-  };
-  const configuration = new Set<IConfigJSON>();
-  log(
-    'Params: ' + JSON.stringify({ ...a_URLParam, ...a_BodyParam }),
-    ELogType.info,
-  );
-  const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
-    a_BaseURL,
-    a_Source,
-    a_URLParam,
-    a_BodyParam,
-  );
-
-  const entries4wings = getEntriesFrom4wingsResponse(
-    resp4wings.results,
-    a_Source as T4wingsSource,
-  );
-  if (!entries4wings || entries4wings.length == 0) {
-    log('[postValidationSamples] No entry found!', ELogType.warn);
-    return {
-      metadata,
-      events: [],
-      validationSamples: [],
-      validationSamplesGeoJSON: [],
-    };
-  }
-  const reducedEntriesNr = entries4wings.slice(0, a_Length);
-
-  let eventSchemas: IEventSchema[] = [];
-  let validationSamplesGeoJSON: TValidationGeoJSON[] = [];
-  let validationSamples: IValidationSample[] = [];
-  log(
-    `Creating event schemas, no. entry: ${reducedEntriesNr.length}...`,
-    ELogType.info,
-  );
-
-  for (const entry4wings of reducedEntriesNr) {
-    configuration.clear();
-    configuration.add(resp4wings.metadata);
-    const eventSchema = await createEventSchema(
-      configuration,
-      a_Resolution,
+      a_Config,
       entry4wings,
     );
 
@@ -239,7 +137,6 @@ export const postValidationSamples = async (
   }
 
   return {
-    metadata,
     events: eventSchemas,
     validationSamples,
     validationSamplesGeoJSON,

@@ -1,4 +1,3 @@
-//import pilot from '../config/pilot.json';
 import { createEventSchema } from './schema/main';
 import {
   csvString,
@@ -11,13 +10,14 @@ import {
   getTimeRange,
   sortEventSchema,
 } from '../helpers/utils/backendUtils';
-import { detectionPostGFW } from './ingest/detections';
+import { detectionGFW } from './ingest/detections';
 import fs from 'fs';
 import {
   IConfigJSON,
   I4wingsAPIResponse,
   FeatureCollection,
   IGeometry,
+  IHotspot,
 } from '@packages/types';
 import {
   EGeoCoordinate,
@@ -26,10 +26,9 @@ import {
 } from '@packages/enum';
 import {
   getEntriesFrom4wingsResponse,
-  getSourceFrom4wingsResponse,
   log,
 } from '../helpers/utils/backendUtils';
-import { ELogType, IEventProperties } from '../helpers/types/generalTypes';
+import { ELogType, TEventProperties } from '../helpers/types/generalTypes';
 import { writeParquet } from '../helpers/utils/parquetUtils';
 import {
   parquetSchema,
@@ -40,10 +39,10 @@ import { featureFromHotspot, generateHotspots } from './aggregate/hotspots';
 import {
   EValidationStrata,
   IValidationManifest,
-  IValidationSample,
+  TValidationSample,
   IValidationStrata,
 } from '../helpers/types/validationTypes';
-import { getValidationSamples, postValidationSamples } from './validation/main';
+import { validationSamples } from './validation/main';
 import {
   readCoastlinePolylines,
   readLandPolygons,
@@ -63,91 +62,58 @@ export const eezPolygons = readEEZPolygons();
 export const mpaPolygons = readMPAPolygons();
 export let gitCommitSHA = '';
 
-const main = async () => {
+const main = async (a_Config: IConfigJSON) => {
   log('Pilot starting...', ELogType.info);
   const start = formatTimestamp();
   await readBathymetryTiles();
   gitCommitSHA = await getGitCommitSHA();
-  const dataset4wings = source4wings.split(':')[0] ?? '';
-  const dataset4wingsVersion = source4wings.split(':')[1] ?? '';
 
-  const baseURLEvent = pilot.eventURL ?? '';
-  const sourceEvent = pilot.eventSource ?? '';
-  const bodyParams4wings = pilot.aoi as any;
-  // Hourly temporal resolution > date = YYYY-MM-DD HH:00:00 > Data is grouped by:(grid cell + 1 hour bucket)
-  // ENTIRE temporal resolution > date = date-range > Data is grouped by:(grid cell + full date-range)
-  const urlParams4wings = {
-    'spatial-resolution': pilot['spatial-resolution'],
-    'temporal-resolution': pilot['temporal-resolution'],
-    'datasets[0]': pilot.source,
-    'date-range': `${pilot.startDate},${pilot.endDate}`,
-    format: pilot.format,
-    'group-by': pilot['group-by'],
-    'filters[0]': pilot.filters,
-  } as any;
 
-  let geometry: any;
-  if ((pilot.aoi as any).geojson) {
-    geometry = {
-      type: (pilot.aoi as any).geojson.type,
-      coordinates: (pilot.aoi as any).geojson.coordinates,
-    } as any;
-  }
-
-  const startDate = `${pilot.startDate}`;
-  const endDate = `${pilot.endDate}`;
-  let events = [];
-  const configuration = new Set<IConfigJSON>();
-  const resp4wings = await detectionPostGFW<I4wingsAPIResponse>(
-    baseURL4wings,
-    source4wings,
-    urlParams4wings,
-    bodyParams4wings,
+  const resp4wings = await detectionGFW<I4wingsAPIResponse>(
+    a_Config
   );
 
-  const key4wings = getSourceFrom4wingsResponse(
-    resp4wings.results,
-    dataset4wings,
-  );
-  const entries4wings = getEntriesFrom4wingsResponse(
-    resp4wings.results,
-    key4wings,
-  );
+  const entriesMap = getEntriesFrom4wingsResponse(a_Config, resp4wings)
+  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
 
-  if (!entries4wings) {
+  if (entries.length == 0) {
     log('Pilot finished with no entry.', ELogType.info);
     return;
   }
 
   log(
-    `Exporting raw metadata to ${output}; no. entry: ${entries4wings.length}`,
+    `Exporting raw metadata to ${a_Config.output}; aggregated entry count: ${entries.length}`,
     ELogType.info,
   );
 
+  for (const [key, results] of entriesMap) {
+    log(
+      `${key}; entry count: ${results.length}`,
+      ELogType.info,
+    );
+  }
+
   //raw_metadata.json
   fs.writeFileSync(
-    `${output}raw_metadata.json`,
-    JSON.stringify(entries4wings, null, 2),
+    `${a_Config.output}raw_metadata.json`,
+    JSON.stringify(entries, null, 2),
   );
 
   //raw_metadata.parquet
   await writeParquet(
-    entries4wings,
+    entries,
     parquetSchema_raw_metadata,
-    `${output}raw_metadata.parquet`,
+    `${a_Config.output}raw_metadata.parquet`,
   );
 
-  log(`Creating event schemas.`, ELogType.info);
-
-  for (const entries4wing of entries4wings) {
+  log(`Creating event schemas...`, ELogType.info);
+  let events = []
+  for (const entries4wing of entries) {
     const thisEntry = entries4wing;
-    configuration.clear();
-    configuration.add(resp4wings.metadata);
 
     try {
       const eventSchema = await createEventSchema(
-        configuration,
-        resolution,
+        a_Config,
         thisEntry,
       );
       //console.log('Event Schema', eventSchema);
@@ -161,22 +127,22 @@ const main = async () => {
   }
 
   const notRejectedEvents = events.filter((e) => !e.rejected);
-  
+
   if (notRejectedEvents.length == 0) {
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
 
   const sortedEvents = sortEventSchema(notRejectedEvents);
-  const hotspots = generateHotspots(sortedEvents, resolution);
+  const hotspots = generateHotspots(a_Config, sortedEvents);
 
   log(
-    `Exporting outputs to ${output}; no. entry: ${notRejectedEvents.length}`,
+    `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
     ELogType.info,
   );
 
   //event.geojson
-  const geojson: FeatureCollection<IGeometry, IEventProperties> = {
+  const geojson: FeatureCollection<IGeometry, TEventProperties> = {
     type: 'FeatureCollection',
     features: sortedEvents.map((event) => ({
       type: 'Feature',
@@ -194,7 +160,7 @@ const main = async () => {
       geometry: event.geom,
     })),
   };
-  fs.writeFileSync(`${output}events.geojson`, JSON.stringify(geojson, null, 2));
+  fs.writeFileSync(`${a_Config.output}events.geojson`, JSON.stringify(geojson, null, 2));
 
   //event.parquet
   const rows = sortedEvents.map((event) => {
@@ -224,11 +190,11 @@ const main = async () => {
       ...edge_case_flags,
     };
   });
-  await writeParquet(rows, parquetSchema, `${output}events.parquet`);
+  await writeParquet(rows, parquetSchema, `${a_Config.output}events.parquet`);
 
   //canonicalSchema.json
   fs.writeFileSync(
-    `${output}canonicalSchema.json`,
+    `${a_Config.output}canonicalSchema.json`,
     JSON.stringify(sortedEvents, null, 2),
   );
 
@@ -257,14 +223,17 @@ const main = async () => {
     time_range: time_range,
   };
   fs.writeFileSync(
-    `${output}data_quality.json`,
+    `${a_Config.output}data_quality.json`,
     JSON.stringify(data_quality, null, 2),
   );
 
   //hotspots.geojson
-  const hotspotsGeoJSON = featureFromHotspot(hotspots);
+  const hotspotsGeoJSON: FeatureCollection<IGeometry, IHotspot> = {
+    type: "FeatureCollection",
+    features: featureFromHotspot(hotspots)
+  };
   fs.writeFileSync(
-    `${output}hotspots.geojson`,
+    `${a_Config.output}hotspots.geojson`,
     JSON.stringify(hotspotsGeoJSON, null, 2),
   );
 
@@ -272,21 +241,21 @@ const main = async () => {
   await writeParquet(
     hotspots,
     parquetSchema_hotspot,
-    `${output}hotspots.parquet`,
+    `${a_Config.output}hotspots.parquet`,
   );
 
   //run_metadata.json
   const end = formatTimestamp();
   const run_metadata = await export_run_metadata(sortedEvents, start, end);
   fs.writeFileSync(
-    `${output}run_metadata.json`,
+    `${a_Config.output}run_metadata.json`,
     JSON.stringify(run_metadata, null, 2),
   );
 
   log('Pilot finished.', ELogType.info);
 };
 
-const validation = async () => {
+const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) => {
   log('Starting validation...', ELogType.info);
   gitCommitSHA = await getGitCommitSHA();
   await readBathymetryTiles();
@@ -298,28 +267,14 @@ const validation = async () => {
       `Getting samples for ${EValidationStrata.distance_to_coast} strata...`,
       ELogType.info,
     );
-    const strata_1_url = {
-      'spatial-resolution': 'HIGH',
-      'temporal-resolution': 'HOURLY',
-      'datasets[0]': 'public-global-sar-presence:v3.0',
-      format: 'JSON',
-      'group-by': 'VESSEL_ID',
-      'filters[0]': "matched='false'",
-      'date-range': '2025-01-01T00:00:00Z,2025-12-07T23:59:59Z',
-      'region-dataset': 'public-eez-areas',
-      'region-id': 5669,
-    } as any;
     const strata_1_start = formatTimestamp();
-    const strata_1_samples = await getValidationSamples(
-      baseURL4wings,
-      source4wings,
-      strata_1_url,
+    const strata_1_samples = await validationSamples(
+      a_Configs[EValidationStrata.distance_to_coast][0],
       50,
-      resolution,
     );
 
-    let near_coast: IValidationSample[] = [];
-    let offshore: IValidationSample[] = [];
+    let near_coast: TValidationSample[] = [];
+    let offshore: TValidationSample[] = [];
     for (const s of strata_1_samples.validationSamples) {
       const distance = distanceToCoast(coastlinePolylines, s.lon, s.lat);
       if (isNearCoast(distance)) {
@@ -340,8 +295,6 @@ const validation = async () => {
       csv: strata_1_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>();
-    configSets.add(strata_1_samples.metadata);
     const strata_1_end = formatTimestamp();
     const strata_1_manifest: IValidationManifest = {
       strata: EValidationStrata.distance_to_coast,
@@ -349,7 +302,7 @@ const validation = async () => {
         near_coast: near_coast.length,
         offshore: offshore.length,
       },
-      run_metadata: await generateRunMetadata(configSets),
+      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.distance_to_coast]),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_1_start, strata_1_end) / 1000,
       ),
@@ -362,7 +315,7 @@ const validation = async () => {
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.distance_to_coast}`,
+      `[validation] Failed to get samples for ${EValidationStrata.distance_to_coast}: ${error}`,
       ELogType.info,
     );
     return;
@@ -373,44 +326,15 @@ const validation = async () => {
       `Getting samples for ${EValidationStrata.confidence_tier} strata...`,
       ELogType.info,
     );
-    const strata_2_url_1 = {
-      'spatial-resolution': 'HIGH',
-      'temporal-resolution': 'HOURLY',
-      'datasets[0]': 'public-global-sar-presence:v3.0',
-      format: 'JSON',
-      'group-by': 'VESSEL_ID',
-      'filters[0]': "matched='false'",
-      'date-range': '2025-12-07T00:00:00Z,2025-12-07T23:59:59Z',
-      'region-dataset': 'public-eez-areas',
-      'region-id': 5669,
-    } as any;
-
-    const strata_2_url_2 = {
-      'spatial-resolution': 'HIGH',
-      'temporal-resolution': 'HOURLY',
-      'datasets[0]': 'public-global-sar-presence:v3.0',
-      format: 'JSON',
-      'group-by': 'VESSEL_ID',
-      'filters[0]': "matched='false'",
-      'date-range': '2018-12-07T00:00:00Z,2018-12-07T23:59:59Z',
-      'region-dataset': 'public-eez-areas',
-      'region-id': 5669,
-    } as any;
     const strata_2_start = formatTimestamp();
-    const strata_2_samples_1 = await getValidationSamples(
-      baseURL4wings,
-      source4wings,
-      strata_2_url_1,
+    const strata_2_samples_1 = await validationSamples(
+      a_Configs[EValidationStrata.confidence_tier][0],
       25,
-      resolution,
     );
 
-    const strata_2_samples_2 = await getValidationSamples(
-      baseURL4wings,
-      source4wings,
-      strata_2_url_2,
+    const strata_2_samples_2 = await validationSamples(
+      a_Configs[EValidationStrata.confidence_tier][1],
       25,
-      resolution,
     );
 
     const strata_2_csv = csvString(
@@ -428,9 +352,6 @@ const validation = async () => {
       csv: strata_2_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>();
-    configSets.add(strata_2_samples_1.metadata);
-    configSets.add(strata_2_samples_2.metadata);
     const strata_2_end = formatTimestamp();
     const strata_2_manifest: IValidationManifest = {
       strata: EValidationStrata.confidence_tier,
@@ -438,7 +359,7 @@ const validation = async () => {
         high_confidence: strata_2_samples_1.validationSamples.length,
         low_confidence: strata_2_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(configSets),
+      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.confidence_tier]),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_2_start, strata_2_end) / 1000,
       ),
@@ -451,7 +372,7 @@ const validation = async () => {
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.confidence_tier}`,
+      `[validation] Failed to get samples for ${EValidationStrata.confidence_tier}: ${error}`,
       ELogType.info,
     );
     return;
@@ -462,74 +383,16 @@ const validation = async () => {
       `Getting samples for ${EValidationStrata.density} strata...`,
       ELogType.info,
     );
-    const strata_3_url_1 = {
-      'spatial-resolution': 'HIGH',
-      'temporal-resolution': 'HOURLY',
-      'datasets[0]': 'public-global-sar-presence:v3.0',
-      format: 'JSON',
-      'group-by': 'VESSEL_ID',
-      'filters[0]': "matched='false'",
-      'date-range': '2025-07-07T00:00:00Z,2025-12-07T23:59:59Z',
-    } as any;
-
-    // English Channel
-    const strata_3_body_1 = {
-      geojson: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [0.5, 50.5],
-            [2.5, 50.5],
-            [2.5, 51.5],
-            [0.5, 51.5],
-            [0.5, 50.5],
-          ],
-        ],
-      },
-    };
-
-    const strata_3_url_2 = {
-      'spatial-resolution': 'HIGH',
-      'temporal-resolution': 'HOURLY',
-      'datasets[0]': 'public-global-sar-presence:v3.0',
-      format: 'JSON',
-      'group-by': 'VESSEL_ID',
-      'filters[0]': "matched='false'",
-      'date-range': '2025-07-07T00:00:00Z,2025-12-07T23:59:59Z',
-    } as any;
-
-    // Open Atlantic Ocean
-    const strata_3_body_2 = {
-      geojson: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [-32.0, 34.0],
-            [-28.0, 34.0],
-            [-28.0, 38.0],
-            [-32.0, 38.0],
-            [-32.0, 34.0],
-          ],
-        ],
-      },
-    };
+    
     const strata_3_start = formatTimestamp();
-    const strata_3_samples_1 = await postValidationSamples(
-      baseURL4wings,
-      source4wings,
-      strata_3_url_1,
-      strata_3_body_1 as any,
+    const strata_3_samples_1 = await validationSamples(
+      a_Configs[EValidationStrata.density][0],
       25,
-      resolution,
     );
 
-    const strata_3_samples_2 = await postValidationSamples(
-      baseURL4wings,
-      source4wings,
-      strata_3_url_2,
-      strata_3_body_2 as any,
+    const strata_3_samples_2 = await validationSamples(
+      a_Configs[EValidationStrata.density][1],
       25,
-      resolution,
     );
 
     const strata_3_csv = csvString(
@@ -547,9 +410,6 @@ const validation = async () => {
       csv: strata_3_csv + '\n' + '\n',
     });
 
-    const configSets = new Set<IConfigJSON>();
-    configSets.add(strata_3_samples_1.metadata);
-    configSets.add(strata_3_samples_2.metadata);
     const strata_3_end = formatTimestamp();
     const strata_3_manifest: IValidationManifest = {
       strata: EValidationStrata.density,
@@ -557,7 +417,7 @@ const validation = async () => {
         high_density: strata_3_samples_1.validationSamples.length,
         low_density: strata_3_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(configSets),
+      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.density]),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_3_start, strata_3_end) / 1000,
       ),
@@ -570,57 +430,68 @@ const validation = async () => {
     );
   } catch (error) {
     log(
-      `[validation] Failed to get samples for ${EValidationStrata.density}`,
+      `[validation] Failed to get samples for ${EValidationStrata.density}: ${error}`,
       ELogType.info,
     );
     return;
   }
 
-  log(`Generating outputs in ${output}...`, ELogType.info);
+  log(`Generating outputs in ${a_Configs.confidence_tier[0].output}...`, ELogType.info);
 
   //validation_sample.geojson
-  const geoJSON_strata = Array.from(mapStrata).flatMap(
-    ([key, value]) => value.geoJSON,
-  );
+  const geoJSON_strata: FeatureCollection<IGeometry, TValidationSample> = {
+    type: "FeatureCollection",
+    features: Array.from(mapStrata).flatMap(
+      ([key, value]) => value.geoJSON,
+    )
+  }
+
   fs.writeFileSync(
-    `${output}validation_sample.geojson`,
+    `${a_Configs.confidence_tier[0].output}validation_sample.geojson`,
     JSON.stringify(geoJSON_strata, null, 2),
   );
 
   //validation_sample.csv
   const csv_strata = Array.from(mapStrata).flatMap(([key, value]) => value.csv);
   const csv_strata_string = csv_strata.join(' ');
-  fs.writeFileSync(`${output}validation_sample.csv`, csv_strata_string, 'utf8');
+  fs.writeFileSync(`${a_Configs.confidence_tier[0].output}validation_sample.csv`, csv_strata_string, 'utf8');
 
   log('Validation finished.', ELogType.info);
 
   //validation_manifest.json
   const manifest_strata = Array.from(setManifest);
   fs.writeFileSync(
-    `${output}validation_manifest.json`,
+    `${a_Configs.confidence_tier[0].output}validation_manifest.json`,
     JSON.stringify(manifest_strata, null, 2),
   );
 };
 
-const configIndex = args.indexOf('--config');
-let configPath = null;
-
-if (configIndex !== -1 && args[configIndex + 1]) {
-  configPath = args[configIndex + 1];
-} else {
-  configPath = 'src/config/pilot.json';
-}
-const pilot = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-if (!pilot) {
-  throw new Error(`Config file not found: ${configPath}`);
-}
-const baseURL4wings = pilot.URL;
-const source4wings = pilot.source as any;
-const output = pilot.output;
-const resolution = pilot.hotspotResolution;
-
 if (args.includes('--main')) {
-  main().catch(console.error);
+  const configIndex = args.indexOf('--config');
+  let configPath = null;
+
+  if (configIndex !== -1 && args[configIndex + 1]) {
+    configPath = args[configIndex + 1];
+  } else {
+    configPath = 'src/config/pilot.json';
+  }
+  const config = JSON.parse(fs.readFileSync(configPath, 'utf8')) as IConfigJSON;
+  if (!config) {
+    throw new Error(`Config file not found: ${configPath}`);
+  }
+  main(config).catch(console.error);
 } else if (args.includes('--validation')) {
-  validation().catch(console.error);
+  const configIndex = args.indexOf('--config');
+  let configPath = null;
+
+  if (configIndex !== -1 && args[configIndex + 1]) {
+    configPath = args[configIndex + 1];
+  } else {
+    configPath = 'src/config/validation-pilot.json';
+  }
+  const configs = JSON.parse(fs.readFileSync(configPath, 'utf8')) as Record<EValidationStrata, IConfigJSON[]>;
+  if (!configs) {
+    throw new Error(`Config file not found: ${configPath}`);
+  }
+  validation(configs).catch(console.error);
 }
