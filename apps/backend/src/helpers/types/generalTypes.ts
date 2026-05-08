@@ -27,7 +27,7 @@ export enum ELogType {
 export interface IEventProperties {
   event_id: string;
   timestamp_utc: string;
-  matched_flag: boolean;
+  matched_flag: boolean | undefined;
   lat: number;
   lon: number;
   confidence_proxy: 2 | 3 | 4 | null;

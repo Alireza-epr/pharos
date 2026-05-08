@@ -152,11 +152,9 @@ export const getSourceFrom4wingsResponse = (
 export const getSourcesFromEvents = (
   a_Events: IEventSchema[],
 ) => {
-
-  const configs = a_Events.flatMap( event => event.run_metadata.config_json )
   const sources = new Set<string>()
-  for(const config of configs) {
-    const source = generateSources(config)
+  for(const event of a_Events) {
+    const source = event.source
     if(!sources.has(source)) sources.add(source)
   }
   return Array.from(sources).map( s => s ).join(", ");
@@ -166,22 +164,30 @@ export const getEntriesFrom4wingsResponse = (
   a_Config: IConfigJSON,
   a_4wingsResponse: I4wingsAPIResponse,
 ) => {
-  const requestedSources = Object.entries(a_Config.url_params).filter( ([key, value]) => key.startsWith("datasets[") ).map( ([key, value]) => value )
-  if(requestedSources.length === 0) {
+  const requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
+  if (requestedSources.length === 0) {
     throw new Error("No dataset is requested")
-  } 
-  
-  const entries = new Map<T4wingsSource, I4wingsEntry[]>() 
+  }
 
-  for(const requestedSource of requestedSources){
-    for (const responseEntry of a_4wingsResponse.entries){
+  const entries = new Map<T4wingsSource, I4wingsEntry[]>()
+
+  for (const responseEntry of a_4wingsResponse.entries) {
+    for (const requestedSource of requestedSources) {
       const requestedSourceEntries = responseEntry[requestedSource];
-      if (requestedSourceEntries) {
-        entries.set( requestedSource, requestedSourceEntries )
-      } else {
-        log(`No entry is found for ${requestedSource}`, ELogType.warn)
-        continue
+      if (!requestedSourceEntries) {
+        continue;
       }
+      const existingEntries = entries.get(requestedSource) ?? [];
+      entries.set(
+        requestedSource,
+        [...existingEntries, ...requestedSourceEntries]
+      );
+    }
+  }
+
+  for (const requestedSource of requestedSources) {
+    if (!entries.has(requestedSource)) {
+      log(`No entry is found for ${requestedSource}`, ELogType.warn)
     }
   }
 
@@ -373,7 +379,7 @@ export const getMatchingStats = (
   for (const feature of a_Features) {
     if (feature.properties.matched_flag) {
       ++matched;
-    } else {
+    } else if(feature.properties.matched_flag === false) {
       ++unmatched;
     }
   }

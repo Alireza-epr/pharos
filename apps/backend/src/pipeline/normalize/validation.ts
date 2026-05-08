@@ -2,7 +2,13 @@ import { EVessleType } from '@packages/enum';
 import { I4wingsEntry } from '@packages/types';
 
 export const isMatchedCase = (a_4wingsEntry: I4wingsEntry) => {
-  return a_4wingsEntry.dataset.length !== 0;
+  if(a_4wingsEntry.detections){
+    // Only in the public-global-sar-presence dataset, 4wingsEntry has detection.
+    return a_4wingsEntry.dataset.length !== 0;
+  } else {
+    // For other datasets, the matching does not have any meaning.
+    return undefined
+  }
 };
 
 export const isNoisyCase = (a_4wingsEntry: I4wingsEntry) => {

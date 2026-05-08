@@ -39,12 +39,12 @@ export const generateHotspots = (
     let time_bins_with_unmatched = 0;
 
     for (const event of events) {
-      if (!event.matched_flag) {
+      if (event.matched_flag === false) {
         count_unmatched++;
       }
 
       if (
-        !event.matched_flag &&
+        event.matched_flag === false &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
           a_Config.threshold.medium_triage_score_threshold

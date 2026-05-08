@@ -82,7 +82,7 @@ export interface IValidationSample {
   timestamp_utc: string;
   lon: number;
   lat: number;
-  matched_flag: boolean;
+  matched_flag: boolean | undefined;
   bathymetry: string;
   source: string;
   triage_score: number | null;

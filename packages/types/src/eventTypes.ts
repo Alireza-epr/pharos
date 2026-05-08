@@ -61,7 +61,7 @@ export interface IEventSchema {
   lon: number;
   lat: number;
   geom: IGeometry;
-  matched_flag: boolean;
+  matched_flag: boolean | undefined;
   source: string;
   confidence_proxy: 2 | 3 | 4 | null;
   raw_metadata: I4wingsEntry;

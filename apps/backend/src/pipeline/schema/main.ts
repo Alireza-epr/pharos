@@ -75,7 +75,7 @@ export const createEventSchema = async (
 
   const version = generateVersion();
 
-  const sources = generateSources(a_Configuration);
+  const sources = generateSources(a_Configuration, a_4wingsEntry);
 
   const event_id = await generateEventId(timestamp_utc, lon, lat, sources);
 

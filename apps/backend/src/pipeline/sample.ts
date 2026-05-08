@@ -82,9 +82,16 @@ const main = async (a_Config: IConfigJSON) => {
   }
 
   log(
-    `Exporting raw metadata to ${a_Config.output}; no. entry: ${entries.length}`,
+    `Exporting raw metadata to ${a_Config.output}; aggregated entry count: ${entries.length}`,
     ELogType.info,
   );
+
+  for (const [key, results] of entriesMap) {
+    log(
+      `${key}; entry count: ${results.length}`,
+      ELogType.info,
+    );
+  }
 
   //raw_metadata.json
   fs.writeFileSync(
@@ -99,7 +106,7 @@ const main = async (a_Config: IConfigJSON) => {
     `${a_Config.output}raw_metadata.parquet`,
   );
 
-  log(`Creating event schemas.`, ELogType.info);
+  log(`Creating event schemas...`, ELogType.info);
   let events = []
   for (const entries4wing of entries) {
     const thisEntry = entries4wing;
@@ -130,7 +137,7 @@ const main = async (a_Config: IConfigJSON) => {
   const hotspots = generateHotspots(a_Config, sortedEvents);
 
   log(
-    `Exporting outputs to ${a_Config.output}; no. entry: ${notRejectedEvents.length}`,
+    `Exporting outputs to ${a_Config.output}; aggregated entry count: ${notRejectedEvents.length}`,
     ELogType.info,
   );
 

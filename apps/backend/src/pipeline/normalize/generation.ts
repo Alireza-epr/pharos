@@ -28,8 +28,11 @@ import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
-export const generateSources = (a_Config: IConfigJSON) => {
-  return  Object.entries(a_Config.url_params).filter( ([key, value]) => key.startsWith("datasets[") ).map( ([key, value]) => value ).join(", ")
+export const generateSources = (a_Config: IConfigJSON, a_4wingsEntry: I4wingsEntry) => {
+  if (a_4wingsEntry.dataset.length !== 0) return a_4wingsEntry.dataset
+  // In unmatched cases, the dataset field is empty and we use the requested SAR dataset as the source.
+  const sarDataset = Object.entries(a_Config.url_params).filter( ([,value]) => value.toLowerCase().includes("sar") ).map( ([, value]) => value )[0]
+  return sarDataset
 }
 
 export const generateEventId = (
@@ -60,10 +63,21 @@ export const generateConfidence_heuristic = (
   a_4wingsEntry: I4wingsEntry,
 ): 2 | 3 | 4 | null => {
   let confidence_proxy: 2 | 3 | 4 | null = null
-  if (a_4wingsEntry.detections <= 1) confidence_proxy = null;
-  if (a_4wingsEntry.detections === 2) confidence_proxy = 2;
-  if (a_4wingsEntry.detections === 3) confidence_proxy = 3;
-  if (a_4wingsEntry.detections >= 4) confidence_proxy = 4;
+  if (a_4wingsEntry.detections) {
+    // detections is available in public-global-sar-presence dataset 
+    if (a_4wingsEntry.detections <= 1) confidence_proxy = null;
+    if (a_4wingsEntry.detections === 2) confidence_proxy = 2;
+    if (a_4wingsEntry.detections === 3) confidence_proxy = 3;
+    if (a_4wingsEntry.detections >= 4) confidence_proxy = 4;
+    return confidence_proxy
+  } else if (a_4wingsEntry.hours){
+    // other datasets have hours parameter
+    if (a_4wingsEntry.hours < 2) confidence_proxy = null;
+    if (a_4wingsEntry.hours >= 2 && a_4wingsEntry.hours < 3) confidence_proxy = 2;
+    if (a_4wingsEntry.hours >= 3 && a_4wingsEntry.hours < 4) confidence_proxy = 3;
+    if (a_4wingsEntry.hours >= 4) confidence_proxy = 4;
+    return confidence_proxy
+  }
   return confidence_proxy
 };
 
@@ -122,17 +136,19 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     }
   }
 
-  if (isNoisyCase(entry)) {
-    uncertainty_score += WEIGHTS.noisy;
-    reason_codes.push(EReasonCodesStatic.noisy_vessel);
-  }
+  if (matched !== undefined) {
+    if (isNoisyCase(entry)) {
+      uncertainty_score += WEIGHTS.noisy;
+      reason_codes.push(EReasonCodesStatic.noisy_vessel);
+    }
 
-  if (!matched) {
-    uncertainty_score += WEIGHTS.unmatched;
-    reason_codes.push(EReasonCodesStatic.unmatched_to_public_ais);
-  } else {
-    reason_codes.push(EReasonCodesStatic.matched_to_public_ais);
-    uncertainty_score -= 0.05; // slight confidence boost
+    if (!matched) {
+      uncertainty_score += WEIGHTS.unmatched;
+      reason_codes.push(EReasonCodesStatic.unmatched_to_public_ais);
+    } else {
+      reason_codes.push(EReasonCodesStatic.matched_to_public_ais);
+      uncertainty_score -= 0.05; // slight confidence boost
+    }
   }
 
   if (confidence_proxy === null) {

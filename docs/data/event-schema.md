@@ -40,6 +40,8 @@ This document defines a **event schema** for Iteration 1.
   - `false` → identity fields are empty  
     This follows the dataset decision.
 
+Note: This property is available only in the public-global-sar-presence dataset. In all other datasets, this field is not included in the event schema.  
+
 ### Source information
 
 - `source` (string)  
@@ -49,6 +51,8 @@ This document defines a **event schema** for Iteration 1.
 
 - `confidence_proxy` (number or null)  
   Indicates the strength of repeated SAR detections within the same grid cell and time bucket, derived from the provider data. It reflects observation intensity, not probability or certainty of vessel identity.
+
+  If the dataset does not provide a detection parameter but provides an hours parameter in the grid cell over the selected time range, we use that parameter to indicate the strength of signal.
 - `raw_metadata` (object)  
   Original SAR record stored without modification.
 

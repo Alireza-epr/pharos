@@ -103,7 +103,7 @@ describe('4wings_helpers', () => {
   describe('generateSources', () => {
     it('returns the source keys with the version', () => {
       const expected = (sarConfig as IConfigJSON).url_params["datasets[0]"];
-      const sources = generateSources(sarConfig);
+      const sources = generateSources(sarConfig, api4wingsEntry_matched);
       expect(sources).toBe(expected);
     });
   });

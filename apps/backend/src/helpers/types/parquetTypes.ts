@@ -10,7 +10,7 @@ const allReasonCodes = new Set<string>(Object.values(EReasonCodesStatic));
 const baseSchema: Record<string, TParquetField> = {
   event_id: { type: 'UTF8' },
   timestamp_utc: { type: 'UTF8' },
-  matched_flag: { type: 'BOOLEAN' },
+  matched_flag: { type: 'BOOLEAN', optional: true },
   lat: { type: 'DOUBLE' },
   lon: { type: 'DOUBLE' },
   confidence_proxy: { type: 'DOUBLE', optional: true },
@@ -30,7 +30,8 @@ export const parquetSchema_raw_metadata = new parquet.ParquetSchema({
   callsign: { type: 'UTF8' },
   dataset: { type: 'UTF8' },
   date: { type: 'UTF8' },
-  detections: { type: 'INT64' },
+  detections: { type: 'INT64', optional: true },
+  hours: { type: 'INT64', optional: true },
 
   entryTimestamp: { type: 'TIMESTAMP_MILLIS' },
   exitTimestamp: { type: 'TIMESTAMP_MILLIS' },

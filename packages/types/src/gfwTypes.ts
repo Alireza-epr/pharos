@@ -104,7 +104,7 @@ export interface I4wingsEntry {
   callsign: string;
   dataset: string;
   date: string; // format: YYYY-MM
-  detections: number;
+  detections?: number;
   entryTimestamp: string; // ISO string
   exitTimestamp: string; // ISO string
   firstTransmissionDate: string;
@@ -118,6 +118,7 @@ export interface I4wingsEntry {
   shipName: string;
   vesselId: string;
   vesselType: string;
+  hours?: number
 }
 
 /**
