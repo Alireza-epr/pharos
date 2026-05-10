@@ -14,6 +14,7 @@ const baseSchema: Record<string, TParquetField> = {
   lat: { type: 'DOUBLE' },
   lon: { type: 'DOUBLE' },
   confidence_proxy: { type: 'DOUBLE', optional: true },
+  confidence_tier: { type: 'UTF8' },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
   bathymetry_m: { type: 'UTF8' },
   triage_score: { type: 'DOUBLE', optional: true },

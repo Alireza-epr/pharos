@@ -5,6 +5,7 @@ import {
   EContextLayers,
   EFetchMethods,
   EHotspotTimeBins,
+  EConfidenceTiers,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -64,6 +65,7 @@ export interface IEventSchema {
   matched_flag: boolean | undefined;
   source: string;
   confidence_proxy: 2 | 3 | 4 | null;
+  confidence_tier: EConfidenceTiers;
   raw_metadata: I4wingsEntry;
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
@@ -90,7 +92,7 @@ export interface IConfigJSON {
 
 export interface IThresholdConfig {
   near_coast_threshold: number,
-  low_detection_confidence_threshold: number,
+  low_confidence_proxy_threshold: number,
   shallow_water_threshold: number,
   deep_water_threshold: number,
   low_triage_score_threshold: number,

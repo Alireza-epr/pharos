@@ -1,7 +1,7 @@
 {
   "config": [
     {
-      "hash": "6b1923dc2a723614ae43473dbc9b9573acbe9fc036c664898c1ad86526307d25",
+      "hash": "726581f249d2d64f70656a0315483e782822acdd1becc86ef56b828f495b279b",
       "json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -43,7 +43,7 @@
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
-            "low_detection_confidence_threshold": 2,
+            "low_confidence_proxy_threshold": 2,
             "low_triage_score_threshold": 0.3,
             "medium_triage_score_threshold": 0.6,
             "near_coast_threshold": 10,
@@ -62,8 +62,8 @@
       ]
     }
   ],
-  "run_time": "2026-05-08T11:29:05.858Z",
+  "run_time": "2026-05-10T11:05:00.831Z",
   "data_source_versions": "public-global-sar-presence:v3.0",
-  "git_commit_hash": "53e7396d256e067cbb98f69f8f30400d208bbc89",
-  "execution_duration_sec": 6
+  "git_commit_hash": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+  "execution_duration_sec": 14
 }

@@ -157,7 +157,7 @@ describe('generateConfidence', () => {
 
     expect(confidence_proxy_null).toBeNull();
     expect(confidence_proxy).toBe(4);
-    expect(generateConfidence(undefined)).toBeNull();
+    expect(generateConfidence(null)).toBeNull();
   });
 });
 
@@ -313,7 +313,7 @@ describe('generateScoring', () => {
     const scoring = generateScoring(eventSchema_with_low_confidence);
 
     expect(scoring.reason_codes).toContain(
-      EReasonCodesStatic.low_detection_confidence,
+      EReasonCodesStatic.low_confidence_proxy,
     );
   });
 

@@ -10,6 +10,7 @@
         "lat": 55.25,
         "lon": 14.3,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 17.37,
         "context_layers": {
           "EEZ": {
@@ -38,11 +39,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -66,6 +68,7 @@
         "lat": 55.11,
         "lon": 14.13,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 30.83,
         "context_layers": {
           "EEZ": {
@@ -94,11 +97,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -121,6 +125,7 @@
         "lat": 55.18,
         "lon": 14.2,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 23.19,
         "context_layers": {
           "EEZ": {
@@ -149,11 +154,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -177,6 +183,7 @@
         "lat": 55.24,
         "lon": 14.13,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 16.38,
         "context_layers": {
           "EEZ": {
@@ -205,11 +212,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -233,6 +241,7 @@
         "lat": 55.21,
         "lon": 14.4,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 19.31,
         "context_layers": {
           "EEZ": {
@@ -261,11 +270,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -289,6 +299,7 @@
         "lat": 55.16,
         "lon": 14.17,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 25.27,
         "context_layers": {
           "EEZ": {
@@ -317,11 +328,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -345,6 +357,7 @@
         "lat": 55.16,
         "lon": 14.11,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 25.28,
         "context_layers": {
           "EEZ": {
@@ -373,11 +386,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -400,6 +414,7 @@
         "lat": 55.2,
         "lon": 14.21,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 21.07,
         "context_layers": {
           "EEZ": {
@@ -428,11 +443,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.56,
-          "uncertainty_score": 0.55,
+          "triage_score": 0.58,
+          "uncertainty_score": 0.63,
           "reason_codes": [
             "unmatched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -455,6 +471,7 @@
         "lat": 55.16,
         "lon": 14.68,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 1.33,
         "context_layers": {
           "EEZ": {
@@ -483,11 +500,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.81,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.83,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "near_coast",
             "bathymetry_shallow_eez_hotspot"
@@ -511,6 +529,7 @@
         "lat": 55.19,
         "lon": 14.24,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 22.53,
         "context_layers": {
           "EEZ": {
@@ -539,11 +558,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -566,6 +586,7 @@
         "lat": 55.15,
         "lon": 14.22,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 26.66,
         "context_layers": {
           "EEZ": {
@@ -594,11 +615,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -621,6 +643,7 @@
         "lat": 55.22,
         "lon": 14.41,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 18.72,
         "context_layers": {
           "EEZ": {
@@ -655,10 +678,11 @@
         },
         "scoring": {
           "triage_score": 1,
-          "uncertainty_score": 0.3,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "inside_mpa",
             "bathymetry_shallow_eez_hotspot",
@@ -684,6 +708,7 @@
         "lat": 55.23,
         "lon": 14.19,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 17.59,
         "context_layers": {
           "EEZ": {
@@ -712,11 +737,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -740,6 +766,7 @@
         "lat": 55.23,
         "lon": 14.29,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 19.16,
         "context_layers": {
           "EEZ": {
@@ -768,11 +795,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -795,6 +823,7 @@
         "lat": 55.09,
         "lon": 14.09,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 33.07,
         "context_layers": {
           "EEZ": {
@@ -823,11 +852,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -851,6 +881,7 @@
         "lat": 55.15,
         "lon": 14.3,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 25.02,
         "context_layers": {
           "EEZ": {
@@ -879,11 +910,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.51,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot"
           ]
@@ -906,6 +938,7 @@
         "lat": 55.24,
         "lon": 14.33,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 19.23,
         "context_layers": {
           "EEZ": {
@@ -934,11 +967,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"
@@ -962,6 +996,7 @@
         "lat": 55.21,
         "lon": 14.41,
         "confidence_proxy": null,
+        "confidence_tier": "low",
         "distance_to_coast_km": 18.68,
         "context_layers": {
           "EEZ": {
@@ -990,11 +1025,12 @@
           }
         },
         "scoring": {
-          "triage_score": 0.71,
-          "uncertainty_score": 0.3,
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38,
           "reason_codes": [
             "matched_to_public_ais",
             "missing_confidence_proxy",
+            "low_confidence_tier",
             "inside_eez",
             "bathymetry_shallow_eez_hotspot",
             "bathymetry_cargo_anomaly_zone"

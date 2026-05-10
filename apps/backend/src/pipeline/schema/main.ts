@@ -36,6 +36,7 @@ import { getBathymetryContext } from '../features/bathymetry_cached';
 export const createEventSchema = async (
   a_Configuration: IConfigJSON,
   a_4wingsEntry: I4wingsEntry,
+  a_EventEntry?: TGlobalEvent
 ): Promise<IEventSchema | IRejectedEventSchema> => {
   const validTimestamp = isValidDate(a_4wingsEntry.date);
   if (!validTimestamp) {
@@ -81,7 +82,8 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_proxy = generateConfidence_heuristic(a_4wingsEntry);
+  const confidence_proxy = generateConfidence(a_EventEntry ?? null);
+  const confidence_tier = generateConfidence_heuristic(a_4wingsEntry)
 
   const run_metadata = await generateRunMetadata([a_Configuration]);
 
@@ -116,11 +118,12 @@ export const createEventSchema = async (
     timestamp_utc,
     matched_flag,
     confidence_proxy,
+    confidence_tier,
     lat,
     lon,
     source: sources,
     raw_metadata: a_4wingsEntry,
-    raw_event_metadata: null,
+    raw_event_metadata: a_EventEntry ?? null,
     run_metadata,
     context_layers,
     distance_to_coast_km,

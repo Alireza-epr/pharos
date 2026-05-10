@@ -50,9 +50,12 @@ Note: This property is available only in the public-global-sar-presence dataset.
 ### Metadata
 
 - `confidence_proxy` (number or null)  
-  Indicates the strength of repeated SAR detections within the same grid cell and time bucket, derived from the provider data. It reflects observation intensity, not probability or certainty of vessel identity.
+  Confidence-related fields from the source, if any.
 
-  If the dataset does not provide a detection parameter but provides an hours parameter in the grid cell over the selected time range, we use that parameter to indicate the strength of signal.
+- `confidence_tier` (enum)  
+  Indicates the relative strength of the signal within the same spatial grid cell and time bucket, derived from provider metadata. It reflects observation intensity and signal consistency, not probability or certainty of vessel identity. For additional details, refer to [confidence-tier](../tech/confidence-tier.md)
+
+  This value must be interpreted as a qualitative tier, not as a statistical probability or confidence score.
 - `raw_metadata` (object)  
   Original SAR record stored without modification.
 
@@ -118,6 +121,7 @@ This defines the H3 cell id in which the event is located based on its spatial p
   "matched_flag": false,
   "source": "gfw_sar_presence:v3:0",
   "confidence_proxy": 2,
+  "confidence_tier": "low",
   "raw_metadata": { "...": "original SAR fields" },
   "raw_event_metadata": { "...": "original event fields" },
   "run_metadata": {

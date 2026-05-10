@@ -29,7 +29,7 @@ export const sarConfig: any = {
   },
   "threshold": {
     "near_coast_threshold": 10,
-    "low_detection_confidence_threshold": 2,
+    "low_confidence_proxy_threshold": 2,
     "shallow_water_threshold": -50,
     "deep_water_threshold": -200,
     "low_triage_score_threshold": 0.3,
@@ -76,7 +76,7 @@ export const sarConfig_diff_sorted: any = {
   "output": "data/out/",
   "threshold": {
     "near_coast_threshold": 10,
-    "low_detection_confidence_threshold": 2,
+    "low_confidence_proxy_threshold": 2,
     "shallow_water_threshold": -50,
     "deep_water_threshold": -200,
     "low_triage_score_threshold": 0.3,
@@ -158,7 +158,7 @@ export const multiDatasetConfig: any = {
   "threshold": {
     "deep_water_threshold": -200,
     "high_triage_score_threshold": 0.85,
-    "low_detection_confidence_threshold": 2,
+    "low_confidence_proxy_threshold": 2,
     "low_triage_score_threshold": 0.3,
     "medium_triage_score_threshold": 0.6,
     "near_coast_threshold": 10,
@@ -205,7 +205,7 @@ export const aisConfig: any = {
   },
   "threshold": {
     "near_coast_threshold": 10,
-    "low_detection_confidence_threshold": 2,
+    "low_confidence_proxy_threshold": 2,
     "shallow_water_threshold": -50,
     "deep_water_threshold": -200,
     "low_triage_score_threshold": 0.3,
@@ -247,7 +247,7 @@ export const fishingConfig: any = {
   },
   "threshold": {
     "near_coast_threshold": 10,
-    "low_detection_confidence_threshold": 2,
+    "low_confidence_proxy_threshold": 2,
     "shallow_water_threshold": -50,
     "deep_water_threshold": -200,
     "low_triage_score_threshold": 0.3,
