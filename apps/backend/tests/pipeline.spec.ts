@@ -51,6 +51,7 @@ import {
   api4wingsResponse,
   api4wingsResponse_bad_coordinates,
   api4wingsResponse_bad_date,
+  api4wingsResponse_bad_multi,
   api4wingsResponse_bad_vessel_type,
   api4wingsResponse_multi_dataset,
   apiEventResponse_no_entry,
@@ -510,7 +511,7 @@ describe('createEventSchema', () => {
     for (const entry of entries) {
       const eventSchema = await createEventSchema(sarConfig, entry);
       expect(eventSchema.rejected).toBe(true);
-      expect((eventSchema as IRejectedEventSchema).reason).toEqual(
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
         ERejectedEventSchemaReasons.notValidTimestamp,
       );
     }
@@ -527,7 +528,7 @@ describe('createEventSchema', () => {
     for (const entry of entries) {
       const eventSchema = await createEventSchema(sarConfig, entry);
       expect(eventSchema.rejected).toBe(true);
-      expect((eventSchema as IRejectedEventSchema).reason).toEqual(
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
         ERejectedEventSchemaReasons.notValidVesselType,
       );
     }
@@ -544,8 +545,32 @@ describe('createEventSchema', () => {
     for (const entry of entries) {
       const eventSchema = await createEventSchema(sarConfig, entry);
       expect(eventSchema.rejected).toBe(true);
-      expect((eventSchema as IRejectedEventSchema).reason).toEqual(
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
         ERejectedEventSchemaReasons.notValidCoordinates,
+      );
+    }
+  });
+
+  it('should_return_multi_rejected_reasons', async () => {
+    const entriesMap = getEntriesFrom4wingsResponse(
+      sarConfig,
+      api4wingsResponse_bad_multi
+    );
+    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    if (!entries) return;
+
+    for (const entry of entries) {
+      const eventSchema = await createEventSchema(sarConfig, entry);
+      expect(eventSchema.rejected).toBe(true);
+      expect((eventSchema as IRejectedEventSchema).reasons.length).toBeGreaterThan(1)
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
+        ERejectedEventSchemaReasons.notValidCoordinates,
+      );
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
+        ERejectedEventSchemaReasons.notValidTimestamp,
+      );
+      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
+        ERejectedEventSchemaReasons.notValidVesselType,
       );
     }
   });

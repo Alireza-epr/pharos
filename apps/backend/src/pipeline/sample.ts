@@ -118,7 +118,7 @@ const main = async (a_Config: IConfigJSON) => {
       );
       //console.log('Event Schema', eventSchema);
       if (eventSchema.rejected) {
-        log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
+        log(`Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
       }
       events.push(eventSchema);
     } catch (error) {

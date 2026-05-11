@@ -96,3 +96,19 @@ Thresholds are defined in `apps/backend/src/config/pilot.json`:
 
 - Recurrence metrics are **time-resolution agnostic**
 - Each row corresponds to one hex for one time bin
+
+---
+## 8. Interpreting Hotspot Signals
+
+- Spatial consistency signals
+    - recurrence_count
+    - time_bins_with_unmatched
+    - count_total
+    - count_unmatched
+- Temporal persistence signals
+    - time_bins_total
+    - time_bins_with_unmatched
+- Quality / ambiguity signals
+    - mean_uncertainty
+    - mean_score
+    - count_high_score_unmatched

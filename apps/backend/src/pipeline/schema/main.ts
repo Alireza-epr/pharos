@@ -38,22 +38,21 @@ export const createEventSchema = async (
   a_4wingsEntry: I4wingsEntry,
   a_EventEntry?: TGlobalEvent
 ): Promise<IEventSchema | IRejectedEventSchema> => {
+  const run_metadata = await generateRunMetadata([a_Configuration]);
+  const version = generateVersion();
+
+  /**
+   * Validation
+   */
+  let rejected_reasons: ERejectedEventSchemaReasons[] = []
   const validTimestamp = isValidDate(a_4wingsEntry.date);
   if (!validTimestamp) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidTimestamp,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidTimestamp)
   }
 
   const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType);
   if (!validVesselType) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidVesselType,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidVesselType)
   }
 
   const timestamp_utc = getISO8601(a_4wingsEntry.date);
@@ -64,17 +63,26 @@ export const createEventSchema = async (
   );
 
   if (!validCoordinates) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidCoordinates,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidCoordinates)
   }
+
+  if (rejected_reasons.length !== 0) {
+    return {
+      reasons: rejected_reasons,
+      rejected: true,
+      run_metadata,
+      raw_metadata: a_4wingsEntry,
+      raw_event_metadata: a_EventEntry ?? null,
+      version
+    }
+  }
+
+  /**
+   * Generation
+   */
 
   const lon = generateCoordinate(a_4wingsEntry.lon);
   const lat = generateCoordinate(a_4wingsEntry.lat);
-
-  const version = generateVersion();
 
   const sources = generateSources(a_Configuration, a_4wingsEntry);
 
@@ -85,25 +93,25 @@ export const createEventSchema = async (
   const confidence_proxy = generateConfidence(a_EventEntry ?? null);
   const confidence_tier = generateConfidence_heuristic(a_4wingsEntry)
 
-  const run_metadata = await generateRunMetadata([a_Configuration]);
+
 
   let geom: IGeometry = generateGeom(lon, lat);
 
-  //const eez = generateEEZ(a_EventEntry);
+
   const eez = getEEZContext(eezPolygons, lon, lat);
-  //const mpa = generateMPA(a_EventEntry);
+
   const mpa = getMPAContext(mpaPolygons, lon, lat);
-  //const rfmo = generateRFMO(a_EventEntry);
+
   const bathymetry = await getBathymetryContext(lon, lat);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
     [EContextLayers.bathymetry]: bathymetry,
-    //[EContextLayers.rfmo]: rfmo,
+
   };
 
-  //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
+
   const distance_to_coast_km = distanceToCoast(
     coastlinePolylines,
     a_4wingsEntry.lon,

@@ -124,7 +124,7 @@ export const validationSamples = async (
     if (!eventSchema.rejected) {
       eventSchemas.push(eventSchema);
     } else {
-      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
+      log(`Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
     }
   }
 

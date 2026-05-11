@@ -74,10 +74,9 @@ export interface IEventSchema {
   hotspot_cell_id: string;
 }
 
-export interface IRejectedEventSchema {
+export interface IRejectedEventSchema extends Pick<IEventSchema, "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version">{
+  reasons: ERejectedEventSchemaReasons[];
   rejected: true;
-  reason: ERejectedEventSchemaReasons;
-  raw_metadata: I4wingsEntry;
 }
 
 export interface IConfigJSON {
