@@ -11,7 +11,6 @@ import { getEEZContext } from '../features/eez';
 import { getMPAContext } from '../features/mpa';
 import { distanceToCoast } from '../features/coast_distance';
 import {
-  isISO8601Timestamp,
   isMatchedCase,
   isValidCoordinate,
   isValidDate,
@@ -30,7 +29,6 @@ import {
   getISO8601,
 } from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
-import { getHotspotCellId } from '../aggregate/hotspots';
 import { getBathymetryContext } from '../features/bathymetry_cached';
 
 export const createEventSchema = async (
@@ -118,7 +116,6 @@ export const createEventSchema = async (
     a_4wingsEntry.lat,
   );
 
-  const hotspot_cell_id = getHotspotCellId(lat, lon, a_Configuration.hotspot.resolution);
 
   const eventSchema: IEventSchema = {
     version: version,
@@ -142,7 +139,7 @@ export const createEventSchema = async (
     },
     geom: geom,
     rejected: false,
-    hotspot_cell_id,
+    hotspot: null,
   };
 
   const scoring = generateScoring(eventSchema);

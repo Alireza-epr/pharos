@@ -9,7 +9,6 @@ The tier is derived from a combination of:
 
 - SAR detection count or observation duration (depending on dataset availability)
 - provider noise indicators
-- spatial hotspot recurrence
 
 ## Tier Definitions
 

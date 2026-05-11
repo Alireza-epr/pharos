@@ -38,7 +38,7 @@ export type TGeoJSONEventMissingness =
 
 export type TEventProperties = Omit<
   IEventSchema,
-  "version"|"geom"|"source"|"raw_metadata"|"raw_event_metadata"|"run_metadata"|"rejected"|"hotspot_cell_id"
+  "version"|"geom"|"source"|"raw_metadata"|"raw_event_metadata"|"run_metadata"|"rejected"|"hotspot"
 >
 
 export interface IMatchingStats {

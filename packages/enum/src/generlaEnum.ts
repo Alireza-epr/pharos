@@ -42,3 +42,9 @@ export enum EConfidenceTiers {
   medium = "medium",
   high = "high"
 }
+
+export enum EHotspotStrength {
+  low = "low",
+  medium = "medium",
+  high = "high"
+}

@@ -35,7 +35,7 @@ import {
   parquetSchema_hotspot,
   parquetSchema_raw_metadata,
 } from '../helpers/types/parquetTypes';
-import { featureFromHotspot, generateHotspots } from './aggregate/hotspots';
+import { enrichEventsWithHotspots, featureFromHotspot, generateHotspots } from './aggregate/hotspots';
 import {
   EValidationStrata,
   IValidationManifest,
@@ -108,33 +108,35 @@ const main = async (a_Config: IConfigJSON) => {
 
   log(`Creating event schemas...`, ELogType.info);
   let events = []
-  for (const entries4wing of entries) {
-    const thisEntry = entries4wing;
-
+  for (const entry of entries) {
     try {
       const eventSchema = await createEventSchema(
         a_Config,
-        thisEntry,
+        entry,
       );
-      //console.log('Event Schema', eventSchema);
       if (eventSchema.rejected) {
         log(`Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
       }
       events.push(eventSchema);
     } catch (error) {
-      console.error('Event Schema error', error);
+      log('Event Schema error '+error, ELogType.error);
     }
   }
 
-  const notRejectedEvents = events.filter((e) => !e.rejected);
+  //canonicalSchema.json
+  fs.writeFileSync(
+    `${a_Config.output}canonicalSchema.json`,
+    JSON.stringify(events, null, 2),
+  );
 
+  const notRejectedEvents = events.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
-
   const sortedEvents = sortEventSchema(notRejectedEvents);
   const hotspots = generateHotspots(a_Config, sortedEvents);
+  const enrichedEvents = enrichEventsWithHotspots(sortedEvents, hotspots)
 
   log(
     `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
@@ -144,7 +146,7 @@ const main = async (a_Config: IConfigJSON) => {
   //event.geojson
   const geojson: FeatureCollection<IGeometry, TEventProperties> = {
     type: 'FeatureCollection',
-    features: sortedEvents.map((event) => ({
+    features: enrichedEvents.map((event) => ({
       type: 'Feature',
       properties: {
         event_id: event.event_id,
@@ -164,7 +166,7 @@ const main = async (a_Config: IConfigJSON) => {
   fs.writeFileSync(`${a_Config.output}events.geojson`, JSON.stringify(geojson, null, 2));
 
   //event.parquet
-  const rows = sortedEvents.map((event) => {
+  const rows = enrichedEvents.map((event) => {
     const reason_codes = event.scoring.reason_codes;
     let edge_case_flags: { [key in EReasonCodes]?: boolean } =
       Object.fromEntries(
@@ -193,12 +195,6 @@ const main = async (a_Config: IConfigJSON) => {
     };
   });
   await writeParquet(rows, parquetSchema, `${a_Config.output}events.parquet`);
-
-  //canonicalSchema.json
-  fs.writeFileSync(
-    `${a_Config.output}canonicalSchema.json`,
-    JSON.stringify(sortedEvents, null, 2),
-  );
 
   //data_quality.json
   const missingnesses = getEventMissingness(geojson.features);
@@ -248,7 +244,7 @@ const main = async (a_Config: IConfigJSON) => {
 
   //run_metadata.json
   const end = formatTimestamp();
-  const run_metadata = await export_run_metadata(sortedEvents, start, end);
+  const run_metadata = await export_run_metadata(enrichedEvents, start, end);
   fs.writeFileSync(
     `${a_Config.output}run_metadata.json`,
     JSON.stringify(run_metadata, null, 2),

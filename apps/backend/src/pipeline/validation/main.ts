@@ -19,6 +19,7 @@ import { detectionGFW } from '../ingest/detections';
 import {
   getEntriesFrom4wingsResponse,
   log,
+  sortEventSchema,
 } from '../../helpers/utils/backendUtils';
 import { createEventSchema } from '../schema/main';
 import { ELogType } from '../../helpers/types/generalTypes';
@@ -96,8 +97,8 @@ export const validationSamples = async (
     resp4wings,
   );
 
-  const entries4wings = Array.from(entriesMap).flatMap( ([source, entries]) => entries )
-  if (!entries4wings || entries4wings.length == 0) {
+  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+  if (!entries || entries.length == 0) {
     log('[validationSamples] No entry found!', ELogType.warn);
     return {
       events: [],
@@ -105,31 +106,43 @@ export const validationSamples = async (
       validationSamplesGeoJSON: [],
     };
   }
-  const reducedEntriesNr = entries4wings.slice(0, a_Length);
+  const reducedEntriesNr = entries.slice(0, a_Length);
 
-  let eventSchemas: IEventSchema[] = [];
   let validationSamplesGeoJSON: TValidationGeoJSON[] = [];
   let validationSamples: TValidationSample[] = [];
   log(
     `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
-
-  for (const entry4wings of reducedEntriesNr) {
-    const eventSchema = await createEventSchema(
-      a_Config,
-      entry4wings,
-    );
-
-    if (!eventSchema.rejected) {
-      eventSchemas.push(eventSchema);
-    } else {
-      log(`Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
+  let events = []
+  for (const entry of reducedEntriesNr) {
+    try {
+      const eventSchema = await createEventSchema(
+        a_Config,
+        entry,
+      );
+      if (eventSchema.rejected) {
+        log(`[validationSamples] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
+      }
+      events.push(eventSchema);
+    } catch (error) {
+      log('[validationSamples] Event Schema error '+error, ELogType.error);
     }
   }
 
+  const notRejectedEvents = events.filter((e) => !e.rejected);
+  if (notRejectedEvents.length == 0) {
+    log('[validationSamples] Pilot quit because no valid entry was found.', ELogType.info);
+    return {
+      events: [],
+      validationSamples: [],
+      validationSamplesGeoJSON: [],
+    };
+  }
+  const sortedEvents = sortEventSchema(notRejectedEvents);
+  
   log('Creating validation GeoJSON samples...', ELogType.info);
-  for (const eventSchema of eventSchemas) {
+  for (const eventSchema of sortedEvents) {
     const validationSample = createValidationSample(eventSchema);
     validationSamples.push(validationSample);
     const validationSampleGeoJSON = generateValidationGeoJSON(validationSample);
@@ -137,7 +150,7 @@ export const validationSamples = async (
   }
 
   return {
-    events: eventSchemas,
+    events: sortedEvents,
     validationSamples,
     validationSamplesGeoJSON,
   };

@@ -1,8 +1,10 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IConfigJSON, IEventSchema, IHotspot } from '@packages/types';
+import { IConfigJSON, IEventHotspot, IEventSchema, IHotspot } from '@packages/types';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
-import { EHotspotTimeBins } from '@packages/enum';
+import { EHotspotStrength, EHotspotTimeBins } from '@packages/enum';
+
+const hotspotsMap = new Map<string, string[]>()
 
 export const generateHotspots = (
   a_Config: IConfigJSON,
@@ -12,6 +14,8 @@ export const generateHotspots = (
 
   for (const event of a_Events) {
     const h3Index = getHotspotCellId(event.lat, event.lon, a_Config.hotspot.resolution);
+    const event_ids = hotspotsMap.get(h3Index) ?? []
+    hotspotsMap.set(h3Index, [...event_ids, event.event_id])
     const timeBucket = a_Config.hotspot.timeBin
     if(timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY){
       throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
@@ -175,4 +179,96 @@ export const getHotspotCellId = (
   a_Resolution: number,
 ) => {
   return latLngToCell(a_Lat, a_Lon, a_Resolution);
+};
+
+export const enrichEventsWithHotspots = (a_Events: IEventSchema[], a_Hotspots: IHotspot[]): IEventSchema[] => {
+  let enrichedEvents: IEventSchema[] = []
+  
+  for(const event of a_Events){
+
+    const enrichedHotspot = enrichEventHotspot(event, a_Hotspots)
+
+    enrichedEvents.push({
+      ...event,
+      hotspot: enrichedHotspot  
+    })
+
+  }
+
+  return enrichedEvents
+}
+
+export const enrichEventHotspot = (a_Event: IEventSchema, a_Hotspots: IHotspot[]): IEventHotspot | null => {
+  const cell_id = Array.from(hotspotsMap.entries()).find( ([h3Index, event_ids]) => event_ids.includes(a_Event.event_id) )?.[0]
+
+  if(!cell_id) return null
+
+  const hotspot = a_Hotspots.find( ht => ht.cell_id === cell_id )
+
+  if(!hotspot) return null
+
+  return {
+    cell_id,
+    signals: {
+      recurrence_count: hotspot.recurrence_count,
+      time_bins_with_unmatched: hotspot.time_bins_with_unmatched,
+      hotspot_strength: generateHotspotStrength(hotspot)
+    }
+  }
+
+}
+
+export const generateHotspotStrength = (
+  a_Hotspot: IHotspot,
+): EHotspotStrength => {
+
+  let score = 0;
+
+  /**
+   * Spatial-temporal persistence
+   */
+  if (a_Hotspot.recurrence_count >= 3) {
+    score += 0.3;
+  }
+
+  if (a_Hotspot.recurrence_count >= 8) {
+    score += 0.3;
+  }
+
+  /**
+   * Persistence across multiple time bins
+   */
+  if (a_Hotspot.time_bins_with_unmatched >= 2) {
+    score += 0.2;
+  }
+
+  if (a_Hotspot.time_bins_with_unmatched >= 5) {
+    score += 0.2;
+  }
+
+  /**
+   * Local unmatched density
+   */
+  if (a_Hotspot.count_unmatched >= 3) {
+    score += 0.1;
+  }
+
+  /**
+   * Reduce strength for highly uncertain hotspots
+   */
+  if (a_Hotspot.mean_uncertainty && a_Hotspot.mean_uncertainty >= 0.7) {
+    score -= 0.2;
+  }
+
+  score = Math.max(0, Math.min(1, score));
+
+  if (score >= 0.7) {
+    return EHotspotStrength.high;
+  }
+
+  if (score >= 0.4) {
+    return EHotspotStrength.medium;
+  }
+
+  return EHotspotStrength.low;
 };

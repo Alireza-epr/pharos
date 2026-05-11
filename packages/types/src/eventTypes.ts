@@ -6,17 +6,13 @@ import {
   EFetchMethods,
   EHotspotTimeBins,
   EConfidenceTiers,
+  EHotspotStrength,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
   I4wingsEntry,
   I4wingsReportGetURLParams,
   I4wingsReportPostBodyParams,
-  I4wingsReportPostURLParams,
-  IEventPostBodyParams,
-  IEventPostURLParams,
-  T4wingsSource,
-  TEventSource,
   TGlobalEvent,
 } from "./gfwTypes";
 import { TBuildRange } from "./generalTypes";
@@ -71,10 +67,19 @@ export interface IEventSchema {
   run_metadata: IRunMetadata;
   scoring: IScoring;
   rejected: false;
-  hotspot_cell_id: string;
+  hotspot: IEventHotspot | null;
 }
 
-export interface IRejectedEventSchema extends Pick<IEventSchema, "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version">{
+export interface IEventHotspot {
+  cell_id: string,
+  signals: IEventHotspotSignal;
+}
+
+export interface IEventHotspotSignal extends Pick<IHotspot, "recurrence_count" | "time_bins_with_unmatched"> {
+  hotspot_strength: EHotspotStrength,
+}
+
+export interface IRejectedEventSchema extends Pick<IEventSchema, "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version"> {
   reasons: ERejectedEventSchemaReasons[];
   rejected: true;
 }
