@@ -1,4 +1,4 @@
-import { createEventSchema } from './schema/main';
+import { createSortedEventSchemas } from './schema/main';
 import {
   csvString,
   formatTimestamp,
@@ -7,8 +7,7 @@ import {
   getGeoMin,
   getGitCommitSHA,
   getMatchingStats,
-  getTimeRange,
-  sortEventSchema,
+  getTimeRange
 } from '../helpers/utils/backendUtils';
 import { detectionGFW } from './ingest/detections';
 import fs from 'fs';
@@ -107,40 +106,32 @@ const main = async (a_Config: IConfigJSON) => {
   );
 
   log(`Creating event schemas...`, ELogType.info);
-  let events = []
-  for (const entry of entries) {
-    try {
-      const eventSchema = await createEventSchema(
-        a_Config,
-        entry,
-      );
-      if (eventSchema.rejected) {
-        log(`Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
-      }
-      events.push(eventSchema);
-    } catch (error) {
-      log('Event Schema error '+error, ELogType.error);
-    }
-  }
+  const sortedEvents = await createSortedEventSchemas(a_Config, entries);
 
-  //canonicalSchema.json
-  fs.writeFileSync(
-    `${a_Config.output}canonicalSchema.json`,
-    JSON.stringify(events, null, 2),
-  );
-
-  const notRejectedEvents = events.filter((e) => !e.rejected);
+  const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
+    //canonicalSchema.json
+    fs.writeFileSync(
+      `${a_Config.output}canonicalSchema.json`,
+      JSON.stringify(sortedEvents, null, 2),
+    );
+
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
-  const sortedEvents = sortEventSchema(notRejectedEvents);
-  const hotspots = generateHotspots(a_Config, sortedEvents);
-  const enrichedEvents = enrichEventsWithHotspots(sortedEvents, hotspots)
+
+  const hotspots = generateHotspots(a_Config, notRejectedEvents);
+  const enrichedEvents = enrichEventsWithHotspots(notRejectedEvents, hotspots)
 
   log(
     `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
     ELogType.info,
+  );
+
+  //canonicalSchema.json
+  fs.writeFileSync(
+    `${a_Config.output}canonicalSchema.json`,
+    JSON.stringify(enrichedEvents, null, 2),
   );
 
   //event.geojson
@@ -381,7 +372,7 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
       `Getting samples for ${EValidationStrata.density} strata...`,
       ELogType.info,
     );
-    
+
     const strata_3_start = formatTimestamp();
     const strata_3_samples_1 = await validationSamples(
       a_Configs[EValidationStrata.density][0],

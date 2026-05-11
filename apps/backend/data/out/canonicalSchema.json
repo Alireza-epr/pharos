@@ -30,7 +30,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -138,7 +138,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -171,7 +178,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -278,7 +285,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a4ffffffff"
+    "hotspot": {
+      "cell_id": "851f2a4ffffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -311,7 +325,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -419,7 +433,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -452,7 +473,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -560,7 +581,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -593,7 +621,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -701,7 +729,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -734,7 +769,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -842,7 +877,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -875,7 +917,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -982,7 +1024,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1015,7 +1064,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1122,7 +1171,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1155,7 +1211,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1263,7 +1319,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a73fffffff"
+    "hotspot": {
+      "cell_id": "851f2a73fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1296,7 +1359,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1403,7 +1466,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1436,7 +1506,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1543,7 +1613,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1576,7 +1653,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1691,7 +1768,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1724,7 +1808,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1832,7 +1916,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a43fffffff"
+    "hotspot": {
+      "cell_id": "851f2a43fffffff",
+      "signals": {
+        "recurrence_count": 1,
+        "time_bins_with_unmatched": 1,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -1865,7 +1956,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1972,7 +2063,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -2005,7 +2103,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2113,7 +2211,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a4bfffffff"
+    "hotspot": {
+      "cell_id": "851f2a4bfffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -2146,7 +2251,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2253,7 +2358,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -2286,7 +2398,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2394,7 +2506,14 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   },
   {
     "version": "1.0.0",
@@ -2427,7 +2546,7 @@
     },
     "raw_event_metadata": null,
     "run_metadata": {
-      "code_version": "c72cf24cac58832abf2175854ac28dbfb5405c87",
+      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2535,6 +2654,13 @@
       ]
     },
     "rejected": false,
-    "hotspot_cell_id": "851f2a47fffffff"
+    "hotspot": {
+      "cell_id": "851f2a47fffffff",
+      "signals": {
+        "recurrence_count": 0,
+        "time_bins_with_unmatched": 0,
+        "hotspot_strength": "low"
+      }
+    }
   }
 ]

@@ -62,8 +62,8 @@
       ]
     }
   ],
-  "run_time": "2026-05-10T11:05:00.831Z",
+  "run_time": "2026-05-11T12:23:20.738Z",
   "data_source_versions": "public-global-sar-presence:v3.0",
-  "git_commit_hash": "c72cf24cac58832abf2175854ac28dbfb5405c87",
-  "execution_duration_sec": 14
+  "git_commit_hash": "21183497b4a91f31e7e9685399d56e836fdc15e1",
+  "execution_duration_sec": 5
 }

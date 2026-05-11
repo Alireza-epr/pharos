@@ -30,6 +30,8 @@ import {
 } from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getBathymetryContext } from '../features/bathymetry_cached';
+import { log, sortEventSchema } from '../../helpers/utils/backendUtils';
+import { ELogType } from '../../helpers/types/generalTypes';
 
 export const createEventSchema = async (
   a_Configuration: IConfigJSON,
@@ -149,3 +151,26 @@ export const createEventSchema = async (
     scoring,
   };
 };
+
+export const createSortedEventSchemas = async (
+  a_Configuration: IConfigJSON,
+  a_4wingsEntries: I4wingsEntry[],
+): Promise<(IEventSchema | IRejectedEventSchema)[]> => {
+  let events = []
+  for (const entry of a_4wingsEntries) {
+    try {
+      const eventSchema = await createEventSchema(
+        a_Configuration,
+        entry,
+      );
+      if (eventSchema.rejected) {
+        log(`[createSortedEventSchemas] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
+      }
+      events.push(eventSchema);
+    } catch (error) {
+      log(`[createSortedEventSchemas] Event Schema error: ${error}`, ELogType.error);
+    }
+  }
+  const sortedEvents = sortEventSchema(events);
+  return sortedEvents
+}

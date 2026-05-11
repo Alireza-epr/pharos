@@ -24,8 +24,8 @@ import {
   TEventSource,
   IConfigJSON,
   I4wingsEntry,
+  IRejectedEventSchema,
 } from '@packages/types';
-import { generateSources } from '../../pipeline/normalize/generation';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -53,12 +53,24 @@ if (config.logging.enable_log) {
   });
 }
 
+export const shortenMessage = (
+  a_Message: string,
+  a_Limit: number
+) => {
+  return a_Message.length > a_Limit
+    ? `${a_Message.slice(0, a_Limit)}...`
+    : a_Message
+}
+
 // Main log function
 export const log = (
   a_Message: string,
   a_Type: ELogType = ELogType.info,
+  a_MessageLimit?: number
 ): void => {
-  const formattedMessage = `[${formatTimestamp()}] [${a_Type}] ${a_Message}`;
+
+  const message = a_MessageLimit ? shortenMessage(a_Message, a_MessageLimit) : a_Message
+  const formattedMessage = `[${formatTimestamp()}] [${a_Type}] ${message}`;
 
   // Log to console if console logging is enabled
   if (config.logging.enable_console_log) {
@@ -154,11 +166,11 @@ export const getSourcesFromEvents = (
   a_Events: IEventSchema[],
 ) => {
   const sources = new Set<string>()
-  for(const event of a_Events) {
+  for (const event of a_Events) {
     const source = event.source
-    if(!sources.has(source)) sources.add(source)
+    if (!sources.has(source)) sources.add(source)
   }
-  return Array.from(sources).map( s => s ).join(", ");
+  return Array.from(sources).map(s => s).join(", ");
 };
 
 export const getEntriesFrom4wingsResponse = (
@@ -167,8 +179,8 @@ export const getEntriesFrom4wingsResponse = (
 ) => {
   const entries = new Map<T4wingsSource, I4wingsEntry[]>()
   let requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
-  requestedSources = requestedSources.filter( s => {
-    if(is4wingsSource(s)){
+  requestedSources = requestedSources.filter(s => {
+    if (is4wingsSource(s)) {
       return s
     } else {
       log(`Not valid dataset: ${s}`)
@@ -179,7 +191,7 @@ export const getEntriesFrom4wingsResponse = (
     return entries
   }
 
-  
+
   for (const responseEntry of a_4wingsResponse.entries) {
     for (const requestedSource of requestedSources) {
       const requestedSourceEntries = responseEntry[requestedSource];
@@ -312,7 +324,7 @@ export const getDate = (a_Datetime: string) => {
 };
 
 export const getDateBucket = (a_Datetime: string, a_TimeBucket: EHotspotTimeBins) => {
-  return a_TimeBucket === EHotspotTimeBins.DAILY ? getDate(a_Datetime) : a_Datetime.slice( 0, 13 ).replace("T", " ") + ":00:00"
+  return a_TimeBucket === EHotspotTimeBins.DAILY ? getDate(a_Datetime) : a_Datetime.slice(0, 13).replace("T", " ") + ":00:00"
 }
 
 export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
@@ -367,9 +379,26 @@ export const csvString = <T, N>(
 };
 
 export const sortEventSchema = (
-  a_EventSchema: IEventSchema[],
-): IEventSchema[] => {
-  return a_EventSchema.sort((a, b) => {
+  a_EventSchema: (IEventSchema | IRejectedEventSchema)[],
+): (IEventSchema | IRejectedEventSchema)[] => {
+
+  const { accepted, rejected } = a_EventSchema.reduce(
+    (acc, event) => {
+      if (event.rejected) {
+        acc.rejected.push(event)
+      } else {
+        acc.accepted.push(event)
+      }
+
+      return acc
+    },
+    {
+      accepted: [] as IEventSchema[],
+      rejected: [] as IRejectedEventSchema[]
+    }
+  )
+
+  accepted.sort((a, b) => {
     if (a.timestamp_utc !== b.timestamp_utc)
       return a.timestamp_utc.localeCompare(b.timestamp_utc);
 
@@ -379,6 +408,8 @@ export const sortEventSchema = (
 
     return a.lat - b.lat;
   });
+
+  return [...accepted, ...rejected]
 };
 
 export const getMatchingStats = (
@@ -390,7 +421,7 @@ export const getMatchingStats = (
   for (const feature of a_Features) {
     if (feature.properties.matched_flag) {
       ++matched;
-    } else if(feature.properties.matched_flag === false) {
+    } else if (feature.properties.matched_flag === false) {
       ++unmatched;
     }
   }

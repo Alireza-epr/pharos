@@ -19,9 +19,8 @@ import { detectionGFW } from '../ingest/detections';
 import {
   getEntriesFrom4wingsResponse,
   log,
-  sortEventSchema,
 } from '../../helpers/utils/backendUtils';
-import { createEventSchema } from '../schema/main';
+import { createSortedEventSchemas } from '../schema/main';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';
 
@@ -84,10 +83,7 @@ export const validationSamples = async (
   a_Config: IConfigJSON,
   a_Length: number,
 ): Promise<IValidationResp> => {
-  log(
-    'Params: ' + JSON.stringify(a_Config),
-    ELogType.info,
-  );
+
   const resp4wings = await detectionGFW<I4wingsAPIResponse>(
     a_Config
   );
@@ -114,23 +110,10 @@ export const validationSamples = async (
     `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
-  let events = []
-  for (const entry of reducedEntriesNr) {
-    try {
-      const eventSchema = await createEventSchema(
-        a_Config,
-        entry,
-      );
-      if (eventSchema.rejected) {
-        log(`[validationSamples] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
-      }
-      events.push(eventSchema);
-    } catch (error) {
-      log('[validationSamples] Event Schema error '+error, ELogType.error);
-    }
-  }
+  
+  const sortedEvents = await createSortedEventSchemas(a_Config, reducedEntriesNr);
 
-  const notRejectedEvents = events.filter((e) => !e.rejected);
+  const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
     log('[validationSamples] Pilot quit because no valid entry was found.', ELogType.info);
     return {
@@ -139,10 +122,10 @@ export const validationSamples = async (
       validationSamplesGeoJSON: [],
     };
   }
-  const sortedEvents = sortEventSchema(notRejectedEvents);
-  
+
+
   log('Creating validation GeoJSON samples...', ELogType.info);
-  for (const eventSchema of sortedEvents) {
+  for (const eventSchema of notRejectedEvents) {
     const validationSample = createValidationSample(eventSchema);
     validationSamples.push(validationSample);
     const validationSampleGeoJSON = generateValidationGeoJSON(validationSample);
@@ -150,7 +133,7 @@ export const validationSamples = async (
   }
 
   return {
-    events: sortedEvents,
+    events: notRejectedEvents,
     validationSamples,
     validationSamplesGeoJSON,
   };

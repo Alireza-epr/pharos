@@ -222,51 +222,107 @@ export const generateHotspotStrength = (
   a_Hotspot: IHotspot,
 ): EHotspotStrength => {
 
+  const WEIGHTS = {
+    medium_recurrence_threshold: 7,
+    high_recurrence_threshold: 14,
+
+    medium_timebin_threshold: 3,
+    high_timebin_threshold: 5,
+
+    unmatched_density_threshold: 3,
+
+    high_uncertainty_threshold: 0.7,
+
+    medium_strength_threshold: 0.45,
+    high_strength_threshold: 0.8,
+
+    high_eligibility_recurrence_threshold: 8,
+    high_eligibility_timebin_threshold: 3
+  };
+
   let score = 0;
 
   /**
-   * Spatial-temporal persistence
+   * Spatial recurrence
    */
-  if (a_Hotspot.recurrence_count >= 3) {
-    score += 0.3;
+  if (
+    a_Hotspot.recurrence_count >=
+    WEIGHTS.medium_recurrence_threshold
+  ) {
+    score += 0.25;
   }
 
-  if (a_Hotspot.recurrence_count >= 8) {
-    score += 0.3;
+  if (
+    a_Hotspot.recurrence_count >=
+    WEIGHTS.high_recurrence_threshold
+  ) {
+    score += 0.25;
   }
 
   /**
-   * Persistence across multiple time bins
+   * Temporal persistence
    */
-  if (a_Hotspot.time_bins_with_unmatched >= 2) {
+  if (
+    a_Hotspot.time_bins_with_unmatched >=
+    WEIGHTS.medium_timebin_threshold
+  ) {
     score += 0.2;
   }
 
-  if (a_Hotspot.time_bins_with_unmatched >= 5) {
+  if (
+    a_Hotspot.time_bins_with_unmatched >=
+    WEIGHTS.high_timebin_threshold
+  ) {
     score += 0.2;
   }
 
   /**
    * Local unmatched density
    */
-  if (a_Hotspot.count_unmatched >= 3) {
+  if (
+    a_Hotspot.count_unmatched >=
+    WEIGHTS.unmatched_density_threshold
+  ) {
     score += 0.1;
   }
 
   /**
-   * Reduce strength for highly uncertain hotspots
+   * Penalize uncertain hotspots
    */
-  if (a_Hotspot.mean_uncertainty && a_Hotspot.mean_uncertainty >= 0.7) {
-    score -= 0.2;
+  if (
+    a_Hotspot.mean_uncertainty &&
+    a_Hotspot.mean_uncertainty >=
+      WEIGHTS.high_uncertainty_threshold
+  ) {
+    score -= 0.25;
   }
 
+  /**
+   * Clamp score
+   */
   score = Math.max(0, Math.min(1, score));
 
-  if (score >= 0.7) {
+  /**
+   * Strong hotspot gate:
+   * high hotspot requires both:
+   * - strong recurrence
+   * - persistence across multiple time bins
+   */
+  const eligibleForHigh =
+    a_Hotspot.recurrence_count >= WEIGHTS.high_eligibility_recurrence_threshold &&
+    a_Hotspot.time_bins_with_unmatched >= WEIGHTS.high_eligibility_timebin_threshold;
+
+  /**
+   * Final classification
+   */
+  if (
+    eligibleForHigh &&
+    score >= WEIGHTS.high_strength_threshold
+  ) {
     return EHotspotStrength.high;
   }
 
-  if (score >= 0.4) {
+  if (score >= WEIGHTS.medium_strength_threshold) {
     return EHotspotStrength.medium;
   }
 
