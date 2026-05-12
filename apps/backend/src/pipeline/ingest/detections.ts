@@ -192,7 +192,7 @@ export const detectionGFW = async <T>(
   // High spatial resolution uses cells of 0.01° × 0.01° (~1 km scale) at the equator
   // Hourly temporal resolution > date = YYYY-MM-DD HH:00:00 > Data is grouped by:(grid cell + 1 hour bucket)
   // ENTIRE temporal resolution > date = date-range > Data is grouped by:(grid cell + full date-range)
-  log('[detectionGFW] Metadata ' + JSON.stringify(a_Config), ELogType.info);
+  log('[detectionGFW] Metadata ' + JSON.stringify(a_Config), ELogType.info, 150);
   try {
     const res = await fetchWithRetry(
       `${a_Config.URL}?${params.toString()}`,
@@ -216,6 +216,7 @@ export const detectionGFW = async <T>(
     log(
       '[detectionGFW] Response ' + JSON.stringify(results),
       ELogType.info,
+      150
     );
 
     return results;

@@ -1,3 +1,4 @@
+import { deepSortObject } from '@packages/utils';
 import parquet from 'parquetjs';
 
 export const writeParquet = async (
@@ -10,7 +11,9 @@ export const writeParquet = async (
     `${a_OutputPath}`,
   );
 
-  for (const row of a_Rows) {
+  const sortedRows = deepSortObject(a_Rows)
+
+  for (const row of sortedRows) {
     await writer.appendRow(row);
   }
 

@@ -5,17 +5,14 @@ import {
   EContextLayers,
   EFetchMethods,
   EHotspotTimeBins,
+  EConfidenceTiers,
+  EHotspotStrength,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
   I4wingsEntry,
   I4wingsReportGetURLParams,
   I4wingsReportPostBodyParams,
-  I4wingsReportPostURLParams,
-  IEventPostBodyParams,
-  IEventPostURLParams,
-  T4wingsSource,
-  TEventSource,
   TGlobalEvent,
 } from "./gfwTypes";
 import { TBuildRange } from "./generalTypes";
@@ -64,18 +61,27 @@ export interface IEventSchema {
   matched_flag: boolean | undefined;
   source: string;
   confidence_proxy: 2 | 3 | 4 | null;
+  confidence_tier: EConfidenceTiers;
   raw_metadata: I4wingsEntry;
   raw_event_metadata: TGlobalEvent | null;
   run_metadata: IRunMetadata;
   scoring: IScoring;
   rejected: false;
-  hotspot_cell_id: string;
+  hotspot: IEventHotspot | null;
 }
 
-export interface IRejectedEventSchema {
+export interface IEventHotspot {
+  cell_id: string,
+  signals: IEventHotspotSignal;
+}
+
+export interface IEventHotspotSignal extends Pick<IHotspot, "recurrence_count" | "time_bins_with_unmatched"> {
+  hotspot_strength: EHotspotStrength,
+}
+
+export interface IRejectedEventSchema extends Pick<IEventSchema, "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version"> {
+  reasons: ERejectedEventSchemaReasons[];
   rejected: true;
-  reason: ERejectedEventSchemaReasons;
-  raw_metadata: I4wingsEntry;
 }
 
 export interface IConfigJSON {
@@ -90,7 +96,7 @@ export interface IConfigJSON {
 
 export interface IThresholdConfig {
   near_coast_threshold: number,
-  low_detection_confidence_threshold: number,
+  low_confidence_proxy_threshold: number,
   shallow_water_threshold: number,
   deep_water_threshold: number,
   low_triage_score_threshold: number,

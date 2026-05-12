@@ -1,21 +1,25 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IConfigJSON, IEventSchema, IHotspot } from '@packages/types';
+import { IConfigJSON, IEventHotspot, IEventSchema, IHotspot } from '@packages/types';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
-import { EHotspotTimeBins } from '@packages/enum';
+import { EHotspotStrength, EHotspotTimeBins } from '@packages/enum';
+
+const hotspotsMap = new Map<string, string[]>()
 
 export const generateHotspots = (
   a_Config: IConfigJSON,
   a_Events: IEventSchema[],
 ) => {
   const h3Indexes = new Map<string, IEventSchema[]>();
-
+  const timeBucket = a_Config.hotspot.timeBin
+  if (timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY) {
+    throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
+  }
+  hotspotsMap.clear()
   for (const event of a_Events) {
     const h3Index = getHotspotCellId(event.lat, event.lon, a_Config.hotspot.resolution);
-    const timeBucket = a_Config.hotspot.timeBin
-    if(timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY){
-      throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
-    }
+    const event_ids = hotspotsMap.get(h3Index) ?? []
+    hotspotsMap.set(h3Index, [...event_ids, event.event_id])
     const key = `${h3Index}_${getDateBucket(event.timestamp_utc, timeBucket)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
@@ -47,7 +51,7 @@ export const generateHotspots = (
         event.matched_flag === false &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
-          a_Config.threshold.medium_triage_score_threshold
+        a_Config.threshold.medium_triage_score_threshold
       ) {
         count_high_score_unmatched++;
       }
@@ -175,4 +179,152 @@ export const getHotspotCellId = (
   a_Resolution: number,
 ) => {
   return latLngToCell(a_Lat, a_Lon, a_Resolution);
+};
+
+export const enrichEventsWithHotspots = (a_Events: IEventSchema[], a_Hotspots: IHotspot[]): IEventSchema[] => {
+  let enrichedEvents: IEventSchema[] = []
+  
+  for(const event of a_Events){
+
+    const enrichedHotspot = enrichEventHotspot(event, a_Hotspots)
+
+    enrichedEvents.push({
+      ...event,
+      hotspot: enrichedHotspot  
+    })
+
+  }
+
+  return enrichedEvents
+}
+
+export const enrichEventHotspot = (a_Event: IEventSchema, a_Hotspots: IHotspot[]): IEventHotspot | null => {
+  const cell_id = Array.from(hotspotsMap.entries()).find( ([h3Index, event_ids]) => event_ids.includes(a_Event.event_id) )?.[0]
+
+  if(!cell_id) return null
+
+  const hotspot = a_Hotspots.find( ht => ht.cell_id === cell_id )
+
+  if(!hotspot) return null
+
+  return {
+    cell_id,
+    signals: {
+      recurrence_count: hotspot.recurrence_count,
+      time_bins_with_unmatched: hotspot.time_bins_with_unmatched,
+      hotspot_strength: generateHotspotStrength(hotspot)
+    }
+  }
+
+}
+
+export const generateHotspotStrength = (
+  a_Hotspot: IHotspot,
+): EHotspotStrength => {
+
+  const WEIGHTS = {
+    medium_recurrence_threshold: 7,
+    high_recurrence_threshold: 14,
+
+    medium_timebin_threshold: 3,
+    high_timebin_threshold: 5,
+
+    unmatched_density_threshold: 3,
+
+    high_uncertainty_threshold: 0.7,
+
+    medium_strength_threshold: 0.45,
+    high_strength_threshold: 0.8,
+
+    high_eligibility_recurrence_threshold: 8,
+    high_eligibility_timebin_threshold: 3
+  };
+
+  let score = 0;
+
+  /**
+   * Spatial recurrence
+   */
+  if (
+    a_Hotspot.recurrence_count >=
+    WEIGHTS.medium_recurrence_threshold
+  ) {
+    score += 0.25;
+  }
+
+  if (
+    a_Hotspot.recurrence_count >=
+    WEIGHTS.high_recurrence_threshold
+  ) {
+    score += 0.25;
+  }
+
+  /**
+   * Temporal persistence
+   */
+  if (
+    a_Hotspot.time_bins_with_unmatched >=
+    WEIGHTS.medium_timebin_threshold
+  ) {
+    score += 0.2;
+  }
+
+  if (
+    a_Hotspot.time_bins_with_unmatched >=
+    WEIGHTS.high_timebin_threshold
+  ) {
+    score += 0.2;
+  }
+
+  /**
+   * Local unmatched density
+   */
+  if (
+    a_Hotspot.count_unmatched >=
+    WEIGHTS.unmatched_density_threshold
+  ) {
+    score += 0.1;
+  }
+
+  /**
+   * Penalize uncertain hotspots
+   */
+  if (
+    a_Hotspot.mean_uncertainty &&
+    a_Hotspot.mean_uncertainty >=
+      WEIGHTS.high_uncertainty_threshold
+  ) {
+    score -= 0.25;
+  }
+
+  /**
+   * Clamp score
+   */
+  score = Math.max(0, Math.min(1, score));
+
+  /**
+   * Strong hotspot gate:
+   * high hotspot requires both:
+   * - strong recurrence
+   * - persistence across multiple time bins
+   */
+  const eligibleForHigh =
+    a_Hotspot.recurrence_count >= WEIGHTS.high_eligibility_recurrence_threshold &&
+    a_Hotspot.time_bins_with_unmatched >= WEIGHTS.high_eligibility_timebin_threshold;
+
+  /**
+   * Final classification
+   */
+  if (
+    eligibleForHigh &&
+    score >= WEIGHTS.high_strength_threshold
+  ) {
+    return EHotspotStrength.high;
+  }
+
+  if (score >= WEIGHTS.medium_strength_threshold) {
+    return EHotspotStrength.medium;
+  }
+
+  return EHotspotStrength.low;
 };

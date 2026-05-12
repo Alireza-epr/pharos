@@ -1,6 +1,6 @@
 export enum EReasonCodesStatic {
   near_coast = "near_coast",
-  low_detection_confidence = "low_detection_confidence",
+  low_confidence_proxy = "low_confidence_proxy",
   missing_confidence_proxy = "missing_confidence_proxy",
   inside_eez = "inside_eez",
   inside_mpa = "inside_mpa",
@@ -12,6 +12,9 @@ export enum EReasonCodesStatic {
   bathymetry_mpa_shallow_zone = "bathymetry_mpa_shallow_zone",
   bathymetry_cargo_anomaly_zone = "bathymetry_cargo_anomaly_zone",
   bathymetry_deep_mpa = "bathymetry_deep_mpa",
+  low_confidence_tier = "low_confidence_tier",
+  medium_confidence_tier = "medium_confidence_tier",
+  high_confidence_tier = "high_confidence_tier",
 }
 
 export type EReasonCodes =
@@ -32,4 +35,16 @@ export enum EGeoCoordinate {
 export enum EHotspotTimeBins {
   DAILY = "DAILY",
   HOURLY = "HOURLY"
+}
+
+export enum EConfidenceTiers {
+  low = "low",
+  medium = "medium",
+  high = "high"
+}
+
+export enum EHotspotStrength {
+  low = "low",
+  medium = "medium",
+  high = "high"
 }

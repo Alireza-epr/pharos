@@ -3,6 +3,7 @@ import {
   EReasonCodesStatic,
   EEventType,
   EVessleType,
+  EConfidenceTiers,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -31,7 +32,7 @@ export const backendVersion = pkg.version;
 export const generateSources = (a_Config: IConfigJSON, a_4wingsEntry: I4wingsEntry) => {
   if (a_4wingsEntry.dataset.length !== 0) return a_4wingsEntry.dataset
   // In unmatched cases, the dataset field is empty and we use the requested SAR dataset as the source.
-  const sarDataset = Object.entries(a_Config.url_params).filter( ([,value]) => typeof value === "string" && value.includes("sar") ).map( ([, value]) => value )[0]
+  const sarDataset = Object.entries(a_Config.url_params).filter(([, value]) => typeof value === "string" && value.includes("sar")).map(([, value]) => value)[0]
   return sarDataset as string
 }
 
@@ -52,7 +53,7 @@ export const generateEventId = (
 };
 
 export const generateConfidence = (
-  a_EventEntry: TGlobalEvent | undefined,
+  a_EventEntry: TGlobalEvent | null,
 ): 2 | 3 | 4 | null => {
   return a_EventEntry && a_EventEntry.type === EEventType.port_visit
     ? (Number(a_EventEntry.port_visit.confidence) as 2 | 3 | 4)
@@ -61,24 +62,56 @@ export const generateConfidence = (
 
 export const generateConfidence_heuristic = (
   a_4wingsEntry: I4wingsEntry,
-): 2 | 3 | 4 | null => {
-  let confidence_proxy: 2 | 3 | 4 | null = null
+): EConfidenceTiers => {
+
+  let confidenceScore = 0;
+
+  const MEDIUM_THRESHOLD = 0.4;
+  const HIGH_THRESHOLD = 0.7;
+  // Detection-based confidence
   if (a_4wingsEntry.detections) {
     // detections is available in public-global-sar-presence dataset 
-    if (a_4wingsEntry.detections <= 1) confidence_proxy = null;
-    if (a_4wingsEntry.detections === 2) confidence_proxy = 2;
-    if (a_4wingsEntry.detections === 3) confidence_proxy = 3;
-    if (a_4wingsEntry.detections >= 4) confidence_proxy = 4;
-    return confidence_proxy
-  } else if (a_4wingsEntry.hours){
+    if (a_4wingsEntry.detections <= 1) {
+      confidenceScore = 0.1;
+
+    } else if (a_4wingsEntry.detections <= 3) {
+      confidenceScore = 0.4;
+
+    } else if (a_4wingsEntry.detections >= 4) {
+      confidenceScore = 0.7;
+    }
+
+    // Noisy affect
+    if (isNoisyCase(a_4wingsEntry)) {
+      confidenceScore -= 0.2;
+    }
+  } else if (a_4wingsEntry.hours) {
     // other datasets have hours parameter
-    if (a_4wingsEntry.hours < 2) confidence_proxy = null;
-    if (a_4wingsEntry.hours >= 2 && a_4wingsEntry.hours < 3) confidence_proxy = 2;
-    if (a_4wingsEntry.hours >= 3 && a_4wingsEntry.hours < 4) confidence_proxy = 3;
-    if (a_4wingsEntry.hours >= 4) confidence_proxy = 4;
-    return confidence_proxy
+    if (a_4wingsEntry.hours < 2) {
+      confidenceScore = 0.1;
+
+    } else if (a_4wingsEntry.hours < 4) {
+      confidenceScore = 0.4;
+
+    } else if (a_4wingsEntry.hours >= 4) {
+      confidenceScore = 0.7;
+    }
   }
-  return confidence_proxy
+
+
+
+
+  // Clamp score to valid range
+  confidenceScore = Math.max(0, Math.min(confidenceScore, 1));
+  if (confidenceScore >= HIGH_THRESHOLD) {
+    return EConfidenceTiers.high;
+  }
+
+  if (confidenceScore >= MEDIUM_THRESHOLD) {
+    return EConfidenceTiers.medium;
+  }
+
+  return EConfidenceTiers.low;
 };
 
 export const generateRunMetadata = async (
@@ -107,13 +140,18 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     eez_importance: 0.2,
     mpa_importance: 0.5,
 
-    missing_confidence: 0.25,
-    low_confidence: 0.2,
+    missing_confidence_proxy: 0.25,
+    low_confidence_proxy: 0.2,
+
+    low_confidence_tier: 0.08,
+    medium_confidence_tier: 0.0,
+    high_confidence_tier: -0.05,
   };
 
   const entry = a_EventSchema.raw_metadata;
 
-  const confidence_proxy = generateConfidence_heuristic(entry);
+  const confidence_proxy = a_EventSchema.confidence_proxy;
+  const confidence_tier = a_EventSchema.confidence_tier;
 
   let reason_codes: EReasonCodes[] = [];
 
@@ -121,7 +159,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   // A. UNCERTAINTY (DATA QUALITY) - How much do we distrust this event?
   // =========================
   let uncertainty_score = WEIGHTS.base_uncertainty;
-  const matched = isMatchedCase(entry);
+  const matched = a_EventSchema.matched_flag;
 
   const missingFields = missingRequiredFields(entry);
 
@@ -152,13 +190,24 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   }
 
   if (confidence_proxy === null) {
-    uncertainty_score += WEIGHTS.missing_confidence;
+    uncertainty_score += WEIGHTS.missing_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if (
-    confidence_proxy <= config.threshold.low_detection_confidence_threshold
+    confidence_proxy <= config.threshold.low_confidence_proxy_threshold
   ) {
-    uncertainty_score += WEIGHTS.low_confidence;
-    reason_codes.push(EReasonCodesStatic.low_detection_confidence);
+    uncertainty_score += WEIGHTS.low_confidence_proxy;
+    reason_codes.push(EReasonCodesStatic.low_confidence_proxy);
+  }
+
+  if (confidence_tier === EConfidenceTiers.low) {
+    uncertainty_score += WEIGHTS.low_confidence_tier;
+    reason_codes.push(EReasonCodesStatic.low_confidence_tier);
+  } else if (confidence_tier === EConfidenceTiers.high) {
+    uncertainty_score += WEIGHTS.high_confidence_tier;
+    reason_codes.push(EReasonCodesStatic.high_confidence_tier);
+  } else if (confidence_tier === EConfidenceTiers.medium) {
+    uncertainty_score += WEIGHTS.medium_confidence_tier;
+    reason_codes.push(EReasonCodesStatic.medium_confidence_tier);
   }
 
   uncertainty_score = Number(

@@ -114,7 +114,9 @@ base_uncertainty = 0.1
 - unmatched_to_public_ais → +0.2
 - matched_to_public_ais → -0.05
 - missing_confidence_proxy → +0.25
-- low_detection_confidence → +0.2
+- low_confidence_proxy → +0.2
+- low_confidence_tier → +0.08
+- high_confidence_tier → -0.05
 
 Final uncertainty is clamped:
 
@@ -163,8 +165,14 @@ They include:
   Reference: https://globalfishingwatch.org/our-apis/documentation#example-9-report-indonesia-filter-by-matched-detections-example-of-noisy-vessel
 
 - `missing_confidence_proxy`  
-  `low_detection_confidence`  
+  `low_confidence_proxy`  
   Detection confidence is low or undefined.
+
+- `high_confidence_tier`  
+  `medium_confidence_tier`  
+  `low_confidence_tier`  
+  Detection Confidence tier.
+
 
 - `missing_required_field:<fieldname>`  
   Indicates a missing required field.
@@ -191,7 +199,7 @@ Default thresholds used to calculate scoring(configurable):
 - near_coast_threshold = 10,
 - shallow_water_threshold = -50,
 - deep_water_threshold = -200,
-- low_detection_confidence_threshold = 2
+- low_confidence_proxy_threshold = 2
 
 These values are **defaults only** and can be adjusted via configuration:
 

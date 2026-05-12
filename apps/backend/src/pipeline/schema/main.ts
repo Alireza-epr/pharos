@@ -11,7 +11,6 @@ import { getEEZContext } from '../features/eez';
 import { getMPAContext } from '../features/mpa';
 import { distanceToCoast } from '../features/coast_distance';
 import {
-  isISO8601Timestamp,
   isMatchedCase,
   isValidCoordinate,
   isValidDate,
@@ -30,29 +29,30 @@ import {
   getISO8601,
 } from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
-import { getHotspotCellId } from '../aggregate/hotspots';
 import { getBathymetryContext } from '../features/bathymetry_cached';
+import { log, sortEventSchema } from '../../helpers/utils/backendUtils';
+import { ELogType } from '../../helpers/types/generalTypes';
 
 export const createEventSchema = async (
   a_Configuration: IConfigJSON,
   a_4wingsEntry: I4wingsEntry,
+  a_EventEntry?: TGlobalEvent
 ): Promise<IEventSchema | IRejectedEventSchema> => {
+  const run_metadata = await generateRunMetadata([a_Configuration]);
+  const version = generateVersion();
+
+  /**
+   * Validation
+   */
+  let rejected_reasons: ERejectedEventSchemaReasons[] = []
   const validTimestamp = isValidDate(a_4wingsEntry.date);
   if (!validTimestamp) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidTimestamp,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidTimestamp)
   }
 
   const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType);
   if (!validVesselType) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidVesselType,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidVesselType)
   }
 
   const timestamp_utc = getISO8601(a_4wingsEntry.date);
@@ -63,17 +63,26 @@ export const createEventSchema = async (
   );
 
   if (!validCoordinates) {
-    return {
-      reason: ERejectedEventSchemaReasons.notValidCoordinates,
-      rejected: true,
-      raw_metadata: a_4wingsEntry,
-    };
+    rejected_reasons.push(ERejectedEventSchemaReasons.notValidCoordinates)
   }
+
+  if (rejected_reasons.length !== 0) {
+    return {
+      reasons: rejected_reasons,
+      rejected: true,
+      run_metadata,
+      raw_metadata: a_4wingsEntry,
+      raw_event_metadata: a_EventEntry ?? null,
+      version
+    }
+  }
+
+  /**
+   * Generation
+   */
 
   const lon = generateCoordinate(a_4wingsEntry.lon);
   const lat = generateCoordinate(a_4wingsEntry.lat);
-
-  const version = generateVersion();
 
   const sources = generateSources(a_Configuration, a_4wingsEntry);
 
@@ -81,34 +90,34 @@ export const createEventSchema = async (
 
   const matched_flag = isMatchedCase(a_4wingsEntry);
 
-  const confidence_proxy = generateConfidence_heuristic(a_4wingsEntry);
+  const confidence_proxy = generateConfidence(a_EventEntry ?? null);
+  const confidence_tier = generateConfidence_heuristic(a_4wingsEntry)
 
-  const run_metadata = await generateRunMetadata([a_Configuration]);
+
 
   let geom: IGeometry = generateGeom(lon, lat);
 
-  //const eez = generateEEZ(a_EventEntry);
+
   const eez = getEEZContext(eezPolygons, lon, lat);
-  //const mpa = generateMPA(a_EventEntry);
+
   const mpa = getMPAContext(mpaPolygons, lon, lat);
-  //const rfmo = generateRFMO(a_EventEntry);
+
   const bathymetry = await getBathymetryContext(lon, lat);
 
   const context_layers = {
     [EContextLayers.eez]: eez,
     [EContextLayers.mpa]: mpa,
     [EContextLayers.bathymetry]: bathymetry,
-    //[EContextLayers.rfmo]: rfmo,
+
   };
 
-  //const distance_to_coast_km = generateDistanceToCoast(a_EventEntry);
+
   const distance_to_coast_km = distanceToCoast(
     coastlinePolylines,
     a_4wingsEntry.lon,
     a_4wingsEntry.lat,
   );
 
-  const hotspot_cell_id = getHotspotCellId(lat, lon, a_Configuration.hotspot.resolution);
 
   const eventSchema: IEventSchema = {
     version: version,
@@ -116,11 +125,12 @@ export const createEventSchema = async (
     timestamp_utc,
     matched_flag,
     confidence_proxy,
+    confidence_tier,
     lat,
     lon,
     source: sources,
     raw_metadata: a_4wingsEntry,
-    raw_event_metadata: null,
+    raw_event_metadata: a_EventEntry ?? null,
     run_metadata,
     context_layers,
     distance_to_coast_km,
@@ -131,7 +141,7 @@ export const createEventSchema = async (
     },
     geom: geom,
     rejected: false,
-    hotspot_cell_id,
+    hotspot: null,
   };
 
   const scoring = generateScoring(eventSchema);
@@ -141,3 +151,26 @@ export const createEventSchema = async (
     scoring,
   };
 };
+
+export const createSortedEventSchemas = async (
+  a_Configuration: IConfigJSON,
+  a_4wingsEntries: I4wingsEntry[],
+): Promise<(IEventSchema | IRejectedEventSchema)[]> => {
+  let events = []
+  for (const entry of a_4wingsEntries) {
+    try {
+      const eventSchema = await createEventSchema(
+        a_Configuration,
+        entry,
+      );
+      if (eventSchema.rejected) {
+        log(`[createSortedEventSchemas] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`, ELogType.error);
+      }
+      events.push(eventSchema);
+    } catch (error) {
+      log(`[createSortedEventSchemas] Event Schema error: ${error}`, ELogType.error);
+    }
+  }
+  const sortedEvents = sortEventSchema(events);
+  return sortedEvents
+}

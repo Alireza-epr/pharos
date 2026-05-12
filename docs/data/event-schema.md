@@ -50,11 +50,14 @@ Note: This property is available only in the public-global-sar-presence dataset.
 ### Metadata
 
 - `confidence_proxy` (number or null)  
-  Indicates the strength of repeated SAR detections within the same grid cell and time bucket, derived from the provider data. It reflects observation intensity, not probability or certainty of vessel identity.
+  Confidence-related fields from the source, if any.
 
-  If the dataset does not provide a detection parameter but provides an hours parameter in the grid cell over the selected time range, we use that parameter to indicate the strength of signal.
+- `confidence_tier` (enum)  
+  Indicates the relative strength of the signal within the same spatial grid cell and time bucket, derived from provider metadata. It reflects observation intensity and signal consistency, not probability or certainty of vessel identity. For additional details, refer to [confidence-tier](../tech/confidence-tier.md)
+
+  This value must be interpreted as a qualitative tier, not as a statistical probability or confidence score.
 - `raw_metadata` (object)  
-  Original SAR record stored without modification.
+  Original entry record stored without modification.
 
 - `raw_event_metadata` (object)  
   Original event record stored without modification.
@@ -91,22 +94,47 @@ Note: This property is available only in the public-global-sar-presence dataset.
 If validation fails during record normalization, the following schema will be returned:
 
 - `rejected` (boolean<true>)
-- `reason` (string)  
+- `reasons` (string[])  
   Description of why the record was rejected.
 - `raw_metadata` (object)  
-  Original SAR record stored without modification.
+  Original record stored without modification.
+- `raw_event_metadata` (object)  
+  Original event record stored without modification.
+- `run_metadata` (object)  
+  Information needed to reproduce the run:
+  - configuration hash
+  - configuration json
+  - code version
 
 ---
 
 ### Hotspot
 
-This defines the H3 cell id in which the event is located based on its spatial position.
+Each event includes a reference to the H3 cell in which it is located, along with aggregated hotspot context signals derived from spatial and temporal analysis over the defined pilot period.
 
-- `hotspot_cell_id`: (string)
+The hotspot signals are computed based on event data within the pilot scope (defined by the selected geographic area and time window). As a result, all values are relative to the current pilot configuration and may vary when the spatial extent or time range changes.
+
+- `hotspot`: (object)  
+  Represents the hotspot context of the event's spatial location.
+
+  - `cell_id`: (string)  
+    H3 index of the hexagonal grid cell where the event is located.
+
+  - `signals`: (object)  
+    Aggregated hotspot indicators computed from events within the pilot period for the same H3 cell.
+
+    - `recurrence_count`: (number)  
+      Total number of unmatched events historically observed in the same H3 cell within the pilot period.
+
+    - `time_bins_with_unmatched`: (number)  
+      Number of distinct time bins within the pilot period in which at least one unmatched event occurred in the cell.
+
+    - `hotspot_strength`: (enum)  
+      Qualitative classification of hotspot persistence and intensity based on recurrence and temporal distribution of activity within the pilot scope.
 
 ---
 
-## Example (Unmatched SAR Event)
+## Example (Unmatched Event)
 
 ```json
 {
@@ -117,8 +145,9 @@ This defines the H3 cell id in which the event is located based on its spatial p
   "geom": { "type": "Point", "coordinates": [12.75, 54.53] },
   "matched_flag": false,
   "source": "gfw_sar_presence:v3:0",
-  "confidence_proxy": 2,
-  "raw_metadata": { "...": "original SAR fields" },
+  "confidence_proxy": null,
+  "confidence_tier": "low",
+  "raw_metadata": { "...": "original entry fields" },
   "raw_event_metadata": { "...": "original event fields" },
   "run_metadata": {
     "config_json": "...",
@@ -149,7 +178,14 @@ This defines the H3 cell id in which the event is located based on its spatial p
     }
   },
   "rejected": false,
-  "hotspot_cell_id": "851f2a43fffffff"
+  "hotspot": {
+    "cell_id": "851f2a47fffffff",
+    "signals": {
+      "recurrence_count": 12,
+      "time_bins_with_unmatched": 5,
+      "hotspot_strength": "high"
+    }
+  }
 }
 ```
 

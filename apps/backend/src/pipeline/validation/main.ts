@@ -20,7 +20,7 @@ import {
   getEntriesFrom4wingsResponse,
   log,
 } from '../../helpers/utils/backendUtils';
-import { createEventSchema } from '../schema/main';
+import { createSortedEventSchemas } from '../schema/main';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';
 
@@ -83,10 +83,7 @@ export const validationSamples = async (
   a_Config: IConfigJSON,
   a_Length: number,
 ): Promise<IValidationResp> => {
-  log(
-    'Params: ' + JSON.stringify(a_Config),
-    ELogType.info,
-  );
+
   const resp4wings = await detectionGFW<I4wingsAPIResponse>(
     a_Config
   );
@@ -96,8 +93,8 @@ export const validationSamples = async (
     resp4wings,
   );
 
-  const entries4wings = Array.from(entriesMap).flatMap( ([source, entries]) => entries )
-  if (!entries4wings || entries4wings.length == 0) {
+  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+  if (!entries || entries.length == 0) {
     log('[validationSamples] No entry found!', ELogType.warn);
     return {
       events: [],
@@ -105,31 +102,30 @@ export const validationSamples = async (
       validationSamplesGeoJSON: [],
     };
   }
-  const reducedEntriesNr = entries4wings.slice(0, a_Length);
+  const reducedEntriesNr = entries.slice(0, a_Length);
 
-  let eventSchemas: IEventSchema[] = [];
   let validationSamplesGeoJSON: TValidationGeoJSON[] = [];
   let validationSamples: TValidationSample[] = [];
   log(
     `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
+  
+  const sortedEvents = await createSortedEventSchemas(a_Config, reducedEntriesNr);
 
-  for (const entry4wings of reducedEntriesNr) {
-    const eventSchema = await createEventSchema(
-      a_Config,
-      entry4wings,
-    );
-
-    if (!eventSchema.rejected) {
-      eventSchemas.push(eventSchema);
-    } else {
-      log(`Entry is rejected: ${eventSchema.reason}`, ELogType.error);
-    }
+  const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
+  if (notRejectedEvents.length == 0) {
+    log('[validationSamples] Pilot quit because no valid entry was found.', ELogType.info);
+    return {
+      events: [],
+      validationSamples: [],
+      validationSamplesGeoJSON: [],
+    };
   }
 
+
   log('Creating validation GeoJSON samples...', ELogType.info);
-  for (const eventSchema of eventSchemas) {
+  for (const eventSchema of notRejectedEvents) {
     const validationSample = createValidationSample(eventSchema);
     validationSamples.push(validationSample);
     const validationSampleGeoJSON = generateValidationGeoJSON(validationSample);
@@ -137,7 +133,7 @@ export const validationSamples = async (
   }
 
   return {
-    events: eventSchemas,
+    events: notRejectedEvents,
     validationSamples,
     validationSamplesGeoJSON,
   };
