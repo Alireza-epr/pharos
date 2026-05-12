@@ -38,7 +38,7 @@ export const log = (
 /**
  * Recursively sorts all object keys and nested objects/arrays, removes undefined values
  */
-export const deepSortObject = (a_Object: any): any => {
+export const deepSortObject = <T>(a_Object: T): T => {
   if (Array.isArray(a_Object)) {
     const mapped = a_Object.map(deepSortObject);
 
@@ -54,23 +54,23 @@ export const deepSortObject = (a_Object: any): any => {
     if (isPrimitiveArray) {
       return mapped.sort((a, b) =>
         String(a).localeCompare(String(b))
-      );
+      ) as T;
     }
 
     // Keep order for arrays of objects / arrays (e.g. coordinates)
-    return mapped;
+    return mapped as T;
   }
 
   if (a_Object && typeof a_Object === "object") {
-    return Object.keys(a_Object)
+    return Object.keys(a_Object as Record<string, any>)
       .sort()
-      .reduce((acc: any, key) => {
-        const value = a_Object[key];
+      .reduce((acc, key) => {
+        const value = (a_Object as any)[key];
         if (value !== undefined) {
-          acc[key] = deepSortObject(value);
+          (acc as any)[key] = deepSortObject(value);
         }
         return acc;
-      }, {});
+      }, {} as any) as T;
   }
 
   return a_Object;

@@ -1,12 +1,9 @@
 [
   {
-    "strata": "distance_to_coast",
-    "stratum_sample_sizes": {
-      "near_coast": 28,
-      "offshore": 22
-    },
+    "execution_duration_sec": 17,
     "run_metadata": {
-      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
+      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
+      "config_hash": "9fbd8b2190ba0572be76ca2f7818a2e3c61f96dbab6d75ce1561749e172efbc8",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -38,19 +35,19 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ],
-      "config_hash": "9fbd8b2190ba0572be76ca2f7818a2e3c61f96dbab6d75ce1561749e172efbc8"
+      ]
     },
-    "execution_duration_sec": 5
+    "strata": "distance_to_coast",
+    "stratum_sample_sizes": {
+      "near_coast": 20,
+      "offshore": 30
+    }
   },
   {
-    "strata": "confidence_tier",
-    "stratum_sample_sizes": {
-      "high_confidence": 25,
-      "low_confidence": 25
-    },
+    "execution_duration_sec": 21,
     "run_metadata": {
-      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
+      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
+      "config_hash": "558a481971859a6af519a2c197914c6735688514c0fe4c8f5a6722a9d2b52420",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -112,19 +109,19 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ],
-      "config_hash": "558a481971859a6af519a2c197914c6735688514c0fe4c8f5a6722a9d2b52420"
+      ]
     },
-    "execution_duration_sec": 4
+    "strata": "confidence_tier",
+    "stratum_sample_sizes": {
+      "high_confidence": 25,
+      "low_confidence": 25
+    }
   },
   {
-    "strata": "density",
-    "stratum_sample_sizes": {
-      "high_density": 25,
-      "low_density": 25
-    },
+    "execution_duration_sec": 21,
     "run_metadata": {
-      "code_version": "21183497b4a91f31e7e9685399d56e836fdc15e1",
+      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
+      "config_hash": "7595dd9eb10518715d2b076c54fa41a4a7aeefa93400398a3b8648551b1d42ac",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -238,9 +235,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ],
-      "config_hash": "7595dd9eb10518715d2b076c54fa41a4a7aeefa93400398a3b8648551b1d42ac"
+      ]
     },
-    "execution_duration_sec": 3
+    "strata": "density",
+    "stratum_sample_sizes": {
+      "high_density": 25,
+      "low_density": 25
+    }
   }
 ]

@@ -1,10 +1,7 @@
 {
-  "type": "FeatureCollection",
   "features": [
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -40,26 +37,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-01-11 05:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-01-11 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -95,26 +92,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-01-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-01-16 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -150,26 +147,26 @@
               55.106386504125815
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a4ffffffff",
-        "time_bin": "2025-01-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 6,
+        "time_bin": "2025-01-16 05:00:00",
         "time_bins_total": 5,
         "time_bins_with_unmatched": 5
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -205,26 +202,26 @@
               55.106386504125815
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a4ffffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 6,
         "time_bin": "2025-01-23 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 6,
         "time_bins_total": 5,
         "time_bins_with_unmatched": 5
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -260,26 +257,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 19,
         "time_bin": "2025-01-26 16:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 19,
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -315,26 +312,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-01-28 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-01-28 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -370,26 +367,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-01-28 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-01-28 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -425,26 +422,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-02-07 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-02-07 16:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -480,26 +477,26 @@
               55.106386504125815
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a4ffffffff",
-        "time_bin": "2025-02-07 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 6,
+        "time_bin": "2025-02-07 16:00:00",
         "time_bins_total": 5,
         "time_bins_with_unmatched": 5
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -535,26 +532,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 14,
         "time_bin": "2025-02-16 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 14,
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -590,26 +587,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-02-19 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-02-19 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -645,26 +642,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 19,
         "time_bin": "2025-04-05 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 19,
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -700,26 +697,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-04-17 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -755,26 +752,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
+        "count_high_score_unmatched": 1,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.88,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 100,
+        "recurrence_count": 10,
         "time_bin": "2025-04-27 16:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
-        "mean_score": 0.88,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 100,
-        "recurrence_count": 10,
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -810,26 +807,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 10,
         "time_bin": "2025-05-02 16:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 10,
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -865,26 +862,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
+        "count_high_score_unmatched": 1,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.88,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 100,
+        "recurrence_count": 10,
         "time_bin": "2025-05-09 16:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
-        "mean_score": 0.88,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 100,
-        "recurrence_count": 10,
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -920,26 +917,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 19,
         "time_bin": "2025-05-11 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 19,
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -975,26 +972,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-05-21 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 0.88,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 100,
         "recurrence_count": 10,
+        "time_bin": "2025-05-21 16:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1030,26 +1027,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-05-23 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-05-23 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1085,26 +1082,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-05-28 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1140,26 +1137,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-06-04 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-06-04 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1195,26 +1192,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-06-07 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 10,
+        "time_bin": "2025-06-07 16:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1250,26 +1247,26 @@
               55.106386504125815
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a4ffffffff",
-        "time_bin": "2025-06-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 2,
         "count_unmatched": 2,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 6,
+        "time_bin": "2025-06-16 05:00:00",
         "time_bins_total": 5,
         "time_bins_with_unmatched": 5
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1305,26 +1302,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-06-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 4,
         "count_unmatched": 4,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-06-16 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1360,26 +1357,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-06-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-06-16 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1415,26 +1412,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-06-16 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-06-16 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1470,26 +1467,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-06-28 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1525,26 +1522,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-07-10 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1580,26 +1577,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-07-22 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1635,26 +1632,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-07-25 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 10,
+        "time_bin": "2025-07-25 16:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1690,26 +1687,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-07-25 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-07-25 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1745,26 +1742,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 10,
         "time_bin": "2025-08-01 16:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 10,
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1800,26 +1797,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-08-03 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-08-03 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1855,26 +1852,26 @@
               55.24215412472524
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a73fffffff",
-        "time_bin": "2025-08-08 05:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 0.88,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 100,
         "recurrence_count": 4,
+        "time_bin": "2025-08-08 05:00:00",
         "time_bins_total": 4,
         "time_bins_with_unmatched": 4
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1910,26 +1907,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-08-08 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-08-08 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -1965,26 +1962,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-08-20 05:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-08-20 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2020,26 +2017,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-08-27 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-08-27 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2075,26 +2072,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-09-06 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 10,
+        "time_bin": "2025-09-06 16:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2130,26 +2127,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 15,
         "time_bin": "2025-09-08 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 15,
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2185,26 +2182,26 @@
               55.24215412472524
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a73fffffff",
-        "time_bin": "2025-09-11 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 0.88,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 100,
         "recurrence_count": 4,
+        "time_bin": "2025-09-11 16:00:00",
         "time_bins_total": 4,
         "time_bins_with_unmatched": 4
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2240,26 +2237,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-09-11 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-09-11 16:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2295,26 +2292,26 @@
               55.24215412472524
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a73fffffff",
-        "time_bin": "2025-09-20 05:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 4,
+        "time_bin": "2025-09-20 05:00:00",
         "time_bins_total": 4,
         "time_bins_with_unmatched": 4
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2350,26 +2347,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-09-20 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-09-20 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2405,26 +2402,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-10-02 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-10-02 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2460,26 +2457,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-10-02 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-10-02 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2515,26 +2512,26 @@
               55.24215412472524
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a73fffffff",
-        "time_bin": "2025-10-05 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 0.88,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 100,
         "recurrence_count": 4,
+        "time_bin": "2025-10-05 16:00:00",
         "time_bins_total": 4,
         "time_bins_with_unmatched": 4
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2570,26 +2567,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-10-07 05:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-10-07 05:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2625,26 +2622,26 @@
               55.13345312938518
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a63fffffff",
-        "time_bin": "2025-10-12 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 1,
         "mean_score": 1,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 100,
         "recurrence_count": 1,
+        "time_bin": "2025-10-12 16:00:00",
         "time_bins_total": 1,
         "time_bins_with_unmatched": 1
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2680,26 +2677,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-10-14 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-10-14 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2735,26 +2732,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
+        "count_high_score_unmatched": 0,
+        "count_total": 1,
+        "count_unmatched": 1,
+        "mean_score": 0.58,
+        "mean_uncertainty": 0.63,
+        "pct_near_coast": 0,
+        "recurrence_count": 19,
         "time_bin": "2025-10-14 05:00:00",
-        "count_total": 1,
-        "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
-        "mean_score": 0.58,
-        "mean_uncertainty": 0.63,
-        "pct_near_coast": 0,
-        "recurrence_count": 19,
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2790,26 +2787,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-10-17 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-10-17 16:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2845,26 +2842,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-10-17 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-10-17 16:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2900,26 +2897,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-10-17 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 10,
+        "time_bin": "2025-10-17 16:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -2955,26 +2952,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-10-26 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-10-26 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3010,26 +3007,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-11-05 16:00:00",
+        "count_high_score_unmatched": 1,
         "count_total": 2,
         "count_unmatched": 2,
-        "count_high_score_unmatched": 1,
         "mean_score": 0.79,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-11-05 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3065,26 +3062,26 @@
               55.12019074929979
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a7bfffffff",
-        "time_bin": "2025-11-07 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 10,
+        "time_bin": "2025-11-07 05:00:00",
         "time_bins_total": 10,
         "time_bins_with_unmatched": 10
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3120,26 +3117,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-11-07 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-11-07 05:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3175,26 +3172,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-11-10 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-11-10 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3230,26 +3227,26 @@
               55.106386504125815
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a4ffffffff",
-        "time_bin": "2025-11-22 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 6,
+        "time_bin": "2025-11-22 16:00:00",
         "time_bins_total": 5,
         "time_bins_with_unmatched": 5
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3285,26 +3282,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-11-22 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-11-22 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3340,26 +3337,26 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-12-04 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-12-04 16:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3395,26 +3392,26 @@
               55.33657689126543
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a57fffffff",
-        "time_bin": "2025-12-13 05:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 15,
+        "time_bin": "2025-12-13 05:00:00",
         "time_bins_total": 15,
         "time_bins_with_unmatched": 15
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3450,26 +3447,26 @@
               55.22858700883818
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a47fffffff",
-        "time_bin": "2025-12-16 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 14,
+        "time_bin": "2025-12-16 16:00:00",
         "time_bins_total": 13,
         "time_bins_with_unmatched": 13
-      }
+      },
+      "type": "Feature"
     },
     {
-      "type": "Feature",
       "geometry": {
-        "type": "Polygon",
         "coordinates": [
           [
             [
@@ -3505,21 +3502,24 @@
               55.21447768340729
             ]
           ]
-        ]
+        ],
+        "type": "Polygon"
       },
       "properties": {
         "cell_id": "851f2a43fffffff",
-        "time_bin": "2025-12-16 16:00:00",
+        "count_high_score_unmatched": 0,
         "count_total": 1,
         "count_unmatched": 1,
-        "count_high_score_unmatched": 0,
         "mean_score": 0.58,
         "mean_uncertainty": 0.63,
         "pct_near_coast": 0,
         "recurrence_count": 19,
+        "time_bin": "2025-12-16 16:00:00",
         "time_bins_total": 16,
         "time_bins_with_unmatched": 16
-      }
+      },
+      "type": "Feature"
     }
-  ]
+  ],
+  "type": "FeatureCollection"
 }

@@ -31,5 +31,5 @@
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/multi_dataset_heavy_"
+  "output": "data/out/heavy_multi_dataset_"
 }

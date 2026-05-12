@@ -5,3 +5,4 @@
 .env
 /logs   
 /data/bathymetry_rasters/*.tif
+/data/out/heavy_*
