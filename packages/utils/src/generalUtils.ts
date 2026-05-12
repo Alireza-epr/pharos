@@ -40,7 +40,25 @@ export const log = (
  */
 export const deepSortObject = (a_Object: any): any => {
   if (Array.isArray(a_Object)) {
-    return a_Object.map(deepSortObject);
+    const mapped = a_Object.map(deepSortObject);
+
+    // Only sort arrays of primitives (safe case)
+    const isPrimitiveArray = mapped.every(
+      (v) =>
+        typeof v === "string" ||
+        typeof v === "number" ||
+        typeof v === "boolean" ||
+        v === null
+    );
+
+    if (isPrimitiveArray) {
+      return mapped.sort((a, b) =>
+        String(a).localeCompare(String(b))
+      );
+    }
+
+    // Keep order for arrays of objects / arrays (e.g. coordinates)
+    return mapped;
   }
 
   if (a_Object && typeof a_Object === "object") {
