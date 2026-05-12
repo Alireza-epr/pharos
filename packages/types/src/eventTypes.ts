@@ -92,6 +92,7 @@ export interface IConfigJSON {
   threshold: IThresholdConfig;
   hotspot: IHotspotConfig;
   output: string;
+  sort: ISortOption[]
 }
 
 export interface IThresholdConfig {
@@ -118,4 +119,11 @@ export interface IContextLayer {
   dataset: EContextLayerDatasets;
   version: string;
   enrichments: IContextLayerEnrichment[];
+}
+
+export type TSortDirection = "asc" | "desc";
+
+export interface ISortOption {
+  sortBy: string;
+  direction?: TSortDirection;
 }

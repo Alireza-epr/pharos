@@ -25,6 +25,7 @@ import {
   IConfigJSON,
   I4wingsEntry,
   IRejectedEventSchema,
+  ISortOption,
 } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
 
@@ -379,11 +380,34 @@ export const csvString = <T, N>(
   return csvString;
 };
 
+export const getSortValue = (obj: any, path: string) => {
+  return path
+    .replace(/\[(\d+)\]/g, ".$1")
+    .split(".")
+    .reduce((acc, key) => acc?.[key], obj);
+}
+
+export const compareValues = (a: any, b: any) => {
+  if (a == null && b == null) return 0;
+  if (a == null) return -1;
+  if (b == null) return 1;
+
+  if (typeof a === "string" && typeof b === "string") {
+    return a.localeCompare(b);
+  }
+
+  return a - b;
+};
+
 export const sortEventSchema = (
-  a_EventSchema: (IEventSchema | IRejectedEventSchema)[],
+  a_EventSchemas: (IEventSchema | IRejectedEventSchema)[],
+  a_SortOptions: ISortOption[] = [
+    { sortBy: "timestamp_utc", direction: "asc" },
+    { sortBy: "event_id", direction: "asc" },
+  ]
 ): (IEventSchema | IRejectedEventSchema)[] => {
 
-  const { accepted, rejected } = a_EventSchema.reduce(
+  const { accepted, rejected } = a_EventSchemas.reduce(
     (acc, event) => {
       if (event.rejected) {
         acc.rejected.push(event)
@@ -399,16 +423,44 @@ export const sortEventSchema = (
     }
   )
 
-  accepted.sort((a, b) => {
-    if (a.timestamp_utc !== b.timestamp_utc)
-      return a.timestamp_utc.localeCompare(b.timestamp_utc);
+  const multiSort = (a: any, b: any) => {
+    for (const { sortBy, direction = "asc" } of a_SortOptions) {
+      const valA = getSortValue(a, sortBy);
+      const valB = getSortValue(b, sortBy);
 
-    if (a.event_id !== b.event_id) return a.event_id.localeCompare(b.event_id);
+      const result = compareValues(valA, valB);
 
-    if (a.lon !== b.lon) return a.lon - b.lon;
+      if (result !== 0) {
+        return direction === "asc" ? result : -result;
+      }
+    }
+    return 0;
+  };
 
-    return a.lat - b.lat;
-  });
+  if (accepted.length > 0) {
+    for (const option of a_SortOptions) {
+      if (
+        option.direction &&
+        option.direction !== "asc" &&
+        option.direction !== "desc"
+      ) {
+        throw new Error(
+          `[sortEventSchema] Invalid direction "${option.direction}" for sortBy "${option.sortBy}". Allowed values are "asc" or "desc".`
+        );
+      }
+      const fieldExists = accepted.some(
+        event => getSortValue(event, option.sortBy) !== undefined
+      );
+
+      if (!fieldExists) {
+        throw new Error(
+          `[sortEventSchema] Invalid sortBy field: "${option.sortBy}"`
+        );
+      }
+
+    }
+    accepted.sort(multiSort);
+  }
 
   return [...deepSortObject(accepted), ...deepSortObject(rejected)]
 };

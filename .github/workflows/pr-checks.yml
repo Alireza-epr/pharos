@@ -32,11 +32,7 @@ jobs:
       - name: Build shared packages
         run: npm run packages:build
 
-      # Install backend dependencies
-      - name: Install backend dependencies
-        working-directory: apps/backend
-        run: npm install
-
+      # Create backend env
       - name: Create .env file for CI
         working-directory: apps/backend
         run: |

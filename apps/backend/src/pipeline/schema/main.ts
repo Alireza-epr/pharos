@@ -171,6 +171,6 @@ export const createSortedEventSchemas = async (
       log(`[createSortedEventSchemas] Event Schema error: ${error}`, ELogType.error);
     }
   }
-  const sortedEvents = sortEventSchema(events);
+  const sortedEvents = sortEventSchema(events, a_Configuration.sort);
   return sortedEvents
 }

@@ -52,5 +52,15 @@
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/pilot_unmatched/"
+  "output": "data/out/pilot_unmatched/",
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ]
 }
