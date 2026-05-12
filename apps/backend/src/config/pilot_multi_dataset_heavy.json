@@ -31,5 +31,15 @@
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/heavy_multi_dataset_"
+  "output": "data/out/heavy_multi_dataset_",
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ]
 }
