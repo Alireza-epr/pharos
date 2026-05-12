@@ -11,15 +11,15 @@ export const generateHotspots = (
   a_Events: IEventSchema[],
 ) => {
   const h3Indexes = new Map<string, IEventSchema[]>();
-
+  const timeBucket = a_Config.hotspot.timeBin
+  if (timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY) {
+    throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
+  }
+  hotspotsMap.clear()
   for (const event of a_Events) {
     const h3Index = getHotspotCellId(event.lat, event.lon, a_Config.hotspot.resolution);
     const event_ids = hotspotsMap.get(h3Index) ?? []
     hotspotsMap.set(h3Index, [...event_ids, event.event_id])
-    const timeBucket = a_Config.hotspot.timeBin
-    if(timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY){
-      throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
-    }
     const key = `${h3Index}_${getDateBucket(event.timestamp_utc, timeBucket)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
@@ -51,7 +51,7 @@ export const generateHotspots = (
         event.matched_flag === false &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
-          a_Config.threshold.medium_triage_score_threshold
+        a_Config.threshold.medium_triage_score_threshold
       ) {
         count_high_score_unmatched++;
       }

@@ -80,6 +80,11 @@ export const generateConfidence_heuristic = (
     } else if (a_4wingsEntry.detections >= 4) {
       confidenceScore = 0.7;
     }
+
+    // Noisy affect
+    if (isNoisyCase(a_4wingsEntry)) {
+      confidenceScore -= 0.2;
+    }
   } else if (a_4wingsEntry.hours) {
     // other datasets have hours parameter
     if (a_4wingsEntry.hours < 2) {
@@ -93,10 +98,7 @@ export const generateConfidence_heuristic = (
     }
   }
 
-  // Noisy affect
-  if (isNoisyCase(a_4wingsEntry)) {
-    confidenceScore -= 0.2;
-  }
+
 
 
   // Clamp score to valid range
@@ -199,7 +201,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
 
   if (confidence_tier === EConfidenceTiers.low) {
     uncertainty_score += WEIGHTS.low_confidence_tier;
-    reason_codes.push(EReasonCodesStatic.low_confidence_tier);  
+    reason_codes.push(EReasonCodesStatic.low_confidence_tier);
   } else if (confidence_tier === EConfidenceTiers.high) {
     uncertainty_score += WEIGHTS.high_confidence_tier;
     reason_codes.push(EReasonCodesStatic.high_confidence_tier);

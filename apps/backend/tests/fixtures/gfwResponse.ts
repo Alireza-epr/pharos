@@ -1329,6 +1329,27 @@ export const api4wingsResponse_multi_dataset: I4wingsAPIResponse = {
   ],
 }
 
+export const api4wingsResponse_mixed_accepted_rejected: I4wingsAPIResponse = {
+  total: 1,
+  limit: null,
+  offset: null,
+  nextOffset: null,
+  metadata: {},
+  entries: [
+    {
+      'public-global-sar-presence:v3.0': [
+        api4wingsResponse_bad_vessel_type.entries[0]['public-global-sar-presence:v3.0'][0],
+        api4wingsResponse_bad_coordinates.entries[0]['public-global-sar-presence:v3.0'][0],
+        api4wingsResponse_bad_date.entries[0]['public-global-sar-presence:v3.0'][0],
+        api4wingsResponse_bad_multi.entries[0]['public-global-sar-presence:v3.0'][0],
+        api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0],
+        api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][1],
+        api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][2],
+      ]
+    }
+  ],
+};
+
 export const api4wingsEntry_matched: I4wingsEntry = {
   callsign: 'V2OW7',
   dataset: 'public-global-vessel-identity:v3.0',
@@ -1394,6 +1415,26 @@ export const api4wingsEntry_noisy: I4wingsEntry = {
   dataset: '',
   date: '2017-01-01 22:00',
   detections: 1,
+  entryTimestamp: '2017-01-01T22:33:41Z',
+  exitTimestamp: '2017-01-01T22:33:41Z',
+  firstTransmissionDate: '',
+  flag: '',
+  geartype: '',
+  imo: '',
+  lastTransmissionDate: '',
+  lat: -6.09,
+  lon: 106.89,
+  mmsi: '',
+  shipName: '',
+  vesselId: '74934b786-6f6f-d027-c06f-bf814d7da7f3',
+  vesselType: '',
+};
+
+export const api4wingsEntry_noisy_high_detections: I4wingsEntry = {
+  callsign: '',
+  dataset: '',
+  date: '2017-01-01 22:00',
+  detections: 2,
   entryTimestamp: '2017-01-01T22:33:41Z',
   exitTimestamp: '2017-01-01T22:33:41Z',
   firstTransmissionDate: '',
@@ -1563,6 +1604,121 @@ export const apiEventResponse_with_entry: IEventAPIResponse<IPortVisitEvent> = {
       port_visit: {
         visitId: '22efc11c118fb011f640e6328d54744f',
         confidence: '4',
+        durationHrs: 24.024166666666666,
+        startAnchorage: {
+          anchorageId: '46551b1d',
+          atDock: true,
+          distanceFromShoreKm: 0,
+          flag: 'DNK',
+          id: 'dnk-roenne',
+          lat: 55.105045722833694,
+          lon: 14.693334446163684,
+          name: 'ROENNE',
+          topDestination: 'BAY LIGHTER',
+        },
+        intermediateAnchorage: {
+          anchorageId: '46551b1d',
+          atDock: true,
+          distanceFromShoreKm: 0,
+          flag: 'DNK',
+          id: 'dnk-roenne',
+          lat: 55.105045722833694,
+          lon: 14.693334446163684,
+          name: 'ROENNE',
+          topDestination: 'BAY LIGHTER',
+        },
+        endAnchorage: {
+          anchorageId: '46551b1d',
+          atDock: true,
+          distanceFromShoreKm: 0,
+          flag: 'DNK',
+          id: 'dnk-roenne',
+          lat: 55.105045722833694,
+          lon: 14.693334446163684,
+          name: 'ROENNE',
+          topDestination: 'BAY LIGHTER',
+        },
+      },
+    },
+  ],
+};
+
+export const apiEventResponse_with_entry_low_confidence: IEventAPIResponse<IPortVisitEvent> = {
+  metadata: {
+    datasets: ['public-global-port-visits-events:v3.0'],
+    vessels: ['22c7ca42d-df50-18b5-713a-a81e9115052c'],
+    dateRange: {
+      from: '2025-12-04T00:00:00Z',
+      to: '2025-12-06T23:59:59Z',
+    },
+    encounterTypes: [],
+    geometry: {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [
+              [
+                [14.11, 55.26],
+                [14.68, 55.27],
+                [14.69, 55.11],
+                [14.09, 55.08],
+                [14.11, 55.26],
+              ],
+            ],
+          },
+        },
+      ],
+    },
+  },
+  limit: 2,
+  offset: 0,
+  nextOffset: null,
+  total: 1,
+  entries: [
+    {
+      start: '2025-12-05T12:06:41.000Z',
+      end: '2025-12-06T12:08:08.000Z',
+      id: 'efc1703a86346486d884cbd5fc5aab74',
+      type: EEventType.port_visit,
+      position: {
+        lat: 55.1155,
+        lon: 14.6758,
+      },
+      regions: {
+        mpa: ['555790698', '555543143', '555522525'],
+        eez: ['5674'],
+        rfmo: ['NASCO', 'ACAP', 'NAMMCO', 'ICCAT', 'IWC', 'ICES'],
+        fao: ['27.3.d.24', '27.3.d', '27.3', '27'],
+        majorFao: ['27'],
+        eez12Nm: ['5674'],
+        highSeas: [],
+        mpaNoTakePartial: [],
+        mpaNoTake: [],
+      },
+      boundingBox: [
+        14.693334446163684, 55.105045722833694, 14.693334446163684,
+        55.105045722833694,
+      ],
+      distances: {
+        startDistanceFromShoreKm: 0,
+        endDistanceFromShoreKm: 0,
+        startDistanceFromPortKm: 0,
+        endDistanceFromPortKm: 0,
+      },
+      vessel: {
+        id: '22c7ca42d-df50-18b5-713a-a81e9115052c',
+        name: 'HDMS SOELOEVEN',
+        ssvid: '219000217',
+        flag: 'DNK',
+        type: 'other',
+        nextPort: null,
+      },
+      port_visit: {
+        visitId: '22efc11c118fb011f640e6328d54744f',
+        confidence: '2',
         durationHrs: 24.024166666666666,
         startAnchorage: {
           anchorageId: '46551b1d',

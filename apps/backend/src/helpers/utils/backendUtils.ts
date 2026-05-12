@@ -26,6 +26,7 @@ import {
   I4wingsEntry,
   IRejectedEventSchema,
 } from '@packages/types';
+import { deepSortObject } from '@packages/utils';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -409,7 +410,7 @@ export const sortEventSchema = (
     return a.lat - b.lat;
   });
 
-  return [...accepted, ...rejected]
+  return [...deepSortObject(accepted), ...deepSortObject(rejected)]
 };
 
 export const getMatchingStats = (
