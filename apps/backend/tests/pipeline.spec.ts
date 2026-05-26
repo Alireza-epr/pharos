@@ -37,6 +37,7 @@ import {
   getTimeRange,
   hashFile,
   sortEventSchema,
+  getSortValue,
 } from '../src/helpers/utils/backendUtils';
 import {
   api4wingsEntry_ais,
@@ -97,16 +98,17 @@ import {
   eventSchema_umatched_near_coast,
   eventSchema_umatched_offshore,
   eventSchema_with_low_confidence,
+  eventSchemas_not_sorted,
 } from './fixtures/eventSchema';
 import { vesselZone } from '../src/pipeline/features/bathymetry';
-import { mockEEZContext, mockMPAContext } from './setup/jest.mocks';
-import { 
-  hotspot_high_strength_eligible_for_high, 
-  hotspot_low_strength, 
-  hotspot_medium_strength, 
-  hotspot_medium_strength_eligible_for_high, 
-  hotspot_penilized_uncertainty, 
-  hotspot_penilized_uncertainty_heavy 
+import { mockEEZContext, mockMPAContext, mockBathymetryContext } from './setup/jest.mocks';
+import {
+  hotspot_high_strength_eligible_for_high,
+  hotspot_low_strength,
+  hotspot_medium_strength,
+  hotspot_medium_strength_eligible_for_high,
+  hotspot_penilized_uncertainty,
+  hotspot_penilized_uncertainty_heavy
 } from './fixtures/hotspots';
 
 describe('generateSources', () => {
@@ -500,9 +502,10 @@ describe('isValidCoordinate', () => {
 });
 
 describe('createEventSchema', () => {
-  beforeAll( ()=> {
+  beforeAll(() => {
     mockEEZContext()
     mockMPAContext()
+    mockBathymetryContext()
   })
 
   it('should_return_rejected_event_schema_for_not_valid_date', async () => {
@@ -617,6 +620,7 @@ describe('sortEventSchema', () => {
   beforeAll(() => {
     mockEEZContext()
     mockMPAContext()
+    mockBathymetryContext()
   })
 
   it('should_sort_mixed_entries_correctly', async () => {
@@ -660,6 +664,137 @@ describe('sortEventSchema', () => {
       false, false, false, true, true, true, true
     ]);
 
+  });
+
+  it('should_sort_by_timestamp_utc_ascending', async () => {
+    const result = sortEventSchema(eventSchemas_not_sorted, [
+      {
+        sortBy: "timestamp_utc",
+        direction: "asc"
+      }
+    ]);
+    if (result[0].rejected || result[1].rejected) return
+
+    expect(result[0].timestamp_utc <= result[1].timestamp_utc).toBe(true);
+  });
+
+  it('should_sort_by_timestamp_utc_descending', () => {
+    const result = sortEventSchema(eventSchemas_not_sorted, [
+      {
+        sortBy: "timestamp_utc",
+        direction: "desc"
+      }
+    ]);
+    if (result[0].rejected || result[1].rejected) return
+
+    expect(result[0].timestamp_utc >= result[1].timestamp_utc).toBe(true);
+  });
+
+  it('should_sort_by_nested_field', () => {
+    const result = sortEventSchema(eventSchemas_not_sorted, [
+      {
+        sortBy: "scoring.triage_score",
+        direction: "desc"
+      }
+    ]);
+    if (result[0].rejected || result[1].rejected) return
+
+    const score1 = result[0].scoring.triage_score
+    const score2 = result[1].scoring.triage_score
+
+    if (score1 === null || score2 === null) return
+
+    expect(score1).toBeGreaterThanOrEqual(score2);
+  });
+
+  it('should_sort_by_array_nested_field', () => {
+    const result = sortEventSchema(eventSchemas_not_sorted, [
+      {
+        sortBy: "context_layers.Bathymetry.enrichments[0].value",
+        direction: "asc"
+      }
+    ]);
+
+    const first = Number(
+      getSortValue(
+        result[0],
+        "context_layers.Bathymetry.enrichments[0].value"
+      )
+    );
+
+    const second = Number(
+      getSortValue(
+        result[1],
+        "context_layers.Bathymetry.enrichments[0].value"
+      )
+    );
+
+    expect(first).toBeLessThanOrEqual(second);
+  });
+
+  it('should_throw_error_for_invalid_sort_direction', () => {
+    expect(() =>
+      sortEventSchema(eventSchemas_not_sorted, [
+        {
+          sortBy: "timestamp_utc",
+          direction: "ascending" as any
+        }
+      ])
+    ).toThrow(
+      '[sortEventSchema] Invalid direction "ascending" for sortBy "timestamp_utc". Allowed values are "asc" or "desc".'
+    );
+  });
+
+  it('should_throw_error_for_invalid_sort_field', () => {
+    expect(() =>
+      sortEventSchema(eventSchemas_not_sorted, [
+        {
+          sortBy: "invalid.field.path",
+          direction: "asc"
+        }
+      ])
+    ).toThrow(
+      '[sortEventSchema] Invalid sortBy field: "invalid.field.path"'
+    );
+  });
+
+  it('should_return_empty_array_when_input_is_empty', () => {
+    const result = sortEventSchema([]);
+
+    expect(result).toEqual([]);
+  });
+
+  it('should_not_throw_when_optional_nested_field_exists_only_in_some_events', () => {
+    expect(() =>
+      sortEventSchema(eventSchemas_not_sorted, [
+        {
+          sortBy: "confidence_proxy",
+          direction: "asc"
+        }
+      ])
+    ).not.toThrow();
+  });
+
+  it('should_sort_by_multiple_fields', () => {
+    const result = sortEventSchema(eventSchemas_not_sorted, [
+      {
+        sortBy: "confidence_tier",
+        direction: "asc"
+      },
+      {
+        sortBy: "scoring.triage_score",
+        direction: "asc"
+      }
+    ]);
+    if (result[0].rejected || result[1].rejected) return
+    const score1 = result[0].scoring.triage_score
+    const score2 = result[1].scoring.triage_score
+
+    if (score1 === null || score2 === null) return
+
+    expect(result.length).toBe(eventSchemas_not_sorted.length);
+    expect(result[0].confidence_tier).toEqual(result[1].confidence_tier)
+    expect(score2).toBeGreaterThanOrEqual(score1)
   });
 })
 
@@ -806,8 +941,8 @@ describe('Hotspot_generation', () => {
   it('should_return_error_for_not_valid_time_bin', async () => {
     expect( () =>
       generateHotspots(
-      { ...sarConfig, hotspot: { ...sarConfig.hotspot, timeBin: "YEARLY" } } as IConfigJSON,
-      canonicalSchema as any,
+        { ...sarConfig, hotspot: { ...sarConfig.hotspot, timeBin: "YEARLY" } } as IConfigJSON,
+        canonicalSchema as any,
       )
     ).toThrow("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
   });
