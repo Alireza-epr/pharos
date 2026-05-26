@@ -1,7 +1,7 @@
 {
   "config": [
     {
-      "hash": "726581f249d2d64f70656a0315483e782822acdd1becc86ef56b828f495b279b",
+      "hash": "7cca1e05e3843fb278ff2522c2234a0f84f83aee932e7d75ece28682e781ba0e",
       "json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -40,6 +40,16 @@
           },
           "method": "POST",
           "output": "data/out/pilot_unmatched/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -63,7 +73,7 @@
     }
   ],
   "data_source_versions": "public-global-sar-presence:v3.0",
-  "execution_duration_sec": 14,
-  "git_commit_hash": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-  "run_time": "2026-05-12T10:10:58.711Z"
+  "execution_duration_sec": 19,
+  "git_commit_hash": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+  "run_time": "2026-05-26T08:10:35.291Z"
 }
