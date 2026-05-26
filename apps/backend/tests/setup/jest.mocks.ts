@@ -2,6 +2,7 @@ import { IContextLayer } from "@packages/types";
 import { getEEZContext } from "../../src/pipeline/features/eez";
 import { getMPAContext } from "../../src/pipeline/features/mpa";
 import { EContextLayerDatasets } from "@packages/enum";
+import { getBathymetryContext } from "../../src/pipeline/features/bathymetry_cached";
 
 jest.mock('parquetjs', () => ({
     __esModule: true,
@@ -53,5 +54,20 @@ export const mockMPAContext = () => {
                 label: 'I',
             },
         ],
+    } as IContextLayer);
+};
+
+jest.mock('../../src/pipeline/features/bathymetry_cached', () => ({
+    getBathymetryContext: jest.fn(),
+}));
+export const mockBathymetryContext = () => {
+    (getBathymetryContext as jest.Mock).mockReturnValue({
+      "dataset": "gebco_2025_sub_ice_topo",
+      "version": "v2.7",
+      "enrichments": [
+        {
+          "value": "-93"
+        }
+      ]
     } as IContextLayer);
 };

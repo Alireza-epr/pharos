@@ -2,6 +2,120 @@ import { EFetchMethods } from '@packages/enum';
 import { IConfigJSON } from '@packages/types';
 
 export const sarConfig: any = {
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
+  "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+  "method": "POST",
+  "body_params": {
+    "geojson": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [14.11, 55.26],
+          [14.68, 55.27],
+          [14.69, 55.11],
+          [14.09, 55.08],
+          [14.11, 55.26]
+        ]
+      ]
+    }
+  },
+  "url_params": {
+    "spatial-resolution": "HIGH",
+    "temporal-resolution": "HOURLY",
+    "datasets[0]": "public-global-sar-presence:v3.0",
+    "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+    "format": "JSON",
+    "group-by": "VESSEL_ID",
+    "filters[0]": ""
+  },
+  "threshold": {
+    "near_coast_threshold": 10,
+    "low_confidence_proxy_threshold": 2,
+    "shallow_water_threshold": -50,
+    "deep_water_threshold": -200,
+    "low_triage_score_threshold": 0.3,
+    "medium_triage_score_threshold": 0.6,
+    "high_triage_score_threshold": 0.85
+  },
+  "hotspot": {
+    "resolution": 5,
+    "timeBin": "HOURLY"
+  },
+  "output": "data/out/"
+};
+
+export const sarConfig_invalid_sort_sortBy: any = {
+  "sort": [
+    {
+      "sortBy": "timestamp",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
+  "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+  "method": "POST",
+  "body_params": {
+    "geojson": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [14.11, 55.26],
+          [14.68, 55.27],
+          [14.69, 55.11],
+          [14.09, 55.08],
+          [14.11, 55.26]
+        ]
+      ]
+    }
+  },
+  "url_params": {
+    "spatial-resolution": "HIGH",
+    "temporal-resolution": "HOURLY",
+    "datasets[0]": "public-global-sar-presence:v3.0",
+    "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+    "format": "JSON",
+    "group-by": "VESSEL_ID",
+    "filters[0]": ""
+  },
+  "threshold": {
+    "near_coast_threshold": 10,
+    "low_confidence_proxy_threshold": 2,
+    "shallow_water_threshold": -50,
+    "deep_water_threshold": -200,
+    "low_triage_score_threshold": 0.3,
+    "medium_triage_score_threshold": 0.6,
+    "high_triage_score_threshold": 0.85
+  },
+  "hotspot": {
+    "resolution": 5,
+    "timeBin": "HOURLY"
+  },
+  "output": "data/out/"
+};
+
+export const sarConfig_invalid_sort_direction: any = {
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "descend"
+    }
+  ],
   "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
   "method": "POST",
   "body_params": {
@@ -72,6 +186,16 @@ export const sarConfig_diff_sorted: any = {
       ]
     }
   },
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
   "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
   "output": "data/out/",
   "threshold": {
@@ -174,7 +298,17 @@ export const multiDatasetConfig: any = {
     "group-by": "VESSEL_ID",
     "spatial-resolution": "HIGH",
     "temporal-resolution": "HOURLY"
-  }
+  },
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
 }
 
 export const aisConfig: any = {
@@ -216,7 +350,17 @@ export const aisConfig: any = {
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/"
+  "output": "data/out/",
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
 };
 
 export const fishingConfig: any = {
@@ -258,5 +402,15 @@ export const fishingConfig: any = {
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/"
+  "output": "data/out/",
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
+    },
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ],
 };

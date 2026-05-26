@@ -60,7 +60,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-05-10T23:59:55Z",
+      "lastTransmissionDate": "2026-05-21T23:59:56Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -70,8 +70,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -110,6 +110,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -208,7 +218,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-05-10T23:59:51Z",
+      "lastTransmissionDate": "2026-05-21T23:59:51Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -218,8 +228,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -258,6 +268,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -355,7 +375,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-05-10T23:59:39Z",
+      "lastTransmissionDate": "2026-05-21T23:59:38Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -365,8 +385,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -405,6 +425,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -503,7 +533,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-05-10T23:59:14Z",
+      "lastTransmissionDate": "2026-05-21T23:59:50Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -513,8 +543,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -553,6 +583,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -651,7 +691,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-05-10T23:59:45Z",
+      "lastTransmissionDate": "2026-05-21T23:57:07Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -661,8 +701,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -701,6 +741,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -799,7 +849,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-05-10T23:59:11Z",
+      "lastTransmissionDate": "2026-05-21T23:57:22Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -809,8 +859,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -849,6 +899,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -947,7 +1007,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-05-10T23:13:53Z",
+      "lastTransmissionDate": "2026-05-21T23:55:17Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -957,8 +1017,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -997,6 +1057,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1104,8 +1174,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1144,6 +1214,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1251,8 +1331,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1291,6 +1371,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1389,7 +1479,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-05-10T23:59:56Z",
+      "lastTransmissionDate": "2026-05-21T23:59:59Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -1399,8 +1489,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1439,6 +1529,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1536,18 +1636,18 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-05-08T12:54:18Z",
+      "lastTransmissionDate": "2026-05-21T23:59:57Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
-      "shipName": "IONIAN SUN",
+      "shipName": "ELYSARIA",
       "vesselId": "ee20f2f54-4c41-ce6c-ce45-fa136fb6e2cc",
       "vesselType": "OTHER"
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1586,6 +1686,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1688,7 +1798,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-05-10T23:59:59Z",
+      "lastTransmissionDate": "2026-05-21T23:59:59Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1698,8 +1808,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1738,6 +1848,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1838,7 +1958,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-05-10T23:59:59Z",
+      "lastTransmissionDate": "2026-05-21T23:59:51Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -1848,8 +1968,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -1888,6 +2008,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -1986,7 +2116,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-05-10T23:58:11Z",
+      "lastTransmissionDate": "2026-05-21T23:59:55Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -1996,8 +2126,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2036,6 +2166,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -2133,7 +2273,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-05-10T23:59:31Z",
+      "lastTransmissionDate": "2026-05-21T23:59:53Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -2143,8 +2283,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2183,6 +2323,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -2281,7 +2431,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-05-10T05:45:58Z",
+      "lastTransmissionDate": "2026-05-21T23:59:57Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -2291,8 +2441,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2331,6 +2481,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -2428,7 +2588,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-05-10T23:59:55Z",
+      "lastTransmissionDate": "2026-05-21T23:58:33Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2438,8 +2598,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2478,6 +2638,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,
@@ -2576,7 +2746,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-05-10T23:59:44Z",
+      "lastTransmissionDate": "2026-05-21T23:59:36Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -2586,8 +2756,8 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "940d97360180d8c9ab0bcc59ef80e5e3ed4f2864",
-      "config_hash": "3b1e7d8ee063b725df4b8d95e65385579eb9517326ccd2a36b081e433f2844bf",
+      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -2626,6 +2796,16 @@
           },
           "method": "POST",
           "output": "data/out/",
+          "sort": [
+            {
+              "direction": "asc",
+              "sortBy": "timestamp_utc"
+            },
+            {
+              "direction": "asc",
+              "sortBy": "event_id"
+            }
+          ],
           "threshold": {
             "deep_water_threshold": -200,
             "high_triage_score_threshold": 0.85,

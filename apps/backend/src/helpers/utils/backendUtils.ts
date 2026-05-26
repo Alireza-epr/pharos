@@ -393,6 +393,9 @@ export const compareValues = (a: any, b: any) => {
   if (b == null) return 1;
 
   if (typeof a === "string" && typeof b === "string") {
+    if (a !== "" && b !== "" && !isNaN(Number(a)) && !isNaN(Number(b))) {
+      return Number(a) - Number(b);
+    }
     return a.localeCompare(b);
   }
 
