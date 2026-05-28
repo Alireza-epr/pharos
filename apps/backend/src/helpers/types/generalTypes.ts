@@ -24,27 +24,10 @@ export enum ELogType {
   success = 'SUCCESS',
 }
 
-export const EVENT_MISSINGNESS_KEYS = {
-  event_id: 'event_id',
-  timestamp_utc: 'timestamp_utc',
-  lat: 'lat',
-  lon: 'lon',
-  confidence_proxy: 'confidence_proxy',
-  distance_to_coast_km: 'distance_to_coast_km',
-} as const satisfies Record<string, keyof IEventSchema>;
-
-export type TGeoJSONEventMissingness =
-    keyof typeof EVENT_MISSINGNESS_KEYS;
-
 export type TEventProperties = Omit<
   IEventSchema,
   "version"|"geom"|"source"|"raw_metadata"|"raw_event_metadata"|"run_metadata"|"rejected"|"hotspot"
 >
-
-export interface IMatchingStats {
-  matched: number;
-  unmatched: number;
-}
 
 export interface IBathymetryTile {
   file: string;

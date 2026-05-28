@@ -1,3 +1,5 @@
+import { IEventSchema } from "./eventTypes";
+
 // Geometry Interfaces
 export type TGeoJSONGeometryType =
   | "Point"
@@ -51,3 +53,15 @@ export interface FeatureCollection<G extends IGeometry = IGeometry, P = any> {
   type: "FeatureCollection";
   features: IFeature<G, P>[];
 }
+
+export const EVENT_MISSINGNESS_KEYS = {
+  event_id: 'event_id',
+  timestamp_utc: 'timestamp_utc',
+  lat: 'lat',
+  lon: 'lon',
+  confidence_proxy: 'confidence_proxy',
+  distance_to_coast_km: 'distance_to_coast_km',
+} as const satisfies Record<string, keyof IEventSchema>;
+
+export type TGeoJSONEventMissingness =
+  keyof typeof EVENT_MISSINGNESS_KEYS;

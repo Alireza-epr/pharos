@@ -22,6 +22,7 @@ import {
   generateConfidence_heuristic,
 } from '../src/pipeline/normalize/generation';
 import {
+  EVENT_MISSINGNESS_KEYS,
   IConfigJSON,
   IEventSchema,
   IRejectedEventSchema,
@@ -31,10 +32,6 @@ import {
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,
   hashString,
-  getEventMissingness,
-  getGeoMin,
-  getGeoMax,
-  getTimeRange,
   hashFile,
   sortEventSchema,
   getSortValue,
@@ -76,7 +73,6 @@ import events from './fixtures/events.json';
 import canonicalSchema_base from './fixtures/canonicalSchema_base.json';
 import hotspots_import from './fixtures/hotspots.json';
 import canonicalSchema from './fixtures/canonicalSchema.json';
-import { EVENT_MISSINGNESS_KEYS } from '../src/helpers/types/generalTypes';
 import { enrichEventsWithHotspots, generateHotspots, generateHotspotStrength } from '../src/pipeline/aggregate/hotspots';
 import {
   createValidationSample,
@@ -110,6 +106,7 @@ import {
   hotspot_penilized_uncertainty,
   hotspot_penilized_uncertainty_heavy
 } from './fixtures/hotspots';
+import { getEventMissingness, getGeoMax, getGeoMin, getTimeRange } from '../src/pipeline/aggregate/stats';
 
 describe('generateSources', () => {
   it('returns_the_source_keys_with_the_version_for_matched_case', () => {

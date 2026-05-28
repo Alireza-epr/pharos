@@ -2,12 +2,7 @@ import { createSortedEventSchemas } from './schema/main';
 import {
   csvString,
   formatTimestamp,
-  getEventMissingness,
-  getGeoMax,
-  getGeoMin,
   getGitCommitSHA,
-  getMatchingStats,
-  getTimeRange
 } from '../helpers/utils/backendUtils';
 import { detectionGFW } from './ingest/detections';
 import {
@@ -53,6 +48,7 @@ import { generateRunMetadata } from './normalize/generation';
 import { export_run_metadata } from './export/export';
 import { getExecutionDuration } from '@packages/utils';
 import { fs_readFileSync, fs_writeFileSync } from './export/fs';
+import { getStats } from './aggregate/stats';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -178,31 +174,9 @@ const main = async (a_Config: IConfigJSON) => {
   });
   await writeParquet(rows, parquetSchema, `${a_Config.output}events.parquet`);
 
-  //data_quality.json
-  const missingnesses = getEventMissingness(geojson.features);
-  const latitudeMin = getGeoMin(EGeoCoordinate.latitude, geojson.features);
-  const longitudeMin = getGeoMin(EGeoCoordinate.longitude, geojson.features);
-  const latitudeMax = getGeoMax(EGeoCoordinate.latitude, geojson.features);
-  const longitudeMax = getGeoMax(EGeoCoordinate.longitude, geojson.features);
-  const time_range = getTimeRange(geojson.features);
-  const matching_stats = getMatchingStats(geojson.features);
-  const data_quality = {
-    row_count: geojson.features.length,
-    matching_stats: matching_stats,
-    missingness: missingnesses,
-    geo_sanity: {
-      latitude: {
-        min: latitudeMin,
-        max: latitudeMax,
-      },
-      longitude: {
-        min: longitudeMin,
-        max: longitudeMax,
-      },
-    },
-    time_range: time_range,
-  };
-  fs_writeFileSync(`${a_Config.output}data_quality.json`, data_quality)
+  //stats.json
+  const stats = getStats(enrichedEvents);
+  fs_writeFileSync(`${a_Config.output}stats.json`, stats)
 
   //hotspots.geojson
   const hotspotsGeoJSON: FeatureCollection<IGeometry, IHotspot> = {

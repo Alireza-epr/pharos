@@ -1,24 +1,17 @@
 import fs from 'fs';
 import path from 'path';
-import { is4wingsSource, isValidCoordinate } from '../../pipeline/normalize/validation';
+import { is4wingsSource } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
   EEventDatasets,
-  EGeoCoordinate,
   EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
 import {
-  TGeoJSONEventMissingness,
   ELogType,
-  TEventProperties,
-  IMatchingStats,
-  EVENT_MISSINGNESS_KEYS,
 } from '../types/generalTypes';
 import {
   IEventSchema,
-  IFeature,
-  IGeometry,
   I4wingsAPIResponse,
   T4wingsSource,
   TEventSource,
@@ -217,110 +210,6 @@ export const getEntriesFrom4wingsResponse = (
   return entries;
 };
 
-export const getEventMissingness = (
-  a_Features: IFeature<IGeometry, TEventProperties>[],
-): Record<TGeoJSONEventMissingness, string> => {
-  const total = a_Features.length;
-
-  const keys = Object.values(EVENT_MISSINGNESS_KEYS);
-
-  const counts: Record<TGeoJSONEventMissingness, number> = Object.fromEntries(
-    keys.map((k) => [k, 0]),
-  ) as Record<TGeoJSONEventMissingness, number>;
-
-  for (const feature of a_Features) {
-    if (!feature.properties) continue;
-
-    for (const key of keys) {
-      const value = feature.properties[key];
-
-      if (value === null || value === undefined) {
-        counts[key]++;
-      }
-
-    }
-  }
-
-  return Object.fromEntries(
-    keys.map((key) => [
-      key,
-      `${((counts[key] / total) * 100).toFixed(2)}%`,
-    ]),
-  ) as Record<TGeoJSONEventMissingness, string>;
-};
-
-export const getGeoMin = (
-  a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, TEventProperties>[],
-): number => {
-  let min = Infinity;
-
-  for (const feature of a_Features) {
-    if (!feature.properties) continue;
-    if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
-      continue;
-
-    const value =
-      a_GeoCoordinate === EGeoCoordinate.latitude
-        ? feature.properties.lat
-        : feature.properties.lon;
-
-    if (value < min) {
-      min = value;
-    }
-  }
-
-  return min;
-};
-
-export const getGeoMax = (
-  a_GeoCoordinate: EGeoCoordinate,
-  a_Features: IFeature<IGeometry, TEventProperties>[],
-): number => {
-  let max = -Infinity;
-
-  for (const feature of a_Features) {
-    if (!feature.properties) continue;
-    if (!isValidCoordinate(feature.properties.lat, feature.properties.lon))
-      continue;
-    const value =
-      a_GeoCoordinate === EGeoCoordinate.latitude
-        ? feature.properties.lat
-        : feature.properties.lon;
-
-    if (value > max) {
-      max = value;
-    }
-  }
-
-  return max;
-};
-
-export const getTimeRange = (
-  a_Features: IFeature<IGeometry, TEventProperties>[],
-) => {
-  let min = Infinity;
-  let max = -Infinity;
-
-  for (const feature of a_Features) {
-    if (!feature.properties) continue;
-    const t = Date.parse(feature.properties.timestamp_utc);
-
-    if (t < min) {
-      min = t;
-    }
-
-    if (t > max) {
-      max = t;
-    }
-  }
-
-  return {
-    start: new Date(min).toISOString(),
-    end: new Date(max).toISOString(),
-  };
-};
-
 export const getDate = (a_Datetime: string) => {
   return a_Datetime.slice(0, 10);
 };
@@ -466,24 +355,4 @@ export const sortEventSchema = (
   }
 
   return [...deepSortObject(accepted), ...deepSortObject(rejected)]
-};
-
-export const getMatchingStats = (
-  a_Features: IFeature<IGeometry, TEventProperties>[],
-): IMatchingStats => {
-  let matched = 0;
-  let unmatched = 0;
-
-  for (const feature of a_Features) {
-    if (feature.properties.matched_flag) {
-      ++matched;
-    } else if (feature.properties.matched_flag === false) {
-      ++unmatched;
-    }
-  }
-
-  return {
-    matched,
-    unmatched,
-  };
 };

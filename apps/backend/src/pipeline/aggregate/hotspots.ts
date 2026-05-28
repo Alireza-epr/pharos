@@ -133,27 +133,6 @@ export const generateHotspots = (
   return hotspots;
 };
 
-export const getMeanScore = (a_Events: IEventSchema[]) => {
-  const validTriage = a_Events
-    .map((e) => e.scoring.triage_score)
-    .filter((s) => s !== null);
-  const sumTriage = validTriage.reduce((a, b) => a + b);
-  const mean_score = parseFloat((sumTriage / validTriage.length).toFixed(2));
-
-  const validUncertainty = a_Events
-    .map((e) => e.scoring.uncertainty_score)
-    .filter((s) => s !== null);
-  const sumUncertainty = validUncertainty.reduce((a, b) => a + b);
-  const mean_uncertainty = parseFloat(
-    (sumUncertainty / validUncertainty.length).toFixed(2),
-  );
-
-  return {
-    mean_score,
-    mean_uncertainty,
-  };
-};
-
 export const featureFromHotspot = (
   a_Hotspots: IHotspot[],
 ): IFeature<IPolygonGeometry, IHotspot>[] => {
