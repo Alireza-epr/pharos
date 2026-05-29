@@ -23,6 +23,7 @@ import {
 import { createSortedEventSchemas } from '../schema/main';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';
+import { EGeoJSONGeometryType } from '@packages/enum';
 
 export const isOnLand = (
   a_LandPolygons: FeatureCollection<
@@ -72,7 +73,7 @@ export const generateValidationGeoJSON = (
   return {
     type: 'Feature',
     geometry: {
-      type: 'Point',
+      type: EGeoJSONGeometryType.Point,
       coordinates: [a_ValidationSample.lon, a_ValidationSample.lat],
     },
     properties: a_ValidationSample,

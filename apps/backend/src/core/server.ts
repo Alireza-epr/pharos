@@ -7,6 +7,7 @@ import { EResponseError, EStatusCode } from '@packages/enum';
 import { EBaseRoutes } from '@packages/enum';
 import systemRoutes from '../modules/system/system.routes';
 import authRoutes from '../modules/auth/auth.routes';
+import eventsRoutes from '../modules/events/events.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 
 const app = express();
@@ -25,16 +26,20 @@ app.use(responseLogger);
 
 // --- Endpoints ---
 
+const prependRoute = "/v1"
 // System - no auth required
-app.use(EBaseRoutes.system, systemRoutes);
+app.use(prependRoute+EBaseRoutes.system, systemRoutes);
 // Auth
-app.use(EBaseRoutes.auth, authRoutes);
+app.use(prependRoute+EBaseRoutes.auth, authRoutes);
+// Events
+app.use(prependRoute+EBaseRoutes.events, eventsRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {
   log(`Endpoint not found: ${req.method} ${req.originalUrl}`, ELogType.error);
   return controllerResponse(res, EStatusCode.NOT_FOUND_404, {
-    error: EResponseError.EndpointNotFound,
+    success: false,
+    error: [EResponseError.EndpointNotFound],
   });
 });
 

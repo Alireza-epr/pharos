@@ -1,3 +1,4 @@
+import { EGeoJSONGeometryType } from "@packages/enum";
 import { IEventSchema } from "./eventTypes";
 
 // Geometry Interfaces
@@ -10,33 +11,33 @@ export type TGeoJSONGeometryType =
   | "MultiPolygon";
 
 export interface IGeometry {
-  type: TGeoJSONGeometryType;
+  type: EGeoJSONGeometryType;
   coordinates: any; // depends on type, we refine below
 }
 
 // Specific geometries
 export interface IPointGeometry extends IGeometry {
-  type: "Point";
+  type: EGeoJSONGeometryType.Point;
   coordinates: [number, number]; // [lng, lat]
 }
 
 export interface ILineStringGeometry extends IGeometry {
-  type: "LineString";
+  type: EGeoJSONGeometryType.LineString;
   coordinates: [number, number][];
 }
 
 export interface IPolygonGeometry extends IGeometry {
-  type: "Polygon";
+  type: EGeoJSONGeometryType.Polygon;
   coordinates: [[number, number][]]; // array of rings
 }
 
 export interface IMultiPolygonGeometry extends IGeometry {
-  type: "MultiPolygon";
+  type: EGeoJSONGeometryType.MultiPolygon;
   coordinates: number[][][][]; // array of rings
 }
 
 export interface IMultiLineStringGeometry extends IGeometry {
-  type: "MultiLineString";
+  type: EGeoJSONGeometryType.MultiLineString;
   coordinates: number[][][]; // array of rings
 }
 

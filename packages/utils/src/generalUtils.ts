@@ -81,3 +81,19 @@ export const getExecutionDuration = (a_Start: string, a_End: string) => {
   const endDate = new Date(a_End.replace(" ", "T"));
   return endDate.getTime() - startDate.getTime();
 };
+
+export const isObject = (a_Value: unknown): a_Value is Record<string, any> => {
+  return typeof a_Value === "object" && a_Value !== null && !Array.isArray(a_Value);
+}
+
+export const isString = (a_Value: unknown): a_Value is string => {
+  return typeof a_Value === "string";
+}
+
+export const isBoolean = (a_Value: unknown): a_Value is boolean => {
+  return typeof a_Value === "boolean";
+}
+
+export const isNumber = (a_Value: unknown): a_Value is number => {
+  return typeof a_Value === "number" && !Number.isNaN(a_Value);
+}

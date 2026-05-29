@@ -54,7 +54,7 @@ jobs:
           node dist/src/core/server.js &
           echo $! > server.pid
           sleep 5
-          curl -X GET "localhost:1370/system/health"
+          curl -X GET "localhost:1370/v1/system/health"
           kill $(cat server.pid)
 
       - name: Run Backend Unit Tests

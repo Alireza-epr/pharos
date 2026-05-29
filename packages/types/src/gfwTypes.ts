@@ -2,10 +2,17 @@ import {
   E4wingsDatasets,
   EEventDatasets,
   EEventType,
+  EFormat,
   EGearType,
+  EGroupBy,
   EMaritimeIdentificationDigits,
   ENeuralVesselType,
+  ERegionBufferOperations,
+  ERegionBufferUnits,
+  ERegionDatasets,
+  ESpatialResolution,
   ESpeedRange,
+  ETemporalResolution,
   EVessleType,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
@@ -41,10 +48,10 @@ export type T4wingsFilter =
  * Report - URL Parameters for both POST and GET requests
  */
 export interface I4wingsReportPostURLParams {
-  "spatial-resolution"?: "LOW" | "HIGH"; // Low means at 10th degree resolution, High means at 100th degree resolution
-  format: "CSV" | "TIF" | "JSON";
-  "group-by"?: "VESSEL_ID" | "FLAG" | "GEARTYPE" | "FLAGANDGEARTYPE" | "MMSI";
-  "temporal-resolution": "HOURLY" | "DAILY" | "MONTHLY" | "YEARLY" | "ENTIRE";
+  "spatial-resolution"?: ESpatialResolution; // Low means at 10th degree resolution, High means at 100th degree resolution
+  format: EFormat;
+  "group-by"?: EGroupBy;
+  "temporal-resolution": ETemporalResolution;
   [key: `datasets[${number}]`]: T4wingsSource;
   [key: `filters[${number}]`]: string;
   "date-range"?: string;
@@ -59,15 +66,10 @@ export interface I4wingsReportPostURLParams {
  * If a user is expected to call the same URL multiple times, this can result in a substantial performance improvement.
  */
 export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
-  "region-dataset": "public-eez-areas" | "public-mpa-all";
+  "region-dataset": ERegionDatasets;
   "region-id": string;
-  "buffer-operation"?: "DIFFERENCE" | "DISSOLVE";
-  "buffer-unit"?:
-    | "MILES"
-    | "NAUTICALMILES"
-    | "KILOMETERS"
-    | "RADIANS"
-    | "DEGREES";
+  "buffer-operation"?: ERegionBufferOperations;
+  "buffer-unit"?: ERegionBufferUnits;
   "buffer-value"?: string;
 }
 
@@ -79,15 +81,10 @@ export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
 export interface I4wingsReportPostBodyParams {
   geojson?: IGeometry;
   region?: string;
-  "region.dataset"?: "public-eez-areas" | "public-mpa-all";
+  "region.dataset"?: ERegionDatasets;
   "region.id"?: string;
-  "region.bufferOperation"?: "DIFFERENCE" | "DISSOLVE";
-  "region.bufferUnit"?:
-    | "MILES"
-    | "NAUTICALMILES"
-    | "KILOMETERS"
-    | "RADIANS"
-    | "DEGREES";
+  "region.bufferOperation"?: ERegionBufferOperations;
+  "region.bufferUnit"?: ERegionBufferUnits;
   "region.bufferValue"?: string;
 }
 

@@ -15,3 +15,14 @@ export interface IResponse {
   metadata?: IRunMetadata,
   entries?: Partial<IEventSchema>[]
 }
+
+export interface IValidationErrorDetail {
+  code: EResponseError;
+  field: string;
+  message: string;
+}
+
+export interface IValidationResult {
+  isValid: boolean;
+  errors: IValidationErrorDetail[] | null;
+}

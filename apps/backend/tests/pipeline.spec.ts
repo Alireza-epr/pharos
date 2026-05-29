@@ -6,6 +6,7 @@ import {
   E4wingsDatasets,
   EConfidenceTiers,
   EHotspotStrength,
+  EGeoJSONGeometryType,
 } from '@packages/enum';
 import { createEventSchema } from '../src/pipeline/schema/main';
 import {
@@ -107,6 +108,9 @@ import {
   hotspot_penilized_uncertainty_heavy
 } from './fixtures/hotspots';
 import { getEventMissingness, getGeoMax, getGeoMin, getTimeRange } from '../src/pipeline/aggregate/stats';
+import { validateBodyParams, validateQueryParams } from '../src/modules/events/events.validators';
+import { invalidBody_geojson, invalidBody_missing_required, invalidBody_missing_sort, invalidBody_missingRequired, invalidBody_partial_threshold, invalidBody_wrongTypes, validBodyParams, validBodyParams_2 } from './fixtures/bodyParams.fixture';
+import { invalidQuery_missing_required, invalidQuery_wrong_enum, invalidQuery_wrongTypes, validQueryParams, validQueryParams_2 } from './fixtures/queryParams.fixture';
 
 describe('generateSources', () => {
   it('returns_the_source_keys_with_the_version_for_matched_case', () => {
@@ -796,44 +800,30 @@ describe('sortEventSchema', () => {
 })
 
 describe('Event_statistics_utilities', () => {
-  const validEvents = events.features as any;
+  const validEvents = eventSchemas_not_sorted as any;
 
   const invalidEvents = [
     {
-      type: 'Feature',
-      properties: {
-        event_id: null,
-        timestamp_utc: null,
-        lat: null,
-        lon: null,
-        confidence_proxy: null,
-        distance_to_coast_km: null,
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [null, null],
-      },
+      event_id: null,
+      timestamp_utc: null,
+      lat: null,
+      lon: null,
+      confidence_proxy: null,
+      distance_to_coast_km: null,
     },
     {
-      type: 'Feature',
-      properties: {
-        event_id: "8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081",
-        timestamp_utc: "2025-12-06T05:00:00Z",
-        lat: 50,
-        lon: null,
-        confidence_proxy: 2,
-        distance_to_coast_km: null,
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [-500, 200],
-      },
+      event_id: "8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081",
+      timestamp_utc: "2025-12-06T05:00:00Z",
+      lat: 50,
+      lon: null,
+      confidence_proxy: 2,
+      distance_to_coast_km: null,
     },
   ];
 
   const mixedEvents = [...validEvents, ...invalidEvents];
 
-  test('getEventMissingness_calculates_missing_rates', () => {
+  it('getEventMissingness_calculates_missing_rates', () => {
     const result = getEventMissingness(mixedEvents);
 
     expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.event_id);
@@ -845,7 +835,7 @@ describe('Event_statistics_utilities', () => {
     expect(typeof result["event_id"]).toBe('string');
   });
 
-  test('getGeoMin_returns_correct_minimum_latitude', () => {
+  it('getGeoMin_returns_correct_minimum_latitude', () => {
     const minLat = getGeoMin(EGeoCoordinate.latitude, mixedEvents);
 
     expect(typeof minLat).toBe('number');
@@ -854,7 +844,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMax_returns_correct_maximum_latitude', () => {
+  it('getGeoMax_returns_correct_maximum_latitude', () => {
     const maxLat = getGeoMax(EGeoCoordinate.latitude, mixedEvents);
 
     expect(typeof maxLat).toBe('number');
@@ -863,7 +853,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMin_returns_correct_minimum_longitude', () => {
+  it('getGeoMin_returns_correct_minimum_longitude', () => {
     const minLon = getGeoMin(EGeoCoordinate.longitude, mixedEvents);
 
     expect(typeof minLon).toBe('number');
@@ -872,7 +862,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMax_returns_correct_maximum_longitude', () => {
+  it('getGeoMax_returns_correct_maximum_longitude', () => {
     const maxLon = getGeoMax(EGeoCoordinate.longitude, mixedEvents);
 
     expect(typeof maxLon).toBe('number');
@@ -881,7 +871,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getTimeRange_returns_correct_start_and_end_timestamps', () => {
+  it('getTimeRange_returns_correct_start_and_end_timestamps', () => {
     const range = getTimeRange(validEvents);
 
     expect(range).toHaveProperty('start');
@@ -893,7 +883,7 @@ describe('Event_statistics_utilities', () => {
     expect(start).toBeLessThanOrEqual(end);
   });
 
-  test('getTimeRange_handles_invalid_timestamps_safely', () => {
+  it('getTimeRange_handles_invalid_timestamps_safely', () => {
     const range = getTimeRange(mixedEvents);
 
     expect(range.start).toBeDefined();
@@ -936,7 +926,7 @@ describe('Hotspot_generation', () => {
   });
 
   it('should_return_error_for_not_valid_time_bin', async () => {
-    expect( () =>
+    expect(() =>
       generateHotspots(
         { ...sarConfig, hotspot: { ...sarConfig.hotspot, timeBin: "YEARLY" } } as IConfigJSON,
         canonicalSchema as any,
@@ -978,14 +968,14 @@ describe('Hotspot_Strength', () => {
 });
 
 describe('enrichEventsWithHotspots', () => {
-  it('should_return_null_when_hotspot_map_is_empty' , () => {
+  it('should_return_null_when_hotspot_map_is_empty', () => {
     const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots_import.features as any)
-    expect(enrichedEvents.every( e => e.hotspot === null )).toBeTruthy()
+    expect(enrichedEvents.every(e => e.hotspot === null)).toBeTruthy()
   })
   it('should_enrich_events_with_hotspot_signals', () => {
     const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
     const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots as any)
-    expect(enrichedEvents.every( e => e.hotspot && e.hotspot.signals )).toBeTruthy()
+    expect(enrichedEvents.every(e => e.hotspot && e.hotspot.signals)).toBeTruthy()
   })
   it('should_return_null_when_event_is_not_in_any_hotspot', () => {
     const event_in_no_hotspot = {
@@ -994,13 +984,13 @@ describe('enrichEventsWithHotspots', () => {
     }
     const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
     const enrichedEvents = enrichEventsWithHotspots([...canonicalSchema_base, event_in_no_hotspot] as any, hotspots as any)
-    expect(enrichedEvents.find( e => e.hotspot === null )?.event_id).toBe("notMatching")
-    expect(enrichedEvents.filter( e => e.event_id !== "notMatching" ).every( h => h.hotspot !== null )).toBeTruthy()
+    expect(enrichedEvents.find(e => e.hotspot === null)?.event_id).toBe("notMatching")
+    expect(enrichedEvents.filter(e => e.event_id !== "notMatching").every(h => h.hotspot !== null)).toBeTruthy()
   })
   it('should_enrich_events_with_hotspot_signals', () => {
     const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
     const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots as any)
-    expect(enrichedEvents.every( e => e.hotspot && e.hotspot.signals )).toBeTruthy()
+    expect(enrichedEvents.every(e => e.hotspot && e.hotspot.signals)).toBeTruthy()
   })
 })
 
@@ -1136,5 +1126,181 @@ describe('Context_layers', () => {
       isFishingZone: false,
       isDeepWater: false,
     });
+  });
+});
+
+describe("validateBodyParams", () => {
+  it("validate_body_params_success", () => {
+    const result = validateBodyParams(validBodyParams);
+    const result_2 = validateBodyParams(validBodyParams_2);
+
+    expect(result.isValid).toBe(true);
+    expect(result_2.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+    expect(result_2.errors).toBeNull();
+  });
+
+  it("validate_body_params_fail_when_sort_missing", () => {
+    const result = validateBodyParams(invalidBody_missing_sort);
+
+    expect(result.isValid).toBe(false);
+    expect(
+      result.errors?.some((e) => e.field === "sort")
+    ).toBe(true);
+  });
+
+  it("validate_body_params_fail_when_body_is_empty", () => {
+    const result = validateBodyParams(invalidBody_missing_required);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+  });
+
+  it("validate_body_params_fail_when_required_fields_missing", () => {
+    const result = validateBodyParams(
+      invalidBody_missingRequired
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+  });
+
+  it("validate_body_params_fail_when_types_are_invalid", () => {
+    const result = validateBodyParams(invalidBody_wrongTypes);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    expect(
+      result.errors?.some((e) =>
+        e.field.includes("threshold")
+      )
+    ).toBe(true);
+  });
+
+  it("validate_body_params_accepts_optional_geojson", () => {
+    const result = validateBodyParams(validBodyParams);
+
+    const geoErrors =
+      result.errors?.filter((e) =>
+        e.field.includes("geojson")
+      ) || [];
+
+    expect(geoErrors.length).toBe(0);
+  });
+
+  it("validate_body_params_handles_partial_threshold_errors", () => {
+    const result = validateBodyParams(invalidBody_partial_threshold);
+
+    expect(result.isValid).toBe(false);
+
+    expect(
+      result.errors?.some((e) =>
+        e.field.includes("threshold")
+      )
+    ).toBe(true);
+  });
+
+  it("validate_body_params_validates_geojson_structure", () => {
+    const result = validateBodyParams(invalidBody_geojson);
+
+    expect(result.isValid).toBe(false);
+
+    expect(
+      result.errors?.some((e) =>
+        e.field.startsWith("geojson")
+      )
+    ).toBe(true);
+  });
+
+  it("validate_body_params_allows_optional_fields_absence", () => {
+    const minimal = {
+      threshold: validBodyParams.threshold,
+      hotspot: validBodyParams.hotspot,
+      filters: validBodyParams.filters,
+      sort: validBodyParams.sort,
+    };
+
+    const result = validateBodyParams(minimal);
+
+    expect(result.isValid).toBe(true);
+  });
+});
+
+describe("validateQueryParams", () => {
+  it("validate_query_params_success", () => {
+    const result = validateQueryParams(validQueryParams);
+    const result_2 = validateQueryParams(validQueryParams_2);
+
+    expect(result.isValid).toBe(true);
+    expect(result_2.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+    expect(result_2.errors).toBeNull();
+  });
+
+  it("validate_query_params_fail_when_required_fields_missing", () => {
+    const result = validateQueryParams(
+      invalidQuery_missing_required
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    expect(
+      result.errors?.some((e) =>
+        e.field.includes("format")
+      )
+    ).toBe(true);
+  });
+
+  it("validate_query_params_fail_when_types_are_invalid", () => {
+    const result = validateQueryParams(
+      invalidQuery_wrongTypes
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    const result_2 = validateQueryParams(invalidQuery_wrong_enum);
+
+    expect(result_2.isValid).toBe(false);
+
+    expect(
+      result_2.errors?.some((e) =>
+        e.field === "format"
+      )
+    ).toBe(true);
+
+    expect(
+      result_2.errors?.some((e) =>
+        e.field === "temporal-resolution"
+      )
+    ).toBe(true);
+  });
+
+  it("validate_query_params_accepts_dynamic_keys", () => {
+    const result = validateQueryParams(validQueryParams);
+
+    const datasetErrors =
+      result.errors?.filter((e) =>
+        e.field.includes("datasets")
+      ) || [];
+
+    const filterErrors =
+      result.errors?.filter((e) =>
+        e.field.includes("filters")
+      ) || [];
+
+    expect(datasetErrors.length).toBe(0);
+    expect(filterErrors.length).toBe(0);
+  });
+
+  it("validate_query_params_accepts_boolean_variants", () => {
+    const result = validateQueryParams({
+      ...validQueryParams,
+      "spatial-aggregation": "true",
+    });
+
+    expect(result.isValid).toBe(true);
   });
 });

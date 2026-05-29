@@ -4,6 +4,7 @@ import {
   EEventType,
   EVessleType,
   EConfidenceTiers,
+  EGeoJSONGeometryType,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -301,7 +302,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
 
 export const generateGeom = (a_Lon: number, a_Lat: number): IGeometry => {
   return {
-    type: 'Point',
+    type: EGeoJSONGeometryType.Point,
     coordinates: [a_Lon, a_Lat],
   };
 };

@@ -315,6 +315,51 @@ export enum EContextLayerDatasets {
   bathymetry = "gebco_2025_sub_ice_topo",
 }
 
+export enum ERegionDatasets {
+  eez = "public-eez-areas",
+  mpa = "public-mpa-all",
+}
+
+export enum ERegionBufferOperations {
+  DIFFERENCE = "DIFFERENCE",
+  DISSOLVE = "DISSOLVE"
+}
+
+export enum ERegionBufferUnits {
+  MILES = "MILES",
+  NAUTICALMILES = "NAUTICALMILES",
+  KILOMETERS = "KILOMETERS",
+  RADIANS = "RADIANS",
+  DEGREES = "DEGREES"
+}
+
+export enum ESpatialResolution {
+  LOW = "LOW", 
+  HIGH = "HIGH"
+}
+
+export enum ETemporalResolution {
+  HOURLY = "HOURLY",
+  DAILY = "DAILY",
+  MONTHLY = "MONTHLY",
+  YEARLY = "YEARLY",
+  ENTIRE = "ENTIRE",
+}
+
+export enum EFormat {
+  CSV = "CSV", 
+  TIF = "TIF", 
+  JSON = "JSON"
+}
+
+export enum EGroupBy {
+  VESSEL_ID = "VESSEL_ID",
+  FLAG = "FLAG",
+  GEARTYPE = "GEARTYPE",
+  FLAGANDGEARTYPE = "FLAGANDGEARTYPE",
+  MMSI = "MMSI"
+}
+
 export enum EEventType {
   gap = "gap",
   fishing = "fishing",

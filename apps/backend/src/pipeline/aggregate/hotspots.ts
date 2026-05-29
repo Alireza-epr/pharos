@@ -2,7 +2,7 @@ import { latLngToCell, cellToBoundary } from 'h3-js';
 import { IConfigJSON, IEventHotspot, IEventSchema, IHotspot } from '@packages/types';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
-import { EHotspotStrength, EHotspotTimeBins } from '@packages/enum';
+import { EGeoJSONGeometryType, EHotspotStrength, EHotspotTimeBins } from '@packages/enum';
 
 const hotspotsMap = new Map<string, string[]>()
 
@@ -142,7 +142,7 @@ export const featureFromHotspot = (
     return {
       type: 'Feature',
       geometry: {
-        type: 'Polygon',
+        type: EGeoJSONGeometryType.Polygon,
         coordinates: [coords],
       },
       properties: {
