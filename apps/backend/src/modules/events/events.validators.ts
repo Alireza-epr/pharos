@@ -42,33 +42,35 @@ export const validateBodyParams = (a_Body: unknown): IValidationResult => {
     };
   }
 
-  // threshold (required)
-  validateThreshold(a_Body.threshold, errors);
+  // threshold (optional)
+  if (a_Body.threshold !== undefined) {
+    validateThreshold(a_Body.threshold, errors);
+  }
 
-  // hotspot (required)
-  validateHotspot(a_Body.hotspot, errors);
+  // hotspot (optional)
+  if (a_Body.hotspot !== undefined) {
+    validateHotspot(a_Body.hotspot, errors);
+  }
 
-  // filters (required)
-  validateFilters(a_Body.filters, errors);
+  // filter (optional)
+  if (a_Body.filter !== undefined) {
+    validateFilters(a_Body.filter, errors);
+  }
 
-  // sort (required)
-  if (a_Body.sort === undefined) {
-    addError(
-      errors,
-      EResponseError.REQUIRED_FIELD_MISSING,
-      'sort'
-    );
-  } else {
+  // sort (optional)
+  if (a_Body.sort !== undefined) {
     validateSort(a_Body.sort, errors);
   }
 
-  // geojson (optional)
-  if (a_Body.geojson !== undefined) {
-    validateGeoJSON(a_Body.geojson, errors);
-  }
+  // body_params (optional)
+  if (a_Body.body_params) {
+    if (a_Body.body_params.geojson !== undefined) {
+      validateGeoJSON(a_Body.geojson, errors);
+    }
 
-  // region fields
-  validateRegionFields(a_Body, errors);
+    // region fields
+    validateRegionFields(a_Body.body_params, errors);
+  }
 
   return {
     isValid: errors.length === 0,
@@ -95,6 +97,10 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
   }
 
   // Required
+  validateNumber(a_Query.limit, "limit", errors, true)
+
+  validateNumber(a_Query.offset, "offset", errors, true)
+
   validateEnum(a_Query.format, FORMAT, 'format', errors, true);
 
   validateEnum(
@@ -127,11 +133,10 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
     a_Query['region-dataset'],
     REGION_DATASETS,
     'region-dataset',
-    errors,
-    true,
+    errors
   );
 
-  validateString(a_Query['region-id'], 'region-id', errors, true);
+  validateString(a_Query['region-id'], 'region-id', errors);
 
   validateEnum(
     a_Query['buffer-operation'],

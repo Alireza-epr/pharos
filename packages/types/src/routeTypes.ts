@@ -20,7 +20,6 @@ export interface IFilteringParams {
   is_inside_mpa?: boolean;
 }
 
-export type TBodyParams = Pick<IConfigJSON, "threshold" | "hotspot" | "sort"> &
-  I4wingsReportPostBodyParams & { filters: IFilteringParams };
+export type TBodyParams = Omit<IConfigJSON, "output">
 
 export type TURLParams = I4wingsReportGetURLParams & IEventGetURLParams;

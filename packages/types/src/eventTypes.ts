@@ -16,6 +16,7 @@ import {
   TGlobalEvent,
 } from "./gfwTypes";
 import { TBuildRange } from "./generalTypes";
+import { IFilteringParams } from "./routeTypes";
 
 export interface IContextLayer {
   dataset: EContextLayerDatasets;
@@ -97,7 +98,8 @@ export interface IConfigJSON {
   url_params: I4wingsReportGetURLParams;
   threshold: IThresholdConfig;
   hotspot: IHotspotConfig;
-  output: string;
+  output?: string;
+  filter: IFilteringParams;
   sort: ISortOption[];
 }
 

@@ -5,11 +5,7 @@ import { IStats } from "./generalTypes";
 export interface IResponse {
   success?: boolean;
   error?: (EResponseError | IValidationError)[];
-  limit?: number | null;
-  offset?: number | null;
-  nextOffset?: number | null;
-  page_size?: number | null;
-  page?: number | null;
+  pagination?: IPagination
   stats?: IStats;
   metadata?: IRunMetadata;
   entries?: Partial<IEventSchema>[];
@@ -25,4 +21,13 @@ export interface IValidationError {
 export interface IValidationResult {
   isValid: boolean;
   errors: IValidationError[] | null;
+}
+
+export interface IPagination {
+  total?: number | null,
+  limit?: number | null,
+  nextOffset?: number | null;
+  pageSize?: number | null;
+  pageNext?: string | null;
+  pagePrev?: string | null;
 }
