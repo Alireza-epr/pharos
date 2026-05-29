@@ -1,25 +1,43 @@
 import { latLngToCell, cellToBoundary } from 'h3-js';
-import { IConfigJSON, IEventHotspot, IEventSchema, IHotspot } from '@packages/types';
+import {
+  IConfigJSON,
+  IEventHotspot,
+  IEventSchema,
+  IHotspot,
+} from '@packages/types';
 import { IFeature, IPolygonGeometry } from '@packages/types';
 import { getDate, getDateBucket } from '../../helpers/utils/backendUtils';
-import { EHotspotStrength, EHotspotTimeBins } from '@packages/enum';
+import {
+  EGeoJSONGeometryType,
+  EHotspotStrength,
+  EHotspotTimeBins,
+} from '@packages/enum';
 
-const hotspotsMap = new Map<string, string[]>()
+const hotspotsMap = new Map<string, string[]>();
 
 export const generateHotspots = (
   a_Config: IConfigJSON,
   a_Events: IEventSchema[],
 ) => {
   const h3Indexes = new Map<string, IEventSchema[]>();
-  const timeBucket = a_Config.hotspot.timeBin
-  if (timeBucket !== EHotspotTimeBins.DAILY && timeBucket !== EHotspotTimeBins.HOURLY) {
-    throw new Error("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
+  const timeBucket = a_Config.hotspot.timeBin;
+  if (
+    timeBucket !== EHotspotTimeBins.DAILY &&
+    timeBucket !== EHotspotTimeBins.HOURLY
+  ) {
+    throw new Error(
+      '[generateHotspots] hotspotTimeBin must be DAILY or HOURLY',
+    );
   }
-  hotspotsMap.clear()
+  hotspotsMap.clear();
   for (const event of a_Events) {
-    const h3Index = getHotspotCellId(event.lat, event.lon, a_Config.hotspot.resolution);
-    const event_ids = hotspotsMap.get(h3Index) ?? []
-    hotspotsMap.set(h3Index, [...event_ids, event.event_id])
+    const h3Index = getHotspotCellId(
+      event.lat,
+      event.lon,
+      a_Config.hotspot.resolution,
+    );
+    const event_ids = hotspotsMap.get(h3Index) ?? [];
+    hotspotsMap.set(h3Index, [...event_ids, event.event_id]);
     const key = `${h3Index}_${getDateBucket(event.timestamp_utc, timeBucket)}`;
     if (!h3Indexes.has(key)) {
       h3Indexes.set(key, []);
@@ -51,7 +69,7 @@ export const generateHotspots = (
         event.matched_flag === false &&
         event.scoring.triage_score !== null &&
         event.scoring.triage_score >
-        a_Config.threshold.medium_triage_score_threshold
+          a_Config.threshold.medium_triage_score_threshold
       ) {
         count_high_score_unmatched++;
       }
@@ -105,7 +123,11 @@ export const generateHotspots = (
 
   const recurrenceMap = new Map<
     string,
-    { recurrence_count: number; time_bins_total: number; time_bins_with_unmatched: number }
+    {
+      recurrence_count: number;
+      time_bins_total: number;
+      time_bins_with_unmatched: number;
+    }
   >();
   for (const [cell_id, hs] of groupedHotspots) {
     recurrenceMap.set(cell_id, {
@@ -113,7 +135,8 @@ export const generateHotspots = (
         .map((h) => h.count_unmatched)
         .reduce((a, b) => a + b, 0),
       time_bins_total: hs.length,
-      time_bins_with_unmatched: hs.filter((h) => h.count_unmatched !== 0).length,
+      time_bins_with_unmatched: hs.filter((h) => h.count_unmatched !== 0)
+        .length,
     });
   }
 
@@ -133,27 +156,6 @@ export const generateHotspots = (
   return hotspots;
 };
 
-export const getMeanScore = (a_Events: IEventSchema[]) => {
-  const validTriage = a_Events
-    .map((e) => e.scoring.triage_score)
-    .filter((s) => s !== null);
-  const sumTriage = validTriage.reduce((a, b) => a + b);
-  const mean_score = parseFloat((sumTriage / validTriage.length).toFixed(2));
-
-  const validUncertainty = a_Events
-    .map((e) => e.scoring.uncertainty_score)
-    .filter((s) => s !== null);
-  const sumUncertainty = validUncertainty.reduce((a, b) => a + b);
-  const mean_uncertainty = parseFloat(
-    (sumUncertainty / validUncertainty.length).toFixed(2),
-  );
-
-  return {
-    mean_score,
-    mean_uncertainty,
-  };
-};
-
 export const featureFromHotspot = (
   a_Hotspots: IHotspot[],
 ): IFeature<IPolygonGeometry, IHotspot>[] => {
@@ -163,7 +165,7 @@ export const featureFromHotspot = (
     return {
       type: 'Feature',
       geometry: {
-        type: 'Polygon',
+        type: EGeoJSONGeometryType.Polygon,
         coordinates: [coords],
       },
       properties: {
@@ -181,47 +183,51 @@ export const getHotspotCellId = (
   return latLngToCell(a_Lat, a_Lon, a_Resolution);
 };
 
-export const enrichEventsWithHotspots = (a_Events: IEventSchema[], a_Hotspots: IHotspot[]): IEventSchema[] => {
-  let enrichedEvents: IEventSchema[] = []
-  
-  for(const event of a_Events){
+export const enrichEventsWithHotspots = (
+  a_Events: IEventSchema[],
+  a_Hotspots: IHotspot[],
+): IEventSchema[] => {
+  let enrichedEvents: IEventSchema[] = [];
 
-    const enrichedHotspot = enrichEventHotspot(event, a_Hotspots)
+  for (const event of a_Events) {
+    const enrichedHotspot = enrichEventHotspot(event, a_Hotspots);
 
     enrichedEvents.push({
       ...event,
-      hotspot: enrichedHotspot  
-    })
-
+      hotspot: enrichedHotspot,
+    });
   }
 
-  return enrichedEvents
-}
+  return enrichedEvents;
+};
 
-export const enrichEventHotspot = (a_Event: IEventSchema, a_Hotspots: IHotspot[]): IEventHotspot | null => {
-  const cell_id = Array.from(hotspotsMap.entries()).find( ([h3Index, event_ids]) => event_ids.includes(a_Event.event_id) )?.[0]
+export const enrichEventHotspot = (
+  a_Event: IEventSchema,
+  a_Hotspots: IHotspot[],
+): IEventHotspot | null => {
+  const cell_id = Array.from(hotspotsMap.entries()).find(
+    ([h3Index, event_ids]) => event_ids.includes(a_Event.event_id),
+  )?.[0];
 
-  if(!cell_id) return null
+  if (!cell_id) return null;
 
-  const hotspot = a_Hotspots.find( ht => ht.cell_id === cell_id )
+  const hotspot = a_Hotspots.find((ht) => ht.cell_id === cell_id);
 
-  if(!hotspot) return null
+  if (!hotspot) return null;
 
   return {
     cell_id,
     signals: {
       recurrence_count: hotspot.recurrence_count,
       time_bins_with_unmatched: hotspot.time_bins_with_unmatched,
-      hotspot_strength: generateHotspotStrength(hotspot)
-    }
-  }
-
-}
+      hotspot_strength: generateHotspotStrength(hotspot),
+    },
+  };
+};
 
 export const generateHotspotStrength = (
   a_Hotspot: IHotspot,
 ): EHotspotStrength => {
-
   const WEIGHTS = {
     medium_recurrence_threshold: 7,
     high_recurrence_threshold: 14,
@@ -237,7 +243,7 @@ export const generateHotspotStrength = (
     high_strength_threshold: 0.8,
 
     high_eligibility_recurrence_threshold: 8,
-    high_eligibility_timebin_threshold: 3
+    high_eligibility_timebin_threshold: 3,
   };
 
   let score = 0;
@@ -245,44 +251,29 @@ export const generateHotspotStrength = (
   /**
    * Spatial recurrence
    */
-  if (
-    a_Hotspot.recurrence_count >=
-    WEIGHTS.medium_recurrence_threshold
-  ) {
+  if (a_Hotspot.recurrence_count >= WEIGHTS.medium_recurrence_threshold) {
     score += 0.25;
   }
 
-  if (
-    a_Hotspot.recurrence_count >=
-    WEIGHTS.high_recurrence_threshold
-  ) {
+  if (a_Hotspot.recurrence_count >= WEIGHTS.high_recurrence_threshold) {
     score += 0.25;
   }
 
   /**
    * Temporal persistence
    */
-  if (
-    a_Hotspot.time_bins_with_unmatched >=
-    WEIGHTS.medium_timebin_threshold
-  ) {
+  if (a_Hotspot.time_bins_with_unmatched >= WEIGHTS.medium_timebin_threshold) {
     score += 0.2;
   }
 
-  if (
-    a_Hotspot.time_bins_with_unmatched >=
-    WEIGHTS.high_timebin_threshold
-  ) {
+  if (a_Hotspot.time_bins_with_unmatched >= WEIGHTS.high_timebin_threshold) {
     score += 0.2;
   }
 
   /**
    * Local unmatched density
    */
-  if (
-    a_Hotspot.count_unmatched >=
-    WEIGHTS.unmatched_density_threshold
-  ) {
+  if (a_Hotspot.count_unmatched >= WEIGHTS.unmatched_density_threshold) {
     score += 0.1;
   }
 
@@ -291,8 +282,7 @@ export const generateHotspotStrength = (
    */
   if (
     a_Hotspot.mean_uncertainty &&
-    a_Hotspot.mean_uncertainty >=
-      WEIGHTS.high_uncertainty_threshold
+    a_Hotspot.mean_uncertainty >= WEIGHTS.high_uncertainty_threshold
   ) {
     score -= 0.25;
   }
@@ -309,16 +299,15 @@ export const generateHotspotStrength = (
    * - persistence across multiple time bins
    */
   const eligibleForHigh =
-    a_Hotspot.recurrence_count >= WEIGHTS.high_eligibility_recurrence_threshold &&
-    a_Hotspot.time_bins_with_unmatched >= WEIGHTS.high_eligibility_timebin_threshold;
+    a_Hotspot.recurrence_count >=
+      WEIGHTS.high_eligibility_recurrence_threshold &&
+    a_Hotspot.time_bins_with_unmatched >=
+      WEIGHTS.high_eligibility_timebin_threshold;
 
   /**
    * Final classification
    */
-  if (
-    eligibleForHigh &&
-    score >= WEIGHTS.high_strength_threshold
-  ) {
+  if (eligibleForHigh && score >= WEIGHTS.high_strength_threshold) {
     return EHotspotStrength.high;
   }
 

@@ -60,7 +60,7 @@
       "flag": "FIN",
       "geartype": "CARGO",
       "imo": "9194282",
-      "lastTransmissionDate": "2026-05-21T23:59:56Z",
+      "lastTransmissionDate": "2026-05-25T23:59:51Z",
       "lat": 55.25,
       "lon": 14.300000190734863,
       "mmsi": "230673000",
@@ -70,7 +70,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -218,7 +218,7 @@
       "flag": "CYP",
       "geartype": "OTHER",
       "imo": "9504035",
-      "lastTransmissionDate": "2026-05-21T23:59:51Z",
+      "lastTransmissionDate": "2026-05-25T23:59:56Z",
       "lat": 55.11,
       "lon": 14.130000114440918,
       "mmsi": "209276000",
@@ -228,7 +228,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -375,7 +375,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9136204",
-      "lastTransmissionDate": "2026-05-21T23:59:38Z",
+      "lastTransmissionDate": "2026-05-25T23:59:54Z",
       "lat": 55.18,
       "lon": 14.199999809265137,
       "mmsi": "210549000",
@@ -385,7 +385,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -533,7 +533,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "9508794",
-      "lastTransmissionDate": "2026-05-21T23:59:50Z",
+      "lastTransmissionDate": "2026-05-25T23:59:57Z",
       "lat": 55.24,
       "lon": 14.130000114440918,
       "mmsi": "246629000",
@@ -543,7 +543,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -691,7 +691,7 @@
       "flag": "MHL",
       "geartype": "CARGO",
       "imo": "9743215",
-      "lastTransmissionDate": "2026-05-21T23:57:07Z",
+      "lastTransmissionDate": "2026-05-25T23:59:37Z",
       "lat": 55.21,
       "lon": 14.399999618530273,
       "mmsi": "538011815",
@@ -701,7 +701,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -849,7 +849,7 @@
       "flag": "DEU",
       "geartype": "CARGO",
       "imo": "9196254",
-      "lastTransmissionDate": "2026-05-21T23:57:22Z",
+      "lastTransmissionDate": "2026-05-25T23:59:47Z",
       "lat": 55.16,
       "lon": 14.170000076293945,
       "mmsi": "218797000",
@@ -859,7 +859,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1007,7 +1007,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9298662",
-      "lastTransmissionDate": "2026-05-21T23:55:17Z",
+      "lastTransmissionDate": "2026-05-25T23:58:03Z",
       "lat": 55.16,
       "lon": 14.109999656677246,
       "mmsi": "314842000",
@@ -1017,7 +1017,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1174,7 +1174,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1331,7 +1331,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1479,7 +1479,7 @@
       "flag": "DNK",
       "geartype": "PASSENGER",
       "imo": "9812107",
-      "lastTransmissionDate": "2026-05-21T23:59:59Z",
+      "lastTransmissionDate": "2026-05-25T23:59:56Z",
       "lat": 55.19,
       "lon": 14.239999771118164,
       "mmsi": "219026000",
@@ -1489,7 +1489,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1636,7 +1636,7 @@
       "flag": "LBR",
       "geartype": "OTHER",
       "imo": "9312860",
-      "lastTransmissionDate": "2026-05-21T23:59:57Z",
+      "lastTransmissionDate": "2026-05-25T23:59:51Z",
       "lat": 55.15,
       "lon": 14.220000267028809,
       "mmsi": "636025638",
@@ -1646,7 +1646,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1798,7 +1798,7 @@
       "flag": "ATG",
       "geartype": "CARGO",
       "imo": "9287807",
-      "lastTransmissionDate": "2026-05-21T23:59:59Z",
+      "lastTransmissionDate": "2026-05-25T23:59:59Z",
       "lat": 55.22,
       "lon": 14.40999984741211,
       "mmsi": "305773000",
@@ -1808,7 +1808,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -1958,7 +1958,7 @@
       "flag": "DNK",
       "geartype": "CARGO",
       "imo": "8104565",
-      "lastTransmissionDate": "2026-05-21T23:59:51Z",
+      "lastTransmissionDate": "2026-05-25T23:59:43Z",
       "lat": 55.23,
       "lon": 14.1899995803833,
       "mmsi": "219002392",
@@ -1968,7 +1968,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -2116,7 +2116,7 @@
       "flag": "IDN",
       "geartype": "OTHER",
       "imo": "9388730",
-      "lastTransmissionDate": "2026-05-21T23:59:55Z",
+      "lastTransmissionDate": "2026-05-25T23:59:59Z",
       "lat": 55.23,
       "lon": 14.289999961853027,
       "mmsi": "525121076",
@@ -2126,7 +2126,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -2273,7 +2273,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9552044",
-      "lastTransmissionDate": "2026-05-21T23:59:53Z",
+      "lastTransmissionDate": "2026-05-25T23:59:11Z",
       "lat": 55.09,
       "lon": 14.09000015258789,
       "mmsi": "212584000",
@@ -2283,7 +2283,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -2431,7 +2431,7 @@
       "flag": "BRB",
       "geartype": "OTHER",
       "imo": "9318096",
-      "lastTransmissionDate": "2026-05-21T23:59:57Z",
+      "lastTransmissionDate": "2026-05-25T23:59:48Z",
       "lat": 55.15,
       "lon": 14.300000190734863,
       "mmsi": "314001147",
@@ -2441,7 +2441,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -2588,7 +2588,7 @@
       "flag": "NLD",
       "geartype": "CARGO",
       "imo": "1046104",
-      "lastTransmissionDate": "2026-05-21T23:58:33Z",
+      "lastTransmissionDate": "2026-05-25T23:57:32Z",
       "lat": 55.24,
       "lon": 14.329999923706055,
       "mmsi": "244067000",
@@ -2598,7 +2598,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {
@@ -2746,7 +2746,7 @@
       "flag": "CYP",
       "geartype": "CARGO",
       "imo": "9213703",
-      "lastTransmissionDate": "2026-05-21T23:59:36Z",
+      "lastTransmissionDate": "2026-05-25T23:59:27Z",
       "lat": 55.21,
       "lon": 14.40999984741211,
       "mmsi": "209982000",
@@ -2756,7 +2756,7 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
+      "code_version": "e923951c6a16f2332176b6545f29620788346b0d",
       "config_hash": "8b0569ecd6c44178b2b4b373317e6181f3836bda30756a2d214817f7da4e3ce5",
       "config_json": [
         {

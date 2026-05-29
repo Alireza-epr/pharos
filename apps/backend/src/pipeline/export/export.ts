@@ -1,6 +1,10 @@
 import { IConfigJSON, IEventSchema } from '@packages/types';
 import { deepSortObject, getExecutionDuration } from '@packages/utils';
-import { getGitCommitSHA, getSourceFrom4wingsResponse, getSourcesFromEvents } from '../../helpers/utils/backendUtils';
+import {
+  getGitCommitSHA,
+  getSourceFrom4wingsResponse,
+  getSourcesFromEvents,
+} from '../../helpers/utils/backendUtils';
 
 export const export_run_metadata = async (
   a_Events: IEventSchema[],
@@ -17,7 +21,7 @@ export const export_run_metadata = async (
 
   const execution_duration_ms = getExecutionDuration(a_Start, a_End);
 
-  const sources = getSourcesFromEvents(a_Events)
+  const sources = getSourcesFromEvents(a_Events);
 
   return {
     config: Array.from(uniqueConfigs).map(([hash, configs]) => ({

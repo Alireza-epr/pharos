@@ -11,7 +11,7 @@ export const writeParquet = async (
     `${a_OutputPath}`,
   );
 
-  const sortedRows = deepSortObject(a_Rows)
+  const sortedRows = deepSortObject(a_Rows);
 
   for (const row of sortedRows) {
     await writer.appendRow(row);

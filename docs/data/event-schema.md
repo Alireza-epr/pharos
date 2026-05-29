@@ -40,7 +40,7 @@ This document defines a **event schema** for Iteration 1.
   - `false` → identity fields are empty  
     This follows the dataset decision.
 
-Note: This property is available only in the public-global-sar-presence dataset. In all other datasets, this field is not included in the event schema.  
+Note: This property is available only in the public-global-sar-presence dataset. In all other datasets, this field is not included in the event schema.
 
 ### Source information
 
@@ -56,6 +56,7 @@ Note: This property is available only in the public-global-sar-presence dataset.
   Indicates the relative strength of the signal within the same spatial grid cell and time bucket, derived from provider metadata. It reflects observation intensity and signal consistency, not probability or certainty of vessel identity. For additional details, refer to [confidence-tier](../tech/confidence-tier.md)
 
   This value must be interpreted as a qualitative tier, not as a statistical probability or confidence score.
+
 - `raw_metadata` (object)  
   Original entry record stored without modification.
 
@@ -116,13 +117,11 @@ The hotspot signals are computed based on event data within the pilot scope (def
 
 - `hotspot`: (object)  
   Represents the hotspot context of the event's spatial location.
-
   - `cell_id`: (string)  
     H3 index of the hexagonal grid cell where the event is located.
 
   - `signals`: (object)  
     Aggregated hotspot indicators computed from events within the pilot period for the same H3 cell.
-
     - `recurrence_count`: (number)  
       Total number of unmatched events historically observed in the same H3 cell within the pilot period.
 

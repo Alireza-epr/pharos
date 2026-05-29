@@ -1,73 +1,73 @@
-import { IContextLayer } from "@packages/types";
-import { getEEZContext } from "../../src/pipeline/features/eez";
-import { getMPAContext } from "../../src/pipeline/features/mpa";
-import { EContextLayerDatasets } from "@packages/enum";
-import { getBathymetryContext } from "../../src/pipeline/features/bathymetry_cached";
+import { IContextLayer } from '@packages/types';
+import { getEEZContext } from '../../src/pipeline/features/eez';
+import { getMPAContext } from '../../src/pipeline/features/mpa';
+import { EContextLayerDatasets } from '@packages/enum';
+import { getBathymetryContext } from '../../src/pipeline/features/bathymetry_cached';
 
 jest.mock('parquetjs', () => ({
-    __esModule: true,
-    default: {
-        ParquetSchema: jest.fn(),
-    },
+  __esModule: true,
+  default: {
+    ParquetSchema: jest.fn(),
+  },
 }));
 
 jest.mock('@dotenvx/dotenvx', () => ({
-    config: jest.fn(),
+  config: jest.fn(),
 }));
 
 jest.mock('@turf/turf', () => ({
-    config: jest.fn(),
+  config: jest.fn(),
 }));
 
 jest.mock('geotiff', () => ({
-    config: jest.fn(),
+  config: jest.fn(),
 }));
 
 //replaces the real functions with a fake Jest mock function
 jest.mock('../../src/pipeline/features/eez', () => ({
-    getEEZContext: jest.fn(),
+  getEEZContext: jest.fn(),
 }));
 //define fixed mock return value
 export const mockEEZContext = () => {
-    (getEEZContext as jest.Mock).mockReturnValue({
-        dataset: EContextLayerDatasets.eez,
-        version: 'v12',
-        enrichments: [
-            {
-                id: '5674',
-                label: 'Danish Exclusive Economic Zone',
-            },
-        ],
-    } as IContextLayer);
+  (getEEZContext as jest.Mock).mockReturnValue({
+    dataset: EContextLayerDatasets.eez,
+    version: 'v12',
+    enrichments: [
+      {
+        id: '5674',
+        label: 'Danish Exclusive Economic Zone',
+      },
+    ],
+  } as IContextLayer);
 };
 
 jest.mock('../../src/pipeline/features/mpa', () => ({
-    getMPAContext: jest.fn(),
+  getMPAContext: jest.fn(),
 }));
 export const mockMPAContext = () => {
-    (getMPAContext as jest.Mock).mockReturnValue({
-        dataset: 'WDPA_WDOECM_APR2026',
-        version: 'v1.6',
-        enrichments: [
-            {
-                id: '555774273',
-                label: 'I',
-            },
-        ],
-    } as IContextLayer);
+  (getMPAContext as jest.Mock).mockReturnValue({
+    dataset: 'WDPA_WDOECM_APR2026',
+    version: 'v1.6',
+    enrichments: [
+      {
+        id: '555774273',
+        label: 'I',
+      },
+    ],
+  } as IContextLayer);
 };
 
 jest.mock('../../src/pipeline/features/bathymetry_cached', () => ({
-    getBathymetryContext: jest.fn(),
+  getBathymetryContext: jest.fn(),
 }));
 export const mockBathymetryContext = () => {
-    (getBathymetryContext as jest.Mock).mockReturnValue({
-      "dataset": "gebco_2025_sub_ice_topo",
-      "version": "v2.7",
-      "enrichments": [
-        {
-          "value": "-93"
-        }
-      ]
-    } as IContextLayer);
+  (getBathymetryContext as jest.Mock).mockReturnValue({
+    dataset: 'gebco_2025_sub_ice_topo',
+    version: 'v2.7',
+    enrichments: [
+      {
+        value: '-93',
+      },
+    ],
+  } as IContextLayer);
 };

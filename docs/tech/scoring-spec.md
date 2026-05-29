@@ -173,7 +173,6 @@ They include:
   `low_confidence_tier`  
   Detection Confidence tier.
 
-
 - `missing_required_field:<fieldname>`  
   Indicates a missing required field.
   Required fields: dataset, date, lat, lon, vesselId, mmsi, shipName, vesselType

@@ -30,4 +30,25 @@ export enum EResponseError {
   InvalidOrExpiredToken = "Invalid or expired token",
   InvalidCredentials = "Invalid credentials",
   CredentialIsRequired = "Credential is required",
+  // Body Validation
+  BODY_NOT_OBJECT = "Request body must be an object",
+  INVALID_GEOJSON = "Invalid GeoJSON format",
+  INVALID_GEOJSON_TYPE = "Invalid GeoJSON type provided",
+  INVALID_GEOJSON_COORDINATES = "Invalid GeoJSON coordinates",
+  INVALID_THRESHOLD = "Invalid threshold value",
+  INVALID_HOTSPOT = "Invalid hotspot configuration",
+  INVALID_FILTERS = "Invalid filters provided",
+  INVALID_SORT = "Invalid sort option",
+  INVALID_REGION_CONFIGURATION = "Invalid region configuration",
+  // URL Validation
+  QUERY_NOT_OBJECT = "Query must be an object",
+  // Validation
+  REQUIRED_FIELD_MISSING = "Required field is missing",
+  INVALID_ARRAY = "Invalid array format",
+  INVALID_OBJECT = "Invalid object format",
+  INVALID_TYPE = "Invalid data type",
+  INVALID_ENUM_VALUE = "Invalid value provided",
+  INVALID_STRING = "Invalid string format",
+  INVALID_NUMBER = "Invalid number format",
+  INVALID_BOOLEAN = "Invalid boolean value",
 }

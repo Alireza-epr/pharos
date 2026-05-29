@@ -23,6 +23,7 @@ import {
 import { createSortedEventSchemas } from '../schema/main';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { landPolygons } from '../sample';
+import { EGeoJSONGeometryType } from '@packages/enum';
 
 export const isOnLand = (
   a_LandPolygons: FeatureCollection<
@@ -72,7 +73,7 @@ export const generateValidationGeoJSON = (
   return {
     type: 'Feature',
     geometry: {
-      type: 'Point',
+      type: EGeoJSONGeometryType.Point,
       coordinates: [a_ValidationSample.lon, a_ValidationSample.lat],
     },
     properties: a_ValidationSample,
@@ -83,17 +84,13 @@ export const validationSamples = async (
   a_Config: IConfigJSON,
   a_Length: number,
 ): Promise<IValidationResp> => {
+  const resp4wings = await detectionGFW<I4wingsAPIResponse>(a_Config);
 
-  const resp4wings = await detectionGFW<I4wingsAPIResponse>(
-    a_Config
+  const entriesMap = getEntriesFrom4wingsResponse(a_Config, resp4wings);
+
+  const entries = Array.from(entriesMap).flatMap(
+    ([source, entries]) => entries,
   );
-
-  const entriesMap = getEntriesFrom4wingsResponse(
-    a_Config,
-    resp4wings,
-  );
-
-  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
   if (!entries || entries.length == 0) {
     log('[validationSamples] No entry found!', ELogType.warn);
     return {
@@ -110,19 +107,24 @@ export const validationSamples = async (
     `Creating event schemas, entry count: ${reducedEntriesNr.length}...`,
     ELogType.info,
   );
-  
-  const sortedEvents = await createSortedEventSchemas(a_Config, reducedEntriesNr);
+
+  const sortedEvents = await createSortedEventSchemas(
+    a_Config,
+    reducedEntriesNr,
+  );
 
   const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
-    log('[validationSamples] Pilot quit because no valid entry was found.', ELogType.info);
+    log(
+      '[validationSamples] Pilot quit because no valid entry was found.',
+      ELogType.info,
+    );
     return {
       events: [],
       validationSamples: [],
       validationSamplesGeoJSON: [],
     };
   }
-
 
   log('Creating validation GeoJSON samples...', ELogType.info);
   for (const eventSchema of notRejectedEvents) {

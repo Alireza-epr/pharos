@@ -6,6 +6,7 @@ import {
   E4wingsDatasets,
   EConfidenceTiers,
   EHotspotStrength,
+  EGeoJSONGeometryType,
 } from '@packages/enum';
 import { createEventSchema } from '../src/pipeline/schema/main';
 import {
@@ -22,6 +23,7 @@ import {
   generateConfidence_heuristic,
 } from '../src/pipeline/normalize/generation';
 import {
+  EVENT_MISSINGNESS_KEYS,
   IConfigJSON,
   IEventSchema,
   IRejectedEventSchema,
@@ -31,10 +33,6 @@ import {
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,
   hashString,
-  getEventMissingness,
-  getGeoMin,
-  getGeoMax,
-  getTimeRange,
   hashFile,
   sortEventSchema,
   getSortValue,
@@ -76,8 +74,11 @@ import events from './fixtures/events.json';
 import canonicalSchema_base from './fixtures/canonicalSchema_base.json';
 import hotspots_import from './fixtures/hotspots.json';
 import canonicalSchema from './fixtures/canonicalSchema.json';
-import { EVENT_MISSINGNESS_KEYS } from '../src/helpers/types/generalTypes';
-import { enrichEventsWithHotspots, generateHotspots, generateHotspotStrength } from '../src/pipeline/aggregate/hotspots';
+import {
+  enrichEventsWithHotspots,
+  generateHotspots,
+  generateHotspotStrength,
+} from '../src/pipeline/aggregate/hotspots';
 import {
   createValidationSample,
   isOnLand,
@@ -101,15 +102,46 @@ import {
   eventSchemas_not_sorted,
 } from './fixtures/eventSchema';
 import { vesselZone } from '../src/pipeline/features/bathymetry';
-import { mockEEZContext, mockMPAContext, mockBathymetryContext } from './setup/jest.mocks';
+import {
+  mockEEZContext,
+  mockMPAContext,
+  mockBathymetryContext,
+} from './setup/jest.mocks';
 import {
   hotspot_high_strength_eligible_for_high,
   hotspot_low_strength,
   hotspot_medium_strength,
   hotspot_medium_strength_eligible_for_high,
   hotspot_penilized_uncertainty,
-  hotspot_penilized_uncertainty_heavy
+  hotspot_penilized_uncertainty_heavy,
 } from './fixtures/hotspots';
+import {
+  getEventMissingness,
+  getGeoMax,
+  getGeoMin,
+  getTimeRange,
+} from '../src/pipeline/aggregate/stats';
+import {
+  validateBodyParams,
+  validateQueryParams,
+} from '../src/modules/events/events.validators';
+import {
+  invalidBody_geojson,
+  invalidBody_missing_required,
+  invalidBody_missing_sort,
+  invalidBody_missingRequired,
+  invalidBody_partial_threshold,
+  invalidBody_wrongTypes,
+  validBodyParams,
+  validBodyParams_2,
+} from './fixtures/bodyParams.fixture';
+import {
+  invalidQuery_missing_required,
+  invalidQuery_wrong_enum,
+  invalidQuery_wrongTypes,
+  validQueryParams,
+  validQueryParams_2,
+} from './fixtures/queryParams.fixture';
 
 describe('generateSources', () => {
   it('returns_the_source_keys_with_the_version_for_matched_case', () => {
@@ -119,7 +151,7 @@ describe('generateSources', () => {
   });
 
   it('returns_the_requested_SAR_dataset_for_unmatched_case', () => {
-    const expected = (sarConfig as IConfigJSON).url_params["datasets[0]"];
+    const expected = (sarConfig as IConfigJSON).url_params['datasets[0]'];
     const sources = generateSources(sarConfig, api4wingsEntry_unmatched);
     expect(sources).toBe(expected);
   });
@@ -139,16 +171,27 @@ describe('generateSources', () => {
 
 describe('getEntriesFrom4wingsResponse', () => {
   it('returns_entries_for_valid_sources', () => {
-    const entriesMap = getEntriesFrom4wingsResponse(multiDatasetConfig, api4wingsResponse_multi_dataset);
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entriesMap = getEntriesFrom4wingsResponse(
+      multiDatasetConfig,
+      api4wingsResponse_multi_dataset,
+    );
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     expect(entries).toBeDefined();
     expect(entries!.length).toBeGreaterThan(0);
   });
 
   it('returns_empty_map_for_an_unknown_source', () => {
     const entries = getEntriesFrom4wingsResponse(
-      { ...sarConfig, url_params: { ...sarConfig.url_params, "datasets[0]": 'unknown-source' } },
-      api4wingsResponse_multi_dataset
+      {
+        ...sarConfig,
+        url_params: {
+          ...sarConfig.url_params,
+          'datasets[0]': 'unknown-source',
+        },
+      },
+      api4wingsResponse_multi_dataset,
     );
 
     expect(entries.size).toBe(0);
@@ -157,11 +200,11 @@ describe('getEntriesFrom4wingsResponse', () => {
   it('returns_entries_only_for_requested_source', () => {
     const entries = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_multi_dataset
+      api4wingsResponse_multi_dataset,
     );
 
     expect(entries.size).toBe(1);
-    expect(entries.has("public-global-sar-presence:v3.0")).toBeTruthy();
+    expect(entries.has('public-global-sar-presence:v3.0')).toBeTruthy();
   });
 });
 
@@ -179,20 +222,29 @@ describe('generateConfidence', () => {
   });
 });
 
-
 describe('generateConfidence_heuristic', () => {
   it('returns_confidence_from_the_detection', () => {
-    const result = generateConfidence_heuristic(api4wingsEntry_matched_detections_2);
+    const result = generateConfidence_heuristic(
+      api4wingsEntry_matched_detections_2,
+    );
     expect(result).toBe(EConfidenceTiers.medium);
-    const result2 = generateConfidence_heuristic(api4wingsEntry_unmatched_detections_2);
+    const result2 = generateConfidence_heuristic(
+      api4wingsEntry_unmatched_detections_2,
+    );
     expect(result2).toBe(EConfidenceTiers.medium);
 
-    const result3 = generateConfidence_heuristic(api4wingsEntry_matched_detections_5);
+    const result3 = generateConfidence_heuristic(
+      api4wingsEntry_matched_detections_5,
+    );
     expect(result3).toBe(EConfidenceTiers.high);
-    const result4 = generateConfidence_heuristic(api4wingsEntry_unmatched_detections_5);
+    const result4 = generateConfidence_heuristic(
+      api4wingsEntry_unmatched_detections_5,
+    );
     expect(result4).toBe(EConfidenceTiers.high);
 
-    const result5 = generateConfidence_heuristic(api4wingsEntry_noisy_high_detections);
+    const result5 = generateConfidence_heuristic(
+      api4wingsEntry_noisy_high_detections,
+    );
     expect(result5).toBe(EConfidenceTiers.low);
     const result6 = generateConfidence_heuristic(api4wingsEntry_matched);
     expect(result6).toBe(EConfidenceTiers.low);
@@ -209,12 +261,14 @@ describe('generateConfidence_heuristic', () => {
     expect(result3).toBe(EConfidenceTiers.high);
     const result4 = generateConfidence_heuristic(api4wingsEntry_fishing_5);
     expect(result4).toBe(EConfidenceTiers.high);
-  })
+  });
 });
 
 describe('generateGeom', () => {
   const entriesMap = getEntriesFrom4wingsResponse(sarConfig, api4wingsResponse);
-  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+  const entries = Array.from(entriesMap).flatMap(
+    ([source, entries]) => entries,
+  );
 
   it('should_return_a_GeoJSON_Point', () => {
     if (!entries || !entries[0]) return;
@@ -281,9 +335,7 @@ describe('generateScoring', () => {
     expect(scoring.reason_codes).toContain(
       EReasonCodesStatic.matched_to_public_ais,
     );
-    expect(scoring.reason_codes).toContain(
-      EReasonCodesStatic.near_coast,
-    );
+    expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
 
     const scoring_2 = generateScoring(eventSchema_matched_offshore);
     expect(scoring_2.reason_codes).toContain(
@@ -365,7 +417,6 @@ describe('generateScoring', () => {
         EReasonCodesStatic.unmatched_to_public_ais,
       ]),
     );
-
   });
 });
 
@@ -441,10 +492,7 @@ describe('generateRunMetadata', () => {
 
   it('produces_the_same_config_hash_regardless_of_Set_order', async () => {
     const setA = [sarConfig, eventConfig];
-    const setB = [
-      sarConfig_diff_sorted,
-      eventConfig_diff_sorted,
-    ]
+    const setB = [sarConfig_diff_sorted, eventConfig_diff_sorted];
 
     const metaA = await generateRunMetadata(setA);
     const metaB = await generateRunMetadata(setB);
@@ -503,17 +551,19 @@ describe('isValidCoordinate', () => {
 
 describe('createEventSchema', () => {
   beforeAll(() => {
-    mockEEZContext()
-    mockMPAContext()
-    mockBathymetryContext()
-  })
+    mockEEZContext();
+    mockMPAContext();
+    mockBathymetryContext();
+  });
 
   it('should_return_rejected_event_schema_for_not_valid_date', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_bad_date
+      api4wingsResponse_bad_date,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
@@ -528,9 +578,11 @@ describe('createEventSchema', () => {
   it('should_return_rejected_event_schema_for_not_valid_vessel_type', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_bad_vessel_type
+      api4wingsResponse_bad_vessel_type,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
@@ -545,9 +597,11 @@ describe('createEventSchema', () => {
   it('should_return_rejected_event_schema_for_not_valid_coordinates', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_bad_coordinates
+      api4wingsResponse_bad_coordinates,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
@@ -562,15 +616,19 @@ describe('createEventSchema', () => {
   it('should_return_multi_rejected_reasons', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_bad_multi
+      api4wingsResponse_bad_multi,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
       const eventSchema = await createEventSchema(sarConfig, entry);
       expect(eventSchema.rejected).toBe(true);
-      expect((eventSchema as IRejectedEventSchema).reasons.length).toBeGreaterThan(1)
+      expect(
+        (eventSchema as IRejectedEventSchema).reasons.length,
+      ).toBeGreaterThan(1);
       expect((eventSchema as IRejectedEventSchema).reasons).toContain(
         ERejectedEventSchemaReasons.notValidCoordinates,
       );
@@ -584,32 +642,40 @@ describe('createEventSchema', () => {
   });
 
   it('should_return_event_schema_without_matched_flag_for_fishing_dataset', async () => {
-
     const entriesMap = getEntriesFrom4wingsResponse(
       fishingConfig,
-      api4wingsResponse_multi_dataset
+      api4wingsResponse_multi_dataset,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
-      const eventSchema = await createEventSchema(fishingConfig, entry) as IEventSchema;
+      const eventSchema = (await createEventSchema(
+        fishingConfig,
+        entry,
+      )) as IEventSchema;
       expect(eventSchema.rejected).toBe(false);
       expect(eventSchema.matched_flag).toBeUndefined();
     }
   });
 
   it('should_return_event_schema_without_matched_flag_for_AIS_dataset', async () => {
-
     const entriesMap = getEntriesFrom4wingsResponse(
       aisConfig,
-      api4wingsResponse_multi_dataset
+      api4wingsResponse_multi_dataset,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
 
     for (const entry of entries) {
-      const eventSchema = await createEventSchema(aisConfig, entry) as IEventSchema;
+      const eventSchema = (await createEventSchema(
+        aisConfig,
+        entry,
+      )) as IEventSchema;
       expect(eventSchema.rejected).toBe(false);
       expect(eventSchema.matched_flag).toBeUndefined();
     }
@@ -618,27 +684,29 @@ describe('createEventSchema', () => {
 
 describe('sortEventSchema', () => {
   beforeAll(() => {
-    mockEEZContext()
-    mockMPAContext()
-    mockBathymetryContext()
-  })
+    mockEEZContext();
+    mockMPAContext();
+    mockBathymetryContext();
+  });
 
   it('should_sort_mixed_entries_correctly', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_mixed_accepted_rejected
+      api4wingsResponse_mixed_accepted_rejected,
     );
-    const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
+    const entries = Array.from(entriesMap).flatMap(
+      ([source, entries]) => entries,
+    );
     if (!entries) return;
-    let events = []
+    let events = [];
     for (const entry of entries) {
       const eventSchema = await createEventSchema(sarConfig, entry);
-      events.push(eventSchema)
+      events.push(eventSchema);
     }
-    const sorted = sortEventSchema(events)
-    expect(sorted).toHaveLength(7)
+    const sorted = sortEventSchema(events);
+    expect(sorted).toHaveLength(7);
 
-    const firstRejectedIndex = sorted.findIndex(e => e.rejected === true);
+    const firstRejectedIndex = sorted.findIndex((e) => e.rejected === true);
 
     expect(firstRejectedIndex).toBeGreaterThan(-1);
 
@@ -650,30 +718,35 @@ describe('sortEventSchema', () => {
       expect(sorted[i].rejected).toBe(true);
     }
 
-    const accepted = sorted.filter(e => !e.rejected);
-    const rejected = sorted.filter(e => e.rejected);
+    const accepted = sorted.filter((e) => !e.rejected);
+    const rejected = sorted.filter((e) => e.rejected);
 
     expect(accepted).toHaveLength(3);
     expect(rejected).toHaveLength(4);
 
-    expect(sorted.every(e => e.version === '1.0.0')).toBe(true);
-    expect(sorted.every(e => e.raw_metadata)).toBe(true);
-    expect(sorted.every(e => e.run_metadata)).toBe(true);
+    expect(sorted.every((e) => e.version === '1.0.0')).toBe(true);
+    expect(sorted.every((e) => e.raw_metadata)).toBe(true);
+    expect(sorted.every((e) => e.run_metadata)).toBe(true);
 
-    expect(sorted.map(e => e.rejected)).toEqual([
-      false, false, false, true, true, true, true
+    expect(sorted.map((e) => e.rejected)).toEqual([
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
     ]);
-
   });
 
   it('should_sort_by_timestamp_utc_ascending', async () => {
     const result = sortEventSchema(eventSchemas_not_sorted, [
       {
-        sortBy: "timestamp_utc",
-        direction: "asc"
-      }
+        sortBy: 'timestamp_utc',
+        direction: 'asc',
+      },
     ]);
-    if (result[0].rejected || result[1].rejected) return
+    if (result[0].rejected || result[1].rejected) return;
 
     expect(result[0].timestamp_utc <= result[1].timestamp_utc).toBe(true);
   });
@@ -681,11 +754,11 @@ describe('sortEventSchema', () => {
   it('should_sort_by_timestamp_utc_descending', () => {
     const result = sortEventSchema(eventSchemas_not_sorted, [
       {
-        sortBy: "timestamp_utc",
-        direction: "desc"
-      }
+        sortBy: 'timestamp_utc',
+        direction: 'desc',
+      },
     ]);
-    if (result[0].rejected || result[1].rejected) return
+    if (result[0].rejected || result[1].rejected) return;
 
     expect(result[0].timestamp_utc >= result[1].timestamp_utc).toBe(true);
   });
@@ -693,16 +766,16 @@ describe('sortEventSchema', () => {
   it('should_sort_by_nested_field', () => {
     const result = sortEventSchema(eventSchemas_not_sorted, [
       {
-        sortBy: "scoring.triage_score",
-        direction: "desc"
-      }
+        sortBy: 'scoring.triage_score',
+        direction: 'desc',
+      },
     ]);
-    if (result[0].rejected || result[1].rejected) return
+    if (result[0].rejected || result[1].rejected) return;
 
-    const score1 = result[0].scoring.triage_score
-    const score2 = result[1].scoring.triage_score
+    const score1 = result[0].scoring.triage_score;
+    const score2 = result[1].scoring.triage_score;
 
-    if (score1 === null || score2 === null) return
+    if (score1 === null || score2 === null) return;
 
     expect(score1).toBeGreaterThanOrEqual(score2);
   });
@@ -710,23 +783,17 @@ describe('sortEventSchema', () => {
   it('should_sort_by_array_nested_field', () => {
     const result = sortEventSchema(eventSchemas_not_sorted, [
       {
-        sortBy: "context_layers.Bathymetry.enrichments[0].value",
-        direction: "asc"
-      }
+        sortBy: 'context_layers.Bathymetry.enrichments[0].value',
+        direction: 'asc',
+      },
     ]);
 
     const first = Number(
-      getSortValue(
-        result[0],
-        "context_layers.Bathymetry.enrichments[0].value"
-      )
+      getSortValue(result[0], 'context_layers.Bathymetry.enrichments[0].value'),
     );
 
     const second = Number(
-      getSortValue(
-        result[1],
-        "context_layers.Bathymetry.enrichments[0].value"
-      )
+      getSortValue(result[1], 'context_layers.Bathymetry.enrichments[0].value'),
     );
 
     expect(first).toBeLessThanOrEqual(second);
@@ -736,12 +803,12 @@ describe('sortEventSchema', () => {
     expect(() =>
       sortEventSchema(eventSchemas_not_sorted, [
         {
-          sortBy: "timestamp_utc",
-          direction: "ascending" as any
-        }
-      ])
+          sortBy: 'timestamp_utc',
+          direction: 'ascending' as any,
+        },
+      ]),
     ).toThrow(
-      '[sortEventSchema] Invalid direction "ascending" for sortBy "timestamp_utc". Allowed values are "asc" or "desc".'
+      '[sortEventSchema] Invalid direction "ascending" for sortBy "timestamp_utc". Allowed values are "asc" or "desc".',
     );
   });
 
@@ -749,13 +816,11 @@ describe('sortEventSchema', () => {
     expect(() =>
       sortEventSchema(eventSchemas_not_sorted, [
         {
-          sortBy: "invalid.field.path",
-          direction: "asc"
-        }
-      ])
-    ).toThrow(
-      '[sortEventSchema] Invalid sortBy field: "invalid.field.path"'
-    );
+          sortBy: 'invalid.field.path',
+          direction: 'asc',
+        },
+      ]),
+    ).toThrow('[sortEventSchema] Invalid sortBy field: "invalid.field.path"');
   });
 
   it('should_return_empty_array_when_input_is_empty', () => {
@@ -768,75 +833,62 @@ describe('sortEventSchema', () => {
     expect(() =>
       sortEventSchema(eventSchemas_not_sorted, [
         {
-          sortBy: "confidence_proxy",
-          direction: "asc"
-        }
-      ])
+          sortBy: 'confidence_proxy',
+          direction: 'asc',
+        },
+      ]),
     ).not.toThrow();
   });
 
   it('should_sort_by_multiple_fields', () => {
     const result = sortEventSchema(eventSchemas_not_sorted, [
       {
-        sortBy: "confidence_tier",
-        direction: "asc"
+        sortBy: 'confidence_tier',
+        direction: 'asc',
       },
       {
-        sortBy: "scoring.triage_score",
-        direction: "asc"
-      }
+        sortBy: 'scoring.triage_score',
+        direction: 'asc',
+      },
     ]);
-    if (result[0].rejected || result[1].rejected) return
-    const score1 = result[0].scoring.triage_score
-    const score2 = result[1].scoring.triage_score
+    if (result[0].rejected || result[1].rejected) return;
+    const score1 = result[0].scoring.triage_score;
+    const score2 = result[1].scoring.triage_score;
 
-    if (score1 === null || score2 === null) return
+    if (score1 === null || score2 === null) return;
 
     expect(result.length).toBe(eventSchemas_not_sorted.length);
-    expect(result[0].confidence_tier).toEqual(result[1].confidence_tier)
-    expect(score2).toBeGreaterThanOrEqual(score1)
+    expect(result[0].confidence_tier).toEqual(result[1].confidence_tier);
+    expect(score2).toBeGreaterThanOrEqual(score1);
   });
-})
+});
 
 describe('Event_statistics_utilities', () => {
-  const validEvents = events.features as any;
+  const validEvents = eventSchemas_not_sorted as any;
 
   const invalidEvents = [
     {
-      type: 'Feature',
-      properties: {
-        event_id: null,
-        timestamp_utc: null,
-        lat: null,
-        lon: null,
-        confidence_proxy: null,
-        distance_to_coast_km: null,
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [null, null],
-      },
+      event_id: null,
+      timestamp_utc: null,
+      lat: null,
+      lon: null,
+      confidence_proxy: null,
+      distance_to_coast_km: null,
     },
     {
-      type: 'Feature',
-      properties: {
-        event_id: "8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081",
-        timestamp_utc: "2025-12-06T05:00:00Z",
-        lat: 50,
-        lon: null,
-        confidence_proxy: 2,
-        distance_to_coast_km: null,
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [-500, 200],
-      },
+      event_id:
+        '8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081',
+      timestamp_utc: '2025-12-06T05:00:00Z',
+      lat: 50,
+      lon: null,
+      confidence_proxy: 2,
+      distance_to_coast_km: null,
     },
   ];
 
   const mixedEvents = [...validEvents, ...invalidEvents];
 
-  test('getEventMissingness_calculates_missing_rates', () => {
+  it('getEventMissingness_calculates_missing_rates', () => {
     const result = getEventMissingness(mixedEvents);
 
     expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.event_id);
@@ -844,11 +896,11 @@ describe('Event_statistics_utilities', () => {
     expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.lat);
     expect(result).toHaveProperty(EVENT_MISSINGNESS_KEYS.lon);
 
-    expect(result.confidence_proxy).toBe("95.00%")
-    expect(typeof result["event_id"]).toBe('string');
+    expect(result.confidence_proxy).toBe('95.00%');
+    expect(typeof result['event_id']).toBe('string');
   });
 
-  test('getGeoMin_returns_correct_minimum_latitude', () => {
+  it('getGeoMin_returns_correct_minimum_latitude', () => {
     const minLat = getGeoMin(EGeoCoordinate.latitude, mixedEvents);
 
     expect(typeof minLat).toBe('number');
@@ -857,7 +909,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMax_returns_correct_maximum_latitude', () => {
+  it('getGeoMax_returns_correct_maximum_latitude', () => {
     const maxLat = getGeoMax(EGeoCoordinate.latitude, mixedEvents);
 
     expect(typeof maxLat).toBe('number');
@@ -866,7 +918,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMin_returns_correct_minimum_longitude', () => {
+  it('getGeoMin_returns_correct_minimum_longitude', () => {
     const minLon = getGeoMin(EGeoCoordinate.longitude, mixedEvents);
 
     expect(typeof minLon).toBe('number');
@@ -875,7 +927,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getGeoMax_returns_correct_maximum_longitude', () => {
+  it('getGeoMax_returns_correct_maximum_longitude', () => {
     const maxLon = getGeoMax(EGeoCoordinate.longitude, mixedEvents);
 
     expect(typeof maxLon).toBe('number');
@@ -884,7 +936,7 @@ describe('Event_statistics_utilities', () => {
     );
   });
 
-  test('getTimeRange_returns_correct_start_and_end_timestamps', () => {
+  it('getTimeRange_returns_correct_start_and_end_timestamps', () => {
     const range = getTimeRange(validEvents);
 
     expect(range).toHaveProperty('start');
@@ -896,7 +948,7 @@ describe('Event_statistics_utilities', () => {
     expect(start).toBeLessThanOrEqual(end);
   });
 
-  test('getTimeRange_handles_invalid_timestamps_safely', () => {
+  it('getTimeRange_handles_invalid_timestamps_safely', () => {
     const range = getTimeRange(mixedEvents);
 
     expect(range.start).toBeDefined();
@@ -922,7 +974,10 @@ describe('Pipeline_determinism', () => {
 describe('Hotspot_generation', () => {
   it('should_create_hotspots_using_canonical_events', async () => {
     const hotspots_reso_3 = generateHotspots(
-      { ...sarConfig, hotspot: { ...sarConfig.hotspot, resolution: 3 } } as IConfigJSON,
+      {
+        ...sarConfig,
+        hotspot: { ...sarConfig.hotspot, resolution: 3 },
+      } as IConfigJSON,
       canonicalSchema as any,
     );
     expect(hotspots_reso_3.length).toBe(3);
@@ -932,19 +987,25 @@ describe('Hotspot_generation', () => {
     );
 
     const hotspots_reso_5 = generateHotspots(
-      { ...sarConfig, hotspot: { ...sarConfig.hotspot, resolution: 5 } } as IConfigJSON,
+      {
+        ...sarConfig,
+        hotspot: { ...sarConfig.hotspot, resolution: 5 },
+      } as IConfigJSON,
       canonicalSchema as any,
     );
     expect(hotspots_reso_5.length).toBe(9);
   });
 
   it('should_return_error_for_not_valid_time_bin', async () => {
-    expect( () =>
+    expect(() =>
       generateHotspots(
-        { ...sarConfig, hotspot: { ...sarConfig.hotspot, timeBin: "YEARLY" } } as IConfigJSON,
+        {
+          ...sarConfig,
+          hotspot: { ...sarConfig.hotspot, timeBin: 'YEARLY' },
+        } as IConfigJSON,
         canonicalSchema as any,
-      )
-    ).toThrow("[generateHotspots] hotspotTimeBin must be DAILY or HOURLY")
+      ),
+    ).toThrow('[generateHotspots] hotspotTimeBin must be DAILY or HOURLY');
   });
 });
 
@@ -960,12 +1021,16 @@ describe('Hotspot_Strength', () => {
   });
 
   it('should_reach_HIGH_eligibility_gate_but_still_fail_due_to_score', () => {
-    const result = generateHotspotStrength(hotspot_medium_strength_eligible_for_high);
+    const result = generateHotspotStrength(
+      hotspot_medium_strength_eligible_for_high,
+    );
     expect(result).toBe(EHotspotStrength.medium);
   });
 
   it('should_return_HIGH_when_all_conditions_are_met', () => {
-    const result = generateHotspotStrength(hotspot_high_strength_eligible_for_high);
+    const result = generateHotspotStrength(
+      hotspot_high_strength_eligible_for_high,
+    );
     expect(result).toBe(EHotspotStrength.high);
   });
 
@@ -981,31 +1046,53 @@ describe('Hotspot_Strength', () => {
 });
 
 describe('enrichEventsWithHotspots', () => {
-  it('should_return_null_when_hotspot_map_is_empty' , () => {
-    const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots_import.features as any)
-    expect(enrichedEvents.every( e => e.hotspot === null )).toBeTruthy()
-  })
+  it('should_return_null_when_hotspot_map_is_empty', () => {
+    const enrichedEvents = enrichEventsWithHotspots(
+      canonicalSchema_base as any,
+      hotspots_import.features as any,
+    );
+    expect(enrichedEvents.every((e) => e.hotspot === null)).toBeTruthy();
+  });
   it('should_enrich_events_with_hotspot_signals', () => {
-    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
-    const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots as any)
-    expect(enrichedEvents.every( e => e.hotspot && e.hotspot.signals )).toBeTruthy()
-  })
+    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any);
+    const enrichedEvents = enrichEventsWithHotspots(
+      canonicalSchema_base as any,
+      hotspots as any,
+    );
+    expect(
+      enrichedEvents.every((e) => e.hotspot && e.hotspot.signals),
+    ).toBeTruthy();
+  });
   it('should_return_null_when_event_is_not_in_any_hotspot', () => {
     const event_in_no_hotspot = {
       eventSchema_matched_near_coast,
-      event_id: "notMatching"
-    }
-    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
-    const enrichedEvents = enrichEventsWithHotspots([...canonicalSchema_base, event_in_no_hotspot] as any, hotspots as any)
-    expect(enrichedEvents.find( e => e.hotspot === null )?.event_id).toBe("notMatching")
-    expect(enrichedEvents.filter( e => e.event_id !== "notMatching" ).every( h => h.hotspot !== null )).toBeTruthy()
-  })
+      event_id: 'notMatching',
+    };
+    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any);
+    const enrichedEvents = enrichEventsWithHotspots(
+      [...canonicalSchema_base, event_in_no_hotspot] as any,
+      hotspots as any,
+    );
+    expect(enrichedEvents.find((e) => e.hotspot === null)?.event_id).toBe(
+      'notMatching',
+    );
+    expect(
+      enrichedEvents
+        .filter((e) => e.event_id !== 'notMatching')
+        .every((h) => h.hotspot !== null),
+    ).toBeTruthy();
+  });
   it('should_enrich_events_with_hotspot_signals', () => {
-    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any)
-    const enrichedEvents = enrichEventsWithHotspots(canonicalSchema_base as any, hotspots as any)
-    expect(enrichedEvents.every( e => e.hotspot && e.hotspot.signals )).toBeTruthy()
-  })
-})
+    const hotspots = generateHotspots(sarConfig, canonicalSchema_base as any);
+    const enrichedEvents = enrichEventsWithHotspots(
+      canonicalSchema_base as any,
+      hotspots as any,
+    );
+    expect(
+      enrichedEvents.every((e) => e.hotspot && e.hotspot.signals),
+    ).toBeTruthy();
+  });
+});
 
 describe('Validation', () => {
   const landPolygons = readLandPolygons();
@@ -1139,5 +1226,151 @@ describe('Context_layers', () => {
       isFishingZone: false,
       isDeepWater: false,
     });
+  });
+});
+
+describe('validateBodyParams', () => {
+  it('validate_body_params_success', () => {
+    const result = validateBodyParams(validBodyParams);
+    const result_2 = validateBodyParams(validBodyParams_2);
+
+    expect(result.isValid).toBe(true);
+    expect(result_2.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+    expect(result_2.errors).toBeNull();
+  });
+
+  it('validate_body_params_fail_when_sort_missing', () => {
+    const result = validateBodyParams(invalidBody_missing_sort);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'sort')).toBe(true);
+  });
+
+  it('validate_body_params_fail_when_body_is_empty', () => {
+    const result = validateBodyParams(invalidBody_missing_required);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+  });
+
+  it('validate_body_params_fail_when_required_fields_missing', () => {
+    const result = validateBodyParams(invalidBody_missingRequired);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+  });
+
+  it('validate_body_params_fail_when_types_are_invalid', () => {
+    const result = validateBodyParams(invalidBody_wrongTypes);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    expect(result.errors?.some((e) => e.field.includes('threshold'))).toBe(
+      true,
+    );
+  });
+
+  it('validate_body_params_accepts_optional_geojson', () => {
+    const result = validateBodyParams(validBodyParams);
+
+    const geoErrors =
+      result.errors?.filter((e) => e.field.includes('geojson')) || [];
+
+    expect(geoErrors.length).toBe(0);
+  });
+
+  it('validate_body_params_handles_partial_threshold_errors', () => {
+    const result = validateBodyParams(invalidBody_partial_threshold);
+
+    expect(result.isValid).toBe(false);
+
+    expect(result.errors?.some((e) => e.field.includes('threshold'))).toBe(
+      true,
+    );
+  });
+
+  it('validate_body_params_validates_geojson_structure', () => {
+    const result = validateBodyParams(invalidBody_geojson);
+
+    expect(result.isValid).toBe(false);
+
+    expect(result.errors?.some((e) => e.field.startsWith('geojson'))).toBe(
+      true,
+    );
+  });
+
+  it('validate_body_params_allows_optional_fields_absence', () => {
+    const minimal = {
+      threshold: validBodyParams.threshold,
+      hotspot: validBodyParams.hotspot,
+      filters: validBodyParams.filters,
+      sort: validBodyParams.sort,
+    };
+
+    const result = validateBodyParams(minimal);
+
+    expect(result.isValid).toBe(true);
+  });
+});
+
+describe('validateQueryParams', () => {
+  it('validate_query_params_success', () => {
+    const result = validateQueryParams(validQueryParams);
+    const result_2 = validateQueryParams(validQueryParams_2);
+
+    expect(result.isValid).toBe(true);
+    expect(result_2.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+    expect(result_2.errors).toBeNull();
+  });
+
+  it('validate_query_params_fail_when_required_fields_missing', () => {
+    const result = validateQueryParams(invalidQuery_missing_required);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    expect(result.errors?.some((e) => e.field.includes('format'))).toBe(true);
+  });
+
+  it('validate_query_params_fail_when_types_are_invalid', () => {
+    const result = validateQueryParams(invalidQuery_wrongTypes);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.length).toBeGreaterThan(0);
+
+    const result_2 = validateQueryParams(invalidQuery_wrong_enum);
+
+    expect(result_2.isValid).toBe(false);
+
+    expect(result_2.errors?.some((e) => e.field === 'format')).toBe(true);
+
+    expect(
+      result_2.errors?.some((e) => e.field === 'temporal-resolution'),
+    ).toBe(true);
+  });
+
+  it('validate_query_params_accepts_dynamic_keys', () => {
+    const result = validateQueryParams(validQueryParams);
+
+    const datasetErrors =
+      result.errors?.filter((e) => e.field.includes('datasets')) || [];
+
+    const filterErrors =
+      result.errors?.filter((e) => e.field.includes('filters')) || [];
+
+    expect(datasetErrors.length).toBe(0);
+    expect(filterErrors.length).toBe(0);
+  });
+
+  it('validate_query_params_accepts_boolean_variants', () => {
+    const result = validateQueryParams({
+      ...validQueryParams,
+      'spatial-aggregation': 'true',
+    });
+
+    expect(result.isValid).toBe(true);
   });
 });

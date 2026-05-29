@@ -73,7 +73,7 @@
     }
   ],
   "data_source_versions": "public-global-vessel-identity:v3.0, public-global-sar-presence:v3.0",
-  "execution_duration_sec": 16,
-  "git_commit_hash": "6fd05e80c5d6f1215dce0a3c4fad7be765e883b7",
-  "run_time": "2026-05-26T08:06:07.546Z"
+  "execution_duration_sec": 14,
+  "git_commit_hash": "e923951c6a16f2332176b6545f29620788346b0d",
+  "run_time": "2026-05-28T15:02:00.247Z"
 }

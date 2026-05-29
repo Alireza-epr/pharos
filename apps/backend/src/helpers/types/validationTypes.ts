@@ -78,21 +78,16 @@ export enum EValidationFailureMode {
   unknown = 'unknown',
 }
 
-export type TValidationSample =
-  Pick<
-    IEventSchema,
-    "event_id" | "timestamp_utc" | "lon" | "lat" | "matched_flag" | "source"
-  > &
-  Pick<
-    IScoring,
-    "triage_score" | "uncertainty_score"
-  > &
-  {
+export type TValidationSample = Pick<
+  IEventSchema,
+  'event_id' | 'timestamp_utc' | 'lon' | 'lat' | 'matched_flag' | 'source'
+> &
+  Pick<IScoring, 'triage_score' | 'uncertainty_score'> & {
     bathymetry: string;
     label: EValidationLabel;
     failure_mode: EValidationFailureMode | '';
     notes: string;
-  }
+  };
 
 export type TValidationGeoJSON = IFeature<IPointGeometry, TValidationSample>;
 

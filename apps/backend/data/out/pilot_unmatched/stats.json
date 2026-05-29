@@ -1,18 +1,21 @@
 {
+  "count_total": 69,
   "geo_sanity": {
     "latitude": {
-      "max": 55.25,
+      "max": 55.26,
       "min": 55.09
     },
     "longitude": {
-      "max": 14.68,
-      "min": 14.09
+      "max": 14.65,
+      "min": 14.12
     }
   },
   "matching_stats": {
-    "matched": 17,
-    "unmatched": 1
+    "matched": 0,
+    "unmatched": 69
   },
+  "mean_score": 0.65,
+  "mean_uncertainty": 0.63,
   "missingness": {
     "confidence_proxy": "100.00%",
     "distance_to_coast_km": "0.00%",
@@ -21,9 +24,8 @@
     "lon": "0.00%",
     "timestamp_utc": "0.00%"
   },
-  "row_count": 18,
   "time_range": {
-    "end": "2025-12-06T05:00:00.000Z",
-    "start": "2025-12-01T05:00:00.000Z"
+    "end": "2025-12-16T16:00:00.000Z",
+    "start": "2025-01-11T05:00:00.000Z"
   }
 }

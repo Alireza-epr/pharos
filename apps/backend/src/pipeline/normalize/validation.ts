@@ -2,12 +2,12 @@ import { EVessleType } from '@packages/enum';
 import { I4wingsEntry, T4wingsSource } from '@packages/types';
 
 export const isMatchedCase = (a_4wingsEntry: I4wingsEntry) => {
-  if(a_4wingsEntry.detections){
+  if (a_4wingsEntry.detections) {
     // Only in the public-global-sar-presence dataset, 4wingsEntry has detection.
     return a_4wingsEntry.dataset.length !== 0;
   } else {
     // For other datasets, the matching does not have any meaning.
-    return undefined
+    return undefined;
   }
 };
 
@@ -73,13 +73,13 @@ export const isValidDate = (a_DateStr: string) => {
 };
 
 export const isVesselTypeValid = (a_VesselType: string): boolean => {
-  if(typeof a_VesselType !== "string") return false
+  if (typeof a_VesselType !== 'string') return false;
   const normalized = a_VesselType.trim().toUpperCase() as EVessleType;
   return Object.values(EVessleType).includes(normalized);
 };
 
 export const is4wingsSource = (a_Value: string): a_Value is T4wingsSource => {
   return /^(public-global-(fishing-effort|sar-presence|presence)):v\d+\.\d+$/.test(
-    a_Value
+    a_Value,
   );
 };
