@@ -71,43 +71,49 @@ export interface IEventSchema {
 }
 
 export interface IEventHotspot {
-  cell_id: string,
+  cell_id: string;
   signals: IEventHotspotSignal;
 }
 
-export interface IEventHotspotSignal extends Pick<IHotspot, "recurrence_count" | "time_bins_with_unmatched"> {
-  hotspot_strength: EHotspotStrength,
+export interface IEventHotspotSignal extends Pick<
+  IHotspot,
+  "recurrence_count" | "time_bins_with_unmatched"
+> {
+  hotspot_strength: EHotspotStrength;
 }
 
-export interface IRejectedEventSchema extends Pick<IEventSchema, "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version"> {
+export interface IRejectedEventSchema extends Pick<
+  IEventSchema,
+  "run_metadata" | "raw_metadata" | "raw_event_metadata" | "version"
+> {
   reasons: ERejectedEventSchemaReasons[];
   rejected: true;
 }
 
 export interface IConfigJSON {
   URL: string;
-  method: EFetchMethods
+  method: EFetchMethods;
   body_params: I4wingsReportPostBodyParams;
   url_params: I4wingsReportGetURLParams;
   threshold: IThresholdConfig;
   hotspot: IHotspotConfig;
   output: string;
-  sort: ISortOption[]
+  sort: ISortOption[];
 }
 
 export interface IThresholdConfig {
-  near_coast_threshold: number,
-  low_confidence_proxy_threshold: number,
-  shallow_water_threshold: number,
-  deep_water_threshold: number,
-  low_triage_score_threshold: number,
-  medium_triage_score_threshold: number,
-  high_triage_score_threshold: number
+  near_coast_threshold: number;
+  low_confidence_proxy_threshold: number;
+  shallow_water_threshold: number;
+  deep_water_threshold: number;
+  low_triage_score_threshold: number;
+  medium_triage_score_threshold: number;
+  high_triage_score_threshold: number;
 }
 
 export interface IHotspotConfig {
-  resolution: TBuildRange<16>,
-  timeBin: EHotspotTimeBins
+  resolution: TBuildRange<16>;
+  timeBin: EHotspotTimeBins;
 }
 
 export interface IContextLayerEnrichment {

@@ -30,12 +30,17 @@ import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
-export const generateSources = (a_Config: IConfigJSON, a_4wingsEntry: I4wingsEntry) => {
-  if (a_4wingsEntry.dataset.length !== 0) return a_4wingsEntry.dataset
+export const generateSources = (
+  a_Config: IConfigJSON,
+  a_4wingsEntry: I4wingsEntry,
+) => {
+  if (a_4wingsEntry.dataset.length !== 0) return a_4wingsEntry.dataset;
   // In unmatched cases, the dataset field is empty and we use the requested SAR dataset as the source.
-  const sarDataset = Object.entries(a_Config.url_params).filter(([, value]) => typeof value === "string" && value.includes("sar")).map(([, value]) => value)[0]
-  return sarDataset as string
-}
+  const sarDataset = Object.entries(a_Config.url_params)
+    .filter(([, value]) => typeof value === 'string' && value.includes('sar'))
+    .map(([, value]) => value)[0];
+  return sarDataset as string;
+};
 
 export const generateEventId = (
   a_Timestamps: string,
@@ -64,20 +69,17 @@ export const generateConfidence = (
 export const generateConfidence_heuristic = (
   a_4wingsEntry: I4wingsEntry,
 ): EConfidenceTiers => {
-
   let confidenceScore = 0;
 
   const MEDIUM_THRESHOLD = 0.4;
   const HIGH_THRESHOLD = 0.7;
   // Detection-based confidence
   if (a_4wingsEntry.detections) {
-    // detections is available in public-global-sar-presence dataset 
+    // detections is available in public-global-sar-presence dataset
     if (a_4wingsEntry.detections <= 1) {
       confidenceScore = 0.1;
-
     } else if (a_4wingsEntry.detections <= 3) {
       confidenceScore = 0.4;
-
     } else if (a_4wingsEntry.detections >= 4) {
       confidenceScore = 0.7;
     }
@@ -90,17 +92,12 @@ export const generateConfidence_heuristic = (
     // other datasets have hours parameter
     if (a_4wingsEntry.hours < 2) {
       confidenceScore = 0.1;
-
     } else if (a_4wingsEntry.hours < 4) {
       confidenceScore = 0.4;
-
     } else if (a_4wingsEntry.hours >= 4) {
       confidenceScore = 0.7;
     }
   }
-
-
-
 
   // Clamp score to valid range
   confidenceScore = Math.max(0, Math.min(confidenceScore, 1));
@@ -123,7 +120,7 @@ export const generateRunMetadata = async (
   const config_hash = await hashString(canonicalString);
 
   return {
-    code_version: gitCommitSHA.length === 0 ? "N/A" : gitCommitSHA,
+    code_version: gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
     config_json: canonicalObject,
     config_hash,
   };

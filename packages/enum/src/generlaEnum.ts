@@ -34,17 +34,17 @@ export enum EGeoCoordinate {
 
 export enum EHotspotTimeBins {
   DAILY = "DAILY",
-  HOURLY = "HOURLY"
+  HOURLY = "HOURLY",
 }
 
 export enum EConfidenceTiers {
   low = "low",
   medium = "medium",
-  high = "high"
+  high = "high",
 }
 
 export enum EHotspotStrength {
   low = "low",
   medium = "medium",
-  high = "high"
+  high = "high",
 }

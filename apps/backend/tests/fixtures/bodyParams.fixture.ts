@@ -10,28 +10,28 @@ export const validBodyParams = {
   },
   hotspot: {
     resolution: 10,
-    timeBin: "DAILY",
+    timeBin: 'DAILY',
   },
   filters: {
     triage_score_min: 1,
   },
-  sort: [{ sortBy: "date", direction: "asc" }],
+  sort: [{ sortBy: 'date', direction: 'asc' }],
   geojson: {
-    type: "Point",
+    type: 'Point',
     coordinates: [0, 0],
   },
-  region: "test-region",
+  region: 'test-region',
 };
 
 export const invalidBody_missingRequired = {
-  hotspot: { resolution: 10, timeBin: "DAILY" },
+  hotspot: { resolution: 10, timeBin: 'DAILY' },
 };
 
 export const invalidBody_wrongTypes = {
-  threshold: "wrong",
-  hotspot: { resolution: "bad", timeBin: "DAILY" },
+  threshold: 'wrong',
+  hotspot: { resolution: 'bad', timeBin: 'DAILY' },
   filters: {},
-  sort: "not-array",
+  sort: 'not-array',
 };
 
 export const validBodyParams_2 = {
@@ -46,7 +46,7 @@ export const validBodyParams_2 = {
   },
   hotspot: {
     resolution: 10,
-    timeBin: "DAILY",
+    timeBin: 'DAILY',
   },
   filters: {
     triage_score_min: 1,
@@ -54,12 +54,12 @@ export const validBodyParams_2 = {
     reason_codes_include: true,
     is_inside_eez: false,
   },
-  sort: [{ sortBy: "date", direction: "asc" }],
+  sort: [{ sortBy: 'date', direction: 'asc' }],
   geojson: {
-    type: "Point",
+    type: 'Point',
     coordinates: [0, 0],
   },
-  region: "eu-west",
+  region: 'eu-west',
 };
 
 export const invalidBody_missing_required = {};
@@ -71,15 +71,15 @@ export const invalidBody_missing_sort = {
 };
 
 export const invalidBody_wrong_types = {
-  threshold: "wrong",
-  hotspot: { resolution: "bad", timeBin: 123 },
-  filters: { triage_score_min: "low" },
-  sort: "not-array",
+  threshold: 'wrong',
+  hotspot: { resolution: 'bad', timeBin: 123 },
+  filters: { triage_score_min: 'low' },
+  sort: 'not-array',
 };
 
 export const invalidBody_partial_threshold = {
   threshold: {
-    near_coast_threshold: "wrong",
+    near_coast_threshold: 'wrong',
   },
   hotspot: validBodyParams.hotspot,
   filters: validBodyParams.filters,
@@ -89,7 +89,7 @@ export const invalidBody_partial_threshold = {
 export const invalidBody_geojson = {
   ...validBodyParams,
   geojson: {
-    type: "InvalidType",
+    type: 'InvalidType',
     coordinates: null,
   },
 };

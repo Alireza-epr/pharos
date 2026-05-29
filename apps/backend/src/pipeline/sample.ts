@@ -28,7 +28,11 @@ import {
   parquetSchema_hotspot,
   parquetSchema_raw_metadata,
 } from '../helpers/types/parquetTypes';
-import { enrichEventsWithHotspots, featureFromHotspot, generateHotspots } from './aggregate/hotspots';
+import {
+  enrichEventsWithHotspots,
+  featureFromHotspot,
+  generateHotspots,
+} from './aggregate/hotspots';
 import {
   EValidationStrata,
   IValidationManifest,
@@ -63,13 +67,12 @@ const main = async (a_Config: IConfigJSON) => {
   await readBathymetryTiles();
   gitCommitSHA = await getGitCommitSHA();
 
+  const resp4wings = await detectionGFW<I4wingsAPIResponse>(a_Config);
 
-  const resp4wings = await detectionGFW<I4wingsAPIResponse>(
-    a_Config
+  const entriesMap = getEntriesFrom4wingsResponse(a_Config, resp4wings);
+  const entries = Array.from(entriesMap).flatMap(
+    ([source, entries]) => entries,
   );
-
-  const entriesMap = getEntriesFrom4wingsResponse(a_Config, resp4wings)
-  const entries = Array.from(entriesMap).flatMap(([source, entries]) => entries)
 
   if (entries.length == 0) {
     log('Pilot finished with no entry.', ELogType.info);
@@ -82,14 +85,11 @@ const main = async (a_Config: IConfigJSON) => {
   );
 
   for (const [key, results] of entriesMap) {
-    log(
-      `${key}; entry count: ${results.length}`,
-      ELogType.info,
-    );
+    log(`${key}; entry count: ${results.length}`, ELogType.info);
   }
 
   //raw_metadata.json
-  fs_writeFileSync(`${a_Config.output}raw_metadata.json`, entries)
+  fs_writeFileSync(`${a_Config.output}raw_metadata.json`, entries);
 
   //raw_metadata.parquet
   await writeParquet(
@@ -104,14 +104,14 @@ const main = async (a_Config: IConfigJSON) => {
   const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
     //canonicalSchema.json
-    fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, sortedEvents)
+    fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, sortedEvents);
 
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
 
   const hotspots = generateHotspots(a_Config, notRejectedEvents);
-  const enrichedEvents = enrichEventsWithHotspots(notRejectedEvents, hotspots)
+  const enrichedEvents = enrichEventsWithHotspots(notRejectedEvents, hotspots);
 
   log(
     `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
@@ -119,7 +119,7 @@ const main = async (a_Config: IConfigJSON) => {
   );
 
   //canonicalSchema.json
-  fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, enrichedEvents)
+  fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, enrichedEvents);
 
   //event.geojson
   const geojson: FeatureCollection<IGeometry, TEventProperties> = {
@@ -141,7 +141,7 @@ const main = async (a_Config: IConfigJSON) => {
       geometry: event.geom,
     })),
   };
-  fs_writeFileSync(`${a_Config.output}events.geojson`, geojson)
+  fs_writeFileSync(`${a_Config.output}events.geojson`, geojson);
 
   //event.parquet
   const rows = enrichedEvents.map((event) => {
@@ -176,14 +176,14 @@ const main = async (a_Config: IConfigJSON) => {
 
   //stats.json
   const stats = getStats(enrichedEvents);
-  fs_writeFileSync(`${a_Config.output}stats.json`, stats)
+  fs_writeFileSync(`${a_Config.output}stats.json`, stats);
 
   //hotspots.geojson
   const hotspotsGeoJSON: FeatureCollection<IGeometry, IHotspot> = {
-    type: "FeatureCollection",
-    features: featureFromHotspot(hotspots)
+    type: 'FeatureCollection',
+    features: featureFromHotspot(hotspots),
   };
-  fs_writeFileSync(`${a_Config.output}hotspots.geojson`, hotspotsGeoJSON)
+  fs_writeFileSync(`${a_Config.output}hotspots.geojson`, hotspotsGeoJSON);
 
   //hotspots.parquet
   await writeParquet(
@@ -195,11 +195,13 @@ const main = async (a_Config: IConfigJSON) => {
   //run_metadata.json
   const end = formatTimestamp();
   const run_metadata = await export_run_metadata(enrichedEvents, start, end);
-  fs_writeFileSync(`${a_Config.output}run_metadata.json`, run_metadata)
+  fs_writeFileSync(`${a_Config.output}run_metadata.json`, run_metadata);
   log('Pilot finished.', ELogType.info);
 };
 
-const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) => {
+const validation = async (
+  a_Configs: Record<EValidationStrata, IConfigJSON[]>,
+) => {
   log('Starting validation...', ELogType.info);
   gitCommitSHA = await getGitCommitSHA();
   await readBathymetryTiles();
@@ -246,7 +248,9 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
         near_coast: near_coast.length,
         offshore: offshore.length,
       },
-      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.distance_to_coast]),
+      run_metadata: await generateRunMetadata(
+        a_Configs[EValidationStrata.distance_to_coast],
+      ),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_1_start, strata_1_end) / 1000,
       ),
@@ -303,7 +307,9 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
         high_confidence: strata_2_samples_1.validationSamples.length,
         low_confidence: strata_2_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.confidence_tier]),
+      run_metadata: await generateRunMetadata(
+        a_Configs[EValidationStrata.confidence_tier],
+      ),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_2_start, strata_2_end) / 1000,
       ),
@@ -361,7 +367,9 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
         high_density: strata_3_samples_1.validationSamples.length,
         low_density: strata_3_samples_2.validationSamples.length,
       },
-      run_metadata: await generateRunMetadata(a_Configs[EValidationStrata.density]),
+      run_metadata: await generateRunMetadata(
+        a_Configs[EValidationStrata.density],
+      ),
       execution_duration_sec: Math.floor(
         getExecutionDuration(strata_3_start, strata_3_end) / 1000,
       ),
@@ -380,28 +388,40 @@ const validation = async (a_Configs: Record<EValidationStrata, IConfigJSON[]>) =
     return;
   }
 
-  log(`Generating outputs in ${a_Configs.confidence_tier[0].output}...`, ELogType.info);
+  log(
+    `Generating outputs in ${a_Configs.confidence_tier[0].output}...`,
+    ELogType.info,
+  );
 
   //validation_sample.geojson
   const geoJSON_strata: FeatureCollection<IGeometry, TValidationSample> = {
-    type: "FeatureCollection",
-    features: Array.from(mapStrata).flatMap(
-      ([key, value]) => value.geoJSON,
-    )
-  }
-  fs_writeFileSync(`${a_Configs.confidence_tier[0].output}validation_sample.geojson`, geoJSON_strata)
-
+    type: 'FeatureCollection',
+    features: Array.from(mapStrata).flatMap(([key, value]) => value.geoJSON),
+  };
+  fs_writeFileSync(
+    `${a_Configs.confidence_tier[0].output}validation_sample.geojson`,
+    geoJSON_strata,
+  );
 
   //validation_sample.csv
   const csv_strata = Array.from(mapStrata).flatMap(([key, value]) => value.csv);
   const csv_strata_string = csv_strata.join(' ');
-  fs_writeFileSync(`${a_Configs.confidence_tier[0].output}validation_sample.csv`, csv_strata_string, undefined, undefined, 'utf8')
+  fs_writeFileSync(
+    `${a_Configs.confidence_tier[0].output}validation_sample.csv`,
+    csv_strata_string,
+    undefined,
+    undefined,
+    'utf8',
+  );
 
   log('Validation finished.', ELogType.info);
 
   //validation_manifest.json
   const manifest_strata = Array.from(setManifest);
-  fs_writeFileSync(`${a_Configs.confidence_tier[0].output}validation_manifest.json`, manifest_strata)
+  fs_writeFileSync(
+    `${a_Configs.confidence_tier[0].output}validation_manifest.json`,
+    manifest_strata,
+  );
 };
 
 if (args.includes('--main')) {
@@ -413,7 +433,7 @@ if (args.includes('--main')) {
   } else {
     configPath = 'src/config/pilot.json';
   }
-  const config = fs_readFileSync<IConfigJSON>(configPath)
+  const config = fs_readFileSync<IConfigJSON>(configPath);
   if (!config) {
     throw new Error(`Config file not found: ${configPath}`);
   }
@@ -427,7 +447,8 @@ if (args.includes('--main')) {
   } else {
     configPath = 'src/config/validation-pilot.json';
   }
-  const configs = fs_readFileSync<Record<EValidationStrata, IConfigJSON[]>>(configPath);
+  const configs =
+    fs_readFileSync<Record<EValidationStrata, IConfigJSON[]>>(configPath);
   if (!configs) {
     throw new Error(`Config file not found: ${configPath}`);
   }

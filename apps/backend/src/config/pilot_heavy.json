@@ -1,66 +1,51 @@
 {
-    "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
-    "method": "POST",
-    "body_params": {
-        "geojson": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [
-                        0.5,
-                        50.5
-                    ],
-                    [
-                        2.5,
-                        50.5
-                    ],
-                    [
-                        2.5,
-                        51.5
-                    ],
-                    [
-                        0.5,
-                        51.5
-                    ],
-                    [
-                        0.5,
-                        50.5
-                    ]
-                ]
-            ]
-        }
+  "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+  "method": "POST",
+  "body_params": {
+    "geojson": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [0.5, 50.5],
+          [2.5, 50.5],
+          [2.5, 51.5],
+          [0.5, 51.5],
+          [0.5, 50.5]
+        ]
+      ]
+    }
+  },
+  "url_params": {
+    "spatial-resolution": "HIGH",
+    "temporal-resolution": "HOURLY",
+    "datasets[0]": "public-global-sar-presence:v3.0",
+    "date-range": "2025-01-01T00:00:00Z,2025-12-31T23:59:59Z",
+    "format": "JSON",
+    "group-by": "VESSEL_ID",
+    "filters[0]": ""
+  },
+  "threshold": {
+    "near_coast_threshold": 10,
+    "low_confidence_proxy_threshold": 2,
+    "shallow_water_threshold": -50,
+    "deep_water_threshold": -200,
+    "low_triage_score_threshold": 0.3,
+    "medium_triage_score_threshold": 0.6,
+    "high_triage_score_threshold": 0.85
+  },
+  "hotspot": {
+    "resolution": 5,
+    "timeBin": "HOURLY"
+  },
+  "output": "data/out/heavy_",
+  "sort": [
+    {
+      "sortBy": "timestamp_utc",
+      "direction": "asc"
     },
-    "url_params": {
-        "spatial-resolution": "HIGH",
-        "temporal-resolution": "HOURLY",
-        "datasets[0]": "public-global-sar-presence:v3.0",
-        "date-range": "2025-01-01T00:00:00Z,2025-12-31T23:59:59Z",
-        "format": "JSON",
-        "group-by": "VESSEL_ID",
-        "filters[0]": ""
-    },
-    "threshold": {
-        "near_coast_threshold": 10,
-        "low_confidence_proxy_threshold": 2,
-        "shallow_water_threshold": -50,
-        "deep_water_threshold": -200,
-        "low_triage_score_threshold": 0.3,
-        "medium_triage_score_threshold": 0.6,
-        "high_triage_score_threshold": 0.85
-    },
-    "hotspot": {
-        "resolution": 5,
-        "timeBin": "HOURLY"
-    },
-    "output": "data/out/heavy_",
-    "sort": [
-        {
-            "sortBy": "timestamp_utc",
-            "direction": "asc"
-        },
-        {
-            "sortBy": "event_id",
-            "direction": "asc"
-        }
-    ]
+    {
+      "sortBy": "event_id",
+      "direction": "asc"
+    }
+  ]
 }

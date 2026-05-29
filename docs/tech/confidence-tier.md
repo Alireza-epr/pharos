@@ -12,9 +12,8 @@ The tier is derived from a combination of:
 
 ## Tier Definitions
 
-| Tier | Conditions |
-|---|---|
-| `low` | Weak or isolated signal, short observation duration, or presence of noise indicators |
-| `medium` | Repeated detections or moderate observation persistence |
-| `high` | Strong repeated detections and/or sustained observation persistence with low noise indicators |
-
+| Tier     | Conditions                                                                                    |
+| -------- | --------------------------------------------------------------------------------------------- |
+| `low`    | Weak or isolated signal, short observation duration, or presence of noise indicators          |
+| `medium` | Repeated detections or moderate observation persistence                                       |
+| `high`   | Strong repeated detections and/or sustained observation persistence with low noise indicators |

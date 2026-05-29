@@ -28,7 +28,7 @@ export const detectionPostGFW = async <T>(
     url_params: a_URLParam,
     body_params: a_BodyParam,
   };
-  
+
   const searchParams = Object.entries(a_URLParam).reduce<
     Record<string, string>
   >((acc, [key, value]) => {
@@ -148,11 +148,8 @@ export const fetchWithRetry = async (
 
       return response;
     } catch (error) {
-      if ((error as Error).message.includes("Non-retryable error")) {
-        log(
-          `${error}`,
-          ELogType.error,
-        );
+      if ((error as Error).message.includes('Non-retryable error')) {
+        log(`${error}`, ELogType.error);
         throw error;
       }
 
@@ -177,9 +174,7 @@ export const fetchWithRetry = async (
   throw new Error('[fetchWithRetry] failed unexpectedly');
 };
 
-export const detectionGFW = async <T>(
-  a_Config: IConfigJSON
-) => {
+export const detectionGFW = async <T>(a_Config: IConfigJSON) => {
   const searchParams = Object.entries(a_Config.url_params).reduce<
     Record<string, string>
   >((acc, [key, value]) => {
@@ -192,7 +187,11 @@ export const detectionGFW = async <T>(
   // High spatial resolution uses cells of 0.01° × 0.01° (~1 km scale) at the equator
   // Hourly temporal resolution > date = YYYY-MM-DD HH:00:00 > Data is grouped by:(grid cell + 1 hour bucket)
   // ENTIRE temporal resolution > date = date-range > Data is grouped by:(grid cell + full date-range)
-  log('[detectionGFW] Metadata ' + JSON.stringify(a_Config), ELogType.info, 150);
+  log(
+    '[detectionGFW] Metadata ' + JSON.stringify(a_Config),
+    ELogType.info,
+    150,
+  );
   try {
     const res = await fetchWithRetry(
       `${a_Config.URL}?${params.toString()}`,
@@ -202,7 +201,9 @@ export const detectionGFW = async <T>(
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: a_Config.body_params ? JSON.stringify(a_Config.body_params) : null,
+        body: a_Config.body_params
+          ? JSON.stringify(a_Config.body_params)
+          : null,
       },
       5,
       200,
@@ -216,12 +217,11 @@ export const detectionGFW = async <T>(
     log(
       '[detectionGFW] Response ' + JSON.stringify(results),
       ELogType.info,
-      150
+      150,
     );
 
     return results;
   } catch (error) {
     throw new Error(`[detectionGFW] Error: ${error}`);
   }
-
-}
+};

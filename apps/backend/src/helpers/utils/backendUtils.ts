@@ -7,9 +7,7 @@ import {
   EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
-import {
-  ELogType,
-} from '../types/generalTypes';
+import { ELogType } from '../types/generalTypes';
 import {
   IEventSchema,
   I4wingsAPIResponse,
@@ -48,23 +46,21 @@ if (config.logging.enable_log) {
   });
 }
 
-export const shortenMessage = (
-  a_Message: string,
-  a_Limit: number
-) => {
+export const shortenMessage = (a_Message: string, a_Limit: number) => {
   return a_Message.length > a_Limit
     ? `${a_Message.slice(0, a_Limit)}...`
-    : a_Message
-}
+    : a_Message;
+};
 
 // Main log function
 export const log = (
   a_Message: string,
   a_Type: ELogType = ELogType.info,
-  a_MessageLimit?: number
+  a_MessageLimit?: number,
 ): void => {
-
-  const message = a_MessageLimit ? shortenMessage(a_Message, a_MessageLimit) : a_Message
+  const message = a_MessageLimit
+    ? shortenMessage(a_Message, a_MessageLimit)
+    : a_Message;
   const formattedMessage = `[${formatTimestamp()}] [${a_Type}] ${message}`;
 
   // Log to console if console logging is enabled
@@ -157,35 +153,36 @@ export const getSourceFrom4wingsResponse = (
   return source as T4wingsSource;
 };
 
-export const getSourcesFromEvents = (
-  a_Events: IEventSchema[],
-) => {
-  const sources = new Set<string>()
+export const getSourcesFromEvents = (a_Events: IEventSchema[]) => {
+  const sources = new Set<string>();
   for (const event of a_Events) {
-    const source = event.source
-    if (!sources.has(source)) sources.add(source)
+    const source = event.source;
+    if (!sources.has(source)) sources.add(source);
   }
-  return Array.from(sources).map(s => s).join(", ");
+  return Array.from(sources)
+    .map((s) => s)
+    .join(', ');
 };
 
 export const getEntriesFrom4wingsResponse = (
   a_Config: IConfigJSON,
   a_4wingsResponse: I4wingsAPIResponse,
 ) => {
-  const entries = new Map<T4wingsSource, I4wingsEntry[]>()
-  let requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params).filter(([key]) => key.startsWith("datasets[")).map(([, value]) => value)
-  requestedSources = requestedSources.filter(s => {
+  const entries = new Map<T4wingsSource, I4wingsEntry[]>();
+  let requestedSources: T4wingsSource[] = Object.entries(a_Config.url_params)
+    .filter(([key]) => key.startsWith('datasets['))
+    .map(([, value]) => value);
+  requestedSources = requestedSources.filter((s) => {
     if (is4wingsSource(s)) {
-      return s
+      return s;
     } else {
-      log(`Not valid dataset: ${s}`)
+      log(`Not valid dataset: ${s}`);
     }
-  })
+  });
 
   if (requestedSources.length === 0) {
-    return entries
+    return entries;
   }
-
 
   for (const responseEntry of a_4wingsResponse.entries) {
     for (const requestedSource of requestedSources) {
@@ -194,16 +191,16 @@ export const getEntriesFrom4wingsResponse = (
         continue;
       }
       const existingEntries = entries.get(requestedSource) ?? [];
-      entries.set(
-        requestedSource,
-        [...existingEntries, ...requestedSourceEntries]
-      );
+      entries.set(requestedSource, [
+        ...existingEntries,
+        ...requestedSourceEntries,
+      ]);
     }
   }
 
   for (const requestedSource of requestedSources) {
     if (!entries.has(requestedSource)) {
-      log(`No entry is found for ${requestedSource}`, ELogType.warn)
+      log(`No entry is found for ${requestedSource}`, ELogType.warn);
     }
   }
 
@@ -214,9 +211,14 @@ export const getDate = (a_Datetime: string) => {
   return a_Datetime.slice(0, 10);
 };
 
-export const getDateBucket = (a_Datetime: string, a_TimeBucket: EHotspotTimeBins) => {
-  return a_TimeBucket === EHotspotTimeBins.DAILY ? getDate(a_Datetime) : a_Datetime.slice(0, 13).replace("T", " ") + ":00:00"
-}
+export const getDateBucket = (
+  a_Datetime: string,
+  a_TimeBucket: EHotspotTimeBins,
+) => {
+  return a_TimeBucket === EHotspotTimeBins.DAILY
+    ? getDate(a_Datetime)
+    : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
+};
 
 export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
   if (!a_Samples.length) return '';
@@ -271,18 +273,18 @@ export const csvString = <T, N>(
 
 export const getSortValue = (obj: any, path: string) => {
   return path
-    .replace(/\[(\d+)\]/g, ".$1")
-    .split(".")
+    .replace(/\[(\d+)\]/g, '.$1')
+    .split('.')
     .reduce((acc, key) => acc?.[key], obj);
-}
+};
 
 export const compareValues = (a: any, b: any) => {
   if (a == null && b == null) return 0;
   if (a == null) return -1;
   if (b == null) return 1;
 
-  if (typeof a === "string" && typeof b === "string") {
-    if (a !== "" && b !== "" && !isNaN(Number(a)) && !isNaN(Number(b))) {
+  if (typeof a === 'string' && typeof b === 'string') {
+    if (a !== '' && b !== '' && !isNaN(Number(a)) && !isNaN(Number(b))) {
       return Number(a) - Number(b);
     }
     return a.localeCompare(b);
@@ -294,36 +296,35 @@ export const compareValues = (a: any, b: any) => {
 export const sortEventSchema = (
   a_EventSchemas: (IEventSchema | IRejectedEventSchema)[],
   a_SortOptions: ISortOption[] = [
-    { sortBy: "timestamp_utc", direction: "asc" },
-    { sortBy: "event_id", direction: "asc" },
-  ]
+    { sortBy: 'timestamp_utc', direction: 'asc' },
+    { sortBy: 'event_id', direction: 'asc' },
+  ],
 ): (IEventSchema | IRejectedEventSchema)[] => {
-
   const { accepted, rejected } = a_EventSchemas.reduce(
     (acc, event) => {
       if (event.rejected) {
-        acc.rejected.push(event)
+        acc.rejected.push(event);
       } else {
-        acc.accepted.push(event)
+        acc.accepted.push(event);
       }
 
-      return acc
+      return acc;
     },
     {
       accepted: [] as IEventSchema[],
-      rejected: [] as IRejectedEventSchema[]
-    }
-  )
+      rejected: [] as IRejectedEventSchema[],
+    },
+  );
 
   const multiSort = (a: any, b: any) => {
-    for (const { sortBy, direction = "asc" } of a_SortOptions) {
+    for (const { sortBy, direction = 'asc' } of a_SortOptions) {
       const valA = getSortValue(a, sortBy);
       const valB = getSortValue(b, sortBy);
 
       const result = compareValues(valA, valB);
 
       if (result !== 0) {
-        return direction === "asc" ? result : -result;
+        return direction === 'asc' ? result : -result;
       }
     }
     return 0;
@@ -333,26 +334,25 @@ export const sortEventSchema = (
     for (const option of a_SortOptions) {
       if (
         option.direction &&
-        option.direction !== "asc" &&
-        option.direction !== "desc"
+        option.direction !== 'asc' &&
+        option.direction !== 'desc'
       ) {
         throw new Error(
-          `[sortEventSchema] Invalid direction "${option.direction}" for sortBy "${option.sortBy}". Allowed values are "asc" or "desc".`
+          `[sortEventSchema] Invalid direction "${option.direction}" for sortBy "${option.sortBy}". Allowed values are "asc" or "desc".`,
         );
       }
       const fieldExists = accepted.some(
-        event => getSortValue(event, option.sortBy) !== undefined
+        (event) => getSortValue(event, option.sortBy) !== undefined,
       );
 
       if (!fieldExists) {
         throw new Error(
-          `[sortEventSchema] Invalid sortBy field: "${option.sortBy}"`
+          `[sortEventSchema] Invalid sortBy field: "${option.sortBy}"`,
         );
       }
-
     }
     accepted.sort(multiSort);
   }
 
-  return [...deepSortObject(accepted), ...deepSortObject(rejected)]
+  return [...deepSortObject(accepted), ...deepSortObject(rejected)];
 };

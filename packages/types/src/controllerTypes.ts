@@ -4,16 +4,18 @@ import { IStats } from "./generalTypes";
 
 export interface IResponse {
   success?: boolean;
-  error?: EResponseError;
+  error?: EResponseError[];
   message?: EResponseMessage;
-  limit?: number | null,
-  offset?: number | null,
-  nextOffset?: number | null,
-  page_size?: number | null,
-  page?: number | null,
-  stats?: IStats,
-  metadata?: IRunMetadata,
-  entries?: Partial<IEventSchema>[]
+  limit?: number | null;
+  offset?: number | null;
+  nextOffset?: number | null;
+  page_size?: number | null;
+  page?: number | null;
+  stats?: IStats;
+  metadata?: IRunMetadata;
+  entries?: Partial<IEventSchema>[];
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface IValidationErrorDetail {

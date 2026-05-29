@@ -6,11 +6,10 @@ The system stores vessel event data in Parquet files and serves them through a s
 
 There are two main components:
 
-* **Ingestion worker** → fetches data from the provider and stores it
-* **API service** → reads Parquet files and returns results
+- **Ingestion worker** → fetches data from the provider and stores it
+- **API service** → reads Parquet files and returns results
 
 The API does not normally call the provider, except when data is missing.
-
 
 ---
 
@@ -18,8 +17,8 @@ The API does not normally call the provider, except when data is missing.
 
 Data is stored per **day** and split into:
 
-* EEZ-based files
-* ONE HIGH_SEAS file per day (fallback bucket)
+- EEZ-based files
+- ONE HIGH_SEAS file per day (fallback bucket)
 
 ### Example structure
 
@@ -39,9 +38,9 @@ HIGH_SEAS contains all events that are outside any EEZ.
 
 It is:
 
-* created during ingestion OR first fallback request
-* shared for the whole day
-* updated when new missing data is fetched
+- created during ingestion OR first fallback request
+- shared for the whole day
+- updated when new missing data is fetched
 
 It is NOT created per request.
 
@@ -81,8 +80,8 @@ When a user sends a request:
 
 ## Step 1 — Find region
 
-* Check which EEZ overlaps the polygon
-* If none → use HIGH_SEAS
+- Check which EEZ overlaps the polygon
+- If none → use HIGH_SEAS
 
 ---
 
@@ -101,9 +100,9 @@ events/date=2026-05-26/HIGH_SEAS.parquet
 
 After loading Parquet:
 
-* filter by polygon
-* filter by H3 cells
-* filter by time range
+- filter by polygon
+- filter by H3 cells
+- filter by time range
 
 ---
 
@@ -124,40 +123,40 @@ This is a cache-on-miss behavior.
 
 If another request comes for HIGH_SEAS (same day):
 
-* system reuses existing HIGH_SEAS.parquet
-* only calls provider if missing spatial coverage
-* merges new data into the same file
+- system reuses existing HIGH_SEAS.parquet
+- only calls provider if missing spatial coverage
+- merges new data into the same file
 
 ---
 
 # Why this design works
 
-* Simple storage layout
-* No explosion of files
-* Fast reads for most queries
-* Works for both EEZ and open ocean
-* Supports incremental caching
+- Simple storage layout
+- No explosion of files
+- Fast reads for most queries
+- Works for both EEZ and open ocean
+- Supports incremental caching
 
 ---
 
 # Limitations
 
-* First request for a region may be slower
-* HIGH_SEAS file grows over time
-* Requires deduplication strategy in future
+- First request for a region may be slower
+- HIGH_SEAS file grows over time
+- Requires deduplication strategy in future
 
 ---
 
 # Future improvements
 
-* Smarter caching strategy for HIGH_SEAS
-* Select EEZ IDs based on user location (polygon intersection)
-* Background prefetching for hot areas
-* Move to lakehouse system (Iceberg/Delta)
+- Smarter caching strategy for HIGH_SEAS
+- Select EEZ IDs based on user location (polygon intersection)
+- Background prefetching for hot areas
+- Move to lakehouse system (Iceberg/Delta)
 
 ---
-# Diagram
 
+# Diagram
 
 ```mermaid
 flowchart TD
@@ -189,8 +188,8 @@ flowchart TD
 
 Data is stored per day and split into:
 
-* EEZ partitions
-* ONE HIGH_SEAS fallback partition
+- EEZ partitions
+- ONE HIGH_SEAS fallback partition
 
 H3 is only used inside files for filtering.
 

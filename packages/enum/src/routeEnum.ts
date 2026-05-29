@@ -3,7 +3,7 @@ export enum EBaseRoutes {
   auth = "/auth",
   events = "/events",
   hotspots = "/hotspots",
-  export = "/export"
+  export = "/export",
 }
 
 export enum ESystemRoutes {

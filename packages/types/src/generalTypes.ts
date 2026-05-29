@@ -9,7 +9,7 @@ export type TFixedLengthArray<
   T,
   N extends number,
   R extends T[] = [],
-> = R['length'] extends N ? R : TFixedLengthArray<T, N, [...R, T]>;
+> = R["length"] extends N ? R : TFixedLengthArray<T, N, [...R, T]>;
 
 /**
  * A union of numbers from 0 up to (but not including) N
@@ -19,30 +19,30 @@ export type TFixedLengthArray<
 
 export type TBuildRange<
   N extends number,
-  Result extends number[] = []
-> = Result['length'] extends N
+  Result extends number[] = [],
+> = Result["length"] extends N
   ? Result[number]
-  : TBuildRange<N, [...Result, Result['length']]>;
+  : TBuildRange<N, [...Result, Result["length"]]>;
 export interface IStats {
-  count_total: number,
-  matching_stats: IMatchingStats,
-  missingness: Record<TGeoJSONEventMissingness, string>,
+  count_total: number;
+  matching_stats: IMatchingStats;
+  missingness: Record<TGeoJSONEventMissingness, string>;
   geo_sanity: {
     latitude: {
-      min: number,
-      max: number,
-    },
+      min: number;
+      max: number;
+    };
     longitude: {
-      min: number,
-      max: number,
-    },
-  },
+      min: number;
+      max: number;
+    };
+  };
   time_range: {
     start: string;
     end: string;
-  },
-  mean_score: number,
-  mean_uncertainty: number,
+  };
+  mean_score: number;
+  mean_uncertainty: number;
 }
 
 export interface IMatchingStats {

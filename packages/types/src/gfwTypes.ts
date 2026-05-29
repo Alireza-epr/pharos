@@ -115,7 +115,7 @@ export interface I4wingsEntry {
   shipName: string;
   vesselId: string;
   vesselType: string;
-  hours?: number
+  hours?: number;
 }
 
 /**

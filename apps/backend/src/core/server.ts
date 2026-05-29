@@ -26,13 +26,13 @@ app.use(responseLogger);
 
 // --- Endpoints ---
 
-const prependRoute = "/v1"
+const prependRoute = '/v1';
 // System - no auth required
-app.use(prependRoute+EBaseRoutes.system, systemRoutes);
+app.use(prependRoute + EBaseRoutes.system, systemRoutes);
 // Auth
-app.use(prependRoute+EBaseRoutes.auth, authRoutes);
+app.use(prependRoute + EBaseRoutes.auth, authRoutes);
 // Events
-app.use(prependRoute+EBaseRoutes.events, eventsRoutes);
+app.use(prependRoute + EBaseRoutes.events, eventsRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {

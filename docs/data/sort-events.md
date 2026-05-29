@@ -18,15 +18,14 @@ Any field within the canonical event schema is sortable, including nested object
 
 Useful for chronological ordering.
 
-| Field | Description |
-|---|---|
-| `timestamp_utc` | Canonical event timestamp (recommended primary sort field) |
-| `raw_metadata.entryTimestamp` | Detection entry time |
-| `raw_metadata.exitTimestamp` | Detection exit time |
-| `raw_metadata.date` | Source dataset date |
-| `raw_metadata.firstTransmissionDate` | First vessel transmission |
-| `raw_metadata.lastTransmissionDate` | Last vessel transmission |
-
+| Field                                | Description                                                |
+| ------------------------------------ | ---------------------------------------------------------- |
+| `timestamp_utc`                      | Canonical event timestamp (recommended primary sort field) |
+| `raw_metadata.entryTimestamp`        | Detection entry time                                       |
+| `raw_metadata.exitTimestamp`         | Detection exit time                                        |
+| `raw_metadata.date`                  | Source dataset date                                        |
+| `raw_metadata.firstTransmissionDate` | First vessel transmission                                  |
+| `raw_metadata.lastTransmissionDate`  | Last vessel transmission                                   |
 
 ---
 
@@ -34,10 +33,10 @@ Useful for chronological ordering.
 
 Useful for geographic clustering and spatial analysis.
 
-| Field | Description |
-|---|---|
-| `lat` | Latitude |
-| `lon` | Longitude |
+| Field                  | Description                     |
+| ---------------------- | ------------------------------- |
+| `lat`                  | Latitude                        |
+| `lon`                  | Longitude                       |
 | `distance_to_coast_km` | Distance from nearest coastline |
 
 ---
@@ -46,14 +45,14 @@ Useful for geographic clustering and spatial analysis.
 
 Useful for ranking, triage, and prioritization.
 
-| Field | Description |
-|---|---|
-| `scoring.triage_score` | Event triage score |
-| `scoring.uncertainty_score` | Uncertainty score |
-| `confidence_proxy` | Confidence proxy value |
-| `confidence_tier` | Confidence tier (`low`, `medium`, `high`) |
-| `hotspot.signals.recurrence_count` | Hotspot recurrence count |
-| `hotspot.signals.hotspot_strength` | Hotspot strength |
+| Field                              | Description                               |
+| ---------------------------------- | ----------------------------------------- |
+| `scoring.triage_score`             | Event triage score                        |
+| `scoring.uncertainty_score`        | Uncertainty score                         |
+| `confidence_proxy`                 | Confidence proxy value                    |
+| `confidence_tier`                  | Confidence tier (`low`, `medium`, `high`) |
+| `hotspot.signals.recurrence_count` | Hotspot recurrence count                  |
+| `hotspot.signals.hotspot_strength` | Hotspot strength                          |
 
 ---
 
@@ -61,21 +60,21 @@ Useful for ranking, triage, and prioritization.
 
 Useful for deterministic ordering and pagination.
 
-| Field | Description |
-|---|---|
-| `event_id` | Unique canonical event identifier |
-| `raw_metadata.vesselId` | Vessel UUID |
-| `raw_metadata.imo` | IMO number |
-| `raw_metadata.mmsi` | MMSI number |
+| Field                   | Description                       |
+| ----------------------- | --------------------------------- |
+| `event_id`              | Unique canonical event identifier |
+| `raw_metadata.vesselId` | Vessel UUID                       |
+| `raw_metadata.imo`      | IMO number                        |
+| `raw_metadata.mmsi`     | MMSI number                       |
 
 ---
 
 ### Boolean / Classification Fields
 
-| Field | Description |
-|---|---|
-| `matched_flag` | Indicates matched event |
-| `rejected` | Indicates rejected event |
+| Field          | Description              |
+| -------------- | ------------------------ |
+| `matched_flag` | Indicates matched event  |
+| `rejected`     | Indicates rejected event |
 
 ---
 
@@ -101,12 +100,13 @@ Sorting behavior is configured through the `sort` section.
 ```
 
 ---
+
 ### Sort Configuration Schema
 
-| Property | Type | Required | Description |
-|---|---|---|---|
-| `sortBy` | `string` | Yes | Canonical schema field path |
-| `direction` | `"asc"` \| `"desc"` | No | Sorting direction (default: `asc`) |
+| Property    | Type                | Required | Description                        |
+| ----------- | ------------------- | -------- | ---------------------------------- |
+| `sortBy`    | `string`            | Yes      | Canonical schema field path        |
+| `direction` | `"asc"` \| `"desc"` | No       | Sorting direction (default: `asc`) |
 
 ---
 
@@ -188,4 +188,3 @@ If no sorting configuration is provided, the system uses:
 ## Notes
 
 - Rejected events are always appended after accepted events.
-

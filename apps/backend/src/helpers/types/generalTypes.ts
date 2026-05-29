@@ -26,8 +26,15 @@ export enum ELogType {
 
 export type TEventProperties = Omit<
   IEventSchema,
-  "version"|"geom"|"source"|"raw_metadata"|"raw_event_metadata"|"run_metadata"|"rejected"|"hotspot"
->
+  | 'version'
+  | 'geom'
+  | 'source'
+  | 'raw_metadata'
+  | 'raw_event_metadata'
+  | 'run_metadata'
+  | 'rejected'
+  | 'hotspot'
+>;
 
 export interface IBathymetryTile {
   file: string;

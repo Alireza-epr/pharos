@@ -322,7 +322,7 @@ export enum ERegionDatasets {
 
 export enum ERegionBufferOperations {
   DIFFERENCE = "DIFFERENCE",
-  DISSOLVE = "DISSOLVE"
+  DISSOLVE = "DISSOLVE",
 }
 
 export enum ERegionBufferUnits {
@@ -330,12 +330,12 @@ export enum ERegionBufferUnits {
   NAUTICALMILES = "NAUTICALMILES",
   KILOMETERS = "KILOMETERS",
   RADIANS = "RADIANS",
-  DEGREES = "DEGREES"
+  DEGREES = "DEGREES",
 }
 
 export enum ESpatialResolution {
-  LOW = "LOW", 
-  HIGH = "HIGH"
+  LOW = "LOW",
+  HIGH = "HIGH",
 }
 
 export enum ETemporalResolution {
@@ -347,9 +347,9 @@ export enum ETemporalResolution {
 }
 
 export enum EFormat {
-  CSV = "CSV", 
-  TIF = "TIF", 
-  JSON = "JSON"
+  CSV = "CSV",
+  TIF = "TIF",
+  JSON = "JSON",
 }
 
 export enum EGroupBy {
@@ -357,7 +357,7 @@ export enum EGroupBy {
   FLAG = "FLAG",
   GEARTYPE = "GEARTYPE",
   FLAGANDGEARTYPE = "FLAGANDGEARTYPE",
-  MMSI = "MMSI"
+  MMSI = "MMSI",
 }
 
 export enum EEventType {
