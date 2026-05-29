@@ -3,7 +3,7 @@ import {
   controllerResponse,
   createErrorMessage,
 } from '../../helpers/utils/controllerUtils';
-import { EResponseMessage, EStatusCode } from '@packages/enum';
+import { EStatusCode } from '@packages/enum';
 import { samples } from './events.samples';
 
 import { IEventSchema } from '@packages/types';
@@ -37,7 +37,6 @@ export const eventsController = (a_Req: Request, a_Res: Response) => {
   const events = samples as IEventSchema[];
 
   return controllerResponse(a_Res, EStatusCode.OK_200, {
-    success: true,
-    message: EResponseMessage.Done,
+    success: true
   });
 };

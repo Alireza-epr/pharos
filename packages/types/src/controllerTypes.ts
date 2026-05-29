@@ -4,8 +4,7 @@ import { IStats } from "./generalTypes";
 
 export interface IResponse {
   success?: boolean;
-  error?: EResponseError[];
-  message?: EResponseMessage;
+  error?: (EResponseError | IValidationError)[];
   limit?: number | null;
   offset?: number | null;
   nextOffset?: number | null;
@@ -18,13 +17,12 @@ export interface IResponse {
   refreshToken?: string;
 }
 
-export interface IValidationErrorDetail {
-  code: EResponseError;
+export interface IValidationError {
   field: string;
-  message: string;
+  message: EResponseError;
 }
 
 export interface IValidationResult {
   isValid: boolean;
-  errors: IValidationErrorDetail[] | null;
+  errors: IValidationError[] | null;
 }

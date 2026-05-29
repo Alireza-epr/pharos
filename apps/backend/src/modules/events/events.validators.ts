@@ -1,7 +1,7 @@
 import {
   IFilteringParams,
   IThresholdConfig,
-  IValidationErrorDetail,
+  IValidationError,
   IValidationResult,
 } from '@packages/types';
 import {
@@ -28,16 +28,15 @@ import {
  * =======================================================*/
 
 export const validateBodyParams = (a_Body: unknown): IValidationResult => {
-  const errors: IValidationErrorDetail[] = [];
+  const errors: IValidationError[] = [];
 
   if (!isObject(a_Body)) {
     return {
       isValid: false,
       errors: [
         {
-          code: EResponseError.BODY_NOT_OBJECT,
+          message: EResponseError.BODY_NOT_OBJECT,
           field: 'body',
-          message: 'Request a_Body must be an object',
         },
       ],
     };
@@ -57,8 +56,7 @@ export const validateBodyParams = (a_Body: unknown): IValidationResult => {
     addError(
       errors,
       EResponseError.REQUIRED_FIELD_MISSING,
-      'sort',
-      'sort is required',
+      'sort'
     );
   } else {
     validateSort(a_Body.sort, errors);
@@ -82,16 +80,15 @@ export const validateBodyParams = (a_Body: unknown): IValidationResult => {
  * MAIN URL VALIDATOR
  * =======================================================*/
 export const validateQueryParams = (a_Query: unknown): IValidationResult => {
-  const errors: IValidationErrorDetail[] = [];
+  const errors: IValidationError[] = [];
 
   if (!isObject(a_Query)) {
     return {
       isValid: false,
       errors: [
         {
-          code: EResponseError.QUERY_NOT_OBJECT,
+          message: EResponseError.QUERY_NOT_OBJECT,
           field: 'query',
-          message: 'Request query must be an object',
         },
       ],
     };
@@ -182,14 +179,13 @@ const TEMPORAL_RESOLUTION = Object.values(ETemporalResolution);
 
 const validateGeoJSON = (
   a_Geojson: unknown,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (!isObject(a_Geojson)) {
     addError(
       a_Errors,
       EResponseError.INVALID_GEOJSON,
-      'geojson',
-      'geojson must be an object',
+      'geojson'
     );
     return;
   }
@@ -198,8 +194,7 @@ const validateGeoJSON = (
     addError(
       a_Errors,
       EResponseError.INVALID_GEOJSON_TYPE,
-      'geojson.type',
-      `Invalid geojson.type`,
+      'geojson.type'
     );
   }
 
@@ -207,8 +202,7 @@ const validateGeoJSON = (
     addError(
       a_Errors,
       EResponseError.INVALID_GEOJSON_COORDINATES,
-      'geojson.coordinates',
-      'geojson.coordinates is required',
+      'geojson.coordinates'
     );
   }
 };
@@ -219,7 +213,7 @@ const validateGeoJSON = (
 
 const validateThreshold = (
   a_Threshold: unknown,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (!validateRequiredObject(a_Threshold, 'threshold', a_Errors)) {
     return;
@@ -242,8 +236,7 @@ const validateThreshold = (
       addError(
         a_Errors,
         EResponseError.REQUIRED_FIELD_MISSING,
-        `threshold.${field}`,
-        `threshold.${field} is required`,
+        `threshold.${field}`
       );
       continue;
     }
@@ -252,8 +245,7 @@ const validateThreshold = (
       addError(
         a_Errors,
         EResponseError.INVALID_NUMBER,
-        `threshold.${field}`,
-        `threshold.${field} must be a valid number`,
+        `threshold.${field}`
       );
     }
   }
@@ -265,7 +257,7 @@ const validateThreshold = (
 
 const validateHotspot = (
   a_Hotspot: unknown,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (!validateRequiredObject(a_Hotspot, 'hotspot', a_Errors)) {
     return;
@@ -275,15 +267,13 @@ const validateHotspot = (
     addError(
       a_Errors,
       EResponseError.INVALID_NUMBER,
-      'hotspot.resolution',
-      'hotspot.resolution must be a number',
+      'hotspot.resolution'
     );
   } else if (a_Hotspot.resolution < 0 || a_Hotspot.resolution > 15) {
     addError(
       a_Errors,
       EResponseError.INVALID_HOTSPOT,
-      'hotspot.resolution',
-      'hotspot.resolution must be between 0 and 15',
+      'hotspot.resolution'
     );
   }
 
@@ -291,8 +281,7 @@ const validateHotspot = (
     addError(
       a_Errors,
       EResponseError.INVALID_ENUM_VALUE,
-      'hotspot.timeBin',
-      `hotspot.timeBin must be one of: ${HOTSPOT_TIME_BINS.join(', ')}`,
+      'hotspot.timeBin'
     );
   }
 };
@@ -303,7 +292,7 @@ const validateHotspot = (
 
 const validateFilters = (
   a_Filters: unknown,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (!validateRequiredObject(a_Filters, 'filters', a_Errors)) {
     return;
@@ -325,8 +314,7 @@ const validateFilters = (
       addError(
         a_Errors,
         EResponseError.INVALID_NUMBER,
-        `filters.${field}`,
-        `filters.${field} must be a number`,
+        `filters.${field}`
       );
     }
   }
@@ -344,8 +332,7 @@ const validateFilters = (
       addError(
         a_Errors,
         EResponseError.INVALID_BOOLEAN,
-        `filters.${field}`,
-        `filters.${field} must be a boolean`,
+        `filters.${field}`
       );
     }
   }
@@ -355,13 +342,12 @@ const validateFilters = (
  * SORT VALIDATION
  * =======================================================*/
 
-const validateSort = (a_Sort: unknown, a_Errors: IValidationErrorDetail[]) => {
+const validateSort = (a_Sort: unknown, a_Errors: IValidationError[]) => {
   if (!Array.isArray(a_Sort)) {
     addError(
       a_Errors,
       EResponseError.INVALID_ARRAY,
-      'sort',
-      'sort must be an array',
+      'sort'
     );
     return;
   }
@@ -371,8 +357,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationErrorDetail[]) => {
       addError(
         a_Errors,
         EResponseError.INVALID_SORT,
-        `sort[${index}]`,
-        `sort[${index}] must be an object`,
+        `sort[${index}]`
       );
       return;
     }
@@ -381,8 +366,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationErrorDetail[]) => {
       addError(
         a_Errors,
         EResponseError.INVALID_STRING,
-        `sort[${index}].sortBy`,
-        `sort[${index}].sortBy must be a non-empty string`,
+        `sort[${index}].sortBy`
       );
     }
 
@@ -393,8 +377,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationErrorDetail[]) => {
       addError(
         a_Errors,
         EResponseError.INVALID_ENUM_VALUE,
-        `sort[${index}].direction`,
-        `sort[${index}].direction must be "asc" or "desc"`,
+        `sort[${index}].direction`
       );
     }
   });
@@ -406,7 +389,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationErrorDetail[]) => {
 
 const validateRegionFields = (
   a_Body: Record<string, any>,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (
     a_Body.region !== undefined &&
@@ -415,8 +398,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
-      'region',
-      'region must be a non-empty string',
+      'region'
     );
   }
 
@@ -427,8 +409,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_ENUM_VALUE,
-      'region.dataset',
-      `Invalid region.dataset`,
+      'region.dataset'
     );
   }
 
@@ -436,8 +417,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
-      'region.id',
-      'region.id must be a string',
+      'region.id'
     );
   }
 
@@ -448,8 +428,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_ENUM_VALUE,
-      'region.bufferOperation',
-      'Invalid region.bufferOperation',
+      'region.bufferOperation'
     );
   }
 
@@ -460,8 +439,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_ENUM_VALUE,
-      'region.bufferUnit',
-      'Invalid region.bufferUnit',
+      'region.bufferUnit'
     );
   }
 
@@ -472,8 +450,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
-      'region.bufferValue',
-      'region.bufferValue must be a string',
+      'region.bufferValue'
     );
   }
 };
@@ -486,7 +463,7 @@ const validateEnum = <T extends readonly string[]>(
   a_Value: unknown,
   a_Allowed: T,
   a_Field: string,
-  a_errors: IValidationErrorDetail[],
+  a_errors: IValidationError[],
   a_Required = false,
 ) => {
   if (a_Value === undefined) {
@@ -494,8 +471,7 @@ const validateEnum = <T extends readonly string[]>(
       addError(
         a_errors,
         EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field,
-        `${a_Field} is required`,
+        a_Field
       );
     }
     return;
@@ -505,8 +481,7 @@ const validateEnum = <T extends readonly string[]>(
     addError(
       a_errors,
       EResponseError.INVALID_ENUM_VALUE,
-      a_Field,
-      `${a_Field} must be one of: ${a_Allowed.join(', ')}`,
+      a_Field
     );
   }
 };
@@ -514,7 +489,7 @@ const validateEnum = <T extends readonly string[]>(
 const validateString = (
   a_Value: unknown,
   a_Field: string,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
   a_Required = false,
 ) => {
   if (a_Value === undefined) {
@@ -522,8 +497,7 @@ const validateString = (
       addError(
         a_Errors,
         EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field,
-        `${a_Field} is required`,
+        a_Field
       );
     }
     return;
@@ -533,8 +507,7 @@ const validateString = (
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
-      a_Field,
-      `${a_Field} must be a non-empty string`,
+      a_Field
     );
   }
 };
@@ -542,7 +515,7 @@ const validateString = (
 const validateBoolean = (
   a_Value: unknown,
   a_Field: string,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   if (a_Value === undefined) return;
 
@@ -550,8 +523,7 @@ const validateBoolean = (
     addError(
       a_Errors,
       EResponseError.INVALID_BOOLEAN,
-      a_Field,
-      `${a_Field} must be boolean (true/false)`,
+      a_Field
     );
   }
 };
@@ -559,7 +531,7 @@ const validateBoolean = (
 const validateNumber = (
   a_Value: unknown,
   a_Field: string,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
   a_Required = false,
 ) => {
   if (a_Value === undefined) {
@@ -567,8 +539,7 @@ const validateNumber = (
       addError(
         a_Errors,
         EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field,
-        `${a_Field} is required`,
+        a_Field
       );
     }
     return;
@@ -580,8 +551,7 @@ const validateNumber = (
     addError(
       a_Errors,
       EResponseError.INVALID_NUMBER,
-      a_Field,
-      `${a_Field} must be a valid number`,
+      a_Field
     );
   }
 };
@@ -589,7 +559,7 @@ const validateNumber = (
 const validateDynamicKeys = (
   a_Query: Record<string, any>,
   a_Prefix: string,
-  a_Errors: IValidationErrorDetail[],
+  a_Errors: IValidationError[],
 ) => {
   Object.keys(a_Query).forEach((a_Key) => {
     if (!a_Key.startsWith(a_Prefix)) return;
