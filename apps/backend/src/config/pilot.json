@@ -55,11 +55,11 @@
   "output": "data/out/",
   "sort": [
     {
-      "sortBy": "triage_score",
+      "sortBy": "scoring.triage_score",
       "direction": "desc"
     },
     {
-      "sortBy": "uncertainty",
+      "sortBy": "scoring.uncertainty_score",
       "direction": "asc"
     },
     {

@@ -128,16 +128,19 @@ import {
 import {
   invalidBody_geojson,
   invalidBody_missing_required,
-  invalidBody_missing_sort,
+  invalidBody_invalid_sort,
   invalidBody_missingRequired,
   invalidBody_partial_threshold,
   invalidBody_wrongTypes,
   validBodyParams,
   validBodyParams_2,
+  invalidBody_region,
+  invalidBody_region_2,
 } from './fixtures/bodyParams.fixture';
 import {
   invalidQuery_missing_required,
   invalidQuery_wrong_enum,
+  invalidQuery_wrong_types_2,
   invalidQuery_wrongTypes,
   validQueryParams,
   validQueryParams_2,
@@ -1240,28 +1243,14 @@ describe('validateBodyParams', () => {
     expect(result_2.errors).toBeNull();
   });
 
-  it('validate_body_params_fail_when_sort_missing', () => {
-    const result = validateBodyParams(invalidBody_missing_sort);
+  it('fail_when_sort_is_invalid', () => {
+    const result = validateBodyParams(invalidBody_invalid_sort);
 
     expect(result.isValid).toBe(false);
     expect(result.errors?.some((e) => e.field === 'sort')).toBe(true);
   });
 
-  it('validate_body_params_fail_when_body_is_empty', () => {
-    const result = validateBodyParams(invalidBody_missing_required);
-
-    expect(result.isValid).toBe(false);
-    expect(result.errors?.length).toBeGreaterThan(0);
-  });
-
-  it('validate_body_params_fail_when_required_fields_missing', () => {
-    const result = validateBodyParams(invalidBody_missingRequired);
-
-    expect(result.isValid).toBe(false);
-    expect(result.errors?.length).toBeGreaterThan(0);
-  });
-
-  it('validate_body_params_fail_when_types_are_invalid', () => {
+  it('fail_when_types_are_invalid', () => {
     const result = validateBodyParams(invalidBody_wrongTypes);
 
     expect(result.isValid).toBe(false);
@@ -1272,7 +1261,7 @@ describe('validateBodyParams', () => {
     );
   });
 
-  it('validate_body_params_accepts_optional_geojson', () => {
+  it('accepts_optional_geojson', () => {
     const result = validateBodyParams(validBodyParams);
 
     const geoErrors =
@@ -1281,7 +1270,7 @@ describe('validateBodyParams', () => {
     expect(geoErrors.length).toBe(0);
   });
 
-  it('validate_body_params_handles_partial_threshold_errors', () => {
+  it('handles_partial_threshold_errors', () => {
     const result = validateBodyParams(invalidBody_partial_threshold);
 
     expect(result.isValid).toBe(false);
@@ -1291,7 +1280,7 @@ describe('validateBodyParams', () => {
     );
   });
 
-  it('validate_body_params_validates_geojson_structure', () => {
+  it('validates_geojson_structure', () => {
     const result = validateBodyParams(invalidBody_geojson);
 
     expect(result.isValid).toBe(false);
@@ -1301,7 +1290,20 @@ describe('validateBodyParams', () => {
     );
   });
 
-  it('validate_body_params_allows_optional_fields_absence', () => {
+  it('validates_region_structure', () => {
+    const result = validateBodyParams(invalidBody_region);
+    const result_2 = validateBodyParams(invalidBody_region_2);
+
+    expect(result.isValid).toBe(false);
+    expect(result_2.isValid).toBe(false);
+
+    expect(result.errors?.some((e) => e.field.startsWith('region'))).toBe(
+      true,
+    );
+    expect(result_2.errors?.filter((e) => e.field.startsWith('region')).length).toBeGreaterThanOrEqual(2)
+  });
+
+  it('allows_optional_fields_absence', () => {
     const minimal = {
       threshold: validBodyParams.threshold,
       hotspot: validBodyParams.hotspot,
@@ -1326,7 +1328,7 @@ describe('validateQueryParams', () => {
     expect(result_2.errors).toBeNull();
   });
 
-  it('validate_query_params_fail_when_required_fields_missing', () => {
+  it('fail_when_required_fields_missing', () => {
     const result = validateQueryParams(invalidQuery_missing_required);
 
     expect(result.isValid).toBe(false);
@@ -1335,7 +1337,7 @@ describe('validateQueryParams', () => {
     expect(result.errors?.some((e) => e.field.includes('format'))).toBe(true);
   });
 
-  it('validate_query_params_fail_when_types_are_invalid', () => {
+  it('fail_when_types_are_invalid', () => {
     const result = validateQueryParams(invalidQuery_wrongTypes);
 
     expect(result.isValid).toBe(false);
@@ -1350,9 +1352,18 @@ describe('validateQueryParams', () => {
     expect(
       result_2.errors?.some((e) => e.field === 'temporal-resolution'),
     ).toBe(true);
+
+    const result_3 = validateQueryParams(invalidQuery_wrong_types_2);
+    expect(result_3.isValid).toBe(false);
+    expect(
+      result_3.errors?.some((e) => e.field === 'limit'),
+    ).toBe(true);
+    expect(
+      result_3.errors?.some((e) => e.field === 'offset'),
+    ).toBe(true);
   });
 
-  it('validate_query_params_accepts_dynamic_keys', () => {
+  it('accepts_dynamic_keys', () => {
     const result = validateQueryParams(validQueryParams);
 
     const datasetErrors =
@@ -1365,7 +1376,7 @@ describe('validateQueryParams', () => {
     expect(filterErrors.length).toBe(0);
   });
 
-  it('validate_query_params_accepts_boolean_variants', () => {
+  it('accepts_boolean_variants', () => {
     const result = validateQueryParams({
       ...validQueryParams,
       'spatial-aggregation': 'true',

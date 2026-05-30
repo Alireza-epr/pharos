@@ -11,7 +11,9 @@ export const validQueryParams = {
   'buffer-unit': 'KILOMETERS',
   'buffer-value': '10',
   'datasets[0]': 'public-global-fishing-effort:v1.0',
-  'filters[0]': 'test-filter',
+  'filters[0]': 'matched="true"',
+  limit: 2,
+  offset: 10
 };
 
 export const invalidQuery_missingRequired = {
@@ -38,6 +40,8 @@ export const validQueryParams_2 = {
   'buffer-value': '10',
   'datasets[0]': 'public-global-fishing-effort:v1.0',
   'filters[0]': 'speed>5',
+  limit: 2,
+  offset: 10
 };
 
 export const invalidQuery_missing_required = {
@@ -49,6 +53,11 @@ export const invalidQuery_wrong_types = {
   'temporal-resolution': true,
   'region-id': 999,
   'spatial-aggregation': 'yes',
+};
+
+export const invalidQuery_wrong_types_2 = {
+  limit: "2",
+  offset: "10"
 };
 
 export const invalidQuery_wrong_enum = {

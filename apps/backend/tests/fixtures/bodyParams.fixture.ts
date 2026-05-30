@@ -16,11 +16,12 @@ export const validBodyParams = {
     triage_score_min: 1,
   },
   sort: [{ sortBy: 'date', direction: 'asc' }],
-  geojson: {
-    type: 'Point',
-    coordinates: [0, 0],
-  },
-  region: 'test-region',
+  body_params: {
+    geojson: {
+      type: 'Point',
+      coordinates: [0, 0],
+    }
+  }
 };
 
 export const invalidBody_missingRequired = {
@@ -55,19 +56,21 @@ export const validBodyParams_2 = {
     is_inside_eez: false,
   },
   sort: [{ sortBy: 'date', direction: 'asc' }],
-  geojson: {
-    type: 'Point',
-    coordinates: [0, 0],
-  },
-  region: 'eu-west',
+  body_params: {
+    region: {
+      dataset: "public-mpa-all",
+      id: "555635930"
+    }
+  }
 };
 
 export const invalidBody_missing_required = {};
 
-export const invalidBody_missing_sort = {
+export const invalidBody_invalid_sort = {
   threshold: validBodyParams.threshold,
   hotspot: validBodyParams.hotspot,
   filters: validBodyParams.filters,
+  sort: "triage_score"
 };
 
 export const invalidBody_wrong_types = {
@@ -88,8 +91,29 @@ export const invalidBody_partial_threshold = {
 
 export const invalidBody_geojson = {
   ...validBodyParams,
-  geojson: {
-    type: 'InvalidType',
-    coordinates: null,
-  },
+  body_params: {
+    geojson: {
+      type: 'InvalidType',
+      coordinates: null,
+    }
+  }
+};
+
+export const invalidBody_region = {
+  ...validBodyParams_2,
+  body_params: {
+    region: {
+      id: 123
+    }
+  }
+};
+
+export const invalidBody_region_2 = {
+  ...validBodyParams_2,
+  body_params: {
+    region: {
+      dataset: "EEZ",
+      id: 123
+    }
+  }
 };

@@ -65,11 +65,12 @@ export const validateBodyParams = (a_Body: unknown): IValidationResult => {
   // body_params (optional)
   if (a_Body.body_params) {
     if (a_Body.body_params.geojson !== undefined) {
-      validateGeoJSON(a_Body.geojson, errors);
+      validateGeoJSON(a_Body.body_params.geojson, errors);
     }
 
-    // region fields
-    validateRegionFields(a_Body.body_params, errors);
+    if (a_Body.body_params.region !== undefined) {
+      validateRegionFields(a_Body.body_params.region, errors);
+    }
   }
 
   return {
@@ -393,32 +394,30 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationError[]) => {
  * =======================================================*/
 
 const validateRegionFields = (
-  a_Body: Record<string, any>,
+  a_Region: Record<string, any>,
   a_Errors: IValidationError[],
 ) => {
-  if (
-    a_Body.region !== undefined &&
-    (!isString(a_Body.region) || a_Body.region.trim() === '')
+  if (!isObject(a_Region)) {
+    addError(
+      a_Errors,
+      EResponseError.INVALID_REGION_CONFIGURATION,
+      'region'
+    );
+    return;
+  }
+  if (a_Region.dataset !== undefined && 
+    (!isString(a_Region.dataset) || a_Region.dataset.trim() === '')
   ) {
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
-      'region'
-    );
-  }
-
-  if (
-    a_Body['region.dataset'] !== undefined &&
-    !REGION_DATASETS.includes(a_Body['region.dataset'])
-  ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_ENUM_VALUE,
       'region.dataset'
     );
   }
 
-  if (a_Body['region.id'] !== undefined && !isString(a_Body['region.id'])) {
+  if (a_Region.id !== undefined && 
+    (!isString(a_Region.id) || a_Region.id.trim() === '')
+  ) {
     addError(
       a_Errors,
       EResponseError.INVALID_STRING,
@@ -427,8 +426,19 @@ const validateRegionFields = (
   }
 
   if (
-    a_Body['region.bufferOperation'] !== undefined &&
-    !REGION_BUFFER_OPERATIONS.includes(a_Body['region.bufferOperation'])
+    a_Region.dataset !== undefined &&
+    !REGION_DATASETS.includes(a_Region.dataset)
+  ) {
+    addError(
+      a_Errors,
+      EResponseError.INVALID_ENUM_VALUE,
+      'region.dataset'
+    );
+  }
+
+  if (
+    a_Region.bufferOperation !== undefined &&
+    !REGION_BUFFER_OPERATIONS.includes(a_Region.bufferOperation)
   ) {
     addError(
       a_Errors,
@@ -438,8 +448,8 @@ const validateRegionFields = (
   }
 
   if (
-    a_Body['region.bufferUnit'] !== undefined &&
-    !REGION_BUFFER_UNITS.includes(a_Body['region.bufferUnit'])
+    a_Region.bufferUnit !== undefined &&
+    !REGION_BUFFER_UNITS.includes(a_Region.bufferUnit)
   ) {
     addError(
       a_Errors,
@@ -449,8 +459,8 @@ const validateRegionFields = (
   }
 
   if (
-    a_Body['region.bufferValue'] !== undefined &&
-    !isString(a_Body['region.bufferValue'])
+    a_Region.bufferValue !== undefined &&
+    !isString(a_Region.bufferValue)
   ) {
     addError(
       a_Errors,
@@ -552,7 +562,7 @@ const validateNumber = (
 
   const parsed = typeof a_Value === 'string' ? Number(a_Value) : a_Value;
 
-  if (!isNumber(parsed)) {
+  if (!isNumber(a_Value)) {
     addError(
       a_Errors,
       EResponseError.INVALID_NUMBER,
