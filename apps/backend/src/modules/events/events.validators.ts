@@ -352,16 +352,28 @@ const validateFilters = (
   ];
 
   for (const field of arrayFields) {
-    const value = a_Filters[field];
-
-    if (value !== undefined && 
-      (!REASON_CODES.includes(value) || !value.startsWith("missing_required_field") ) 
-    ) {
-      addError(
-        a_Errors,
-        EResponseError.INVALID_ARRAY,
-        `filters.${field}`
-      );
+    const values: any[] = a_Filters[field];
+    if(values !== undefined){
+      for(const value of values){
+        if(!isString(value)) {
+          addError(
+            a_Errors,
+            EResponseError.INVALID_STRING,
+            `filters.${field}[${value}]`
+          );
+        }
+        if (  
+          value !== undefined &&
+          !REASON_CODES.includes(value as EReasonCodesStatic) &&
+          !value.startsWith("missing_required_field:")
+        ) {
+          addError(
+            a_Errors,
+            EResponseError.INVALID_ARRAY,
+            `filters.${field}[${value}]`
+          );
+        }
+      }
     }
   }
 };
@@ -584,7 +596,7 @@ const validateNumber = (
 
   const parsed = typeof a_Value === 'string' ? Number(a_Value) : a_Value;
 
-  if (!isNumber(a_Value)) {
+  if (!isNumber(parsed)) {
     addError(
       a_Errors,
       EResponseError.INVALID_NUMBER,
