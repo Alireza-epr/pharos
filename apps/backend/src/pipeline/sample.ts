@@ -111,7 +111,10 @@ const main = async (a_Config: IConfigJSON) => {
     return;
   }
   const filteredEvents = applyFilter(notRejectedEvents, a_Config.filter)
-
+  if (filteredEvents.length === 0) {
+    log('Pilot processing quit because no entries remained after filtering.', ELogType.info);
+    return;
+  }
   const hotspots = generateHotspots(a_Config, filteredEvents);
   const enrichedEvents = enrichEventsWithHotspots(filteredEvents, hotspots);
 
