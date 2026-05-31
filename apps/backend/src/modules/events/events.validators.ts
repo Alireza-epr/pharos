@@ -9,6 +9,7 @@ import {
   EGeoJSONGeometryType,
   EGroupBy,
   EHotspotTimeBins,
+  EReasonCodesStatic,
   ERegionBufferOperations,
   ERegionBufferUnits,
   ERegionDatasets,
@@ -173,6 +174,7 @@ const REGION_DATASETS = Object.values(ERegionDatasets);
 const REGION_BUFFER_OPERATIONS = Object.values(ERegionBufferOperations);
 const REGION_BUFFER_UNITS = Object.values(ERegionBufferUnits);
 const HOTSPOT_TIME_BINS = Object.values(EHotspotTimeBins);
+const REASON_CODES = Object.values(EReasonCodesStatic);
 
 const SPATIAL_RESOLUTION = Object.values(ESpatialResolution);
 const FORMAT = Object.values(EFormat);
@@ -311,6 +313,8 @@ const validateFilters = (
     'uncertainty_score_max',
     'distance_to_coast_km_min',
     'distance_to_coast_km_max',
+    'bathymetry_min',
+    'bathymetry_max',
   ];
 
   for (const field of numberFields) {
@@ -326,7 +330,6 @@ const validateFilters = (
   }
 
   const booleanFields: (keyof IFilteringParams)[] = [
-    'reason_codes_include',
     'is_inside_eez',
     'is_inside_mpa',
   ];
@@ -338,6 +341,25 @@ const validateFilters = (
       addError(
         a_Errors,
         EResponseError.INVALID_BOOLEAN,
+        `filters.${field}`
+      );
+    }
+  }
+
+  const arrayFields: (keyof IFilteringParams)[] = [
+    'reason_codes_include',
+    'reason_codes_exclude',
+  ];
+
+  for (const field of arrayFields) {
+    const value = a_Filters[field];
+
+    if (value !== undefined && 
+      (!REASON_CODES.includes(value) || !value.startsWith("missing_required_field") ) 
+    ) {
+      addError(
+        a_Errors,
+        EResponseError.INVALID_ARRAY,
         `filters.${field}`
       );
     }

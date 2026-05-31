@@ -53,6 +53,7 @@ import { export_run_metadata } from './export/export';
 import { getExecutionDuration } from '@packages/utils';
 import { fs_readFileSync, fs_writeFileSync } from './export/fs';
 import { getStats } from './aggregate/stats';
+import { applyFilter } from './normalize/filter';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -109,12 +110,13 @@ const main = async (a_Config: IConfigJSON) => {
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
+  const filteredEvents = applyFilter(notRejectedEvents, a_Config.filter)
 
-  const hotspots = generateHotspots(a_Config, notRejectedEvents);
-  const enrichedEvents = enrichEventsWithHotspots(notRejectedEvents, hotspots);
+  const hotspots = generateHotspots(a_Config, filteredEvents);
+  const enrichedEvents = enrichEventsWithHotspots(filteredEvents, hotspots);
 
   log(
-    `Exporting outputs to ${a_Config.output}; aggregated event count: ${notRejectedEvents.length}`,
+    `Exporting outputs to ${a_Config.output}; aggregated event count: ${enrichedEvents.length}`,
     ELogType.info,
   );
 
