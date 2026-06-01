@@ -1,6 +1,7 @@
 name: Lint OpenAPI
 
 on:
+  workflow_call:
   push:
     paths:
       - 'docs/api/openapi.yaml'
