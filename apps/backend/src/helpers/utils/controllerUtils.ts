@@ -5,14 +5,14 @@ import {
   IValidationResult,
 } from '@packages/types';
 import { EResponseError, EStatusCode } from '@packages/enum';
-import { isObject } from '@packages/utils';
+import { deepSortObject, isObject } from '@packages/utils';
 
 export const controllerResponse = (
   a_Res: Response,
   a_StatusCode: EStatusCode,
   a_Json: IResponse,
 ) => {
-  a_Res.status(a_StatusCode).json(a_Json);
+  a_Res.status(a_StatusCode).json(deepSortObject(a_Json));
 };
 
 export const addError = (
