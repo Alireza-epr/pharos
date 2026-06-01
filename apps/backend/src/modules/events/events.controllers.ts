@@ -13,11 +13,10 @@ import { validateBodyParams, validateQueryParams } from './events.validators';
 import { getStats } from '../../pipeline/aggregate/stats';
 import { deepSortObject } from '@packages/utils';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
-import { getGitCommitSHA } from '../../helpers/utils/backendUtils';
 import { applyFilter } from '../../pipeline/normalize/filter';
 
 export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLParams>, a_Res: Response) => {
-  const gitCommitSHA = await getGitCommitSHA();
+  const gitCommitSHA = a_Req.gitCommitSHA;
 
   const body = a_Req.body;
   const url_params = a_Req.query;

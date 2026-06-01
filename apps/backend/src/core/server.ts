@@ -9,6 +9,7 @@ import systemRoutes from '../modules/system/system.routes';
 import authRoutes from '../modules/auth/auth.routes';
 import eventsRoutes from '../modules/events/events.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
+import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
 
 const app = express();
 
@@ -23,6 +24,10 @@ app.use(requestLogger);
 
 // Logs all responses automatically
 app.use(responseLogger);
+
+// --- Attachments ---
+
+app.use(attachGitCommitSHA)
 
 // --- Endpoints ---
 
