@@ -23,7 +23,6 @@ export const loginController = (a_Req: Request, a_Res: Response) => {
       const user = getUser(userFromDB.username, userFromDB.role); //Get User from DB
       return controllerResponse(a_Res, EStatusCode.OK_200, {
         success: true,
-        message: EResponseMessage.Done,
         accessToken: user.accessToken,
         refreshToken: user.refreshToken,
       });
@@ -51,7 +50,6 @@ export const checkTokenController = (a_Req: Request, a_Res: Response) => {
       const tokenVerification = verifyToken(token);
       return controllerResponse(a_Res, EStatusCode.OK_200, {
         success: true,
-        message: EResponseMessage.Done,
       });
     } catch (err) {
       log(`[Login] Failed verify token: ${err}`, ELogType.error);

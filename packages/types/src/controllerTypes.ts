@@ -4,13 +4,8 @@ import { IStats } from "./generalTypes";
 
 export interface IResponse {
   success?: boolean;
-  error?: EResponseError[];
-  message?: EResponseMessage;
-  limit?: number | null;
-  offset?: number | null;
-  nextOffset?: number | null;
-  page_size?: number | null;
-  page?: number | null;
+  error?: (EResponseError | IValidationError)[];
+  pagination?: IPagination
   stats?: IStats;
   metadata?: IRunMetadata;
   entries?: Partial<IEventSchema>[];
@@ -18,13 +13,20 @@ export interface IResponse {
   refreshToken?: string;
 }
 
-export interface IValidationErrorDetail {
-  code: EResponseError;
+export interface IValidationError {
   field: string;
-  message: string;
+  message: EResponseError;
 }
 
 export interface IValidationResult {
   isValid: boolean;
-  errors: IValidationErrorDetail[] | null;
+  errors: IValidationError[] | null;
+}
+
+export interface IPagination {
+  total?: number | null,
+  limit?: number | null,
+  nextOffset?: number | null;
+  prevOffset?: number | null;
+  pageSize?: number | null;
 }

@@ -34,12 +34,17 @@
   "output": "data/out/heavy_multi_dataset_",
   "sort": [
     {
-      "sortBy": "timestamp_utc",
+      "sortBy": "scoring.triage_score",
+      "direction": "desc"
+    },
+    {
+      "sortBy": "scoring.uncertainty_score",
       "direction": "asc"
     },
     {
-      "sortBy": "event_id",
-      "direction": "asc"
+      "sortBy": "timestamp_utc",
+      "direction": "desc"
     }
-  ]
+  ],
+  "filter": {}
 }

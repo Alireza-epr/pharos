@@ -114,13 +114,14 @@ export const generateConfidence_heuristic = (
 
 export const generateRunMetadata = async (
   a_Configurations: IConfigJSON[],
+  a_GITCommit?: string 
 ): Promise<IRunMetadata> => {
   const canonicalObject = deepSortObject(a_Configurations);
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
   return {
-    code_version: gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
+    code_version: a_GITCommit ? a_GITCommit : gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
     config_json: canonicalObject,
     config_hash,
   };

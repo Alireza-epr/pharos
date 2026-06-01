@@ -6,11 +6,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [0.5, 50.5],
-          [2.5, 50.5],
-          [2.5, 51.5],
-          [0.5, 51.5],
-          [0.5, 50.5]
+          [
+            0.5,
+            50.5
+          ],
+          [
+            2.5,
+            50.5
+          ],
+          [
+            2.5,
+            51.5
+          ],
+          [
+            0.5,
+            51.5
+          ],
+          [
+            0.5,
+            50.5
+          ]
         ]
       ]
     }
@@ -40,12 +55,17 @@
   "output": "data/out/heavy_",
   "sort": [
     {
-      "sortBy": "timestamp_utc",
+      "sortBy": "scoring.triage_score",
+      "direction": "desc"
+    },
+    {
+      "sortBy": "scoring.uncertainty_score",
       "direction": "asc"
     },
     {
-      "sortBy": "event_id",
-      "direction": "asc"
+      "sortBy": "timestamp_utc",
+      "direction": "desc"
     }
-  ]
+  ],
+  "filter": {}
 }
