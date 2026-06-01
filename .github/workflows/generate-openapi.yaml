@@ -29,12 +29,12 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install @anthropic-ai/sdk
+        run: npm install openai
 
       - name: Generate OpenAPI
         id: generate
         run: |
-          node infrastructure/scripts/generate-openapi-anthropic.js
+          node infrastructure/scripts/generate-openapi.js
 
           # detect if file changed
           if diff --quiet docs/api/openapi.yaml docs/api/openapi.generated.yaml; then
@@ -43,7 +43,7 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
         env:
-          OPENAI_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Replace OpenAPI file
         if: steps.generate.outputs.changed == 'true'
