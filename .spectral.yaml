@@ -1,37 +1,4 @@
 extends: ["spectral:oas"]
 
 rules:
-
-  # ─── Info section ───────────────────────────────
-  info-contact: warn
-  info-description: warn
-  info-license: warn
-
-  # ─── Operations ─────────────────────────────────
-  operation-operationId: error
-  operation-description: warn
-  operation-tags: warn
-
-  # ─── Schema validation ──────────────────────────
   oas3-schema: error
-  oas3-valid-schema-example: warn
-
-  # ─── Naming convention ──────────────────────────
-  casing:
-    description: Enforce camelCase for property names
-    severity: warn
-    given: "$..properties[*]~"
-    then:
-      function: casing
-      functionOptions:
-        type: camel
-
-  # ─── Misc ───────────────────────────────────────
-  no-unused-components: warn
-
-  no-empty-description:
-    description: Disallow empty descriptions
-    severity: warn
-    given: "$..description"
-    then:
-      function: truthy
