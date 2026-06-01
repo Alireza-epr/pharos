@@ -7,7 +7,8 @@ info:
     Pharos API provides filtered, sorted, and paginated marine event report data
     based on geospatial configuration, scoring thresholds, and filtering rules.
     Data is sourced from Global Fishing Watch and subject to their rate-limiting policies.
-  contact: {}
+  contact:
+    name: Pharos API Support
   license:
     name: See Global Fishing Watch API Terms
     url: https://globalfishingwatch.org/our-apis/documentation
@@ -284,7 +285,12 @@ components:
         coordinates:
           type: array
           description: GeoJSON coordinates defining the geometry
-          items: {}
+          items:
+            oneOf:
+              - type: number
+              - type: array
+                items:
+                  type: number
 
     Region:
       type: object
