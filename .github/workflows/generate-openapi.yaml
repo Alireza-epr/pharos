@@ -1,9 +1,9 @@
 name: Generate + Lint OpenAPI
 
 on:
-  pull_request:
-    paths:
-      - "docs/api/query-contract.md"
+  #pull_request:
+    #paths:
+      #- "docs/api/query-contract.md"
 
 permissions:
   contents: write
