@@ -199,6 +199,9 @@ Default thresholds used to calculate scoring(configurable):
 - shallow_water_threshold = -50,
 - deep_water_threshold = -200,
 - low_confidence_proxy_threshold = 2
+- low_triage_score_threshold= 0.3
+- medium_triage_score_threshold= 0.6
+- high_triage_score_threshold= 0.85
 
 These values are **defaults only** and can be adjusted via configuration:
 

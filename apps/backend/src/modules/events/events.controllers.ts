@@ -116,7 +116,7 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
     });
 
   } catch (error: any) {
-    return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
+    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
       success: false,
       error: [error]
     })
