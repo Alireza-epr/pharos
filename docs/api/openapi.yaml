@@ -32,6 +32,8 @@ paths:
     get:
       tags: [System]
       summary: System health check
+      description: >
+        Liveness check endpoint used to verify that the API service is running and reachable
       operationId: getSystemHealth
       security: []
       responses:
@@ -48,6 +50,8 @@ paths:
     post:
       tags: [Events]
       summary: Get events report
+      description: >
+        Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.
       operationId: getEventsReport
       security: []
 
