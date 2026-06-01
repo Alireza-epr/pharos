@@ -1,1 +1,17 @@
-extends: ["spectral:oas"]
+extends:
+  - spectral:oas
+
+rules:
+  operation-operationId:
+    recommended: true
+
+  operation-summary:
+    recommended: true
+
+  operation-description:
+    recommended: false
+
+  no-$ref-siblings: error
+  no-unresolved-refs: error
+
+  oas3-valid-schema-example: error
