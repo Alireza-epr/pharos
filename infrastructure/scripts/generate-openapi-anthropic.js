@@ -25,7 +25,7 @@ ${md}
 
 async function run() {
   const response = await client.messages.create({
-    model: "claude-3-5-sonnet-20241022",   // ✅ best stable Claude model
+    model: "claude-opus-4-8",
     max_tokens: 4000,
     temperature: 0,
     system: "You generate clean OpenAPI specs.",
