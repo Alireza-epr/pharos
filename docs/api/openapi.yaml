@@ -285,12 +285,7 @@ components:
         coordinates:
           type: array
           description: GeoJSON coordinates defining the geometry
-          items:
-            oneOf:
-              - type: number
-              - type: array
-                items:
-                  type: number
+          items: {}
 
     Region:
       type: object

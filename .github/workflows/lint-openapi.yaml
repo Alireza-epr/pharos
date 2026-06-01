@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Spectral
-        run: npm install -g @stoplight/spectral-cli@6.11.1
+        run: npm install -g @stoplight/spectral-cli@latest
 
       - name: Lint OpenAPI spec
         run: spectral lint docs/api/openapi.yaml --ruleset .spectral.yaml --verbose
