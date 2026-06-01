@@ -14,6 +14,7 @@ import { getStats } from '../../pipeline/aggregate/stats';
 import { deepSortObject } from '@packages/utils';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
 import { getGitCommitSHA } from '../../helpers/utils/backendUtils';
+import { applyFilter } from '../../pipeline/normalize/filter';
 
 export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLParams>, a_Res: Response) => {
   const gitCommitSHA = await getGitCommitSHA();
@@ -57,34 +58,31 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
     filter
   }
   const metadata = await generateRunMetadata([configs], gitCommitSHA)
-     
+
   // Ingestion
   const events = samples as IEventSchema[];
 
   // Filtering
-  const filteredEvents = events.filter( (e) => e.event_id )
+  const filteredEvents = applyFilter(events, config.filter)
 
   // Pagination
   const total = filteredEvents.length;
   const limit = Number(url_params.limit)
   const offset = Number(url_params.offset)
-  const thisPageEvents = filteredEvents.slice( offset, offset+limit )
+  const thisPageEvents = filteredEvents.slice(offset, offset + limit)
   const pageSize = thisPageEvents.length
   const nextOffset =
-    offset + limit < total
-      ? offset + limit
-      : null;  // null means no more pages
-  const pageNext = "sessionId/next"
-  const pagePrev = "sessionId/prev"
+    offset + limit >= total ? null : offset + limit;
 
-  // TODO : Handle pagination using a class Session has session_id holding events + configs(body and queries) + next_page events + prev_page events + errors
+  const prevOffset =
+    offset === 0 ? null : Math.max(0, offset - limit);
+
   const pagination: IPagination = {
     total,
     limit,
     nextOffset,
+    prevOffset,
     pageSize,
-    pageNext,
-    pagePrev
   }
 
   // Response

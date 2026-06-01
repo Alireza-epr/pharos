@@ -56,8 +56,8 @@ export const invalidQuery_wrong_types = {
 };
 
 export const invalidQuery_wrong_types_2 = {
-  limit: "2",
-  offset: "10"
+  limit: "a",
+  offset: "b"
 };
 
 export const invalidQuery_wrong_enum = {

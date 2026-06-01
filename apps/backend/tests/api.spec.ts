@@ -107,7 +107,7 @@ describe('validateQueryParams', () => {
     expect(result.errors?.some((e) => e.field.includes('format'))).toBe(true);
   });
 
-  it('fail_when_types_are_invalid', () => {
+  it('fail_when_query_types_are_invalid', () => {
     const result = validateQueryParams(invalidQuery_wrongTypes);
 
     expect(result.isValid).toBe(false);

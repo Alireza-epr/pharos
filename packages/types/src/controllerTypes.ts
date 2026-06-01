@@ -27,7 +27,6 @@ export interface IPagination {
   total?: number | null,
   limit?: number | null,
   nextOffset?: number | null;
+  prevOffset?: number | null;
   pageSize?: number | null;
-  pageNext?: string | null;
-  pagePrev?: string | null;
 }
