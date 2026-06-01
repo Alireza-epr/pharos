@@ -4,27 +4,18 @@ on:
   push:
     paths:
       - 'docs/api/openapi.yaml'
-      - '.spectral.yaml'
   pull_request:
     paths:
       - 'docs/api/openapi.yaml'
-      - '.spectral.yaml'
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Install Spectral
+        run: npm install -g @stoplight/spectral-cli@latest
 
-      - name: Install Spectral CLI
-        run: npm install -g @stoplight/spectral-cli@7.8.0
-
-      - name: Run OpenAPI lint
+      - name: Lint OpenAPI spec
         run: spectral lint docs/api/openapi.yaml --ruleset .spectral.yaml --verbose

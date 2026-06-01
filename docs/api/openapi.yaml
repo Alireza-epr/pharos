@@ -4,38 +4,53 @@ info:
   title: Pharos API
   version: 1.0.0
   description: >
-    Pharos API provides filtered, sorted, and paginated marine event report data.
+    Pharos API provides filtered, sorted, and paginated marine event report data
+    based on geospatial configuration, scoring thresholds, and filtering rules.
+    Data is sourced from Global Fishing Watch and subject to their rate-limiting policies.
+  contact:
+    name: Pharos API Support
+  license:
+    name: See Global Fishing Watch API Terms
+    url: https://globalfishingwatch.org/our-apis/documentation
 
 servers:
   - url: http://localhost:{port}/v1
     variables:
       port:
         default: "8080"
+  - url: https://{domain}/api/v1
+    variables:
+      domain:
+        default: example.com
 
 tags:
   - name: System
   - name: Events
 
 paths:
-
   /system/health:
     get:
       tags: [System]
       summary: System health check
+      operationId: getSystemHealth
       security: []
       responses:
         "200":
-          description: OK
+          description: Service is healthy
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthResponse"
+        "503":
+          description: Service unhealthy
 
   /events:
     post:
       tags: [Events]
       summary: Get events report
+      operationId: getEventsReport
       security: []
+
       parameters:
         - name: limit
           in: query
@@ -63,8 +78,22 @@ paths:
           schema:
             type: string
 
+        - name: buffer-operation
+          in: query
+          schema:
+            type: string
+
+        - name: buffer-unit
+          in: query
+          schema:
+            $ref: "#/components/schemas/BufferUnit"
+
+        - name: buffer-value
+          in: query
+          schema:
+            type: string
+
       requestBody:
-        required: false
         content:
           application/json:
             schema:
@@ -72,24 +101,39 @@ paths:
 
       responses:
         "200":
-          description: OK
+          description: Success
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/EventsReportResponse"
 
         "400":
-          description: Bad Request
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
         "429":
           description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
 
         "500":
           description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
-
   schemas:
+
+    BufferUnit:
+      type: string
+      enum: [MILES, NAUTICALMILES, KILOMETERS, RADIANS, DEGREES]
 
     HealthResponse:
       type: object
@@ -106,9 +150,7 @@ components:
         filter:
           $ref: "#/components/schemas/Filter"
         sort:
-          type: array
-          items:
-            $ref: "#/components/schemas/SortRule"
+          $ref: "#/components/schemas/SortArray"
         hotspot:
           $ref: "#/components/schemas/Hotspot"
         threshold:
@@ -135,23 +177,22 @@ components:
             - MultiPoint
             - MultiLineString
             - MultiPolygon
-
-        # FIX: removed oneOf (Spectral crash source)
         coordinates:
           type: array
-          description: GeoJSON coordinates (untyped array to avoid Spectral bug)
+          items: {}   # ✅ FIXED (no more oneOf crash)
 
     Region:
       type: object
       properties:
         dataset:
           type: string
+          enum: [public-eez-areas, public-mpa-all]
         id:
           type: string
         bufferOperation:
           type: string
         bufferUnit:
-          type: string
+          $ref: "#/components/schemas/BufferUnit"
         bufferValue:
           type: string
 
@@ -162,22 +203,6 @@ components:
           type: number
         triage_score_max:
           type: number
-        uncertainty_score_min:
-          type: number
-        uncertainty_score_max:
-          type: number
-        distance_to_coast_km_min:
-          type: number
-        distance_to_coast_km_max:
-          type: number
-        reason_codes_include:
-          type: array
-          items:
-            type: string
-        reason_codes_exclude:
-          type: array
-          items:
-            type: string
         is_inside_eez:
           type: boolean
         is_inside_mpa:
@@ -187,6 +212,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/SortRule"
+      # ✅ REMOVED default (was crashing Spectral)
 
     SortRule:
       type: object
@@ -204,6 +230,8 @@ components:
       properties:
         resolution:
           type: integer
+          minimum: 1
+          maximum: 16
         timeBin:
           type: string
           enum: [HOURLY, DAILY]
@@ -228,35 +256,69 @@ components:
           type: boolean
         metadata:
           type: object
-          additionalProperties: true
+          additionalProperties:
+            type: string
         pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-            limit:
-              type: integer
-            offset:
-              type: integer
-            nextOffset:
-              type: integer
-              nullable: true
-            prevOffset:
-              type: integer
-              nullable: true
-            pageSize:
-              type: integer
-            totalPages:
-              type: integer
-            currentPage:
-              type: integer
-
+          $ref: "#/components/schemas/Pagination"
         stats:
           type: object
-          additionalProperties: true
-
+          additionalProperties:
+            type: string
         entries:
           type: array
           items:
             type: object
-            additionalProperties: true
+            additionalProperties:
+              type: string
+
+    Pagination:
+      type: object
+      required:
+        - total
+        - limit
+        - offset
+        - pageSize
+        - totalPages
+        - currentPage
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        nextOffset:
+          type: integer
+          nullable: true
+        prevOffset:
+          type: integer
+          nullable: true
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+        currentPage:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+
+    RateLimitErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+          description: Human-readable error message
