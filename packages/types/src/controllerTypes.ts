@@ -1,10 +1,10 @@
-import { EResponseError, EResponseMessage } from "@packages/enum";
+import { EResponseError, EViolationError } from "@packages/enum";
 import { IEventSchema, IRunMetadata } from "./eventTypes";
 import { IStats } from "./generalTypes";
 
 export interface IResponse {
   success?: boolean;
-  error?: (EResponseError | IValidationError)[];
+  error?: (EResponseError | IValidationError | string)[];
   pagination?: IPagination
   stats?: IStats;
   metadata?: IRunMetadata;
@@ -15,7 +15,7 @@ export interface IResponse {
 
 export interface IValidationError {
   field: string;
-  message: EResponseError;
+  message: EResponseError | EViolationError;
 }
 
 export interface IValidationResult {
@@ -29,4 +29,6 @@ export interface IPagination {
   nextOffset?: number | null;
   prevOffset?: number | null;
   pageSize?: number | null;
+  totalPages?: number | null;
+  currentPage?: number | null;
 }

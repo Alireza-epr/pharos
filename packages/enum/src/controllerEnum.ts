@@ -10,6 +10,7 @@ export enum EStatusCode {
   INTERNAL_SERVER_ERROR_500 = 500,
   BAD_GATEWAY_502 = 502,
   SERVICE_UNAVAILABLE_503 = 503,
+  TOO_MANY_REQUESTS = 429
 }
 
 export enum EResponseMessage {
@@ -51,4 +52,13 @@ export enum EResponseError {
   INVALID_STRING = "Invalid string format",
   INVALID_NUMBER = "Invalid number format",
   INVALID_BOOLEAN = "Invalid boolean value",
+}
+
+export enum EViolationError {
+  DAILY_RATE_LIMIT_EXCEEDED = "Daily rate limit exceeded",
+  MONTHLY_RATE_LIMIT_EXCEEDED = "Monthly rate limit exceeded",
+  RATE_LIMIT_EXCEEDED = "Rate limit exceeded",
+  DAILY_QUOTA_REACHED = "Daily quota reached",
+  MONTHLY_QUOTA_REACHED = "Monthly quota reached",
+  PROVIDER_THROTTLED = "Provider is currently throttling requests",
 }

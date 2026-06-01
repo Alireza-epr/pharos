@@ -8,7 +8,7 @@
     "skipLibCheck": true, // Skip node_modules type checking
     "forceConsistentCasingInFileNames": true,
     "typeRoots": [
-      "./types",
+      "./src/helpers/types",
       "./node_modules/@types",
       "../../node_modules/@types"
     ],

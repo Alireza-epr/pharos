@@ -1,0 +1,328 @@
+openapi: 3.0.3
+
+info:
+  title: Pharos API
+  version: 1.0.0
+  description: >
+    Pharos API provides filtered, sorted, and paginated marine event report data
+    based on geospatial configuration, scoring thresholds, and filtering rules.
+    Data is sourced from Global Fishing Watch and subject to their rate-limiting policies.
+  contact:
+    name: Pharos API Support
+  license:
+    name: See Global Fishing Watch API Terms
+    url: https://globalfishingwatch.org/our-apis/documentation
+
+servers:
+  - url: http://localhost:{port}/v1
+    variables:
+      port:
+        default: "8080"
+  - url: https://{domain}/api/v1
+    variables:
+      domain:
+        default: example.com
+
+tags:
+  - name: System
+  - name: Events
+
+paths:
+  /system/health:
+    get:
+      tags: [System]
+      summary: System health check
+      description: >
+        Liveness check endpoint used to verify that the API service is running and reachable
+      operationId: getSystemHealth
+      security: []
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+        "503":
+          description: Service unhealthy
+
+  /events:
+    post:
+      tags: [Events]
+      summary: Get events report
+      description: >
+        Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.
+      operationId: getEventsReport
+      security: []
+
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+
+        - name: offset
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+
+        - name: region-dataset
+          in: query
+          required: true
+          schema:
+            type: string
+
+        - name: region-id
+          in: query
+          required: true
+          schema:
+            type: string
+
+        - name: buffer-operation
+          in: query
+          schema:
+            type: string
+
+        - name: buffer-unit
+          in: query
+          schema:
+            $ref: "#/components/schemas/BufferUnit"
+
+        - name: buffer-value
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventsReportRequest"
+
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventsReportResponse"
+
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+
+    BufferUnit:
+      type: string
+      enum: [MILES, NAUTICALMILES, KILOMETERS, RADIANS, DEGREES]
+
+    HealthResponse:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
+
+    EventsReportRequest:
+      type: object
+      properties:
+        body_params:
+          $ref: "#/components/schemas/BodyParams"
+        filter:
+          $ref: "#/components/schemas/Filter"
+        sort:
+          $ref: "#/components/schemas/SortArray"
+        hotspot:
+          $ref: "#/components/schemas/Hotspot"
+        threshold:
+          $ref: "#/components/schemas/Threshold"
+
+    BodyParams:
+      type: object
+      properties:
+        geojson:
+          $ref: "#/components/schemas/GeoJsonGeometry"
+        region:
+          $ref: "#/components/schemas/Region"
+
+    GeoJsonGeometry:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+            - LineString
+            - Polygon
+            - MultiPoint
+            - MultiLineString
+            - MultiPolygon
+        coordinates:
+          type: array
+          items: {}   # ✅ FIXED (no more oneOf crash)
+
+    Region:
+      type: object
+      properties:
+        dataset:
+          type: string
+          enum: [public-eez-areas, public-mpa-all]
+        id:
+          type: string
+        bufferOperation:
+          type: string
+        bufferUnit:
+          $ref: "#/components/schemas/BufferUnit"
+        bufferValue:
+          type: string
+
+    Filter:
+      type: object
+      properties:
+        triage_score_min:
+          type: number
+        triage_score_max:
+          type: number
+        is_inside_eez:
+          type: boolean
+        is_inside_mpa:
+          type: boolean
+
+    SortArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/SortRule"
+      # ✅ REMOVED default (was crashing Spectral)
+
+    SortRule:
+      type: object
+      required: [sortBy]
+      properties:
+        sortBy:
+          type: string
+        direction:
+          type: string
+          enum: [asc, desc]
+
+    Hotspot:
+      type: object
+      required: [resolution, timeBin]
+      properties:
+        resolution:
+          type: integer
+          minimum: 1
+          maximum: 16
+        timeBin:
+          type: string
+          enum: [HOURLY, DAILY]
+
+    Threshold:
+      type: object
+      properties:
+        near_coast_threshold:
+          type: number
+        low_triage_score_threshold:
+          type: number
+        medium_triage_score_threshold:
+          type: number
+        high_triage_score_threshold:
+          type: number
+
+    EventsReportResponse:
+      type: object
+      required: [success, pagination, entries]
+      properties:
+        success:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+        stats:
+          type: object
+          additionalProperties:
+            type: string
+        entries:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+
+    Pagination:
+      type: object
+      required:
+        - total
+        - limit
+        - offset
+        - pageSize
+        - totalPages
+        - currentPage
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        nextOffset:
+          type: integer
+          nullable: true
+        prevOffset:
+          type: integer
+          nullable: true
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+        currentPage:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+
+    RateLimitErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+          description: Human-readable error message
