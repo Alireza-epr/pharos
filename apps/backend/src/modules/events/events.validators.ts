@@ -17,12 +17,50 @@ import {
   ESpatialResolution,
   EStatusCode,
   ETemporalResolution,
+  EViolationError,
 } from '@packages/enum';
 import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
 import {
   addError,
   validateRequiredObject,
 } from '../../helpers/utils/controllerUtils';
+
+/* =========================================================
+ * VIOLATIONS VALIDATOR
+ * =======================================================*/
+
+export const validateViolation = (a_Headers: any): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  const dailyRemaining = Number(a_Headers["x-ratelimit-daily-remaining-requests"]);
+  const monthlyRemaining = Number(a_Headers["x-ratelimit-monthly-remaining-requests"]);
+
+  const dailyResetHours = Number(a_Headers["x-ratelimit-daily-reset-hours"]);
+  const monthlyResetDays = Number(a_Headers["x-ratelimit-monthly-reset-days"]);
+
+  // Monthly exhausted 
+  if (monthlyRemaining === 0 || monthlyResetDays > 0) {
+    addError(
+      errors,
+      EViolationError.MONTHLY_RATE_LIMIT_EXCEEDED,
+      "x-ratelimit-monthly-remaining-requests"
+    )
+  }
+
+  // Daily exhausted
+  if (dailyRemaining === 0 || dailyResetHours > 0) {
+    addError(
+      errors,
+      EViolationError.DAILY_RATE_LIMIT_EXCEEDED,
+      "x-ratelimit-daily-remaining-requests"
+    )
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+}
 
 /* =========================================================
  * MAIN BODY VALIDATOR

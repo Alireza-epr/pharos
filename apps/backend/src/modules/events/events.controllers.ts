@@ -4,7 +4,7 @@ import {
   createErrorMessage,
 } from '../../helpers/utils/controllerUtils';
 import { EFetchMethods, EStatusCode } from '@packages/enum';
-import { samples } from './events.samples';
+
 import config from "../../config/pilot.json"
 import URLs from "../../config/globalFishingWatch.json"
 
@@ -59,7 +59,13 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
     const metadata = await generateRunMetadata([configs], gitCommitSHA)
 
     // Ingestion
-    const events = samples as IEventSchema[];
+    const events = a_Req.events;
+    if (events === undefined) {
+      return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+        success: false,
+        error: [`No events available`],
+      });
+    }
 
     // Filtering
     const filteredEvents = applyFilter(events, configs.filter)

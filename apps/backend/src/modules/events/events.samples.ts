@@ -2556,3 +2556,57 @@ export const samples: any = [
     version: '1.0.0',
   },
 ];
+
+export const report_response = {
+  headers: {
+    date: 'Mon, 01 Jun 2026 12:16:53 GMT',
+    'content-type': 'application/json; charset=utf-8',
+    'transfer-encoding': 'chunked',
+    connection: 'keep-alive',
+    'access-control-allow-credentials': 'true',
+    'access-control-allow-headers': 'Accept,Content-Type,cookie,refresh-token,Accept-Encoding,Authorization,origin,referer,user-agent,Access-Control-Allow-Origin,indexes-0,indexes-1,indexes-2,indexes-3,indexes-4,indexes-5,indexes-6,indexes-7,x-workspace-password',
+    'access-control-allow-methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+    'access-control-allow-origin': '*',
+    'access-control-expose-headers': 'indexes-0,indexes-1,indexes-2,indexes-3,indexes-4,indexes-5,indexes-6,indexes-7,x-deprecated-dataset,x-ratelimit-daily-current-usage,x-ratelimit-daily-limit-requests,x-ratelimit-daily-remaining-requests,x-ratelimit-daily-reset-hours,x-ratelimit-monthly-current-usage,x-ratelimit-monthly-limit-requests,x-ratelimit-monthly-remaining-requests,x-ratelimit-monthly-reset-days, x-last-report-uri,x-rows,x-columns,x-offset,x-scale,x-empty-value,x-bins-0,x-bins-count-0',
+    cache: 'true',
+    'cache-control': 'private, max-age=604800',
+    'cache-duration': '14400',
+    'datasets-to-check': 'public-global-vessel-identity:v3.0',
+    origin: 'GFW API Gateway',
+    'transaction-id': '23e2917a-aa27-4d05-ae64-9d4937366b50',
+    vary: 'Accept-Encoding',
+    'x-datasets': 'public-global-sar-presence:v3.0',
+    'x-deprecated-dataset': 'public-global-sar-presence:v3.0=public-global-sar-presence:v4.0',
+    'x-ratelimit-daily-current-usage': '0',
+    'x-ratelimit-daily-limit-requests': '50000',
+    'x-ratelimit-daily-remaining-requests': '50000',
+    'x-ratelimit-daily-reset-hours': '0',
+    'x-ratelimit-monthly-current-usage': '634',
+    'x-ratelimit-monthly-limit-requests': '1500000',
+    'x-ratelimit-monthly-remaining-requests': '1499366',
+    'x-ratelimit-monthly-reset-days': '0',
+    'content-encoding': 'gzip',
+    server: 'cloudflare',
+    'cf-cache-status': 'DYNAMIC',
+    'cf-ray': 'a04e2685ef5c8cb6-FRA'
+  },
+  data: samples
+}
+
+export const report_response_rate_limit_exceeded = {
+  headers: {
+    ...report_response.headers,
+    "x-ratelimit-daily-limit-requests": "50000",
+    "x-ratelimit-monthly-limit-requests": "1500000",
+
+    "x-ratelimit-daily-remaining-requests": "12430",
+    "x-ratelimit-monthly-remaining-requests": "842310",
+
+    "x-ratelimit-daily-current-usage": "37570",
+    "x-ratelimit-monthly-current-usage": "657690",
+
+    "x-ratelimit-daily-reset-hours": "18",
+    "x-ratelimit-monthly-reset-days": "27"
+  },
+  data: samples
+}

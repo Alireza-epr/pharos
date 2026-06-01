@@ -4,7 +4,7 @@ import {
   IValidationError,
   IValidationResult,
 } from '@packages/types';
-import { EResponseError, EStatusCode } from '@packages/enum';
+import { EResponseError, EStatusCode, EViolationError } from '@packages/enum';
 import { deepSortObject, isObject } from '@packages/utils';
 
 export const controllerResponse = (
@@ -17,7 +17,7 @@ export const controllerResponse = (
 
 export const addError = (
   a_Errors: IValidationError[],
-  a_Message: EResponseError,
+  a_Message: EResponseError | EViolationError,
   a_Field: string,
 ) => {
   a_Errors.push({

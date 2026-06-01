@@ -9,6 +9,27 @@ http://localhost:<API_PORT>/v1/
 https://<DOMAIN>/api/v1
 
 ---
+## Rate Limit
+
+The API relies on the source's rate-limiting policies. Requests may be rejected with HTTP `429 Too Many Requests` when daily or monthly usage limits are exceeded. The service validates the rate-limit headers returned by the provider and returns a violation error when the configured thresholds are reached. 
+For more information, see the API documentation https://globalfishingwatch.org/our-apis/documentation?utm_source=chatgpt.com#rate-limits
+
+```json
+{
+  "error": [
+    {
+      "field": "x-ratelimit-monthly-remaining-requests",
+      "message": "Monthly rate limit exceeded"
+    },
+    {
+      "field": "x-ratelimit-daily-remaining-requests",
+      "message": "Daily rate limit exceeded"
+    }
+  ],
+  "success": false
+}
+```
+---
 
 ## Table of Contents
 

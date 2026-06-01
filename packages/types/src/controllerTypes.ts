@@ -1,4 +1,4 @@
-import { EResponseError, EResponseMessage } from "@packages/enum";
+import { EResponseError, EViolationError } from "@packages/enum";
 import { IEventSchema, IRunMetadata } from "./eventTypes";
 import { IStats } from "./generalTypes";
 
@@ -15,7 +15,7 @@ export interface IResponse {
 
 export interface IValidationError {
   field: string;
-  message: EResponseError;
+  message: EResponseError | EViolationError;
 }
 
 export interface IValidationResult {
