@@ -1,0 +1,537 @@
+openapi: 3.0.3
+
+info:
+  title: Pharos API
+  version: 1.0.0
+  description: >
+    Pharos API provides filtered, sorted, and paginated marine event report data
+    based on geospatial configuration, scoring thresholds, and filtering rules.
+    Data is sourced from Global Fishing Watch and subject to their rate-limiting policies.
+  contact: {}
+  license:
+    name: See Global Fishing Watch API Terms
+    url: https://globalfishingwatch.org/our-apis/documentation
+
+servers:
+  - url: http://localhost:{port}/v1
+    description: Local development server
+    variables:
+      port:
+        default: "8080"
+        description: Port the local API server is running on
+  - url: https://{domain}/api/v1
+    description: Production server (future)
+    variables:
+      domain:
+        default: example.com
+        description: Production domain
+
+tags:
+  - name: System
+    description: Health and liveness checks
+  - name: Events
+    description: Marine event report queries
+
+paths:
+
+  /system/health:
+    get:
+      tags:
+        - System
+      summary: System health check
+      operationId: getSystemHealth
+      description: >
+        Liveness check endpoint used to verify that the API service is running
+        and reachable. Used by monitoring tools and load balancers. Always fast
+        and lightweight — does not return internal error payloads when down.
+      security: []
+      responses:
+        "200":
+          description: Service is healthy and running
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                success: true
+        "503":
+          description: Service is running but currently unhealthy or not ready to serve requests
+        default:
+          description: No response / timeout — service is down, unreachable, or not responding
+
+  /events:
+    post:
+      tags:
+        - Events
+      summary: Get events report
+      operationId: getEventsReport
+      description: >
+        Returns filtered, sorted, and paginated event report data based on
+        geospatial configuration, scoring thresholds, and filtering rules.
+        Filtering and sorting are both applied before pagination.
+        Supports offset-based pagination and multi-field sorting.
+        Intended for analytics workloads.
+      security: []
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          description: Number of items per page returned in the response
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          required: true
+          description: Pagination offset used to fetch a specific slice of results
+          schema:
+            type: integer
+            minimum: 0
+        - name: region-dataset
+          in: query
+          required: true
+          description: Dataset used to resolve region context (e.g. EEZ / MPA datasets)
+          schema:
+            type: string
+        - name: region-id
+          in: query
+          required: true
+          description: Identifier of the selected region
+          schema:
+            type: string
+        - name: buffer-operation
+          in: query
+          required: false
+          description: Operation applied to region buffering logic (if used)
+          schema:
+            type: string
+        - name: buffer-unit
+          in: query
+          required: false
+          description: Unit used for buffer distance calculation
+          schema:
+            $ref: "#/components/schemas/BufferUnit"
+        - name: buffer-value
+          in: query
+          required: false
+          description: Numeric buffer distance applied to region
+          schema:
+            type: string
+
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventsReportRequest"
+            example:
+              body_params:
+                region:
+                  dataset: public-eez-areas
+                  id: "8371"
+              filter:
+                triage_score_min: 0.6
+                is_inside_eez: true
+              sort:
+                - sortBy: scoring.triage_score
+                  direction: desc
+              hotspot:
+                resolution: 5
+                timeBin: HOURLY
+              threshold:
+                near_coast_threshold: 10
+                low_triage_score_threshold: 0.3
+                medium_triage_score_threshold: 0.6
+                high_triage_score_threshold: 0.85
+
+      responses:
+        "200":
+          description: Successful response — with or without matching data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventsReportResponse"
+              examples:
+                with_data:
+                  summary: Response with results
+                  value:
+                    success: true
+                    metadata: {}
+                    pagination:
+                      total: 120
+                      limit: 10
+                      offset: 0
+                      nextOffset: 10
+                      prevOffset: null
+                      pageSize: 10
+                      totalPages: 12
+                      currentPage: 1
+                    stats: {}
+                    entries: []
+                empty:
+                  summary: Empty dataset
+                  value:
+                    success: true
+                    metadata: {}
+                    pagination:
+                      total: 0
+                      limit: 10
+                      offset: 0
+                      nextOffset: null
+                      prevOffset: null
+                      pageSize: 0
+                      totalPages: 0
+                      currentPage: 1
+                    entries: []
+        "400":
+          description: >
+            Bad Request — possible causes:
+            invalid query parameters, body validation failure,
+            or offset exceeds total available items.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Rate limit exceeded (daily or monthly)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+              example:
+                success: false
+                error:
+                  - field: x-ratelimit-monthly-remaining-requests
+                    message: Monthly rate limit exceeded
+                  - field: x-ratelimit-daily-remaining-requests
+                    message: Daily rate limit exceeded
+        "500":
+          description: Internal Server Error — unexpected server-side failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+
+  schemas:
+
+    # ─── Shared ────────────────────────────────────────────────────────────────
+
+    BufferUnit:
+      type: string
+      enum:
+        - MILES
+        - NAUTICALMILES
+        - KILOMETERS
+        - RADIANS
+        - DEGREES
+
+    # ─── Health ────────────────────────────────────────────────────────────────
+
+    HealthResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Request status
+      required:
+        - success
+
+    # ─── Events Request ────────────────────────────────────────────────────────
+
+    EventsReportRequest:
+      type: object
+      properties:
+        body_params:
+          $ref: "#/components/schemas/BodyParams"
+        filter:
+          $ref: "#/components/schemas/Filter"
+        sort:
+          $ref: "#/components/schemas/SortArray"
+        hotspot:
+          $ref: "#/components/schemas/Hotspot"
+        threshold:
+          $ref: "#/components/schemas/Threshold"
+
+    BodyParams:
+      type: object
+      nullable: true
+      description: Spatial and external request configuration object
+      properties:
+        geojson:
+          $ref: "#/components/schemas/GeoJsonGeometry"
+        region:
+          $ref: "#/components/schemas/Region"
+
+    GeoJsonGeometry:
+      type: object
+      description: GeoJSON geometry used to spatially filter events
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+            - LineString
+            - Polygon
+            - MultiPoint
+            - MultiLineString
+            - MultiPolygon
+          description: Geometry type
+        coordinates:
+          type: array
+          description: GeoJSON coordinates defining the geometry
+          items: {}
+
+    Region:
+      type: object
+      description: Region-based spatial filter configuration
+      properties:
+        dataset:
+          type: string
+          enum:
+            - public-eez-areas
+            - public-mpa-all
+          description: Dataset used for region selection
+        id:
+          type: string
+          description: Region identifier
+        bufferOperation:
+          type: string
+          description: Buffer operation applied to region geometry
+        bufferUnit:
+          $ref: "#/components/schemas/BufferUnit"
+        bufferValue:
+          type: string
+          description: Buffer distance value applied to region
+
+    Filter:
+      type: object
+      description: Filtering rules applied before pagination
+      properties:
+        triage_score_min:
+          type: number
+          description: Minimum triage score filter
+        triage_score_max:
+          type: number
+          description: Maximum triage score filter
+        uncertainty_score_min:
+          type: number
+          description: Minimum uncertainty score filter
+        uncertainty_score_max:
+          type: number
+          description: Maximum uncertainty score filter
+        distance_to_coast_km_min:
+          type: number
+          description: Minimum distance to coast (km)
+        distance_to_coast_km_max:
+          type: number
+          description: Maximum distance to coast (km)
+        reason_codes_include:
+          type: array
+          items:
+            type: string
+          description: Include only events with these reason codes
+        reason_codes_exclude:
+          type: array
+          items:
+            type: string
+          description: Exclude events with these reason codes
+        is_inside_eez:
+          type: boolean
+          description: Filter events inside an Exclusive Economic Zone
+        is_inside_mpa:
+          type: boolean
+          description: Filter events inside a Marine Protected Area
+        bathymetry_min:
+          type: number
+          description: Minimum bathymetry value
+        bathymetry_max:
+          type: number
+          description: Maximum bathymetry value
+
+    SortArray:
+      type: array
+      description: Array of sorting rules applied to the result set
+      default:
+        - sortBy: scoring.triage_score
+          direction: desc
+        - sortBy: scoring.uncertainty_score
+          direction: asc
+        - sortBy: timestamp_utc
+          direction: desc
+      items:
+        $ref: "#/components/schemas/SortRule"
+
+    SortRule:
+      type: object
+      required:
+        - sortBy
+      properties:
+        sortBy:
+          type: string
+          description: Field used for sorting results
+        direction:
+          type: string
+          enum:
+            - asc
+            - desc
+          description: Sort direction
+
+    Hotspot:
+      type: object
+      description: Configuration object defining hotspot calculation rules
+      required:
+        - resolution
+        - timeBin
+      properties:
+        resolution:
+          type: integer
+          minimum: 1
+          maximum: 16
+          description: Spatial resolution level (1–16 scale)
+          default: 5
+        timeBin:
+          type: string
+          enum:
+            - HOURLY
+            - DAILY
+          description: Time aggregation bin
+          default: HOURLY
+
+    Threshold:
+      type: object
+      description: Configuration object defining scoring and classification thresholds
+      properties:
+        near_coast_threshold:
+          type: number
+          description: Threshold for coastal proximity classification
+          default: 10
+        low_confidence_proxy_threshold:
+          type: number
+          description: Low confidence proxy threshold
+          default: 2
+        shallow_water_threshold:
+          type: number
+          description: Shallow water classification threshold
+          default: -50
+        deep_water_threshold:
+          type: number
+          description: Deep water classification threshold
+          default: -200
+        low_triage_score_threshold:
+          type: number
+          description: Low triage score threshold
+          default: 0.3
+        medium_triage_score_threshold:
+          type: number
+          description: Medium triage score threshold
+          default: 0.6
+        high_triage_score_threshold:
+          type: number
+          description: High triage score threshold
+          default: 0.85
+
+    # ─── Events Response ───────────────────────────────────────────────────────
+
+    EventsReportResponse:
+      type: object
+      required:
+        - success
+        - pagination
+        - entries
+      properties:
+        success:
+          type: boolean
+          description: Request status
+        metadata:
+          type: object
+          description: Execution metadata
+          additionalProperties: true
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+        stats:
+          type: object
+          description: Aggregated statistics for returned events
+          additionalProperties: true
+        entries:
+          type: array
+          description: List of event records
+          items:
+            type: object
+            additionalProperties: true
+
+    Pagination:
+      type: object
+      description: Pagination information
+      required:
+        - total
+        - limit
+        - offset
+        - pageSize
+        - totalPages
+        - currentPage
+      properties:
+        total:
+          type: integer
+          description: Total number of matching records
+        limit:
+          type: integer
+          description: Page size limit
+        offset:
+          type: integer
+          description: Current offset
+        nextOffset:
+          type: integer
+          nullable: true
+          description: Next page offset
+        prevOffset:
+          type: integer
+          nullable: true
+          description: Previous page offset
+        pageSize:
+          type: integer
+          description: Number of items in current page
+        totalPages:
+          type: integer
+          description: Total number of pages
+        currentPage:
+          type: integer
+          description: Current page index
+
+    # ─── Errors ────────────────────────────────────────────────────────────────
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+
+    RateLimitErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field or header related to the error
+        message:
+          type: string
+          description: Human-readable error message

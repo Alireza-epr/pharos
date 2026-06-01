@@ -1,0 +1,21 @@
+name: Lint OpenAPI
+
+on:
+  push:
+    paths:
+      - 'docs/api/openapi.yaml'
+  pull_request:
+    paths:
+      - 'docs/api/openapi.yaml'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Spectral
+        run: npm install -g @stoplight/spectral-cli
+
+      - name: Lint OpenAPI spec
+        run: spectral lint docs/api/openapi.yaml
