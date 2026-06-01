@@ -34,7 +34,7 @@ jobs:
       - name: Generate OpenAPI
         id: generate
         run: |
-          node scripts/generate-openapi.js
+          node infrastructure/scripts/generate-openapi.js
 
           # detect if file changed
           if diff --quiet docs/api/openapi.yaml docs/api/openapi.generated.yaml; then
