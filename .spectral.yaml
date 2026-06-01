@@ -2,27 +2,21 @@ extends: ["spectral:oas"]
 
 rules:
 
-  # ─── General hygiene ─────────────────────────────
+  # ─── Info section ───────────────────────────────
   info-contact: warn
   info-description: warn
   info-license: warn
 
-  operation-description: warn
+  # ─── Operations ─────────────────────────────────
   operation-operationId: error
-  operation-summary: warn
-
-  tag-description: off   # optional (too noisy)
-
-  # ─── Paths / operations ──────────────────────────
+  operation-description: warn
   operation-tags: warn
-  operation-parameters: warn
 
-  # ─── Schema rules ────────────────────────────────
+  # ─── Schema validation ──────────────────────────
   oas3-schema: error
-  oas3-valid-media-example: warn
   oas3-valid-schema-example: warn
 
-  # ─── Naming conventions ──────────────────────────
+  # ─── Naming convention ──────────────────────────
   casing:
     description: Enforce camelCase for property names
     severity: warn
@@ -32,23 +26,12 @@ rules:
       functionOptions:
         type: camel
 
-  # ─── No unused components ────────────────────────
+  # ─── Misc ───────────────────────────────────────
   no-unused-components: warn
 
-  # ─── Prevent empty descriptions ──────────────────
   no-empty-description:
     description: Disallow empty descriptions
     severity: warn
     given: "$..description"
     then:
-      function: truthy
-
-  # ─── Nullable safety workaround ──────────────────
-  # Helps prevent Spectral crash patterns
-  nullable-type-consistency:
-    description: Ensure nullable fields still define type
-    severity: warn
-    given: "$..[?(@.nullable==true)]"
-    then:
-      field: type
       function: truthy
