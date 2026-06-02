@@ -10,14 +10,10 @@ import {
   I4wingsAPIResponse,
 } from '@packages/types';
 import {
-  EReasonCodes,
-  EReasonCodesStatic,
-} from '@packages/enum';
-import {
   getEntriesFrom4wingsResponse,
   log,
 } from '../helpers/utils/backendUtils';
-import { ELogType, ICSVGroup } from '../helpers/types/generalTypes';
+import { ELogType, ICSVGroup, TEventCSVRow } from '../helpers/types/generalTypes';
 import {
   parquetSchema,
   parquetSchema_hotspot,
@@ -47,7 +43,7 @@ import { generateRunMetadata } from './normalize/generation';
 import { fs_readFileSync } from './export/fs';
 import { getStats } from './aggregate/stats';
 import { applyFilter } from './normalize/filter';
-import { writeCSV } from './export/csv';
+import { createCSVRows, writeCSV } from './export/csv';
 import { writeParquet } from './export/parquet';
 import { writeGeoJSON } from './export/geojson';
 import { writeJSON } from './export/json';
@@ -127,35 +123,12 @@ const main = async (a_Config: IConfigJSON) => {
   writeGeoJSON(`${a_Config.output}events`, featureFromEvents(enrichedEvents))
 
   //event.parquet
-  const rows = enrichedEvents.map((event) => {
-    const reason_codes = event.scoring.reason_codes;
-    let edge_case_flags: { [key in EReasonCodes]?: boolean } =
-      Object.fromEntries(
-        Object.keys(EReasonCodesStatic).map((key) => [key, false]),
-      );
-
-    if (reason_codes) {
-      for (const reason_code of reason_codes) {
-        edge_case_flags[reason_code] = true;
-      }
-    }
-
-    return {
-      event_id: event.event_id,
-      timestamp_utc: event.timestamp_utc,
-      matched_flag: event.matched_flag,
-      lat: event.lat,
-      lon: event.lon,
-      confidence_proxy: event.confidence_proxy ?? null,
-      confidence_tier: event.confidence_tier,
-      distance_to_coast_km: event.distance_to_coast_km,
-      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
-      triage_score: event.scoring.triage_score ?? null,
-      uncertainty_score: event.scoring.uncertainty_score ?? null,
-      ...edge_case_flags,
-    };
-  });
+  const rows: TEventCSVRow[] = createCSVRows(enrichedEvents)
   await writeParquet(`${a_Config.output}events`, rows, parquetSchema);
+
+  //events.csv
+  const csv_events: ICSVGroup<TEventCSVRow>[]= [{ title:'Events', samples: rows}]
+  writeCSV(`${a_Config.output}events`, [csv_events])
 
   //stats.json
   const stats = getStats(enrichedEvents);

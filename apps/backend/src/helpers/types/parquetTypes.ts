@@ -17,6 +17,8 @@ const baseSchema: Record<string, TParquetField> = {
   confidence_tier: { type: 'UTF8' },
   distance_to_coast_km: { type: 'DOUBLE', optional: true },
   bathymetry_m: { type: 'UTF8' },
+  eez: { type: 'UTF8', optional: true },
+  mpa: { type: 'UTF8', optional: true },
   triage_score: { type: 'DOUBLE', optional: true },
   uncertainty_score: { type: 'DOUBLE', optional: true },
 };

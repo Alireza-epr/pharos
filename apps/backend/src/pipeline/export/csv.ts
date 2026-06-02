@@ -1,6 +1,8 @@
 import fs from 'fs';
 import { fs_writeFileSync } from './fs';
-import { ICSVGroup } from '../../helpers/types/generalTypes';
+import { ICSVGroup, TEventCSVRow } from '../../helpers/types/generalTypes';
+import { IEventSchema } from '@packages/types';
+import { EReasonCodes, EReasonCodesStatic } from '@packages/enum';
 
 
 const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
@@ -55,6 +57,53 @@ const csvString = <T, N>(
   return csvString;
 };
 
+export const createCSVRows = (
+  a_Events: IEventSchema[]
+) => {
+  const rows: TEventCSVRow[] = a_Events.map((event) => {
+    const reason_codes = event.scoring.reason_codes;
+    let edge_case_flags: { [key in EReasonCodes]?: boolean } =
+      Object.fromEntries(
+        Object.keys(EReasonCodesStatic).map((key) => [key, false]),
+      );
+
+    if (reason_codes) {
+      for (const reason_code of reason_codes) {
+        edge_case_flags[reason_code] = true;
+      }
+    }
+
+    const eez = event.context_layers.EEZ.enrichments.length > 0 ?
+      event.context_layers.EEZ.enrichments.map( e => e.label).join(", ")
+      : undefined
+    
+      
+    const mpa = event.context_layers.MPA.enrichments.length > 0 ?
+      event.context_layers.MPA.enrichments.map( e => e.label).join(", ")
+      : undefined
+
+      
+    return {
+      event_id: event.event_id,
+      timestamp_utc: event.timestamp_utc,
+      matched_flag: event.matched_flag,
+      lat: event.lat,
+      lon: event.lon,
+      confidence_proxy: event.confidence_proxy ?? null,
+      confidence_tier: event.confidence_tier,
+      distance_to_coast_km: event.distance_to_coast_km,
+      bathymetry_m: event.context_layers.Bathymetry.enrichments[0].value,
+      triage_score: event.scoring.triage_score ?? null,
+      uncertainty_score: event.scoring.uncertainty_score ?? null,
+      mpa,
+      eez,
+      ...edge_case_flags,
+    };
+  });
+
+  return rows
+}
+
 export const writeCSV = <T>(
   a_OutputPath: string,
   a_CSVGroups: ICSVGroup<T>[][],
@@ -65,14 +114,14 @@ export const writeCSV = <T>(
     const thisCSVString = csvString(
       csvGroup[0].title,
       csvGroup[0].samples,
-      csvGroup[1].title,
-      csvGroup[1].samples,
+      csvGroup[1]?.title,
+      csvGroup[1]?.samples,
     )
     csvStrings.push(thisCSVString + '\n' + '\n')
   }
   const joined = csvStrings.join(' ')
   fs_writeFileSync(
-    a_OutputPath+".csv",
+    a_OutputPath + ".csv",
     joined,
     undefined,
     undefined,
