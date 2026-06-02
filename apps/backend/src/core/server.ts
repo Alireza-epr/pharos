@@ -10,6 +10,7 @@ import authRoutes from '../modules/auth/auth.routes';
 import eventsRoutes from '../modules/events/events.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
+import { attachStartTime } from '../middlewares/timeMiddleware';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(responseLogger);
 
 // --- Attachments ---
 
+app.use(attachStartTime)
 app.use(attachGitCommitSHA)
 
 // --- Endpoints ---

@@ -13,9 +13,17 @@ import { validateBodyParams, validateQueryParams } from './events.validators';
 import { getStats } from '../../pipeline/aggregate/stats';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
 import { applyFilter } from '../../pipeline/normalize/filter';
+import { formatTimestamp } from '../../helpers/utils/backendUtils';
 
 export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLParams>, a_Res: Response) => {
-  const gitCommitSHA = a_Req.gitCommitSHA;
+
+  const events = a_Req.events;
+  if (events === undefined) {
+    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+      success: false,
+      error: [`No events available`],
+    });
+  }
 
   const body = a_Req.body;
   const url_params = a_Req.query;
@@ -56,17 +64,7 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       hotspot,
       filter
     }
-    const metadata = await generateRunMetadata([configs], gitCommitSHA)
-
-    // Ingestion
-    const events = a_Req.events;
-    if (events === undefined) {
-      return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
-        success: false,
-        error: [`No events available`],
-      });
-    }
-
+    
     // Filtering
     const filteredEvents = applyFilter(events, configs.filter)
 
@@ -102,7 +100,16 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       currentPage
     }
 
-    // Stats
+    // Metadata
+    const end = formatTimestamp();
+    const metadata = await generateRunMetadata(
+      [configs], 
+      events, 
+      a_Req.start_time, 
+      end, 
+      a_Req.gitCommitSHA
+    )
+
     if (thisPageEvents.length === 0) {
       return controllerResponse(a_Res, EStatusCode.OK_200, {
         success: true,

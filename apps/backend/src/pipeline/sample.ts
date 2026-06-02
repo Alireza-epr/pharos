@@ -44,8 +44,6 @@ import {
 } from '../helpers/utils/datasetUtils';
 import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
-import { export_run_metadata } from './export/export';
-import { getExecutionDuration } from '@packages/utils';
 import { fs_readFileSync } from './export/fs';
 import { getStats } from './aggregate/stats';
 import { applyFilter } from './normalize/filter';
@@ -175,7 +173,13 @@ const main = async (a_Config: IConfigJSON) => {
 
   //run_metadata.json
   const end = formatTimestamp();
-  const run_metadata = await export_run_metadata(enrichedEvents, start, end);
+  const run_metadata = await generateRunMetadata(
+    [a_Config], 
+    enrichedEvents, 
+    start, 
+    end, 
+    gitCommitSHA
+  );
   writeJSON(`${a_Config.output}run_metadata`, run_metadata);
   log('Pilot finished.', ELogType.info);
 };
@@ -229,10 +233,11 @@ const validation = async (
       },
       run_metadata: await generateRunMetadata(
         a_Configs[EValidationStrata.distance_to_coast],
-      ),
-      execution_duration_sec: Math.floor(
-        getExecutionDuration(strata_1_start, strata_1_end) / 1000,
-      ),
+        strata_1_samples.events,
+        strata_1_start,
+        strata_1_end,
+        gitCommitSHA
+      )
     };
     setManifest.add(strata_1_manifest);
 
@@ -285,10 +290,11 @@ const validation = async (
       },
       run_metadata: await generateRunMetadata(
         a_Configs[EValidationStrata.confidence_tier],
-      ),
-      execution_duration_sec: Math.floor(
-        getExecutionDuration(strata_2_start, strata_2_end) / 1000,
-      ),
+        [...strata_2_samples_1.events, ...strata_2_samples_2.events],
+        strata_2_start,
+        strata_2_end,
+        gitCommitSHA
+      )
     };
     setManifest.add(strata_2_manifest);
 
@@ -343,10 +349,11 @@ const validation = async (
       },
       run_metadata: await generateRunMetadata(
         a_Configs[EValidationStrata.density],
-      ),
-      execution_duration_sec: Math.floor(
-        getExecutionDuration(strata_3_start, strata_3_end) / 1000,
-      ),
+        [...strata_3_samples_1.events, ...strata_3_samples_2.events],
+        strata_3_start,
+        strata_3_end,
+        gitCommitSHA
+      )
     };
     setManifest.add(strata_3_manifest);
 

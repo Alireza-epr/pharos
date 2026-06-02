@@ -15,8 +15,8 @@ import {
   TGlobalEvent,
   I4wingsEntry,
 } from '@packages/types';
-import { deepSortObject } from '@packages/utils';
-import { hashString } from '../../helpers/utils/backendUtils';
+import { deepSortObject, getExecutionDuration } from '@packages/utils';
+import { getContextLayersFromEvents, getSourcesFromEvents, hashString } from '../../helpers/utils/backendUtils';
 import config from '../../config/pilot.json';
 import {
   isMatchedCase,
@@ -114,16 +114,25 @@ export const generateConfidence_heuristic = (
 
 export const generateRunMetadata = async (
   a_Configurations: IConfigJSON[],
-  a_GITCommit?: string 
+  a_Events?: IEventSchema[],
+  a_Start?: string,
+  a_End?: string,
+  a_GITCommit?: string
 ): Promise<IRunMetadata> => {
   const canonicalObject = deepSortObject(a_Configurations);
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
+  const execution_duration_ms = a_Start && a_End ? getExecutionDuration(a_Start, a_End) : undefined;
   return {
-    code_version: a_GITCommit ? a_GITCommit : gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
-    config_json: canonicalObject,
     config_hash,
+    config_json: canonicalObject,
+    git_commit_version: a_GITCommit ? a_GITCommit : gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
+    run_time: new Date().toISOString(),
+    dataset_version: a_Events ? getSourcesFromEvents(a_Events) : undefined,
+    context_layer_versions: a_Events ? getContextLayersFromEvents(a_Events) : undefined,
+    execution_duration_sec: execution_duration_ms
+      ? Number((execution_duration_ms / 1000).toFixed(3)) : undefined
   };
 };
 

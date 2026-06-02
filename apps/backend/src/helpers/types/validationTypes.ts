@@ -115,6 +115,5 @@ export interface IValidationManifest {
   stratum_sample_sizes: {
     [key: string]: number;
   };
-  run_metadata: IRunMetadata;
-  execution_duration_sec: number;
+  run_metadata: IRunMetadata
 }

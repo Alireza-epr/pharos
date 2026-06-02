@@ -75,7 +75,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -149,7 +148,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.086,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.136Z"
     },
     "scoring": {
       "reason_codes": [
@@ -240,7 +244,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -314,7 +317,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.08,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.912Z"
     },
     "scoring": {
       "reason_codes": [
@@ -403,7 +411,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -477,7 +484,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.085,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.890Z"
     },
     "scoring": {
       "reason_codes": [
@@ -566,7 +578,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -640,7 +651,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.101,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.237Z"
     },
     "scoring": {
       "reason_codes": [
@@ -729,7 +745,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -803,7 +818,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.09,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.430Z"
     },
     "scoring": {
       "reason_codes": [
@@ -892,7 +912,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -966,7 +985,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.097,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.636Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1055,7 +1079,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1129,7 +1152,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.302,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.559Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1218,7 +1246,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1292,7 +1319,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.079,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.638Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1381,7 +1413,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1455,7 +1486,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.079,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.717Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1544,7 +1580,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1618,7 +1653,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.103,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.340Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1707,7 +1747,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1781,7 +1820,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.085,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.997Z"
     },
     "scoring": {
       "reason_codes": [
@@ -1870,7 +1914,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -1944,7 +1987,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-sar-presence:v3.0",
+      "execution_duration_sec": 0.105,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.742Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2032,7 +2080,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2106,7 +2153,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.086,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.804Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2194,7 +2246,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2268,7 +2319,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.082,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:08.972Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2356,7 +2412,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2430,7 +2485,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.109,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.539Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2518,7 +2578,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2592,7 +2651,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.089,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.832Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2680,7 +2744,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2754,7 +2817,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.078,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:10.075Z"
     },
     "scoring": {
       "reason_codes": [
@@ -2842,7 +2910,6 @@
     },
     "rejected": false,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "b7984adcfacaa1fbc9a93b13809aac697e451c70d5e43543c865499da8856db5",
       "config_json": [
         {
@@ -2916,7 +2983,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6, Bathymetry:gebco_2025_sub_ice_topo:v2.7",
+      "dataset_version": "public-global-vessel-identity:v3.0",
+      "execution_duration_sec": 0.078,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:35:09.050Z"
     },
     "scoring": {
       "reason_codes": [

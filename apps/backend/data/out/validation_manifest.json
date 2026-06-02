@@ -1,8 +1,6 @@
 [
   {
-    "execution_duration_sec": 6,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "9fbd8b2190ba0572be76ca2f7818a2e3c61f96dbab6d75ce1561749e172efbc8",
       "config_json": [
         {
@@ -35,7 +33,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
+      "dataset_version": "public-global-sar-presence:v3.0",
+      "execution_duration_sec": 20.362,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:37:51.551Z"
     },
     "strata": "distance_to_coast",
     "stratum_sample_sizes": {
@@ -44,9 +47,7 @@
     }
   },
   {
-    "execution_duration_sec": 14,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "558a481971859a6af519a2c197914c6735688514c0fe4c8f5a6722a9d2b52420",
       "config_json": [
         {
@@ -109,7 +110,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
+      "dataset_version": "public-global-sar-presence:v3.0",
+      "execution_duration_sec": 14.3,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:38:05.853Z"
     },
     "strata": "confidence_tier",
     "stratum_sample_sizes": {
@@ -118,9 +124,7 @@
     }
   },
   {
-    "execution_duration_sec": 3,
     "run_metadata": {
-      "code_version": "c0736843bfa8935a1a7a5ce48c3ec5cd9a4872d6",
       "config_hash": "7595dd9eb10518715d2b076c54fa41a4a7aeefa93400398a3b8648551b1d42ac",
       "config_json": [
         {
@@ -235,7 +239,12 @@
             "temporal-resolution": "HOURLY"
           }
         }
-      ]
+      ],
+      "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
+      "dataset_version": "public-global-sar-presence:v3.0",
+      "execution_duration_sec": 10.265,
+      "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
+      "run_time": "2026-06-02T12:38:16.120Z"
     },
     "strata": "density",
     "stratum_sample_sizes": {

@@ -27,7 +27,11 @@ export interface IContextLayer {
 export interface IRunMetadata {
   config_hash: string;
   config_json: IConfigJSON[];
-  code_version: string;
+  git_commit_version: string;
+  run_time: string,
+  dataset_version: string | undefined, 
+  context_layer_versions: string | undefined,
+  execution_duration_sec: number | undefined
 }
 
 export interface IScoring {
@@ -65,7 +69,7 @@ export interface IEventSchema {
   confidence_tier: EConfidenceTiers;
   raw_metadata: I4wingsEntry;
   raw_event_metadata: TGlobalEvent | null;
-  run_metadata: IRunMetadata;
+  run_metadata: IRunMetadata | null;
   scoring: IScoring;
   rejected: false;
   hotspot: IEventHotspot | null;

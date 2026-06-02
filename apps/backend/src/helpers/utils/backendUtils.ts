@@ -3,6 +3,7 @@ import path from 'path';
 import { is4wingsSource } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
+  EContextLayers,
   EEventDatasets,
   EHotspotTimeBins,
 } from '@packages/enum';
@@ -162,6 +163,25 @@ export const getSourcesFromEvents = (a_Events: IEventSchema[]) => {
     if (!sources.has(source)) sources.add(source);
   }
   return Array.from(sources)
+    .map((s) => s)
+    .join(', ');
+};
+
+export const getContextLayersFromEvents = (a_Events: IEventSchema[]) => {
+  const allLayers = new Set<string>();
+  for (const event of deepSortObject(a_Events)) {
+    const thisEventLayers = event.context_layers;
+    let thisContextLayer = []
+    for(const layer in thisEventLayers){
+      const thisLayerDataset = thisEventLayers[(layer as EContextLayers)].dataset
+      const thisLayerVersion = thisEventLayers[(layer as EContextLayers)].version
+      thisContextLayer.push(layer+":"+thisLayerDataset+":"+thisLayerVersion)
+    }
+    const thisContextLayerJoined = thisContextLayer.join(", ")
+
+    if (!allLayers.has(thisContextLayerJoined)) allLayers.add(thisContextLayerJoined);
+  }
+  return Array.from(allLayers)
     .map((s) => s)
     .join(', ');
 };
