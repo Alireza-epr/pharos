@@ -1,6 +1,5 @@
 import {
   IFilteringParams,
-  IThresholdConfig,
   IValidationError,
   IValidationResult,
 } from '@packages/types';
@@ -15,7 +14,7 @@ import {
   ERegionDatasets,
   EResponseError,
   ESpatialResolution,
-  EStatusCode,
+  EThresholdConfig,
   ETemporalResolution,
   EViolationError,
 } from '@packages/enum';
@@ -265,15 +264,7 @@ const validateThreshold = (
     return;
   }
 
-  const requiredFields: (keyof IThresholdConfig)[] = [
-    'near_coast_threshold',
-    'low_confidence_proxy_threshold',
-    'shallow_water_threshold',
-    'deep_water_threshold',
-    'low_triage_score_threshold',
-    'medium_triage_score_threshold',
-    'high_triage_score_threshold',
-  ];
+  const requiredFields = Object.keys(EThresholdConfig)
 
   for (const field of requiredFields) {
     const value = a_Threshold[field];

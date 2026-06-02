@@ -17,9 +17,7 @@ import {
 } from '@packages/types';
 import { deepSortObject, getExecutionDuration } from '@packages/utils';
 import { getContextLayersFromEvents, getSourcesFromEvents, hashString } from '../../helpers/utils/backendUtils';
-import config from '../../config/pilot.json';
 import {
-  isMatchedCase,
   isNoisyCase,
   missingRequiredFields,
 } from './validation';
@@ -136,24 +134,27 @@ export const generateRunMetadata = async (
   };
 };
 
-export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
+export const generateScoring = (a_EventSchema: IEventSchema, a_Config: IConfigJSON): IScoring => {
+  const thresholds = a_Config.threshold
   const WEIGHTS = {
-    base_uncertainty: 0.1,
+    base_uncertainty: thresholds.base_uncertainty_weight,
 
-    missing_field: 0.08,
-    noisy: 0.15,
-    unmatched: 0.2,
+    missing_field: thresholds.missing_field_weight,
+    noisy: thresholds.noisy_weight,
+    unmatched: thresholds.unmatched_weight,
 
-    near_coast_importance: 0.3,
-    eez_importance: 0.2,
-    mpa_importance: 0.5,
+    near_coast_importance: thresholds.near_coast_importance_weight,
+    eez_importance: thresholds.eez_importance_weight,
+    mpa_importance: thresholds.mpa_importance_weight,
 
-    missing_confidence_proxy: 0.25,
-    low_confidence_proxy: 0.2,
+    missing_confidence_proxy: thresholds.missing_confidence_proxy_weight,
+    low_confidence_proxy: thresholds.low_confidence_proxy_weight,
 
-    low_confidence_tier: 0.08,
-    medium_confidence_tier: 0.0,
-    high_confidence_tier: -0.05,
+    low_confidence_tier: thresholds.low_confidence_tier_weight,
+    medium_confidence_tier: thresholds.medium_confidence_tier_weight,
+    high_confidence_tier: thresholds.high_confidence_tier_weight,
+
+    
   };
 
   const entry = a_EventSchema.raw_metadata;
@@ -201,7 +202,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
     uncertainty_score += WEIGHTS.missing_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
   } else if (
-    confidence_proxy <= config.threshold.low_confidence_proxy_threshold
+    confidence_proxy <= thresholds.low_confidence_proxy_threshold
   ) {
     uncertainty_score += WEIGHTS.low_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.low_confidence_proxy);

@@ -146,7 +146,7 @@ export const createEventSchema = async (
     hotspot: null,
   };
 
-  const scoring = generateScoring(eventSchema);
+  const scoring = generateScoring(eventSchema, a_Configuration);
   const end = formatTimestamp();
   const run_metadata = await generateRunMetadata(
     [a_Configuration],

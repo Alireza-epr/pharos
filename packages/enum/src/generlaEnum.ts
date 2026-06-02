@@ -48,3 +48,25 @@ export enum EHotspotStrength {
   medium = "medium",
   high = "high",
 }
+
+export enum EThresholdConfig {
+  near_coast_threshold = "near_coast_threshold",
+  low_confidence_proxy_threshold = "low_confidence_proxy_threshold",
+  shallow_water_threshold = "shallow_water_threshold",
+  deep_water_threshold = "deep_water_threshold",
+  low_triage_score_threshold = "low_triage_score_threshold",
+  medium_triage_score_threshold = "medium_triage_score_threshold",
+  high_triage_score_threshold = "high_triage_score_threshold",
+  base_uncertainty_weight = "base_uncertainty_weight",
+  missing_field_weight = "missing_field_weight",
+  noisy_weight = "noisy_weight",
+  unmatched_weight = "unmatched_weight",
+  near_coast_importance_weight = "near_coast_importance_weight",
+  eez_importance_weight = "eez_importance_weight",
+  mpa_importance_weight = "mpa_importance_weight",
+  missing_confidence_proxy_weight = "missing_confidence_proxy_weight",
+  low_confidence_proxy_weight = "low_confidence_proxy_weight",
+  low_confidence_tier_weight = "low_confidence_tier_weight",
+  medium_confidence_tier_weight = "medium_confidence_tier_weight",
+  high_confidence_tier_weight = "high_confidence_tier_weight",
+}

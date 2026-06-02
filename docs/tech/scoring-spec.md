@@ -203,7 +203,7 @@ Default thresholds used to calculate scoring(configurable):
 - medium_triage_score_threshold= 0.6
 - high_triage_score_threshold= 0.85
 
-These values are **defaults only** and can be adjusted via configuration:
+These values and other weighted parameters are **defaults only** and can be adjusted via configuration:
 
 `apps/backend/src/config/pilot.json`
 

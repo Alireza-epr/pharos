@@ -303,41 +303,41 @@ describe('isMatchedCase', () => {
 
 describe('generateScoring', () => {
   it('returns_valid_triage_score_between_0_and_1', () => {
-    const scoring = generateScoring(eventSchema_umatched_near_coast);
+    const scoring = generateScoring(eventSchema_umatched_near_coast, sarConfig);
 
     expect(scoring.triage_score).toBeGreaterThanOrEqual(0);
     expect(scoring.triage_score).toBeLessThanOrEqual(1);
   });
 
   it('match_state_logic_produces_correct_match_reason_code', () => {
-    const scoring = generateScoring(eventSchema_matched_near_coast);
+    const scoring = generateScoring(eventSchema_matched_near_coast, sarConfig);
     expect(scoring.reason_codes).toContain(
       EReasonCodesStatic.matched_to_public_ais,
     );
     expect(scoring.reason_codes).toContain(EReasonCodesStatic.near_coast);
 
-    const scoring_2 = generateScoring(eventSchema_matched_offshore);
+    const scoring_2 = generateScoring(eventSchema_matched_offshore, sarConfig);
     expect(scoring_2.reason_codes).toContain(
       EReasonCodesStatic.matched_to_public_ais,
     );
   });
 
   it('uncertainty_increases_for_missing_fields', () => {
-    const scoring = generateScoring(eventSchema_matched_no_date);
+    const scoring = generateScoring(eventSchema_matched_no_date, sarConfig);
 
     expect(scoring.reason_codes).toContain('missing_required_field:date');
     expect(scoring.uncertainty_score).toBeGreaterThan(0);
   });
 
   it('uncertainty_increases_for_noisy_vessel', () => {
-    const scoring = generateScoring(eventSchema_matched_noisy);
+    const scoring = generateScoring(eventSchema_matched_noisy, sarConfig);
 
     expect(scoring.reason_codes).toContain(EReasonCodesStatic.noisy_vessel);
     expect(scoring.uncertainty_score).toBeGreaterThan(0.1);
   });
 
   it('adds_near-coast-EEZ-MPA_reason_codes_correctly', () => {
-    const scoring = generateScoring(eventSchema_context_layers);
+    const scoring = generateScoring(eventSchema_context_layers, sarConfig);
 
     expect(scoring.reason_codes).toEqual(
       expect.arrayContaining([
@@ -349,7 +349,7 @@ describe('generateScoring', () => {
   });
 
   it('adds_low_detection_confidence_reason', () => {
-    const scoring = generateScoring(eventSchema_with_low_confidence);
+    const scoring = generateScoring(eventSchema_with_low_confidence, sarConfig);
 
     expect(scoring.reason_codes).toContain(
       EReasonCodesStatic.low_confidence_proxy,
@@ -357,29 +357,29 @@ describe('generateScoring', () => {
   });
 
   it('detects_all_missing_required_fields', () => {
-    const scoring = generateScoring(eventSchema_matched_no_coord);
+    const scoring = generateScoring(eventSchema_matched_no_coord, sarConfig);
 
     expect(scoring.reason_codes).toContain('missing_required_field:lat');
     expect(scoring.reason_codes).toContain('missing_required_field:lon');
   });
 
   it('triage_score_increases_when_importance_increases', () => {
-    const a = generateScoring(eventSchema_umatched_offshore);
-    const b = generateScoring(eventSchema_umatched_near_coast);
+    const a = generateScoring(eventSchema_umatched_offshore, sarConfig);
+    const b = generateScoring(eventSchema_umatched_near_coast, sarConfig);
 
     expect(b.triage_score).toBeGreaterThanOrEqual(a.triage_score!);
   });
 
   it('importance_is_higher_in_MPA_than_offshore', () => {
-    const offshore = generateScoring(eventSchema_umatched_offshore);
-    const mpa = generateScoring(eventSchema_context_layers);
+    const offshore = generateScoring(eventSchema_umatched_offshore, sarConfig);
+    const mpa = generateScoring(eventSchema_context_layers, sarConfig);
 
     expect(mpa.triage_score).toBeGreaterThan(offshore.triage_score!);
   });
 
   it('ignore_SAR_score_check_logic_for_undefined_matched_flag', () => {
-    const ais = generateScoring(eventSchema_ais_offshore);
-    const fishing = generateScoring(eventSchema_fishing_offshore);
+    const ais = generateScoring(eventSchema_ais_offshore, sarConfig);
+    const fishing = generateScoring(eventSchema_fishing_offshore, sarConfig);
 
     expect(ais.reason_codes).toEqual(
       expect.not.arrayContaining([

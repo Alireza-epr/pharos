@@ -7,6 +7,7 @@ import {
   EHotspotTimeBins,
   EConfidenceTiers,
   EHotspotStrength,
+  EThresholdConfig,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -100,22 +101,13 @@ export interface IConfigJSON {
   method: EFetchMethods;
   body_params: I4wingsReportPostBodyParams;
   url_params: I4wingsReportGetURLParams;
-  threshold: IThresholdConfig;
+  threshold: Record<EThresholdConfig, number>;
   hotspot: IHotspotConfig;
   output?: string;
   filter: IFilteringParams;
   sort: ISortOption[];
 }
 
-export interface IThresholdConfig {
-  near_coast_threshold: number;
-  low_confidence_proxy_threshold: number;
-  shallow_water_threshold: number;
-  deep_water_threshold: number;
-  low_triage_score_threshold: number;
-  medium_triage_score_threshold: number;
-  high_triage_score_threshold: number;
-}
 
 export interface IHotspotConfig {
   resolution: TBuildRange<16>;
