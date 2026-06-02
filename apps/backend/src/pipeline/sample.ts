@@ -1,6 +1,6 @@
 import { createSortedEventSchemas } from './schema/main';
 import {
-  csvString,
+  featureFromEvents,
   formatTimestamp,
   getGitCommitSHA,
 } from '../helpers/utils/backendUtils';
@@ -8,12 +8,8 @@ import { detectionGFW } from './ingest/detections';
 import {
   IConfigJSON,
   I4wingsAPIResponse,
-  FeatureCollection,
-  IGeometry,
-  IHotspot,
 } from '@packages/types';
 import {
-  EGeoCoordinate,
   EReasonCodes,
   EReasonCodesStatic,
 } from '@packages/enum';
@@ -21,8 +17,7 @@ import {
   getEntriesFrom4wingsResponse,
   log,
 } from '../helpers/utils/backendUtils';
-import { ELogType, TEventProperties } from '../helpers/types/generalTypes';
-import { writeParquet } from '../helpers/utils/parquetUtils';
+import { ELogType, ICSVGroup } from '../helpers/types/generalTypes';
 import {
   parquetSchema,
   parquetSchema_hotspot,
@@ -37,7 +32,7 @@ import {
   EValidationStrata,
   IValidationManifest,
   TValidationSample,
-  IValidationStrata,
+  IValidationStrata
 } from '../helpers/types/validationTypes';
 import { validationSamples } from './validation/main';
 import {
@@ -51,9 +46,13 @@ import { distanceToCoast, isNearCoast } from './features/coast_distance';
 import { generateRunMetadata } from './normalize/generation';
 import { export_run_metadata } from './export/export';
 import { getExecutionDuration } from '@packages/utils';
-import { fs_readFileSync, fs_writeFileSync } from './export/fs';
+import { fs_readFileSync } from './export/fs';
 import { getStats } from './aggregate/stats';
 import { applyFilter } from './normalize/filter';
+import { writeCSV } from './export/csv';
+import { writeParquet } from './export/parquet';
+import { writeGeoJSON } from './export/geojson';
+import { writeJSON } from './export/json';
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -90,13 +89,13 @@ const main = async (a_Config: IConfigJSON) => {
   }
 
   //raw_metadata.json
-  fs_writeFileSync(`${a_Config.output}raw_metadata.json`, entries);
+  writeJSON(`${a_Config.output}raw_metadata`, entries);
 
   //raw_metadata.parquet
   await writeParquet(
+    `${a_Config.output}raw_metadata`,
     entries,
-    parquetSchema_raw_metadata,
-    `${a_Config.output}raw_metadata.parquet`,
+    parquetSchema_raw_metadata
   );
 
   log(`Creating event schemas...`, ELogType.info);
@@ -105,7 +104,7 @@ const main = async (a_Config: IConfigJSON) => {
   const notRejectedEvents = sortedEvents.filter((e) => !e.rejected);
   if (notRejectedEvents.length == 0) {
     //canonicalSchema.json
-    fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, sortedEvents);
+    writeJSON(`${a_Config.output}canonicalSchema`, sortedEvents);
 
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
@@ -124,29 +123,10 @@ const main = async (a_Config: IConfigJSON) => {
   );
 
   //canonicalSchema.json
-  fs_writeFileSync(`${a_Config.output}canonicalSchema.json`, enrichedEvents);
+  writeJSON(`${a_Config.output}canonicalSchema`, enrichedEvents);
 
   //event.geojson
-  const geojson: FeatureCollection<IGeometry, TEventProperties> = {
-    type: 'FeatureCollection',
-    features: enrichedEvents.map((event) => ({
-      type: 'Feature',
-      properties: {
-        event_id: event.event_id,
-        timestamp_utc: event.timestamp_utc,
-        matched_flag: event.matched_flag,
-        lat: event.lat,
-        lon: event.lon,
-        confidence_proxy: event.confidence_proxy,
-        confidence_tier: event.confidence_tier,
-        distance_to_coast_km: event.distance_to_coast_km,
-        context_layers: event.context_layers,
-        scoring: event.scoring,
-      },
-      geometry: event.geom,
-    })),
-  };
-  fs_writeFileSync(`${a_Config.output}events.geojson`, geojson);
+  writeGeoJSON(`${a_Config.output}events`, featureFromEvents(enrichedEvents))
 
   //event.parquet
   const rows = enrichedEvents.map((event) => {
@@ -177,30 +157,26 @@ const main = async (a_Config: IConfigJSON) => {
       ...edge_case_flags,
     };
   });
-  await writeParquet(rows, parquetSchema, `${a_Config.output}events.parquet`);
+  await writeParquet(`${a_Config.output}events`, rows, parquetSchema);
 
   //stats.json
   const stats = getStats(enrichedEvents);
-  fs_writeFileSync(`${a_Config.output}stats.json`, stats);
+  writeJSON(`${a_Config.output}stats`, stats);
 
   //hotspots.geojson
-  const hotspotsGeoJSON: FeatureCollection<IGeometry, IHotspot> = {
-    type: 'FeatureCollection',
-    features: featureFromHotspot(hotspots),
-  };
-  fs_writeFileSync(`${a_Config.output}hotspots.geojson`, hotspotsGeoJSON);
+  writeGeoJSON(`${a_Config.output}hotspots`, featureFromHotspot(hotspots))
 
   //hotspots.parquet
   await writeParquet(
+    `${a_Config.output}hotspots`,
     hotspots,
-    parquetSchema_hotspot,
-    `${a_Config.output}hotspots.parquet`,
+    parquetSchema_hotspot
   );
 
   //run_metadata.json
   const end = formatTimestamp();
   const run_metadata = await export_run_metadata(enrichedEvents, start, end);
-  fs_writeFileSync(`${a_Config.output}run_metadata.json`, run_metadata);
+  writeJSON(`${a_Config.output}run_metadata`, run_metadata);
   log('Pilot finished.', ELogType.info);
 };
 
@@ -210,7 +186,7 @@ const validation = async (
   log('Starting validation...', ELogType.info);
   gitCommitSHA = await getGitCommitSHA();
   await readBathymetryTiles();
-  const mapStrata = new Map<EValidationStrata, IValidationStrata>();
+  const mapStrata = new Map<EValidationStrata, IValidationStrata<TValidationSample>>();
   const setManifest = new Set<IValidationManifest>();
 
   try {
@@ -234,16 +210,14 @@ const validation = async (
         offshore.push(s);
       }
     }
-    const strata_1_csv = csvString(
-      'Near coast',
-      near_coast,
-      'Offshore',
-      offshore,
-    );
+    const strata_1_csv: ICSVGroup<TValidationSample>[] = [
+      { title:'Near coast', samples: near_coast},
+      { title:'Offshore', samples: offshore},
+    ]
 
     mapStrata.set(EValidationStrata.distance_to_coast, {
       geoJSON: strata_1_samples.validationSamplesGeoJSON,
-      csv: strata_1_csv + '\n' + '\n',
+      csv: strata_1_csv,
     });
 
     const strata_1_end = formatTimestamp();
@@ -290,19 +264,16 @@ const validation = async (
       25,
     );
 
-    const strata_2_csv = csvString(
-      'High Confidence',
-      strata_2_samples_1.validationSamples,
-      'Low Confidence',
-      strata_2_samples_2.validationSamples,
-    );
-
+    const strata_2_csv: ICSVGroup<TValidationSample>[] = [
+      { title:'High Confidence', samples: strata_2_samples_1.validationSamples},
+      { title:'Low Confidence', samples: strata_2_samples_2.validationSamples},
+    ]
     mapStrata.set(EValidationStrata.confidence_tier, {
       geoJSON: [
         ...strata_2_samples_1.validationSamplesGeoJSON,
         ...strata_2_samples_2.validationSamplesGeoJSON,
       ],
-      csv: strata_2_csv + '\n' + '\n',
+      csv: strata_2_csv,
     });
 
     const strata_2_end = formatTimestamp();
@@ -350,19 +321,17 @@ const validation = async (
       25,
     );
 
-    const strata_3_csv = csvString(
-      'High Density',
-      strata_3_samples_1.validationSamples,
-      'Low Density',
-      strata_3_samples_2.validationSamples,
-    );
+    const strata_3_csv: ICSVGroup<TValidationSample>[] = [
+      { title:'High Density', samples: strata_3_samples_1.validationSamples},
+      { title:'Low Density', samples: strata_3_samples_2.validationSamples},
+    ]
 
     mapStrata.set(EValidationStrata.density, {
       geoJSON: [
         ...strata_3_samples_1.validationSamplesGeoJSON,
         ...strata_3_samples_2.validationSamplesGeoJSON,
       ],
-      csv: strata_3_csv + '\n' + '\n',
+      csv: strata_3_csv,
     });
 
     const strata_3_end = formatTimestamp();
@@ -399,32 +368,21 @@ const validation = async (
   );
 
   //validation_sample.geojson
-  const geoJSON_strata: FeatureCollection<IGeometry, TValidationSample> = {
-    type: 'FeatureCollection',
-    features: Array.from(mapStrata).flatMap(([key, value]) => value.geoJSON),
-  };
-  fs_writeFileSync(
-    `${a_Configs.confidence_tier[0].output}validation_sample.geojson`,
-    geoJSON_strata,
-  );
+  writeGeoJSON(`${a_Configs.confidence_tier[0].output}validation_sample`, Array.from(mapStrata).flatMap(([key, value]) => value.geoJSON))
 
   //validation_sample.csv
-  const csv_strata = Array.from(mapStrata).flatMap(([key, value]) => value.csv);
-  const csv_strata_string = csv_strata.join(' ');
-  fs_writeFileSync(
-    `${a_Configs.confidence_tier[0].output}validation_sample.csv`,
-    csv_strata_string,
-    undefined,
-    undefined,
-    'utf8',
-  );
-
+  const csv_strata = Array.from(mapStrata).map(([key, value]) => value.csv);
+  writeCSV(
+    `${a_Configs.confidence_tier[0].output}validation_sample`,
+    csv_strata
+  )
+  
   log('Validation finished.', ELogType.info);
 
   //validation_manifest.json
   const manifest_strata = Array.from(setManifest);
-  fs_writeFileSync(
-    `${a_Configs.confidence_tier[0].output}validation_manifest.json`,
+  writeJSON(
+    `${a_Configs.confidence_tier[0].output}validation_manifest`,
     manifest_strata,
   );
 };

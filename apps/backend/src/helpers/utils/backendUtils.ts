@@ -7,7 +7,7 @@ import {
   EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
-import { ELogType } from '../types/generalTypes';
+import { ELogType, TEventProperties } from '../types/generalTypes';
 import {
   IEventSchema,
   I4wingsAPIResponse,
@@ -17,6 +17,8 @@ import {
   I4wingsEntry,
   IRejectedEventSchema,
   ISortOption,
+  IFeature,
+  IGeometry,
 } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
 
@@ -220,56 +222,6 @@ export const getDateBucket = (
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
 };
 
-export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
-  if (!a_Samples.length) return '';
-  let s0 = a_Samples[0];
-  if (!s0) return '';
-  const headers = Object.keys(s0);
-
-  const delimiter = ';';
-
-  const csvRows = [
-    `### ${a_Title} ###`,
-    headers.join(delimiter), // header row
-    ...a_Samples.map((sample) =>
-      headers
-        .map((header) => {
-          const value = sample[header as keyof T];
-          // handle null / undefined safely
-          return value === null || value === undefined
-            ? 'N/A'
-            : typeof value === 'number'
-              ? `="${value}"`
-              : `"${String(value).replace(/"/g, '""')}"`; //If a value itself contains a double quote ("), CSV requires it to be escaped by doubling it.
-        })
-        .join(delimiter),
-    ),
-  ];
-
-  return csvRows.join('\n');
-};
-
-export const csvString = <T, N>(
-  a_Title1: string,
-  a_Samples1: T[],
-  a_Title2?: string,
-  a_Samples2?: N[],
-) => {
-  const sections: string[] = [];
-
-  sections.push(jsonToCsv<T>(a_Title1, a_Samples1));
-
-  if (a_Samples2 && a_Title2) {
-    sections.push(''); // blank line
-    sections.push(''); // blank line
-
-    sections.push(jsonToCsv<N>(a_Title2, a_Samples2));
-  }
-
-  const csvString = sections.join('\n');
-
-  return csvString;
-};
 
 export const getSortValue = (obj: any, path: string) => {
   return path
@@ -355,4 +307,27 @@ export const sortEventSchema = (
   }
 
   return [...deepSortObject(accepted), ...deepSortObject(rejected)];
+};
+
+export const featureFromEvents = (
+  a_Events: IEventSchema[],
+): IFeature<IGeometry, TEventProperties>[] => {
+  return a_Events.map((event) => {
+    return {
+      type: 'Feature',
+      geometry: event.geom,
+      properties: {
+        event_id: event.event_id,
+        timestamp_utc: event.timestamp_utc,
+        matched_flag: event.matched_flag,
+        lat: event.lat,
+        lon: event.lon,
+        confidence_proxy: event.confidence_proxy,
+        confidence_tier: event.confidence_tier,
+        distance_to_coast_km: event.distance_to_coast_km,
+        context_layers: event.context_layers,
+        scoring: event.scoring,
+      },
+    };
+  });
 };

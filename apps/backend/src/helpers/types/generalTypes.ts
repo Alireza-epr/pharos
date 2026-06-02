@@ -46,3 +46,7 @@ export interface IBathymetryCachedTile {
   image: any;
   bbox: [number, number, number, number];
 }
+export interface ICSVGroup<T> {
+  title: string,
+  samples: T[]
+}
