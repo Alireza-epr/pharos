@@ -8,6 +8,7 @@ import {
   EConfidenceTiers,
   EHotspotStrength,
   EThresholdConfig,
+  EHiddenConfig,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -96,7 +97,11 @@ export interface IRejectedEventSchema extends Pick<
   rejected: true;
 }
 
-export interface IConfigJSON {
+export type THiddenConfig = {
+  [K in EHiddenConfig]?: any;
+};
+
+export interface IConfigJSON extends THiddenConfig {
   URL: string;
   method: EFetchMethods;
   body_params: I4wingsReportPostBodyParams;

@@ -62,7 +62,8 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       threshold,
       sort,
       hotspot,
-      filter
+      filter,
+      gitCommitSHA: a_Req.gitCommitSHA
     }
     
     // Filtering
@@ -106,8 +107,7 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       [configs], 
       events, 
       a_Req.start_time, 
-      end, 
-      a_Req.gitCommitSHA
+      end
     )
 
     if (thisPageEvents.length === 0) {

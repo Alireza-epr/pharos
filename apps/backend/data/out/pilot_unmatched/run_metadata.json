@@ -1,5 +1,5 @@
 {
-  "config_hash": "bd8987f61720413d6f83d1a397a7ddddd98c5619c26789a08fff61cb089b17dc",
+  "config_hash": "c69e519d04af52634d0597765b214d0e1750622e278a47416df103735fa74015",
   "config_json": [
     {
       "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -54,13 +54,25 @@
         }
       ],
       "threshold": {
+        "base_uncertainty_weight": 0.1,
         "deep_water_threshold": -200,
+        "eez_importance_weight": 0.2,
+        "high_confidence_tier_weight": -0.05,
         "high_triage_score_threshold": 0.85,
         "low_confidence_proxy_threshold": 2,
+        "low_confidence_proxy_weight": 0.2,
+        "low_confidence_tier_weight": 0.08,
         "low_triage_score_threshold": 0.3,
+        "medium_confidence_tier_weight": 0,
         "medium_triage_score_threshold": 0.6,
+        "missing_confidence_proxy_weight": 0.25,
+        "missing_field_weight": 0.08,
+        "mpa_importance_weight": 0.5,
+        "near_coast_importance_weight": 0.3,
         "near_coast_threshold": 10,
-        "shallow_water_threshold": -50
+        "noisy_weight": 0.15,
+        "shallow_water_threshold": -50,
+        "unmatched_weight": 0.2
       },
       "url_params": {
         "datasets[0]": "public-global-sar-presence:v3.0",
@@ -75,7 +87,7 @@
   ],
   "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
   "dataset_version": "public-global-sar-presence:v3.0",
-  "execution_duration_sec": 8.284,
-  "git_commit_version": "9397834922fa51f2af372849ae8f0a986ce34154",
-  "run_time": "2026-06-02T12:44:26.103Z"
+  "execution_duration_sec": 6.266,
+  "git_commit_version": "a3299af3e92ed8731d4a3cb1ef0b85b94f4a660b",
+  "run_time": "2026-06-03T09:56:09.153Z"
 }

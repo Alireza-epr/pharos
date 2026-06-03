@@ -74,6 +74,27 @@ export const deepSortObject = <T>(a_Object: T): T => {
   return a_Object;
 };
 
+export const deepStripHidden = (
+  a_Object: unknown, 
+  a_HiddenKeys: Set<string>
+): unknown => {
+  if (Array.isArray(a_Object)) {
+    return a_Object.map(v => deepStripHidden(v, a_HiddenKeys));
+  }
+
+  if (a_Object && typeof a_Object === "object") {
+    const result: any = {};
+    for (const [k, v] of Object.entries(a_Object)) {
+      if (!a_HiddenKeys.has(k)) {
+        result[k] = deepStripHidden(v, a_HiddenKeys);
+      }
+    }
+    return result;
+  }
+
+  return a_Object;
+}
+
 export const getExecutionDuration = (a_Start: string, a_End: string) => {
   const startDate = new Date(a_Start.replace(" ", "T"));
   const endDate = new Date(a_End.replace(" ", "T"));

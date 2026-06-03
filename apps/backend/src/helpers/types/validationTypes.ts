@@ -115,5 +115,10 @@ export interface IValidationManifest {
   stratum_sample_sizes: {
     [key: string]: number;
   };
-  run_metadata: IRunMetadata
+  run_metadata: [
+    IConfigJSON[],
+    IEventSchema[],
+    string, 
+    string
+  ]
 }

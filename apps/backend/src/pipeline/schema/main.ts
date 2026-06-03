@@ -30,7 +30,7 @@ import {
 } from '../normalize/generation';
 import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getBathymetryContext } from '../features/bathymetry_cached';
-import { formatTimestamp, log, sortEventSchema } from '../../helpers/utils/backendUtils';
+import { formatTimestamp, getGitCommitSHA, log, sortEventSchema } from '../../helpers/utils/backendUtils';
 import { ELogType } from '../../helpers/types/generalTypes';
 
 export const createEventSchema = async (
@@ -167,9 +167,10 @@ export const createSortedEventSchemas = async (
   a_4wingsEntries: I4wingsEntry[],
 ): Promise<(IEventSchema | IRejectedEventSchema)[]> => {
   let events = [];
+  const gitCommitSHA = await getGitCommitSHA()
   for (const entry of a_4wingsEntries) {
     try {
-      const eventSchema = await createEventSchema(a_Configuration, entry);
+      const eventSchema = await createEventSchema({...a_Configuration, gitCommitSHA}, entry);
       if (eventSchema.rejected) {
         log(
           `[createSortedEventSchemas] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`,

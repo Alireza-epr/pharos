@@ -70,3 +70,7 @@ export enum EThresholdConfig {
   medium_confidence_tier_weight = "medium_confidence_tier_weight",
   high_confidence_tier_weight = "high_confidence_tier_weight",
 }
+
+export enum EHiddenConfig {
+  gitCommitSHA = "gitCommitSHA"
+}

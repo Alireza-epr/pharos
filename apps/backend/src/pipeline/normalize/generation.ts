@@ -5,6 +5,7 @@ import {
   EVessleType,
   EConfidenceTiers,
   EGeoJSONGeometryType,
+  EHiddenConfig,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -15,7 +16,7 @@ import {
   TGlobalEvent,
   I4wingsEntry,
 } from '@packages/types';
-import { deepSortObject, getExecutionDuration } from '@packages/utils';
+import { deepSortObject, deepStripHidden, getExecutionDuration } from '@packages/utils';
 import { getContextLayersFromEvents, getSourcesFromEvents, hashString } from '../../helpers/utils/backendUtils';
 import {
   isNoisyCase,
@@ -24,7 +25,7 @@ import {
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
 import { vesselZone } from '../features/bathymetry';
-import { gitCommitSHA } from '../sample';
+
 
 export const backendVersion = pkg.version;
 
@@ -114,10 +115,14 @@ export const generateRunMetadata = async (
   a_Configurations: IConfigJSON[],
   a_Events?: IEventSchema[],
   a_Start?: string,
-  a_End?: string,
-  a_GITCommit?: string
+  a_End?: string
 ): Promise<IRunMetadata> => {
-  const canonicalObject = deepSortObject(a_Configurations);
+  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
+  const filteredConfiguration = deepStripHidden(
+    a_Configurations,
+    new Set(hiddenKeys)
+  ) as IConfigJSON[]
+  const canonicalObject = deepSortObject(filteredConfiguration);
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
@@ -125,7 +130,7 @@ export const generateRunMetadata = async (
   return {
     config_hash,
     config_json: canonicalObject,
-    git_commit_version: a_GITCommit ? a_GITCommit : gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
+    git_commit_version: a_Configurations[0].gitCommitSHA ?? "N/A",
     run_time: new Date().toISOString(),
     dataset_version: a_Events ? getSourcesFromEvents(a_Events) : undefined,
     context_layer_versions: a_Events ? getContextLayersFromEvents(a_Events) : undefined,

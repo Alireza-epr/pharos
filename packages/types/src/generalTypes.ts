@@ -49,3 +49,11 @@ export interface IMatchingStats {
   matched: number;
   unmatched: number;
 }
+
+export type TJSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: TJSONValue }
+  | TJSONValue[];

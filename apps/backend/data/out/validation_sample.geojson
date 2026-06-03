@@ -1203,6 +1203,54 @@
     {
       "geometry": {
         "coordinates": [
+          54.47,
+          8.24
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-10",
+        "event_id": "02642f9db33400c343dd879261132782c51cfc3903a5372c0ce2e029f3c79f17",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 54.47,
+        "lon": 8.24,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          53.55,
+          6.96
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "0",
+        "event_id": "035c9d541ba30d0764711b612e1e01094a7e1c89fa6cc208a3b30abef81704b5",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 53.55,
+        "lon": 6.96,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           54.96,
           7.95
         ],
@@ -1217,6 +1265,30 @@
         "lon": 7.95,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          53.73,
+          8.42
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "0",
+        "event_id": "210c3f67c07c91b84f3c1c034fd0c6418ec10dc4596e38f86f8c46d08b430085",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 53.73,
+        "lon": 8.42,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
@@ -1275,18 +1347,18 @@
     {
       "geometry": {
         "coordinates": [
-          53.43,
-          6.95
+          54.43,
+          8.81
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-8",
-        "event_id": "493e273b30a350e48696c7cf57ba80bf8471d9f1334377d6ab6b60354e87018f",
+        "bathymetry": "1",
+        "event_id": "51878331a5b3874c8ad0b36ccceb7cacb157241eb69cf74d465b3b1fcec40ffc",
         "failure_mode": "",
         "label": "TP",
-        "lat": 53.43,
-        "lon": 6.95,
+        "lat": 54.43,
+        "lon": 8.81,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -1299,42 +1371,18 @@
     {
       "geometry": {
         "coordinates": [
-          53.69,
-          8.36
+          55,
+          8.44
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-6",
-        "event_id": "4ba8368623072d5645f13d280750afdffd5a01e20df2a4a5c9590aec0d289237",
+        "bathymetry": "-9",
+        "event_id": "54fbc4c473103e61b629c5fa72eb7456d662c8112b78c3049dfbcfc16b313fba",
         "failure_mode": "",
         "label": "TP",
-        "lat": 53.69,
-        "lon": 8.36,
-        "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 0.88,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          54.6,
-          8.35
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-5",
-        "event_id": "5001463e2e90049d9a9f7cb29a866d0e52c39589e51e28dc0093b455e4eb76be",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 54.6,
-        "lon": 8.35,
+        "lat": 55,
+        "lon": 8.44,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -1347,20 +1395,44 @@
     {
       "geometry": {
         "coordinates": [
-          54.4,
-          8.3
+          54.18,
+          8.67
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-12",
-        "event_id": "5b59040cc6500a2a80eabb662116b925004e7232567438077418e2e255338d99",
+        "bathymetry": "3",
+        "event_id": "58a92b4be516c92fea653940f2f717739da56d00a2be3dc2a4e55eb99cc2e479",
         "failure_mode": "",
         "label": "TP",
-        "lat": 54.4,
-        "lon": 8.3,
+        "lat": 54.18,
+        "lon": 8.67,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          53.68,
+          6.6
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-13",
+        "event_id": "5aa585bce9a3bf47b40e52ddcb92667d938435b99d18f603c12477a3166e74b9",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 53.68,
+        "lon": 6.6,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
@@ -1383,6 +1455,54 @@
         "label": "TP",
         "lat": 54.35,
         "lon": 6.18,
+        "matched_flag": false,
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 0.58,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          54.08,
+          8.65
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "0",
+        "event_id": "617b5eea387375789353afef3ff876b3e134ea42c714155c5713abd7181cc862",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 54.08,
+        "lon": 8.65,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          54.2,
+          7.23
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-35",
+        "event_id": "661286b8696d47d7b44a5010b618c54a27fa9554e71548fd380ff69a08863397",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 54.2,
+        "lon": 7.23,
         "matched_flag": false,
         "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -1419,20 +1539,44 @@
     {
       "geometry": {
         "coordinates": [
-          54.52,
-          8.31
+          5.51,
+          55.28
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-5",
-        "event_id": "6e0b492978ebcd7f3c57b0adc80db16da725cceac56d28701f55e4b06574fdf7",
+        "bathymetry": "-44",
+        "event_id": "6ea8a7967e811fb2ff64a9375d688540be01b288b093ea710096081bc1514f33",
         "failure_mode": "",
         "label": "TP",
-        "lat": 54.52,
-        "lon": 8.31,
+        "lat": 55.28,
+        "lon": 5.51,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 0.58,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          54.54,
+          8.29
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-2",
+        "event_id": "768d47763931d048ef2722596f4114c2a1cc1c14d482bd653427255ace4f415b",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 54.54,
+        "lon": 8.29,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
@@ -1443,23 +1587,47 @@
     {
       "geometry": {
         "coordinates": [
-          53.9,
-          8.33
+          53.74,
+          7.04
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-2",
-        "event_id": "7174276ff92725a883292368d972ef6ddc7e607c74c8ff17f54872d2926c1a34",
+        "bathymetry": "-11",
+        "event_id": "7cda7e6e8ea2f24b34bef55683bd7fa51c8796e751d090052e8afe6001b36aa1",
         "failure_mode": "",
         "label": "TP",
-        "lat": 53.9,
-        "lon": 8.33,
+        "lat": 53.74,
+        "lon": 7.04,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          54.45,
+          7.3
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-29",
+        "event_id": "7d6de8a6cf84b2f5a045594c6495c9db3e917b1c22ace2c993824d15a46780c1",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 54.45,
+        "lon": 7.3,
+        "matched_flag": false,
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-07T17:00:00Z",
+        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -1491,30 +1659,6 @@
     {
       "geometry": {
         "coordinates": [
-          53.8,
-          8.48
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "1",
-        "event_id": "8602070a5d28afa9fcb1caf87569d4717efe8dc9363925165e30b78799e2fa05",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 53.8,
-        "lon": 8.48,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
           53.88,
           8.1
         ],
@@ -1539,18 +1683,18 @@
     {
       "geometry": {
         "coordinates": [
-          54.73,
-          8.16
+          54.26,
+          8.5
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-11",
-        "event_id": "a324d4f0ef0de9f94f8b8524fcbbf90002ee3931b20fb9c374c698ca61510375",
+        "bathymetry": "-7",
+        "event_id": "a2d17c0f6cd8df24e13585af27ebc686ae4604527229ab8112bcfa49a8102043",
         "failure_mode": "",
         "label": "TP",
-        "lat": 54.73,
-        "lon": 8.16,
+        "lat": 54.26,
+        "lon": 8.5,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -1563,119 +1707,23 @@
     {
       "geometry": {
         "coordinates": [
-          54.29,
-          7.38
+          54.24,
+          8.72
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-40",
-        "event_id": "a80ae304334fed79deee1f120bc765b2c2f81d24622a0c20ec5a2861ee1e4371",
+        "bathymetry": "2",
+        "event_id": "c7034c058dc5d9de3ecf789e4efa9965f25db3aa97c451dbd42d7923b043eb13",
         "failure_mode": "",
         "label": "TP",
-        "lat": 54.29,
-        "lon": 7.38,
-        "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 0.58,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          54.98,
-          8.45
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-13",
-        "event_id": "afb0cf155f14f952f96d85bf0a55d3c18505eb2420d02e71471c31737dade0ec",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 54.98,
-        "lon": 8.45,
+        "lat": 54.24,
+        "lon": 8.72,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          55.19,
-          6.64
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-40",
-        "event_id": "b2b1f585a14c90c67f33beb37e3aa7f4fb586de1ad6c9b6ef1ade8cb514e95bf",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 55.19,
-        "lon": 6.64,
-        "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 0.58,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          54.62,
-          8.67
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-2",
-        "event_id": "bf8ada68130f74be713476ee03dfebc70076c0cb8017a18b9e1bdad3e75aed97",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 54.62,
-        "lon": 8.67,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          55.31,
-          6.61
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-38",
-        "event_id": "c89a9b374d13f7069f545351d76a82c438894819a41db3f32855ed0d016e149d",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 55.31,
-        "lon": 6.61,
-        "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -1707,30 +1755,6 @@
     {
       "geometry": {
         "coordinates": [
-          54.43,
-          8.29
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-9",
-        "event_id": "d3cccf6da0a6609be0073ddf47ee2a7f0cb15489d5d2f6c36a4d7b4bc0551f15",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 54.43,
-        "lon": 8.29,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
           53.93,
           8.24
         ],
@@ -1748,30 +1772,6 @@
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-12-07T17:00:00Z",
         "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          54.03,
-          6.29
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-29",
-        "event_id": "edc9e0c65c4d97c91445329caa0f8173397f647a4f35495632f5252ed47340f2",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 54.03,
-        "lon": 6.29,
-        "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-12-07T17:00:00Z",
-        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -2403,22 +2403,22 @@
     {
       "geometry": {
         "coordinates": [
-          1.05,
-          51.49
+          1.95,
+          51.21
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-7",
-        "event_id": "fdb98dd8c62c9b0aa616a22dbb0b92adc8f7bf551b98c770b7bccb9b10c74eb0",
+        "bathymetry": "-36",
+        "event_id": "5f109ea80b9eab0a7af53f3c4e1126d9b4cb9bff8522f9614dbc17cb6b583f0d",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.49,
-        "lon": 1.05,
+        "lat": 51.21,
+        "lon": 1.95,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-12T17:00:00Z",
+        "timestamp_utc": "2025-07-07T17:00:00Z",
         "triage_score": 1,
         "uncertainty_score": 0.63
       },
@@ -2427,23 +2427,71 @@
     {
       "geometry": {
         "coordinates": [
-          2.46,
-          51.4
+          1.93,
+          51.45
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-39",
+        "event_id": "d69a8936fdfe9f6c938b56cf4922ad0cf8b07881e1731cc3f9be2e7aa2fa0b51",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 51.45,
+        "lon": 1.93,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-07-07T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.7,
+          51
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-28",
+        "event_id": "4e93092e50ed4fec3617e0e186835688d177e0260ed66cc92483492351f65b9c",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 51,
+        "lon": 1.7,
+        "matched_flag": false,
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-07-31T17:00:00Z",
+        "triage_score": 0.88,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.65,
+          51.45
         ],
         "type": "Point"
       },
       "properties": {
         "bathymetry": "-24",
-        "event_id": "63d15ced61c5c7c24d55248e8d9a1a68e475ed08be4764281f2de30e6a9e9eda",
+        "event_id": "7d3f7f4c9edeb561da3417173bd987e8f1ab20fdc8344479fbec7b0c2b3e6ab6",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.4,
-        "lon": 2.46,
+        "lat": 51.45,
+        "lon": 1.65,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-19T17:00:00Z",
-        "triage_score": 1,
+        "timestamp_utc": "2025-08-12T17:00:00Z",
+        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -2451,46 +2499,22 @@
     {
       "geometry": {
         "coordinates": [
-          2.04,
-          51.46
+          2.43,
+          51.1
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-40",
-        "event_id": "f6d3fab56748febb7004c047e8636e28dd44f454a9c57b74871a1c5df8d0f676",
+        "bathymetry": "-4",
+        "event_id": "4c5bdad82dbfa0e21b88c7c5dceef6ebd7a4f046e497e5e5d29b8228386ef3cb",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.46,
-        "lon": 2.04,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-26T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          1.53,
-          50.54
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-15",
-        "event_id": "91b9d91434ce0072646f45fefe1dadfefee19ab2b45694d2490735eb65b3c723",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 50.54,
-        "lon": 1.53,
+        "lat": 51.1,
+        "lon": 2.43,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-28T06:00:00Z",
+        "timestamp_utc": "2025-08-21T06:00:00Z",
         "triage_score": 1,
         "uncertainty_score": 0.63
       },
@@ -2499,190 +2523,46 @@
     {
       "geometry": {
         "coordinates": [
-          2.42,
-          51.34
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-31",
-        "event_id": "1b9d1d7eefe1d93ade101dd30da22fcca447b69eec85e1668617998227936aea",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.34,
-        "lon": 2.42,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-12T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          1.19,
-          51.44
+          1.41,
+          51.26
         ],
         "type": "Point"
       },
       "properties": {
         "bathymetry": "-5",
-        "event_id": "27b1683e41dec8000cdd76daed6285b5c87e5b9c5f42c88c046c876c67b6ff91",
+        "event_id": "27c6370e15d59647b0cd9c215f3ab7fcfc5e138ee779ff322de4c08c73898cc1",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.44,
-        "lon": 1.19,
+        "lat": 51.26,
+        "lon": 1.41,
+        "matched_flag": false,
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-09-02T06:00:00Z",
+        "triage_score": 0.88,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          2.28,
+          51.06
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-12",
+        "event_id": "0989b1fd4cbcc2750b6e977bfa841272287de853ed304a949f2a4e4eeb484224",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 51.06,
+        "lon": 2.28,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-12T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          1.82,
-          51.23
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-38",
-        "event_id": "109dfaee621e572715e40ecb8e3cb9432342fcb29308529837538cf53f729e56",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.23,
-        "lon": 1.82,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-24T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          1.8,
-          51.31
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-37",
-        "event_id": "d93cfbb82c6ac30f4ba24a1deb45c1b73fa987a5d7b923e0468910fa3107eb17",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.31,
-        "lon": 1.8,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-24T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          1.27,
-          51.49
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-12",
-        "event_id": "0e7f7e6497b56bd09310ba73fcd45596f38b961aa574a0f8818bf7be6c2254fe",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.49,
-        "lon": 1.27,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-09-05T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          2.45,
-          51.41
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-26",
-        "event_id": "8bacd58a25aa0aaed01d8a8dbfb06305d6c0d42b0a5da2e498faa0519d1da6e2",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.41,
-        "lon": 2.45,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-09-09T05:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          2.37,
-          51.44
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-22",
-        "event_id": "c7cb490d6436ab76b7059c5c417e8437e6e9dbf1b917b0a96d8a8890508d457e",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.44,
-        "lon": 2.37,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-09-09T05:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          2.23,
-          51.19
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-12",
-        "event_id": "d842574bb611015bfcb5e6584d40af76e963087df33d3d0b196ce49142f36a39",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.19,
-        "lon": 2.23,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-09-14T06:00:00Z",
         "triage_score": 1,
         "uncertainty_score": 0.63
       },
@@ -2715,23 +2595,23 @@
     {
       "geometry": {
         "coordinates": [
-          1.53,
-          50.66
+          0.76,
+          50.75
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-19",
-        "event_id": "a7b6ba2cd7aab4d3996a7b191185824411d2c8db100885f607358f3e8ceb8fb6",
+        "bathymetry": "-35",
+        "event_id": "51fd1efbdce81906517fded68570a125d4fe84600c561820305a03e7ac58b597",
         "failure_mode": "",
         "label": "TP",
-        "lat": 50.66,
-        "lon": 1.53,
+        "lat": 50.75,
+        "lon": 0.76,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-09-22T17:00:00Z",
-        "triage_score": 1,
+        "timestamp_utc": "2025-09-19T06:00:00Z",
+        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -2739,23 +2619,23 @@
     {
       "geometry": {
         "coordinates": [
-          2.4,
-          51.1
+          2.16,
+          51.47
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-2",
-        "event_id": "65ec4ab98e4ded65327e48a447d2f72fedc366f5b80aee182dbf003e86528145",
+        "bathymetry": "-39",
+        "event_id": "1177eecd534e9769ea65eb35dc79de4714ee4c5acf4b57072b4501d4ba52d1f4",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.1,
-        "lon": 2.4,
+        "lat": 51.47,
+        "lon": 2.16,
         "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-09-26T06:00:00Z",
-        "triage_score": 1,
+        "triage_score": 0.58,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -2788,16 +2668,16 @@
       "geometry": {
         "coordinates": [
           2.38,
-          51.07
+          51.09
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-16",
-        "event_id": "3727ba44cf75436aae5ddafae9bc5a60dfdf61d704b1920b1d5fc4cd7c9f53f1",
+        "bathymetry": "-2",
+        "event_id": "d39d705e2011d32cea7366a34112605771c1fe1c0c70f9c93c056afeedb4a6c5",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.07,
+        "lat": 51.09,
         "lon": 2.38,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
@@ -2811,18 +2691,18 @@
     {
       "geometry": {
         "coordinates": [
-          2.44,
-          51.11
+          0.72,
+          51.47
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-3",
-        "event_id": "893836fc6be84bb30147cf31f70b91d5302331428c38c3b6e2ae2bc5e7721065",
+        "bathymetry": "3",
+        "event_id": "920251e50e2c56ce40aa3fd2a6278656ebab69541ea7d7bb91650079759f978f",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.11,
-        "lon": 2.44,
+        "lat": 51.47,
+        "lon": 0.72,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -2859,24 +2739,48 @@
     {
       "geometry": {
         "coordinates": [
-          1.89,
-          51.04
+          1.23,
+          51.01
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-26",
-        "event_id": "b1103e08eb1b4b9932e39585cb518ffb6dbf9c12fc0b3e087a0c0c7da06eb9e5",
+        "bathymetry": "-23",
+        "event_id": "d3b8b64160ec56f5017f8996414bbd8dbee02be5659223e731d3e9ad7dc1f968",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.04,
-        "lon": 1.89,
+        "lat": 51.01,
+        "lon": 1.23,
         "matched_flag": false,
-        "notes": "bathymetry_shallow_eez_hotspot, inside_eez, medium_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-15T05:00:00Z",
-        "triage_score": 0.86,
-        "uncertainty_score": 0.55
+        "timestamp_utc": "2025-10-11T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.33,
+          50.6
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-27",
+        "event_id": "bec03d0098a3a16335d3c1485066cb5d0e7697ede26c1f92ce6d879cac00516b",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 50.6,
+        "lon": 1.33,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-10-16T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
       },
       "type": "Feature"
     },
@@ -2907,42 +2811,18 @@
     {
       "geometry": {
         "coordinates": [
-          1.3,
-          51.1
+          2.34,
+          51.33
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-24",
-        "event_id": "87375b8cfee3196c833ed326847ac0ee41b70150656a453dbed7a96bcf411046",
+        "bathymetry": "-33",
+        "event_id": "c9090b13c443de0b32e5056b92b003046ebf2461f915e2b523235e3f0961212e",
         "failure_mode": "",
         "label": "TP",
-        "lat": 51.1,
-        "lon": 1.3,
-        "matched_flag": false,
-        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-23T17:00:00Z",
-        "triage_score": 1,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          2.31,
-          51.49
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-27",
-        "event_id": "0db84f1f88d2221f7718a2d62830668ed397c18997fc994f13869d02d3b35771",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 51.49,
-        "lon": 2.31,
+        "lat": 51.33,
+        "lon": 2.34,
         "matched_flag": false,
         "notes": "bathymetry_shallow_eez_hotspot, inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -2955,18 +2835,18 @@
     {
       "geometry": {
         "coordinates": [
-          0.98,
-          50.58
+          1.57,
+          50.99
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-18",
-        "event_id": "0669f698fb5f063b16ccf6b8d41aa8a08eecdb4ba225910bbcc7979e468d6a1a",
+        "bathymetry": "-42",
+        "event_id": "20a88471a051c867bc4369603de2a996e9f612ba7938acc1c28404b1309233fb",
         "failure_mode": "",
         "label": "TP",
-        "lat": 50.58,
-        "lon": 0.98,
+        "lat": 50.99,
+        "lon": 1.57,
         "matched_flag": false,
         "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -3003,6 +2883,126 @@
     {
       "geometry": {
         "coordinates": [
+          0.97,
+          50.87
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-32",
+        "event_id": "78fd1eb8a7e31590a05266fa8ccfa73de75f83baf3acadc65ba1164115c183cc",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 50.87,
+        "lon": 0.97,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-11-09T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0.95,
+          51.49
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-7",
+        "event_id": "49f3006f605fadd241692888127b0d6a0d14f5e3c53447102440230a3b30af53",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 51.49,
+        "lon": 0.95,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, near_coast, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-11-21T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.33,
+          50.6
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-27",
+        "event_id": "d81d2bb9c0293fe8e99a97d7dae8df19f6adb28218feff3827fbcec476a8745c",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 50.6,
+        "lon": 1.33,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-11-21T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.37,
+          50.66
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-37",
+        "event_id": "e2160dd5f51811c152134aaf258b292751bf6b6dc47a7a764a894aa60bb39981",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 50.66,
+        "lon": 1.37,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-11-21T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          1.79,
+          51.16
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-38",
+        "event_id": "35d5078962f79bea455a34421730b1af82d6e45ee5a6c859bff0ec9bc3946e04",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 51.16,
+        "lon": 1.79,
+        "matched_flag": false,
+        "notes": "bathymetry_mpa_shallow_zone, bathymetry_shallow_eez_hotspot, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-11-28T17:00:00Z",
+        "triage_score": 1,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           -29.46,
           36.59
         ],
@@ -3027,23 +3027,23 @@
     {
       "geometry": {
         "coordinates": [
-          -28.69,
-          37.82
+          -31.66,
+          35.63
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-1527",
-        "event_id": "77d3cfa0b4d9026e288ebb7929494ff56f2410a5a5f2f4be7d5f859ca16a1b58",
+        "bathymetry": "-2871",
+        "event_id": "9f75b73f8723402cfea3b544952905e60c5247e098d8b5fc98f180e1c01c94b6",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.82,
-        "lon": -28.69,
+        "lat": 35.63,
+        "lon": -31.66,
         "matched_flag": false,
-        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-20T19:00:00Z",
-        "triage_score": 0.33,
+        "timestamp_utc": "2025-07-14T08:00:00Z",
+        "triage_score": 0.13,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -3051,22 +3051,22 @@
     {
       "geometry": {
         "coordinates": [
-          -29.13,
-          37.78
+          -28.95,
+          37.73
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-488",
-        "event_id": "caf8f711b248e575473cc33205c40a417ef69d0a1f1dc75a76c3722f5d94ee6b",
+        "bathymetry": "-330",
+        "event_id": "d439a92a24af617fdc1c3b775e94eaa1c4ec7117bb98d86c35e698ba79a83386",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.78,
-        "lon": -29.13,
+        "lat": 37.73,
+        "lon": -28.95,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-07-21T07:00:00Z",
+        "timestamp_utc": "2025-07-20T19:00:00Z",
         "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
@@ -3099,22 +3099,22 @@
     {
       "geometry": {
         "coordinates": [
-          -30.69,
-          37.56
+          -28.82,
+          37.11
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-669",
-        "event_id": "728c212e966bb2e4a8173a0d23418b3688840d7829e531b60e6a22cb07973400",
+        "bathymetry": "-2747",
+        "event_id": "85af8d118f57d988c33c01967e4a7e2ff290afc44fd20c427ab414464cb42341",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.56,
-        "lon": -30.69,
+        "lat": 37.11,
+        "lon": -28.82,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-13T19:00:00Z",
+        "timestamp_utc": "2025-08-08T19:00:00Z",
         "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
@@ -3123,22 +3123,22 @@
     {
       "geometry": {
         "coordinates": [
-          -29.24,
-          37.96
+          -29.29,
+          37.98
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-248",
-        "event_id": "2c3efd3cf1877a862fa56aea39fc3dec2e5e79799171275806227b550006e2f3",
+        "bathymetry": "-445",
+        "event_id": "5d157403240cac0dc8e94fc8a5b16685fb0cd222747ef76f84dd023666e87d9b",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.96,
-        "lon": -29.24,
+        "lat": 37.98,
+        "lon": -29.29,
         "matched_flag": false,
         "notes": "bathymetry_deep_mpa, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-14T07:00:00Z",
+        "timestamp_utc": "2025-08-25T19:00:00Z",
         "triage_score": 0.88,
         "uncertainty_score": 0.63
       },
@@ -3147,22 +3147,22 @@
     {
       "geometry": {
         "coordinates": [
-          -28.75,
-          37.88
+          -30.74,
+          37.36
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-440",
-        "event_id": "5f60f5cee2cf5238f3b3a7e140da12b5c146d51249ca2d34763f43355aabeafa",
+        "bathymetry": "-1847",
+        "event_id": "a87a7cc4a9061326dc4b0edf45945add70ac65531dc6e0cb2a71a0a198ec9bb2",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.88,
-        "lon": -28.75,
+        "lat": 37.36,
+        "lon": -30.74,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-08-20T19:00:00Z",
+        "timestamp_utc": "2025-08-25T19:00:00Z",
         "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
@@ -3171,23 +3171,23 @@
     {
       "geometry": {
         "coordinates": [
-          -29.28,
-          37.99
+          -29.31,
+          38
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-312",
-        "event_id": "e9142ab6776e1e5b4160cb829cb031d16918e894875fef97a38a11a988ed9115",
+        "bathymetry": "-127",
+        "event_id": "f57b6062dbe6a1f770b9566928d9e0df05e18cbd63b5201c0c9b464643d879e2",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.99,
-        "lon": -29.28,
+        "lat": 38,
+        "lon": -29.31,
         "matched_flag": false,
-        "notes": "bathymetry_deep_mpa, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "bathymetry_fishing_zone, inside_eez, inside_mpa, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-08-26T07:00:00Z",
-        "triage_score": 0.88,
+        "triage_score": 0.98,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -3243,23 +3243,47 @@
     {
       "geometry": {
         "coordinates": [
-          -31.17,
-          35.44
+          -31.19,
+          35.35
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-2901",
-        "event_id": "c77eb6bf228481156acf32d5948435c4133a7c5e6f276af498d35f36cf5c59c5",
+        "bathymetry": "-3191",
+        "event_id": "4d6fd9e44969462fe067b38dd2d7fac0f02cc3750a08e0f9f8e1d6fc5204a447",
         "failure_mode": "",
         "label": "TP",
-        "lat": 35.44,
-        "lon": -31.17,
+        "lat": 35.35,
+        "lon": -31.19,
         "matched_flag": false,
         "notes": "low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
         "timestamp_utc": "2025-09-12T08:00:00Z",
         "triage_score": 0.13,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -28.16,
+          37.54
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-2405",
+        "event_id": "5e09612fc9a3a8faa4577920af52d9d59ad8c1e9d03ed2a59e9e8531e46e91b7",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 37.54,
+        "lon": -28.16,
+        "matched_flag": false,
+        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-09-13T19:00:00Z",
+        "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -3291,46 +3315,22 @@
     {
       "geometry": {
         "coordinates": [
-          -29.58,
-          37.95
+          -28.91,
+          37.5
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-517",
-        "event_id": "ed9c363b75649c0bfcc4e327e3708ee766f70f495ea25b45a3d8ae1047bea2ae",
+        "bathymetry": "-1832",
+        "event_id": "dba7647dbddf168583c9b5e067bcece2da0c11d5d00b698708afe8c00a816ea5",
         "failure_mode": "",
         "label": "TP",
-        "lat": 37.95,
-        "lon": -29.58,
+        "lat": 37.5,
+        "lon": -28.91,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-01T07:00:00Z",
-        "triage_score": 0.33,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          -29.92,
-          37.88
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-1544",
-        "event_id": "bfc74ccc1031aea0cdff4c078dd829bfaa3e3b3cdcef34b312fc31db6dbed973",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 37.88,
-        "lon": -29.92,
-        "matched_flag": false,
-        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-06T08:00:00Z",
+        "timestamp_utc": "2025-09-30T19:00:00Z",
         "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
@@ -3363,6 +3363,54 @@
     {
       "geometry": {
         "coordinates": [
+          -29.34,
+          37.03
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-2722",
+        "event_id": "639ba999201510cca3207c056564f7f1b7264fad93ff50506399da69bc882533",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 37.03,
+        "lon": -29.34,
+        "matched_flag": false,
+        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-10-13T07:00:00Z",
+        "triage_score": 0.33,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -30.8,
+          36.23
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-2893",
+        "event_id": "0c2c037e3b3e03cf0cae310b7e00e97c26559d6bdc3c3c0c68914ee222a721c7",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 36.23,
+        "lon": -30.8,
+        "matched_flag": false,
+        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-10-18T08:00:00Z",
+        "triage_score": 0.33,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           -31.95,
           34.85
         ],
@@ -3387,66 +3435,18 @@
     {
       "geometry": {
         "coordinates": [
-          -31.76,
-          36.77
+          -28.76,
+          36.41
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-2368",
-        "event_id": "7584e60d792eedcc72c597cb9af142a3019c7e6a25d10616a0466efed6c587e9",
+        "bathymetry": "-3281",
+        "event_id": "e2464816a3b2ef294fe6f0f25b4c5a5b25a6fc8f269421cbbb2a4bebff3cbd02",
         "failure_mode": "",
         "label": "TP",
-        "lat": 36.77,
-        "lon": -31.76,
-        "matched_flag": false,
-        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-18T08:00:00Z",
-        "triage_score": 0.33,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          -28.49,
-          37.12
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-2812",
-        "event_id": "630644038995af0a46a129ea951fe8335ccbe23c2fd14598ef00fd22036a8e58",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 37.12,
-        "lon": -28.49,
-        "matched_flag": false,
-        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-10-19T19:00:00Z",
-        "triage_score": 0.33,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          -28.38,
-          36.51
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-3178",
-        "event_id": "c65f7442b72578d6734f854b70b5afb3b6112dc29b827faa4ccdd616727fe160",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 36.51,
-        "lon": -28.38,
+        "lat": 36.41,
+        "lon": -28.76,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
@@ -3483,30 +3483,6 @@
     {
       "geometry": {
         "coordinates": [
-          -28.85,
-          36.96
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "bathymetry": "-2932",
-        "event_id": "e06fd04f45695331a5243c2bbb794d308a4294a74302ebf7cfffab8d1621890e",
-        "failure_mode": "",
-        "label": "TP",
-        "lat": 36.96,
-        "lon": -28.85,
-        "matched_flag": false,
-        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
-        "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-11-05T19:00:00Z",
-        "triage_score": 0.33,
-        "uncertainty_score": 0.63
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
           -29.01,
           37.73
         ],
@@ -3531,23 +3507,23 @@
     {
       "geometry": {
         "coordinates": [
-          -29.95,
-          35.23
+          -28.13,
+          37.58
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-2963",
-        "event_id": "01b912a22b96ca2dbb5f85f8c8867510713d9b07f234a4522549a667e879a659",
+        "bathymetry": "-2374",
+        "event_id": "b8a3788e8c0590f2457f3982693b98f1fc023debc1959e868fdcf638d3ab4665",
         "failure_mode": "",
         "label": "TP",
-        "lat": 35.23,
-        "lon": -29.95,
+        "lat": 37.58,
+        "lon": -28.13,
         "matched_flag": false,
-        "notes": "low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-11-18T07:00:00Z",
-        "triage_score": 0.13,
+        "timestamp_utc": "2025-11-06T07:00:00Z",
+        "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
       "type": "Feature"
@@ -3579,22 +3555,46 @@
     {
       "geometry": {
         "coordinates": [
-          -28.41,
-          36.88
+          -31.55,
+          36.11
         ],
         "type": "Point"
       },
       "properties": {
-        "bathymetry": "-3328",
-        "event_id": "41bb8d4e4699162afcfa900dbddb5bb3653d8956ad1ac36585e76bf923c20a4c",
+        "bathymetry": "-2889",
+        "event_id": "706a6e573fe0b76240987a82e53ae9292bc3765decd19787432055670e4cfb71",
         "failure_mode": "",
         "label": "TP",
-        "lat": 36.88,
-        "lon": -28.41,
+        "lat": 36.11,
+        "lon": -31.55,
         "matched_flag": false,
         "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
         "source": "public-global-sar-presence:v3.0",
-        "timestamp_utc": "2025-11-30T07:00:00Z",
+        "timestamp_utc": "2025-12-05T08:00:00Z",
+        "triage_score": 0.33,
+        "uncertainty_score": 0.63
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -30.61,
+          37.06
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "bathymetry": "-2722",
+        "event_id": "f3c57b5328e7007307833d1db6f69dd920a1e353b29c2ca485c73514af633dfa",
+        "failure_mode": "",
+        "label": "TP",
+        "lat": 37.06,
+        "lon": -30.61,
+        "matched_flag": false,
+        "notes": "inside_eez, low_confidence_tier, missing_confidence_proxy, unmatched_to_public_ais",
+        "source": "public-global-sar-presence:v3.0",
+        "timestamp_utc": "2025-12-05T08:00:00Z",
         "triage_score": 0.33,
         "uncertainty_score": 0.63
       },
