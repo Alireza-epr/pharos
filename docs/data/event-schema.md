@@ -67,9 +67,15 @@ Note: This property is available only in the public-global-sar-presence dataset.
 
 - `run_metadata` (object)  
   Information needed to reproduce the run:
-  - configuration hash
-  - configuration json
-  - code version
+  Includes:
+  - `config_hash`: deterministic hash of the executed configuration
+  - `config_json`: full API request configuration used for data generation
+  - `dataset_version`: input dataset versions used in processing
+  - `context_layer_versions`: versions of geospatial enrichment layers
+  - `git_commit_version`: exact pipeline code version
+  - `run_time`: execution timestamp
+  - `execution_duration_sec`: runtime performance metric
+
 
 - `context_layers` (object)  
   Geographic context information derived from datasets.
