@@ -1,9 +1,8 @@
 name: Generate + Lint OpenAPI
-
-#on:
-  #pull_request:
-    #paths:
-      #- "docs/api/query-contract.md"
+on:
+  pull_request:
+    paths:
+      - "docs/api/query-contract.md"
 
 permissions:
   contents: write
@@ -12,6 +11,7 @@ jobs:
 
   # ─── 1. GENERATE ────────────────────────────────
   generate:
+    if: false
     runs-on: ubuntu-latest
 
     outputs:
