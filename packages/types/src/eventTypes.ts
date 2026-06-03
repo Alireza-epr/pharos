@@ -9,6 +9,7 @@ import {
   EHotspotStrength,
   EThresholdConfig,
   EHiddenConfig,
+  EExportEvidence,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -97,8 +98,18 @@ export interface IRejectedEventSchema extends Pick<
   rejected: true;
 }
 
+export interface IZipFile {
+  name: string;
+  content: any;
+}
+
+export type TExportConfig = {
+  [K in EExportEvidence]?: boolean
+}
+
 export type THiddenConfig = {
-  [K in EHiddenConfig]?: any;
+  [EHiddenConfig.gitCommitSHA]?: string;
+  [EHiddenConfig.export]?: TExportConfig;
 };
 
 export interface IConfigJSON extends THiddenConfig {

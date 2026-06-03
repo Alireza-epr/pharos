@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { report_response, report_response_rate_limit_exceeded } from './events.samples';
-import { validateViolation } from "./events.validators";
-import { controllerResponse, createErrorMessage } from "../../helpers/utils/controllerUtils";
 import { EStatusCode } from "@packages/enum";
+import { report_response } from "../helpers/fixtures/samples";
+import { validateViolation } from "../helpers/utils/validationUtils";
+import { controllerResponse, createErrorMessage } from "../helpers/utils/controllerUtils";
 
 export const rateLimitMiddleware = async (
     a_Req: Request,

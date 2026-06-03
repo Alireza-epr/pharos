@@ -6,6 +6,7 @@ import { detectionGFW } from './ingest/detections';
 import {
   IConfigJSON,
   I4wingsAPIResponse,
+  TExportConfig,
 } from '@packages/types';
 import {
   getEntriesFrom4wingsResponse,
@@ -35,7 +36,8 @@ import { fs_readFileSync } from './export/fs';
 import { applyFilter } from './normalize/filter';
 import { writeJSON } from './export/json';
 import { evidenceExport, rawExport, validationExport } from './export/bundle';
-import { validateBodyParams } from '../modules/events/events.validators';
+import { validateBodyParams } from '../helpers/utils/validationUtils';
+
 const args = process.argv.slice(2);
 
 export const coastlinePolylines = readCoastlinePolylines();
@@ -102,13 +104,24 @@ const main = async (a_Config: IConfigJSON) => {
   log(
     `Exporting outputs to ${a_Config.output}; aggregated event count: ${enrichedEvents.length}`,
     ELogType.info,
-  );
+  );  
+
+  const fullExport: TExportConfig = {
+    "canonicalSchema.json": true,
+    "event.geojson": true,
+    "event.parquet": true,
+    "events.csv": true,
+    "stats.json": true,
+    "hotspots.geojson": true,
+    "hotspots.parquet": true,
+    "run_metadata.json": true,
+  }
 
   await evidenceExport(
-    a_Config,
+    {...a_Config, export: fullExport},
     enrichedEvents,
-    hotspots,
-    start
+    start,
+    hotspots
   )
 
   log('Pilot finished.', ELogType.info);

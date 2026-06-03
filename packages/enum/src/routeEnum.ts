@@ -3,7 +3,7 @@ export enum EBaseRoutes {
   auth = "/auth",
   events = "/events",
   hotspots = "/hotspots",
-  export = "/export",
+  exports = "/exports",
 }
 
 export enum ESystemRoutes {
@@ -14,6 +14,10 @@ export enum EAuthRoutes {
   login = "/login",
   testToken = "/test-token",
   checkToken = "/check-token",
+}
+
+export enum EExportsRoutes {
+  evidence = "/evidence"
 }
 
 // -- Route Service --

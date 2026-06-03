@@ -9,11 +9,11 @@ import config from "../../config/pilot.json"
 import URLs from "../../config/globalFishingWatch.json"
 
 import { IConfigJSON, IEventSchema, IPagination, TBodyParams, TURLParams } from '@packages/types';
-import { validateBodyParams, validateQueryParams } from './events.validators';
 import { getStats } from '../../pipeline/aggregate/stats';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
 import { applyFilter } from '../../pipeline/normalize/filter';
 import { formatTimestamp } from '../../helpers/utils/backendUtils';
+import { validateBodyParams, validateQueryParams } from '../../helpers/utils/validationUtils';
 
 export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLParams>, a_Res: Response) => {
 

@@ -22,7 +22,7 @@ import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
 import {
   addError,
   validateRequiredObject,
-} from '../../helpers/utils/controllerUtils';
+} from './controllerUtils';
 
 /* =========================================================
  * VIOLATIONS VALIDATOR

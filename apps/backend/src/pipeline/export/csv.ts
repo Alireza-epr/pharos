@@ -35,7 +35,7 @@ const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
   return csvRows.join('\n');
 };
 
-const csvString = <T, N>(
+export const csvString = <T, N>(
   a_Title1: string,
   a_Samples1: T[],
   a_Title2?: string,
