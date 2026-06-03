@@ -1,5 +1,5 @@
 name: Generate + Lint OpenAPI
-
+on: {}
 #on:
   #pull_request:
     #paths:
