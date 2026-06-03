@@ -191,9 +191,9 @@ Each event includes:
 
 ---
 
-## Thresholds for Usage
+## Thresholds and Weights for Usage
 
-Default thresholds used to calculate scoring(configurable):
+Default parameters used to calculate scoring(configurable):
 
 - near_coast_threshold = 10,
 - shallow_water_threshold = -50,
@@ -203,7 +203,20 @@ Default thresholds used to calculate scoring(configurable):
 - medium_triage_score_threshold= 0.6
 - high_triage_score_threshold= 0.85
 
-These values and other weighted parameters are **defaults only** and can be adjusted via configuration:
+- base_uncertainty_weight = 0.1
+- missing_field_weight = 0.08
+- noisy_weight = 0.15
+- unmatched_weight = 0.2
+- near_coast_importance_weight = 0.3
+- eez_importance_weight = 0.2
+- mpa_importance_weight = 0.5
+- missing_confidence_proxy_weight = 0.25
+- low_confidence_proxy_weight = 0.2
+- low_confidence_tier_weight = 0.08
+- medium_confidence_tier_weight = 0.0
+- high_confidence_tier_weight = -0.05
+
+These values are **defaults only** and can be adjusted via the `threshold` section in the configuration file:
 
 `apps/backend/src/config/pilot.json`
 

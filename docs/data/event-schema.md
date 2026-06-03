@@ -18,7 +18,7 @@ This document defines a **event schema** for Iteration 1.
   Created as a hash of basic fields (source, time, location).
 
 - `timestamp_utc` (string)  
-  Derived from the start of the aggregation bucket (date) and represents the beginning of the time interval in which the detection occurred. It is not the exact detection time.
+  Derived from the start of the aggregation bucket (date) and represents the beginning of the time interval in which the detection occurred. It is not the exact detection time. The format is UTC.
 
 - `lon` (number)  
   Longitude in decimal degrees (WGS84). Represents the center of the spatial grid cell in which detections occurred, not the exact vessel position.
@@ -31,6 +31,8 @@ This document defines a **event schema** for Iteration 1.
 
 - `version` (string)  
   Code version used when the records were fetched.
+
+Longitude and latitude coordinates are represented with 3 decimal places for consistency.
 
 ### Matching indicator
 
