@@ -74,6 +74,27 @@ export const deepSortObject = <T>(a_Object: T): T => {
   return a_Object;
 };
 
+export const deepStripHidden = (
+  a_Object: unknown,
+  a_HiddenKeys: Set<string>
+): unknown => {
+  if (Array.isArray(a_Object)) {
+    return a_Object.map(v => deepStripHidden(v, a_HiddenKeys));
+  }
+
+  if (a_Object && typeof a_Object === "object") {
+    const result: any = {};
+    for (const [k, v] of Object.entries(a_Object)) {
+      if (!a_HiddenKeys.has(k)) {
+        result[k] = deepStripHidden(v, a_HiddenKeys);
+      }
+    }
+    return result;
+  }
+
+  return a_Object;
+}
+
 export const getExecutionDuration = (a_Start: string, a_End: string) => {
   const startDate = new Date(a_Start.replace(" ", "T"));
   const endDate = new Date(a_End.replace(" ", "T"));
@@ -97,3 +118,23 @@ export const isBoolean = (a_Value: unknown): a_Value is boolean => {
 export const isNumber = (a_Value: unknown): a_Value is number => {
   return typeof a_Value === "number" && !Number.isNaN(a_Value);
 };
+
+export const getExportId = () => {
+  const now = new Date();
+
+  const timestamp =
+    `${now.getFullYear()}` +
+    `${String(now.getMonth() + 1).padStart(2, "0")}` +
+    `${String(now.getDate()).padStart(2, "0")}` +
+    `_${String(now.getHours()).padStart(2, "0")}` +
+    `${String(now.getMinutes()).padStart(2, "0")}` +
+    `${String(now.getSeconds()).padStart(2, "0")}` +
+    `_${String(now.getMilliseconds()).padStart(3, "0")}`;
+
+  const random = Math.random()
+    .toString(36)
+    .substring(2, 8)
+    .toUpperCase();
+
+  return `${timestamp}_${random}`;
+}

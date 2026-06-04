@@ -5,6 +5,7 @@ import {
   EVessleType,
   EConfidenceTiers,
   EGeoJSONGeometryType,
+  EHiddenConfig,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -15,18 +16,22 @@ import {
   TGlobalEvent,
   I4wingsEntry,
 } from '@packages/types';
-import { deepSortObject } from '@packages/utils';
-import { hashString } from '../../helpers/utils/backendUtils';
-import config from '../../config/pilot.json';
 import {
-  isMatchedCase,
-  isNoisyCase,
-  missingRequiredFields,
-} from './validation';
+  deepSortObject,
+  deepStripHidden,
+  getExecutionDuration,
+  isNumber,
+} from '@packages/utils';
+import {
+  getContextLayersFromEvents,
+  getSourcesFromEvents,
+  hashString,
+  stripHiddenConfiguration,
+} from '../../helpers/utils/backendUtils';
+import { isNoisyCase, missingRequiredFields } from './validation';
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
 import { vesselZone } from '../features/bathymetry';
-import { gitCommitSHA } from '../sample';
 
 export const backendVersion = pkg.version;
 
@@ -114,37 +119,68 @@ export const generateConfidence_heuristic = (
 
 export const generateRunMetadata = async (
   a_Configurations: IConfigJSON[],
-  a_GITCommit?: string 
+  a_Events?: IEventSchema[],
+  a_Start?: string,
+  a_End?: string,
 ): Promise<IRunMetadata> => {
-  const canonicalObject = deepSortObject(a_Configurations);
+  const canonicalObject = deepSortObject(stripHiddenConfiguration(a_Configurations));
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
+  const execution_duration_ms =
+    a_Start && a_End ? getExecutionDuration(a_Start, a_End) : undefined;
   return {
-    code_version: a_GITCommit ? a_GITCommit : gitCommitSHA.length === 0 ? 'N/A' : gitCommitSHA,
-    config_json: canonicalObject,
     config_hash,
+    config_json: canonicalObject,
+    git_commit_version: a_Configurations[0].gitCommitSHA ?? 'N/A',
+    run_time: new Date().toISOString(),
+    dataset_version: a_Events 
+      ? a_Events.length > 0 
+        ? getSourcesFromEvents(a_Events)
+        : undefined 
+      : undefined,
+    context_layer_versions: a_Events
+      ? a_Events.length > 0 
+        ? getContextLayersFromEvents(a_Events)
+        : undefined
+      : undefined,
+    execution_duration_sec: execution_duration_ms
+      ? Number((execution_duration_ms / 1000).toFixed(3))
+      : undefined,
   };
 };
 
-export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
+export const generateScoring = (
+  a_EventSchema: IEventSchema,
+  a_Config: IConfigJSON,
+): IScoring => {
+  const thresholds = a_Config.threshold;
+  let reason_codes: EReasonCodes[] = [];
+  if(Object.keys( thresholds ).length === 0){
+    reason_codes.push(EReasonCodesStatic.invalid_threshold_config);
+    return {
+      triage_score: null,
+      uncertainty_score: null,
+      reason_codes
+    }
+  }
   const WEIGHTS = {
-    base_uncertainty: 0.1,
+    base_uncertainty: thresholds.base_uncertainty_weight,
 
-    missing_field: 0.08,
-    noisy: 0.15,
-    unmatched: 0.2,
+    missing_field: thresholds.missing_field_weight,
+    noisy: thresholds.noisy_weight,
+    unmatched: thresholds.unmatched_weight,
 
-    near_coast_importance: 0.3,
-    eez_importance: 0.2,
-    mpa_importance: 0.5,
+    near_coast_importance: thresholds.near_coast_importance_weight,
+    eez_importance: thresholds.eez_importance_weight,
+    mpa_importance: thresholds.mpa_importance_weight,
 
-    missing_confidence_proxy: 0.25,
-    low_confidence_proxy: 0.2,
+    missing_confidence_proxy: thresholds.missing_confidence_proxy_weight,
+    low_confidence_proxy: thresholds.low_confidence_proxy_weight,
 
-    low_confidence_tier: 0.08,
-    medium_confidence_tier: 0.0,
-    high_confidence_tier: -0.05,
+    low_confidence_tier: thresholds.low_confidence_tier_weight,
+    medium_confidence_tier: thresholds.medium_confidence_tier_weight,
+    high_confidence_tier: thresholds.high_confidence_tier_weight,
   };
 
   const entry = a_EventSchema.raw_metadata;
@@ -152,7 +188,20 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   const confidence_proxy = a_EventSchema.confidence_proxy;
   const confidence_tier = a_EventSchema.confidence_tier;
 
-  let reason_codes: EReasonCodes[] = [];
+  const missings = Object.entries(WEIGHTS)
+  .filter(([, v]) => v === undefined || !isNumber(v))
+  .map(([k]) => k)
+
+  if( missings.length > 0 ){
+    for(const missing of missings){
+      reason_codes.push(`missing_required_threshold_field:${missing}_weight`);
+    }
+    return {
+      triage_score: null,
+      uncertainty_score: null,
+      reason_codes
+    }
+  }
 
   // =========================
   // A. UNCERTAINTY (DATA QUALITY) - How much do we distrust this event?
@@ -191,9 +240,7 @@ export const generateScoring = (a_EventSchema: IEventSchema): IScoring => {
   if (confidence_proxy === null) {
     uncertainty_score += WEIGHTS.missing_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
-  } else if (
-    confidence_proxy <= config.threshold.low_confidence_proxy_threshold
-  ) {
+  } else if (confidence_proxy <= thresholds.low_confidence_proxy_threshold) {
     uncertainty_score += WEIGHTS.low_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.low_confidence_proxy);
   }

@@ -6,3 +6,4 @@
 /logs   
 /data/bathymetry_rasters/*.tif
 /data/out/heavy_*
+/data/out/exports/*

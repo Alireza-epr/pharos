@@ -135,6 +135,39 @@ export const getMeanScore = (a_Events: IEventSchema[]) => {
 };
 
 export const getStats = (a_Events: IEventSchema[]): IStats => {
+  if (a_Events.length === 0) {
+    return {
+      count_total: a_Events.length,
+      matching_stats: {
+        matched: 0,
+        unmatched: 0
+      },
+      missingness: {
+        confidence_proxy: "0.00%",
+        distance_to_coast_km: "0.00%",
+        event_id: "0.00%",
+        lat: "0.00%",
+        lon: "0.00%",
+        timestamp_utc: "0.00%"
+      },
+      geo_sanity: {
+        latitude: {
+          max: 0,
+          min: 0
+        },
+        longitude: {
+          max: 0,
+          min: 0
+        }
+      },
+      time_range: {
+        start: "N/A",
+        end: "N/A"
+      },
+      mean_score: 0,
+      mean_uncertainty: 0
+    }
+  }
   const { mean_score, mean_uncertainty } = getMeanScore(a_Events);
   return {
     count_total: a_Events.length,

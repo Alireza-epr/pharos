@@ -1,0 +1,93 @@
+{
+  "config_hash": "7cbe7dbfdaefdf6882e82907f34965df0dc938e889f4686d7d779054b3f23669",
+  "config_json": [
+    {
+      "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
+      "body_params": {
+        "geojson": {
+          "coordinates": [
+            [
+              [
+                14.11,
+                55.26
+              ],
+              [
+                14.68,
+                55.27
+              ],
+              [
+                14.69,
+                55.11
+              ],
+              [
+                14.09,
+                55.08
+              ],
+              [
+                14.11,
+                55.26
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        }
+      },
+      "filter": {},
+      "hotspot": {
+        "resolution": 5,
+        "timeBin": "HOURLY"
+      },
+      "method": "POST",
+      "output": "data/out/pilot/",
+      "sort": [
+        {
+          "direction": "desc",
+          "sortBy": "scoring.triage_score"
+        },
+        {
+          "direction": "asc",
+          "sortBy": "scoring.uncertainty_score"
+        },
+        {
+          "direction": "desc",
+          "sortBy": "timestamp_utc"
+        }
+      ],
+      "threshold": {
+        "base_uncertainty_weight": 0.1,
+        "deep_water_threshold": -200,
+        "eez_importance_weight": 0.2,
+        "high_confidence_tier_weight": -0.05,
+        "high_triage_score_threshold": 0.85,
+        "low_confidence_proxy_threshold": 2,
+        "low_confidence_proxy_weight": 0.2,
+        "low_confidence_tier_weight": 0.08,
+        "low_triage_score_threshold": 0.3,
+        "medium_confidence_tier_weight": 0,
+        "medium_triage_score_threshold": 0.6,
+        "missing_confidence_proxy_weight": 0.25,
+        "missing_field_weight": 0.08,
+        "mpa_importance_weight": 0.5,
+        "near_coast_importance_weight": 0.3,
+        "near_coast_threshold": 10,
+        "noisy_weight": 0.15,
+        "shallow_water_threshold": -50,
+        "unmatched_weight": 0.2
+      },
+      "url_params": {
+        "datasets[0]": "public-global-sar-presence:v3.0",
+        "date-range": "2025-12-01T00:00:00Z,2025-12-07T23:59:59Z",
+        "filters[0]": "",
+        "format": "JSON",
+        "group-by": "VESSEL_ID",
+        "spatial-resolution": "HIGH",
+        "temporal-resolution": "HOURLY"
+      }
+    }
+  ],
+  "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
+  "dataset_version": "public-global-vessel-identity:v3.0, public-global-sar-presence:v3.0",
+  "execution_duration_sec": 2.491,
+  "git_commit_version": "6304866c8039ba518b0dd356628232177189d4f4",
+  "run_time": "2026-06-04T16:59:37.315Z"
+}

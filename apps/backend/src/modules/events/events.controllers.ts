@@ -5,23 +5,42 @@ import {
 } from '../../helpers/utils/controllerUtils';
 import { EFetchMethods, EStatusCode } from '@packages/enum';
 
-import config from "../../config/pilot.json"
-import URLs from "../../config/globalFishingWatch.json"
+import config from '../../config/pilot.json';
+import URLs from '../../config/globalFishingWatch.json';
 
-import { IConfigJSON, IEventSchema, IPagination, TBodyParams, TURLParams } from '@packages/types';
-import { validateBodyParams, validateQueryParams } from './events.validators';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IPagination,
+  TBodyParams,
+  TURLParams,
+} from '@packages/types';
 import { getStats } from '../../pipeline/aggregate/stats';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
 import { applyFilter } from '../../pipeline/normalize/filter';
+import { formatTimestamp } from '../../helpers/utils/backendUtils';
+import {
+  validateBodyParams,
+  validateQueryParams,
+} from '../../helpers/utils/validationUtils';
 
-export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLParams>, a_Res: Response) => {
-  const gitCommitSHA = a_Req.gitCommitSHA;
+export const eventsController = async (
+  a_Req: Request<{}, {}, TBodyParams, TURLParams>,
+  a_Res: Response,
+) => {
+  const events = a_Req.events;
+  if (events === undefined) {
+    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+      success: false,
+      error: [`No events available`],
+    });
+  }
 
   const body = a_Req.body;
   const url_params = a_Req.query;
 
   try {
-    // Validation 
+    // Validation
     const urlParamsValidation = validateQueryParams(url_params);
     if (!urlParamsValidation.isValid) {
       return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
@@ -39,12 +58,12 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
     }
 
     // Configuration
-    const threshold = body.threshold ?? config.threshold
-    const sort = body.sort ?? config.sort
-    const hotspot = body.hotspot ?? config.hotspot
+    const threshold = body.threshold ?? config.threshold;
+    const sort = body.sort ?? config.sort;
+    const hotspot = body.hotspot ?? config.hotspot;
 
-    const filter = body.filter ?? {}
-    const body_params = body.body_params ?? null
+    const filter = body.filter ?? {};
+    const body_params = body.body_params ?? null;
 
     const configs: IConfigJSON = {
       method: EFetchMethods.post,
@@ -54,26 +73,17 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       threshold,
       sort,
       hotspot,
-      filter
-    }
-    const metadata = await generateRunMetadata([configs], gitCommitSHA)
-
-    // Ingestion
-    const events = a_Req.events;
-    if (events === undefined) {
-      return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
-        success: false,
-        error: [`No events available`],
-      });
-    }
+      filter,
+      gitCommitSHA: a_Req.gitCommitSHA,
+    };
 
     // Filtering
-    const filteredEvents = applyFilter(events, configs.filter)
+    const filteredEvents = applyFilter(events, configs.filter);
 
     // Pagination
     const total = filteredEvents.length;
-    const limit = Number(url_params.limit)
-    const offset = Number(url_params.offset)
+    const limit = Number(url_params.limit);
+    const offset = Number(url_params.offset);
     if (offset > total) {
       return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
         success: false,
@@ -84,13 +94,11 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
     const totalPages = Math.ceil(total / limit);
     const currentPage = Math.floor(offset / limit) + 1;
 
-    const thisPageEvents = filteredEvents.slice(offset, offset + limit)
-    const pageSize = thisPageEvents.length
-    const nextOffset =
-      offset + limit >= total ? null : offset + limit;
+    const thisPageEvents = filteredEvents.slice(offset, offset + limit);
+    const pageSize = thisPageEvents.length;
+    const nextOffset = offset + limit >= total ? null : offset + limit;
 
-    const prevOffset =
-      offset === 0 ? null : Math.max(0, offset - limit);
+    const prevOffset = offset === 0 ? null : Math.max(0, offset - limit);
 
     const pagination: IPagination = {
       total,
@@ -99,16 +107,24 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       prevOffset,
       pageSize,
       totalPages,
-      currentPage
-    }
+      currentPage,
+    };
 
-    // Stats
+    // Metadata
+    const end = formatTimestamp();
+    const metadata = await generateRunMetadata(
+      [configs],
+      events,
+      a_Req.start_time,
+      end,
+    );
+
     if (thisPageEvents.length === 0) {
       return controllerResponse(a_Res, EStatusCode.OK_200, {
         success: true,
         metadata,
         pagination,
-        entries: []
+        entries: [],
       });
     }
 
@@ -118,13 +134,12 @@ export const eventsController = async (a_Req: Request<{}, {}, TBodyParams, TURLP
       metadata,
       pagination,
       stats: getStats(thisPageEvents),
-      entries: thisPageEvents
+      entries: thisPageEvents,
     });
-
   } catch (error: any) {
     return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
       success: false,
-      error: [error]
-    })
+      error: [error],
+    });
   }
 };

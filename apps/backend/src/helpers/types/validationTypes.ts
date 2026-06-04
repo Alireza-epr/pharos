@@ -6,6 +6,7 @@ import {
   IPointGeometry,
   IScoring,
 } from '@packages/types';
+import { ICSVGroup } from './generalTypes';
 
 export interface ILandPolygonProperties {
   Location: string;
@@ -104,9 +105,9 @@ export enum EValidationStrata {
   density = 'density',
 }
 
-export interface IValidationStrata {
+export interface IValidationStrata<T> {
   geoJSON: TValidationGeoJSON[];
-  csv: string;
+  csv: ICSVGroup<T>[];
 }
 
 export interface IValidationManifest {
@@ -114,6 +115,5 @@ export interface IValidationManifest {
   stratum_sample_sizes: {
     [key: string]: number;
   };
-  run_metadata: IRunMetadata;
-  execution_duration_sec: number;
+  run_metadata: [IConfigJSON[], IEventSchema[], string, string];
 }

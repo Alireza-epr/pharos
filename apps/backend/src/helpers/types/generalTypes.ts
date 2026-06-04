@@ -1,5 +1,5 @@
-import { EContextLayers } from '@packages/enum';
-import { IContextLayer, IEventSchema, IScoring } from '@packages/types';
+import { EReasonCodes } from '@packages/enum';
+import { IEventSchema } from '@packages/types';
 
 export interface IBackendConfig {
   logging: {
@@ -36,6 +36,26 @@ export type TEventProperties = Omit<
   | 'hotspot'
 >;
 
+export type TEventCSVRow =
+  | (Pick<
+      IEventSchema,
+      | 'event_id'
+      | 'timestamp_utc'
+      | 'matched_flag'
+      | 'lat'
+      | 'lon'
+      | 'confidence_proxy'
+      | 'confidence_tier'
+      | 'distance_to_coast_km'
+    > & {
+      bathymetry_m: string | undefined;
+      mpa: string | undefined;
+      eez: string | undefined;
+      triage_score: number | null;
+      uncertainty_score: number | null;
+    })
+  | Record<EReasonCodes, boolean | undefined>;
+
 export interface IBathymetryTile {
   file: string;
   bbox: [number, number, number, number];
@@ -45,4 +65,16 @@ export interface IBathymetryCachedTile {
   file: string;
   image: any;
   bbox: [number, number, number, number];
+}
+export interface ICSVGroup<T> {
+  title: string;
+  samples: T[];
+}
+
+export interface IAuditLog {
+  user: string;
+  date: string;
+  eventCount: number;
+  configHash: string;
+  exportId: string;
 }

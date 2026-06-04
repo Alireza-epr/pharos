@@ -1,13 +1,16 @@
 import fs from 'fs';
 import path from 'path';
+import { Request } from 'express';
 import { is4wingsSource } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
+  EContextLayers,
   EEventDatasets,
+  EHiddenConfig,
   EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
-import { ELogType } from '../types/generalTypes';
+import { ELogType, TEventProperties } from '../types/generalTypes';
 import {
   IEventSchema,
   I4wingsAPIResponse,
@@ -17,8 +20,10 @@ import {
   I4wingsEntry,
   IRejectedEventSchema,
   ISortOption,
+  IFeature,
+  IGeometry,
 } from '@packages/types';
-import { deepSortObject } from '@packages/utils';
+import { deepSortObject, deepStripHidden } from '@packages/utils';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -164,6 +169,28 @@ export const getSourcesFromEvents = (a_Events: IEventSchema[]) => {
     .join(', ');
 };
 
+export const getContextLayersFromEvents = (a_Events: IEventSchema[]) => {
+  const allLayers = new Set<string>();
+  for (const event of deepSortObject(a_Events)) {
+    const thisEventLayers = event.context_layers;
+    let thisContextLayer = [];
+    for (const layer in thisEventLayers) {
+      const thisLayerDataset = thisEventLayers[layer as EContextLayers].dataset;
+      const thisLayerVersion = thisEventLayers[layer as EContextLayers].version;
+      thisContextLayer.push(
+        layer + ':' + thisLayerDataset + ':' + thisLayerVersion,
+      );
+    }
+    const thisContextLayerJoined = thisContextLayer.join(', ');
+
+    if (!allLayers.has(thisContextLayerJoined))
+      allLayers.add(thisContextLayerJoined);
+  }
+  return Array.from(allLayers)
+    .map((s) => s)
+    .join(', ');
+};
+
 export const getEntriesFrom4wingsResponse = (
   a_Config: IConfigJSON,
   a_4wingsResponse: I4wingsAPIResponse,
@@ -218,57 +245,6 @@ export const getDateBucket = (
   return a_TimeBucket === EHotspotTimeBins.DAILY
     ? getDate(a_Datetime)
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
-};
-
-export const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
-  if (!a_Samples.length) return '';
-  let s0 = a_Samples[0];
-  if (!s0) return '';
-  const headers = Object.keys(s0);
-
-  const delimiter = ';';
-
-  const csvRows = [
-    `### ${a_Title} ###`,
-    headers.join(delimiter), // header row
-    ...a_Samples.map((sample) =>
-      headers
-        .map((header) => {
-          const value = sample[header as keyof T];
-          // handle null / undefined safely
-          return value === null || value === undefined
-            ? 'N/A'
-            : typeof value === 'number'
-              ? `="${value}"`
-              : `"${String(value).replace(/"/g, '""')}"`; //If a value itself contains a double quote ("), CSV requires it to be escaped by doubling it.
-        })
-        .join(delimiter),
-    ),
-  ];
-
-  return csvRows.join('\n');
-};
-
-export const csvString = <T, N>(
-  a_Title1: string,
-  a_Samples1: T[],
-  a_Title2?: string,
-  a_Samples2?: N[],
-) => {
-  const sections: string[] = [];
-
-  sections.push(jsonToCsv<T>(a_Title1, a_Samples1));
-
-  if (a_Samples2 && a_Title2) {
-    sections.push(''); // blank line
-    sections.push(''); // blank line
-
-    sections.push(jsonToCsv<N>(a_Title2, a_Samples2));
-  }
-
-  const csvString = sections.join('\n');
-
-  return csvString;
 };
 
 export const getSortValue = (obj: any, path: string) => {
@@ -355,4 +331,58 @@ export const sortEventSchema = (
   }
 
   return [...deepSortObject(accepted), ...deepSortObject(rejected)];
+};
+
+export const featureFromEvents = (
+  a_Events: IEventSchema[],
+): IFeature<IGeometry, TEventProperties>[] => {
+  return a_Events.map((event) => {
+    return {
+      type: 'Feature',
+      geometry: event.geom,
+      properties: {
+        event_id: event.event_id,
+        timestamp_utc: event.timestamp_utc,
+        matched_flag: event.matched_flag,
+        lat: event.lat,
+        lon: event.lon,
+        confidence_proxy: event.confidence_proxy,
+        confidence_tier: event.confidence_tier,
+        distance_to_coast_km: event.distance_to_coast_km,
+        context_layers: event.context_layers,
+        scoring: event.scoring,
+      },
+    };
+  });
+};
+
+export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
+  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
+  
+  const filteredConfiguration = deepStripHidden(
+    a_Configurations,
+    new Set(hiddenKeys),
+  ) as IConfigJSON[];
+
+  return filteredConfiguration
+}
+
+export const getUserInfoFromReq = <P, R, B, Q>(a_Req: Request<P, R, B, Q>): string => {
+  const ip =
+    (a_Req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+    a_Req.ip ||
+    "unknown";
+
+  const userAgent = a_Req.headers["user-agent"] || "unknown";
+  const language = a_Req.headers["accept-language"] || "unknown";
+  const method = a_Req.method;
+  const url = a_Req.originalUrl;
+
+  return [
+    `IP: ${ip}`,
+    `User-Agent: ${userAgent}`,
+    `Language: ${language}`,
+    `Method: ${method}`,
+    `URL: ${url}`,
+  ].join(" | ");
 };

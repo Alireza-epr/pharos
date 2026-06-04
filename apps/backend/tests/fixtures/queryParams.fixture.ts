@@ -13,7 +13,7 @@ export const validQueryParams = {
   'datasets[0]': 'public-global-fishing-effort:v1.0',
   'filters[0]': 'matched="true"',
   limit: 2,
-  offset: 10
+  offset: 10,
 };
 
 export const invalidQuery_missingRequired = {
@@ -41,7 +41,7 @@ export const validQueryParams_2 = {
   'datasets[0]': 'public-global-fishing-effort:v1.0',
   'filters[0]': 'speed>5',
   limit: 2,
-  offset: 10
+  offset: 10,
 };
 
 export const invalidQuery_missing_required = {
@@ -56,8 +56,8 @@ export const invalidQuery_wrong_types = {
 };
 
 export const invalidQuery_wrong_types_2 = {
-  limit: "a",
-  offset: "b"
+  limit: 'a',
+  offset: 'b',
 };
 
 export const invalidQuery_wrong_enum = {

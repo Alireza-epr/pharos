@@ -6,26 +6,11 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [
-            14.11,
-            55.26
-          ],
-          [
-            14.68,
-            55.27
-          ],
-          [
-            14.69,
-            55.11
-          ],
-          [
-            14.09,
-            55.08
-          ],
-          [
-            14.11,
-            55.26
-          ]
+          [14.11, 55.26],
+          [14.68, 55.27],
+          [14.69, 55.11],
+          [14.09, 55.08],
+          [14.11, 55.26]
         ]
       ]
     }
@@ -46,13 +31,25 @@
     "deep_water_threshold": -200,
     "low_triage_score_threshold": 0.3,
     "medium_triage_score_threshold": 0.6,
-    "high_triage_score_threshold": 0.85
+    "high_triage_score_threshold": 0.85,
+    "base_uncertainty_weight": 0.1,
+    "missing_field_weight": 0.08,
+    "noisy_weight": 0.15,
+    "unmatched_weight": 0.2,
+    "near_coast_importance_weight": 0.3,
+    "eez_importance_weight": 0.2,
+    "mpa_importance_weight": 0.5,
+    "missing_confidence_proxy_weight": 0.25,
+    "low_confidence_proxy_weight": 0.2,
+    "low_confidence_tier_weight": 0.08,
+    "medium_confidence_tier_weight": 0.0,
+    "high_confidence_tier_weight": -0.05
   },
   "hotspot": {
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/",
+  "output": "data/out/pilot/",
   "sort": [
     {
       "sortBy": "scoring.triage_score",

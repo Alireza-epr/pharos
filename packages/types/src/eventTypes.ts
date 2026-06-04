@@ -7,6 +7,9 @@ import {
   EHotspotTimeBins,
   EConfidenceTiers,
   EHotspotStrength,
+  EThresholdConfig,
+  EHiddenConfig,
+  EExportEvidence,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -27,7 +30,11 @@ export interface IContextLayer {
 export interface IRunMetadata {
   config_hash: string;
   config_json: IConfigJSON[];
-  code_version: string;
+  git_commit_version: string;
+  run_time: string,
+  dataset_version: string | undefined, 
+  context_layer_versions: string | undefined,
+  execution_duration_sec: number | undefined
 }
 
 export interface IScoring {
@@ -65,7 +72,7 @@ export interface IEventSchema {
   confidence_tier: EConfidenceTiers;
   raw_metadata: I4wingsEntry;
   raw_event_metadata: TGlobalEvent | null;
-  run_metadata: IRunMetadata;
+  run_metadata: IRunMetadata | null;
   scoring: IScoring;
   rejected: false;
   hotspot: IEventHotspot | null;
@@ -91,27 +98,32 @@ export interface IRejectedEventSchema extends Pick<
   rejected: true;
 }
 
-export interface IConfigJSON {
+export interface IZipFile {
+  name: string;
+  content: any;
+}
+
+export type TExportConfig = {
+  [K in EExportEvidence]?: boolean
+}
+
+export type THiddenConfig = {
+  [EHiddenConfig.gitCommitSHA]?: string;
+  [EHiddenConfig.export]?: TExportConfig;
+};
+
+export interface IConfigJSON extends THiddenConfig {
   URL: string;
   method: EFetchMethods;
   body_params: I4wingsReportPostBodyParams;
   url_params: I4wingsReportGetURLParams;
-  threshold: IThresholdConfig;
+  threshold: Record<EThresholdConfig, number>;
   hotspot: IHotspotConfig;
   output?: string;
   filter: IFilteringParams;
   sort: ISortOption[];
 }
 
-export interface IThresholdConfig {
-  near_coast_threshold: number;
-  low_confidence_proxy_threshold: number;
-  shallow_water_threshold: number;
-  deep_water_threshold: number;
-  low_triage_score_threshold: number;
-  medium_triage_score_threshold: number;
-  high_triage_score_threshold: number;
-}
 
 export interface IHotspotConfig {
   resolution: TBuildRange<16>;

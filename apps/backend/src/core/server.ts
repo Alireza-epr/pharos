@@ -8,13 +8,18 @@ import { EBaseRoutes } from '@packages/enum';
 import systemRoutes from '../modules/system/system.routes';
 import authRoutes from '../modules/auth/auth.routes';
 import eventsRoutes from '../modules/events/events.routes';
+import exportsRoutes from '../modules/exports/exports.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
+import { attachStartTime } from '../middlewares/timeMiddleware';
 
 const app = express();
 
 // Read port from environment variables
 const port: number = config.port;
+
+// Trust reverse proxies (e.g. Nginx) so req.ip reflects the real client IP instead of the proxy IP
+app.set('trust proxy', true); 
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -27,7 +32,8 @@ app.use(responseLogger);
 
 // --- Attachments ---
 
-app.use(attachGitCommitSHA)
+app.use(attachStartTime);
+app.use(attachGitCommitSHA);
 
 // --- Endpoints ---
 
@@ -38,6 +44,8 @@ app.use(prependRoute + EBaseRoutes.system, systemRoutes);
 app.use(prependRoute + EBaseRoutes.auth, authRoutes);
 // Events
 app.use(prependRoute + EBaseRoutes.events, eventsRoutes);
+// Exports
+app.use(prependRoute + EBaseRoutes.exports, exportsRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {
