@@ -40,7 +40,7 @@
         "resolution": 5,
         "timeBin": "HOURLY"
       },
-      "output": "data/out/"
+      "output": "data/out/validation/"
     }
   ],
   "confidence_tier": [
@@ -84,7 +84,7 @@
         "resolution": 5,
         "timeBin": "HOURLY"
       },
-      "output": "data/out/"
+      "output": "data/out/validation/"
     },
     {
       "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -126,7 +126,7 @@
         "resolution": 5,
         "timeBin": "HOURLY"
       },
-      "output": "data/out/"
+      "output": "data/out/validation/"
     }
   ],
   "density": [
@@ -181,7 +181,7 @@
         "resolution": 5,
         "timeBin": "HOURLY"
       },
-      "output": "data/out/"
+      "output": "data/out/validation/"
     },
     {
       "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -234,7 +234,7 @@
         "resolution": 5,
         "timeBin": "HOURLY"
       },
-      "output": "data/out/"
+      "output": "data/out/validation/"
     }
   ]
 }

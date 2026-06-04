@@ -1,5 +1,5 @@
 {
-  "config_hash": "0314e1e16dfb517da0146a1869a1e7ff67bc35ca92d45fbcbbbeb9af52486500",
+  "config_hash": "7cbe7dbfdaefdf6882e82907f34965df0dc938e889f4686d7d779054b3f23669",
   "config_json": [
     {
       "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -38,7 +38,7 @@
         "timeBin": "HOURLY"
       },
       "method": "POST",
-      "output": "data/out/",
+      "output": "data/out/pilot/",
       "sort": [
         {
           "direction": "desc",
@@ -87,7 +87,7 @@
   ],
   "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
   "dataset_version": "public-global-vessel-identity:v3.0, public-global-sar-presence:v3.0",
-  "execution_duration_sec": 2.776,
-  "git_commit_version": "a3299af3e92ed8731d4a3cb1ef0b85b94f4a660b",
-  "run_time": "2026-06-03T09:56:25.580Z"
+  "execution_duration_sec": 2.491,
+  "git_commit_version": "6304866c8039ba518b0dd356628232177189d4f4",
+  "run_time": "2026-06-04T16:59:37.315Z"
 }

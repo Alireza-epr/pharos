@@ -25,6 +25,7 @@ import {
   getContextLayersFromEvents,
   getSourcesFromEvents,
   hashString,
+  stripHiddenConfiguration,
 } from '../../helpers/utils/backendUtils';
 import { isNoisyCase, missingRequiredFields } from './validation';
 import { isNearCoast } from '../features/coast_distance';
@@ -121,12 +122,7 @@ export const generateRunMetadata = async (
   a_Start?: string,
   a_End?: string,
 ): Promise<IRunMetadata> => {
-  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
-  const filteredConfiguration = deepStripHidden(
-    a_Configurations,
-    new Set(hiddenKeys),
-  ) as IConfigJSON[];
-  const canonicalObject = deepSortObject(filteredConfiguration);
+  const canonicalObject = deepSortObject(stripHiddenConfiguration(a_Configurations));
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 

@@ -8,6 +8,8 @@ This bundle contains a filtered and scored set of events enriched with geospatia
 
 ## Files in this bundle
 
+The output of this bundle is a ZIP file containing the following data:
+
 ### 1. `events.csv`
 
 Tabular representation of selected events with:
@@ -110,3 +112,12 @@ These cases should be treated as **investigation candidates**, not discarded dat
 To reproduce this dataset, use `config_json` from `run_metadata.json`.
 
 ---
+
+## Audit Log
+
+In addition to the ZIP file, an audit log is generated containing the following information:
+  `user`: Information about the user who initiated the request.
+  `date`: The date and time when the ZIP file was created.
+  `eventCount`: The total number of exported events.
+  `configHash`: A hash generated from the query parameters and request body used to retrieve the events.
+  `exportId`: The unique identifier of the export, which is also used as the ZIP file name.

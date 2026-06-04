@@ -184,8 +184,8 @@
     {
       "geometry": {
         "coordinates": [
-          14.09,
-          55.09
+          14.41,
+          55.21
         ],
         "type": "Point"
       },
@@ -197,7 +197,7 @@
             "dataset": "gebco_2025_sub_ice_topo",
             "enrichments": [
               {
-                "value": "-46"
+                "value": "-43"
               }
             ],
             "version": "v2.7"
@@ -206,8 +206,8 @@
             "dataset": "World_EEZ_20231025_LR",
             "enrichments": [
               {
-                "id": "5694",
-                "label": "Swedish Exclusive Economic Zone"
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
               }
             ],
             "version": "v12"
@@ -218,10 +218,10 @@
             "version": "v1.6"
           }
         },
-        "distance_to_coast_km": 33.07,
-        "event_id": "2467aabb706f8d708de0726e25ed51d73a8fae4475766a3aa761d0d24c958ad8",
-        "lat": 55.09,
-        "lon": 14.09,
+        "distance_to_coast_km": 18.68,
+        "event_id": "8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081",
+        "lat": 55.21,
+        "lon": 14.41,
         "matched_flag": true,
         "scoring": {
           "reason_codes": [
@@ -300,8 +300,8 @@
     {
       "geometry": {
         "coordinates": [
-          14.41,
-          55.21
+          14.09,
+          55.09
         ],
         "type": "Point"
       },
@@ -313,7 +313,7 @@
             "dataset": "gebco_2025_sub_ice_topo",
             "enrichments": [
               {
-                "value": "-43"
+                "value": "-46"
               }
             ],
             "version": "v2.7"
@@ -322,8 +322,8 @@
             "dataset": "World_EEZ_20231025_LR",
             "enrichments": [
               {
-                "id": "5674",
-                "label": "Danish Exclusive Economic Zone"
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
               }
             ],
             "version": "v12"
@@ -334,10 +334,10 @@
             "version": "v1.6"
           }
         },
-        "distance_to_coast_km": 18.68,
-        "event_id": "8c07b71ef69301c62f7a94e367c7b627292329d5d4c9633195c064fc8d4e0081",
-        "lat": 55.21,
-        "lon": 14.41,
+        "distance_to_coast_km": 33.07,
+        "event_id": "2467aabb706f8d708de0726e25ed51d73a8fae4475766a3aa761d0d24c958ad8",
+        "lat": 55.09,
+        "lon": 14.09,
         "matched_flag": true,
         "scoring": {
           "reason_codes": [
@@ -416,6 +416,64 @@
     {
       "geometry": {
         "coordinates": [
+          14.4,
+          55.21
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "confidence_proxy": null,
+        "confidence_tier": "low",
+        "context_layers": {
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "enrichments": [
+              {
+                "value": "-43"
+              }
+            ],
+            "version": "v2.7"
+          },
+          "EEZ": {
+            "dataset": "World_EEZ_20231025_LR",
+            "enrichments": [
+              {
+                "id": "5674",
+                "label": "Danish Exclusive Economic Zone"
+              }
+            ],
+            "version": "v12"
+          },
+          "MPA": {
+            "dataset": "WDPA_WDOECM_APR2026",
+            "enrichments": [],
+            "version": "v1.6"
+          }
+        },
+        "distance_to_coast_km": 19.31,
+        "event_id": "bf8d2baf8bc9e7edd6b5c17e27d4fcc16c5045f1dd13e8db4b5574d75601e2e0",
+        "lat": 55.21,
+        "lon": 14.4,
+        "matched_flag": true,
+        "scoring": {
+          "reason_codes": [
+            "bathymetry_cargo_anomaly_zone",
+            "bathymetry_shallow_eez_hotspot",
+            "inside_eez",
+            "low_confidence_tier",
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ],
+          "triage_score": 0.73,
+          "uncertainty_score": 0.38
+        },
+        "timestamp_utc": "2025-12-01T05:00:00Z"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           14.3,
           55.25
         ],
@@ -454,64 +512,6 @@
         "event_id": "745b06c4138f2180fb642f38b6d7c63b95edec6d894d5b4984099ce232fdc129",
         "lat": 55.25,
         "lon": 14.3,
-        "matched_flag": true,
-        "scoring": {
-          "reason_codes": [
-            "bathymetry_cargo_anomaly_zone",
-            "bathymetry_shallow_eez_hotspot",
-            "inside_eez",
-            "low_confidence_tier",
-            "matched_to_public_ais",
-            "missing_confidence_proxy"
-          ],
-          "triage_score": 0.73,
-          "uncertainty_score": 0.38
-        },
-        "timestamp_utc": "2025-12-01T05:00:00Z"
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
-          14.13,
-          55.24
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "confidence_proxy": null,
-        "confidence_tier": "low",
-        "context_layers": {
-          "Bathymetry": {
-            "dataset": "gebco_2025_sub_ice_topo",
-            "enrichments": [
-              {
-                "value": "-36"
-              }
-            ],
-            "version": "v2.7"
-          },
-          "EEZ": {
-            "dataset": "World_EEZ_20231025_LR",
-            "enrichments": [
-              {
-                "id": "5694",
-                "label": "Swedish Exclusive Economic Zone"
-              }
-            ],
-            "version": "v12"
-          },
-          "MPA": {
-            "dataset": "WDPA_WDOECM_APR2026",
-            "enrichments": [],
-            "version": "v1.6"
-          }
-        },
-        "distance_to_coast_km": 16.38,
-        "event_id": "b9ca5ed29a15b3a42caf251949422858a3531124c58497c05c97d7ecb6e863fd",
-        "lat": 55.24,
-        "lon": 14.13,
         "matched_flag": true,
         "scoring": {
           "reason_codes": [
@@ -590,8 +590,8 @@
     {
       "geometry": {
         "coordinates": [
-          14.4,
-          55.21
+          14.13,
+          55.24
         ],
         "type": "Point"
       },
@@ -603,7 +603,7 @@
             "dataset": "gebco_2025_sub_ice_topo",
             "enrichments": [
               {
-                "value": "-43"
+                "value": "-36"
               }
             ],
             "version": "v2.7"
@@ -612,8 +612,8 @@
             "dataset": "World_EEZ_20231025_LR",
             "enrichments": [
               {
-                "id": "5674",
-                "label": "Danish Exclusive Economic Zone"
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
               }
             ],
             "version": "v12"
@@ -624,10 +624,10 @@
             "version": "v1.6"
           }
         },
-        "distance_to_coast_km": 19.31,
-        "event_id": "bf8d2baf8bc9e7edd6b5c17e27d4fcc16c5045f1dd13e8db4b5574d75601e2e0",
-        "lat": 55.21,
-        "lon": 14.4,
+        "distance_to_coast_km": 16.38,
+        "event_id": "b9ca5ed29a15b3a42caf251949422858a3531124c58497c05c97d7ecb6e863fd",
+        "lat": 55.24,
+        "lon": 14.13,
         "matched_flag": true,
         "scoring": {
           "reason_codes": [
@@ -819,63 +819,6 @@
     {
       "geometry": {
         "coordinates": [
-          14.22,
-          55.15
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "confidence_proxy": null,
-        "confidence_tier": "low",
-        "context_layers": {
-          "Bathymetry": {
-            "dataset": "gebco_2025_sub_ice_topo",
-            "enrichments": [
-              {
-                "value": "-45"
-              }
-            ],
-            "version": "v2.7"
-          },
-          "EEZ": {
-            "dataset": "World_EEZ_20231025_LR",
-            "enrichments": [
-              {
-                "id": "5694",
-                "label": "Swedish Exclusive Economic Zone"
-              }
-            ],
-            "version": "v12"
-          },
-          "MPA": {
-            "dataset": "WDPA_WDOECM_APR2026",
-            "enrichments": [],
-            "version": "v1.6"
-          }
-        },
-        "distance_to_coast_km": 26.66,
-        "event_id": "d44afb12029541a7678103c8212636a3322f3a9c40137adc12d7d735c5fbf695",
-        "lat": 55.15,
-        "lon": 14.22,
-        "matched_flag": true,
-        "scoring": {
-          "reason_codes": [
-            "bathymetry_shallow_eez_hotspot",
-            "inside_eez",
-            "low_confidence_tier",
-            "matched_to_public_ais",
-            "missing_confidence_proxy"
-          ],
-          "triage_score": 0.53,
-          "uncertainty_score": 0.38
-        },
-        "timestamp_utc": "2025-12-04T16:00:00Z"
-      },
-      "type": "Feature"
-    },
-    {
-      "geometry": {
-        "coordinates": [
           14.24,
           55.19
         ],
@@ -914,6 +857,63 @@
         "event_id": "d4461c9a171a5a60e73cdef504c3a60eeece0b54df8bc402821520e244d3caa2",
         "lat": 55.19,
         "lon": 14.24,
+        "matched_flag": true,
+        "scoring": {
+          "reason_codes": [
+            "bathymetry_shallow_eez_hotspot",
+            "inside_eez",
+            "low_confidence_tier",
+            "matched_to_public_ais",
+            "missing_confidence_proxy"
+          ],
+          "triage_score": 0.53,
+          "uncertainty_score": 0.38
+        },
+        "timestamp_utc": "2025-12-04T16:00:00Z"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.22,
+          55.15
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "confidence_proxy": null,
+        "confidence_tier": "low",
+        "context_layers": {
+          "Bathymetry": {
+            "dataset": "gebco_2025_sub_ice_topo",
+            "enrichments": [
+              {
+                "value": "-45"
+              }
+            ],
+            "version": "v2.7"
+          },
+          "EEZ": {
+            "dataset": "World_EEZ_20231025_LR",
+            "enrichments": [
+              {
+                "id": "5694",
+                "label": "Swedish Exclusive Economic Zone"
+              }
+            ],
+            "version": "v12"
+          },
+          "MPA": {
+            "dataset": "WDPA_WDOECM_APR2026",
+            "enrichments": [],
+            "version": "v1.6"
+          }
+        },
+        "distance_to_coast_km": 26.66,
+        "event_id": "d44afb12029541a7678103c8212636a3322f3a9c40137adc12d7d735c5fbf695",
+        "lat": 55.15,
+        "lon": 14.22,
         "matched_flag": true,
         "scoring": {
           "reason_codes": [

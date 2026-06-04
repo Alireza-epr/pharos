@@ -1,13 +1,15 @@
 import { IConfigJSON, IEventSchema, IHotspot, IZipFile } from '@packages/types';
-import { ICSVGroup, TEventCSVRow } from '../../helpers/types/generalTypes';
+import { IAuditLog, ICSVGroup, TEventCSVRow } from '../../helpers/types/generalTypes';
 import {
   featureFromEvents,
   formatTimestamp,
   getGitCommitSHA,
+  hashString,
+  stripHiddenConfiguration,
 } from '../../helpers/utils/backendUtils';
 import { featureFromHotspot } from '../aggregate/hotspots';
 import { getStats } from '../aggregate/stats';
-import { generateRunMetadata } from '../normalize/generation';
+import { generateRunMetadata, getISO8601 } from '../normalize/generation';
 import { createCSVRows, writeCSV } from './csv';
 import { writeGeoJSON } from './geojson';
 import { writeJSON } from './json';
@@ -24,7 +26,7 @@ import {
   TValidationSample,
 } from '../../helpers/types/validationTypes';
 import { writeZip } from './zip';
-import { getExportId } from '@packages/utils';
+import { deepSortObject, getExportId } from '@packages/utils';
 
 export const evidenceExport = async (
   a_Config: IConfigJSON,
@@ -32,6 +34,8 @@ export const evidenceExport = async (
   a_StartTime?: string,
   a_Hotspots?: IHotspot[],
   a_Zipped: boolean = false,
+  a_Log: boolean = false,
+  a_User: string = ""
 ) => {
   const gitCommitSHA = await getGitCommitSHA();
   const zipFiles: IZipFile[] = [];
@@ -154,10 +158,23 @@ export const evidenceExport = async (
       writeJSON(`${a_Config.output}run_metadata`, run_metadata);
     }
   }
-
+  const exportId = getExportId();
   if (a_Zipped) {
-    const export_id = getExportId();
-    await writeZip(`${a_Config.output}${export_id}.zip`, zipFiles);
+    await writeZip(`${a_Config.output}${exportId}.zip`, zipFiles);
+  }
+
+  if(a_Log){
+    const configsoObject = deepSortObject(stripHiddenConfiguration([a_Config]));
+    const configsString = JSON.stringify(configsoObject);
+    const configHash = await hashString(configsString);
+    const audit_log: IAuditLog = {
+      user: a_User.length > 0 ? a_User : "N/A" ,
+      date: a_StartTime ? getISO8601(a_StartTime): getISO8601(formatTimestamp()),
+      configHash,
+      eventCount: a_Events.length,
+      exportId
+    }
+    writeJSON(`${a_Config.output}${exportId}_audit_log`, deepSortObject(audit_log))
   }
 };
 

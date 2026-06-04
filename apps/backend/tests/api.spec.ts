@@ -1,7 +1,4 @@
-import {
-  validateBodyParams,
-  validateQueryParams,
-} from '../src/modules/events/events.validators';
+import { validateBodyParams, validateQueryParams } from '../src/helpers/utils/validationUtils';
 import {
   invalidBody_geojson,
   invalidBody_invalid_sort,

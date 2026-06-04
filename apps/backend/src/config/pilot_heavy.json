@@ -49,7 +49,7 @@
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/heavy_",
+  "output": "data/out/pilot_heavy/",
   "sort": [
     {
       "sortBy": "scoring.triage_score",

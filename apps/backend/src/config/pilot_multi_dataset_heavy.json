@@ -43,7 +43,7 @@
     "resolution": 5,
     "timeBin": "HOURLY"
   },
-  "output": "data/out/heavy_multi_dataset_",
+  "output": "data/out/pilot_multi_dataset_heavy/",
   "sort": [
     {
       "sortBy": "scoring.triage_score",

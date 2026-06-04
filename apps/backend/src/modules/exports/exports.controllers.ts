@@ -5,6 +5,7 @@ import config from '../../config/pilot.json';
 import { IConfigJSON, TBodyParams, TURLParams } from '@packages/types';
 import URLs from '../../config/globalFishingWatch.json';
 import { evidenceExport } from '../../pipeline/export/bundle';
+import { getUserInfoFromReq } from '../../helpers/utils/backendUtils';
 
 export const evidenceController = async (
   a_Req: Request<{}, {}, TBodyParams, TURLParams>,
@@ -47,7 +48,7 @@ export const evidenceController = async (
     },
   };
 
-  await evidenceExport(configs, events, a_Req.start_time, undefined, true);
+  await evidenceExport(configs, events, a_Req.start_time, undefined, true, true, getUserInfoFromReq<{}, {}, TBodyParams, TURLParams>(a_Req));
 
   return controllerResponse(a_Res, EStatusCode.OK_200, {
     success: true,

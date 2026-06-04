@@ -70,3 +70,11 @@ export interface ICSVGroup<T> {
   title: string;
   samples: T[];
 }
+
+export interface IAuditLog {
+  user: string;
+  date: string;
+  eventCount: number;
+  configHash: string;
+  exportId: string;
+}

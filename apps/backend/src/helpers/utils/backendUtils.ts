@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { Request } from 'express';
 import { is4wingsSource } from '../../pipeline/normalize/validation';
 import {
   E4wingsDatasets,
   EContextLayers,
   EEventDatasets,
+  EHiddenConfig,
   EHotspotTimeBins,
 } from '@packages/enum';
 import { config } from '../../config/api';
@@ -21,7 +23,7 @@ import {
   IFeature,
   IGeometry,
 } from '@packages/types';
-import { deepSortObject } from '@packages/utils';
+import { deepSortObject, deepStripHidden } from '@packages/utils';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -352,4 +354,35 @@ export const featureFromEvents = (
       },
     };
   });
+};
+
+export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
+  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
+  
+  const filteredConfiguration = deepStripHidden(
+    a_Configurations,
+    new Set(hiddenKeys),
+  ) as IConfigJSON[];
+
+  return filteredConfiguration
+}
+
+export const getUserInfoFromReq = <P, R, B, Q>(a_Req: Request<P, R, B, Q>): string => {
+  const ip =
+    (a_Req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+    a_Req.ip ||
+    "unknown";
+
+  const userAgent = a_Req.headers["user-agent"] || "unknown";
+  const language = a_Req.headers["accept-language"] || "unknown";
+  const method = a_Req.method;
+  const url = a_Req.originalUrl;
+
+  return [
+    `IP: ${ip}`,
+    `User-Agent: ${userAgent}`,
+    `Language: ${language}`,
+    `Method: ${method}`,
+    `URL: ${url}`,
+  ].join(" | ");
 };

@@ -1,7 +1,7 @@
 [
   {
     "run_metadata": {
-      "config_hash": "865a79d68c8372acac9e64a656e2f0257af7c7fd2609f5b78472a32e3325058e",
+      "config_hash": "7b866f483f7b612c24083043ed68fbd2cf8811fa7f6bc779fc3c21041c76c64d",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -11,7 +11,7 @@
             "timeBin": "HOURLY"
           },
           "method": "GET",
-          "output": "data/out/",
+          "output": "data/out/validation/",
           "threshold": {
             "base_uncertainty_weight": 0.1,
             "deep_water_threshold": -200,
@@ -48,19 +48,19 @@
       ],
       "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
       "dataset_version": "public-global-sar-presence:v3.0",
-      "execution_duration_sec": 6.388,
-      "git_commit_version": "a3299af3e92ed8731d4a3cb1ef0b85b94f4a660b",
-      "run_time": "2026-06-03T09:55:49.553Z"
+      "execution_duration_sec": 26.887,
+      "git_commit_version": "6304866c8039ba518b0dd356628232177189d4f4",
+      "run_time": "2026-06-04T17:01:30.280Z"
     },
     "strata": "distance_to_coast",
     "stratum_sample_sizes": {
-      "near_coast": 20,
-      "offshore": 30
+      "near_coast": 28,
+      "offshore": 22
     }
   },
   {
     "run_metadata": {
-      "config_hash": "308de25506f78316c546fc3f51256ba71de4ba348b9088a2b19c9f520e1cb98f",
+      "config_hash": "53d3deea9b9ed5b88b1ca6848a23830dec77b93a753d87ff67be506971c67781",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -70,7 +70,7 @@
             "timeBin": "HOURLY"
           },
           "method": "GET",
-          "output": "data/out/",
+          "output": "data/out/validation/",
           "threshold": {
             "base_uncertainty_weight": 0.1,
             "deep_water_threshold": -200,
@@ -112,7 +112,7 @@
             "timeBin": "HOURLY"
           },
           "method": "GET",
-          "output": "data/out/",
+          "output": "data/out/validation/",
           "threshold": {
             "base_uncertainty_weight": 0.1,
             "deep_water_threshold": -200,
@@ -149,9 +149,9 @@
       ],
       "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
       "dataset_version": "public-global-sar-presence:v3.0",
-      "execution_duration_sec": 5.133,
-      "git_commit_version": "a3299af3e92ed8731d4a3cb1ef0b85b94f4a660b",
-      "run_time": "2026-06-03T09:55:49.554Z"
+      "execution_duration_sec": 21.891,
+      "git_commit_version": "6304866c8039ba518b0dd356628232177189d4f4",
+      "run_time": "2026-06-04T17:01:30.281Z"
     },
     "strata": "confidence_tier",
     "stratum_sample_sizes": {
@@ -161,7 +161,7 @@
   },
   {
     "run_metadata": {
-      "config_hash": "f20507bb2f352613e488bb91303445d0e1247f0af84052610d75d584da53c482",
+      "config_hash": "245b0d2229eebcdaa2aa9b0a210c4bcd0c30d09f9789356142c9273b929bc208",
       "config_json": [
         {
           "URL": "https://gateway.api.globalfishingwatch.org/v3/4wings/report/",
@@ -199,7 +199,7 @@
             "timeBin": "HOURLY"
           },
           "method": "POST",
-          "output": "data/out/",
+          "output": "data/out/validation/",
           "threshold": {
             "base_uncertainty_weight": 0.1,
             "deep_water_threshold": -200,
@@ -267,7 +267,7 @@
             "timeBin": "HOURLY"
           },
           "method": "POST",
-          "output": "data/out/",
+          "output": "data/out/validation/",
           "threshold": {
             "base_uncertainty_weight": 0.1,
             "deep_water_threshold": -200,
@@ -302,9 +302,9 @@
       ],
       "context_layer_versions": "Bathymetry:gebco_2025_sub_ice_topo:v2.7, EEZ:World_EEZ_20231025_LR:v12, MPA:WDPA_WDOECM_APR2026:v1.6",
       "dataset_version": "public-global-sar-presence:v3.0",
-      "execution_duration_sec": 3.952,
-      "git_commit_version": "a3299af3e92ed8731d4a3cb1ef0b85b94f4a660b",
-      "run_time": "2026-06-03T09:55:49.555Z"
+      "execution_duration_sec": 23.504,
+      "git_commit_version": "6304866c8039ba518b0dd356628232177189d4f4",
+      "run_time": "2026-06-04T17:01:30.283Z"
     },
     "strata": "density",
     "stratum_sample_sizes": {

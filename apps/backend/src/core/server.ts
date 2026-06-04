@@ -18,6 +18,9 @@ const app = express();
 // Read port from environment variables
 const port: number = config.port;
 
+// Trust reverse proxies (e.g. Nginx) so req.ip reflects the real client IP instead of the proxy IP
+app.set('trust proxy', true); 
+
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
