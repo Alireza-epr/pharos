@@ -6,8 +6,8 @@ The system stores vessel event data in Parquet files and serves them through a s
 
 There are two main components:
 
-- **Ingestion worker** → fetches data from the provider and stores it
-- **API service** → reads Parquet files and returns results
+- **Ingestion worker**: fetches data from the provider and stores it
+- **API service**: reads Parquet files and returns results
 
 The API does not normally call the provider, except when data is missing.
 
@@ -54,23 +54,7 @@ The worker runs periodically and:
 2. Picks a time window
 3. Calls the provider per EEZ
 4. Enriches events (EEZ, H3, scoring, metadata)
-5. Writes events into EEZ or HIGH_SEAS Parquet files
-
----
-
-## Ingestion rules
-
-### If EEZ match exists:
-
-```
-→ write to eez_id.parquet
-```
-
-### If no EEZ match:
-
-```
-→ write to HIGH_SEAS.parquet
-```
+5. Writes events into EEZ Parquet files
 
 ---
 
@@ -81,11 +65,11 @@ When a user sends a request:
 ## Step 1 — Find region
 
 - Check which EEZ overlaps the polygon
-- If none → use HIGH_SEAS
+- If none then use HIGH_SEAS
 
 ---
 
-## Step 2 — Load files
+## Step 2 — Load files ( if applicable )
 
 Examples:
 
@@ -106,7 +90,7 @@ After loading Parquet:
 
 ---
 
-## Step 4 — Missing data
+## Step 4 — Missing data ( cache-on-miss behavior )
 
 If required data is not available:
 
@@ -114,8 +98,6 @@ If required data is not available:
 2. Process and enrich events
 3. Add to the correct file (EEZ or HIGH_SEAS)
 4. Return result
-
-This is a cache-on-miss behavior.
 
 ---
 
@@ -173,7 +155,7 @@ flowchart TD
 
     F --> G[Ingest + enrich events]
     G --> H[Write Parquet - EEZ or HIGH_SEAS]
-    H --> E
+    H --> I
 
     E --> I[Merge EEZ + HIGH_SEAS data]
 
