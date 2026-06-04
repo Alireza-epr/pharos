@@ -1,7 +1,5 @@
 import { createSortedEventSchemas } from './schema/main';
-import {
-  formatTimestamp,
-} from '../helpers/utils/backendUtils';
+import { formatTimestamp } from '../helpers/utils/backendUtils';
 import { detectionGFW } from './ingest/detections';
 import {
   IConfigJSON,
@@ -21,7 +19,7 @@ import {
   EValidationStrata,
   IValidationManifest,
   TValidationSample,
-  IValidationStrata
+  IValidationStrata,
 } from '../helpers/types/validationTypes';
 import { validationSamples } from './validation/main';
 import {
@@ -48,14 +46,14 @@ export const mpaPolygons = readMPAPolygons();
 const main = async (a_Config: IConfigJSON) => {
   log('Pilot starting...', ELogType.info);
 
-  const configValidation = validateBodyParams(a_Config)
-  if(!configValidation.isValid){
-    const messages = JSON.stringify(configValidation.errors)
-    log(`Following errors in pilot: ${messages}`, ELogType.error)
+  const configValidation = validateBodyParams(a_Config);
+  if (!configValidation.isValid) {
+    const messages = JSON.stringify(configValidation.errors);
+    log(`Following errors in pilot: ${messages}`, ELogType.error);
   }
   const start = formatTimestamp();
   await readBathymetryTiles();
-  
+
   const resp4wings = await detectionGFW<I4wingsAPIResponse>(a_Config);
 
   const entriesMap = getEntriesFrom4wingsResponse(a_Config, resp4wings);
@@ -77,10 +75,7 @@ const main = async (a_Config: IConfigJSON) => {
     log(`${key}; entry count: ${results.length}`, ELogType.info);
   }
 
-  await rawExport(
-    a_Config,
-    entries
-  )
+  await rawExport(a_Config, entries);
 
   log(`Creating event schemas...`, ELogType.info);
   const sortedEvents = await createSortedEventSchemas(a_Config, entries);
@@ -93,9 +88,12 @@ const main = async (a_Config: IConfigJSON) => {
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
-  const filteredEvents = applyFilter(notRejectedEvents, a_Config.filter)
+  const filteredEvents = applyFilter(notRejectedEvents, a_Config.filter);
   if (filteredEvents.length === 0) {
-    log('Pilot processing quit because no entries remained after filtering.', ELogType.info);
+    log(
+      'Pilot processing quit because no entries remained after filtering.',
+      ELogType.info,
+    );
     return;
   }
   const hotspots = generateHotspots(a_Config, filteredEvents);
@@ -104,25 +102,25 @@ const main = async (a_Config: IConfigJSON) => {
   log(
     `Exporting outputs to ${a_Config.output}; aggregated event count: ${enrichedEvents.length}`,
     ELogType.info,
-  );  
+  );
 
   const fullExport: TExportConfig = {
-    "canonicalSchema.json": true,
-    "event.geojson": true,
-    "event.parquet": true,
-    "events.csv": true,
-    "stats.json": true,
-    "hotspots.geojson": true,
-    "hotspots.parquet": true,
-    "run_metadata.json": true,
-  }
+    'canonicalSchema.json': true,
+    'event.geojson': true,
+    'event.parquet': true,
+    'events.csv': true,
+    'stats.json': true,
+    'hotspots.geojson': true,
+    'hotspots.parquet': true,
+    'run_metadata.json': true,
+  };
 
   await evidenceExport(
-    {...a_Config, export: fullExport},
+    { ...a_Config, export: fullExport },
     enrichedEvents,
     start,
-    hotspots
-  )
+    hotspots,
+  );
 
   log('Pilot finished.', ELogType.info);
 };
@@ -131,18 +129,21 @@ const validation = async (
   a_Configs: Record<EValidationStrata, IConfigJSON[]>,
 ) => {
   log('Starting validation...', ELogType.info);
-  for(const strata of Object.values(EValidationStrata)){
-    for(const config of a_Configs[strata]){
-      const configValidation = validateBodyParams(config)
-      if(!configValidation.isValid){
-        const messages = JSON.stringify(configValidation.errors)
-        log(`Following errors in ${strata} pilot: ${messages}`, ELogType.error)
+  for (const strata of Object.values(EValidationStrata)) {
+    for (const config of a_Configs[strata]) {
+      const configValidation = validateBodyParams(config);
+      if (!configValidation.isValid) {
+        const messages = JSON.stringify(configValidation.errors);
+        log(`Following errors in ${strata} pilot: ${messages}`, ELogType.error);
       }
     }
   }
-  
+
   await readBathymetryTiles();
-  const mapStrata = new Map<EValidationStrata, IValidationStrata<TValidationSample>>();
+  const mapStrata = new Map<
+    EValidationStrata,
+    IValidationStrata<TValidationSample>
+  >();
   const setManifest = new Set<IValidationManifest>();
 
   try {
@@ -167,9 +168,9 @@ const validation = async (
       }
     }
     const strata_1_csv: ICSVGroup<TValidationSample>[] = [
-      { title:'Near coast', samples: near_coast},
-      { title:'Offshore', samples: offshore},
-    ]
+      { title: 'Near coast', samples: near_coast },
+      { title: 'Offshore', samples: offshore },
+    ];
 
     mapStrata.set(EValidationStrata.distance_to_coast, {
       geoJSON: strata_1_samples.validationSamplesGeoJSON,
@@ -188,7 +189,7 @@ const validation = async (
         strata_1_samples.events,
         strata_1_start,
         strata_1_end,
-      ]
+      ],
     };
     setManifest.add(strata_1_manifest);
 
@@ -221,9 +222,15 @@ const validation = async (
     );
 
     const strata_2_csv: ICSVGroup<TValidationSample>[] = [
-      { title:'High Confidence', samples: strata_2_samples_1.validationSamples},
-      { title:'Low Confidence', samples: strata_2_samples_2.validationSamples},
-    ]
+      {
+        title: 'High Confidence',
+        samples: strata_2_samples_1.validationSamples,
+      },
+      {
+        title: 'Low Confidence',
+        samples: strata_2_samples_2.validationSamples,
+      },
+    ];
     mapStrata.set(EValidationStrata.confidence_tier, {
       geoJSON: [
         ...strata_2_samples_1.validationSamplesGeoJSON,
@@ -244,7 +251,7 @@ const validation = async (
         [...strata_2_samples_1.events, ...strata_2_samples_2.events],
         strata_2_start,
         strata_2_end,
-      ]
+      ],
     };
     setManifest.add(strata_2_manifest);
 
@@ -278,9 +285,9 @@ const validation = async (
     );
 
     const strata_3_csv: ICSVGroup<TValidationSample>[] = [
-      { title:'High Density', samples: strata_3_samples_1.validationSamples},
-      { title:'Low Density', samples: strata_3_samples_2.validationSamples},
-    ]
+      { title: 'High Density', samples: strata_3_samples_1.validationSamples },
+      { title: 'Low Density', samples: strata_3_samples_2.validationSamples },
+    ];
 
     mapStrata.set(EValidationStrata.density, {
       geoJSON: [
@@ -297,12 +304,12 @@ const validation = async (
         high_density: strata_3_samples_1.validationSamples.length,
         low_density: strata_3_samples_2.validationSamples.length,
       },
-      run_metadata:[
+      run_metadata: [
         a_Configs[EValidationStrata.density],
         [...strata_3_samples_1.events, ...strata_3_samples_2.events],
         strata_3_start,
         strata_3_end,
-      ]
+      ],
     };
     setManifest.add(strata_3_manifest);
 
@@ -323,12 +330,8 @@ const validation = async (
     ELogType.info,
   );
 
-  await validationExport(
-    a_Configs,
-    mapStrata,
-    setManifest
-  )
-  
+  await validationExport(a_Configs, mapStrata, setManifest);
+
   log('Validation finished.', ELogType.info);
 };
 

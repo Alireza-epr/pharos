@@ -4,7 +4,6 @@ import { ICSVGroup, TEventCSVRow } from '../../helpers/types/generalTypes';
 import { IEventSchema } from '@packages/types';
 import { EReasonCodes, EReasonCodesStatic } from '@packages/enum';
 
-
 const jsonToCsv = <T>(a_Title: string, a_Samples: T[]) => {
   if (!a_Samples.length) return '';
   let s0 = a_Samples[0];
@@ -57,9 +56,7 @@ export const csvString = <T, N>(
   return csvString;
 };
 
-export const createCSVRows = (
-  a_Events: IEventSchema[]
-) => {
+export const createCSVRows = (a_Events: IEventSchema[]) => {
   const rows: TEventCSVRow[] = a_Events.map((event) => {
     const reason_codes = event.scoring.reason_codes;
     let edge_case_flags: { [key in EReasonCodes]?: boolean } =
@@ -73,16 +70,16 @@ export const createCSVRows = (
       }
     }
 
-    const eez = event.context_layers.EEZ.enrichments.length > 0 ?
-      event.context_layers.EEZ.enrichments.map( e => e.label).join(", ")
-      : undefined
-    
-      
-    const mpa = event.context_layers.MPA.enrichments.length > 0 ?
-      event.context_layers.MPA.enrichments.map( e => e.label).join(", ")
-      : undefined
+    const eez =
+      event.context_layers.EEZ.enrichments.length > 0
+        ? event.context_layers.EEZ.enrichments.map((e) => e.label).join(', ')
+        : undefined;
 
-      
+    const mpa =
+      event.context_layers.MPA.enrichments.length > 0
+        ? event.context_layers.MPA.enrichments.map((e) => e.label).join(', ')
+        : undefined;
+
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -101,30 +98,23 @@ export const createCSVRows = (
     };
   });
 
-  return rows
-}
+  return rows;
+};
 
 export const writeCSV = <T>(
   a_OutputPath: string,
   a_CSVGroups: ICSVGroup<T>[][],
 ) => {
-
-  let csvStrings: string[] = []
+  let csvStrings: string[] = [];
   for (const csvGroup of a_CSVGroups) {
     const thisCSVString = csvString(
       csvGroup[0].title,
       csvGroup[0].samples,
       csvGroup[1]?.title,
       csvGroup[1]?.samples,
-    )
-    csvStrings.push(thisCSVString + '\n' + '\n')
+    );
+    csvStrings.push(thisCSVString + '\n' + '\n');
   }
-  const joined = csvStrings.join(' ')
-  fs_writeFileSync(
-    a_OutputPath + ".csv",
-    joined,
-    undefined,
-    undefined,
-    'utf8',
-  )
-}
+  const joined = csvStrings.join(' ');
+  fs_writeFileSync(a_OutputPath + '.csv', joined, undefined, undefined, 'utf8');
+};

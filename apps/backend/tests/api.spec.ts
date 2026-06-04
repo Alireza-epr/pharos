@@ -1,6 +1,25 @@
-import { validateBodyParams, validateQueryParams } from "../src/modules/events/events.validators";
-import { invalidBody_geojson, invalidBody_invalid_sort, invalidBody_partial_threshold, invalidBody_region, invalidBody_region_2, invalidBody_wrongTypes, validBodyParams, validBodyParams_2 } from "./fixtures/bodyParams.fixture";
-import { invalidQuery_missing_required, invalidQuery_wrong_enum, invalidQuery_wrong_types_2, invalidQuery_wrongTypes, validQueryParams, validQueryParams_2 } from "./fixtures/queryParams.fixture";
+import {
+  validateBodyParams,
+  validateQueryParams,
+} from '../src/modules/events/events.validators';
+import {
+  invalidBody_geojson,
+  invalidBody_invalid_sort,
+  invalidBody_partial_threshold,
+  invalidBody_region,
+  invalidBody_region_2,
+  invalidBody_wrongTypes,
+  validBodyParams,
+  validBodyParams_2,
+} from './fixtures/bodyParams.fixture';
+import {
+  invalidQuery_missing_required,
+  invalidQuery_wrong_enum,
+  invalidQuery_wrong_types_2,
+  invalidQuery_wrongTypes,
+  validQueryParams,
+  validQueryParams_2,
+} from './fixtures/queryParams.fixture';
 
 describe('validateBodyParams', () => {
   it('validate_body_params_success', () => {
@@ -67,10 +86,10 @@ describe('validateBodyParams', () => {
     expect(result.isValid).toBe(false);
     expect(result_2.isValid).toBe(false);
 
-    expect(result.errors?.some((e) => e.field.startsWith('region'))).toBe(
-      true,
-    );
-    expect(result_2.errors?.filter((e) => e.field.startsWith('region')).length).toBeGreaterThanOrEqual(2)
+    expect(result.errors?.some((e) => e.field.startsWith('region'))).toBe(true);
+    expect(
+      result_2.errors?.filter((e) => e.field.startsWith('region')).length,
+    ).toBeGreaterThanOrEqual(2);
   });
 
   it('allows_optional_fields_absence', () => {
@@ -125,12 +144,8 @@ describe('validateQueryParams', () => {
 
     const result_3 = validateQueryParams(invalidQuery_wrong_types_2);
     expect(result_3.isValid).toBe(false);
-    expect(
-      result_3.errors?.some((e) => e.field === 'limit'),
-    ).toBe(true);
-    expect(
-      result_3.errors?.some((e) => e.field === 'offset'),
-    ).toBe(true);
+    expect(result_3.errors?.some((e) => e.field === 'limit')).toBe(true);
+    expect(result_3.errors?.some((e) => e.field === 'offset')).toBe(true);
   });
 
   it('accepts_dynamic_keys', () => {

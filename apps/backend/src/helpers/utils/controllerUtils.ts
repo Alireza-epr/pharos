@@ -32,20 +32,12 @@ export const validateRequiredObject = (
   a_Errors: IValidationError[],
 ): a_Value is Record<string, any> => {
   if (a_Value === undefined || a_Value === null) {
-    addError(
-      a_Errors,
-      EResponseError.REQUIRED_FIELD_MISSING,
-      a_Field
-    );
+    addError(a_Errors, EResponseError.REQUIRED_FIELD_MISSING, a_Field);
     return false;
   }
 
   if (!isObject(a_Value)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_OBJECT,
-      a_Field
-    );
+    addError(a_Errors, EResponseError.INVALID_OBJECT, a_Field);
     return false;
   }
 

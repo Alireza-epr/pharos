@@ -29,8 +29,8 @@ app.use(responseLogger);
 
 // --- Attachments ---
 
-app.use(attachStartTime)
-app.use(attachGitCommitSHA)
+app.use(attachStartTime);
+app.use(attachGitCommitSHA);
 
 // --- Endpoints ---
 

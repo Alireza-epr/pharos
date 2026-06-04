@@ -4,7 +4,7 @@ import { rateLimitMiddleware } from '../../middlewares/rateLimitMiddleware';
 
 const router = express.Router();
 
-router.use(rateLimitMiddleware)
+router.use(rateLimitMiddleware);
 router.post('/', eventsController);
 
 export default router;

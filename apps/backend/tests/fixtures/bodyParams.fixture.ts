@@ -20,8 +20,8 @@ export const validBodyParams = {
     geojson: {
       type: 'Point',
       coordinates: [0, 0],
-    }
-  }
+    },
+  },
 };
 
 export const invalidBody_missingRequired = {
@@ -58,10 +58,10 @@ export const validBodyParams_2 = {
   sort: [{ sortBy: 'date', direction: 'asc' }],
   body_params: {
     region: {
-      dataset: "public-mpa-all",
-      id: "555635930"
-    }
-  }
+      dataset: 'public-mpa-all',
+      id: '555635930',
+    },
+  },
 };
 
 export const invalidBody_missing_required = {};
@@ -70,7 +70,7 @@ export const invalidBody_invalid_sort = {
   threshold: validBodyParams.threshold,
   hotspot: validBodyParams.hotspot,
   filters: validBodyParams.filters,
-  sort: "triage_score"
+  sort: 'triage_score',
 };
 
 export const invalidBody_wrong_types = {
@@ -95,25 +95,25 @@ export const invalidBody_geojson = {
     geojson: {
       type: 'InvalidType',
       coordinates: null,
-    }
-  }
+    },
+  },
 };
 
 export const invalidBody_region = {
   ...validBodyParams_2,
   body_params: {
     region: {
-      id: 123
-    }
-  }
+      id: 123,
+    },
+  },
 };
 
 export const invalidBody_region_2 = {
   ...validBodyParams_2,
   body_params: {
     region: {
-      dataset: "EEZ",
-      id: 123
-    }
-  }
+      dataset: 'EEZ',
+      id: 123,
+    },
+  },
 };

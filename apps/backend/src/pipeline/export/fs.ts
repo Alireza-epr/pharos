@@ -10,7 +10,9 @@ export const fs_writeFileSync = (
 ) => {
   fs.writeFileSync(
     a_OutputPath,
-    typeof a_Data === "string" ? a_Data : JSON.stringify(deepSortObject(a_Data), a_Replacer, a_Space),
+    typeof a_Data === 'string'
+      ? a_Data
+      : JSON.stringify(deepSortObject(a_Data), a_Replacer, a_Space),
     a_Options,
   );
 };

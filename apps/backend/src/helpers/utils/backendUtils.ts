@@ -171,15 +171,18 @@ export const getContextLayersFromEvents = (a_Events: IEventSchema[]) => {
   const allLayers = new Set<string>();
   for (const event of deepSortObject(a_Events)) {
     const thisEventLayers = event.context_layers;
-    let thisContextLayer = []
-    for(const layer in thisEventLayers){
-      const thisLayerDataset = thisEventLayers[(layer as EContextLayers)].dataset
-      const thisLayerVersion = thisEventLayers[(layer as EContextLayers)].version
-      thisContextLayer.push(layer+":"+thisLayerDataset+":"+thisLayerVersion)
+    let thisContextLayer = [];
+    for (const layer in thisEventLayers) {
+      const thisLayerDataset = thisEventLayers[layer as EContextLayers].dataset;
+      const thisLayerVersion = thisEventLayers[layer as EContextLayers].version;
+      thisContextLayer.push(
+        layer + ':' + thisLayerDataset + ':' + thisLayerVersion,
+      );
     }
-    const thisContextLayerJoined = thisContextLayer.join(", ")
+    const thisContextLayerJoined = thisContextLayer.join(', ');
 
-    if (!allLayers.has(thisContextLayerJoined)) allLayers.add(thisContextLayerJoined);
+    if (!allLayers.has(thisContextLayerJoined))
+      allLayers.add(thisContextLayerJoined);
   }
   return Array.from(allLayers)
     .map((s) => s)
@@ -241,7 +244,6 @@ export const getDateBucket = (
     ? getDate(a_Datetime)
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
 };
-
 
 export const getSortValue = (obj: any, path: string) => {
   return path

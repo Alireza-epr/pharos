@@ -16,16 +16,20 @@ import {
   TGlobalEvent,
   I4wingsEntry,
 } from '@packages/types';
-import { deepSortObject, deepStripHidden, getExecutionDuration } from '@packages/utils';
-import { getContextLayersFromEvents, getSourcesFromEvents, hashString } from '../../helpers/utils/backendUtils';
 import {
-  isNoisyCase,
-  missingRequiredFields,
-} from './validation';
+  deepSortObject,
+  deepStripHidden,
+  getExecutionDuration,
+} from '@packages/utils';
+import {
+  getContextLayersFromEvents,
+  getSourcesFromEvents,
+  hashString,
+} from '../../helpers/utils/backendUtils';
+import { isNoisyCase, missingRequiredFields } from './validation';
 import { isNearCoast } from '../features/coast_distance';
 import pkg from '../../../package.json';
 import { vesselZone } from '../features/bathymetry';
-
 
 export const backendVersion = pkg.version;
 
@@ -115,32 +119,39 @@ export const generateRunMetadata = async (
   a_Configurations: IConfigJSON[],
   a_Events?: IEventSchema[],
   a_Start?: string,
-  a_End?: string
+  a_End?: string,
 ): Promise<IRunMetadata> => {
   const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
   const filteredConfiguration = deepStripHidden(
     a_Configurations,
-    new Set(hiddenKeys)
-  ) as IConfigJSON[]
+    new Set(hiddenKeys),
+  ) as IConfigJSON[];
   const canonicalObject = deepSortObject(filteredConfiguration);
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
-  const execution_duration_ms = a_Start && a_End ? getExecutionDuration(a_Start, a_End) : undefined;
+  const execution_duration_ms =
+    a_Start && a_End ? getExecutionDuration(a_Start, a_End) : undefined;
   return {
     config_hash,
     config_json: canonicalObject,
-    git_commit_version: a_Configurations[0].gitCommitSHA ?? "N/A",
+    git_commit_version: a_Configurations[0].gitCommitSHA ?? 'N/A',
     run_time: new Date().toISOString(),
     dataset_version: a_Events ? getSourcesFromEvents(a_Events) : undefined,
-    context_layer_versions: a_Events ? getContextLayersFromEvents(a_Events) : undefined,
+    context_layer_versions: a_Events
+      ? getContextLayersFromEvents(a_Events)
+      : undefined,
     execution_duration_sec: execution_duration_ms
-      ? Number((execution_duration_ms / 1000).toFixed(3)) : undefined
+      ? Number((execution_duration_ms / 1000).toFixed(3))
+      : undefined,
   };
 };
 
-export const generateScoring = (a_EventSchema: IEventSchema, a_Config: IConfigJSON): IScoring => {
-  const thresholds = a_Config.threshold
+export const generateScoring = (
+  a_EventSchema: IEventSchema,
+  a_Config: IConfigJSON,
+): IScoring => {
+  const thresholds = a_Config.threshold;
   const WEIGHTS = {
     base_uncertainty: thresholds.base_uncertainty_weight,
 
@@ -158,8 +169,6 @@ export const generateScoring = (a_EventSchema: IEventSchema, a_Config: IConfigJS
     low_confidence_tier: thresholds.low_confidence_tier_weight,
     medium_confidence_tier: thresholds.medium_confidence_tier_weight,
     high_confidence_tier: thresholds.high_confidence_tier_weight,
-
-    
   };
 
   const entry = a_EventSchema.raw_metadata;
@@ -206,9 +215,7 @@ export const generateScoring = (a_EventSchema: IEventSchema, a_Config: IConfigJS
   if (confidence_proxy === null) {
     uncertainty_score += WEIGHTS.missing_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.missing_confidence_proxy);
-  } else if (
-    confidence_proxy <= thresholds.low_confidence_proxy_threshold
-  ) {
+  } else if (confidence_proxy <= thresholds.low_confidence_proxy_threshold) {
     uncertainty_score += WEIGHTS.low_confidence_proxy;
     reason_codes.push(EReasonCodesStatic.low_confidence_proxy);
   }

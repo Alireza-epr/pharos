@@ -19,10 +19,7 @@ import {
   EViolationError,
 } from '@packages/enum';
 import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
-import {
-  addError,
-  validateRequiredObject,
-} from './controllerUtils';
+import { addError, validateRequiredObject } from './controllerUtils';
 
 /* =========================================================
  * VIOLATIONS VALIDATOR
@@ -31,19 +28,23 @@ import {
 export const validateViolation = (a_Headers: any): IValidationResult => {
   const errors: IValidationError[] = [];
 
-  const dailyRemaining = Number(a_Headers["x-ratelimit-daily-remaining-requests"]);
-  const monthlyRemaining = Number(a_Headers["x-ratelimit-monthly-remaining-requests"]);
+  const dailyRemaining = Number(
+    a_Headers['x-ratelimit-daily-remaining-requests'],
+  );
+  const monthlyRemaining = Number(
+    a_Headers['x-ratelimit-monthly-remaining-requests'],
+  );
 
-  const dailyResetHours = Number(a_Headers["x-ratelimit-daily-reset-hours"]);
-  const monthlyResetDays = Number(a_Headers["x-ratelimit-monthly-reset-days"]);
+  const dailyResetHours = Number(a_Headers['x-ratelimit-daily-reset-hours']);
+  const monthlyResetDays = Number(a_Headers['x-ratelimit-monthly-reset-days']);
 
-  // Monthly exhausted 
+  // Monthly exhausted
   if (monthlyRemaining === 0 || monthlyResetDays > 0) {
     addError(
       errors,
       EViolationError.MONTHLY_RATE_LIMIT_EXCEEDED,
-      "x-ratelimit-monthly-remaining-requests"
-    )
+      'x-ratelimit-monthly-remaining-requests',
+    );
   }
 
   // Daily exhausted
@@ -51,15 +52,15 @@ export const validateViolation = (a_Headers: any): IValidationResult => {
     addError(
       errors,
       EViolationError.DAILY_RATE_LIMIT_EXCEEDED,
-      "x-ratelimit-daily-remaining-requests"
-    )
+      'x-ratelimit-daily-remaining-requests',
+    );
   }
 
   return {
     isValid: errors.length === 0,
     errors: errors.length ? errors : null,
   };
-}
+};
 
 /* =========================================================
  * MAIN BODY VALIDATOR
@@ -136,9 +137,9 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
   }
 
   // Required
-  validateNumber(a_Query.limit, "limit", errors, true)
+  validateNumber(a_Query.limit, 'limit', errors, true);
 
-  validateNumber(a_Query.offset, "offset", errors, true)
+  validateNumber(a_Query.offset, 'offset', errors, true);
 
   validateEnum(a_Query.format, FORMAT, 'format', errors, true);
 
@@ -172,7 +173,7 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
     a_Query['region-dataset'],
     REGION_DATASETS,
     'region-dataset',
-    errors
+    errors,
   );
 
   validateString(a_Query['region-id'], 'region-id', errors);
@@ -222,32 +223,21 @@ const TEMPORAL_RESOLUTION = Object.values(ETemporalResolution);
  * GEOJSON VALIDATION
  * =======================================================*/
 
-const validateGeoJSON = (
-  a_Geojson: unknown,
-  a_Errors: IValidationError[],
-) => {
+const validateGeoJSON = (a_Geojson: unknown, a_Errors: IValidationError[]) => {
   if (!isObject(a_Geojson)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_GEOJSON,
-      'geojson'
-    );
+    addError(a_Errors, EResponseError.INVALID_GEOJSON, 'geojson');
     return;
   }
 
   if (!GEOJSON_TYPES.includes(a_Geojson.type)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_GEOJSON_TYPE,
-      'geojson.type'
-    );
+    addError(a_Errors, EResponseError.INVALID_GEOJSON_TYPE, 'geojson.type');
   }
 
   if (a_Geojson.coordinates === undefined || a_Geojson.coordinates === null) {
     addError(
       a_Errors,
       EResponseError.INVALID_GEOJSON_COORDINATES,
-      'geojson.coordinates'
+      'geojson.coordinates',
     );
   }
 };
@@ -264,7 +254,7 @@ const validateThreshold = (
     return;
   }
 
-  const requiredFields = Object.keys(EThresholdConfig)
+  const requiredFields = Object.keys(EThresholdConfig);
 
   for (const field of requiredFields) {
     const value = a_Threshold[field];
@@ -273,17 +263,13 @@ const validateThreshold = (
       addError(
         a_Errors,
         EResponseError.REQUIRED_FIELD_MISSING,
-        `threshold.${field}`
+        `threshold.${field}`,
       );
       continue;
     }
 
     if (!isNumber(value)) {
-      addError(
-        a_Errors,
-        EResponseError.INVALID_NUMBER,
-        `threshold.${field}`
-      );
+      addError(a_Errors, EResponseError.INVALID_NUMBER, `threshold.${field}`);
     }
   }
 };
@@ -292,34 +278,19 @@ const validateThreshold = (
  * HOTSPOT VALIDATION
  * =======================================================*/
 
-const validateHotspot = (
-  a_Hotspot: unknown,
-  a_Errors: IValidationError[],
-) => {
+const validateHotspot = (a_Hotspot: unknown, a_Errors: IValidationError[]) => {
   if (!validateRequiredObject(a_Hotspot, 'hotspot', a_Errors)) {
     return;
   }
 
   if (!isNumber(a_Hotspot.resolution)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_NUMBER,
-      'hotspot.resolution'
-    );
+    addError(a_Errors, EResponseError.INVALID_NUMBER, 'hotspot.resolution');
   } else if (a_Hotspot.resolution < 0 || a_Hotspot.resolution > 15) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_HOTSPOT,
-      'hotspot.resolution'
-    );
+    addError(a_Errors, EResponseError.INVALID_HOTSPOT, 'hotspot.resolution');
   }
 
   if (!HOTSPOT_TIME_BINS.includes(a_Hotspot.timeBin)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_ENUM_VALUE,
-      'hotspot.timeBin'
-    );
+    addError(a_Errors, EResponseError.INVALID_ENUM_VALUE, 'hotspot.timeBin');
   }
 };
 
@@ -327,10 +298,7 @@ const validateHotspot = (
  * FILTERS VALIDATION
  * =======================================================*/
 
-const validateFilters = (
-  a_Filters: unknown,
-  a_Errors: IValidationError[],
-) => {
+const validateFilters = (a_Filters: unknown, a_Errors: IValidationError[]) => {
   if (!validateRequiredObject(a_Filters, 'filters', a_Errors)) {
     return;
   }
@@ -350,11 +318,7 @@ const validateFilters = (
     const value = a_Filters[field];
 
     if (value !== undefined && !isNumber(value)) {
-      addError(
-        a_Errors,
-        EResponseError.INVALID_NUMBER,
-        `filters.${field}`
-      );
+      addError(a_Errors, EResponseError.INVALID_NUMBER, `filters.${field}`);
     }
   }
 
@@ -367,11 +331,7 @@ const validateFilters = (
     const value = a_Filters[field];
 
     if (value !== undefined && !isBoolean(value)) {
-      addError(
-        a_Errors,
-        EResponseError.INVALID_BOOLEAN,
-        `filters.${field}`
-      );
+      addError(a_Errors, EResponseError.INVALID_BOOLEAN, `filters.${field}`);
     }
   }
 
@@ -382,24 +342,24 @@ const validateFilters = (
 
   for (const field of arrayFields) {
     const values: any[] = a_Filters[field];
-    if(values !== undefined){
-      for(const value of values){
-        if(!isString(value)) {
+    if (values !== undefined) {
+      for (const value of values) {
+        if (!isString(value)) {
           addError(
             a_Errors,
             EResponseError.INVALID_STRING,
-            `filters.${field}[${value}]`
+            `filters.${field}[${value}]`,
           );
         }
-        if (  
+        if (
           value !== undefined &&
           !REASON_CODES.includes(value as EReasonCodesStatic) &&
-          !value.startsWith("missing_required_field:")
+          !value.startsWith('missing_required_field:')
         ) {
           addError(
             a_Errors,
             EResponseError.INVALID_ARRAY,
-            `filters.${field}[${value}]`
+            `filters.${field}[${value}]`,
           );
         }
       }
@@ -413,21 +373,13 @@ const validateFilters = (
 
 const validateSort = (a_Sort: unknown, a_Errors: IValidationError[]) => {
   if (!Array.isArray(a_Sort)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_ARRAY,
-      'sort'
-    );
+    addError(a_Errors, EResponseError.INVALID_ARRAY, 'sort');
     return;
   }
 
   a_Sort.forEach((item, index) => {
     if (!isObject(item)) {
-      addError(
-        a_Errors,
-        EResponseError.INVALID_SORT,
-        `sort[${index}]`
-      );
+      addError(a_Errors, EResponseError.INVALID_SORT, `sort[${index}]`);
       return;
     }
 
@@ -435,7 +387,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationError[]) => {
       addError(
         a_Errors,
         EResponseError.INVALID_STRING,
-        `sort[${index}].sortBy`
+        `sort[${index}].sortBy`,
       );
     }
 
@@ -446,7 +398,7 @@ const validateSort = (a_Sort: unknown, a_Errors: IValidationError[]) => {
       addError(
         a_Errors,
         EResponseError.INVALID_ENUM_VALUE,
-        `sort[${index}].direction`
+        `sort[${index}].direction`,
       );
     }
   });
@@ -461,42 +413,28 @@ const validateRegionFields = (
   a_Errors: IValidationError[],
 ) => {
   if (!isObject(a_Region)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_REGION_CONFIGURATION,
-      'region'
-    );
+    addError(a_Errors, EResponseError.INVALID_REGION_CONFIGURATION, 'region');
     return;
   }
-  if (a_Region.dataset !== undefined && 
+  if (
+    a_Region.dataset !== undefined &&
     (!isString(a_Region.dataset) || a_Region.dataset.trim() === '')
   ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_STRING,
-      'region.dataset'
-    );
+    addError(a_Errors, EResponseError.INVALID_STRING, 'region.dataset');
   }
 
-  if (a_Region.id !== undefined && 
+  if (
+    a_Region.id !== undefined &&
     (!isString(a_Region.id) || a_Region.id.trim() === '')
   ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_STRING,
-      'region.id'
-    );
+    addError(a_Errors, EResponseError.INVALID_STRING, 'region.id');
   }
 
   if (
     a_Region.dataset !== undefined &&
     !REGION_DATASETS.includes(a_Region.dataset)
   ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_ENUM_VALUE,
-      'region.dataset'
-    );
+    addError(a_Errors, EResponseError.INVALID_ENUM_VALUE, 'region.dataset');
   }
 
   if (
@@ -506,7 +444,7 @@ const validateRegionFields = (
     addError(
       a_Errors,
       EResponseError.INVALID_ENUM_VALUE,
-      'region.bufferOperation'
+      'region.bufferOperation',
     );
   }
 
@@ -514,22 +452,11 @@ const validateRegionFields = (
     a_Region.bufferUnit !== undefined &&
     !REGION_BUFFER_UNITS.includes(a_Region.bufferUnit)
   ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_ENUM_VALUE,
-      'region.bufferUnit'
-    );
+    addError(a_Errors, EResponseError.INVALID_ENUM_VALUE, 'region.bufferUnit');
   }
 
-  if (
-    a_Region.bufferValue !== undefined &&
-    !isString(a_Region.bufferValue)
-  ) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_STRING,
-      'region.bufferValue'
-    );
+  if (a_Region.bufferValue !== undefined && !isString(a_Region.bufferValue)) {
+    addError(a_Errors, EResponseError.INVALID_STRING, 'region.bufferValue');
   }
 };
 
@@ -546,21 +473,13 @@ const validateEnum = <T extends readonly string[]>(
 ) => {
   if (a_Value === undefined) {
     if (a_Required) {
-      addError(
-        a_errors,
-        EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field
-      );
+      addError(a_errors, EResponseError.REQUIRED_FIELD_MISSING, a_Field);
     }
     return;
   }
 
   if (!isString(a_Value) || !a_Allowed.includes(a_Value as any)) {
-    addError(
-      a_errors,
-      EResponseError.INVALID_ENUM_VALUE,
-      a_Field
-    );
+    addError(a_errors, EResponseError.INVALID_ENUM_VALUE, a_Field);
   }
 };
 
@@ -572,21 +491,13 @@ const validateString = (
 ) => {
   if (a_Value === undefined) {
     if (a_Required) {
-      addError(
-        a_Errors,
-        EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field
-      );
+      addError(a_Errors, EResponseError.REQUIRED_FIELD_MISSING, a_Field);
     }
     return;
   }
 
   if (!isString(a_Value) || a_Value.trim() === '') {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_STRING,
-      a_Field
-    );
+    addError(a_Errors, EResponseError.INVALID_STRING, a_Field);
   }
 };
 
@@ -598,11 +509,7 @@ const validateBoolean = (
   if (a_Value === undefined) return;
 
   if (!(a_Value === 'true' || a_Value === 'false' || isBoolean(a_Value))) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_BOOLEAN,
-      a_Field
-    );
+    addError(a_Errors, EResponseError.INVALID_BOOLEAN, a_Field);
   }
 };
 
@@ -614,11 +521,7 @@ const validateNumber = (
 ) => {
   if (a_Value === undefined) {
     if (a_Required) {
-      addError(
-        a_Errors,
-        EResponseError.REQUIRED_FIELD_MISSING,
-        a_Field
-      );
+      addError(a_Errors, EResponseError.REQUIRED_FIELD_MISSING, a_Field);
     }
     return;
   }
@@ -626,11 +529,7 @@ const validateNumber = (
   const parsed = typeof a_Value === 'string' ? Number(a_Value) : a_Value;
 
   if (!isNumber(parsed)) {
-    addError(
-      a_Errors,
-      EResponseError.INVALID_NUMBER,
-      a_Field
-    );
+    addError(a_Errors, EResponseError.INVALID_NUMBER, a_Field);
   }
 };
 

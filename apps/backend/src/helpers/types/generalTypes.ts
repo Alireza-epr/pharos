@@ -36,23 +36,25 @@ export type TEventProperties = Omit<
   | 'hotspot'
 >;
 
-export type TEventCSVRow = Pick<
-  IEventSchema,
-  | 'event_id'
-  | 'timestamp_utc'
-  | 'matched_flag'
-  | 'lat'
-  | 'lon'
-  | 'confidence_proxy'
-  | 'confidence_tier'
-  | 'distance_to_coast_km'
-> & {
-  bathymetry_m: string | undefined,
-  mpa: string | undefined,
-  eez: string | undefined,
-  triage_score: number | null,
-  uncertainty_score: number | null
-} | Record<EReasonCodes, boolean | undefined>;
+export type TEventCSVRow =
+  | (Pick<
+      IEventSchema,
+      | 'event_id'
+      | 'timestamp_utc'
+      | 'matched_flag'
+      | 'lat'
+      | 'lon'
+      | 'confidence_proxy'
+      | 'confidence_tier'
+      | 'distance_to_coast_km'
+    > & {
+      bathymetry_m: string | undefined;
+      mpa: string | undefined;
+      eez: string | undefined;
+      triage_score: number | null;
+      uncertainty_score: number | null;
+    })
+  | Record<EReasonCodes, boolean | undefined>;
 
 export interface IBathymetryTile {
   file: string;
@@ -65,6 +67,6 @@ export interface IBathymetryCachedTile {
   bbox: [number, number, number, number];
 }
 export interface ICSVGroup<T> {
-  title: string,
-  samples: T[]
+  title: string;
+  samples: T[];
 }
