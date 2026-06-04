@@ -2994,20 +2994,4 @@ export const report_response = {
   data: samples,
 };
 
-export const report_response_rate_limit_exceeded = {
-  headers: {
-    ...report_response.headers,
-    'x-ratelimit-daily-limit-requests': '50000',
-    'x-ratelimit-monthly-limit-requests': '1500000',
 
-    'x-ratelimit-daily-remaining-requests': '12430',
-    'x-ratelimit-monthly-remaining-requests': '842310',
-
-    'x-ratelimit-daily-current-usage': '37570',
-    'x-ratelimit-monthly-current-usage': '657690',
-
-    'x-ratelimit-daily-reset-hours': '18',
-    'x-ratelimit-monthly-reset-days': '27',
-  },
-  data: samples,
-};

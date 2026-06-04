@@ -26,6 +26,13 @@ import { addError, validateRequiredObject } from './controllerUtils';
  * =======================================================*/
 
 export const validateViolation = (a_Headers: any): IValidationResult => {
+
+  if (a_Headers === null || a_Headers === undefined) {
+    return {
+      isValid: true,
+      errors: null,
+    };
+  }
   const errors: IValidationError[] = [];
 
   const dailyRemaining = Number(
@@ -39,7 +46,7 @@ export const validateViolation = (a_Headers: any): IValidationResult => {
   const monthlyResetDays = Number(a_Headers['x-ratelimit-monthly-reset-days']);
 
   // Monthly exhausted
-  if (monthlyRemaining === 0 || monthlyResetDays > 0) {
+  if (monthlyRemaining === 0 && monthlyResetDays > 0) {
     addError(
       errors,
       EViolationError.MONTHLY_RATE_LIMIT_EXCEEDED,
@@ -48,7 +55,7 @@ export const validateViolation = (a_Headers: any): IValidationResult => {
   }
 
   // Daily exhausted
-  if (dailyRemaining === 0 || dailyResetHours > 0) {
+  if (dailyRemaining === 0 && dailyResetHours > 0) {
     addError(
       errors,
       EViolationError.DAILY_RATE_LIMIT_EXCEEDED,

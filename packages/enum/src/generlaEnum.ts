@@ -15,11 +15,13 @@ export enum EReasonCodesStatic {
   low_confidence_tier = "low_confidence_tier",
   medium_confidence_tier = "medium_confidence_tier",
   high_confidence_tier = "high_confidence_tier",
+  invalid_threshold_config = "invalid_threshold_config",
 }
 
 export type EReasonCodes =
   | EReasonCodesStatic
-  | `missing_required_field:${string}`;
+  | `missing_required_field:${string}`
+  | `missing_required_threshold_field:${string}`;
 
 export enum ERejectedEventSchemaReasons {
   notValidCoordinates = "Not Valid Coordinates",

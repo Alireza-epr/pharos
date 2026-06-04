@@ -20,6 +20,7 @@ import {
   deepSortObject,
   deepStripHidden,
   getExecutionDuration,
+  isNumber,
 } from '@packages/utils';
 import {
   getContextLayersFromEvents,
@@ -133,9 +134,15 @@ export const generateRunMetadata = async (
     config_json: canonicalObject,
     git_commit_version: a_Configurations[0].gitCommitSHA ?? 'N/A',
     run_time: new Date().toISOString(),
-    dataset_version: a_Events ? getSourcesFromEvents(a_Events) : undefined,
+    dataset_version: a_Events 
+      ? a_Events.length > 0 
+        ? getSourcesFromEvents(a_Events)
+        : undefined 
+      : undefined,
     context_layer_versions: a_Events
-      ? getContextLayersFromEvents(a_Events)
+      ? a_Events.length > 0 
+        ? getContextLayersFromEvents(a_Events)
+        : undefined
       : undefined,
     execution_duration_sec: execution_duration_ms
       ? Number((execution_duration_ms / 1000).toFixed(3))
@@ -148,6 +155,15 @@ export const generateScoring = (
   a_Config: IConfigJSON,
 ): IScoring => {
   const thresholds = a_Config.threshold;
+  let reason_codes: EReasonCodes[] = [];
+  if(Object.keys( thresholds ).length === 0){
+    reason_codes.push(EReasonCodesStatic.invalid_threshold_config);
+    return {
+      triage_score: null,
+      uncertainty_score: null,
+      reason_codes
+    }
+  }
   const WEIGHTS = {
     base_uncertainty: thresholds.base_uncertainty_weight,
 
@@ -172,7 +188,20 @@ export const generateScoring = (
   const confidence_proxy = a_EventSchema.confidence_proxy;
   const confidence_tier = a_EventSchema.confidence_tier;
 
-  let reason_codes: EReasonCodes[] = [];
+  const missings = Object.entries(WEIGHTS)
+  .filter(([, v]) => v === undefined || !isNumber(v))
+  .map(([k]) => k)
+
+  if( missings.length > 0 ){
+    for(const missing of missings){
+      reason_codes.push(`missing_required_threshold_field:${missing}_weight`);
+    }
+    return {
+      triage_score: null,
+      uncertainty_score: null,
+      reason_codes
+    }
+  }
 
   // =========================
   // A. UNCERTAINTY (DATA QUALITY) - How much do we distrust this event?

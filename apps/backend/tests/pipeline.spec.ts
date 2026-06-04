@@ -68,9 +68,10 @@ import {
   fishingConfig,
   multiDatasetConfig,
   sarConfig,
+  sarConfig_bad_threshold,
   sarConfig_diff_sorted,
+  sarConfig_empty_threshold,
 } from './fixtures/gfwRequest';
-import events from './fixtures/events.json';
 import canonicalSchema_base from './fixtures/canonicalSchema_base.json';
 import hotspots_import from './fixtures/hotspots.json';
 import canonicalSchema from './fixtures/canonicalSchema.json';
@@ -119,6 +120,7 @@ import {
   getEventMissingness,
   getGeoMax,
   getGeoMin,
+  getStats,
   getTimeRange,
 } from '../src/pipeline/aggregate/stats';
 
@@ -363,6 +365,45 @@ describe('generateScoring', () => {
     expect(scoring.reason_codes).toContain('missing_required_field:lon');
   });
 
+  it('return_null_scroing_if_threshold_config_is_bad', () => {
+    const scoring = generateScoring(eventSchema_matched_offshore, sarConfig_bad_threshold);
+
+    expect(scoring.triage_score).toBe(null)
+    expect(scoring.uncertainty_score).toBe(null)
+    expect(scoring.reason_codes?.length).toBeGreaterThan(0)
+
+    expect(scoring.reason_codes).toEqual(
+      expect.arrayContaining([
+        'missing_required_threshold_field:base_uncertainty_weight',
+        'missing_required_threshold_field:missing_field_weight',
+        'missing_required_threshold_field:noisy_weight',
+        'missing_required_threshold_field:unmatched_weight',
+        'missing_required_threshold_field:near_coast_importance_weight',
+        'missing_required_threshold_field:eez_importance_weight',
+        'missing_required_threshold_field:mpa_importance_weight',
+        'missing_required_threshold_field:missing_confidence_proxy_weight',
+        'missing_required_threshold_field:low_confidence_proxy_weight',
+        'missing_required_threshold_field:low_confidence_tier_weight',
+        'missing_required_threshold_field:medium_confidence_tier_weight',
+        'missing_required_threshold_field:high_confidence_tier_weight'
+      ]),
+    );
+  });
+
+  it('return_null_scroing_if_threshold_is_empty', () => {
+    const scoring = generateScoring(eventSchema_matched_offshore, sarConfig_empty_threshold);
+
+    expect(scoring.triage_score).toBe(null)
+    expect(scoring.uncertainty_score).toBe(null)
+    expect(scoring.reason_codes?.length).toEqual(1)
+
+    expect(scoring.reason_codes).toEqual(
+      expect.arrayContaining([
+        EReasonCodesStatic.invalid_threshold_config
+      ]),
+    );
+  });
+
   it('triage_score_increases_when_importance_increases', () => {
     const a = generateScoring(eventSchema_umatched_offshore, sarConfig);
     const b = generateScoring(eventSchema_umatched_near_coast, sarConfig);
@@ -458,13 +499,17 @@ describe('generateRunMetadata', () => {
   it('generates_deterministic_metadata_for_a_set_of_configs', async () => {
     const configSet = [sarConfig, eventConfig];
 
-    const metadata = await generateRunMetadata(configSet);
+    const metadata = await generateRunMetadata(configSet, [eventSchema_matched_near_coast]);
 
     expect(metadata).toEqual(
       expect.objectContaining({
-        code_version: 'N/A',
         config_json: deepSortObject(Array.from(configSet)),
+        git_commit_version: 'N/A',
         config_hash: expect.any(String),
+        run_time: expect.any(String),
+        dataset_version: expect.any(String),
+        context_layer_versions: expect.any(String),
+        execution_duration_sec: undefined
       }),
     );
   });
@@ -496,6 +541,27 @@ describe('generateRunMetadata', () => {
 
     expect(metaOriginal.config_hash).not.toBe(metaModified.config_hash);
   });
+
+  it('return_event_related_fields_null_when_no_event_provided', async () => {
+    const metadata = await generateRunMetadata([sarConfig]);
+    const metadata_2 = await generateRunMetadata([sarConfig], []);
+    const expected = {
+      config_json: expect.any(Array),
+      git_commit_version: 'N/A',
+      config_hash: expect.any(String),
+      run_time: expect.any(String),
+      dataset_version: undefined,
+      context_layer_versions: undefined,
+      execution_duration_sec: undefined
+    }
+
+    expect(metadata).toEqual(
+      expect.objectContaining(expected),
+    );
+    expect(metadata_2).toEqual(
+      expect.objectContaining(expected),
+    );
+  })
 });
 
 describe('isValidCoordinate', () => {
@@ -937,7 +1003,7 @@ describe('Event_statistics_utilities', () => {
 
 describe('Pipeline_determinism', () => {
   it('should_produce_identical_output_when_run_twice', async () => {
-    const OUTPUT_FILE = 'data/out/events.geojson';
+    const OUTPUT_FILE = 'data/out/pilot/events.geojson';
     // run pipeline first time
     execSync('npm run pipeline:sample', { stdio: 'inherit' });
     const hash1 = await hashFile(OUTPUT_FILE);
@@ -1207,3 +1273,43 @@ describe('Context_layers', () => {
     });
   });
 });
+
+describe("getStats", () => {
+  it("not_thrown_when_no_events", () => {
+    const stats = getStats([])
+
+    expect(stats).toEqual(
+      expect.objectContaining({
+        count_total: 0,
+        matching_stats: {
+          matched: 0,
+          unmatched: 0
+        },
+        missingness: {
+          confidence_proxy: "0.00%",
+          distance_to_coast_km: "0.00%",
+          event_id: "0.00%",
+          lat: "0.00%",
+          lon: "0.00%",
+          timestamp_utc: "0.00%"
+        },
+        geo_sanity: {
+          latitude: {
+            max: 0,
+            min: 0
+          },
+          longitude: {
+            max: 0,
+            min: 0
+          }
+        },
+        time_range: {
+          start: "N/A",
+          end: "N/A"
+        },
+        mean_score: 0,
+        mean_uncertainty: 0
+      })
+    )
+  })
+})
