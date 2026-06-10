@@ -1,0 +1,118 @@
+$mobile-columns: 4;
+$tablet-columns: 8;
+$desktop-columns: 12;
+
+$mobile-half-span: calc($mobile-columns / 2);
+$tablet-half-span: calc($tablet-columns / 2);
+$desktop-half-span: calc($desktop-columns / 2);
+
+$max-width-mobile: 599px;
+$min-width-tablet: 600px;
+$max-width-tablet: 1023px;
+$min-width-desktop: 1024px;
+
+:root {
+    
+// ==========================================
+// DEVICE WIDTH
+// ==========================================
+
+--max-width-mobile: 599px;
+--min-width-tablet: 600px;
+--max-width-tablet: 1023px;
+--min-width-desktop: 1024px;
+
+// ==========================================
+// BORDER RADIUS
+// ==========================================
+
+--radius-none: 0;
+--radius-sm: 4px;
+--radius-md: 8px;
+--radius-round: 50%;
+
+// ==========================================
+// COLUMN
+// ==========================================
+
+--mobile-columns: #{$mobile-columns};
+--tablet-columns: #{$tablet-columns};
+--desktop-columns: #{$desktop-columns};
+
+--column-width: 85px; 
+--column-auto: 1fr; // 1fr: 1 part of the remaining free space
+
+// ==========================================
+// GRID
+// ==========================================
+
+--mobile-half-span: #{$mobile-half-span};
+--tablet-half-span: #{$tablet-half-span};
+--desktop-half-span: #{$desktop-half-span};
+
+// ==========================================
+// GUTTER - empty space between columns (or rows)
+// ==========================================
+
+--mobile-gutter: 16px;
+--tablet-gutter: 16px;
+--desktop-gutter: 24px;
+
+// ==========================================
+// MARGIN
+// ==========================================
+
+--margin-default: 1vh;
+--margin-default-md: 2vh;
+--margin-default-lg: 4vh;
+--no-margin: 0;
+
+--margin-horizontal-mobile: 16px;
+--margin-horizontal-tablet: 24px;
+--margin-horizontal-desktop: 24px;
+
+--margin-vertical-mobile: 16px;
+--margin-vertical-tablet: 24px;
+--margin-vertical-desktop: 24px;
+
+// ==========================================
+// PADDING
+// ==========================================
+
+--no-padding: 0;
+--padding-default: 1vh;
+--padding-default-md: 2vh;
+--padding-default-lg: 4vh;
+--padding-horizontal-mobile: 16px;
+--padding-horizontal-tablet: 24px;
+--padding-horizontal-desktop: max(32px, 10vw);
+
+--padding-vertical-mobile: 16px;
+--padding-vertical-tablet: 24px;
+--padding-vertical-desktop: 32px;
+
+// ==========================================
+// VERTICAL GRID
+// ==========================================
+
+--vertical-rows: 1000;
+--vertical-height: 8px;
+--vertical-offset: 0;
+--vertical-gutter: 0px;
+
+// ==========================================
+// HEIGHT
+// ==========================================
+--height-header: 8vh;
+--height-footer: 15vh;
+--height-feature-carousel: 50vh;
+--height-intro: 85vh;
+--height-button-icon: 48px;
+--height-cookie: 10vh;
+--height-privacy-policy-header: 15vh;
+--height-about-icon: 5vh;
+--height-page-header: 20vh;
+--height-checkbox: 3vh;
+
+}
+

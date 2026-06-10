@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PHAROS Wireframes — Light</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@400;600;700&family=Orbitron:wght@400;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #F0EFF8;
+  color: #0F0F23;
+}
+
+  /* ── Project design tokens ── */
+  :root {
+    /* Primary — purple */
+    --color-primary-purple1: #171141;
+    --color-primary-purple2: #251C5E;
+    --color-primary-purple3: #34297C;
+    --color-primary-purple4: #453999;
+    --color-primary-purple5: #584AB6;
+    --color-primary-purple6: #6C5DD3;
+    --color-primary-purple7: #8272F0;
+    --color-primary-purple8: #ACA0FC;
+    --color-primary-purple9: #D0C9FF;
+    /* Secondary — blue */
+    --color-secondary-blue1: #12131F;
+    --color-secondary-blue2: #1A1B2B;
+    --color-secondary-blue3: #222438;
+    --color-secondary-blue4: #2B2D42;
+    --color-secondary-blue5: #42465E;
+    --color-secondary-blue6: #5B607D;
+    --color-secondary-blue7: #747A9A;
+    /* Accent — teal */
+    --color-accent-teal3: #2EC4B6;
+    --color-accent-teal4: #55D1C9;
+    --color-accent-teal5: #8DE3DC;
+    /* Alert — orange */
+    --color-alert-orange2: #D98500;
+    --color-alert-orange3: #FF9F1C;
+    --color-alert-orange4: #FFB94A;
+    --color-alert-orange5: #FFDC9B;
+    /* Text */
+    --text-dark-bg-primary:   #E3E4F1;
+    --text-dark-bg-secondary: #A0A3BD;
+    /* Typography */
+    --font-family-base:   'Inter', sans-serif;
+    --font-family-header: 'Montserrat', sans-serif;
+    --font-family-tech:   'Orbitron', sans-serif;
+    /* Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+
+    /* ── Semantic wireframe tokens — LIGHT MODE ── */
+    --border:           #D0C9FF;
+    --bg-app:           #F0EFF8;
+    --bg-panel:         #FFFFFF;
+    --bg-map:           #C5D8E8;
+    --bg-card:          #F3F1FF;
+    --bg-header:        #251C5E;
+    --text-header:      #E3E4F1;
+    --text-label:       #585A77;
+    --text-muted:       #747A9A;
+    --accent-unmatched: #FF9F1C;
+    --accent-matched:   #2EC4B6;
+    --accent-hotspot:   rgba(255,159,28,0.14);
+    --accent-track:     #6C5DD3;
+    --btn-primary:      #6C5DD3;
+    --btn-secondary:    #F3F1FF;
+    --radius:           4px;
+    --shadow:           0 2px 8px rgba(15,15,35,0.12);
+    /* remap text vars so all var(--text-dark-bg-*) rules read correctly in light mode */
+    --text-dark-bg-primary:   #0F0F23;
+    --text-dark-bg-secondary: #585A77;
+  }
+
+  /* ── Page wrapper ── */
+  .page {
+    width: 1280px;
+    margin: 0 auto;
+    background: var(--bg-app);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    background: var(--bg-header);
+    color: var(--text-header);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 12px;
+  }
+  .topbar .logo {
+    font-family: var(--font-family-tech);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--color-primary-purple8);
+  }
+  .topbar .logo-sub {
+    font-family: var(--font-family-header);
+    font-size: 11px;
+    color: var(--color-secondary-blue7);
+    letter-spacing: 1px;
+    flex: 1;
+  }
+  .topbar .topbar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .chip {
+    border: 1px solid var(--color-secondary-blue5);
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 11px;
+    color: var(--color-secondary-blue7);
+  }
+
+  /* ── Main layout ── */
+  .layout {
+    display: flex;
+    height: calc(100% - 48px);
+  }
+
+  /* ── Left sidebar ── */
+  .sidebar {
+    width: 224px;
+    min-width: 224px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+  }
+  .sidebar-section-title {
+    font-family: var(--font-family-header);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-secondary-blue4);
+  }
+  .field-label {
+    font-size: 11px;
+    color: var(--text-label);
+    margin-bottom: 4px;
+  }
+  .input-box {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    height: 28px;
+    padding: 0 8px;
+    font-size: 11px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .input-box.active { color: var(--text-dark-bg-primary); border-color: var(--color-primary-purple5); }
+  .input-box .arrow { color: var(--color-secondary-blue6); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-dark-bg-secondary);
+    margin-bottom: 5px;
+  }
+  .cb {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid var(--color-secondary-blue5);
+    border-radius: 2px;
+    background: var(--bg-card);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--text-dark-bg-primary);
+    flex-shrink: 0;
+  }
+  .cb.checked { background: var(--color-primary-purple6); color: var(--text-dark-bg-primary); border-color: var(--color-primary-purple6); }
+
+  .tag-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    border: 1px solid var(--color-secondary-blue5);
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 10px;
+    color: var(--text-label);
+    cursor: default;
+  }
+  .tag.active { background: var(--color-primary-purple6); color: var(--text-dark-bg-primary); border-color: var(--color-primary-purple6); }
+
+  .divider { height: 1px; background: var(--color-secondary-blue4); margin: 2px 0; }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: var(--radius);
+    height: 32px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    border: 1.5px solid var(--color-primary-purple5);
+  }
+  .btn-primary { background: var(--btn-primary); color: var(--text-dark-bg-primary); }
+  .btn-secondary { background: var(--bg-card); color: var(--text-dark-bg-secondary); border-color: var(--border); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px dashed var(--border);
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+  /* ── Stats block ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .stat-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px 8px;
+  }
+  .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-dark-bg-primary);
+  }
+  .stat-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+  }
+  .stat-box.unmatched .stat-value { color: var(--accent-unmatched); }
+  .stat-box.matched .stat-value { color: var(--accent-matched); }
+
+  /* ── Map area ── */
+  .map-area {
+    flex: 1;
+    background: var(--bg-map);
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
+  }
+
+  /* Ocean grid lines */
+  .map-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Coastline / land mass */
+  .coastline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: #C9D4A8;
+    clip-path: polygon(0 60%, 8% 50%, 16% 55%, 25% 45%, 34% 52%, 42% 42%, 52% 48%, 60% 38%, 70% 44%, 80% 36%, 90% 42%, 100% 35%, 100% 100%, 0 100%);
+  }
+
+  /* EEZ boundary */
+  .eez-line {
+    position: absolute;
+    border: 2px dashed rgba(108,93,211,0.65);
+    border-radius: 50%;
+    width: 420px;
+    height: 300px;
+    top: 80px;
+    left: 140px;
+  }
+  .eez-label {
+    position: absolute;
+    top: 86px;
+    left: 146px;
+    font-size: 10px;
+    color: var(--color-primary-purple7);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+  }
+
+  /* AIS tracks */
+  .track {
+    position: absolute;
+    height: 2px;
+    background: var(--accent-track);
+    opacity: 0.7;
+    transform-origin: left center;
+  }
+
+  /* Hotspot */
+  .hotspot {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--accent-hotspot);
+    border: 1px solid rgba(230,120,30,0.5);
+  }
+
+  /* Detection dots */
+  .det {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  .det.unmatched { background: var(--accent-unmatched); box-shadow: 0 0 6px rgba(255,159,28,0.5); }
+  .det.matched   { background: var(--accent-matched);   box-shadow: 0 0 6px rgba(46,196,182,0.5); }
+
+  /* Map empty state */
+  .map-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(243,241,255,0.95);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px 28px;
+  }
+  .map-empty h3 {
+    font-size: 13px;
+    color: var(--text-label);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .map-empty p {
+    font-size: 11px;
+    color: var(--text-muted);
+    max-width: 220px;
+    line-height: 1.5;
+  }
+
+  /* Map controls */
+  .map-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .map-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-label);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+
+  /* Map scale bar */
+  .map-scale {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+  .scale-bar {
+    width: 60px;
+    height: 5px;
+    border: 1px solid var(--color-secondary-blue6);
+    border-top: none;
+    background: transparent;
+  }
+
+  /* Map legend */
+  .map-legend {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 10px;
+    color: var(--text-label);
+    box-shadow: var(--shadow);
+    min-width: 130px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-line {
+    width: 18px;
+    height: 2px;
+    flex-shrink: 0;
+  }
+  .legend-dashed {
+    width: 18px;
+    height: 0;
+    border-bottom: 2px dashed rgba(108,93,211,0.75);
+    flex-shrink: 0;
+  }
+  .legend-hotspot-swatch {
+    width: 14px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-hotspot);
+    border: 1px solid rgba(255,159,28,0.4);
+    flex-shrink: 0;
+  }
+
+  /* Popup */
+  .map-popup {
+    position: absolute;
+    top: 120px;
+    left: 380px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    min-width: 200px;
+    box-shadow: var(--shadow);
+    font-size: 11px;
+  }
+  .popup-title {
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-dark-bg-primary);
+  }
+  .popup-close { color: var(--text-muted); cursor: pointer; font-size: 14px; }
+  .popup-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+    gap: 8px;
+  }
+  .popup-key { color: var(--text-muted); }
+  .popup-val { font-weight: 500; color: var(--text-dark-bg-primary); text-align: right; }
+  .popup-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .badge-unmatched { background: var(--color-alert-orange6);  color: var(--color-alert-orange2); }
+  .badge-matched   { background: var(--color-accent-teal6);   color: var(--color-accent-teal1); }
+  .badge-high      { background: var(--color-primary-purple10); color: var(--color-secondary-blue6); }
+  .popup-link {
+    display: block;
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--color-primary-purple7);
+    font-weight: 600;
+    text-align: right;
+    cursor: pointer;
+  }
+  .popup-arrow {
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 8px solid var(--border);
+  }
+  .popup-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #FFFFFF;
+  }
+
+  /* ── Bottom panel ── */
+  .bottom-panel {
+    border-top: 2px solid var(--border);
+    background: var(--bg-panel);
+  }
+  .bottom-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bottom-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark-bg-primary);
+    font-family: var(--font-family-header);
+    flex: 1;
+  }
+  .filter-chip {
+    border: 1px solid var(--color-secondary-blue5);
+    border-radius: 12px;
+    padding: 2px 9px;
+    font-size: 10px;
+    color: var(--text-dark-bg-secondary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .filter-chip.active { background: var(--color-primary-purple5); color: var(--text-dark-bg-primary); border-color: var(--color-primary-purple5); }
+
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  thead tr {
+    background: var(--color-secondary-blue3);
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    padding: 7px 14px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+    cursor: pointer;
+    font-family: var(--font-family-header);
+  }
+  th .sort-icon { color: var(--color-secondary-blue5); margin-left: 3px; }
+  tbody tr {
+    border-bottom: 1px solid var(--color-secondary-blue3);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: var(--color-primary-purple10); }
+  tbody tr.selected { background: var(--color-primary-purple9); outline: 1px solid var(--color-primary-purple7); }
+  td {
+    padding: 7px 14px;
+    color: var(--text-dark-bg-secondary);
+    white-space: nowrap;
+  }
+  td.muted { color: var(--text-muted); }
+  td .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .sb-unmatched { background: var(--color-alert-orange6);    color: var(--color-alert-orange2); }
+  .sb-matched   { background: var(--color-accent-teal6);     color: var(--color-accent-teal1); }
+  .sb-high      { background: var(--color-primary-purple10); color: var(--color-secondary-blue5); }
+  .sb-med       { background: var(--color-primary-purple9);  color: var(--color-primary-purple4); }
+  .sb-low       { background: var(--color-alert-orange5);    color: var(--color-alert-orange1); }
+  td .row-link { color: var(--color-primary-purple7); font-weight: 600; font-size: 10px; }
+
+  /* ── Bottom empty state ── */
+  .bottom-empty {
+    padding: 24px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ── Detail panel (drawer) ── */
+  .detail-drawer {
+    width: 260px;
+    min-width: 260px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .drawer-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark-bg-primary);
+    font-family: var(--font-family-header);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .drawer-close {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .drawer-section { margin-bottom: 2px; }
+  .drawer-section-title {
+    font-family: var(--font-family-header);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-secondary-blue4);
+  }
+  .drawer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    gap: 6px;
+  }
+  .drawer-key { color: var(--text-muted); }
+  .drawer-val { font-weight: 500; color: var(--text-dark-bg-primary); text-align: right; flex: 1; }
+  .disclaimer-box {
+    background: var(--color-alert-orange6);
+    border: 1px solid var(--color-alert-orange4);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 10px;
+    color: var(--color-alert-orange1);
+    line-height: 1.5;
+  }
+  .disclaimer-box strong { display: block; margin-bottom: 3px; font-size: 10px; color: var(--color-alert-orange2); }
+
+  /* ── Section labels for wireframe pages ── */
+  .wireframe-label {
+    background: var(--color-primary-purple9);
+    color: var(--color-primary-purple3);
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 7px;
+    font-weight: 600;
+    font-family: var(--font-family-header);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-primary-purple8);
+  }
+
+  .spacer { height: 40px; background: var(--bg-app); border-top: 1px solid var(--border); }
+
+  /* ── Annotation callouts ── */
+  .callout {
+    position: absolute;
+    background: rgba(255,220,155,0.92);
+    border: 1px solid rgba(217,133,0,0.6);
+    border-radius: var(--radius-sm);
+    font-size: 9px;
+    color: #3a2a00;
+    padding: 3px 7px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* ── Collapsible sections ── */
+  details { border: none; }
+  details > summary {
+    font-family: var(--font-family-header);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-secondary-blue4);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  details > summary::after { content: '▾'; font-size: 10px; color: var(--color-secondary-blue6); }
+  details[open] > summary { margin-bottom: 8px; }
+  details[open] > summary::after { content: '▴'; }
+  details > summary::-webkit-details-marker { display: none; }
+
+  /* ── Range pair (min / max) ── */
+  .range-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .range-pair .mini-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .mini-input {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    height: 24px;
+    padding: 0 6px;
+    font-size: 11px;
+    width: 100%;
+    color: var(--text-dark-bg-secondary);
+  }
+
+  /* ── Sort list ── */
+  .sort-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--text-dark-bg-secondary);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--color-secondary-blue3);
+  }
+  .sort-item:last-child { border-bottom: none; }
+  .sort-rank {
+    width: 15px;
+    height: 15px;
+    background: var(--color-secondary-blue4);
+    border-radius: 50%;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-dark-bg-secondary);
+    font-weight: 700;
+  }
+  .sort-field { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sort-dir {
+    font-size: 9px;
+    color: var(--color-primary-purple4);
+    background: var(--color-primary-purple9);
+    border-radius: 8px;
+    padding: 1px 6px;
+    flex-shrink: 0;
+  }
+
+  /* ── Reason code chips ── */
+  .reason-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .reason-chip {
+    font-size: 9px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 2px 6px;
+    color: var(--text-label);
+    cursor: pointer;
+    background: var(--bg-card);
+  }
+  .reason-chip.include { background: var(--color-accent-teal6); border-color: var(--color-accent-teal2); color: var(--color-accent-teal1); }
+  .reason-chip.exclude { background: var(--color-alert-orange6); border-color: var(--color-alert-orange3); color: var(--color-alert-orange1); }
+
+  /* ── Threshold weight grid ── */
+  .weight-grid {
+    display: grid;
+    grid-template-columns: 1fr 42px;
+    gap: 3px 6px;
+    align-items: center;
+  }
+  .weight-key {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .weight-val {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    height: 20px;
+    width: 100%;
+    font-size: 10px;
+    text-align: right;
+    padding: 0 4px;
+    color: var(--text-dark-bg-secondary);
+  }
+
+  /* ── Sub-group header inside collapsible ── */
+  .sub-group-title {
+    font-family: var(--font-family-header);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--color-secondary-blue7);
+    text-transform: uppercase;
+    margin: 8px 0 5px;
+  }
+  .sub-group-title:first-child { margin-top: 0; }
+
+  /* ── Detail drawer: overflow for tall content ── */
+  .detail-drawer { overflow-y: auto; }
+
+  /* ── Score bar ── */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .score-bar-wrap {
+    flex: 1;
+    height: 5px;
+    background: var(--color-secondary-blue4);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .score-bar-fill { height: 100%; border-radius: 3px; }
+  .score-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dark-bg-primary);
+    min-width: 28px;
+    text-align: right;
+  }
+
+  /* ── Hotspot strength badge ── */
+  .hs-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .hs-high { background: var(--color-alert-orange5); color: var(--color-alert-orange1); }
+  .hs-med  { background: var(--color-alert-orange6); color: var(--color-alert-orange2); }
+  .hs-low  { background: var(--color-primary-purple10); color: var(--color-secondary-blue6); }
+
+  /* ── Context layer block ── */
+  .ctx-layer {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 8px;
+    margin-bottom: 5px;
+    font-size: 10px;
+  }
+  .ctx-layer:last-child { margin-bottom: 0; }
+  .ctx-layer-name {
+    font-weight: 700;
+    color: var(--text-dark-bg-secondary);
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ctx-layer-meta { color: var(--text-muted); font-size: 9px; }
+  .ctx-enrichment { margin-top: 3px; color: var(--text-dark-bg-secondary); }
+
+  /* ── Reason code chips inside drawer ── */
+  .drawer-reason-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }
+  .drawer-reason-chip {
+    font-size: 9px;
+    background: var(--color-primary-purple9);
+    border: 1px solid var(--color-primary-purple8);
+    border-radius: var(--radius-sm);
+    padding: 1px 5px;
+    color: var(--color-primary-purple4);
+  }
+
+  /* ── Caveat note below a field ── */
+  .field-caveat {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: -3px;
+    margin-bottom: 5px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     VIEW 1 — NO QUERY
+     ════════════════════════════════════════════ -->
+<div class="wireframe-label">View 1 — No Query</div>
+<div class="page" id="view1">
+  <div class="topbar">
+    <span class="logo">⚓ PHAROS</span>
+    <span class="logo-sub">Maritime SAR–AIS Analysis</span>
+    <div class="topbar-actions">
+      <span class="chip">Analyst</span>
+      <span class="chip">Dark</span>
+      <span class="chip">English</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+
+      <div>
+        <div class="sidebar-section-title">Area of Interest</div>
+        <div class="field-label">Draw on map</div>
+        <div style="display:flex;gap:5px;margin-bottom:6px;">
+          <div class="btn btn-secondary" style="height:28px;font-size:11px;">Zonal</div>
+          <div class="btn btn-secondary" style="height:28px;font-size:11px;">Point</div>
+        </div>
+        <div class="field-label">or choose EEZ region</div>
+        <div class="input-box" style="color:var(--text-muted);">Select EEZ… <span class="arrow">▾</span></div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Time Range</div>
+        <div class="field-label">From</div>
+        <div class="input-box" style="color:var(--text-muted);">YYYY-MM-DD</div>
+        <div class="field-label">To</div>
+        <div class="input-box" style="color:var(--text-muted);">YYYY-MM-DD</div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Data Layers</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> Unmatched only</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> AIS Tracks</div>
+        <div class="checkbox-row"><span class="cb"></span> Hotspots</div>
+        <div class="checkbox-row"><span class="cb"></span> EEZ Boundaries</div>
+        <div class="checkbox-row"><span class="cb"></span> MPA Zones</div>
+      </div>
+
+      <div><details><summary>Hotspot</summary></details></div>
+      <div><details><summary>Sort Order</summary></details></div>
+      <div><details><summary>Filter</summary></details></div>
+      <div><details><summary>Threshold &amp; Weights</summary></details></div>
+      <div><details><summary>Advanced Query</summary></details></div>
+
+      <div class="divider"></div>
+      <div class="btn btn-primary" style="opacity:0.35;cursor:not-allowed;">▶&nbsp; Run Query</div>
+      <div style="font-size:10px;color:var(--text-muted);text-align:center;margin-top:-6px;">Fill area &amp; date to enable</div>
+    </div>
+
+    <!-- Map: empty state -->
+    <div class="map-area">
+      <div class="map-controls">
+        <div class="map-btn">+</div>
+        <div class="map-btn">−</div>
+        <div class="map-btn" style="font-size:11px;">⊙</div>
+      </div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:rgba(243,241,255,0.95);border:1px dashed var(--border);border-radius:var(--radius-md);padding:24px 32px;">
+        <div style="font-size:22px;color:var(--text-muted);margin-bottom:8px;">⊙</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-label);margin-bottom:5px;">No query results</div>
+        <div style="font-size:11px;color:var(--text-muted);max-width:200px;line-height:1.6;">Select an area of interest and a time range, then click Run Query.</div>
+      </div>
+      <div class="map-scale"><div class="scale-bar"></div> 100 km</div>
+    </div>
+  </div>
+
+  <!-- Bottom: empty state -->
+  <div class="bottom-panel">
+    <div class="bottom-header">
+      <span class="bottom-title">DETECTIONS</span>
+    </div>
+    <div style="padding:36px 0;text-align:center;">
+      <div style="font-size:11px;font-weight:600;color:var(--text-label);margin-bottom:4px;">No events to display</div>
+      <div style="font-size:11px;color:var(--text-muted);">Configure a query and click Run Query to load SAR events.</div>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- ════════════════════════════════════════════
+     VIEW 2 — EVENTS LOADED · NO SELECTION
+     ════════════════════════════════════════════ -->
+<div class="wireframe-label">View 2 — Events Loaded · No Selection</div>
+<div class="page" id="view2">
+  <div class="topbar">
+    <span class="logo">⚓ PHAROS</span>
+    <span class="logo-sub">Maritime SAR–AIS Analysis</span>
+    <div class="topbar-actions">
+      <span class="chip" style="border-color:var(--color-accent-teal3);color:var(--color-accent-teal3);">● Live</span>
+      <span class="chip">Dark</span>
+      <span class="chip">English</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+
+      <div>
+        <div class="sidebar-section-title">Area of Interest</div>
+        <div class="field-label">Draw on map</div>
+        <div style="display:flex;gap:5px;margin-bottom:6px;">
+          <div class="btn btn-secondary" style="height:28px;font-size:11px;">Zonal</div>
+          <div class="btn btn-secondary" style="height:28px;font-size:11px;">Point</div>
+        </div>
+        <div class="field-label">or choose EEZ region</div>
+        <div class="input-box active">Malacca Strait EEZ <span class="arrow">▾</span></div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Time Range</div>
+        <div class="field-label">From</div>
+        <div class="input-box active">2025-12-01</div>
+        <div class="field-label">To</div>
+        <div class="input-box active">2025-12-31</div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Data Layers</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> Unmatched only</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> AIS Tracks</div>
+        <div class="checkbox-row"><span class="cb"></span> Hotspots</div>
+        <div class="checkbox-row"><span class="cb"></span> EEZ Boundaries</div>
+        <div class="checkbox-row"><span class="cb"></span> MPA Zones</div>
+      </div>
+
+      <div>
+        <details>
+          <summary>Hotspot</summary>
+          <div class="field-label">Resolution</div>
+          <input class="mini-input" style="margin-bottom:6px;" type="number" value="5" />
+          <div class="field-label">Time Bin</div>
+          <div class="input-box">HOURLY <span class="arrow">▾</span></div>
+        </details>
+      </div>
+
+      <div>
+        <details>
+          <summary>Sort Order</summary>
+          <div class="sort-item"><span class="sort-rank">1</span><span class="sort-field">triage_score</span><span class="sort-dir">↓ desc</span></div>
+          <div class="sort-item"><span class="sort-rank">2</span><span class="sort-field">uncertainty_score</span><span class="sort-dir">↑ asc</span></div>
+          <div class="sort-item"><span class="sort-rank">3</span><span class="sort-field">timestamp_utc</span><span class="sort-dir">↓ desc</span></div>
+        </details>
+      </div>
+
+      <div>
+        <details>
+          <summary>Filter</summary>
+          <div class="field-label">Triage Score</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" step="0.01" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="1" step="0.01" /></div>
+          </div>
+          <div class="field-label">Uncertainty Score</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" step="0.01" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="1" step="0.01" /></div>
+          </div>
+          <div class="field-label">Distance to Coast (km)</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="100" /></div>
+          </div>
+          <div class="field-label">Bathymetry (m)</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="100" /></div>
+          </div>
+          <div class="field-label" style="margin-top:2px;">Context Zone</div>
+          <div class="checkbox-row" style="margin-bottom:4px;"><span class="cb"></span> Inside EEZ only</div>
+          <div class="checkbox-row" style="margin-bottom:8px;"><span class="cb"></span> Inside MPA only</div>
+          <div class="field-label">Reason Codes — Include</div>
+          <div class="reason-chips" style="margin-bottom:8px;">
+            <span class="reason-chip include">near_coast</span>
+            <span class="reason-chip include">inside_mpa</span>
+            <span class="reason-chip">inside_eez</span>
+            <span class="reason-chip">missing_ais</span>
+            <span class="reason-chip">low_conf</span>
+            <span class="reason-chip">shallow</span>
+            <span class="reason-chip">deep</span>
+            <span class="reason-chip">noisy</span>
+          </div>
+          <div class="field-label">Reason Codes — Exclude</div>
+          <div class="reason-chips">
+            <span class="reason-chip exclude">low_conf</span>
+            <span class="reason-chip">near_coast</span>
+            <span class="reason-chip">inside_eez</span>
+            <span class="reason-chip">missing_ais</span>
+            <span class="reason-chip">noisy</span>
+          </div>
+        </details>
+      </div>
+
+      <div><details><summary>Threshold &amp; Weights</summary></details></div>
+      <div><details><summary>Advanced Query</summary></details></div>
+
+      <div class="divider"></div>
+      <div class="btn btn-primary">▶&nbsp; Run Query</div>
+    </div>
+
+    <!-- Map: full opacity, events visible, no popup -->
+    <div class="map-area">
+      <div class="coastline"></div>
+      <div class="eez-line"></div>
+      <div class="eez-label">Malacca Strait EEZ</div>
+
+      <div class="hotspot" style="width:110px;height:80px;top:180px;left:220px;"></div>
+      <div class="hotspot" style="width:70px;height:55px;top:250px;left:310px;"></div>
+
+      <div class="track" style="width:180px;top:220px;left:100px;transform:rotate(-8deg);"></div>
+      <div class="track" style="width:140px;top:260px;left:280px;transform:rotate(5deg);"></div>
+      <div class="track" style="width:100px;top:160px;left:350px;transform:rotate(-15deg);"></div>
+
+      <div class="det unmatched" style="top:195px;left:178px;"></div>
+      <div class="det unmatched" style="top:218px;left:205px;"></div>
+      <div class="det unmatched" style="top:240px;left:230px;"></div>
+      <div class="det matched"   style="top:210px;left:255px;"></div>
+      <div class="det unmatched" style="top:265px;left:290px;"></div>
+      <div class="det matched"   style="top:285px;left:320px;"></div>
+      <div class="det unmatched" style="top:175px;left:360px;"></div>
+      <div class="det unmatched" style="top:200px;left:390px;"></div>
+      <div class="det matched"   style="top:300px;left:270px;"></div>
+      <div class="det unmatched" style="top:155px;left:310px;"></div>
+      <div class="det unmatched" style="top:145px;left:250px;"></div>
+      <div class="det unmatched" style="top:320px;left:190px;"></div>
+
+      <div class="map-controls">
+        <div class="map-btn">+</div>
+        <div class="map-btn">−</div>
+        <div class="map-btn" style="font-size:11px;">⊙</div>
+      </div>
+      <div class="map-legend">
+        <div style="font-size:10px;font-weight:700;margin-bottom:7px;color:var(--text-label);font-family:var(--font-family-header);">Legend</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-unmatched);"></div> Unmatched Event</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-matched);"></div> Matched Event</div>
+        <div class="legend-item"><div class="legend-line" style="background:var(--accent-track);"></div> AIS Track</div>
+        <div class="legend-item"><div class="legend-dashed"></div> EEZ Boundary</div>
+        <div class="legend-item"><div class="legend-hotspot-swatch"></div> Hotspot Area</div>
+      </div>
+      <div class="map-scale"><div class="scale-bar"></div> 50 km</div>
+    </div>
+  </div>
+
+  <!-- Bottom: table, no selected row -->
+  <div class="bottom-panel">
+    <div class="bottom-header">
+      <span class="bottom-title">DETECTIONS (142)</span>
+      <span class="filter-chip active">All</span>
+      <span class="filter-chip">Unmatched 89</span>
+      <span class="filter-chip">Matched 53</span>
+      <span style="flex:1;"></span>
+      <span class="filter-chip">Sort: triage_score ▾</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Detection ID</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>Timestamp <span class="sort-icon">↓</span></th>
+            <th>Confidence Tier</th>
+            <th>AIS Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="muted">1</td>
+            <td>SAR-00142</td>
+            <td>12.750</td>
+            <td>54.530</td>
+            <td>2025-12-21 17:01Z</td>
+            <td><span class="status-badge sb-high">HIGH</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">2</td>
+            <td>SAR-00143</td>
+            <td>12.910</td>
+            <td>54.210</td>
+            <td>2025-12-21 18:44Z</td>
+            <td><span class="status-badge sb-med">MED</span></td>
+            <td><span class="status-badge sb-matched">MATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">3</td>
+            <td>SAR-00158</td>
+            <td>12.480</td>
+            <td>54.860</td>
+            <td>2025-12-22 03:17Z</td>
+            <td><span class="status-badge sb-high">HIGH</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">4</td>
+            <td>SAR-00177</td>
+            <td>13.120</td>
+            <td>54.440</td>
+            <td>2025-12-23 11:05Z</td>
+            <td><span class="status-badge sb-low">LOW</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">5</td>
+            <td>SAR-00191</td>
+            <td>13.340</td>
+            <td>54.080</td>
+            <td>2025-12-24 14:33Z</td>
+            <td><span class="status-badge sb-med">MED</span></td>
+            <td><span class="status-badge sb-matched">MATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="wireframe-label">View 3 — Events Loaded · Selection &amp; Detail Drawer</div>
+<div class="page" id="view3">
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="logo">⚓ PHAROS</span>
+    <span class="logo-sub">Maritime SAR–AIS Analysis</span>
+    <div class="topbar-actions">
+      <span class="chip" style="border-color:var(--color-accent-teal3); color:var(--color-accent-teal3);">● Live</span>
+      <span class="chip">Dark</span>
+      <span class="chip">English</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar (collapsed labels) -->
+    <div class="sidebar">
+      <div>
+        <div class="sidebar-section-title">Area of Interest</div>
+        <div class="field-label">Draw on map</div>
+        <div class="btn btn-secondary">Zonal</div>
+        <div class="btn btn-secondary">Point</div>
+        <div class="field-label">or choose EEZ region</div>
+        <div class="input-box">Select EEZ… <span class="arrow">▾</span></div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Time Range</div>
+        <div class="field-label">From</div>
+        <div class="input-box" style="color:var(--text-muted);">YYYY-MM-DD</div>
+        <div class="field-label">To</div>
+        <div class="input-box" style="color:var(--text-muted);">YYYY-MM-DD</div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Data Layers</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> Unmatched only</div>
+        <div class="checkbox-row"><span class="cb checked">✓</span> AIS Tracks</div>
+        <div class="checkbox-row"><span class="cb"></span> Hotspots</div>
+        <div class="checkbox-row"><span class="cb"></span> EEZ Boundaries</div>
+        <div class="checkbox-row"><span class="cb"></span> MPA Zones</div>
+      </div>
+
+      <!-- ── Hotspot ── -->
+      <div>
+        <details>
+          <summary>Hotspot</summary>
+          <div class="field-label">Resolution</div>
+          <input class="mini-input" style="margin-bottom:6px;" type="number" value="5" />
+          <div class="field-label">Time Bin</div>
+          <div class="input-box">HOURLY <span class="arrow">▾</span></div>
+        </details>
+      </div>
+
+      <!-- ── Sort ── -->
+      <div>
+        <details>
+          <summary>Sort Order</summary>
+          <div class="sort-item">
+            <span class="sort-rank">-</span>
+            <span class="sort-rank">1</span>
+            <span class="sort-field">triage_score</span>
+            <span class="sort-dir">↓ desc</span>
+          </div>
+          <div class="sort-item">
+            <span class="sort-rank">-</span>
+            <span class="sort-rank">2</span>
+            <span class="sort-field">uncertainty_score</span>
+            <span class="sort-dir">↑ asc</span>
+          </div>
+          <div class="sort-item">
+            <span class="sort-rank">-</span>
+            <span class="sort-rank">3</span>
+            <span class="sort-field">timestamp_utc</span>
+            <span class="sort-dir">↓ desc</span>
+          </div>
+          <div>
+            <span class="sort-rank">+</span>
+          </div>
+        </details>
+      </div>
+
+      <!-- ── Filter ── -->
+      <div>
+        <details>
+          <summary>Filter</summary>
+
+          <div class="field-label">Triage Score</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" step="0.01" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="1" step="0.01" /></div>
+          </div>
+
+          <div class="field-label">Uncertainty Score</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" step="0.01" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="1" step="0.01" /></div>
+          </div>
+
+          <div class="field-label">Distance to Coast (km)</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="100" /></div>
+          </div>
+
+          <div class="field-label">Bathymetry (m)</div>
+          <div class="range-pair">
+            <div><div class="mini-label">Min</div><input class="mini-input" type="number" value="0" /></div>
+            <div><div class="mini-label">Max</div><input class="mini-input" type="number" value="100" /></div>
+          </div>
+
+          <div class="field-label" style="margin-top:2px;">Context Zone</div>
+          <div class="checkbox-row" style="margin-bottom:4px;"><span class="cb"></span> Inside EEZ only</div>
+          <div class="checkbox-row" style="margin-bottom:8px;"><span class="cb"></span> Inside MPA only</div>
+
+          <div class="field-label">Reason Codes — Include</div>
+          <div class="reason-chips" style="margin-bottom:8px;">
+            <span class="reason-chip include">near_coast</span>
+            <span class="reason-chip include">inside_mpa</span>
+            <span class="reason-chip">inside_eez</span>
+            <span class="reason-chip">missing_ais</span>
+            <span class="reason-chip">low_conf</span>
+            <span class="reason-chip">shallow</span>
+            <span class="reason-chip">deep</span>
+            <span class="reason-chip">noisy</span>
+          </div>
+
+          <div class="field-label">Reason Codes — Exclude</div>
+          <div class="reason-chips">
+            <span class="reason-chip exclude">low_conf</span>
+            <span class="reason-chip">near_coast</span>
+            <span class="reason-chip">inside_eez</span>
+            <span class="reason-chip">missing_ais</span>
+            <span class="reason-chip">noisy</span>
+          </div>
+        </details>
+      </div>
+
+      <!-- ── Threshold (advanced, collapsed by default) ── -->
+      <div>
+        <details>
+          <summary>Threshold &amp; Weights</summary>
+
+          <div class="sub-group-title">Geography</div>
+          <div class="weight-grid">
+            <span class="weight-key">near_coast_km</span>
+            <input class="weight-val" type="number" value="10" />
+            <span class="weight-key">shallow_water_m</span>
+            <input class="weight-val" type="number" value="-50" />
+            <span class="weight-key">deep_water_m</span>
+            <input class="weight-val" type="number" value="-200" />
+            <span class="weight-key">conf_proxy_thr</span>
+            <input class="weight-val" type="number" value="2" />
+          </div>
+
+          <div class="sub-group-title">Score Tiers</div>
+          <div class="weight-grid">
+            <span class="weight-key">low_triage</span>
+            <input class="weight-val" type="number" value="0.3" step="0.01" />
+            <span class="weight-key">med_triage</span>
+            <input class="weight-val" type="number" value="0.6" step="0.01" />
+            <span class="weight-key">high_triage</span>
+            <input class="weight-val" type="number" value="0.85" step="0.01" />
+          </div>
+
+          <div class="sub-group-title">Weights</div>
+          <div class="weight-grid">
+            <span class="weight-key">base_uncertainty</span>
+            <input class="weight-val" type="number" value="0.1" step="0.01" />
+            <span class="weight-key">missing_field</span>
+            <input class="weight-val" type="number" value="0.08" step="0.01" />
+            <span class="weight-key">noisy</span>
+            <input class="weight-val" type="number" value="0.15" step="0.01" />
+            <span class="weight-key">unmatched</span>
+            <input class="weight-val" type="number" value="0.2" step="0.01" />
+            <span class="weight-key">near_coast_imp</span>
+            <input class="weight-val" type="number" value="0.3" step="0.01" />
+            <span class="weight-key">eez_importance</span>
+            <input class="weight-val" type="number" value="0.2" step="0.01" />
+            <span class="weight-key">mpa_importance</span>
+            <input class="weight-val" type="number" value="0.5" step="0.01" />
+            <span class="weight-key">miss_conf_proxy</span>
+            <input class="weight-val" type="number" value="0.25" step="0.01" />
+            <span class="weight-key">low_conf_proxy</span>
+            <input class="weight-val" type="number" value="0.2" step="0.01" />
+            <span class="weight-key">low_conf_tier</span>
+            <input class="weight-val" type="number" value="0.08" step="0.01" />
+            <span class="weight-key">med_conf_tier</span>
+            <input class="weight-val" type="number" value="0.0" step="0.01" />
+            <span class="weight-key">high_conf_tier</span>
+            <input class="weight-val" type="number" value="-0.05" step="0.01" />
+          </div>
+        </details>
+      </div>
+
+      <!-- ── Advanced Query ── -->
+      <div>
+        <details>
+          <summary>Advanced Query</summary>
+          <div class="field-label">Dataset</div>
+          <div class="input-box">Select <span class="arrow">▾</span></div>
+          <div class="field-label">Format</div>
+          <div class="input-box">Select <span class="arrow">▾</span></div>
+          <div class="field-label">Group By</div>
+          <div class="input-box">Select <span class="arrow">▾</span></div>
+          <div class="field-label">Spatial Resolution</div>
+          <div class="input-box">Select <span class="arrow">▾</span></div>
+          <div class="field-label">Semporal Resolution</div>
+          <div class="input-box">Select <span class="arrow">▾</span></div>
+        </details>
+        
+      </div>
+
+      <div class="divider"></div>
+      <div class="btn btn-primary" style="opacity:0.4; cursor:not-allowed;">▶&nbsp; Run Query</div>
+      <div style="font-size:10px; color:var(--text-muted); text-align:center; margin-top:-8px;">Fill area &amp; date to enable</div>
+    </div>
+
+    <!-- Map (dimmed) -->
+    <div class="map-area" style="opacity:0.7;">
+      <div class="coastline"></div>
+      <div class="eez-line"></div>
+      <div class="det unmatched" style="top:195px;left:178px;"></div>
+      <div class="det unmatched" style="top:218px;left:205px; width:16px;height:16px; border:3px solid #FFFFFF; box-shadow:0 0 0 2px var(--color-alert-orange3);"></div>
+      <div class="det unmatched" style="top:240px;left:230px;"></div>
+      <div class="det matched"   style="top:210px;left:255px;"></div>
+      <div class="det unmatched" style="top:265px;left:290px;"></div>
+      <div class="track" style="width:180px;top:220px;left:100px;transform:rotate(-8deg);"></div>
+      <div class="map-controls">
+        <div class="map-btn">+</div>
+        <div class="map-btn">−</div>
+      </div>
+      <div class="map-legend">
+        <div style="font-size:10px;font-weight:700;margin-bottom:7px;color:var(--text-label);font-family:var(--font-family-header);">Legend</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-unmatched);"></div> Unmatched Event</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-matched);"></div> Matched Event</div>
+        <div class="legend-item"><div class="legend-line" style="background:var(--accent-track);"></div> AIS Track</div>
+        <div class="legend-item"><div class="legend-dashed"></div> EEZ Boundary</div>
+        <div class="legend-item"><div class="legend-hotspot-swatch"></div> Hotspot Area</div>
+      </div>
+    </div>
+
+    <!-- Detail drawer -->
+    <div class="detail-drawer">
+
+      <!-- Header: event_id + matched_flag -->
+      <div>
+        <div class="drawer-title">
+          <span style="font-family:monospace;font-size:11px;">sha256-a3f1d8…</span>
+          <div class="drawer-close">✕</div>
+        </div>
+        <div style="display:flex;gap:5px;align-items:center;margin-top:5px;">
+          <span class="popup-badge badge-unmatched" style="font-size:11px;padding:2px 10px;">UNMATCHED</span>
+          <span style="font-size:9px;color:var(--text-muted);">matched_flag: false</span>
+        </div>
+      </div>
+
+      <!-- Location & Time (lon, lat = grid cell center; timestamp_utc = bucket start) -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Location &amp; Time</div>
+        <div class="drawer-row">
+          <span class="drawer-key">Grid Cell Center</span>
+          <span class="drawer-val">54.530°N, 12.750°E</span>
+        </div>
+        <div class="field-caveat">cell center · not exact vessel position</div>
+        <div class="drawer-row">
+          <span class="drawer-key">Bucket Start</span>
+          <span class="drawer-val">2025-12-21 17:01Z</span>
+        </div>
+        <div class="field-caveat">bucket start · not exact detection time</div>
+        <div class="drawer-row">
+          <span class="drawer-key">Dist. to Coast</span>
+          <span class="drawer-val">0.0 km</span>
+        </div>
+      </div>
+
+      <!-- Source & Detection (source, confidence_tier, confidence_proxy) -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Source &amp; Detection</div>
+        <div class="drawer-row">
+          <span class="drawer-key">Dataset</span>
+          <span class="drawer-val" style="font-size:10px;">gfw_sar_presence:v3:0</span>
+        </div>
+        <div class="drawer-row">
+          <span class="drawer-key">Conf. Tier</span>
+          <span class="drawer-val"><span class="status-badge sb-low">LOW</span></span>
+        </div>
+        <div class="drawer-row">
+          <span class="drawer-key">Conf. Proxy</span>
+          <span class="drawer-val" style="color:var(--text-muted);">— (null)</span>
+        </div>
+      </div>
+
+      <!-- Scoring (triage_score, uncertainty_score, reason_codes) -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Scoring</div>
+        <div class="drawer-row" style="margin-bottom:3px;">
+          <span class="drawer-key">Triage Score</span>
+        </div>
+        <div class="score-row">
+          <div class="score-bar-wrap">
+            <div class="score-bar-fill" style="width:72%;background:var(--color-alert-orange2);"></div>
+          </div>
+          <span class="score-num">0.72</span>
+        </div>
+        <div class="drawer-row" style="margin-bottom:3px;">
+          <span class="drawer-key">Uncertainty Score</span>
+        </div>
+        <div class="score-row">
+          <div class="score-bar-wrap">
+            <div class="score-bar-fill" style="width:35%;background:var(--color-primary-purple5);"></div>
+          </div>
+          <span class="score-num">0.35</span>
+        </div>
+        <div class="drawer-row" style="margin-bottom:3px;">
+          <span class="drawer-key">Reason Codes</span>
+        </div>
+        <div class="drawer-reason-chips">
+          <span class="drawer-reason-chip">near_coast</span>
+          <span class="drawer-reason-chip">inside_mpa</span>
+          <span class="drawer-reason-chip">unmatched</span>
+        </div>
+      </div>
+
+      <!-- Hotspot (cell_id, recurrence_count, time_bins_with_unmatched, hotspot_strength) -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Hotspot Context</div>
+        <div class="drawer-row">
+          <span class="drawer-key">H3 Cell</span>
+          <span class="drawer-val" style="font-family:monospace;font-size:10px;">851f2a47fff…</span>
+        </div>
+        <div class="drawer-row">
+          <span class="drawer-key">Recurrence</span>
+          <span class="drawer-val">12 events</span>
+        </div>
+        <div class="drawer-row">
+          <span class="drawer-key">Time Bins (unmtch)</span>
+          <span class="drawer-val">5</span>
+        </div>
+        <div class="drawer-row">
+          <span class="drawer-key">Strength</span>
+          <span class="drawer-val"><span class="hs-badge hs-high">HIGH</span></span>
+        </div>
+      </div>
+
+      <!-- Context Layers (EEZ, MPA, Bathymetry — each with dataset, version, enrichments) -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Context Layers</div>
+
+        <div class="ctx-layer">
+          <div class="ctx-layer-name">
+            EEZ
+            <span class="popup-badge badge-matched" style="font-size:9px;padding:1px 6px;">INSIDE</span>
+          </div>
+          <div class="ctx-layer-meta">World_EEZ_20231025_LR · v12</div>
+          <div class="ctx-enrichment">Malacca Strait (Malaysia)</div>
+        </div>
+
+        <div class="ctx-layer">
+          <div class="ctx-layer-name">
+            MPA
+            <span class="popup-badge badge-unmatched" style="font-size:9px;padding:1px 6px;">INSIDE</span>
+          </div>
+          <div class="ctx-layer-meta">WDPA_WDOECM_APR2026 · v1.6</div>
+          <div class="ctx-enrichment">Pulau Kukup National Park</div>
+        </div>
+
+        <div class="ctx-layer">
+          <div class="ctx-layer-name">Bathymetry</div>
+          <div class="ctx-layer-meta">gebco_2025_sub_ice_topo · v2.7</div>
+          <div class="ctx-enrichment">−24 m (shallow)</div>
+        </div>
+      </div>
+
+      <!-- Run Metadata (collapsible) -->
+      <div class="drawer-section">
+        <details>
+          <summary style="font-family:var(--font-family-header);font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--color-secondary-blue4);padding-bottom:4px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;">
+            Run Metadata <span style="color:var(--color-secondary-blue6);">▾</span>
+          </summary>
+          <div style="padding-top:8px;">
+            <div class="drawer-row">
+              <span class="drawer-key">Config Hash</span>
+              <span class="drawer-val" style="font-family:monospace;font-size:9px;">a3f1d8c2…</span>
+            </div>
+            <div class="drawer-row">
+              <span class="drawer-key">Dataset Ver.</span>
+              <span class="drawer-val">v3:0</span>
+            </div>
+            <div class="drawer-row">
+              <span class="drawer-key">Git Commit</span>
+              <span class="drawer-val" style="font-family:monospace;font-size:9px;">079c920</span>
+            </div>
+            <div class="drawer-row">
+              <span class="drawer-key">Run Time</span>
+              <span class="drawer-val">2025-12-21 17:05Z</span>
+            </div>
+            <div class="drawer-row">
+              <span class="drawer-key">Duration</span>
+              <span class="drawer-val">3.4 s</span>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Data Limitation (keep) -->
+      <div class="disclaimer-box">
+        <strong>⚠ Data Limitation</strong>
+        Unmatched ≠ illegal. Scores are for triage and inspection only, not risk indicators.
+      </div>
+
+      <div class="divider"></div>
+      <div class="btn btn-secondary" style="font-size:11px; height:28px;">☑ Include in Export</div>
+      <div class="btn btn-ghost" style="font-size:11px; height:28px;">‹ Previous &nbsp;|&nbsp; Next ›</div>
+    </div>
+  </div>
+
+  <!-- Detections table (same as view 2) -->
+  <div class="bottom-panel">
+    <div class="bottom-header">
+      <span class="bottom-title">DETECTIONS (142)</span>
+      <span class="filter-chip active">All</span>
+      <span class="filter-chip">Unmatched 89</span>
+      <span class="filter-chip">Matched 53</span>
+      <span style="flex:1;"></span>
+      <span class="filter-chip">Sort: Time ▾</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Detection ID</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>Timestamp <span class="sort-icon">↓</span></th>
+            <th>Confidence Tier</th>
+            <th>AIS Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="selected">
+            <td class="muted">1</td>
+            <td><strong>SAR-00142</strong></td>
+            <td>1.2</td>
+            <td>23.8</td>
+            <td>Jan 15 08:23 UTC</td>
+            <td><span class="status-badge sb-high">HIGH</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">← Selected</td>
+          </tr>
+          <tr>
+            <td class="muted">2</td>
+            <td>SAR-00143</td>
+            <td>1.5</td>
+            <td>24.1</td>
+            <td>Jan 15 09:41 UTC</td>
+            <td><span class="status-badge sb-med">MED</span></td>
+            <td><span class="status-badge sb-matched">MATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">3</td>
+            <td>SAR-00158</td>
+            <td>1.1</td>
+            <td>23.5</td>
+            <td>Jan 16 02:17 UTC</td>
+            <td><span class="status-badge sb-high">HIGH</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+          <tr>
+            <td class="muted">4</td>
+            <td>SAR-00177</td>
+            <td>1.8</td>
+            <td>20</td>
+            <td>Jan 17 11:05 UTC</td>
+            <td><span class="status-badge sb-low">LOW</span></td>
+            <td><span class="status-badge sb-unmatched">UNMATCHED</span></td>
+            <td class="row-link">Details →</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

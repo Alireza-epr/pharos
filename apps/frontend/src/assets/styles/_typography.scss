@@ -1,0 +1,69 @@
+:root {
+// ==========================================
+// TYPOGRAPHY
+// ==========================================
+
+--font-family-base: 'Inter', sans-serif;
+--font-family-header: 'Montserrat', sans-serif;
+--font-family-tech: 'Orbitron', sans-serif;
+
+--font-weight-light: 300;
+--font-weight-regular: 400;
+--font-weight-medium: 500;
+--font-weight-bold: 700;
+
+--font-size-xs: 0.75rem;
+--line-height-xs: 1rem;
+
+--font-size-sm: 0.875rem;
+--line-height-sm: 1.25rem;
+
+--font-size-base: 1rem;
+--line-height-base: 1.5rem;
+
+--font-size-lg: 1.125rem;
+--line-height-lg: 1.75rem;
+
+--font-size-xl: 1.25rem;
+--line-height-xl: 1.75rem;
+
+--font-size-xxl: 2rem;
+--line-height-xxl: 2.5rem;
+
+--font-size-xxxl: 4rem;
+--line-height-xxxl: 4.5rem;
+
+// ==========================================
+// Variables with Clamp
+// ==========================================
+
+--font-size-xs: clamp(0.675rem, 0.9vw, 0.75rem);
+--line-height-xs: 1.1;
+--letter-spacing-xs: 0.01em;
+
+--font-size-sm: clamp(0.75rem, 1vw, 0.875rem);
+--line-height-sm: 1.25;
+--letter-spacing-sm: 0.01em;
+
+--font-size-base: clamp(0.875rem, 1.1vw, 1rem);
+--line-height-base: 1.5;
+--letter-spacing-base: 0em;
+
+--font-size-lg: clamp(1rem, 1.2vw, 1.125rem);
+--line-height-lg: 1.6;
+--letter-spacing-lg: -0.005em;
+
+--font-size-xl: clamp(1.125rem, 1.5vw, 1.25rem);
+--line-height-xl: 1.6;
+--letter-spacing-xl: -0.01em;
+
+--font-size-xxl: clamp(1.5rem, 2vw, 2rem);
+--line-height-xxl: 1.4;
+--letter-spacing-xxl: -0.015em;
+
+--font-size-xxxl: clamp(2.5rem, 5vw, 4rem);
+--line-height-xxxl: 1.2;
+--letter-spacing-xxxl: -0.02em;
+
+
+}
