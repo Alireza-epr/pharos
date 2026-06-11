@@ -1,0 +1,44 @@
+.wrapper {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  background: var(--color-primary-purple2);
+  border-bottom: 1px solid var(--color-primary-purple3);
+  flex-shrink: 0;
+}
+
+.logo {
+  font-family: var(--font-family-tech);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--color-primary-purple8);
+  white-space: nowrap;
+}
+
+.logoSub {
+  font-family: var(--font-family-header);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--color-secondary-blue7);
+  flex: 1;                // pushes .actions to the right
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid var(--color-secondary-blue5);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 11px;
+  color: var(--color-secondary-blue7);
+  white-space: nowrap;
+}

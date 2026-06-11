@@ -42,6 +42,10 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    // "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "typeRoots": [
       "./types",
       "./node_modules/@types",
