@@ -5,9 +5,9 @@ import { useEventStore } from '@/stores/eventStore';
 import { samples } from '@/helpers/fixtures/samples';
 import { IEventSchema } from '@packages/types';
 
-export interface HeaderPanelProps {}
+export interface IHeaderPanelProps {}
 
-const HeaderPanel = (props: HeaderPanelProps) => {
+const HeaderPanel = (props: IHeaderPanelProps) => {
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
   const setSelectedEvent = useEventStore((s) => s.setSelectedEvent);

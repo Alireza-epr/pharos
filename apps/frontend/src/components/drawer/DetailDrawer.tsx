@@ -1,9 +1,9 @@
 import { useEventStore } from '@/stores/eventStore';
 import detailDrawerStyle from './DetailDrawer.module.scss';
 
-export interface DetailDrawerProps {}
+export interface IDetailDrawerProps {}
 
-const DetailDrawer = (props: DetailDrawerProps) => {
+const DetailDrawer = (props: IDetailDrawerProps) => {
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 
   return (

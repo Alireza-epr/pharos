@@ -8,9 +8,9 @@ import HeaderPanel from '../components/layout/HeaderPanel';
 import { useEventStore } from '../stores/eventStore';
 import { useAppStore } from '../stores/appStore';
 
-export interface AppProps {}
+export interface IAppProps {}
 
-const App = (props: AppProps) => {
+const App = (props: IAppProps) => {
   const theme = useAppStore((state) => state.theme);
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 

@@ -1,8 +1,8 @@
 import sidebarStyle from './Sidebar.module.scss';
 
-export interface SidebarProps {}
+export interface ISidebarProps {}
 
-const Sidebar = (props: SidebarProps) => {
+const Sidebar = (props: ISidebarProps) => {
   return (
     <div className={` ${sidebarStyle.wrapper}`}>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>

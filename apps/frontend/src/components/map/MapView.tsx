@@ -1,8 +1,8 @@
 import mapViewStyle from './MapView.module.scss';
 
-export interface MapViewProps {}
+export interface IMapViewProps {}
 
-const MapView = (props: MapViewProps) => {
+const MapView = (props: IMapViewProps) => {
   return <div className={` ${mapViewStyle.wrapper}`}></div>;
 };
 
