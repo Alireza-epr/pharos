@@ -11,8 +11,8 @@ const DetailDrawer = (props: DetailDrawerProps) => {
 
   return (
     <div className={`${!selectedEvent ? detailDrawerStyle.hidden : ''} ${detailDrawerStyle.wrapper}`}>
-      <div className={detailDrawerStyle.header}>{/* event ID + badge + close */}</div>
-      <div className={detailDrawerStyle.scrollArea}>{/* all sections */}</div>
+      <div className={` ${detailDrawerStyle.header}`}>{/* event ID + badge + close */}</div>
+      <div className={`scrollbar ${detailDrawerStyle.scrollArea}`}>{/* all sections */}</div>
     </div>
   )
 }

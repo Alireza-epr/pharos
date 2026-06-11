@@ -32,6 +32,22 @@ $min-width-desktop: 1024px;
 --radius-round: 50%;
 
 // ==========================================
+// BORDER WIDTH
+// ==========================================
+
+--border-width-none: 0;
+--border-width-sm: 1px;   // default: dividers, inputs, cards
+--border-width-md: 2px;   // emphasis: focus rings, active states
+--border-width-lg: 4px;   // accents: selected tabs, callout edges
+
+// ==========================================
+// SCROLLBAR
+// ==========================================
+
+--scrollbar-width: 4px;
+--scrollbar-height: 4px;
+
+// ==========================================
 // COLUMN
 // ==========================================
 
@@ -103,8 +119,8 @@ $min-width-desktop: 1024px;
 // ==========================================
 // HEIGHT
 // ==========================================
---height-header: 8vh;
---height-footer: 15vh;
+--height-header: 6vh;
+--height-footer: 20vh;
 --height-feature-carousel: 50vh;
 --height-intro: 85vh;
 --height-button-icon: 48px;
@@ -113,6 +129,12 @@ $min-width-desktop: 1024px;
 --height-about-icon: 5vh;
 --height-page-header: 20vh;
 --height-checkbox: 3vh;
+
+// ==========================================
+// WIDTH
+// ==========================================
+--width-sidebar: 20vw;
+--width-map: 80vw;
 
 }
 

@@ -1,12 +1,13 @@
 .wrapper {
-  width: 260px;
-  min-width: 260px;
+  width: var(--width-sidebar);
+  min-width: var(--width-sidebar);
   flex-shrink: 0;
   height: 100%;
   display: flex;
+  margin-right: var(--margin-default);
+  gap: var(--padding-default);
   flex-direction: column;
-  background: var(--bg-panel);
-  border-left: 1px solid var(--border);
+  background: var(--bg-app);
   transform: translateX(0);
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               opacity  0.2s ease;
@@ -19,26 +20,24 @@
 }
 
 .header {
+  flex: 1;
   flex-shrink: 0;
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid var(--border);
+  padding: var(--padding-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  box-sizing: border-box;
 }
 
 .scrollArea {
-  flex: 1;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  flex: 9;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 14px;
+  padding: var(--padding-default);
   display: flex;
   flex-direction: column;
   gap: 14px;
-
-  &::-webkit-scrollbar        { width: 4px; }
-  &::-webkit-scrollbar-track  { background: transparent; }
-  &::-webkit-scrollbar-thumb  {
-    background: var(--border);
-    border-radius: 2px;
-    &:hover { background: var(--text-muted); }
-  }
+  box-sizing: border-box;
 }

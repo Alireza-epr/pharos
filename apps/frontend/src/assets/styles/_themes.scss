@@ -6,16 +6,16 @@
   --text-primary:  var(--text-dark-bg-primary);
   --text-secondary:var(--text-dark-bg-secondary);
   --text-muted:    var(--color-secondary-blue6);
-  --map-bg:        #0D1020;
+  --map-bg:        var(--color-secondary-blue3);
 }
 
 [data-theme="light"] {
-  --bg-app:        var(--color-primary-purple10);
-  --bg-panel:      #FFFFFF;
+  --bg-app:        var(--text-dark-bg-primary);
+  --bg-panel:      var(--color-primary-purple10);
   --bg-card:       var(--color-primary-purple10);
   --border:        var(--color-primary-purple9);
   --text-primary:  var(--text-light-bg-primary);
   --text-secondary:var(--text-light-bg-secondary);
   --text-muted:    var(--color-secondary-blue7);
-  --map-bg:        #C5D8E8;
+  --map-bg:        var(--color-primary-purple10);
 }

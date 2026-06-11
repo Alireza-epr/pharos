@@ -96,6 +96,23 @@ body {
   padding: var(--no-margin);
 }
 
+// Scrollbar
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius-sm);
+    &:hover { 
+      background: var(--text-muted); 
+    }
+  }
+}
+
 /* Mobile Grid */
 @media (max-width: $max-width-mobile ) {
   .grid {

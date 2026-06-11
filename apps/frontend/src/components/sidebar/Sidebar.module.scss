@@ -1,39 +1,38 @@
 .wrapper {
-  width: 224px;
-  min-width: 224px;
+  width: var(--width-sidebar);
+  min-width: var(--width-sidebar);
   flex-shrink: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--bg-panel);
-  border-right: 1px solid var(--border);
+  background: var(--bg-app);
   overflow: hidden;
+  gap: var(--padding-default);
+  margin: 0 var(--margin-default);
 }
 
 .scrollArea {
-  flex: 1;
+  flex: 9;
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 16px 14px;
+  padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-
-  &::-webkit-scrollbar        { width: 4px; }
-  &::-webkit-scrollbar-track  { background: transparent; }
-  &::-webkit-scrollbar-thumb  {
-    background: var(--border);
-    border-radius: 2px;
-    &:hover { background: var(--text-muted); }
-  }
+  gap: var(--padding-default);
+  background: var(--bg-card);
 }
 
 .footer {
+  flex: 1;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
   flex-shrink: 0;
-  padding: 10px 14px 14px;
-  border-top: 1px solid var(--border);
+  padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--padding-default);
 }
