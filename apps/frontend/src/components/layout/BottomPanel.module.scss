@@ -10,7 +10,6 @@
 }
 
 .header {
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: var(--padding-default);
@@ -19,13 +18,13 @@
   box-sizing: border-box;
   border-radius: var(--radius-md);
   flex: 1;
+  flex-shrink: 0;
 }
 
-.tableWrap {
+.table-wrap {
   flex: 9;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: auto;
+  overflow: auto;
   box-sizing: border-box;
   border-radius: var(--radius-md);
   background: var(--bg-card);

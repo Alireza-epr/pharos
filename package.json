@@ -7,6 +7,8 @@
   ],
   "scripts": {
     "format": "prettier --write ./**/*.{ts,tsx,js,json,md,scss}",
+    "lint": "npm --prefix apps/frontend run lint && npm --prefix apps/backend run lint",
+    "lint:style": "npm --prefix apps/frontend run lint:style",
     "frontend:dev": "npm --prefix apps/frontend run dev",
     "frontend:build": "npm --prefix apps/frontend run build",
     "frontend:preview": "npm --prefix apps/frontend run preview",

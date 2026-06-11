@@ -53,6 +53,7 @@
     ]
   },
   "include": [
+    "global.d.ts",
     "src/**/*",
     "tests/**/*",
     "jest.config.ts",

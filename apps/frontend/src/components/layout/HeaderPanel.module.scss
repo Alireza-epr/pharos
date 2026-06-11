@@ -17,7 +17,7 @@
   white-space: nowrap;
 }
 
-.logoSub {
+.logo-sub {
   font-family: var(--font-family-header);
   color: var(--color-secondary-blue7);
   flex: 1; /* pushes .actions to the right */
@@ -36,6 +36,7 @@
   padding: var(--padding-default);
   color: var(--color-secondary-blue7);
   white-space: nowrap;
+
   &:hover {
     background-color: var(--color-secondary-blue5);
     cursor: pointer;

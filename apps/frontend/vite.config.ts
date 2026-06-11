@@ -11,6 +11,9 @@ export default defineConfig({
     },
   },
   css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
     preprocessorOptions: {
       scss: {
         silenceDeprecations: ['import'],
