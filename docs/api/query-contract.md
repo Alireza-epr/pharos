@@ -9,9 +9,10 @@ http://localhost:<API_PORT>/v1/
 https://<DOMAIN>/api/v1
 
 ---
+
 ## Rate Limit
 
-The API relies on the source's rate-limiting policies. Requests may be rejected with HTTP `429 Too Many Requests` when daily or monthly usage limits are exceeded. The service validates the rate-limit headers returned by the provider and returns a violation error when the configured thresholds are reached. 
+The API relies on the source's rate-limiting policies. Requests may be rejected with HTTP `429 Too Many Requests` when daily or monthly usage limits are exceeded. The service validates the rate-limit headers returned by the provider and returns a violation error when the configured thresholds are reached.
 For more information, see the API documentation https://globalfishingwatch.org/our-apis/documentation?utm_source=chatgpt.com#rate-limits
 
 ```json
@@ -29,6 +30,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
   "success": false
 }
 ```
+
 ---
 
 ## Table of Contents
@@ -42,15 +44,15 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 **GET** `/system/health`
 
-**Description:** 
+**Description:**
 `Liveness check endpoint used to verify that the API service is running and reachable`
 
-**Authentication:** 
+**Authentication:**
 `None (public)`
 
 ---
-### 1. Request - URL Parameters
 
+### 1. Request - URL Parameters
 
 ---
 
@@ -64,16 +66,17 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 ### 3. Response
 
-| Field      | Description                               | Format  |
-| ---------- | ----------------------------------------- | ------- |
-| success    | Request status                            | boolean |
+| Field   | Description    | Format  |
+| ------- | -------------- | ------- |
+| success | Request status | boolean |
 
 ---
+
 #### Example: Success Response (200 OK)
 
 ```json
 {
-  "success": true,
+  "success": true
 }
 ```
 
@@ -94,7 +97,6 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - Does not return internal error payloads when down (no response possible)
 
 ---
-
 
 ## Events Report
 
@@ -124,13 +126,13 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 ### 2. Request - Body
 
-| Key         | Description                                                         | Required | Format | Param Type |
-| ----------- | ------------------------------------------------------------------- | -------- | ------ | ---------- |
+| Key                                | Description                                                         | Required | Format | Param Type |
+| ---------------------------------- | ------------------------------------------------------------------- | -------- | ------ | ---------- |
 | [body_params](#body_params-object) | Spatial and external request configuration object                   | False    | object | body       |
-| [filter](#filter-object)      | Filtering rules applied before pagination                           | False    | object | body       |
-| [sort](#sort-array)        | Array of sorting rules applied to result set                        | False    | array  | body       |
-| [hotspot](#hotspot-object)     | Configuration object defining hotspot calculation rules             | False    | object | body       |
-| [threshold](#threshold-object)   | Configuration object defining scoring and classification thresholds | False    | object | body       |
+| [filter](#filter-object)           | Filtering rules applied before pagination                           | False    | object | body       |
+| [sort](#sort-array)                | Array of sorting rules applied to result set                        | False    | array  | body       |
+| [hotspot](#hotspot-object)         | Configuration object defining hotspot calculation rules             | False    | object | body       |
+| [threshold](#threshold-object)     | Configuration object defining scoring and classification thresholds | False    | object | body       |
 
 ---
 
@@ -158,7 +160,8 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 | bufferUnit      | Unit for buffer distance                    | False    | Enum: ['MILES','NAUTICALMILES','KILOMETERS','RADIANS','DEGREES'] | body       |
 | bufferValue     | Buffer distance value applied to region     | False    | string                                                           | body       |
 
-Default: 
+Default:
+
 ```json
 {
   "body_params": null
@@ -184,13 +187,11 @@ Default:
 | bathymetry_min           | Minimum bathymetry value         | False    | number  | body       |
 | bathymetry_max           | Maximum bathymetry value         | False    | number  | body       |
 
+Default:
 
-Default: 
 ```json
 {
-  "filter": {
-    
-  }
+  "filter": {}
 }
 ```
 
@@ -205,7 +206,8 @@ Default:
 
 For more information, please refer to [the sort documentation](../data/sort-events.md).
 
-Default: 
+Default:
+
 ```json
 {
   "sort": [
@@ -237,6 +239,7 @@ Default:
 For more information, please refer to [the hotspot documentation](../tech/hotspots.md).
 
 Default:
+
 ```json
 {
   "hotspot": {
@@ -263,6 +266,7 @@ Default:
 For more information, please refer to [the scoring documentation](../tech/scoring-spec.md).
 
 Default:
+
 ```json
 {
   "threshold": {
@@ -273,20 +277,21 @@ Default:
     "low_triage_score_threshold": 0.3,
     "medium_triage_score_threshold": 0.6,
     "high_triage_score_threshold": 0.85
-  },
+  }
 }
 ```
+
 ---
 
 ### 3. Response
 
-| Field      | Description                               | Format  |
-| ---------- | ----------------------------------------- | ------- |
-| success    | Request status                            | boolean |
-| [pagination](#pagination-object) | Pagination information                    | object  |
-| metadata   | Execution metadata                        | object  |
-| stats      | Aggregated statistics for returned events | object  |
-| entries    | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md).   | array   |
+| Field                            | Description                                                                                                      | Format  |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| success                          | Request status                                                                                                   | boolean |
+| [pagination](#pagination-object) | Pagination information                                                                                           | object  |
+| metadata                         | Execution metadata                                                                                               | object  |
+| stats                            | Aggregated statistics for returned events                                                                        | object  |
+| entries                          | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md). | array   |
 
 ---
 
@@ -332,9 +337,9 @@ Default:
 
 ### 4. Errors
 
-- `400 Bad Request` – Invalid query parameters  
-- `400 Bad Request` – Body validation failed  
-- `400 Bad Request` – Offset exceeds total available items  
+- `400 Bad Request` – Invalid query parameters
+- `400 Bad Request` – Body validation failed
+- `400 Bad Request` – Offset exceeds total available items
 - `500 Internal Server Error` – Unexpected server-side failure
 
 ---
@@ -342,7 +347,7 @@ Default:
 ### 5. Notes
 
 - Filtering matched events must be specified in the URL query parameters using the filters[0] key.
-    `Example: filters[0]=matched='false'`
+  `Example: filters[0]=matched='false'`
 - Filtering is applied before pagination
 - Sorting is applied before pagination
 - Empty results still return valid pagination structure

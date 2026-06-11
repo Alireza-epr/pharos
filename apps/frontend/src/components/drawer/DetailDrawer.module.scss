@@ -9,8 +9,9 @@
   flex-direction: column;
   background: var(--bg-app);
   transform: translateX(0);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity  0.2s ease;
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
 
   &.hidden {
     transform: translateX(100%);
@@ -38,6 +39,6 @@
   padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--padding-default);
   box-sizing: border-box;
 }

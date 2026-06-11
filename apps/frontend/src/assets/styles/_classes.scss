@@ -1,6 +1,6 @@
-@import "./colors";
-@import "./vars";
-@import "./typography";
+@import './colors';
+@import './vars';
+@import './typography';
 
 body {
   margin: var(--no-margin);
@@ -9,7 +9,6 @@ body {
 
 .app-wrapper {
   background-color: var(--color-primary-purple10);
-
 }
 
 .font-family-header {
@@ -102,19 +101,19 @@ body {
     width: var(--scrollbar-width);
   }
   &::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
   }
   &::-webkit-scrollbar-thumb {
     background: var(--border);
     border-radius: var(--radius-sm);
-    &:hover { 
-      background: var(--text-muted); 
+    &:hover {
+      background: var(--text-muted);
     }
   }
 }
 
 /* Mobile Grid */
-@media (max-width: $max-width-mobile ) {
+@media (max-width: $max-width-mobile) {
   .grid {
     grid-template-columns: repeat(var(--mobile-columns), var(--column-auto));
     gap: var(--mobile-gutter);
@@ -141,7 +140,7 @@ body {
 }
 
 /* Tablet Grid */
-@media (min-width: $min-width-tablet ) and (max-width: $max-width-tablet ) {
+@media (min-width: $min-width-tablet) and (max-width: $max-width-tablet) {
   .grid {
     grid-template-columns: repeat(var(--tablet-columns), var(--column-auto));
     gap: var(--tablet-gutter);
@@ -150,7 +149,7 @@ body {
       grid-column: 1 / -1;
     }
     .md-center {
-      grid-column: 3 / 7
+      grid-column: 3 / 7;
     }
     .md-half {
       grid-column: span var(--tablet-half-span);
@@ -183,7 +182,7 @@ body {
 }
 
 /* Desktop Grid */
-@media (min-width: $min-width-desktop ) {
+@media (min-width: $min-width-desktop) {
   .grid {
     grid-template-columns: repeat(var(--desktop-columns), var(--column-auto));
     gap: var(--desktop-gutter);
@@ -195,7 +194,7 @@ body {
       grid-column: span var(--desktop-half-span);
     }
     .lg-center {
-      grid-column: 4 / 10
+      grid-column: 4 / 10;
     }
     .lg-1 {
       grid-column: span 1;
@@ -233,8 +232,5 @@ body {
     .lg-12 {
       grid-column: span 12;
     }
-
-    
   }
 }
-

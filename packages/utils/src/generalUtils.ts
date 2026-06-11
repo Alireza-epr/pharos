@@ -76,10 +76,10 @@ export const deepSortObject = <T>(a_Object: T): T => {
 
 export const deepStripHidden = (
   a_Object: unknown,
-  a_HiddenKeys: Set<string>
+  a_HiddenKeys: Set<string>,
 ): unknown => {
   if (Array.isArray(a_Object)) {
-    return a_Object.map(v => deepStripHidden(v, a_HiddenKeys));
+    return a_Object.map((v) => deepStripHidden(v, a_HiddenKeys));
   }
 
   if (a_Object && typeof a_Object === "object") {
@@ -93,7 +93,7 @@ export const deepStripHidden = (
   }
 
   return a_Object;
-}
+};
 
 export const getExecutionDuration = (a_Start: string, a_End: string) => {
   const startDate = new Date(a_Start.replace(" ", "T"));
@@ -131,10 +131,7 @@ export const getExportId = () => {
     `${String(now.getSeconds()).padStart(2, "0")}` +
     `_${String(now.getMilliseconds()).padStart(3, "0")}`;
 
-  const random = Math.random()
-    .toString(36)
-    .substring(2, 8)
-    .toUpperCase();
+  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
 
   return `${timestamp}_${random}`;
-}
+};

@@ -1,21 +1,21 @@
-[data-theme="dark"] {
-  --bg-app:        var(--color-secondary-blue1);
-  --bg-panel:      var(--color-secondary-blue2);
-  --bg-card:       var(--color-secondary-blue3);
-  --border:        var(--color-secondary-blue5);
-  --text-primary:  var(--text-dark-bg-primary);
-  --text-secondary:var(--text-dark-bg-secondary);
-  --text-muted:    var(--color-secondary-blue6);
-  --map-bg:        var(--color-secondary-blue3);
+[data-theme='dark'] {
+  --bg-app: var(--color-secondary-blue1);
+  --bg-panel: var(--color-secondary-blue2);
+  --bg-card: var(--color-secondary-blue3);
+  --border: var(--color-secondary-blue5);
+  --text-primary: var(--text-dark-bg-primary);
+  --text-secondary: var(--text-dark-bg-secondary);
+  --text-muted: var(--color-secondary-blue6);
+  --map-bg: var(--color-secondary-blue3);
 }
 
-[data-theme="light"] {
-  --bg-app:        var(--text-dark-bg-primary);
-  --bg-panel:      var(--color-primary-purple10);
-  --bg-card:       var(--color-primary-purple10);
-  --border:        var(--color-primary-purple9);
-  --text-primary:  var(--text-light-bg-primary);
-  --text-secondary:var(--text-light-bg-secondary);
-  --text-muted:    var(--color-secondary-blue7);
-  --map-bg:        var(--color-primary-purple10);
+[data-theme='light'] {
+  --bg-app: var(--text-dark-bg-primary);
+  --bg-panel: var(--color-primary-purple10);
+  --bg-card: var(--color-primary-purple10);
+  --border: var(--color-primary-purple9);
+  --text-primary: var(--text-light-bg-primary);
+  --text-secondary: var(--text-light-bg-secondary);
+  --text-muted: var(--color-secondary-blue7);
+  --map-bg: var(--color-primary-purple10);
 }

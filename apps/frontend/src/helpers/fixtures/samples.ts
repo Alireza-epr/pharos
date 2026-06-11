@@ -1,4 +1,3 @@
-
 export const samples = [
   {
     confidence_proxy: null,

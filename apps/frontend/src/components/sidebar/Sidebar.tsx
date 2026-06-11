@@ -1,8 +1,6 @@
-import sidebarStyle from "./Sidebar.module.scss"
+import sidebarStyle from './Sidebar.module.scss';
 
-export interface SidebarProps {
-    
-}
+export interface SidebarProps {}
 
 const Sidebar = (props: SidebarProps) => {
   return (
@@ -10,11 +8,9 @@ const Sidebar = (props: SidebarProps) => {
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         {/* all form sections */}
       </div>
-      <div className={` ${sidebarStyle.footer}`}>
-        {/* Run Query button */}
-      </div>
+      <div className={` ${sidebarStyle.footer}`}>{/* Run Query button */}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

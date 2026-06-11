@@ -31,10 +31,10 @@ export interface IRunMetadata {
   config_hash: string;
   config_json: IConfigJSON[];
   git_commit_version: string;
-  run_time: string,
-  dataset_version: string | undefined, 
-  context_layer_versions: string | undefined,
-  execution_duration_sec: number | undefined
+  run_time: string;
+  dataset_version: string | undefined;
+  context_layer_versions: string | undefined;
+  execution_duration_sec: number | undefined;
 }
 
 export interface IScoring {
@@ -104,8 +104,8 @@ export interface IZipFile {
 }
 
 export type TExportConfig = {
-  [K in EExportEvidence]?: boolean
-}
+  [K in EExportEvidence]?: boolean;
+};
 
 export type THiddenConfig = {
   [EHiddenConfig.gitCommitSHA]?: string;
@@ -123,7 +123,6 @@ export interface IConfigJSON extends THiddenConfig {
   filter: IFilteringParams;
   sort: ISortOption[];
 }
-
 
 export interface IHotspotConfig {
   resolution: TBuildRange<16>;

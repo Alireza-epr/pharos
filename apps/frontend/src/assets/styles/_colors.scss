@@ -1,53 +1,52 @@
 :root {
-// ==========================================
-// COLORS
-// ==========================================
+  // ==========================================
+  // COLORS
+  // ==========================================
 
-// Primary Colors
---color-primary-purple1: #171141; // Footer, dark mode primary bg (very dark) - used in logo outer
---color-primary-purple2: #251C5E; // Navbars, side panels (dark background)
---color-primary-purple3: #34297C; // Hover menus, section separators (dark hover/border) - used in logo inner
---color-primary-purple4: #453999; // Active states, focused elements
---color-primary-purple5: #584AB6; // Button hover, card highlights 1 - Darker hover effect
---color-primary-purple6: #6C5DD3; // Main buttons, headings
---color-primary-purple7: #8272F0; // Button hover, card highlights 2 - Lighter card highlight or subtle hover
---color-primary-purple8: #ACA0FC; // Light backgrounds or borders
---color-primary-purple9: #D0C9FF; // Backgrounds for primary sections 1
---color-primary-purple9-rgb: 208, 201, 255;
---color-primary-purple10: #F3F1FF; // Backgrounds for primary sections 2
+  // Primary Colors
+  --color-primary-purple1: #171141; // Footer, dark mode primary bg (very dark) - used in logo outer
+  --color-primary-purple2: #251c5e; // Navbars, side panels (dark background)
+  --color-primary-purple3: #34297c; // Hover menus, section separators (dark hover/border) - used in logo inner
+  --color-primary-purple4: #453999; // Active states, focused elements
+  --color-primary-purple5: #584ab6; // Button hover, card highlights 1 - Darker hover effect
+  --color-primary-purple6: #6c5dd3; // Main buttons, headings
+  --color-primary-purple7: #8272f0; // Button hover, card highlights 2 - Lighter card highlight or subtle hover
+  --color-primary-purple8: #aca0fc; // Light backgrounds or borders
+  --color-primary-purple9: #d0c9ff; // Backgrounds for primary sections 1
+  --color-primary-purple9-rgb: 208, 201, 255;
+  --color-primary-purple10: #f3f1ff; // Backgrounds for primary sections 2
 
-// Secondary Colors
---color-secondary-blue1: #12131F; // Footer, dark mode primary bg (very dark)
---color-secondary-blue2: #1A1B2B; // Navbars, side panels (dark background)
---color-secondary-blue3: #222438; // Hover menus, section separators (dark hover/border)
---color-secondary-blue4: #2B2D42; // Main secondary base color
---color-secondary-blue5: #42465E; // Button hover, card highlights 1 - Darker hover effect 
---color-secondary-blue6: #5B607D; // Main buttons, headings (lighter, mid-tone)
---color-secondary-blue7: #747A9A; // Button hover, card highlights 2 - Lighter card highlight or subtle hover
---color-secondary-blue8: #ACA0FC; // Light backgrounds or borders (soft tint)
---color-secondary-blue9: #D0C9FF; // Backgrounds for secondary sections 1 (very light tint)
---color-secondary-blue10: #F3F1FF; // Backgrounds for secondary sections 2 (extra light background)
+  // Secondary Colors
+  --color-secondary-blue1: #12131f; // Footer, dark mode primary bg (very dark)
+  --color-secondary-blue2: #1a1b2b; // Navbars, side panels (dark background)
+  --color-secondary-blue3: #222438; // Hover menus, section separators (dark hover/border)
+  --color-secondary-blue4: #2b2d42; // Main secondary base color
+  --color-secondary-blue5: #42465e; // Button hover, card highlights 1 - Darker hover effect
+  --color-secondary-blue6: #5b607d; // Main buttons, headings (lighter, mid-tone)
+  --color-secondary-blue7: #747a9a; // Button hover, card highlights 2 - Lighter card highlight or subtle hover
+  --color-secondary-blue8: #aca0fc; // Light backgrounds or borders (soft tint)
+  --color-secondary-blue9: #d0c9ff; // Backgrounds for secondary sections 1 (very light tint)
+  --color-secondary-blue10: #f3f1ff; // Backgrounds for secondary sections 2 (extra light background)
 
-// Accent Colors
---color-accent-teal1: #0A8F87; // Focused icon, tags (darkest for strong focus)
---color-accent-teal2: #199B95; // Active states, success labels (dark but vibrant)
---color-accent-teal3: #2EC4B6; // Base accent color (success labels, buttons)
---color-accent-teal4: #55D1C9; // Button hover (lighter hover effect)
---color-accent-teal5: #8DE3DC; // Background tint for success (light success backgrounds)
---color-accent-teal6: #C5F1EF; // Very light success background (subtle background tint)
+  // Accent Colors
+  --color-accent-teal1: #0a8f87; // Focused icon, tags (darkest for strong focus)
+  --color-accent-teal2: #199b95; // Active states, success labels (dark but vibrant)
+  --color-accent-teal3: #2ec4b6; // Base accent color (success labels, buttons)
+  --color-accent-teal4: #55d1c9; // Button hover (lighter hover effect)
+  --color-accent-teal5: #8de3dc; // Background tint for success (light success backgrounds)
+  --color-accent-teal6: #c5f1ef; // Very light success background (subtle background tint)
 
-// Alert Colors
---color-alert-orange1: #B76A00; // Strong alerts or labels (darkest, strongest emphasis)
---color-alert-orange2: #D98500; // Warning toasts, alert badges (bold and attention-grabbing)
---color-alert-orange3: #FF9F1C; // Base alert color (main alert badges, labels)
---color-alert-orange4: #FFB94A; // Alert hover, interactive toast (lighter hover state)
---color-alert-orange5: #FFDC9B; // Alert background (card/warning) (soft background tint)
---color-alert-orange6: #FFF4DC; // Very light alert background (subtle background tint)
- 
-// Text Colors
---text-light-bg-primary: #0F0F23; 
---text-light-bg-secondary: #585A77; 
---text-dark-bg-primary: #E3E4F1; // Main readable text on dark background
---text-dark-bg-secondary: #A0A3BD; // Secondary, less prominent text on dark background
+  // Alert Colors
+  --color-alert-orange1: #b76a00; // Strong alerts or labels (darkest, strongest emphasis)
+  --color-alert-orange2: #d98500; // Warning toasts, alert badges (bold and attention-grabbing)
+  --color-alert-orange3: #ff9f1c; // Base alert color (main alert badges, labels)
+  --color-alert-orange4: #ffb94a; // Alert hover, interactive toast (lighter hover state)
+  --color-alert-orange5: #ffdc9b; // Alert background (card/warning) (soft background tint)
+  --color-alert-orange6: #fff4dc; // Very light alert background (subtle background tint)
 
+  // Text Colors
+  --text-light-bg-primary: #0f0f23;
+  --text-light-bg-secondary: #585a77;
+  --text-dark-bg-primary: #e3e4f1; // Main readable text on dark background
+  --text-dark-bg-secondary: #a0a3bd; // Secondary, less prominent text on dark background
 }

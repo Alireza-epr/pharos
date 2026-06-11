@@ -2,10 +2,7 @@
   "features": [
     {
       "geometry": {
-        "coordinates": [
-          14.41,
-          55.22
-        ],
+        "coordinates": [14.41, 55.22],
         "type": "Point"
       },
       "properties": {
@@ -67,10 +64,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.68,
-          55.16
-        ],
+        "coordinates": [14.68, 55.16],
         "type": "Point"
       },
       "properties": {
@@ -125,10 +119,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.19,
-          55.23
-        ],
+        "coordinates": [14.19, 55.23],
         "type": "Point"
       },
       "properties": {
@@ -183,10 +174,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.09,
-          55.09
-        ],
+        "coordinates": [14.09, 55.09],
         "type": "Point"
       },
       "properties": {
@@ -241,10 +229,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.33,
-          55.24
-        ],
+        "coordinates": [14.33, 55.24],
         "type": "Point"
       },
       "properties": {
@@ -299,10 +284,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.41,
-          55.21
-        ],
+        "coordinates": [14.41, 55.21],
         "type": "Point"
       },
       "properties": {
@@ -357,10 +339,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.17,
-          55.16
-        ],
+        "coordinates": [14.17, 55.16],
         "type": "Point"
       },
       "properties": {
@@ -415,10 +394,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.3,
-          55.25
-        ],
+        "coordinates": [14.3, 55.25],
         "type": "Point"
       },
       "properties": {
@@ -473,10 +449,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.4,
-          55.21
-        ],
+        "coordinates": [14.4, 55.21],
         "type": "Point"
       },
       "properties": {
@@ -531,10 +504,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.2,
-          55.18
-        ],
+        "coordinates": [14.2, 55.18],
         "type": "Point"
       },
       "properties": {
@@ -589,10 +559,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.13,
-          55.24
-        ],
+        "coordinates": [14.13, 55.24],
         "type": "Point"
       },
       "properties": {
@@ -647,10 +614,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.21,
-          55.2
-        ],
+        "coordinates": [14.21, 55.2],
         "type": "Point"
       },
       "properties": {
@@ -704,10 +668,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.29,
-          55.23
-        ],
+        "coordinates": [14.29, 55.23],
         "type": "Point"
       },
       "properties": {
@@ -761,10 +722,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.3,
-          55.15
-        ],
+        "coordinates": [14.3, 55.15],
         "type": "Point"
       },
       "properties": {
@@ -818,10 +776,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.11,
-          55.16
-        ],
+        "coordinates": [14.11, 55.16],
         "type": "Point"
       },
       "properties": {
@@ -875,10 +830,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.22,
-          55.15
-        ],
+        "coordinates": [14.22, 55.15],
         "type": "Point"
       },
       "properties": {
@@ -932,10 +884,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.24,
-          55.19
-        ],
+        "coordinates": [14.24, 55.19],
         "type": "Point"
       },
       "properties": {
@@ -989,10 +938,7 @@
     },
     {
       "geometry": {
-        "coordinates": [
-          14.13,
-          55.11
-        ],
+        "coordinates": [14.13, 55.11],
         "type": "Point"
       },
       "properties": {

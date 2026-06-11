@@ -366,11 +366,14 @@ describe('generateScoring', () => {
   });
 
   it('return_null_scroing_if_threshold_config_is_bad', () => {
-    const scoring = generateScoring(eventSchema_matched_offshore, sarConfig_bad_threshold);
+    const scoring = generateScoring(
+      eventSchema_matched_offshore,
+      sarConfig_bad_threshold,
+    );
 
-    expect(scoring.triage_score).toBe(null)
-    expect(scoring.uncertainty_score).toBe(null)
-    expect(scoring.reason_codes?.length).toBeGreaterThan(0)
+    expect(scoring.triage_score).toBe(null);
+    expect(scoring.uncertainty_score).toBe(null);
+    expect(scoring.reason_codes?.length).toBeGreaterThan(0);
 
     expect(scoring.reason_codes).toEqual(
       expect.arrayContaining([
@@ -385,22 +388,23 @@ describe('generateScoring', () => {
         'missing_required_threshold_field:low_confidence_proxy_weight',
         'missing_required_threshold_field:low_confidence_tier_weight',
         'missing_required_threshold_field:medium_confidence_tier_weight',
-        'missing_required_threshold_field:high_confidence_tier_weight'
+        'missing_required_threshold_field:high_confidence_tier_weight',
       ]),
     );
   });
 
   it('return_null_scroing_if_threshold_is_empty', () => {
-    const scoring = generateScoring(eventSchema_matched_offshore, sarConfig_empty_threshold);
+    const scoring = generateScoring(
+      eventSchema_matched_offshore,
+      sarConfig_empty_threshold,
+    );
 
-    expect(scoring.triage_score).toBe(null)
-    expect(scoring.uncertainty_score).toBe(null)
-    expect(scoring.reason_codes?.length).toEqual(1)
+    expect(scoring.triage_score).toBe(null);
+    expect(scoring.uncertainty_score).toBe(null);
+    expect(scoring.reason_codes?.length).toEqual(1);
 
     expect(scoring.reason_codes).toEqual(
-      expect.arrayContaining([
-        EReasonCodesStatic.invalid_threshold_config
-      ]),
+      expect.arrayContaining([EReasonCodesStatic.invalid_threshold_config]),
     );
   });
 
@@ -499,7 +503,9 @@ describe('generateRunMetadata', () => {
   it('generates_deterministic_metadata_for_a_set_of_configs', async () => {
     const configSet = [sarConfig, eventConfig];
 
-    const metadata = await generateRunMetadata(configSet, [eventSchema_matched_near_coast]);
+    const metadata = await generateRunMetadata(configSet, [
+      eventSchema_matched_near_coast,
+    ]);
 
     expect(metadata).toEqual(
       expect.objectContaining({
@@ -509,7 +515,7 @@ describe('generateRunMetadata', () => {
         run_time: expect.any(String),
         dataset_version: expect.any(String),
         context_layer_versions: expect.any(String),
-        execution_duration_sec: undefined
+        execution_duration_sec: undefined,
       }),
     );
   });
@@ -552,16 +558,12 @@ describe('generateRunMetadata', () => {
       run_time: expect.any(String),
       dataset_version: undefined,
       context_layer_versions: undefined,
-      execution_duration_sec: undefined
-    }
+      execution_duration_sec: undefined,
+    };
 
-    expect(metadata).toEqual(
-      expect.objectContaining(expected),
-    );
-    expect(metadata_2).toEqual(
-      expect.objectContaining(expected),
-    );
-  })
+    expect(metadata).toEqual(expect.objectContaining(expected));
+    expect(metadata_2).toEqual(expect.objectContaining(expected));
+  });
 });
 
 describe('isValidCoordinate', () => {
@@ -1274,42 +1276,42 @@ describe('Context_layers', () => {
   });
 });
 
-describe("getStats", () => {
-  it("not_thrown_when_no_events", () => {
-    const stats = getStats([])
+describe('getStats', () => {
+  it('not_thrown_when_no_events', () => {
+    const stats = getStats([]);
 
     expect(stats).toEqual(
       expect.objectContaining({
         count_total: 0,
         matching_stats: {
           matched: 0,
-          unmatched: 0
+          unmatched: 0,
         },
         missingness: {
-          confidence_proxy: "0.00%",
-          distance_to_coast_km: "0.00%",
-          event_id: "0.00%",
-          lat: "0.00%",
-          lon: "0.00%",
-          timestamp_utc: "0.00%"
+          confidence_proxy: '0.00%',
+          distance_to_coast_km: '0.00%',
+          event_id: '0.00%',
+          lat: '0.00%',
+          lon: '0.00%',
+          timestamp_utc: '0.00%',
         },
         geo_sanity: {
           latitude: {
             max: 0,
-            min: 0
+            min: 0,
           },
           longitude: {
             max: 0,
-            min: 0
-          }
+            min: 0,
+          },
         },
         time_range: {
-          start: "N/A",
-          end: "N/A"
+          start: 'N/A',
+          end: 'N/A',
         },
         mean_score: 0,
-        mean_uncertainty: 0
-      })
-    )
-  })
-})
+        mean_uncertainty: 0,
+      }),
+    );
+  });
+});

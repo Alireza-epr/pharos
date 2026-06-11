@@ -80,7 +80,7 @@ export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
  */
 export interface I4wingsReportPostBodyParams {
   geojson?: IGeometry;
-  region?: I4wingsRegion
+  region?: I4wingsRegion;
 }
 
 export interface I4wingsRegion {
@@ -144,13 +144,13 @@ export interface IEventGetURLParams extends IEventPostURLParams {
   "include-regions"?: boolean;
   confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
   "encounter-types"?:
-  | "FISHING-CARRIER"
-  | "FISHING-SUPPORT"
-  | "FISHING-BUNKER"
-  | "FISHING-FISHING"
-  | "FISHING-TANKER"
-  | "CARRIER-BUNKER"
-  | "BUNKER-SUPPORT";
+    | "FISHING-CARRIER"
+    | "FISHING-SUPPORT"
+    | "FISHING-BUNKER"
+    | "FISHING-FISHING"
+    | "FISHING-TANKER"
+    | "CARRIER-BUNKER"
+    | "BUNKER-SUPPORT";
   "vessel-types"?: EVessleType;
 }
 
@@ -163,13 +163,13 @@ export interface IEventPostBodyParams {
   //"include-regions"?: boolean,
   confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
   encounterTypes?:
-  | "FISHING-CARRIER"
-  | "FISHING-SUPPORT"
-  | "FISHING-BUNKER"
-  | "FISHING-FISHING"
-  | "FISHING-TANKER"
-  | "CARRIER-BUNKER"
-  | "BUNKER-SUPPORT";
+    | "FISHING-CARRIER"
+    | "FISHING-SUPPORT"
+    | "FISHING-BUNKER"
+    | "FISHING-FISHING"
+    | "FISHING-TANKER"
+    | "CARRIER-BUNKER"
+    | "BUNKER-SUPPORT";
   duration?: number; // Minimum duration (greater than or equal to), in minutes, of the event. Example: 30
   vesselTypes?: EVessleType[];
   vesselGroups?: string[]; // Ids of the vessel groups. Must be an array Example: ['my-vessel-group']

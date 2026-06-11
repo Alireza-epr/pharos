@@ -1,16 +1,16 @@
-import bottomPanelStyle from "./BottomPanel.module.scss"
+import bottomPanelStyle from './BottomPanel.module.scss';
 
-export interface BottomPanelProps {
-    
-}
+export interface BottomPanelProps {}
 
 const BottomPanel = (props: BottomPanelProps) => {
   return (
     <div className={` ${bottomPanelStyle.wrapper}`}>
-      <div className={` ${bottomPanelStyle.header}`}>{/* title + filter chips */}</div>
+      <div className={` ${bottomPanelStyle.header}`}>
+        {/* title + filter chips */}
+      </div>
       <div className={`scrollbar ${bottomPanelStyle.tableWrap}`}></div>
     </div>
-  )
-}
+  );
+};
 
-export default BottomPanel
+export default BottomPanel;

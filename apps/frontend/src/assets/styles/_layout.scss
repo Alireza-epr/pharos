@@ -1,5 +1,5 @@
-@import "./colors";
-@import "./vars";
+@import './colors';
+@import './vars';
 
 // Viewport reset
 html,
@@ -41,7 +41,7 @@ aside {
 // aside | main | DetailDrawer — fills all remaining height
 .content {
   flex: 1;
-  min-height: 0;        // required: lets this flex child shrink below content height
+  min-height: 0; // required: lets this flex child shrink below content height
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -51,7 +51,7 @@ aside {
 // MapView fills top, BottomPanel is pinned below
 main {
   flex: 1;
-  min-width: 0;         // prevents flex blowout on wide content
+  min-width: 0; // prevents flex blowout on wide content
   display: flex;
   flex-direction: column;
   overflow: hidden;

@@ -12,129 +12,126 @@ $max-width-tablet: 1023px;
 $min-width-desktop: 1024px;
 
 :root {
-    
-// ==========================================
-// DEVICE WIDTH
-// ==========================================
+  // ==========================================
+  // DEVICE WIDTH
+  // ==========================================
 
---max-width-mobile: 599px;
---min-width-tablet: 600px;
---max-width-tablet: 1023px;
---min-width-desktop: 1024px;
+  --max-width-mobile: 599px;
+  --min-width-tablet: 600px;
+  --max-width-tablet: 1023px;
+  --min-width-desktop: 1024px;
 
-// ==========================================
-// BORDER RADIUS
-// ==========================================
+  // ==========================================
+  // BORDER RADIUS
+  // ==========================================
 
---radius-none: 0;
---radius-sm: 4px;
---radius-md: 8px;
---radius-round: 50%;
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-round: 50%;
 
-// ==========================================
-// BORDER WIDTH
-// ==========================================
+  // ==========================================
+  // BORDER WIDTH
+  // ==========================================
 
---border-width-none: 0;
---border-width-sm: 1px;   // default: dividers, inputs, cards
---border-width-md: 2px;   // emphasis: focus rings, active states
---border-width-lg: 4px;   // accents: selected tabs, callout edges
+  --border-width-none: 0;
+  --border-width-sm: 1px; // default: dividers, inputs, cards
+  --border-width-md: 2px; // emphasis: focus rings, active states
+  --border-width-lg: 4px; // accents: selected tabs, callout edges
 
-// ==========================================
-// SCROLLBAR
-// ==========================================
+  // ==========================================
+  // SCROLLBAR
+  // ==========================================
 
---scrollbar-width: 4px;
---scrollbar-height: 4px;
+  --scrollbar-width: 4px;
+  --scrollbar-height: 4px;
 
-// ==========================================
-// COLUMN
-// ==========================================
+  // ==========================================
+  // COLUMN
+  // ==========================================
 
---mobile-columns: #{$mobile-columns};
---tablet-columns: #{$tablet-columns};
---desktop-columns: #{$desktop-columns};
+  --mobile-columns: #{$mobile-columns};
+  --tablet-columns: #{$tablet-columns};
+  --desktop-columns: #{$desktop-columns};
 
---column-width: 85px; 
---column-auto: 1fr; // 1fr: 1 part of the remaining free space
+  --column-width: 85px;
+  --column-auto: 1fr; // 1fr: 1 part of the remaining free space
 
-// ==========================================
-// GRID
-// ==========================================
+  // ==========================================
+  // GRID
+  // ==========================================
 
---mobile-half-span: #{$mobile-half-span};
---tablet-half-span: #{$tablet-half-span};
---desktop-half-span: #{$desktop-half-span};
+  --mobile-half-span: #{$mobile-half-span};
+  --tablet-half-span: #{$tablet-half-span};
+  --desktop-half-span: #{$desktop-half-span};
 
-// ==========================================
-// GUTTER - empty space between columns (or rows)
-// ==========================================
+  // ==========================================
+  // GUTTER - empty space between columns (or rows)
+  // ==========================================
 
---mobile-gutter: 16px;
---tablet-gutter: 16px;
---desktop-gutter: 24px;
+  --mobile-gutter: 16px;
+  --tablet-gutter: 16px;
+  --desktop-gutter: 24px;
 
-// ==========================================
-// MARGIN
-// ==========================================
+  // ==========================================
+  // MARGIN
+  // ==========================================
 
---margin-default: 1vh;
---margin-default-md: 2vh;
---margin-default-lg: 4vh;
---no-margin: 0;
+  --margin-default: 1vh;
+  --margin-default-md: 2vh;
+  --margin-default-lg: 4vh;
+  --no-margin: 0;
 
---margin-horizontal-mobile: 16px;
---margin-horizontal-tablet: 24px;
---margin-horizontal-desktop: 24px;
+  --margin-horizontal-mobile: 16px;
+  --margin-horizontal-tablet: 24px;
+  --margin-horizontal-desktop: 24px;
 
---margin-vertical-mobile: 16px;
---margin-vertical-tablet: 24px;
---margin-vertical-desktop: 24px;
+  --margin-vertical-mobile: 16px;
+  --margin-vertical-tablet: 24px;
+  --margin-vertical-desktop: 24px;
 
-// ==========================================
-// PADDING
-// ==========================================
+  // ==========================================
+  // PADDING
+  // ==========================================
 
---no-padding: 0;
---padding-default: 1vh;
---padding-default-md: 2vh;
---padding-default-lg: 4vh;
---padding-horizontal-mobile: 16px;
---padding-horizontal-tablet: 24px;
---padding-horizontal-desktop: max(32px, 10vw);
+  --no-padding: 0;
+  --padding-default: 1vh;
+  --padding-default-md: 2vh;
+  --padding-default-lg: 4vh;
+  --padding-horizontal-mobile: 16px;
+  --padding-horizontal-tablet: 24px;
+  --padding-horizontal-desktop: max(32px, 10vw);
 
---padding-vertical-mobile: 16px;
---padding-vertical-tablet: 24px;
---padding-vertical-desktop: 32px;
+  --padding-vertical-mobile: 16px;
+  --padding-vertical-tablet: 24px;
+  --padding-vertical-desktop: 32px;
 
-// ==========================================
-// VERTICAL GRID
-// ==========================================
+  // ==========================================
+  // VERTICAL GRID
+  // ==========================================
 
---vertical-rows: 1000;
---vertical-height: 8px;
---vertical-offset: 0;
---vertical-gutter: 0px;
+  --vertical-rows: 1000;
+  --vertical-height: 8px;
+  --vertical-offset: 0;
+  --vertical-gutter: 0px;
 
-// ==========================================
-// HEIGHT
-// ==========================================
---height-header: 6vh;
---height-footer: 20vh;
---height-feature-carousel: 50vh;
---height-intro: 85vh;
---height-button-icon: 48px;
---height-cookie: 10vh;
---height-privacy-policy-header: 15vh;
---height-about-icon: 5vh;
---height-page-header: 20vh;
---height-checkbox: 3vh;
+  // ==========================================
+  // HEIGHT
+  // ==========================================
+  --height-header: 6vh;
+  --height-footer: 20vh;
+  --height-feature-carousel: 50vh;
+  --height-intro: 85vh;
+  --height-button-icon: 48px;
+  --height-cookie: 10vh;
+  --height-privacy-policy-header: 15vh;
+  --height-about-icon: 5vh;
+  --height-page-header: 20vh;
+  --height-checkbox: 3vh;
 
-// ==========================================
-// WIDTH
-// ==========================================
---width-sidebar: 20vw;
---width-map: 80vw;
-
+  // ==========================================
+  // WIDTH
+  // ==========================================
+  --width-sidebar: 20vw;
+  --width-map: 80vw;
 }
-

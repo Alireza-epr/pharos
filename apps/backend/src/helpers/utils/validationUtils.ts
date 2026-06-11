@@ -26,7 +26,6 @@ import { addError, validateRequiredObject } from './controllerUtils';
  * =======================================================*/
 
 export const validateViolation = (a_Headers: any): IValidationResult => {
-
   if (a_Headers === null || a_Headers === undefined) {
     return {
       isValid: true,

@@ -1,13 +1,20 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { ELanguage } from '../helpers/enum/translationEnum';
 import { ILanguageContextType } from '../helpers/types/translationTypes';
-import { detectBrowserLanguage, translations } from '../helpers/utils/translationUtils';
+import {
+  detectBrowserLanguage,
+  translations,
+} from '../helpers/utils/translationUtils';
 
+export const LanguageContext = createContext<ILanguageContextType | undefined>(
+  undefined,
+);
 
-export const LanguageContext = createContext<ILanguageContextType | undefined>(undefined);
-
-
-export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+export const LanguageProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [language, setLanguage] = useState<ELanguage>(ELanguage.en);
 
   useEffect(() => {
@@ -44,9 +51,9 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     return result;
   };
 
-  return (    
-    <LanguageContext.Provider value={{ language, t, changeLanguage }} >
+  return (
+    <LanguageContext.Provider value={{ language, t, changeLanguage }}>
       {children}
     </LanguageContext.Provider>
-  )
-}
+  );
+};

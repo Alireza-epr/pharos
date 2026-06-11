@@ -76,7 +76,6 @@ Note: This property is available only in the public-global-sar-presence dataset.
   - `run_time`: execution timestamp
   - `execution_duration_sec`: runtime performance metric
 
-
 - `context_layers` (object)  
   Geographic context information derived from datasets.
   Explanation in [context-layers](./context-layers.md).
