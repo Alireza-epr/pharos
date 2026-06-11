@@ -1,18 +1,20 @@
-name: Backend PR Checks
+name: PR Checks
 
 on:
   pull_request:
     branches:
       - master
     paths:
+      - 'apps/frontend/**'
       - 'apps/backend/**'
       - 'packages/**'
 
 jobs:
-  backend-checks:
+  pr-checks:
     runs-on: ubuntu-latest
 
     steps:
+      # ----- Setup -----
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -21,24 +23,19 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: 'npm'
-      
 
-
-      # Install root dependencies (for packages)
       - name: Install root dependencies
         run: npm install
 
-      # Build shared packages
       - name: Build shared packages
         run: npm run packages:build
 
-      # Create backend env
+      # ----- Backend checks -----
       - name: Create .env file for CI
         working-directory: apps/backend
         run: |
           echo "GFW_TOKEN=${{ secrets.GFW_TOKEN }}" >> .env
 
-      # Run backend checks
       - name: Run Backend Lint
         working-directory: apps/backend
         run: npm run lint
@@ -60,3 +57,12 @@ jobs:
       - name: Run Backend Unit Tests
         working-directory: apps/backend
         run: npm test
+
+      # ----- Frontend checks -----
+      - name: Run Frontend Lint
+        working-directory: apps/frontend
+        run: npm run lint
+
+      - name: Run Frontend Lint Style
+        working-directory: apps/frontend
+        run: npm run lint:style

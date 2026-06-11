@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { "ignorePseudoClasses": ["global", "local"] }
+    ],
+    "property-no-unknown": [true, { "ignoreProperties": ["composes"] }],
+    "custom-property-empty-line-before": null,
+    "scss/dollar-variable-empty-line-before": null
+  }
+}

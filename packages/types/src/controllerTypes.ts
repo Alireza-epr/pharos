@@ -5,7 +5,7 @@ import { IStats } from "./generalTypes";
 export interface IResponse {
   success?: boolean;
   error?: (EResponseError | IValidationError | string)[];
-  pagination?: IPagination
+  pagination?: IPagination;
   stats?: IStats;
   metadata?: IRunMetadata;
   entries?: Partial<IEventSchema>[];
@@ -24,8 +24,8 @@ export interface IValidationResult {
 }
 
 export interface IPagination {
-  total?: number | null,
-  limit?: number | null,
+  total?: number | null;
+  limit?: number | null;
   nextOffset?: number | null;
   prevOffset?: number | null;
   pageSize?: number | null;

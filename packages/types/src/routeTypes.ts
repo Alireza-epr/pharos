@@ -23,6 +23,6 @@ export interface IFilteringParams {
   bathymetry_max?: number;
 }
 
-export type TBodyParams = Omit<IConfigJSON, "output">
+export type TBodyParams = Omit<IConfigJSON, "output">;
 
 export type TURLParams = I4wingsReportGetURLParams & IEventGetURLParams;

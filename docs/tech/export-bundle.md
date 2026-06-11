@@ -50,8 +50,8 @@ Execution and configuration traceability file, including queries and scoring con
 This file ensures **reproducibility and auditability** of the pipeline run.
 
 For additional details:
-- Event Schema: [`event-schema.md`](../data/event-schema.md)
 
+- Event Schema: [`event-schema.md`](../data/event-schema.md)
 
 ---
 
@@ -116,8 +116,8 @@ To reproduce this dataset, use `config_json` from `run_metadata.json`.
 ## Audit Log
 
 In addition to the ZIP file, an audit log is generated containing the following information:
-  `user`: Information about the user who initiated the request.
-  `date`: The date and time when the ZIP file was created.
-  `eventCount`: The total number of exported events.
-  `configHash`: A hash generated from the query parameters and request body used to retrieve the events.
-  `exportId`: The unique identifier of the export, which is also used as the ZIP file name.
+`user`: Information about the user who initiated the request.
+`date`: The date and time when the ZIP file was created.
+`eventCount`: The total number of exported events.
+`configHash`: A hash generated from the query parameters and request body used to retrieve the events.
+`exportId`: The unique identifier of the export, which is also used as the ZIP file name.

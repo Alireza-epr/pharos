@@ -75,7 +75,7 @@ export enum EThresholdConfig {
 
 export enum EHiddenConfig {
   gitCommitSHA = "gitCommitSHA",
-  export = "export"
+  export = "export",
 }
 
 export enum EExportEvidence {
@@ -86,5 +86,5 @@ export enum EExportEvidence {
   "stats.json" = "stats.json",
   "hotspots.geojson" = "hotspots.geojson",
   "hotspots.parquet" = "hotspots.parquet",
-  "run_metadata.json" = "run_metadata.json"
+  "run_metadata.json" = "run_metadata.json",
 }

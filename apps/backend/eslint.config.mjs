@@ -1,4 +1,4 @@
-// eslint.config.js
+// eslint.config.mjs
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
@@ -6,7 +6,7 @@ import prettier from 'eslint-config-prettier';
 export default [
   // ignore build outputs and dependencies
   {
-    ignores: ['node_modules/**', 'dist/**', 'eslint.config.js'],
+    ignores: ['node_modules/**', 'dist/**', 'eslint.config.mjs'],
   },
 
   // base JS recommended rules

@@ -24,7 +24,7 @@ ${md}
 `;
 
 const response = await client.chat.completions.create({
-  model: "gpt-4.1",   // or GPT-5 chat if available in your env
+  model: "gpt-4.1", // or GPT-5 chat if available in your env
   messages: [
     { role: "system", content: "You generate clean OpenAPI specs." },
     { role: "user", content: prompt },
@@ -37,4 +37,4 @@ const yaml = response.choices[0].message.content;
 fs.writeFileSync("docs/api/openapi.generated.yaml", yaml);
 
 console.log("✅ OpenAPI generated");
-``
+``;

@@ -48,7 +48,15 @@ export const evidenceController = async (
     },
   };
 
-  await evidenceExport(configs, events, a_Req.start_time, undefined, true, true, getUserInfoFromReq<{}, {}, TBodyParams, TURLParams>(a_Req));
+  await evidenceExport(
+    configs,
+    events,
+    a_Req.start_time,
+    undefined,
+    true,
+    true,
+    getUserInfoFromReq<{}, {}, TBodyParams, TURLParams>(a_Req),
+  );
 
   return controllerResponse(a_Res, EStatusCode.OK_200, {
     success: true,

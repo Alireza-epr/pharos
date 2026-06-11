@@ -17,7 +17,7 @@ export enum EAuthRoutes {
 }
 
 export enum EExportsRoutes {
-  evidence = "/evidence"
+  evidence = "/evidence",
 }
 
 // -- Route Service --

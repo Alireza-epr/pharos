@@ -358,23 +358,25 @@ export const featureFromEvents = (
 
 export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
   const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
-  
+
   const filteredConfiguration = deepStripHidden(
     a_Configurations,
     new Set(hiddenKeys),
   ) as IConfigJSON[];
 
-  return filteredConfiguration
-}
+  return filteredConfiguration;
+};
 
-export const getUserInfoFromReq = <P, R, B, Q>(a_Req: Request<P, R, B, Q>): string => {
+export const getUserInfoFromReq = <P, R, B, Q>(
+  a_Req: Request<P, R, B, Q>,
+): string => {
   const ip =
-    (a_Req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+    (a_Req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
     a_Req.ip ||
-    "unknown";
+    'unknown';
 
-  const userAgent = a_Req.headers["user-agent"] || "unknown";
-  const language = a_Req.headers["accept-language"] || "unknown";
+  const userAgent = a_Req.headers['user-agent'] || 'unknown';
+  const language = a_Req.headers['accept-language'] || 'unknown';
   const method = a_Req.method;
   const url = a_Req.originalUrl;
 
@@ -384,5 +386,5 @@ export const getUserInfoFromReq = <P, R, B, Q>(a_Req: Request<P, R, B, Q>): stri
     `Language: ${language}`,
     `Method: ${method}`,
     `URL: ${url}`,
-  ].join(" | ");
+  ].join(' | ');
 };

@@ -2993,5 +2993,3 @@ export const report_response = {
   headers,
   data: samples,
 };
-
-

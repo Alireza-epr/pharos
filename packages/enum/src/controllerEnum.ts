@@ -10,7 +10,7 @@ export enum EStatusCode {
   INTERNAL_SERVER_ERROR_500 = 500,
   BAD_GATEWAY_502 = 502,
   SERVICE_UNAVAILABLE_503 = 503,
-  TOO_MANY_REQUESTS = 429
+  TOO_MANY_REQUESTS = 429,
 }
 
 export enum EResponseMessage {

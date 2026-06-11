@@ -123,7 +123,9 @@ export const generateRunMetadata = async (
   a_Start?: string,
   a_End?: string,
 ): Promise<IRunMetadata> => {
-  const canonicalObject = deepSortObject(stripHiddenConfiguration(a_Configurations));
+  const canonicalObject = deepSortObject(
+    stripHiddenConfiguration(a_Configurations),
+  );
   const canonicalString = JSON.stringify(canonicalObject);
   const config_hash = await hashString(canonicalString);
 
@@ -134,13 +136,13 @@ export const generateRunMetadata = async (
     config_json: canonicalObject,
     git_commit_version: a_Configurations[0].gitCommitSHA ?? 'N/A',
     run_time: new Date().toISOString(),
-    dataset_version: a_Events 
-      ? a_Events.length > 0 
+    dataset_version: a_Events
+      ? a_Events.length > 0
         ? getSourcesFromEvents(a_Events)
-        : undefined 
+        : undefined
       : undefined,
     context_layer_versions: a_Events
-      ? a_Events.length > 0 
+      ? a_Events.length > 0
         ? getContextLayersFromEvents(a_Events)
         : undefined
       : undefined,
@@ -156,13 +158,13 @@ export const generateScoring = (
 ): IScoring => {
   const thresholds = a_Config.threshold;
   let reason_codes: EReasonCodes[] = [];
-  if(Object.keys( thresholds ).length === 0){
+  if (Object.keys(thresholds).length === 0) {
     reason_codes.push(EReasonCodesStatic.invalid_threshold_config);
     return {
       triage_score: null,
       uncertainty_score: null,
-      reason_codes
-    }
+      reason_codes,
+    };
   }
   const WEIGHTS = {
     base_uncertainty: thresholds.base_uncertainty_weight,
@@ -189,18 +191,18 @@ export const generateScoring = (
   const confidence_tier = a_EventSchema.confidence_tier;
 
   const missings = Object.entries(WEIGHTS)
-  .filter(([, v]) => v === undefined || !isNumber(v))
-  .map(([k]) => k)
+    .filter(([, v]) => v === undefined || !isNumber(v))
+    .map(([k]) => k);
 
-  if( missings.length > 0 ){
-    for(const missing of missings){
+  if (missings.length > 0) {
+    for (const missing of missings) {
       reason_codes.push(`missing_required_threshold_field:${missing}_weight`);
     }
     return {
       triage_score: null,
       uncertainty_score: null,
-      reason_codes
-    }
+      reason_codes,
+    };
   }
 
   // =========================

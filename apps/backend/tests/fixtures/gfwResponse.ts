@@ -1339,16 +1339,16 @@ export const api4wingsResponse_mixed_accepted_rejected: I4wingsAPIResponse = {
     {
       'public-global-sar-presence:v3.0': [
         api4wingsResponse_bad_vessel_type.entries[0][
-        'public-global-sar-presence:v3.0'
+          'public-global-sar-presence:v3.0'
         ][0],
         api4wingsResponse_bad_coordinates.entries[0][
-        'public-global-sar-presence:v3.0'
+          'public-global-sar-presence:v3.0'
         ][0],
         api4wingsResponse_bad_date.entries[0][
-        'public-global-sar-presence:v3.0'
+          'public-global-sar-presence:v3.0'
         ][0],
         api4wingsResponse_bad_multi.entries[0][
-        'public-global-sar-presence:v3.0'
+          'public-global-sar-presence:v3.0'
         ][0],
         api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][0],
         api4wingsResponse.entries[0]['public-global-sar-presence:v3.0'][1],
@@ -1652,120 +1652,120 @@ export const apiEventResponse_with_entry: IEventAPIResponse<IPortVisitEvent> = {
 };
 
 export const apiEventResponse_with_entry_low_confidence: IEventAPIResponse<IPortVisitEvent> =
-{
-  metadata: {
-    datasets: ['public-global-port-visits-events:v3.0'],
-    vessels: ['22c7ca42d-df50-18b5-713a-a81e9115052c'],
-    dateRange: {
-      from: '2025-12-04T00:00:00Z',
-      to: '2025-12-06T23:59:59Z',
-    },
-    encounterTypes: [],
-    geometry: {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [
-              [
-                [14.11, 55.26],
-                [14.68, 55.27],
-                [14.69, 55.11],
-                [14.09, 55.08],
-                [14.11, 55.26],
+  {
+    metadata: {
+      datasets: ['public-global-port-visits-events:v3.0'],
+      vessels: ['22c7ca42d-df50-18b5-713a-a81e9115052c'],
+      dateRange: {
+        from: '2025-12-04T00:00:00Z',
+        to: '2025-12-06T23:59:59Z',
+      },
+      encounterTypes: [],
+      geometry: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [
+                [
+                  [14.11, 55.26],
+                  [14.68, 55.27],
+                  [14.69, 55.11],
+                  [14.09, 55.08],
+                  [14.11, 55.26],
+                ],
               ],
-            ],
+            },
+          },
+        ],
+      },
+    },
+    limit: 2,
+    offset: 0,
+    nextOffset: null,
+    total: 1,
+    entries: [
+      {
+        start: '2025-12-05T12:06:41.000Z',
+        end: '2025-12-06T12:08:08.000Z',
+        id: 'efc1703a86346486d884cbd5fc5aab74',
+        type: EEventType.port_visit,
+        position: {
+          lat: 55.1155,
+          lon: 14.6758,
+        },
+        regions: {
+          mpa: ['555790698', '555543143', '555522525'],
+          eez: ['5674'],
+          rfmo: ['NASCO', 'ACAP', 'NAMMCO', 'ICCAT', 'IWC', 'ICES'],
+          fao: ['27.3.d.24', '27.3.d', '27.3', '27'],
+          majorFao: ['27'],
+          eez12Nm: ['5674'],
+          highSeas: [],
+          mpaNoTakePartial: [],
+          mpaNoTake: [],
+        },
+        boundingBox: [
+          14.693334446163684, 55.105045722833694, 14.693334446163684,
+          55.105045722833694,
+        ],
+        distances: {
+          startDistanceFromShoreKm: 0,
+          endDistanceFromShoreKm: 0,
+          startDistanceFromPortKm: 0,
+          endDistanceFromPortKm: 0,
+        },
+        vessel: {
+          id: '22c7ca42d-df50-18b5-713a-a81e9115052c',
+          name: 'HDMS SOELOEVEN',
+          ssvid: '219000217',
+          flag: 'DNK',
+          type: 'other',
+          nextPort: null,
+        },
+        port_visit: {
+          visitId: '22efc11c118fb011f640e6328d54744f',
+          confidence: '2',
+          durationHrs: 24.024166666666666,
+          startAnchorage: {
+            anchorageId: '46551b1d',
+            atDock: true,
+            distanceFromShoreKm: 0,
+            flag: 'DNK',
+            id: 'dnk-roenne',
+            lat: 55.105045722833694,
+            lon: 14.693334446163684,
+            name: 'ROENNE',
+            topDestination: 'BAY LIGHTER',
+          },
+          intermediateAnchorage: {
+            anchorageId: '46551b1d',
+            atDock: true,
+            distanceFromShoreKm: 0,
+            flag: 'DNK',
+            id: 'dnk-roenne',
+            lat: 55.105045722833694,
+            lon: 14.693334446163684,
+            name: 'ROENNE',
+            topDestination: 'BAY LIGHTER',
+          },
+          endAnchorage: {
+            anchorageId: '46551b1d',
+            atDock: true,
+            distanceFromShoreKm: 0,
+            flag: 'DNK',
+            id: 'dnk-roenne',
+            lat: 55.105045722833694,
+            lon: 14.693334446163684,
+            name: 'ROENNE',
+            topDestination: 'BAY LIGHTER',
           },
         },
-      ],
-    },
-  },
-  limit: 2,
-  offset: 0,
-  nextOffset: null,
-  total: 1,
-  entries: [
-    {
-      start: '2025-12-05T12:06:41.000Z',
-      end: '2025-12-06T12:08:08.000Z',
-      id: 'efc1703a86346486d884cbd5fc5aab74',
-      type: EEventType.port_visit,
-      position: {
-        lat: 55.1155,
-        lon: 14.6758,
       },
-      regions: {
-        mpa: ['555790698', '555543143', '555522525'],
-        eez: ['5674'],
-        rfmo: ['NASCO', 'ACAP', 'NAMMCO', 'ICCAT', 'IWC', 'ICES'],
-        fao: ['27.3.d.24', '27.3.d', '27.3', '27'],
-        majorFao: ['27'],
-        eez12Nm: ['5674'],
-        highSeas: [],
-        mpaNoTakePartial: [],
-        mpaNoTake: [],
-      },
-      boundingBox: [
-        14.693334446163684, 55.105045722833694, 14.693334446163684,
-        55.105045722833694,
-      ],
-      distances: {
-        startDistanceFromShoreKm: 0,
-        endDistanceFromShoreKm: 0,
-        startDistanceFromPortKm: 0,
-        endDistanceFromPortKm: 0,
-      },
-      vessel: {
-        id: '22c7ca42d-df50-18b5-713a-a81e9115052c',
-        name: 'HDMS SOELOEVEN',
-        ssvid: '219000217',
-        flag: 'DNK',
-        type: 'other',
-        nextPort: null,
-      },
-      port_visit: {
-        visitId: '22efc11c118fb011f640e6328d54744f',
-        confidence: '2',
-        durationHrs: 24.024166666666666,
-        startAnchorage: {
-          anchorageId: '46551b1d',
-          atDock: true,
-          distanceFromShoreKm: 0,
-          flag: 'DNK',
-          id: 'dnk-roenne',
-          lat: 55.105045722833694,
-          lon: 14.693334446163684,
-          name: 'ROENNE',
-          topDestination: 'BAY LIGHTER',
-        },
-        intermediateAnchorage: {
-          anchorageId: '46551b1d',
-          atDock: true,
-          distanceFromShoreKm: 0,
-          flag: 'DNK',
-          id: 'dnk-roenne',
-          lat: 55.105045722833694,
-          lon: 14.693334446163684,
-          name: 'ROENNE',
-          topDestination: 'BAY LIGHTER',
-        },
-        endAnchorage: {
-          anchorageId: '46551b1d',
-          atDock: true,
-          distanceFromShoreKm: 0,
-          flag: 'DNK',
-          id: 'dnk-roenne',
-          lat: 55.105045722833694,
-          lon: 14.693334446163684,
-          name: 'ROENNE',
-          topDestination: 'BAY LIGHTER',
-        },
-      },
-    },
-  ],
-};
+    ],
+  };
 
 export const api4wingsEntry_fishing: I4wingsEntry = {
   callsign: '9KAF4',
@@ -1907,7 +1907,7 @@ export const HEADERS_HEALTHY: Record<string, string> = {
   'x-ratelimit-monthly-current-usage': '657690',
   'x-ratelimit-daily-reset-hours': '18',
   'x-ratelimit-monthly-reset-days': '27',
-}
+};
 
 /** Remaining > 0 on both, reset counters are 0 — cleanest possible healthy state. */
 export const HEADERS_HEALTHY_NO_RESET_PENDING: Record<string, string> = {
@@ -1915,7 +1915,7 @@ export const HEADERS_HEALTHY_NO_RESET_PENDING: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '1500000',
   'x-ratelimit-daily-reset-hours': '0',
   'x-ratelimit-monthly-reset-days': '0',
-}
+};
 
 // ─── Daily exhausted ─────────────────────────────────────────────────────────
 
@@ -1925,7 +1925,7 @@ export const HEADERS_DAILY_EXHAUSTED: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '842310',
   'x-ratelimit-daily-reset-hours': '6',
   'x-ratelimit-monthly-reset-days': '27',
-}
+};
 
 /** Daily remaining is 0 but reset is also 0 — quota just reset, no error expected. */
 export const HEADERS_DAILY_REMAINING_ZERO_RESET_ZERO: Record<string, string> = {
@@ -1933,15 +1933,18 @@ export const HEADERS_DAILY_REMAINING_ZERO_RESET_ZERO: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '842310',
   'x-ratelimit-daily-reset-hours': '0',
   'x-ratelimit-monthly-reset-days': '27',
-}
+};
 
 /** Daily reset hours > 0 but remaining > 0 — no error expected (not exhausted). */
-export const HEADERS_DAILY_RESET_HOURS_NONZERO_REMAINING_NONZERO: Record<string, string> = {
+export const HEADERS_DAILY_RESET_HOURS_NONZERO_REMAINING_NONZERO: Record<
+  string,
+  string
+> = {
   'x-ratelimit-daily-remaining-requests': '100',
   'x-ratelimit-monthly-remaining-requests': '842310',
   'x-ratelimit-daily-reset-hours': '18',
   'x-ratelimit-monthly-reset-days': '27',
-}
+};
 
 // ─── Monthly exhausted ───────────────────────────────────────────────────────
 
@@ -1951,23 +1954,27 @@ export const HEADERS_MONTHLY_EXHAUSTED: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '0',
   'x-ratelimit-daily-reset-hours': '18',
   'x-ratelimit-monthly-reset-days': '5',
-}
+};
 
 /** Monthly remaining is 0 but reset is also 0 — quota just reset, no error expected. */
-export const HEADERS_MONTHLY_REMAINING_ZERO_RESET_ZERO: Record<string, string> = {
-  'x-ratelimit-daily-remaining-requests': '12430',
-  'x-ratelimit-monthly-remaining-requests': '0',
-  'x-ratelimit-daily-reset-hours': '18',
-  'x-ratelimit-monthly-reset-days': '0',
-}
+export const HEADERS_MONTHLY_REMAINING_ZERO_RESET_ZERO: Record<string, string> =
+  {
+    'x-ratelimit-daily-remaining-requests': '12430',
+    'x-ratelimit-monthly-remaining-requests': '0',
+    'x-ratelimit-daily-reset-hours': '18',
+    'x-ratelimit-monthly-reset-days': '0',
+  };
 
 /** Monthly reset days > 0 but remaining > 0 — no error expected (not exhausted). */
-export const HEADERS_MONTHLY_RESET_DAYS_NONZERO_REMAINING_NONZERO: Record<string, string> = {
+export const HEADERS_MONTHLY_RESET_DAYS_NONZERO_REMAINING_NONZERO: Record<
+  string,
+  string
+> = {
   'x-ratelimit-daily-remaining-requests': '12430',
   'x-ratelimit-monthly-remaining-requests': '1000',
   'x-ratelimit-daily-reset-hours': '18',
   'x-ratelimit-monthly-reset-days': '27',
-}
+};
 
 // ─── Both exhausted ──────────────────────────────────────────────────────────
 
@@ -1977,14 +1984,14 @@ export const HEADERS_BOTH_EXHAUSTED: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '0',
   'x-ratelimit-daily-reset-hours': '6',
   'x-ratelimit-monthly-reset-days': '5',
-}
+};
 
 // ─── Edge / malformed ────────────────────────────────────────────────────────
 
 /** All rate-limit headers are missing entirely. */
 export const HEADERS_MISSING_RATELIMIT_FIELDS: Record<string, string> = {
   'content-type': 'application/json',
-}
+};
 
 /** All rate-limit values are empty strings — Number('') === 0. */
 export const HEADERS_EMPTY_STRING_VALUES: Record<string, string> = {
@@ -1992,7 +1999,7 @@ export const HEADERS_EMPTY_STRING_VALUES: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': '',
   'x-ratelimit-daily-reset-hours': '',
   'x-ratelimit-monthly-reset-days': '',
-}
+};
 
 /** Rate-limit values are non-numeric strings — Number('abc') === NaN. */
 export const HEADERS_NON_NUMERIC_VALUES: Record<string, string> = {
@@ -2000,4 +2007,4 @@ export const HEADERS_NON_NUMERIC_VALUES: Record<string, string> = {
   'x-ratelimit-monthly-remaining-requests': 'xyz',
   'x-ratelimit-daily-reset-hours': 'foo',
   'x-ratelimit-monthly-reset-days': 'bar',
-}
+};
