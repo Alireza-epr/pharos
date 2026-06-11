@@ -1,8 +1,8 @@
 import { IEventSchema } from '@packages/types';
-import { ETheme } from '../enum/storeEnum';
+import { TTheme } from '../enum/storeEnum';
 
 export interface IAppStoreStates {
-  theme: ETheme;
+  theme: TTheme;
 }
 export interface IAppStoreActions {
   setTheme: (

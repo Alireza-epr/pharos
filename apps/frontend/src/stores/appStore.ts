@@ -6,7 +6,7 @@ import { IAppStoreActions, IAppStoreStates } from '../helpers/types/storeTypes';
 export const useAppStore = create<IAppStoreStates & IAppStoreActions>(
   combine(
     {
-      theme: ETheme.light,
+      theme: ETheme.light as IAppStoreStates["theme"],
     },
     (set) => ({
       setTheme: (a_Value) =>

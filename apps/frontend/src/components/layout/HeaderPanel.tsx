@@ -3,7 +3,6 @@ import headerPanelStyle from './HeaderPanel.module.scss';
 import { ETheme } from '@/helpers/enum/storeEnum';
 import { useEventStore } from '@/stores/eventStore';
 import { samples } from '@/helpers/fixtures/samples';
-import { IEventSchema } from '@packages/types';
 
 export interface IHeaderPanelProps {}
 

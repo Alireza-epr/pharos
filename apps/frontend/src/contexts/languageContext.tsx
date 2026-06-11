@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { ELanguage } from '../helpers/enum/translationEnum';
+import { ELanguage, TLanguage } from '../helpers/enum/translationEnum';
 import { ILanguageContextType } from '../helpers/types/translationTypes';
 import {
   detectBrowserLanguage,
@@ -15,10 +15,10 @@ export const LanguageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [language, setLanguage] = useState<ELanguage>(ELanguage.en);
+  const [language, setLanguage] = useState<TLanguage>(ELanguage.en);
 
   useEffect(() => {
-    const stored = localStorage.getItem('lang') as ELanguage;
+    const stored = localStorage.getItem('lang') as TLanguage;
     if (stored && translations[stored]) {
       setLanguage(stored);
     } else {
@@ -28,7 +28,7 @@ export const LanguageProvider = ({
     }
   }, []);
 
-  const changeLanguage = (lang: ELanguage) => {
+  const changeLanguage = (lang: TLanguage) => {
     localStorage.setItem('lang', lang);
     setLanguage(lang);
   };
