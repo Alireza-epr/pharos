@@ -1,4 +1,5 @@
 import { Activity, useEffect } from 'react';
+import appStyle from "./App.module.scss"
 import Sidebar from '../components/sidebar/Sidebar';
 import MapView from '../components/map/MapView';
 import BottomPanel from '../components/layout/BottomPanel';
@@ -18,12 +19,12 @@ const App = (props: AppProps) => {
   }, [theme]);
 
   return (
-    <div className="layout">
+    <div className={` ${appStyle.layout}`}>
       <header>
         <HeaderPanel />
       </header>
 
-      <div className="content">
+      <div className={` ${appStyle.content}`}>
         <aside>
           <Sidebar />
         </aside>
