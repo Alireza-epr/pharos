@@ -1,1 +1,21 @@
-{}
+{
+    "general": {
+        "label": {
+            "zonal": "Zonal",
+            "point": "Point",
+            "clear": "Clear"
+        }
+    },
+    "home": {
+        "titles": {
+            "areaOfInterest": "Area of Interest",
+            "drawOnMap": "Draw on map",
+            "orChooseEEZRegion": "or choose EEZ region",
+            "orChooseMPARegion": "or choose MPA region"
+        },
+        "placeholder": {
+            "selectEEZ": "Select EEZ...",
+            "selectMPA": "Select MPA..."
+        }
+    }
+}

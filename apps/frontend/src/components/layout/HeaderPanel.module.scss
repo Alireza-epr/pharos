@@ -2,7 +2,7 @@
   height: var(--height-header);
   display: flex;
   align-items: center;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
   padding: var(--padding-default);
   background: var(--color-primary-purple2);
   border-radius: var(--radius-md);
@@ -27,7 +27,7 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
 }
 
 .chip {

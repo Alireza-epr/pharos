@@ -1,9 +1,11 @@
 import { ELanguage, TLanguage } from '../enum/translationEnum';
 import { TTranslations } from '../types/translationTypes';
+import en from '../../locales/en.json';
+import de from '../../locales/en.json';
 
 export const translations: Record<TLanguage, TTranslations> = {
-  en: {},
-  de: {},
+  en: en,
+  de: de,
 };
 
 export const detectBrowserLanguage = (): TLanguage => {

@@ -1,21 +1,31 @@
 [data-theme='dark'] {
-  --bg-app: var(--color-secondary-blue1);
-  --bg-panel: var(--color-secondary-blue2);
-  --bg-card: var(--color-secondary-blue3);
-  --border: var(--color-secondary-blue5);
-  --text-primary: var(--text-dark-bg-primary);
-  --text-secondary: var(--text-dark-bg-secondary);
-  --text-muted: var(--color-secondary-blue6);
-  --map-bg: var(--color-secondary-blue3);
+  --theme-bg-app: var(--color-secondary-blue1);
+  --theme-bg-panel: var(--color-secondary-blue2);
+  --theme-bg-card: var(--color-secondary-blue3);
+  --theme-bg-button: var(--color-secondary-blue5);
+  --theme-bg-button-hover: var(--color-secondary-blue7);
+  --theme-bg-button-active: var(--color-secondary-blue6);
+  --theme-border: var(--color-secondary-blue5);
+  --theme-text-primary: var(--text-dark-bg-primary);
+  --theme-text-primary-reverse: var(--text-light-bg-primary);
+  --theme-text-secondary: var(--text-dark-bg-secondary);
+  --theme-text-secondary-reverse: var(--text-light-bg-secondary);
+  --theme-text-muted: var(--color-secondary-blue6);
+  --theme-map-bg: var(--color-secondary-blue3);
 }
 
 [data-theme='light'] {
-  --bg-app: var(--text-dark-bg-primary);
-  --bg-panel: var(--color-primary-purple10);
-  --bg-card: var(--color-primary-purple10);
-  --border: var(--color-primary-purple9);
-  --text-primary: var(--text-light-bg-primary);
-  --text-secondary: var(--text-light-bg-secondary);
-  --text-muted: var(--color-secondary-blue7);
-  --map-bg: var(--color-primary-purple10);
+  --theme-bg-app: var(--text-dark-bg-primary);
+  --theme-bg-panel: var(--color-primary-purple10);
+  --theme-bg-card: var(--color-primary-purple10);
+  --theme-bg-button: var(--color-primary-purple9);
+  --theme-bg-button-hover: var(--color-primary-purple7);
+  --theme-bg-button-active: var(--color-primary-purple8);
+  --theme-border: var(--color-primary-purple9);
+  --theme-text-primary: var(--text-light-bg-primary);
+  --theme-text-primary-reverse: var(--text-dark-bg-primary);
+  --theme-text-secondary: var(--text-light-bg-secondary);
+  --theme-text-secondary-reverse: var(--text-dark-bg-secondary);
+  --theme-text-muted: var(--color-secondary-blue7);
+  --theme-map-bg: var(--color-primary-purple10);
 }

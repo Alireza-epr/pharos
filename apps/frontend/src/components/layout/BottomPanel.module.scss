@@ -3,18 +3,18 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background: var(--bg-app);
+  background: var(--theme-bg-app);
   overflow: hidden;
   margin: var(--margin-default);
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
   padding: var(--padding-default);
-  background: var(--bg-card);
+  background: var(--theme-bg-card);
   box-sizing: border-box;
   border-radius: var(--radius-md);
   flex: 1;
@@ -27,6 +27,6 @@
   overflow: auto;
   box-sizing: border-box;
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: var(--theme-bg-card);
   padding: var(--padding-default);
 }

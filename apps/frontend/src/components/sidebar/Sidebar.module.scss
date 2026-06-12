@@ -5,9 +5,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--bg-app);
+  background: var(--theme-bg-app);
   overflow: hidden;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
   margin: 0 var(--margin-default);
 }
 
@@ -20,18 +20,18 @@
   padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: var(--padding-default);
-  background: var(--bg-card);
+  gap: var(--padding-gap);
+  background: var(--theme-bg-card);
 }
 
 .footer {
   flex: 1;
-  background: var(--bg-card);
+  background: var(--theme-bg-card);
   border-radius: var(--radius-md);
   box-sizing: border-box;
   flex-shrink: 0;
   padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
 }

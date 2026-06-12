@@ -111,11 +111,11 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: var(--theme-border);
     border-radius: var(--radius-sm);
 
     &:hover {
-      background: var(--text-muted);
+      background: var(--theme-text-muted);
     }
   }
 }
