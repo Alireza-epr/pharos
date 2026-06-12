@@ -88,3 +88,11 @@ export enum EExportEvidence {
   "hotspots.parquet" = "hotspots.parquet",
   "run_metadata.json" = "run_metadata.json",
 }
+
+export const EPastTime = {
+  days: "days",
+  weeks: "weeks",
+  months: "months",
+  years: "years",
+}
+export type TPastTime = typeof EPastTime[keyof typeof EPastTime]

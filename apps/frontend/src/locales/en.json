@@ -4,7 +4,9 @@
             "appName": "PHAROS",
             "zonal": "Zonal",
             "point": "Point",
-            "clear": "Clear"
+            "clear": "Clear",
+            "from": "From",
+            "to": "To"
         }
     },
     "header":{
@@ -17,16 +19,23 @@
             "subLogo": "Clarity Across SAR and AIS"
         }
     },
-    "home": {
+    "sidebar": {
         "titles": {
             "areaOfInterest": "Area of Interest",
             "drawOnMap": "Draw on map",
             "orChooseEEZRegion": "or choose EEZ region",
-            "orChooseMPARegion": "or choose MPA region"
+            "orChooseMPARegion": "or choose MPA region",
+            "timeRange": "Time Range"
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
             "selectMPA": "Select MPA..."
+        },
+        "label": {
+            "runQuery": "Run Query"
+        },
+        "text": {
+            "subRunQuery": "Fill area & date to enable"
         }
     }
 }

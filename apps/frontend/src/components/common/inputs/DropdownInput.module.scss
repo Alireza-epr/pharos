@@ -7,7 +7,7 @@
 .select {
   flex: 1;
   min-width: 0;
-  padding: var(--padding-default-half) 28px var(--padding-default-half) var(--padding-default);
+  padding: var(--padding-default-half) 0 var(--padding-default-half) var(--padding-default);
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-button);
@@ -26,11 +26,6 @@
   &:focus {
     outline: none;
     border-color: var(--theme-text-primary);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
   }
 }
 

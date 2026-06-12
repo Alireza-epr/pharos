@@ -101,8 +101,8 @@ const AreaOfInterest = (props: IAreaOfInterestProps) => {
     }, [])
 
     return (
-        <Section title={t("home.titles.areaOfInterest")} collapsible>
-            <SectionItem title={t("home.titles.drawOnMap")}>
+        <Section title={t("sidebar.titles.areaOfInterest")} collapsible>
+            <SectionItem title={t("sidebar.titles.drawOnMap")}>
                 <SectionInputGroup>
                     <ButtonInput 
                         label={t("general.label.zonal")} 
@@ -117,9 +117,9 @@ const AreaOfInterest = (props: IAreaOfInterestProps) => {
                 </SectionInputGroup>
             </SectionItem>
 
-            <SectionItem title={t("home.titles.orChooseEEZRegion")}>
+            <SectionItem title={t("sidebar.titles.orChooseEEZRegion")}>
                 <DropdownInput
-                    placeholder={t("home.placeholder.selectEEZ")}
+                    placeholder={t("sidebar.placeholder.selectEEZ")}
                     options={eezOptions}
                     value={eezActive ? eezActive.value : ""}
                     onChange={handleChangeEEZOption}
@@ -128,9 +128,9 @@ const AreaOfInterest = (props: IAreaOfInterestProps) => {
                 />
             </SectionItem>
 
-            <SectionItem title={t("home.titles.orChooseMPARegion")}>
+            <SectionItem title={t("sidebar.titles.orChooseMPARegion")}>
                 <DropdownInput
-                    placeholder={t("home.placeholder.selectMPA")}
+                    placeholder={t("sidebar.placeholder.selectMPA")}
                     options={mpaOptions}
                     value={mpaActive ? mpaActive.value : ""}
                     onChange={handleChangeMPAOption}

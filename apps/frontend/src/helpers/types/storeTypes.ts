@@ -33,6 +33,23 @@ export interface IEventStoreActions {
   ) => void;
 }
 
+export interface ITimeRangeStoreStates {
+  dateFrom: string;
+  dateTo: string;
+}
+export interface ITimeRangeStoreActions {
+  setDateFrom: (
+    a_Value:
+      | ITimeRangeStoreStates['dateFrom']
+      | ((a_Prev: ITimeRangeStoreStates['dateFrom']) => ITimeRangeStoreStates['dateFrom']),
+  ) => void;
+  setDateTo: (
+    a_Value:
+      | ITimeRangeStoreStates['dateTo']
+      | ((a_Prev: ITimeRangeStoreStates['dateTo']) => ITimeRangeStoreStates['dateTo']),
+  ) => void;
+}
+
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;

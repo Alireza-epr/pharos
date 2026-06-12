@@ -120,6 +120,21 @@ body {
   }
 }
 
+// Pseudo-class 
+.hover {
+  &:hover:not(:disabled) {
+    background: var(--theme-bg-button-hover);
+    color: var(--theme-text-primary-reverse);
+  }
+}
+
+.disabled {  
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
 /* Mobile Grid */
 @media (max-width: $max-width-mobile) {
   .grid {

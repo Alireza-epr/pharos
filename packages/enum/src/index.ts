@@ -1,4 +1,4 @@
-export * from "./generlaEnum";
+export * from "./generalEnum";
 export * from "./gfwEnum";
 export * from "./routeEnum";
 export * from "./controllerEnum";
