@@ -33,6 +33,29 @@ export interface IEventStoreActions {
   ) => void;
 }
 
+export interface IContextLayersStoreStates {
+  hotspots: boolean;
+  eezBoundaries: boolean;
+  mpaZones: boolean;
+}
+export interface IContextLayersStoreActions {
+  setHotspots: (
+    a_Value:
+      | IContextLayersStoreStates['hotspots']
+      | ((a_Prev: IContextLayersStoreStates['hotspots']) => IContextLayersStoreStates['hotspots']),
+  ) => void;
+  setEezBoundaries: (
+    a_Value:
+      | IContextLayersStoreStates['eezBoundaries']
+      | ((a_Prev: IContextLayersStoreStates['eezBoundaries']) => IContextLayersStoreStates['eezBoundaries']),
+  ) => void;
+  setMpaZones: (
+    a_Value:
+      | IContextLayersStoreStates['mpaZones']
+      | ((a_Prev: IContextLayersStoreStates['mpaZones']) => IContextLayersStoreStates['mpaZones']),
+  ) => void;
+}
+
 export interface ITimeRangeStoreStates {
   dateFrom: string;
   dateTo: string;

@@ -6,7 +6,10 @@
             "point": "Point",
             "clear": "Clear",
             "from": "From",
-            "to": "To"
+            "to": "To",
+            "matched": "Matched",
+            "unmatched": "Unmatched",
+            "all": "All"
         }
     },
     "header":{
@@ -23,18 +26,23 @@
         "titles": {
             "areaOfInterest": "Area of Interest",
             "drawOnMap": "Draw on map",
-            "orChooseEEZRegion": "or choose EEZ region",
-            "orChooseMPARegion": "or choose MPA region",
-            "timeRange": "Time Range"
+
+            "timeRange": "Time Range",
+            "dataLayers": "Context Layers"
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
             "selectMPA": "Select MPA..."
         },
         "label": {
-            "runQuery": "Run Query"
+            "runQuery": "Run Query",
+            "hotspots": "Hotspots",
+            "eezBoundaries": "EEZ Boundaries",
+            "mpaZones": "MPA Zones"
         },
         "text": {
+            "orChooseEEZRegion": "or choose EEZ region",
+            "orChooseMPARegion": "or choose MPA region",
             "subRunQuery": "Fill area & date to enable"
         }
     }

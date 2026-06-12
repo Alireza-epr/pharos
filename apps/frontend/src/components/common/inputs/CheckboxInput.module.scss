@@ -1,16 +1,12 @@
 .wrapper {
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: var(--padding-gap);
+  gap: var(--padding-default);
   cursor: pointer;
+  background: var(--theme-bg-button);
   color: var(--theme-text-primary);
-  height: var(--height-checkbox);
-
-  &[data-disabled='true'] {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+  border-radius: var(--radius-sm);
+  padding: var(--padding-default-half) var(--padding-default);
 }
 
 .input {
@@ -28,17 +24,12 @@
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  border: var(--border-width-sm) solid var(--border);
-  border-radius: var(--radius-none);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-sm);
   background: var(--theme-bg-card);
   transition:
     border-color var(--transition-duration) var(--transition-easing),
     background var(--transition-duration) var(--transition-easing);
-
-  &[data-checked='true'] {
-    border-color: var(--color-primary-purple6);
-    background: var(--color-primary-purple9);
-  }
 }
 
 .tick {
@@ -48,6 +39,3 @@
   line-height: 1;
 }
 
-.label {
-  color: var(--theme-text-secondary);
-}

@@ -9,9 +9,9 @@ export interface ICheckboxInputProps {
 
 const CheckboxInput = (props: ICheckboxInputProps) => {
   return (
-    <label className={`font-size-sm ${checkboxInputStyle.wrapper}`} data-disabled={props.disabled}>
-      <span className={checkboxInputStyle.box} data-checked={props.checked}>
-        {props.checked && <span className={checkboxInputStyle.tick}>✓</span>}
+    <label className={`hover disabled active font-size-sm ${checkboxInputStyle.wrapper}`} data-disabled={props.disabled} data-active={props.checked}>
+      <span className={` ${checkboxInputStyle.box}`}>
+        {props.checked && <span className={`font-size-sm ${checkboxInputStyle.tick}`}>✓</span>}
       </span>
       <input
         className={checkboxInputStyle.input}
@@ -20,7 +20,7 @@ const CheckboxInput = (props: ICheckboxInputProps) => {
         disabled={props.disabled}
         onChange={(e) => props.onChange(e.target.checked)}
       />
-      <span className={checkboxInputStyle.label}>{props.label}</span>
+      <span className={`hover ${checkboxInputStyle.label}`}>{props.label}</span>
     </label>
   );
 };

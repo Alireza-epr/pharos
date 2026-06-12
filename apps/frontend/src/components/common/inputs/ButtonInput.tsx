@@ -10,7 +10,7 @@ export interface IButtonInputProps {
 const ButtonInput = (props: IButtonInputProps) => {
   return (
     <button
-      className={`hover disabled font-size-sm ${buttonInputStyle.wrapper}`}
+      className={`hover disabled active font-size-sm ${buttonInputStyle.wrapper}`}
       data-active={props.active}
       disabled={props.disabled}
       onClick={props.onClick}

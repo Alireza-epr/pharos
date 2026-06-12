@@ -117,7 +117,7 @@ const AreaOfInterest = (props: IAreaOfInterestProps) => {
                 </SectionInputGroup>
             </SectionItem>
 
-            <SectionItem title={t("sidebar.titles.orChooseEEZRegion")}>
+            <SectionItem title={t("sidebar.text.orChooseEEZRegion")}>
                 <DropdownInput
                     placeholder={t("sidebar.placeholder.selectEEZ")}
                     options={eezOptions}
@@ -128,7 +128,7 @@ const AreaOfInterest = (props: IAreaOfInterestProps) => {
                 />
             </SectionItem>
 
-            <SectionItem title={t("sidebar.titles.orChooseMPARegion")}>
+            <SectionItem title={t("sidebar.text.orChooseMPARegion")}>
                 <DropdownInput
                     placeholder={t("sidebar.placeholder.selectMPA")}
                     options={mpaOptions}

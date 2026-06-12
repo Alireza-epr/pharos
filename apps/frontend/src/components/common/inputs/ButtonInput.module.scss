@@ -12,10 +12,4 @@
     border-color var(--transition-duration) var(--transition-easing),
     color var(--transition-duration) var(--transition-easing);
 
-  &[data-active='true'] {
-    background: var(--theme-bg-button-active);
-    border-color: var(--theme-text-primary);
-    font-weight: var(--font-weight-bold);
-  }
-
 }

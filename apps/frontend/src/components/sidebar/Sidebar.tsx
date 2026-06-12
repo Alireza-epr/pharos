@@ -1,6 +1,7 @@
 import sidebarStyle from './Sidebar.module.scss';
 import AreaOfInterest from "../blocks/AreaOfInterest"
 import TimeRange from "../blocks/TimeRange"
+import ContextLayers from "../blocks/ContextLayers"
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '@/hooks/translator';
 
@@ -14,6 +15,7 @@ const Sidebar = (props: ISidebarProps) => {
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         <AreaOfInterest />
         <TimeRange />
+        <ContextLayers />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <ButtonInput 

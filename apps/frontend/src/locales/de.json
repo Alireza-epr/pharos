@@ -6,7 +6,10 @@
             "point": "Punkt",
             "clear": "Löschen",
             "from": "Von",
-            "to": "Bis"
+            "to": "Bis",
+            "matched": "Zugeordnet",
+            "unmatched": "Nicht zugeordnet",
+            "all": "Alle"
         }
     },
     "header": {
@@ -23,18 +26,22 @@
         "titles": {
             "areaOfInterest": "Interessengebiet",
             "drawOnMap": "Auf Karte zeichnen",
-            "orChooseEEZRegion": "oder EEZ-Region auswählen",
-            "orChooseMPARegion": "oder MPA-Region auswählen",
-            "timeRange": "Zeitraum"
+            "timeRange": "Zeitraum",
+            "dataLayers": "Kontextebenen"
         },
         "placeholder": {
             "selectEEZ": "EEZ auswählen...",
             "selectMPA": "MPA auswählen..."
         },
         "label": {
-            "runQuery": "Abfrage starten"
+            "runQuery": "Abfrage starten",
+            "hotspots": "Hotspots",
+            "eezBoundaries": "EEZ-Grenzen",
+            "mpaZones": "MPA-Zonen"
         },
         "text": {
+            "orChooseEEZRegion": "oder EEZ-Region auswählen",
+            "orChooseMPARegion": "oder MPA-Region auswählen",
             "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
         }
     }

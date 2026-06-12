@@ -1,7 +1,7 @@
 .wrapper {
   flex: 1;
   padding: var(--padding-default-half) 0 var(--padding-default-half) var(--padding-default);
-  border: var(--border-width-sm) solid var(--border);
+  border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-button);
   color: var(--theme-text-primary);
