@@ -1,7 +1,7 @@
 import { ELanguage, TLanguage } from '../enum/translationEnum';
 import { TTranslations } from '../types/translationTypes';
 import en from '../../locales/en.json';
-import de from '../../locales/en.json';
+import de from '../../locales/de.json';
 
 export const translations: Record<TLanguage, TTranslations> = {
   en: en,

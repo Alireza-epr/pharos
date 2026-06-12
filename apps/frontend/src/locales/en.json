@@ -1,9 +1,20 @@
 {
     "general": {
         "label": {
+            "appName": "PHAROS",
             "zonal": "Zonal",
             "point": "Point",
             "clear": "Clear"
+        }
+    },
+    "header":{
+        "label": {
+            "dark": "Dark",
+            "light": "Light",
+            "language": "English"
+        },
+        "text": {
+            "subLogo": "Clarity Across SAR and AIS"
         }
     },
     "home": {

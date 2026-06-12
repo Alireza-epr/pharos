@@ -1,15 +1,22 @@
 import { IEventSchema } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
+import { TLanguage } from '../enum/translationEnum';
 
 export interface IAppStoreStates {
   theme: TTheme;
+  language: TLanguage
 }
 export interface IAppStoreActions {
   setTheme: (
     a_Value:
       | IAppStoreStates['theme']
       | ((a_Prev: IAppStoreStates['theme']) => IAppStoreStates['theme']),
+  ) => void;
+  setLanguage: (
+    a_Value:
+      | IAppStoreStates['language']
+      | ((a_Prev: IAppStoreStates['language']) => IAppStoreStates['language']),
   ) => void;
 }
 

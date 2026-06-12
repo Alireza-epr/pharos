@@ -1,1 +1,32 @@
-{}
+{
+    "general": {
+        "label": {
+            "appName": "PHAROS",
+            "zonal": "Zonal",
+            "point": "Punkt",
+            "clear": "Löschen"
+        }
+    },
+    "header": {
+        "label": {
+            "dark": "Dunkel",
+            "light": "Hell",
+            "language": "Deutsch"
+        },
+        "text": {
+            "subLogo": "Klarheit über SAR und AIS"
+        }
+    },
+    "home": {
+        "titles": {
+            "areaOfInterest": "Interessengebiet",
+            "drawOnMap": "Auf Karte zeichnen",
+            "orChooseEEZRegion": "oder EEZ-Region auswählen",
+            "orChooseMPARegion": "oder MPA-Region auswählen"
+        },
+        "placeholder": {
+            "selectEEZ": "EEZ auswählen...",
+            "selectMPA": "MPA auswählen..."
+        }
+    }
+}
