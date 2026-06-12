@@ -2,12 +2,13 @@ import sidebarStyle from './Sidebar.module.scss';
 import AreaOfInterest from "../blocks/AreaOfInterest"
 import TimeRange from "../blocks/TimeRange"
 import ContextLayers from "../blocks/ContextLayers"
+import HotspotConfig from "../blocks/HotspotConfig"
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '@/hooks/translator';
 
 export interface ISidebarProps {}
 
-const Sidebar = (props: ISidebarProps) => {
+const Sidebar = (_props: ISidebarProps) => {
 
   const {t} = useTranslator()
   return (
@@ -16,6 +17,7 @@ const Sidebar = (props: ISidebarProps) => {
         <AreaOfInterest />
         <TimeRange />
         <ContextLayers />
+        <HotspotConfig />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <ButtonInput 

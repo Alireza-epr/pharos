@@ -3,7 +3,7 @@ import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import ButtonInput from '../common/inputs/ButtonInput';
-import DropdownInput, { IDropdownOption } from '../common/inputs/DropdownInput';
+import DropdownInput from '../common/inputs/DropdownInput';
 import { useTranslator } from '@/hooks/translator';
 import { useEffect } from 'react';
 import { eez_options, mpa_options } from '@/helpers/fixtures/context';

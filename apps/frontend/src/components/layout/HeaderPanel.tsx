@@ -13,6 +13,9 @@ const HeaderPanel = (props: IHeaderPanelProps) => {
 
   const language = useAppStore((s) => s.language);
   const setLanguage = useAppStore((s) => s.setLanguage);
+
+  const backendStatus = useAppStore((s) => s.backendStatus);
+  const setBackendStatus = useAppStore((s) => s.setBackendStatus);
   
   const toggleTheme = () => {
     setTheme((prev) => (prev === ETheme.dark ? ETheme.light : ETheme.dark));
@@ -35,7 +38,12 @@ const HeaderPanel = (props: IHeaderPanelProps) => {
 
 
       <div className={` ${headerPanelStyle.actions}`}>
-        <span className={`font-size-xs ${headerPanelStyle.chip}`}>Live</span>
+        <span 
+          className={`disabled font-size-xs ${headerPanelStyle.chip} ${backendStatus ? headerPanelStyle.online : ''}`} 
+          data-readonly="true"
+        >
+          {backendStatus ? t("header.label.online") : t("header.label.offline")}
+        </span>
         <span
           className={`font-size-xs ${headerPanelStyle.chip}`}
           onClick={toggleLanguage}

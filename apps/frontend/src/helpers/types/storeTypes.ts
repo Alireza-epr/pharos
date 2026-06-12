@@ -2,10 +2,12 @@ import { IEventSchema } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
+import { EHotspotTimeBins } from '@packages/enum';
 
 export interface IAppStoreStates {
   theme: TTheme;
-  language: TLanguage
+  language: TLanguage;
+  backendStatus: boolean
 }
 export interface IAppStoreActions {
   setTheme: (
@@ -17,6 +19,11 @@ export interface IAppStoreActions {
     a_Value:
       | IAppStoreStates['language']
       | ((a_Prev: IAppStoreStates['language']) => IAppStoreStates['language']),
+  ) => void;
+  setBackendStatus: (
+    a_Value:
+      | IAppStoreStates['backendStatus']
+      | ((a_Prev: IAppStoreStates['backendStatus']) => IAppStoreStates['backendStatus']),
   ) => void;
 }
 
@@ -56,6 +63,23 @@ export interface IContextLayersStoreActions {
   ) => void;
 }
 
+export interface IHotspotConfigStoreStates {
+  resolution: number;
+  timeBin: EHotspotTimeBins;
+}
+export interface IHotspotConfigStoreActions {
+  setResolution: (
+    a_Value:
+      | IHotspotConfigStoreStates['resolution']
+      | ((a_Prev: IHotspotConfigStoreStates['resolution']) => IHotspotConfigStoreStates['resolution']),
+  ) => void;
+  setTimeBin: (
+    a_Value:
+      | IHotspotConfigStoreStates['timeBin']
+      | ((a_Prev: IHotspotConfigStoreStates['timeBin']) => IHotspotConfigStoreStates['timeBin']),
+  ) => void;
+}
+
 export interface ITimeRangeStoreStates {
   dateFrom: string;
   dateTo: string;
@@ -76,10 +100,10 @@ export interface ITimeRangeStoreActions {
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
-  eezOptions: IDropdownOption[];
-  eezActive: IDropdownOption | undefined;
-  mpaOptions: IDropdownOption[];
-  mpaActive: IDropdownOption | undefined;
+  eezOptions: IDropdownOption<string>[];
+  eezActive: IDropdownOption<string> | undefined;
+  mpaOptions: IDropdownOption<string>[];
+  mpaActive: IDropdownOption<string> | undefined;
 }
 export interface IAOIStoreActions {
   setZonal: (

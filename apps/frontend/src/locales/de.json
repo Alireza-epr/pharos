@@ -16,7 +16,9 @@
         "label": {
             "dark": "Dunkel",
             "light": "Hell",
-            "language": "Deutsch"
+            "language": "Deutsch",
+            "online": "Online",
+            "offline": "Offline"
         },
         "text": {
             "subLogo": "Klarheit über SAR und AIS"
@@ -27,7 +29,8 @@
             "areaOfInterest": "Interessengebiet",
             "drawOnMap": "Auf Karte zeichnen",
             "timeRange": "Zeitraum",
-            "dataLayers": "Kontextebenen"
+            "dataLayers": "Kontextebenen",
+            "hotspotConfig": "Hotspot-Konfiguration"
         },
         "placeholder": {
             "selectEEZ": "EEZ auswählen...",
@@ -37,7 +40,9 @@
             "runQuery": "Abfrage starten",
             "hotspots": "Hotspots",
             "eezBoundaries": "EEZ-Grenzen",
-            "mpaZones": "MPA-Zonen"
+            "mpaZones": "MPA-Zonen",
+            "resolution": "Auflösung",
+            "timeBin": "Zeiteinheit"
         },
         "text": {
             "orChooseEEZRegion": "oder EEZ-Region auswählen",

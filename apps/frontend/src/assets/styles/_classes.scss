@@ -133,7 +133,7 @@ body {
 }
 
 .disabled {  
-  &:disabled {
+  &:disabled, &[data-disabled='true']{
     opacity: 0.4;
     cursor: not-allowed;
   }

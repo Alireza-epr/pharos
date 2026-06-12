@@ -49,4 +49,13 @@
     cursor: pointer;
     color: var(--color-secondary-blue9);
   }
+
+  &[data-readonly='true'] {
+    pointer-events: none;
+  }
+}
+
+.online {
+  border: var(--border-width-sm) solid var(--color-accent-teal1);
+  color: var(--color-accent-teal1);
 }

@@ -16,7 +16,9 @@
         "label": {
             "dark": "Dark",
             "light": "Light",
-            "language": "English"
+            "language": "English",
+            "online": "Online",
+            "offline": "Offline"
         },
         "text": {
             "subLogo": "Clarity Across SAR and AIS"
@@ -28,7 +30,8 @@
             "drawOnMap": "Draw on map",
 
             "timeRange": "Time Range",
-            "dataLayers": "Context Layers"
+            "dataLayers": "Context Layers",
+            "hotspotConfig": "Hotspot Config"
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
@@ -38,7 +41,9 @@
             "runQuery": "Run Query",
             "hotspots": "Hotspots",
             "eezBoundaries": "EEZ Boundaries",
-            "mpaZones": "MPA Zones"
+            "mpaZones": "MPA Zones",
+            "resolution": "Resolution",
+            "timeBin": "Time Bin"
         },
         "text": {
             "orChooseEEZRegion": "or choose EEZ region",

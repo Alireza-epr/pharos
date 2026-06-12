@@ -9,6 +9,7 @@ export const useAppStore = create<IAppStoreStates & IAppStoreActions>(
     {
       theme: ETheme.light as IAppStoreStates["theme"],
       language: ELanguage.en as IAppStoreStates["language"],
+      backendStatus: false
     },
     (set) => ({
       setTheme: (a_Value) =>
@@ -18,6 +19,10 @@ export const useAppStore = create<IAppStoreStates & IAppStoreActions>(
       setLanguage: (a_Value) =>
         set((state) => ({
           language: typeof a_Value === 'function' ? a_Value(state.language) : a_Value,
+        })),
+      setBackendStatus: (a_Value) =>
+        set((state) => ({
+          backendStatus: typeof a_Value === 'function' ? a_Value(state.backendStatus) : a_Value,
         })),
     }),
   ),

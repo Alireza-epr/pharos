@@ -13,7 +13,7 @@ export interface INumberInputProps {
 const NumberInput = (props: INumberInputProps) => {
   return (
     <input
-      className={`font-size-sm ${numberInputStyle.input}`}
+      className={`font-size-sm disabled hover ${numberInputStyle.input}`}
       type="number"
       value={props.value}
       min={props.min}

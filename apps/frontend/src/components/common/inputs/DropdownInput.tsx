@@ -1,28 +1,28 @@
 import dropdownInputStyle from './DropdownInput.module.scss';
 
-export interface IDropdownOption {
+export interface IDropdownOption<T> {
   label: string;
-  value: string;
+  value: T;
 }
 
-export interface IDropdownInputProps {
-  value: string;
-  options: IDropdownOption[];
-  onChange: (value: string) => void;
+export interface IDropdownInputProps<T> {
+  value: T;
+  options: IDropdownOption<T>[];
+  onChange: (value: T) => void;
   placeholder?: string;
   disabled?: boolean;
   onClear?: () => void;
   clearLabel?: string;
 }
 
-const DropdownInput = (props: IDropdownInputProps) => {
+const DropdownInput = <T extends string | number>(props: IDropdownInputProps<T>) => {
   return (
     <div className={dropdownInputStyle.wrapper}>
       <select
         className={`hover disabled font-size-sm ${dropdownInputStyle.select}`}
         value={props.value}
         disabled={props.disabled}
-        onChange={(e) => props.onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value as T)}
       >
         {props.placeholder && (
           <option value="" disabled hidden>
