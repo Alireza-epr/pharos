@@ -1,11 +1,11 @@
 .input {
+  font-family: var(--font-family-tech);
   width: 100%;
   padding: 5px 8px;
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-card);
   color: var(--theme-text-primary);
-  font-family: var(--font-family-base);
   transition: border-color var(--transition-duration) var(--transition-easing);
 
   &:focus {

@@ -2,6 +2,7 @@
   display: flex;
   gap: var(--padding-gap);
   width: 100%;
+  font-family: var(--font-family-tech);
 }
 
 .select {
@@ -12,7 +13,6 @@
   border-radius: var(--radius-sm);
   background: var(--theme-bg-button);
   color: var(--theme-text-primary);
-  font-family: var(--font-family-tech);
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23747a9a'/%3E%3C/svg%3E");
   background-repeat: no-repeat;

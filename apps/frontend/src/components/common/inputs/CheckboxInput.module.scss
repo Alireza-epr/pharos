@@ -1,4 +1,5 @@
 .wrapper {
+  font-family: var(--font-family-tech);
   flex: 1;
   display: flex;
   gap: var(--padding-default);
@@ -6,6 +7,7 @@
   background: var(--theme-bg-button);
   color: var(--theme-text-primary);
   border-radius: var(--radius-sm);
+  border: var(--border-width-sm) solid var(--theme-border);
   padding: var(--padding-default-half) var(--padding-default);
 }
 

@@ -2,6 +2,10 @@
 @import './vars';
 @import './typography';
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: var(--no-margin);
   padding: var(--no-margin);
