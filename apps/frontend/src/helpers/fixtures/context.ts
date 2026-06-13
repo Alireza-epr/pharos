@@ -1,19 +1,4 @@
-export const sort_field_options = [
-    { label: "Triage Score", value: "scoring.triage_score" },
-    { label: "Uncertainty Score", value: "scoring.uncertainty_score" },
-    { label: "Timestamp", value: "timestamp_utc" },
-    { label: "Distance to Coast", value: "distance_to_coast_km" },
-    { label: "Confidence Tier", value: "confidence_tier" },
-    { label: "Confidence Proxy", value: "confidence_proxy" },
-    { label: "Matched", value: "matched_flag" },
-    { label: "Event ID", value: "event_id" },
-    { label: "Longitude", value: "lon" },
-    { label: "Latitude", value: "lat" },
-    { label: "Hotspot Strength", value: "hotspot.signals.hotspot_strength" },
-    { label: "Recurrence Count", value: "hotspot.signals.recurrence_count" },
-    { label: "Time Bins Unmatched", value: "hotspot.signals.time_bins_with_unmatched" },
-    { label: "Bathymetry Value", value: "context_layers.Bathymetry.enrichments[0].value" },
-]
+
 
 export const eez_options = [
     { value: "8444", label: "United States Exclusive Economic Zone (American Samoa)" },

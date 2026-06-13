@@ -5,7 +5,7 @@ import SortRowInput from '../common/inputs/SortRowInput';
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '../../hooks/translator';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
-import { sort_field_options } from '../../helpers/fixtures/context';
+import { sort_field_options } from '../../helpers/fixtures/query';
 import { ISortOption } from '@packages/types';
 
 export interface ISortOrderProps {}
