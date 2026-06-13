@@ -12,7 +12,8 @@
             "unmatchedOnly": "Nur nicht zugeordnet",
             "all": "Alle",
             "min": "Min",
-            "max": "Max"
+            "max": "Max",
+            "exportAll": "Alles exportieren"
         }
     },
     "header": {
@@ -102,6 +103,31 @@
             "orChooseEEZRegion": "oder EEZ-Region auswählen",
             "orChooseMPARegion": "oder MPA-Region auswählen",
             "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
+        }
+    },
+    "bottomPanel": {
+        "title": {
+            "detections": "DETEKTIONEN"
+        },
+        "column": {
+            "detectionId": "Event-ID",
+            "longitude": "Längengrad",
+            "latitude": "Breitengrad",
+            "distanceToCoast": "Küstenabstand (km)",
+            "bathymetryValue": "Bathymetrie (m)",
+            "timestamp": "Zeitstempel",
+            "confidenceTier": "Konfidenzstufe",
+            "confidenceProxy": "Konfid.-Proxy",
+            "triageScore": "Triage-Score",
+            "uncertaintyScore": "Unsicherheits-Score"
+        },
+        "action": {
+            "details": "Details",
+            "selected": "Ausgewählt"
+        },
+        "empty": {
+            "title": "Keine Ereignisse vorhanden",
+            "body": "Konfigurieren Sie eine Abfrage und klicken Sie auf Abfrage starten."
         }
     }
 }

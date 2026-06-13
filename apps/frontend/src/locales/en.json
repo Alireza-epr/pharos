@@ -12,7 +12,8 @@
             "unmatchedOnly": "Unmatched only",
             "all": "All",
             "min": "Min",
-            "max": "Max"
+            "max": "Max",
+            "exportAll": "Export all"
         }
     },
     "header":{
@@ -102,6 +103,33 @@
             "orChooseEEZRegion": "or choose EEZ region",
             "orChooseMPARegion": "or choose MPA region",
             "subRunQuery": "Fill area & date to enable"
+        }
+    },
+    "bottomPanel": {
+        "title": {
+            "detections": "DETECTIONS"
+        },
+        "column": {
+            "detectionId": "Event ID",
+            "longitude": "Longitude",
+            "latitude": "Latitude",
+            "distanceToCoast": "Dist. to Coast (km)",
+            "bathymetryValue": "Bathymetry (m)",
+            "timestamp": "Timestamp",
+            "confidenceTier": "Confidence Tier",
+            "confidenceProxy": "Conf. Proxy",
+            "triageScore": "Triage Score",
+            "uncertaintyScore": "Uncertainty Score",
+            "actions": "Actions"
+        },
+        "action": {
+            "details": "Details",
+            "selected": "Selected",
+            "export": "Export"
+        },
+        "empty": {
+            "title": "No events to display",
+            "body": "Configure a query and click Run Query to load events."
         }
     }
 }

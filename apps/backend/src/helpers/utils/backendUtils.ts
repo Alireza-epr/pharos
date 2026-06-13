@@ -23,7 +23,7 @@ import {
   IFeature,
   IGeometry,
 } from '@packages/types';
-import { deepSortObject, deepStripHidden } from '@packages/utils';
+import { deepSortObject, deepStripHidden, shortenText } from '@packages/utils';
 
 // Stream for writing logs to file if enabled
 let logStream: fs.WriteStream | null = null;
@@ -51,12 +51,6 @@ if (config.logging.enable_log) {
   });
 }
 
-export const shortenMessage = (a_Message: string, a_Limit: number) => {
-  return a_Message.length > a_Limit
-    ? `${a_Message.slice(0, a_Limit)}...`
-    : a_Message;
-};
-
 // Main log function
 export const log = (
   a_Message: string,
@@ -64,7 +58,7 @@ export const log = (
   a_MessageLimit?: number,
 ): void => {
   const message = a_MessageLimit
-    ? shortenMessage(a_Message, a_MessageLimit)
+    ? shortenText(a_Message, a_MessageLimit)
     : a_Message;
   const formattedMessage = `[${formatTimestamp()}] [${a_Type}] ${message}`;
 
@@ -247,91 +241,11 @@ export const getDateBucket = (
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
 };
 
-export const getSortValue = (obj: any, path: string) => {
-  return path
-    .replace(/\[(\d+)\]/g, '.$1')
-    .split('.')
-    .reduce((acc, key) => acc?.[key], obj);
-};
 
-export const compareValues = (a: any, b: any) => {
-  if (a == null && b == null) return 0;
-  if (a == null) return -1;
-  if (b == null) return 1;
 
-  if (typeof a === 'string' && typeof b === 'string') {
-    if (a !== '' && b !== '' && !isNaN(Number(a)) && !isNaN(Number(b))) {
-      return Number(a) - Number(b);
-    }
-    return a.localeCompare(b);
-  }
 
-  return a - b;
-};
 
-export const sortEventSchema = (
-  a_EventSchemas: (IEventSchema | IRejectedEventSchema)[],
-  a_SortOptions: ISortOption[] = [
-    { sortBy: 'timestamp_utc', direction: 'asc' },
-    { sortBy: 'event_id', direction: 'asc' },
-  ],
-): (IEventSchema | IRejectedEventSchema)[] => {
-  const { accepted, rejected } = a_EventSchemas.reduce(
-    (acc, event) => {
-      if (event.rejected) {
-        acc.rejected.push(event);
-      } else {
-        acc.accepted.push(event);
-      }
 
-      return acc;
-    },
-    {
-      accepted: [] as IEventSchema[],
-      rejected: [] as IRejectedEventSchema[],
-    },
-  );
-
-  const multiSort = (a: any, b: any) => {
-    for (const { sortBy, direction = 'asc' } of a_SortOptions) {
-      const valA = getSortValue(a, sortBy);
-      const valB = getSortValue(b, sortBy);
-
-      const result = compareValues(valA, valB);
-
-      if (result !== 0) {
-        return direction === 'asc' ? result : -result;
-      }
-    }
-    return 0;
-  };
-
-  if (accepted.length > 0) {
-    for (const option of a_SortOptions) {
-      if (
-        option.direction &&
-        option.direction !== 'asc' &&
-        option.direction !== 'desc'
-      ) {
-        throw new Error(
-          `[sortEventSchema] Invalid direction "${option.direction}" for sortBy "${option.sortBy}". Allowed values are "asc" or "desc".`,
-        );
-      }
-      const fieldExists = accepted.some(
-        (event) => getSortValue(event, option.sortBy) !== undefined,
-      );
-
-      if (!fieldExists) {
-        throw new Error(
-          `[sortEventSchema] Invalid sortBy field: "${option.sortBy}"`,
-        );
-      }
-    }
-    accepted.sort(multiSort);
-  }
-
-  return [...deepSortObject(accepted), ...deepSortObject(rejected)];
-};
 
 export const featureFromEvents = (
   a_Events: IEventSchema[],

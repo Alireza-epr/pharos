@@ -12,6 +12,7 @@
   --theme-text-secondary-reverse: var(--text-light-bg-secondary);
   --theme-text-muted: var(--color-secondary-blue6);
   --theme-map-bg: var(--color-secondary-blue3);
+  --theme-tr-hover: var(--color-secondary-blue6);
 }
 
 [data-theme='light'] {
@@ -28,4 +29,5 @@
   --theme-text-secondary-reverse: var(--text-dark-bg-secondary);
   --theme-text-muted: var(--color-secondary-blue7);
   --theme-map-bg: var(--color-primary-purple10);
+  --theme-tr-hover: var(--color-primary-purple9-1);
 }

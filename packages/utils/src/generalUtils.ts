@@ -173,3 +173,59 @@ export const getLocaleISOString = (a_Date: Date, a_Past?: IPastTime) => {
 
   return `${localeDateISO}T${localeTimeISO}`;
 };
+
+export const shortenText = (a_Text: string, a_Limit: number) => {
+  return a_Text.length > a_Limit
+    ? `${a_Text.slice(0, a_Limit)}...`
+    : a_Text;
+};
+
+// Format timestamp as [YYYY-MM-DD HH:mm:ss.SSS]
+export const formatTimestamp = (a_Date?: Date): string => {
+  const now = a_Date ?? new Date();
+  const timestamp = now.toISOString().replace('T', ' ').replace('Z', '');
+  return timestamp.substring(0, 23);
+};
+
+export const lightenHexColor = (a_Hex: string, a_Percent: number) => {
+  a_Hex = a_Hex.replace('#', '');
+
+  const r = parseInt(a_Hex.substring(0, 2), 16);
+  const g = parseInt(a_Hex.substring(2, 4), 16);
+  const b = parseInt(a_Hex.substring(4, 6), 16);
+
+  const factor = 1 + a_Percent / 100;
+  const newR = Math.min(255, Math.round(r * factor));
+  const newG = Math.min(255, Math.round(g * factor));
+  const newB = Math.min(255, Math.round(b * factor));
+
+  const lightenHex =
+    '#' +
+    ((1 << 24) + (newR << 16) + (newG << 8) + newB)
+      .toString(16)
+      .slice(1)
+      .toUpperCase();
+
+  return lightenHex;
+}
+
+export const darkenHexColor = (a_Hex: string, a_Percent: number) => {
+  a_Hex = a_Hex.replace('#', '');
+
+  const r = parseInt(a_Hex.substring(0, 2), 16);
+  const g = parseInt(a_Hex.substring(2, 4), 16);
+  const b = parseInt(a_Hex.substring(4, 6), 16);
+
+  const factor = 1 - a_Percent / 100;
+  const newR = Math.max(0, Math.round(r * factor));
+  const newG = Math.max(0, Math.round(g * factor));
+  const newB = Math.max(0, Math.round(b * factor));
+  const darkenHex =
+    '#' +
+    ((1 << 24) + (newR << 16) + (newG << 8) + newB)
+      .toString(16)
+      .slice(1)
+      .toUpperCase();
+
+  return darkenHex;
+}  

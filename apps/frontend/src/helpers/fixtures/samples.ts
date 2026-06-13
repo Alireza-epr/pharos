@@ -336,7 +336,7 @@ export const samples = [
   },
   {
     confidence_proxy: null,
-    confidence_tier: 'low',
+    confidence_tier: 'high',
     context_layers: {
       Bathymetry: {
         dataset: 'gebco_2025_sub_ice_topo',
@@ -500,7 +500,7 @@ export const samples = [
   },
   {
     confidence_proxy: null,
-    confidence_tier: 'low',
+    confidence_tier: 'medium',
     context_layers: {
       Bathymetry: {
         dataset: 'gebco_2025_sub_ice_topo',

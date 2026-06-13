@@ -3,6 +3,7 @@ import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
 import { EFormat, EGroupBy, EHotspotTimeBins, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
+import { TMatchFilter } from '../enum/generalEnum';
 
 export interface IAppStoreStates {
   theme: TTheme;
@@ -28,16 +29,21 @@ export interface IAppStoreActions {
 }
 
 export interface IEventStoreStates {
+  events: IEventSchema[];
   selectedEvent: IEventSchema | null;
 }
 export interface IEventStoreActions {
-  setSelectedEvent: (
-    a_Value:
-      | IEventStoreStates['selectedEvent']
-      | ((
-          a_Prev: IEventStoreStates['selectedEvent'],
-        ) => IEventStoreStates['selectedEvent']),
-  ) => void;
+  setSelectedEvent: ( a_Value: IEventStoreStates['selectedEvent'] | ((a_Prev: IEventStoreStates['selectedEvent'] ) => IEventStoreStates['selectedEvent']) ) => void;
+  setEvents: ( a_Value: IEventStoreStates['events'] | ((a_Prev: IEventStoreStates['events'] ) => IEventStoreStates['events']) ) => void;
+}
+
+export interface IBottomStoreStates {
+  filter: TMatchFilter;
+  sorts: ISortOption[];
+}
+export interface IBottomStoreActions {
+  setFilter: ( a_Value: IBottomStoreStates['filter'] | ((a_Prev: IBottomStoreStates['filter'] ) => IBottomStoreStates['filter']) ) => void;
+  setSorts: ( a_Value: IBottomStoreStates['sorts'] | ((a_Prev: IBottomStoreStates['sorts'] ) => IBottomStoreStates['sorts']) ) => void;
 }
 
 export interface IFilterStoreStates {
