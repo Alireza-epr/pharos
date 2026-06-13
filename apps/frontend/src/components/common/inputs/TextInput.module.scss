@@ -1,24 +1,17 @@
 .input {
   font-family: var(--font-family-tech);
-  width: 100%;
-  padding: 5px 8px;
+  flex: 1;
+  padding: var(--padding-default-half) var(--padding-default);
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-card);
   color: var(--theme-text-primary);
   transition: border-color var(--transition-duration) var(--transition-easing);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-duration) var(--transition-easing);
 
   &::placeholder {
     color: var(--theme-text-muted);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--color-primary-purple6);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
   }
 }

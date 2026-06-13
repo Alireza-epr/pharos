@@ -34,7 +34,7 @@ const DateInput = (props: IDateInputProps) => {
   return (
     <input
       ref={dateRef}
-      className={`hover disabled font-size-sm ${dateInputStyle.wrapper}`}
+      className={`hover disabled focus font-size-sm ${dateInputStyle.wrapper}`}
       step="1"
       type="datetime-local"
       value={props.value}

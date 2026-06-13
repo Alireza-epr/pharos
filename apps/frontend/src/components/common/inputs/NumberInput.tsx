@@ -21,7 +21,7 @@ const NumberInput = (props: INumberInputProps) => {
         <span className={`font-size-sm ${numberInputStyle.label}`}>{props.label}</span>
       )}
       <input
-        className={`font-size-sm disabled hover ${numberInputStyle.input}`}
+        className={`font-size-sm disabled hover focus ${numberInputStyle.input}`}
         type="number"
         value={props.value}
         min={props.min}

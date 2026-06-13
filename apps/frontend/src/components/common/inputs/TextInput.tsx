@@ -10,7 +10,7 @@ export interface ITextInputProps {
 const TextInput = (props: ITextInputProps) => {
   return (
     <input
-      className={`font-size-sm ${textInputStyle.input}`}
+      className={`font-size-sm disabled focus hover ${textInputStyle.input}`}
       type="text"
       value={props.value}
       disabled={props.disabled}

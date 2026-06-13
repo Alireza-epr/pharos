@@ -1,8 +1,8 @@
-import { IConfigJSON, IEventSchema, IFilteringParams, ISortOption } from '@packages/types';
+import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, ISortOption } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
-import { EHotspotTimeBins } from '@packages/enum';
+import { EFormat, EGroupBy, EHotspotTimeBins, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
 
 export interface IAppStoreStates {
   theme: TTheme;
@@ -41,7 +41,7 @@ export interface IEventStoreActions {
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams;
+  filters: IFilteringParams & IFilteringParamsUI;
 }
 export interface IFilterStoreActions {
   setFilters: (
@@ -168,4 +168,25 @@ export interface IThresholdAndWeightsStoreActions {
       | IThresholdAndWeightsStoreStates['threshold']
       | ((a_Prev: IThresholdAndWeightsStoreStates['threshold']) => IThresholdAndWeightsStoreStates['threshold']),
   ) => void;
+}
+
+export interface IAdvancedQueryStoreStates {
+  spatialResolution: ESpatialResolution | '';
+  format: EFormat;
+  groupBy: EGroupBy | '';
+  temporalResolution: ETemporalResolution;
+  datasets: T4wingsDatasetsUI[];
+  filterText: string;
+  spatialAggregation: boolean;
+  rawQuery: string;
+}
+export interface IAdvancedQueryStoreActions {
+  setSpatialResolution: (a_Value: IAdvancedQueryStoreStates['spatialResolution'] | ((a_Prev: IAdvancedQueryStoreStates['spatialResolution']) => IAdvancedQueryStoreStates['spatialResolution'])) => void;
+  setFormat: (a_Value: IAdvancedQueryStoreStates['format'] | ((a_Prev: IAdvancedQueryStoreStates['format']) => IAdvancedQueryStoreStates['format'])) => void;
+  setGroupBy: (a_Value: IAdvancedQueryStoreStates['groupBy'] | ((a_Prev: IAdvancedQueryStoreStates['groupBy']) => IAdvancedQueryStoreStates['groupBy'])) => void;
+  setTemporalResolution: (a_Value: IAdvancedQueryStoreStates['temporalResolution'] | ((a_Prev: IAdvancedQueryStoreStates['temporalResolution']) => IAdvancedQueryStoreStates['temporalResolution'])) => void;
+  setDatasets: (a_Value: IAdvancedQueryStoreStates['datasets'] | ((a_Prev: IAdvancedQueryStoreStates['datasets']) => IAdvancedQueryStoreStates['datasets'])) => void;
+  setFilterText: (a_Value: IAdvancedQueryStoreStates['filterText'] | ((a_Prev: IAdvancedQueryStoreStates['filterText']) => IAdvancedQueryStoreStates['filterText'])) => void;
+  setSpatialAggregation: (a_Value: IAdvancedQueryStoreStates['spatialAggregation'] | ((a_Prev: IAdvancedQueryStoreStates['spatialAggregation']) => IAdvancedQueryStoreStates['spatialAggregation'])) => void;
+  setRawQuery: (a_Value: IAdvancedQueryStoreStates['rawQuery'] | ((a_Prev: IAdvancedQueryStoreStates['rawQuery']) => IAdvancedQueryStoreStates['rawQuery'])) => void;
 }

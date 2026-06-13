@@ -6,6 +6,7 @@ import HotspotConfig from "../blocks/HotspotConfig"
 import SortOrder from "../blocks/SortOrder"
 import Filter from "../blocks/Filter"
 import ThresholdAndWeights from "../blocks/ThresholdAndWeights"
+import AdvancedQuery from "../blocks/AdvancedQuery"
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '@/hooks/translator';
 
@@ -24,6 +25,7 @@ const Sidebar = () => {
         <SortOrder />
         <Filter />
         <ThresholdAndWeights />
+        <AdvancedQuery />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <ButtonInput 

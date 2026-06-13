@@ -9,6 +9,7 @@
             "to": "To",
             "matched": "Matched",
             "unmatched": "Unmatched",
+            "unmatchedOnly": "Unmatched only",
             "all": "All",
             "min": "Min",
             "max": "Max"
@@ -35,7 +36,9 @@
             "dataLayers": "Context Layers",
             "hotspotConfig": "Hotspot Config",
             "sortOrder": "Sort Order",
-            "filter": "Filter"
+            "filter": "Filter",
+            "advancedQuery": "Advanced Query",
+            "matchingStatus" : "Matching Status"
         },
         "title": {
             "geography": "Geography",
@@ -44,7 +47,10 @@
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
-            "selectMPA": "Select MPA..."
+            "selectMPA": "Select MPA...",
+            "none": "None",
+            "filterExpression": "vessel_type in ('cargo')",
+            "rawQuery": "Enter raw query..."
         },
         "label": {
             "runQuery": "Run Query",
@@ -63,6 +69,15 @@
             "insideMpaOnly": "Inside MPA only",
             "reasonCodesInclude": "Reason Codes - Include",
             "reasonCodesExclude": "Reason Codes - Exclude",
+            "datasets": "Datasets",
+            "temporalResolution": "Temporal Resolution",
+            "spatialResolution": "Spatial Resolution",
+            "format": "Format",
+            "groupBy": "Group By",
+            "spatialAggregation": "Spatial Aggregation",
+            "dateRange": "Date Range",
+            "filterExpression": "Filter Expression",
+            "rawQuery": "Raw Query",
             "nearCoastThr": "Near Coast Thr.",
             "shallowWaterThr": "Shallow Water Thr.",
             "deepWaterThr": "Deep Water Thr.",

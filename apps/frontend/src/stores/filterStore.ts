@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import { IFilteringParams } from '@packages/types';
+import { IFilteringParams, IFilteringParamsUI } from '@packages/types';
 import { IFilterStoreActions, IFilterStoreStates } from '../helpers/types/storeTypes';
 
-const defaultFilters: IFilteringParams = {
+const defaultFilters: IFilteringParams & IFilteringParamsUI = {
     triage_score_min: 0,
     triage_score_max: 1,
     uncertainty_score_min: 0,
@@ -16,12 +16,13 @@ const defaultFilters: IFilteringParams = {
     is_inside_mpa: false,
     reason_codes_include: [],
     reason_codes_exclude: [],
+    unmatched_only: false
 }
 
 export const useFilterStore = create<IFilterStoreStates & IFilterStoreActions>(
     combine(
         {
-            filters: defaultFilters as IFilterStoreStates['filters'],
+            filters: defaultFilters satisfies IFilterStoreStates['filters'],
         },
         (set) => ({
             setFilters: (a_Value) =>

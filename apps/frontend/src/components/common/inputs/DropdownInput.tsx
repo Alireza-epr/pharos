@@ -19,7 +19,7 @@ const DropdownInput = <T extends string | number>(props: IDropdownInputProps<T>)
   return (
     <div className={dropdownInputStyle.wrapper}>
       <select
-        className={`hover disabled font-size-sm ${dropdownInputStyle.select}`}
+        className={`hover disabled focus font-size-sm ${dropdownInputStyle.select}`}
         value={props.value}
         disabled={props.disabled}
         onChange={(e) => props.onChange(e.target.value as T)}

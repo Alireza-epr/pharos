@@ -126,9 +126,13 @@ body {
 
 // Pseudo-class 
 .hover {
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not([type="text"]) {
     background: var(--theme-bg-button-hover);
     color: var(--theme-text-primary-reverse);
+  }
+
+  &:hover:not(:disabled):is([type="text"]) {
+    border-color: var(--color-primary-purple6);
   }
 }
 
@@ -144,6 +148,13 @@ body {
     background: var(--theme-bg-button-active);
     border-color: var(--theme-text-primary);
     font-weight: var(--font-weight-bold);
+  }
+}
+
+.focus {
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-purple6);
   }
 }
 

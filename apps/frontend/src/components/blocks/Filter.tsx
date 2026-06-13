@@ -5,10 +5,10 @@ import SectionInputGroup from '../common/section/SectionInputGroup';
 import NumberInput from '../common/inputs/NumberInput';
 import CheckboxInput from '../common/inputs/CheckboxInput';
 import ChipGroupInput from '../common/inputs/ChipGroupInput';
-import { useTranslator } from '@/hooks/translator';
-import { useFilterStore } from '@/stores/filterStore';
+import { useTranslator } from '../../hooks/translator';
+import { useFilterStore } from '../../stores/filterStore';
 import { EInclusionMode, EReasonCodesStatic, TInclusionMode } from '@packages/enum';
-import { IFilteringParams } from '@packages/types';
+import { IFilterStoreStates } from '../../helpers/types/storeTypes';
 
 
 export interface IFilterProps {}
@@ -21,7 +21,7 @@ const Filter = () => {
 
     const { t } = useTranslator()
 
-    const updateFilter = (patch: Partial<IFilteringParams>) => {
+    const updateFilter = (patch: Partial<IFilterStoreStates['filters']>) => {
         setFilters(prev => ({ ...prev, ...patch }))
     }
 
@@ -47,7 +47,15 @@ const Filter = () => {
     }
 
     return (
-        <Section title={t('sidebar.titles.filter')} collapsible={false}>
+        <Section title={t('sidebar.titles.filter')} collapsible={false}>    
+
+            <SectionItem title={t('sidebar.titles.matchingStatus')} collapsible={false}>
+                <CheckboxInput
+                    label={t('general.label.unmatchedOnly')}
+                    checked={filters.unmatched_only}
+                    onChange={(v) => updateFilter({ unmatched_only: v })}
+                />
+            </SectionItem>
 
             <SectionItem title={t('sidebar.label.triageScore')} collapsible={false}>
                 <SectionInputGroup direction="row">
