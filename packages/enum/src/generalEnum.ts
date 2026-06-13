@@ -35,8 +35,8 @@ export enum EGeoCoordinate {
 }
 
 export enum EHotspotTimeBins {
-  DAILY = "Daily",
-  HOURLY = "Hourly",
+  DAILY = "DAILY",
+  HOURLY = "HOURLY",
 }
 
 export enum EConfidenceTiers {
