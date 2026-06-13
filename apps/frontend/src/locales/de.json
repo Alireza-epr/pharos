@@ -30,7 +30,8 @@
             "drawOnMap": "Auf Karte zeichnen",
             "timeRange": "Zeitraum",
             "dataLayers": "Kontextebenen",
-            "hotspotConfig": "Hotspot-Konfiguration"
+            "hotspotConfig": "Hotspot-Konfiguration",
+            "sortOrder": "Sortierreihenfolge"
         },
         "placeholder": {
             "selectEEZ": "EEZ auswählen...",
@@ -42,7 +43,8 @@
             "eezBoundaries": "EEZ-Grenzen",
             "mpaZones": "MPA-Zonen",
             "resolution": "Auflösung",
-            "timeBin": "Zeiteinheit"
+            "timeBin": "Zeiteinheit",
+            "addSort": "+ Sortierung hinzufügen"
         },
         "text": {
             "orChooseEEZRegion": "oder EEZ-Region auswählen",

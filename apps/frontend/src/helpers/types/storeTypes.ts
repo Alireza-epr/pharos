@@ -1,4 +1,4 @@
-import { IEventSchema } from '@packages/types';
+import { IEventSchema, ISortOption } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
@@ -60,6 +60,16 @@ export interface IContextLayersStoreActions {
     a_Value:
       | IContextLayersStoreStates['mpaZones']
       | ((a_Prev: IContextLayersStoreStates['mpaZones']) => IContextLayersStoreStates['mpaZones']),
+  ) => void;
+}
+export interface ISortOrderStoreStates {
+  sorts: ISortOption[];
+}
+export interface ISortOrderStoreActions {
+  setSorts: (
+    a_Value:
+      | ISortOrderStoreStates['sorts']
+      | ((a_Prev: ISortOrderStoreStates['sorts']) => ISortOrderStoreStates['sorts']),
   ) => void;
 }
 

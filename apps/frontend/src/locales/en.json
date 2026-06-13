@@ -31,7 +31,8 @@
 
             "timeRange": "Time Range",
             "dataLayers": "Context Layers",
-            "hotspotConfig": "Hotspot Config"
+            "hotspotConfig": "Hotspot Config",
+            "sortOrder": "Sort Order"
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
@@ -43,7 +44,8 @@
             "eezBoundaries": "EEZ Boundaries",
             "mpaZones": "MPA Zones",
             "resolution": "Resolution",
-            "timeBin": "Time Bin"
+            "timeBin": "Time Bin",
+            "addSort": "+ Add Sort"
         },
         "text": {
             "orChooseEEZRegion": "or choose EEZ region",

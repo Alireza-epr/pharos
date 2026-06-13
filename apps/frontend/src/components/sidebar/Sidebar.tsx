@@ -3,6 +3,7 @@ import AreaOfInterest from "../blocks/AreaOfInterest"
 import TimeRange from "../blocks/TimeRange"
 import ContextLayers from "../blocks/ContextLayers"
 import HotspotConfig from "../blocks/HotspotConfig"
+import SortOrder from "../blocks/SortOrder"
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '@/hooks/translator';
 
@@ -18,6 +19,7 @@ const Sidebar = (_props: ISidebarProps) => {
         <TimeRange />
         <ContextLayers />
         <HotspotConfig />
+        <SortOrder />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <ButtonInput 
