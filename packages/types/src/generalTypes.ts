@@ -1,3 +1,4 @@
+import { TPastTime } from "@packages/enum";
 import { TGeoJSONEventMissingness } from "./geoJSONTypes";
 
 /**
@@ -57,3 +58,8 @@ export type TJSONValue =
   | null
   | { [key: string]: TJSONValue }
   | TJSONValue[];
+
+export interface IPastTime {
+  unit: TPastTime;
+  value: number;
+}

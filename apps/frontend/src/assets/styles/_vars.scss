@@ -77,6 +77,7 @@ $min-width-desktop: 1024px;
   // MARGIN
   // ==========================================
 
+  --margin-default-half: 0.5vh;
   --margin-default: 1vh;
   --margin-default-md: 2vh;
   --margin-default-lg: 4vh;
@@ -95,6 +96,8 @@ $min-width-desktop: 1024px;
   // ==========================================
 
   --no-padding: 0;
+  --padding-gap: 0.2vh;
+  --padding-default-half: 0.5vh;
   --padding-default: 1vh;
   --padding-default-md: 2vh;
   --padding-default-lg: 4vh;
@@ -134,4 +137,11 @@ $min-width-desktop: 1024px;
   // ==========================================
   --width-sidebar: 20vw;
   --width-map: 80vw;
+
+  // ==========================================
+  // TRANSITION
+  // ==========================================
+  --transition-duration: 0.25s;
+  --transition-easing: ease-in-out;
+  --transition-delay: 0.2s;
 }

@@ -5,13 +5,13 @@
   height: 100%;
   display: flex;
   margin-right: var(--margin-default);
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
   flex-direction: column;
-  background: var(--bg-app);
+  background: var(--theme-bg-app);
   transform: translateX(0);
   transition:
-    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s ease;
+    transform var(--transition-duration) cubic-bezier(0.4, 0, 0.2, 1),
+    opacity var(--transition-duration) var(--transition-easing);
 
   &.hidden {
     transform: translateX(100%);
@@ -25,19 +25,19 @@
   flex-shrink: 0;
   padding: var(--padding-default);
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: var(--theme-bg-card);
   box-sizing: border-box;
 }
 
 .scroll-area {
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: var(--theme-bg-card);
   flex: 9;
   min-height: 0;
   overflow: hidden auto;
   padding: var(--padding-default);
   display: flex;
   flex-direction: column;
-  gap: var(--padding-default);
+  gap: var(--padding-gap);
   box-sizing: border-box;
 }

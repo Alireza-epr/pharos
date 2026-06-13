@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  gap: var(--padding-gap);
+}
+
+.wrapper[data-direction='column'] {
+  flex-direction: column;
+}
+
+.wrapper[data-direction='row'] {
+  flex-flow: row wrap
+}

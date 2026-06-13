@@ -1,0 +1,43 @@
+.wrapper {
+  font-family: var(--font-family-tech);
+  flex: 1;
+  display: flex;
+  gap: var(--padding-default);
+  cursor: pointer;
+  background: var(--theme-bg-button);
+  color: var(--theme-text-primary);
+  border-radius: var(--radius-sm);
+  border: var(--border-width-sm) solid var(--theme-border);
+  padding: var(--padding-default-half) var(--padding-default);
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  background: var(--theme-bg-card);
+  transition:
+    border-color var(--transition-duration) var(--transition-easing),
+    background var(--transition-duration) var(--transition-easing);
+}
+
+.tick {
+  font-size: 9px;
+  color: var(--color-primary-purple6);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+

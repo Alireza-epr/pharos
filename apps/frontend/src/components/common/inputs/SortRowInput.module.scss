@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-gap);
+}
+
+.rank {
+  flex-shrink: 0;
+  min-width: 12px;
+  text-align: right;
+  color: var(--theme-text-secondary);
+  font-family: var(--font-family-tech);
+}
+
+.action {
+  flex-shrink: 0;
+}

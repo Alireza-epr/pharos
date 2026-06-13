@@ -2,6 +2,10 @@
 @import './vars';
 @import './typography';
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: var(--no-margin);
   padding: var(--no-margin);
@@ -111,12 +115,35 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: var(--theme-border);
     border-radius: var(--radius-sm);
 
     &:hover {
-      background: var(--text-muted);
+      background: var(--theme-text-muted);
     }
+  }
+}
+
+// Pseudo-class 
+.hover {
+  &:hover:not(:disabled) {
+    background: var(--theme-bg-button-hover);
+    color: var(--theme-text-primary-reverse);
+  }
+}
+
+.disabled {  
+  &:disabled, &[data-disabled='true']{
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.active {
+  &[data-active='true'] {
+    background: var(--theme-bg-button-active);
+    border-color: var(--theme-text-primary);
+    font-weight: var(--font-weight-bold);
   }
 }
 

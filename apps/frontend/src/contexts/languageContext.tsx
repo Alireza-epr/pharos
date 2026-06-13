@@ -1,10 +1,8 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { ELanguage } from '../helpers/enum/translationEnum';
+import React, { createContext } from 'react';
+import { TLanguage } from '../helpers/enum/translationEnum';
 import { ILanguageContextType } from '../helpers/types/translationTypes';
-import {
-  detectBrowserLanguage,
-  translations,
-} from '../helpers/utils/translationUtils';
+import { translations } from '../helpers/utils/translationUtils';
+import { useAppStore } from '@/stores/appStore';
 
 export const LanguageContext = createContext<ILanguageContextType | undefined>(
   undefined,
@@ -15,21 +13,10 @@ export const LanguageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [language, setLanguage] = useState<ELanguage>(ELanguage.en);
+  const language = useAppStore(s => s.language);
+  const setLanguage = useAppStore(s => s.setLanguage);
 
-  useEffect(() => {
-    const stored = localStorage.getItem('lang') as ELanguage;
-    if (stored && translations[stored]) {
-      setLanguage(stored);
-    } else {
-      const detected = detectBrowserLanguage();
-      setLanguage(detected);
-      localStorage.setItem('lang', detected);
-    }
-  }, []);
-
-  const changeLanguage = (lang: ELanguage) => {
-    localStorage.setItem('lang', lang);
+  const changeLanguage = (lang: TLanguage) => {
     setLanguage(lang);
   };
 

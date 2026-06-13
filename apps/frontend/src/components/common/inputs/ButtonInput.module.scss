@@ -1,0 +1,18 @@
+.wrapper {
+  flex: 1;
+  padding: var(--padding-default-half) var(--padding-default);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  background: var(--theme-bg-button);
+  color: var(--theme-text-primary);
+  font-family: var(--font-family-tech);
+  cursor: pointer;
+  transition:
+    background var(--transition-duration) var(--transition-easing),
+    border-color var(--transition-duration) var(--transition-easing),
+    color var(--transition-duration) var(--transition-easing);
+
+  &[data-size='sm'] {
+    font-size: smaller;
+  }
+}

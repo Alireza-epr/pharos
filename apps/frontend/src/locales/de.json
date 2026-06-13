@@ -1,1 +1,92 @@
-{}
+{
+    "general": {
+        "label": {
+            "appName": "PHAROS",
+            "zonal": "Zonal",
+            "point": "Punkt",
+            "clear": "Löschen",
+            "from": "Von",
+            "to": "Bis",
+            "matched": "Zugeordnet",
+            "unmatched": "Nicht zugeordnet",
+            "all": "Alle",
+            "min": "Min",
+            "max": "Max"
+        }
+    },
+    "header": {
+        "label": {
+            "dark": "Dunkel",
+            "light": "Hell",
+            "language": "Deutsch",
+            "online": "Online",
+            "offline": "Offline"
+        },
+        "text": {
+            "subLogo": "Klarheit über SAR und AIS"
+        }
+    },
+    "sidebar": {
+        "titles": {
+            "areaOfInterest": "Interessengebiet",
+            "drawOnMap": "Auf Karte zeichnen",
+            "thresholdAndWeights": "Schwellenwerte & Gewichtungen",
+            "timeRange": "Zeitraum",
+            "dataLayers": "Kontextebenen",
+            "hotspotConfig": "Hotspot-Konfiguration",
+            "sortOrder": "Sortierreihenfolge",
+            "filter": "Filter"
+        },
+        "title": {
+            "geography": "Geografie",
+            "scoreTiers": "Score-Stufen",
+            "weights": "Gewichtungen"
+        },
+        "placeholder": {
+            "selectEEZ": "EEZ auswählen...",
+            "selectMPA": "MPA auswählen..."
+        },
+        "label": {
+            "runQuery": "Abfrage starten",
+            "hotspots": "Hotspots",
+            "eezBoundaries": "EEZ-Grenzen",
+            "mpaZones": "MPA-Zonen",
+            "resolution": "Auflösung",
+            "timeBin": "Zeiteinheit",
+            "addSort": "+ Sortierung hinzufügen",
+            "triageScore": "Triage-Score",
+            "uncertaintyScore": "Unsicherheits-Score",
+            "distanceToCoast": "Küstenabstand (km)",
+            "bathymetry": "Bathymetrie (m)",
+            "contextZone": "Kontextzone",
+            "insideEezOnly": "Nur innerhalb EEZ",
+            "insideMpaOnly": "Nur innerhalb MPA",
+            "reasonCodesInclude": "Reason Codes — Einschließen",
+            "reasonCodesExclude": "Reason Codes — Ausschließen",
+            "nearCoastThr": "Küstennähe-Grenzw.",
+            "shallowWaterThr": "Flachwasser-Grenzw.",
+            "deepWaterThr": "Tiefwasser-Grenzw.",
+            "lowConfProxyThr": "Niedr. Konfid.-Proxy-Grenzw.",
+            "lowTriageThr": "Niedr. Triage-Grenzw.",
+            "medTriageThr": "Mittl. Triage-Grenzw.",
+            "highTriageThr": "Hoher Triage-Grenzw.",
+            "baseUncertaintyWeight": "Basis-Unsicherheit",
+            "missingFieldWeight": "Fehlendes Feld",
+            "noisyWeight": "Verrauscht",
+            "unmatchedWeight": "Nicht zugeordnet",
+            "nearCoastWeight": "Küstennähe",
+            "eezWeight": "AWZ",
+            "mpaWeight": "MPA",
+            "missingConfProxyWeight": "Fehl. Konfid.-Proxy",
+            "lowConfProxyWeight": "Niedr. Konfid.-Proxy",
+            "lowConfTierWeight": "Niedr. Konfid.-Stufe",
+            "medConfTierWeight": "Mittl. Konfid.-Stufe",
+            "highConfTierWeight": "Hohe Konfid.-Stufe"
+        },
+        "text": {
+            "orChooseEEZRegion": "oder EEZ-Region auswählen",
+            "orChooseMPARegion": "oder MPA-Region auswählen",
+            "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
+        }
+    }
+}
