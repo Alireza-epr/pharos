@@ -4,12 +4,14 @@ import TimeRange from "../blocks/TimeRange"
 import ContextLayers from "../blocks/ContextLayers"
 import HotspotConfig from "../blocks/HotspotConfig"
 import SortOrder from "../blocks/SortOrder"
+import Filter from "../blocks/Filter"
+import ThresholdAndWeights from "../blocks/ThresholdAndWeights"
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '@/hooks/translator';
 
 export interface ISidebarProps {}
 
-const Sidebar = (_props: ISidebarProps) => {
+const Sidebar = () => {
 
   const {t} = useTranslator()
   return (
@@ -20,6 +22,8 @@ const Sidebar = (_props: ISidebarProps) => {
         <ContextLayers />
         <HotspotConfig />
         <SortOrder />
+        <Filter />
+        <ThresholdAndWeights />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <ButtonInput 

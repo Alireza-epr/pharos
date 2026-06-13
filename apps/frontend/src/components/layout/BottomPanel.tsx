@@ -2,7 +2,7 @@ import bottomPanelStyle from './BottomPanel.module.scss';
 
 export interface IBottomPanelProps {}
 
-const BottomPanel = (props: IBottomPanelProps) => {
+const BottomPanel = () => {
   return (
     <div className={` ${bottomPanelStyle.wrapper}`}>
       <div className={` ${bottomPanelStyle.header}`}>

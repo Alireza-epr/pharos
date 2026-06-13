@@ -9,7 +9,9 @@
             "to": "To",
             "matched": "Matched",
             "unmatched": "Unmatched",
-            "all": "All"
+            "all": "All",
+            "min": "Min",
+            "max": "Max"
         }
     },
     "header":{
@@ -28,11 +30,17 @@
         "titles": {
             "areaOfInterest": "Area of Interest",
             "drawOnMap": "Draw on map",
-
+            "thresholdAndWeights": "Threshold & Weights",
             "timeRange": "Time Range",
             "dataLayers": "Context Layers",
             "hotspotConfig": "Hotspot Config",
-            "sortOrder": "Sort Order"
+            "sortOrder": "Sort Order",
+            "filter": "Filter"
+        },
+        "title": {
+            "geography": "Geography",
+            "scoreTiers": "Score Tiers",
+            "weights": "Weights"
         },
         "placeholder": {
             "selectEEZ": "Select EEZ...",
@@ -45,7 +53,35 @@
             "mpaZones": "MPA Zones",
             "resolution": "Resolution",
             "timeBin": "Time Bin",
-            "addSort": "+ Add Sort"
+            "addSort": "+ Add Sort",
+            "triageScore": "Triage Score",
+            "uncertaintyScore": "Uncertainty Score",
+            "distanceToCoast": "Distance to Coast (km)",
+            "bathymetry": "Bathymetry (m)",
+            "contextZone": "Context Zone",
+            "insideEezOnly": "Inside EEZ only",
+            "insideMpaOnly": "Inside MPA only",
+            "reasonCodesInclude": "Reason Codes - Include",
+            "reasonCodesExclude": "Reason Codes - Exclude",
+            "nearCoastThr": "Near Coast Thr.",
+            "shallowWaterThr": "Shallow Water Thr.",
+            "deepWaterThr": "Deep Water Thr.",
+            "lowConfProxyThr": "Low Conf. Proxy Thr.",
+            "lowTriageThr": "Low Triage Thr.",
+            "medTriageThr": "Med. Triage Thr.",
+            "highTriageThr": "High Triage Thr.",
+            "baseUncertaintyWeight": "Base Uncertainty",
+            "missingFieldWeight": "Missing Field",
+            "noisyWeight": "Noisy",
+            "unmatchedWeight": "Unmatched",
+            "nearCoastWeight": "Near Coast",
+            "eezWeight": "EEZ",
+            "mpaWeight": "MPA",
+            "missingConfProxyWeight": "Missing Conf. Proxy",
+            "lowConfProxyWeight": "Low Conf. Proxy",
+            "lowConfTierWeight": "Low Conf. Tier",
+            "medConfTierWeight": "Med. Conf. Tier",
+            "highConfTierWeight": "High Conf. Tier"
         },
         "text": {
             "orChooseEEZRegion": "or choose EEZ region",

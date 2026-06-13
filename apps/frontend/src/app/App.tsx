@@ -10,7 +10,7 @@ import { useAppStore } from '../stores/appStore';
 
 export interface IAppProps {}
 
-const App = (props: IAppProps) => {
+const App = () => {
   const theme = useAppStore((state) => state.theme);
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 

@@ -94,5 +94,11 @@ export const EPastTime = {
   weeks: "weeks",
   months: "months",
   years: "years",
-}
+} as const
 export type TPastTime = typeof EPastTime[keyof typeof EPastTime]
+
+export const EInclusionMode = {
+  include: 'include',
+  exclude: 'exclude'
+} as const
+export type TInclusionMode = typeof EInclusionMode[keyof typeof EInclusionMode]

@@ -1,19 +1,18 @@
 
 import Section from '../common/section/Section';
 import SectionInputGroup from '../common/section/SectionInputGroup';
-import DropdownInput from '../common/inputs/DropdownInput';
+import SortRowInput from '../common/inputs/SortRowInput';
 import ButtonInput from '../common/inputs/ButtonInput';
 import { useTranslator } from '../../hooks/translator';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
 import { sort_field_options } from '../../helpers/fixtures/context';
-import sortStyle from './SortOrder.module.scss';
 import { ISortOption } from '@packages/types';
 
 export interface ISortOrderProps {}
 
 const MAX_SORTS = 5
 
-const SortOrder = (props: ISortOrderProps) => {
+const SortOrder = () => {
     const sorts = useSortOrderStore(s => s.sorts)
     const setSorts = useSortOrderStore(s => s.setSorts)
 
@@ -49,29 +48,19 @@ const SortOrder = (props: ISortOrderProps) => {
     const canAdd = sorts.length < MAX_SORTS && sorts.length < sort_field_options.length
 
     return (
-        <Section title={t('sidebar.titles.sortOrder')} collapsible>
+        <Section title={t('sidebar.titles.sortOrder')} collapsible={false}>
             <SectionInputGroup direction="column">
                 {sorts.map((sort, index) => (
-                    <div key={sort.sortBy} className={sortStyle.row}>
-                        <span className={`font-size-sm ${sortStyle.rank}`}>{index + 1}</span>
-                        <DropdownInput
-                            value={sort.sortBy}
-                            options={optionsFor(index)}
-                            onChange={(field) => changeField(index, field)}
-                        />
-                        <div className={sortStyle.action}>
-                            <ButtonInput
-                                label={sort.direction === 'desc' ? '↓' : '↑'}
-                                onClick={() => toggleDirection(index)}
-                            />
-                        </div>
-                        <div className={sortStyle.action}>
-                            <ButtonInput
-                                label="×"
-                                onClick={() => removeSort(index)}
-                            />
-                        </div>
-                    </div>
+                    <SortRowInput
+                        key={sort.sortBy}
+                        rank={index + 1}
+                        value={sort.sortBy}
+                        direction={sort.direction ?? "asc"}
+                        options={optionsFor(index)}
+                        onChangeField={(field) => changeField(index, field)}
+                        onToggleDirection={() => toggleDirection(index)}
+                        onRemove={() => removeSort(index)}
+                    />
                 ))}
                 {canAdd && (
                     <ButtonInput

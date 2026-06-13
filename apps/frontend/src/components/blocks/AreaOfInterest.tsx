@@ -21,7 +21,7 @@ export interface IAreaOfInterestProps {
 
 }
 
-const AreaOfInterest = (props: IAreaOfInterestProps) => {
+const AreaOfInterest = () => {
     const zonal = useAOIStore( s => s.zonal )
     const setZonal = useAOIStore( s => s.setZonal )
    

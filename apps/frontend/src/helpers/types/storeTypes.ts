@@ -1,4 +1,4 @@
-import { IEventSchema, ISortOption } from '@packages/types';
+import { IConfigJSON, IEventSchema, IFilteringParams, ISortOption } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
@@ -37,6 +37,17 @@ export interface IEventStoreActions {
       | ((
           a_Prev: IEventStoreStates['selectedEvent'],
         ) => IEventStoreStates['selectedEvent']),
+  ) => void;
+}
+
+export interface IFilterStoreStates {
+  filters: IFilteringParams;
+}
+export interface IFilterStoreActions {
+  setFilters: (
+    a_Value:
+      | IFilterStoreStates['filters']
+      | ((a_Prev: IFilterStoreStates['filters']) => IFilterStoreStates['filters']),
   ) => void;
 }
 
@@ -145,5 +156,16 @@ export interface IAOIStoreActions {
     a_Value:
       | IAOIStoreStates['mpaActive']
       | ((a_Prev: IAOIStoreStates['mpaActive']) => IAOIStoreStates['mpaActive']),
+  ) => void;
+}
+
+export interface IThresholdAndWeightsStoreStates {
+  threshold: IConfigJSON["threshold"]
+}
+export interface IThresholdAndWeightsStoreActions {
+  setThreshold: (
+    a_Value:
+      | IThresholdAndWeightsStoreStates['threshold']
+      | ((a_Prev: IThresholdAndWeightsStoreStates['threshold']) => IThresholdAndWeightsStoreStates['threshold']),
   ) => void;
 }

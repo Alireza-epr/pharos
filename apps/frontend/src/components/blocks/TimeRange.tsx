@@ -7,7 +7,7 @@ import { useTimeRangeStore } from '@/stores/timeRangeStore';
 
 export interface ITimeRangeProps {}
 
-const TimeRange = (props: ITimeRangeProps) => {
+const TimeRange = () => {
     const dateFrom = useTimeRangeStore(s => s.dateFrom)
     const setDateFrom = useTimeRangeStore(s => s.setDateFrom)
 

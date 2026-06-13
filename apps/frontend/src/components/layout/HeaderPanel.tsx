@@ -6,7 +6,7 @@ import { useTranslator } from '@/hooks/translator';
 
 export interface IHeaderPanelProps { }
 
-const HeaderPanel = (props: IHeaderPanelProps) => {
+const HeaderPanel = () => {
   const { t } = useTranslator()
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);

@@ -14,7 +14,7 @@ const timeBinOptions: IDropdownOption<EHotspotTimeBins>[] = Object.values(EHotsp
     value: bin,
 }))
 
-const HotspotConfig = (props: IHotspotConfigProps) => {
+const HotspotConfig = () => {
     const resolution = useHotspotConfigStore(s => s.resolution)
     const setResolution = useHotspotConfigStore(s => s.setResolution)
 
@@ -24,7 +24,7 @@ const HotspotConfig = (props: IHotspotConfigProps) => {
     const { t } = useTranslator()
 
     return (
-        <Section title={t('sidebar.titles.hotspotConfig')} collapsible>
+        <Section title={t('sidebar.titles.hotspotConfig')} collapsible={false}>
             <SectionItem title={t('sidebar.label.resolution')}>
                 <NumberInput
                     value={resolution}

@@ -7,7 +7,7 @@ import { useContextLayersStore } from '@/stores/contextLayersStore';
 
 export interface IDataLayersProps {}
 
-const DataLayers = (props: IDataLayersProps) => {
+const DataLayers = () => {
 
     const hotspots = useContextLayersStore(s => s.hotspots)
     const setHotspots = useContextLayersStore(s => s.setHotspots)
@@ -21,7 +21,7 @@ const DataLayers = (props: IDataLayersProps) => {
     const { t } = useTranslator()
 
     return (
-        <Section title={t('sidebar.titles.dataLayers')} collapsible>
+        <Section title={t('sidebar.titles.dataLayers')} collapsible={false}>
             <SectionInputGroup direction="column">
                 <CheckboxInput
                     label={t('sidebar.label.hotspots')}

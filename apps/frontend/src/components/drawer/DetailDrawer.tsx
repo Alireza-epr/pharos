@@ -3,7 +3,7 @@ import detailDrawerStyle from './DetailDrawer.module.scss';
 
 export interface IDetailDrawerProps {}
 
-const DetailDrawer = (props: IDetailDrawerProps) => {
+const DetailDrawer = () => {
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 
   return (
