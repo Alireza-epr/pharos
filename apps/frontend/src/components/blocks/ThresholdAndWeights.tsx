@@ -2,7 +2,7 @@ import { useTranslator } from "@/hooks/translator"
 import Section from "../common/section/Section"
 import SectionItem from "../common/section/SectionItem"
 import NumberInput from "../common/inputs/NumberInput"
-import { useThresholdAndWeightsStore } from "@/stores/thresholdAndWeights"
+import { useThresholdAndWeightsStore } from "../../stores/thresholdAndWeightsStore"
 import { IConfigJSON } from "@packages/types"
 
 export interface IThresholdAndWeightsProps {
