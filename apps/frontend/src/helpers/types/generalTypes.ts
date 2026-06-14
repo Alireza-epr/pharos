@@ -1,1 +1,3 @@
-export type TTranslator = (key: string, vars?: Record<string, string> | undefined) => string
+import { TTranslationKey } from './translationTypes'
+
+export type TTranslator = (key: TTranslationKey, vars?: Record<string, string> | undefined) => string
