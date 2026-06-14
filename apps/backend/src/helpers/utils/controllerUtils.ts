@@ -50,3 +50,11 @@ export const createErrorMessage = (
   if (a_ValidatioErrors.errors === null) return undefined;
   return a_ValidatioErrors.errors;
 };
+
+export const getEnvVariable = (a_Key: string): string | undefined => {
+    return process.env[a_Key.toUpperCase()] 
+}
+
+export const isDevelopment = () => {
+    return getEnvVariable("NODE_ENV") === "development"
+}

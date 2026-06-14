@@ -1,23 +1,12 @@
-import { EPastTime } from "@packages/enum"
+import { ELogType, EPastTime, EURLParams, TLogType } from "@packages/enum"
 import { IPastTime } from "@packages/types"
 
-/* import { ELogLevel, EURLParams } from "../types/generalTypes";
-
-
-export const formatTimestamp = (a_Date?: Date): string => {
-  const now = a_Date ?? new Date();
-  const timestamp = now.toISOString().replace('T', ' ').replace('Z', '');
-  return timestamp.substring(0, 23);
-};
-
-
-export const log = (
-  a_Title: string,
+export const log_frontend = (
   a_Message: any,
-  a_Type: ELogLevel = ELogLevel.message,
+  a_Type: TLogType = ELogType.info,
   a_logLevel?: string,
 ): void => {
-  const formattedMessage = `[${formatTimestamp()}] ${a_Title}`;
+  const formattedMessage = `[${formatTimestamp()}]`;
   const params =
     typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search)
@@ -25,18 +14,18 @@ export const log = (
   const logLevel = params.get(EURLParams.loglevel);
   if ((logLevel && logLevel === '3') || (a_logLevel && a_logLevel === '3')) {
     switch (a_Type) {
-      case ELogLevel.message:
+      case ELogType.info:
         console.log(formattedMessage, a_Message);
         break;
-      case ELogLevel.warning:
+      case ELogType.warn:
         console.warn(formattedMessage, a_Message);
         break;
-      case ELogLevel.error:
+      case ELogType.error:
         console.error(formattedMessage, a_Message);
         break;
     }
   }
-}; */
+};
 
 /**
  * Recursively sorts all object keys and nested objects/arrays, removes undefined values
