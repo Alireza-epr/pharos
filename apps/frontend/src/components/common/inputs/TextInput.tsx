@@ -1,22 +1,78 @@
+import { useState } from 'react';
 import textInputStyle from './TextInput.module.scss';
 
 export interface ITextInputProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  readOnly?: boolean;
+  copiable?: boolean;
+  copyLabel?: string;
+  // Value placed on the clipboard when copied; defaults to `value`. Useful when
+  // the displayed text is truncated but the full value should be copied.
+  copyValue?: string;
 }
 
+const COPIED_FEEDBACK_MS = 1500;
+
+const CopyIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
 const TextInput = (props: ITextInputProps) => {
-  return (
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(props.copyValue ?? props.value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), COPIED_FEEDBACK_MS);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const interactionClasses = props.readOnly ? '' : 'focus hover';
+
+  const input = (
     <input
-      className={`font-size-sm ${textInputStyle.input}`}
+      className={`font-size-sm disabled ${interactionClasses} ${textInputStyle.input} ${props.readOnly ? textInputStyle.readonly : ''}`}
       type="text"
       value={props.value}
       disabled={props.disabled}
+      readOnly={props.readOnly}
       placeholder={props.placeholder}
-      onChange={(e) => props.onChange(e.target.value)}
+      onChange={(e) => props.onChange && props.onChange(e.target.value)}
     />
+  );
+
+  if (!props.copiable) return input;
+
+  return (
+    <div className={textInputStyle.wrapper}>
+      {input}
+      <button
+        className={`hover disabled font-size-sm ${textInputStyle.copyButton}`}
+        type="button"
+        onClick={handleCopy}
+        disabled={props.disabled}
+        aria-label={props.copyLabel ?? 'Copy'}
+      >
+        {copied ? <CheckIcon /> : <CopyIcon />}
+      </button>
+    </div>
   );
 };
 

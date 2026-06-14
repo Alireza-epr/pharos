@@ -7,10 +7,15 @@
   color: var(--theme-text-primary);
   font-family: var(--font-family-tech);
   cursor: pointer;
+  white-space: nowrap;
   transition:
     background var(--transition-duration) var(--transition-easing),
     border-color var(--transition-duration) var(--transition-easing),
     color var(--transition-duration) var(--transition-easing);
+
+  &[data-readonly='true'] {
+    cursor: text;
+  } 
 
   &[data-size='sm'] {
     font-size: smaller;

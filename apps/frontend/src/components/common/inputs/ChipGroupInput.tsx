@@ -3,9 +3,10 @@ import chipGroupStyle from './ChipGroupInput.module.scss';
 
 export interface IChipGroupInputProps<T extends string> {
   values: T[];
-  active: T[];
-  onToggle: (value: T) => void;
+  active?: T[];
+  onToggle?: (value: T) => void;
   variant?: string;
+  readOnly?: boolean
 }
 
 const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {
@@ -16,8 +17,9 @@ const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {
           key={value}
           label={value}
           size="sm"
-          active={props.active.includes(value) ?? false}
-          onClick={() => props.onToggle(value)}
+          active={props.active ? props.active.includes(value) : false}
+          onClick={() => props.onToggle && props.onToggle(value)}
+          readOnly={props.readOnly ?? false}
         />
       ))}
     </div>

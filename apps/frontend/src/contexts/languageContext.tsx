@@ -1,6 +1,9 @@
 import React, { createContext } from 'react';
 import { TLanguage } from '../helpers/enum/translationEnum';
-import { ILanguageContextType } from '../helpers/types/translationTypes';
+import {
+  ILanguageContextType,
+  TTranslationKey,
+} from '../helpers/types/translationTypes';
 import { translations } from '../helpers/utils/translationUtils';
 import { useAppStore } from '@/stores/appStore';
 
@@ -20,7 +23,7 @@ export const LanguageProvider = ({
     setLanguage(lang);
   };
 
-  const t = (key: string, vars?: Record<string, string>): string => {
+  const t = (key: TTranslationKey, vars?: Record<string, string>): string => {
     const keys = key.split('.');
     let result: any = translations[language];
 

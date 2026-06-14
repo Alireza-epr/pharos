@@ -9,8 +9,5 @@ export const sort_field_options = [
     { label: "Event ID", value: "event_id" },
     { label: "Longitude", value: "lon" },
     { label: "Latitude", value: "lat" },
-    { label: "Hotspot Strength", value: "hotspot.signals.hotspot_strength" },
-    { label: "Recurrence Count", value: "hotspot.signals.recurrence_count" },
-    { label: "Time Bins Unmatched", value: "hotspot.signals.time_bins_with_unmatched" },
     { label: "Bathymetry Value", value: "context_layers.Bathymetry.enrichments[0].value" },
 ]

@@ -126,9 +126,13 @@ body {
 
 // Pseudo-class 
 .hover {
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled, [type="text"]) {
     background: var(--theme-bg-button-hover);
     color: var(--theme-text-primary-reverse);
+  }
+
+  &:hover:not(:disabled):is([type="text"]) {
+    border-color: var(--color-primary-purple6);
   }
 }
 
@@ -145,6 +149,48 @@ body {
     border-color: var(--theme-text-primary);
     font-weight: var(--font-weight-bold);
   }
+}
+
+.focus {
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-purple6);
+  }
+}
+
+// Badges
+
+.badge {
+  display: inline-block;
+  padding: var(--padding-default-half);
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-sm);
+}
+
+.badge-matched, .badge-conf-high {
+  background: var(--color-accent-teal6);
+  color: var(--color-accent-teal2);
+}
+
+.badge-unmatched, .badge-conf-low {
+  background: var(--color-alert-orange6);
+  color: var(--color-alert-orange3);
+}
+
+.badge-conf-med {
+  background: var(--color-primary-purple9);
+  color: var(--color-primary-purple5);
+}
+
+// Margin
+.margin-left{
+  margin-left: var(--margin-default);
+}
+
+.margin-right{
+  margin-right: var(--margin-default);
 }
 
 /* Mobile Grid */

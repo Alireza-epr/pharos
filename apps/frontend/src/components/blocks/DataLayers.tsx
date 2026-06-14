@@ -21,7 +21,7 @@ const DataLayers = () => {
     const { t } = useTranslator()
 
     return (
-        <Section title={t('sidebar.titles.dataLayers')} collapsible={false}>
+        <Section title={t('detailPanel.title.contextLayers')} collapsible={false}>
             <SectionInputGroup direction="column">
                 <CheckboxInput
                     label={t('sidebar.label.hotspots')}

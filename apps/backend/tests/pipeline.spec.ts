@@ -28,15 +28,14 @@ import {
   IEventSchema,
   IRejectedEventSchema,
 } from '@packages/types';
-import { deepSortObject } from '@packages/utils';
+import { deepSortObject, sortEventSchema, getSortValue} from '@packages/utils';
 import {
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,
   hashString,
   hashFile,
-  sortEventSchema,
-  getSortValue,
 } from '../src/helpers/utils/backendUtils';
+
 import {
   api4wingsEntry_ais,
   api4wingsEntry_ais_2,

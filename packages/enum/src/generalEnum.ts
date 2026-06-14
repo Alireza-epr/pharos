@@ -102,3 +102,18 @@ export const EInclusionMode = {
   exclude: 'exclude'
 } as const
 export type TInclusionMode = typeof EInclusionMode[keyof typeof EInclusionMode]
+
+
+export const ELogType= {
+  info: 'INFO',
+  warn: 'WARN',
+  error: 'ERROR',
+  request: 'REQUEST',
+  success: 'SUCCESS',
+}
+export type TLogType = typeof ELogType[keyof typeof ELogType]
+
+export const EURLParams= {
+  loglevel: "loglevel"
+}
+export type TURLParams = typeof EURLParams[keyof typeof EURLParams]

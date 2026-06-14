@@ -6,6 +6,7 @@ export interface IButtonInputProps {
   disabled?: boolean;
   size?: 'sm';
   onClick?: () => void;
+  readOnly?: boolean
 }
 
 const ButtonInput = (props: IButtonInputProps) => {
@@ -13,6 +14,7 @@ const ButtonInput = (props: IButtonInputProps) => {
     <button
       className={`hover disabled active font-size-sm ${buttonInputStyle.wrapper}`}
       data-active={props.active}
+      data-readonly={props.readOnly}
       data-size={props.size}
       disabled={props.disabled}
       onClick={props.onClick}

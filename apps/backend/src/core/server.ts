@@ -12,14 +12,17 @@ import exportsRoutes from '../modules/exports/exports.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
 import { attachStartTime } from '../middlewares/timeMiddleware';
+import { cors, corsCheck } from '../middlewares/corsMiddleware';
 
 const app = express();
 
 // Read port from environment variables
 const port: number = config.port;
-
 // Trust reverse proxies (e.g. Nginx) so req.ip reflects the real client IP instead of the proxy IP
 app.set('trust proxy', true);
+
+// Check CORS
+app.use(corsCheck)
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -29,6 +32,9 @@ app.use(requestLogger);
 
 // Logs all responses automatically
 app.use(responseLogger);
+
+// Custom CORS middleware
+app.use(cors);
 
 // --- Attachments ---
 

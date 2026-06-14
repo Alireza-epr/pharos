@@ -23,10 +23,6 @@
     border-color var(--transition-duration) var(--transition-easing),
     color var(--transition-duration) var(--transition-easing);
 
-  &:focus {
-    outline: none;
-    border-color: var(--theme-text-primary);
-  }
 }
 
 .clear-button {

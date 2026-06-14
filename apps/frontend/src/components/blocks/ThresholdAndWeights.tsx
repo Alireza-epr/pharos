@@ -39,7 +39,7 @@ const ThresholdAndWeights = () => {
         <NumberInput direction="row" label={t("sidebar.label.baseUncertaintyWeight")} value={threshold.base_uncertainty_weight} onChange={(v) => updateThreshold({ base_uncertainty_weight: v })} />
         <NumberInput direction="row" label={t("sidebar.label.missingFieldWeight")} value={threshold.missing_field_weight} onChange={(v) => updateThreshold({ missing_field_weight: v })} />
         <NumberInput direction="row" label={t("sidebar.label.noisyWeight")} value={threshold.noisy_weight} onChange={(v) => updateThreshold({ noisy_weight: v })} />
-        <NumberInput direction="row" label={t("sidebar.label.unmatchedWeight")} value={threshold.unmatched_weight} onChange={(v) => updateThreshold({ unmatched_weight: v })} />
+        <NumberInput direction="row" label={t("general.label.unmatched")} value={threshold.unmatched_weight} onChange={(v) => updateThreshold({ unmatched_weight: v })} />
         <NumberInput direction="row" label={t("sidebar.label.nearCoastWeight")} value={threshold.near_coast_importance_weight} onChange={(v) => updateThreshold({ near_coast_importance_weight: v })} />
         <NumberInput direction="row" label={t("sidebar.label.eezWeight")} value={threshold.eez_importance_weight} onChange={(v) => updateThreshold({ eez_importance_weight: v })} />
         <NumberInput direction="row" label={t("sidebar.label.mpaWeight")} value={threshold.mpa_importance_weight} onChange={(v) => updateThreshold({ mpa_importance_weight: v })} />

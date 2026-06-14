@@ -1,8 +1,9 @@
-import { IConfigJSON, IEventSchema, IFilteringParams, ISortOption } from '@packages/types';
+import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, ISortOption } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
-import { EHotspotTimeBins } from '@packages/enum';
+import { EFormat, EGroupBy, EHotspotTimeBins, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
+import { TMatchFilter } from '../enum/generalEnum';
 
 export interface IAppStoreStates {
   theme: TTheme;
@@ -28,20 +29,25 @@ export interface IAppStoreActions {
 }
 
 export interface IEventStoreStates {
+  events: IEventSchema[];
   selectedEvent: IEventSchema | null;
 }
 export interface IEventStoreActions {
-  setSelectedEvent: (
-    a_Value:
-      | IEventStoreStates['selectedEvent']
-      | ((
-          a_Prev: IEventStoreStates['selectedEvent'],
-        ) => IEventStoreStates['selectedEvent']),
-  ) => void;
+  setSelectedEvent: ( a_Value: IEventStoreStates['selectedEvent'] | ((a_Prev: IEventStoreStates['selectedEvent'] ) => IEventStoreStates['selectedEvent']) ) => void;
+  setEvents: ( a_Value: IEventStoreStates['events'] | ((a_Prev: IEventStoreStates['events'] ) => IEventStoreStates['events']) ) => void;
+}
+
+export interface IBottomStoreStates {
+  filter: TMatchFilter;
+  sorts: ISortOption[];
+}
+export interface IBottomStoreActions {
+  setFilter: ( a_Value: IBottomStoreStates['filter'] | ((a_Prev: IBottomStoreStates['filter'] ) => IBottomStoreStates['filter']) ) => void;
+  setSorts: ( a_Value: IBottomStoreStates['sorts'] | ((a_Prev: IBottomStoreStates['sorts'] ) => IBottomStoreStates['sorts']) ) => void;
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams;
+  filters: IFilteringParams & IFilteringParamsUI;
 }
 export interface IFilterStoreActions {
   setFilters: (
@@ -168,4 +174,25 @@ export interface IThresholdAndWeightsStoreActions {
       | IThresholdAndWeightsStoreStates['threshold']
       | ((a_Prev: IThresholdAndWeightsStoreStates['threshold']) => IThresholdAndWeightsStoreStates['threshold']),
   ) => void;
+}
+
+export interface IAdvancedQueryStoreStates {
+  spatialResolution: ESpatialResolution | '';
+  format: EFormat;
+  groupBy: EGroupBy | '';
+  temporalResolution: ETemporalResolution;
+  datasets: T4wingsDatasetsUI[];
+  filterText: string;
+  spatialAggregation: boolean;
+  rawQuery: string;
+}
+export interface IAdvancedQueryStoreActions {
+  setSpatialResolution: (a_Value: IAdvancedQueryStoreStates['spatialResolution'] | ((a_Prev: IAdvancedQueryStoreStates['spatialResolution']) => IAdvancedQueryStoreStates['spatialResolution'])) => void;
+  setFormat: (a_Value: IAdvancedQueryStoreStates['format'] | ((a_Prev: IAdvancedQueryStoreStates['format']) => IAdvancedQueryStoreStates['format'])) => void;
+  setGroupBy: (a_Value: IAdvancedQueryStoreStates['groupBy'] | ((a_Prev: IAdvancedQueryStoreStates['groupBy']) => IAdvancedQueryStoreStates['groupBy'])) => void;
+  setTemporalResolution: (a_Value: IAdvancedQueryStoreStates['temporalResolution'] | ((a_Prev: IAdvancedQueryStoreStates['temporalResolution']) => IAdvancedQueryStoreStates['temporalResolution'])) => void;
+  setDatasets: (a_Value: IAdvancedQueryStoreStates['datasets'] | ((a_Prev: IAdvancedQueryStoreStates['datasets']) => IAdvancedQueryStoreStates['datasets'])) => void;
+  setFilterText: (a_Value: IAdvancedQueryStoreStates['filterText'] | ((a_Prev: IAdvancedQueryStoreStates['filterText']) => IAdvancedQueryStoreStates['filterText'])) => void;
+  setSpatialAggregation: (a_Value: IAdvancedQueryStoreStates['spatialAggregation'] | ((a_Prev: IAdvancedQueryStoreStates['spatialAggregation']) => IAdvancedQueryStoreStates['spatialAggregation'])) => void;
+  setRawQuery: (a_Value: IAdvancedQueryStoreStates['rawQuery'] | ((a_Prev: IAdvancedQueryStoreStates['rawQuery']) => IAdvancedQueryStoreStates['rawQuery'])) => void;
 }
