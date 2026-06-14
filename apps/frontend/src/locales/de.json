@@ -14,6 +14,9 @@
             "min": "Min",
             "max": "Max",
             "exportAll": "Alles exportieren"
+        },
+        "action": {
+            "copy": "Kopieren"
         }
     },
     "header": {
@@ -34,7 +37,6 @@
             "drawOnMap": "Auf Karte zeichnen",
             "thresholdAndWeights": "Schwellenwerte & Gewichtungen",
             "timeRange": "Zeitraum",
-            "dataLayers": "Kontextebenen",
             "hotspotConfig": "Hotspot-Konfiguration",
             "sortOrder": "Sortierreihenfolge",
             "filter": "Filter",
@@ -76,7 +78,6 @@
             "format": "Format",
             "groupBy": "Gruppieren nach",
             "spatialAggregation": "Räumliche Aggregation",
-            "dateRange": "Datumsbereich",
             "filterExpression": "Filterausdruck",
             "rawQuery": "Freie Abfrage",
             "nearCoastThr": "Küstennähe-Grenzw.",
@@ -89,7 +90,6 @@
             "baseUncertaintyWeight": "Basis-Unsicherheit",
             "missingFieldWeight": "Fehlendes Feld",
             "noisyWeight": "Verrauscht",
-            "unmatchedWeight": "Nicht zugeordnet",
             "nearCoastWeight": "Küstennähe",
             "eezWeight": "AWZ",
             "mpaWeight": "MPA",
@@ -113,21 +113,55 @@
             "detectionId": "Event-ID",
             "longitude": "Längengrad",
             "latitude": "Breitengrad",
-            "distanceToCoast": "Küstenabstand (km)",
-            "bathymetryValue": "Bathymetrie (m)",
             "timestamp": "Zeitstempel",
             "confidenceTier": "Konfidenzstufe",
             "confidenceProxy": "Konfid.-Proxy",
-            "triageScore": "Triage-Score",
-            "uncertaintyScore": "Unsicherheits-Score"
+            "actions": "Aktionen"
         },
         "action": {
             "details": "Details",
-            "selected": "Ausgewählt"
+            "selected": "Ausgewählt",
+            "export": "Exportieren"
         },
         "empty": {
             "title": "Keine Ereignisse vorhanden",
             "body": "Konfigurieren Sie eine Abfrage und klicken Sie auf Abfrage starten."
+        }
+    },
+    "detailPanel": {
+        "title": {
+            "identification": "Identifikation",
+            "locationAndTime": "Ort & Zeit",
+            "sourceAndDetection": "Quelle & Detektion",
+            "scoring": "Bewertung",
+            "hotspotContext": "Hotspot-Kontext",
+            "contextLayers": "Kontextebenen",
+            "runMetadata": "Lauf-Metadaten"
+        },
+        "label": {
+            "gridCellCenter": "Rasterzellen-Zentrum",
+            "bucketStart": "Bucket-Start",
+            "dataset": "Datensatz",
+            "reasonCodes": "Reason Codes",
+            "h3Cell": "H3-Zelle",
+            "recurrence": "Wiederkehr",
+            "timeBinsUnmatched": "Zeiteinheiten",
+            "strength": "Stärke",
+            "config": "Konfiguration",
+            "runTime": "Laufzeit",
+            "downloadConfig": "Konfiguration herunterladen",
+            "contextLayersDatasets": "Kontextebenen-Datensätze"
+        },
+        "text": {
+            "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
+            "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
+            "nullProxy": "n. v.",
+            "dataLimitationBody": "Nicht zugeordnet ≠ illegal."
+        },
+        "action": {
+            "deselect": "Abwählen",
+            "next": "Weiter ›",
+            "prev": "‹ Zurück"
         }
     }
 }

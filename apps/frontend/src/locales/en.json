@@ -14,9 +14,12 @@
             "min": "Min",
             "max": "Max",
             "exportAll": "Export all"
+        },
+        "action": {
+            "copy": "Copy"
         }
     },
-    "header":{
+    "header": {
         "label": {
             "dark": "Dark",
             "light": "Light",
@@ -34,12 +37,11 @@
             "drawOnMap": "Draw on map",
             "thresholdAndWeights": "Threshold & Weights",
             "timeRange": "Time Range",
-            "dataLayers": "Context Layers",
             "hotspotConfig": "Hotspot Config",
             "sortOrder": "Sort Order",
             "filter": "Filter",
             "advancedQuery": "Advanced Query",
-            "matchingStatus" : "Matching Status"
+            "matchingStatus": "Matching Status"
         },
         "title": {
             "geography": "Geography",
@@ -76,7 +78,6 @@
             "format": "Format",
             "groupBy": "Group By",
             "spatialAggregation": "Spatial Aggregation",
-            "dateRange": "Date Range",
             "filterExpression": "Filter Expression",
             "rawQuery": "Raw Query",
             "nearCoastThr": "Near Coast Thr.",
@@ -89,7 +90,6 @@
             "baseUncertaintyWeight": "Base Uncertainty",
             "missingFieldWeight": "Missing Field",
             "noisyWeight": "Noisy",
-            "unmatchedWeight": "Unmatched",
             "nearCoastWeight": "Near Coast",
             "eezWeight": "EEZ",
             "mpaWeight": "MPA",
@@ -113,13 +113,9 @@
             "detectionId": "Event ID",
             "longitude": "Longitude",
             "latitude": "Latitude",
-            "distanceToCoast": "Dist. to Coast (km)",
-            "bathymetryValue": "Bathymetry (m)",
             "timestamp": "Timestamp",
             "confidenceTier": "Confidence Tier",
-            "confidenceProxy": "Conf. Proxy",
-            "triageScore": "Triage Score",
-            "uncertaintyScore": "Uncertainty Score",
+            "confidenceProxy": "Confidence Proxy",
             "actions": "Actions"
         },
         "action": {
@@ -130,6 +126,42 @@
         "empty": {
             "title": "No events to display",
             "body": "Configure a query and click Run Query to load events."
+        }
+    },
+    "detailPanel": {
+        "title": {
+            "identification": "Identification",
+            "locationAndTime": "Location & Time",
+            "sourceAndDetection": "Source & Detection",
+            "scoring": "Scoring",
+            "hotspotContext": "Hotspot Context",
+            "contextLayers": "Context Layers",
+            "runMetadata": "Run Metadata"
+        },
+        "label": {
+            "gridCellCenter": "Grid Cell Center",
+            "bucketStart": "Bucket Start",
+            "dataset": "Dataset",
+            "reasonCodes": "Reason Codes",
+            "h3Cell": "H3 Cell",
+            "recurrence": "Recurrence",
+            "timeBinsUnmatched": "Time Bins",
+            "strength": "Strength",
+            "config": "Configuration",
+            "runTime": "Run Time",
+            "downloadConfig": "Download Config",
+            "contextLayersDatasets": "Context Layer Datasets"
+        },
+        "text": {
+            "cellCenterCaveat": "cell center · not exact vessel position",
+            "bucketStartCaveat": "bucket start · not exact detection time",
+            "nullProxy": "N/A",
+            "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
+        },
+        "action": {
+            "deselect": "Deselect",
+            "next": "Next ›",
+            "prev": "‹ Previous"
         }
     }
 }

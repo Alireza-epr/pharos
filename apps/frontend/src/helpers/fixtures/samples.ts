@@ -190,6 +190,10 @@ export const samples = [
             id: '5674',
             label: 'Danish Exclusive Economic Zone',
           },
+          {
+            id: '5694',
+            label: 'Swedish Exclusive Economic Zone',
+          }
         ],
         version: 'v12',
       },
@@ -515,9 +519,13 @@ export const samples = [
         dataset: 'World_EEZ_20231025_LR',
         enrichments: [
           {
+            id: '5674',
+            label: 'Danish Exclusive Economic Zone',
+          },
+          {
             id: '5694',
             label: 'Swedish Exclusive Economic Zone',
-          },
+          }
         ],
         version: 'v12',
       },

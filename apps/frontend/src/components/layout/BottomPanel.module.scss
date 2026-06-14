@@ -159,30 +159,4 @@
   color: var(--theme-text-primary);
 }
 
-// ── Badges ────────────────────────────────────────────────────────────────────
-
-.badge {
-  display: inline-block;
-  padding: var(--padding-default-half);
-  border-radius: var(--radius-sm);
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-sm);
-}
-
-.badge-matched, .badge-conf-high {
-  background: var(--color-accent-teal6);
-  color: var(--color-accent-teal2);
-}
-
-.badge-unmatched, .badge-conf-low {
-  background: var(--color-alert-orange6);
-  color: var(--color-alert-orange3);
-}
-
-.badge-conf-med {
-  background: var(--color-primary-purple9);
-  color: var(--color-primary-purple5);
-}
-
 

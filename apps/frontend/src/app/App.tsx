@@ -3,7 +3,7 @@ import appStyle from "./App.module.scss"
 import Sidebar from '../components/sidebar/Sidebar';
 import MapView from '../components/map/MapView';
 import BottomPanel from '../components/layout/BottomPanel';
-import DetailDrawer from '../components/drawer/DetailDrawer';
+import DetailDrawer from '../components/sidebar/DetailDrawer';
 import HeaderPanel from '../components/layout/HeaderPanel';
 import { useEventStore } from '../stores/eventStore';
 import { useAppStore } from '../stores/appStore';

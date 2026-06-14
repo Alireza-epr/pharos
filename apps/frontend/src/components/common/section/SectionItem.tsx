@@ -4,7 +4,8 @@ import sectionItemStyle from './SectionItem.module.scss';
 export interface ISectionItemProps {
   title: string;
   children: ReactNode;
-  collapsible?: boolean
+  collapsible?: boolean,
+  caveat?: string;
 }
 
 const SectionItem = (props: ISectionItemProps) => {
@@ -18,7 +19,14 @@ const SectionItem = (props: ISectionItemProps) => {
         onClick={props.collapsible !== undefined ? () => setOpen((prev) => !prev) : undefined}
         className={`font-size-sm ${sectionItemStyle.label}`}
       >
-        {props.title} 
+        <span>
+          {props.title}
+          {
+            props.caveat && (
+              <span className={`font-size-sm ${sectionItemStyle.caveat}`} title={props.caveat}>⚠</span>
+            )
+          }
+        </span> 
         {props.collapsible !== undefined && (
           <span className={`font-size-base ${sectionItemStyle.chevron} ${open ? sectionItemStyle.open : ''}`}>▾</span>
         )}

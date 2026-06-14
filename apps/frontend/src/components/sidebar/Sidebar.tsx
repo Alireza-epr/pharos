@@ -1,7 +1,7 @@
 import sidebarStyle from './Sidebar.module.scss';
 import AreaOfInterest from "../blocks/AreaOfInterest"
 import TimeRange from "../blocks/TimeRange"
-import ContextLayers from "../blocks/ContextLayers"
+import ContextLayers from "../blocks/DataLayers"
 import HotspotConfig from "../blocks/HotspotConfig"
 import SortOrder from "../blocks/SortOrder"
 import Filter from "../blocks/Filter"
@@ -13,6 +13,7 @@ import { useEventStore } from '../../stores/eventStore';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
 import { useBottomStore } from '../../stores/bottomStore';
 import { samples } from '../../helpers/fixtures/samples';
+import SectionInputGroup from '../common/section/SectionInputGroup';
 
 export interface ISidebarProps {}
 
@@ -28,7 +29,7 @@ const Sidebar = () => {
     if (sorts.length > 0) setSorts(sorts)
   }
   return (
-    <div className={` ${sidebarStyle.wrapper}`}>
+    <div className={` ${sidebarStyle.wrapper} margin-left`}>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         <AreaOfInterest />
         <TimeRange />
@@ -40,10 +41,13 @@ const Sidebar = () => {
         <AdvancedQuery />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
-        <ButtonInput 
-          label={t("sidebar.label.runQuery")}
-          onClick={handleRunQueryClick}
-        />
+        <SectionInputGroup>
+          <ButtonInput 
+            label={t("sidebar.label.runQuery")}
+            onClick={handleRunQueryClick}
+          />
+        </SectionInputGroup>
+        
         <span className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery}`}>
           {t("sidebar.text.subRunQuery")}
         </span>

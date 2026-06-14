@@ -1,20 +1,14 @@
 import { useMemo } from 'react';
-import { useEventStore } from '@/stores/eventStore';
-import { useTranslator } from '@/hooks/translator';
-import { EConfidenceTiers } from '@packages/enum';
+import { useEventStore } from '../../stores/eventStore';
+import { useTranslator } from '../../hooks/translator';
 import bottomPanelStyle from './BottomPanel.module.scss';
 import { formatTimestamp, getSortValue, shortenText, sortEventSchema } from '@packages/utils';
 import ButtonInput from '../common/inputs/ButtonInput';
-import { EMatchFilter } from '@/helpers/enum/generalEnum';
-import { useBottomStore } from '@/stores/bottomStore';
+import { EMatchFilter } from '../../helpers/enum/generalEnum';
+import { useBottomStore } from '../../stores/bottomStore';
+import { confidenceBadgeClass } from '../../helpers/utils/cssUtils';
+import { getMatchingStatus } from '../../helpers/utils/eventUtils';
 
-
-
-const confidenceBadgeClass = (tier: EConfidenceTiers, s: typeof bottomPanelStyle) => {
-  if (tier === EConfidenceTiers.high) return s.badgeConfHigh;
-  if (tier === EConfidenceTiers.medium) return s.badgeConfMed;
-  return s.badgeConfLow;
-};
 
 const BottomPanel = () => {
   const { t } = useTranslator();
@@ -121,12 +115,12 @@ const BottomPanel = () => {
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'event_id') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("event_id")}>{t('bottomPanel.column.detectionId')}{sortIndicator('event_id')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'lon') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("lon")}>{t('bottomPanel.column.longitude')}{sortIndicator('lon')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'lat') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("lat")}>{t('bottomPanel.column.latitude')}{sortIndicator('lat')}</th>
-                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'distance_to_coast_km') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("distance_to_coast_km")}>{t('bottomPanel.column.distanceToCoast')}{sortIndicator('distance_to_coast_km')}</th>
-                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'context_layers.Bathymetry.enrichments[0].value') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("context_layers.Bathymetry.enrichments[0].value")}>{t('bottomPanel.column.bathymetryValue')}{sortIndicator('context_layers.Bathymetry.enrichments[0].value')}</th>
+                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'distance_to_coast_km') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("distance_to_coast_km")}>{t('sidebar.label.distanceToCoast')}{sortIndicator('distance_to_coast_km')}</th>
+                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'context_layers.Bathymetry.enrichments[0].value') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("context_layers.Bathymetry.enrichments[0].value")}>{t('sidebar.label.bathymetry')}{sortIndicator('context_layers.Bathymetry.enrichments[0].value')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'timestamp_utc') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("timestamp_utc")}>{t('bottomPanel.column.timestamp')}{sortIndicator('timestamp_utc')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'confidence_proxy') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("confidence_proxy")}>{t('bottomPanel.column.confidenceProxy')}{sortIndicator('confidence_proxy')}</th>
-                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'scoring.triage_score') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("scoring.triage_score")}>{t('bottomPanel.column.triageScore')}{sortIndicator('scoring.triage_score')}</th>
-                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'scoring.uncertainty_score') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("scoring.uncertainty_score")}>{t('bottomPanel.column.uncertaintyScore')}{sortIndicator('scoring.uncertainty_score')}</th>
+                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'scoring.triage_score') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("scoring.triage_score")}>{t('sidebar.label.triageScore')}{sortIndicator('scoring.triage_score')}</th>
+                <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'scoring.uncertainty_score') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("scoring.uncertainty_score")}>{t('sidebar.label.uncertaintyScore')}{sortIndicator('scoring.uncertainty_score')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'confidence_tier') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("confidence_tier")}>{t('bottomPanel.column.confidenceTier')}{sortIndicator('confidence_tier')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some(s => s.sortBy === 'matched_flag') ? bottomPanelStyle.thActive : ''}`} onClick={() => handleSortChange("matched_flag")}>{t('sidebar.titles.matchingStatus')}{sortIndicator('matched_flag')}</th>
                 <th className={`font-size-xs ${bottomPanelStyle.th}`}>{t('bottomPanel.column.actions')}</th>
@@ -154,13 +148,13 @@ const BottomPanel = () => {
                     <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>{event.scoring.triage_score?.toFixed(2) ?? '—'}</td>
                     <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>{event.scoring.uncertainty_score?.toFixed(2) ?? '—'}</td>
                     <td className={`font-size-xs ${bottomPanelStyle.td}`}>
-                      <span className={`${bottomPanelStyle.badge} ${confidenceBadgeClass(event.confidence_tier, bottomPanelStyle)}`}>
+                      <span className={`badge ${confidenceBadgeClass(event.confidence_tier)}`}>
                         {event.confidence_tier}
                       </span>
                     </td>
                     <td className={`font-size-xs ${bottomPanelStyle.td}`}>
-                      <span className={`${bottomPanelStyle.badge} ${event.matched_flag ? bottomPanelStyle.badgeMatched : bottomPanelStyle.badgeUnmatched}`}>
-                        {event.matched_flag ? t('general.label.matched') : t('general.label.unmatched')}
+                      <span className={`badge ${event.matched_flag ? 'badge-matched' : 'badge-unmatched'}`}>
+                        {getMatchingStatus(event, t)}
                       </span>
                     </td>
                     <td className={`font-size-xs ${bottomPanelStyle.tdAction}`}>

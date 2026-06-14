@@ -1,0 +1,1 @@
+export type TTranslator = (key: string, vars?: Record<string, string> | undefined) => string
