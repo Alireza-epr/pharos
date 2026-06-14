@@ -91,7 +91,7 @@
   z-index: 1;
 }
 
-.thSortable {
+.th-sortable {
   cursor: pointer;
   user-select: none;
 
@@ -100,11 +100,11 @@
   }
 }
 
-.thActive {
+.th-active {
   color: var(--color-primary-purple7);
 }
 
-.sortIndicator {
+.sort-indicator {
   margin-left: var(--padding-gap);
   visibility: hidden;
   color: var(--color-primary-purple7);

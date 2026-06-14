@@ -16,8 +16,6 @@
   color: var(--theme-text-primary);
   transition: border-color var(--transition-duration) var(--transition-easing);
   cursor: pointer;
-  transition:
-    border-color var(--transition-duration) var(--transition-easing);
 
   &::placeholder {
     color: var(--theme-text-muted);

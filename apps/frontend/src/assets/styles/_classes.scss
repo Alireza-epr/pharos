@@ -126,7 +126,7 @@ body {
 
 // Pseudo-class 
 .hover {
-  &:hover:not(:disabled):not([type="text"]) {
+  &:hover:not(:disabled, [type="text"]) {
     background: var(--theme-bg-button-hover);
     color: var(--theme-text-primary-reverse);
   }
