@@ -88,7 +88,7 @@ const BottomPanel = () => {
             </div>
             <div className={` `}>
               <ButtonInput
-                onClick={() => setFilter(EMatchFilter.matched)}
+                onClick={() => {}}
                 size='sm'
                 label={`${t('general.label.exportAll')}`}
               />

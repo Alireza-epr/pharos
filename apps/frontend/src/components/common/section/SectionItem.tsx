@@ -6,6 +6,7 @@ export interface ISectionItemProps {
   children: ReactNode;
   collapsible?: boolean,
   caveat?: string;
+  tab?: boolean
 }
 
 const SectionItem = (props: ISectionItemProps) => {
@@ -13,7 +14,7 @@ const SectionItem = (props: ISectionItemProps) => {
 
   return (
     <div 
-      className={` ${sectionItemStyle.wrapper} ${props.collapsible !== undefined ? sectionItemStyle.clickable : ''}`}
+      className={` ${sectionItemStyle.wrapper} ${props.collapsible !== undefined ? sectionItemStyle.clickable : ''} ${props.tab ? 'margin-left' : ''}`}
     >
       <span 
         onClick={props.collapsible !== undefined ? () => setOpen((prev) => !prev) : undefined}

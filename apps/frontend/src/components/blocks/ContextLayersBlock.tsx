@@ -3,6 +3,7 @@ import { useTranslator } from '../../hooks/translator';
 import { IEventSchema } from '@packages/types';
 import SectionItem from '../common/section/SectionItem';
 import TextInput from '../common/inputs/TextInput';
+import { EContextLayers } from '@packages/enum';
 
 export interface IContextLayersBlockProps {
   event: IEventSchema;
@@ -20,7 +21,7 @@ const ContextLayersBlock = (props: IContextLayersBlockProps) => {
               const value = e.value ?? e.label ?? ''
               return (
                 <TextInput 
-                  value={value}
+                  value={name === EContextLayers.bathymetry ? `${value} m` : value}
                   readOnly
                   copiable
                   key={index2}

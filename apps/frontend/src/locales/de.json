@@ -13,7 +13,8 @@
             "all": "Alle",
             "min": "Min",
             "max": "Max",
-            "exportAll": "Alles exportieren"
+            "exportAll": "Alles exportieren",
+            "version": "Ver."
         },
         "action": {
             "copy": "Kopieren"
@@ -150,13 +151,14 @@
             "config": "Konfiguration",
             "runTime": "Laufzeit",
             "downloadConfig": "Konfiguration herunterladen",
-            "contextLayersDatasets": "Kontextebenen-Datensätze"
+            "contextLayersDatasets": "Kontextebenen-Datensätze",
+            "downloadRawData": "Rohdaten herunterladen"
         },
         "text": {
             "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
             "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
             "nullProxy": "n. v.",
-            "dataLimitationBody": "Nicht zugeordnet ≠ illegal."
+            "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren."
         },
         "action": {
             "deselect": "Abwählen",

@@ -13,7 +13,8 @@
             "all": "All",
             "min": "Min",
             "max": "Max",
-            "exportAll": "Export all"
+            "exportAll": "Export all",
+            "version": "Ver."
         },
         "action": {
             "copy": "Copy"
@@ -150,7 +151,8 @@
             "config": "Configuration",
             "runTime": "Run Time",
             "downloadConfig": "Download Config",
-            "contextLayersDatasets": "Context Layer Datasets"
+            "contextLayersDatasets": "Context Layer Datasets",
+            "downloadRawData": "Download Raw Data"
         },
         "text": {
             "cellCenterCaveat": "cell center · not exact vessel position",
