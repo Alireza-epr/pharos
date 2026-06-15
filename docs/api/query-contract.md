@@ -265,23 +265,25 @@ Example:
 
 ### 1. Request - URL Parameters
 
-| Parameter | Description              | Required | Format | Param Type |
-| --------- | ------------------------ | -------- | ------ | ---------- |
-| token     | Access token to validate | False    | string | query      |
+| Parameter    | Description               | Required | Format | Param Type |
+| ------------ | ------------------------- | -------- | ------ | ---------- |
+| accessToken  | Access token to validate  | False    | string | query      |
+| refreshToken | Refresh token to validate | False    | string | query      |
 
 ---
 
 ### 2. Request - Body
 
-| Key   | Description              | Required | Format | Param Type |
-| ----- | ------------------------ | -------- | ------ | ---------- |
-| token | Access token to validate | True     | string | body       |
+| Key          | Description               | Required | Format | Param Type |
+| ------------ | ------------------------- | -------- | ------ | ---------- |
+| accessToken  | Access token to validate  | False    | string | body       |
+| refreshToken | Refresh token to validate | False    | string | body       |
 
 Example:
 
 ```json
 {
-  "token": "<jwt-access-token>"
+  "accessToken": "<jwt-access-token>"
 }
 ```
 
@@ -313,8 +315,8 @@ Example:
 
 ### 5. Notes
 
-- The token may be provided either in the JSON request body or as a `token` query parameter
-- A missing, malformed, or expired token all return `400` with the same error message
+- Provide either an `accessToken` or a `refreshToken` to validate; it may be supplied in the JSON request body or as a matching query parameter
+- At least one token must be provided; a missing, malformed, or expired token all return `400` with the same error message
 - For the full authentication flow, see [the authentication documentation](./authentication.md)
 
 ---

@@ -76,7 +76,7 @@ export const verifyToken = (a_Token: string) => {
 export const logTokenExpiry = (a_Decoded: TDecoded) => {
   if (!(a_Decoded as JwtPayload).exp) {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} has no expiry`,
+      `Token for user: ${(a_Decoded as JwtPayload).username} has no expiry`,
       ELogType.info,
     );
     return;
@@ -87,12 +87,12 @@ export const logTokenExpiry = (a_Decoded: TDecoded) => {
 
   if (timeLeft <= 0) {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} has expired`,
+      `Token for user: ${(a_Decoded as JwtPayload).username} has expired`,
       ELogType.warn,
     );
   } else {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} expires in ${timeLeft} seconds`,
+      `Token for user: ${(a_Decoded as JwtPayload).username} expires in ${timeLeft} seconds`,
       ELogType.info,
     );
   }

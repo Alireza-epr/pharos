@@ -147,7 +147,12 @@ paths:
       operationId: checkToken
       security: []
       parameters:
-        - name: token
+        - name: accessToken
+          in: query
+          schema:
+            type: string
+
+        - name: refreshToken
           in: query
           schema:
             type: string
@@ -317,9 +322,10 @@ components:
 
     CheckTokenRequest:
       type: object
-      required: [token]
       properties:
-        token:
+        accessToken:
+          type: string
+        refreshToken:
           type: string
 
     CheckTokenResponse:
