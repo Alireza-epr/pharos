@@ -5,8 +5,11 @@ import { ECORSOrigin } from '../helpers/enum/expressEnum';
 import { log } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 
-let hasCORSMismatching = false
 export const corsCheck = (a_Req: Request, a_Res: Response, a_Next: NextFunction) => {
+
+    // Track CORS mismatches for this request only. Stored on res.locals so the
+    // `cors` middleware can read it without leaking state across requests.
+    let hasCORSMismatching = false
 
     // Allow requests only from specific origin.
     const allowedOrigin = 
@@ -17,11 +20,13 @@ export const corsCheck = (a_Req: Request, a_Res: Response, a_Next: NextFunction)
     // Log the possibilities of CORS Checking
 
     // Check Origin
+    // Requests without an Origin header (Postman, curl, same-origin, server-to-server)
+    // are not cross-origin browser requests, so there is nothing for CORS to guard.
     const origin = a_Req.headers.origin
-    if(allowedOrigin !== origin){
+    if(origin && allowedOrigin !== origin){
         log(`[CORS] Origin mismatched: ${origin}`, ELogType.error)
         hasCORSMismatching = true
-    }   
+    }
 
     // Chek Methods
     const allowedMethods = process.env.CORS_METHODS?.split(",").map( m => m.trim())
@@ -42,9 +47,10 @@ export const corsCheck = (a_Req: Request, a_Res: Response, a_Next: NextFunction)
         if(!allowedHeaders?.includes(h) && h.length > 0){
             log(`[CORS] Header mismatched: ${h}`, ELogType.error)
             hasCORSMismatching = true
-        }       
+        }
     })
-    
+
+    a_Res.locals.corsMismatch = hasCORSMismatching
     a_Next();
 }
 
@@ -79,7 +85,7 @@ export const cors = (a_Req: Request, a_Res: Response, a_Next: NextFunction) => {
     // Handle preflight requests (OPTIONS) immediately.
     // Browsers send these before certain cross-origin requests to check permissions.
     if (a_Req.method === 'OPTIONS') {
-        if(hasCORSMismatching){
+        if(a_Res.locals.corsMismatch){
             log("[CORS] Send status 403 to preflight request", ELogType.error);
             return a_Res.sendStatus(403);    
         } else {
