@@ -31,4 +31,10 @@ export const users = [
     password: 'guest123',
     role: ERequestUserRole.noRight,
   },
+  {
+    id: 6,
+    username: 'user',
+    password: 'user',
+    role: ERequestUserRole.readAndwrite,
+  },
 ];

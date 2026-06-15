@@ -25,6 +25,7 @@ servers:
 
 tags:
   - name: System
+  - name: Auth
   - name: Events
 
 paths:
@@ -46,14 +47,141 @@ paths:
         "503":
           description: Service unhealthy
 
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Log in with username and password
+      description: >
+        Authenticates a user with a username and password. On success it returns a
+        short-lived access token (default 1 hour) and a long-lived refresh token
+        (default 7 days). Send the access token on protected endpoints as
+        `Authorization: Bearer <accessToken>`.
+      operationId: login
+      security: []
+      parameters:
+        - name: username
+          in: query
+          schema:
+            type: string
+
+        - name: password
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Authenticated; access and refresh tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Username or password missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Exchange a refresh token for a new access token
+      description: >
+        Issues a new access token when given a valid, unexpired refresh token. When
+        the refresh token is missing the response is 400; when it is invalid or
+        expired the response is 401 and the client must log in again.
+      operationId: refreshToken
+      security: []
+      parameters:
+        - name: refreshToken
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+      responses:
+        "200":
+          description: New access token issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefreshResponse"
+        "400":
+          description: Refresh token missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Refresh token invalid or expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/check-token:
+    post:
+      tags: [Auth]
+      summary: Validate an access token
+      description: >
+        Verifies that a token is well-formed and unexpired. Returns success when the
+        token is valid; otherwise returns 400.
+      operationId: checkToken
+      security: []
+      parameters:
+        - name: token
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckTokenRequest"
+      responses:
+        "200":
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckTokenResponse"
+        "400":
+          description: Token missing, invalid, or expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /events:
     post:
       tags: [Events]
       summary: Get events report
       description: >
         Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.
+        Requires a valid access token in the `Authorization: Bearer <accessToken>` header.
       operationId: getEventsReport
-      security: []
+      security:
+        - bearerAuth: []
 
       parameters:
         - name: limit
@@ -118,6 +246,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+        "401":
+          description: Missing, invalid, or expired access token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
         "429":
           description: Rate limit exceeded
           content:
@@ -133,7 +268,66 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from /auth/login or /auth/refresh.
+
   schemas:
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      required: [success, accessToken, refreshToken]
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+          description: "Short-lived JWT (default 1h). Send as `Authorization: Bearer <accessToken>`."
+        refreshToken:
+          type: string
+          description: Long-lived JWT (default 7d) used to obtain new access tokens via /auth/refresh.
+
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+
+    RefreshResponse:
+      type: object
+      required: [success, accessToken]
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+
+    CheckTokenRequest:
+      type: object
+      required: [token]
+      properties:
+        token:
+          type: string
+
+    CheckTokenResponse:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
 
     BufferUnit:
       type: string

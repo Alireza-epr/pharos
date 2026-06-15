@@ -5,6 +5,8 @@ export interface ITextInputProps {
   value: string;
   onChange?: (value: string) => void;
   placeholder?: string;
+  title?: string;
+  type?: 'text' | 'password';
   disabled?: boolean;
   readOnly?: boolean;
   copiable?: boolean;
@@ -44,12 +46,15 @@ const TextInput = (props: ITextInputProps) => {
     }
   };
 
-  const interactionClasses = props.readOnly ? '' : 'focus hover';
+  const type = props.type ?? 'text';
+  // The global `hover` class styles non-text inputs like buttons, so keep it for
+  // text fields only; password fields use focus styling alone.
+  const interactionClasses = props.readOnly ? '' : type === 'text' ? 'focus hover' : 'focus';
 
   const input = (
     <input
       className={`font-size-sm disabled ${interactionClasses} ${textInputStyle.input} ${props.readOnly ? textInputStyle.readonly : ''}`}
-      type="text"
+      type={type}
       value={props.value}
       disabled={props.disabled}
       readOnly={props.readOnly}
@@ -58,9 +63,7 @@ const TextInput = (props: ITextInputProps) => {
     />
   );
 
-  if (!props.copiable) return input;
-
-  return (
+  const control = !props.copiable ? input : (
     <div className={textInputStyle.wrapper}>
       {input}
       <button
@@ -73,6 +76,15 @@ const TextInput = (props: ITextInputProps) => {
         {copied ? <CheckIcon /> : <CopyIcon />}
       </button>
     </div>
+  );
+
+  if (!props.title) return control;
+
+  return (
+    <label className={textInputStyle.field}>
+      <span className={`font-size-sm ${textInputStyle.title}`}>{props.title}</span>
+      {control}
+    </label>
   );
 };
 

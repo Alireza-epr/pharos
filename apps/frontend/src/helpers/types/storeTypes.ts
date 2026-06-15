@@ -8,7 +8,7 @@ import { TMatchFilter } from '../enum/generalEnum';
 export interface IAppStoreStates {
   theme: TTheme;
   language: TLanguage;
-  backendStatus: boolean
+  backendStatus: boolean;
 }
 export interface IAppStoreActions {
   setTheme: (
@@ -26,6 +26,17 @@ export interface IAppStoreActions {
       | IAppStoreStates['backendStatus']
       | ((a_Prev: IAppStoreStates['backendStatus']) => IAppStoreStates['backendStatus']),
   ) => void;
+}
+
+export interface ILoginStoreStates {
+  accessToken: string;
+  refreshToken: string;
+}
+export interface ILoginStoreActions {
+  setAccessToken: ( a_Value: ILoginStoreStates['accessToken'] | ((a_Prev: ILoginStoreStates['accessToken']) => ILoginStoreStates['accessToken']) ) => void;
+  setRefreshToken: ( a_Value: ILoginStoreStates['refreshToken'] | ((a_Prev: ILoginStoreStates['refreshToken']) => ILoginStoreStates['refreshToken']) ) => void;
+  // Clears the session so the app routes back to the login screen.
+  logout: () => void;
 }
 
 export interface IEventStoreStates {

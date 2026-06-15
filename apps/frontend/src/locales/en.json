@@ -165,5 +165,15 @@
             "next": "Next ›",
             "prev": "‹ Previous"
         }
+    },
+    "login": {
+        "subtitle": "Sign in to continue",
+        "username": "Username",
+        "password": "Password",
+        "usernamePlaceholder": "Enter your username",
+        "passwordPlaceholder": "Enter your password",
+        "submit": "Sign in",
+        "submitting": "Signing in…",
+        "error": "Invalid username or password"
     }
 }

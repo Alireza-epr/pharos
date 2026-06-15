@@ -28,10 +28,10 @@ const HeaderPanel = () => {
   return (
     <div className={` ${headerPanelStyle.wrapper}`}>
       <div className={` ${headerPanelStyle.logoWrapper}`}>
-        <span className={`font-size-base font-bold ${headerPanelStyle.logo}`}>
+        <span className={`font-size-base font-bold logo`}>
           {t("general.label.appName")}
         </span>
-        <span className={`font-size-xs font-light ${headerPanelStyle.logoSub}`}>
+        <span className={`font-size-xs font-light logo-sub`}>
           {t("header.text.subLogo")}
         </span>
       </div>

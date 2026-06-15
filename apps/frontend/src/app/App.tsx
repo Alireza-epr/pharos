@@ -7,14 +7,16 @@ import DetailDrawer from '../components/sidebar/DetailDrawer';
 import HeaderPanel from '../components/layout/HeaderPanel';
 import { useEventStore } from '../stores/eventStore';
 import { useAppStore } from '../stores/appStore';
-import { log_frontend } from '@packages/utils';
-import { ELogType } from '@packages/enum';
+import { useLoginStore } from '../stores/loginStore';
+import { useHealth } from '../hooks/system';
+import Login from '../components/layout/Login';
 
 export interface IAppProps { }
 
 const App = () => {
   const theme = useAppStore((state) => state.theme);
-  const setBackendStatus = useAppStore(s => s.setBackendStatus)
+
+  const isAuthenticated = useLoginStore(s => !!s.accessToken);
 
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 
@@ -22,32 +24,9 @@ const App = () => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const checkBackendStatus = async () => {
-      try {
-        const resp = await fetch(`${import.meta.env.VITE_BASE_API_URL}/v1/system/health`, {
-          signal: controller.signal, //a read-only object passed to fetch
-        });
-        if (!resp.ok) throw new Error("[App] Backend health check failed");
-        const respJSON = await resp.json();
-        if (!respJSON.success) throw new Error("[App] Backend health check failed");
-        setBackendStatus(true);
-      } catch (err) {
-        // When controller.abort() is called, the fetch throws an AbortError immediately. So no further code is executed
-        if ((err as Error).name === "AbortError") return;
-        log_frontend(err, ELogType.error);
-        setBackendStatus(false);
-      }
-    };
+  useHealth(isAuthenticated);
 
-    checkBackendStatus();
-    const interval = setInterval(checkBackendStatus, 30000);
-    return () => {
-      clearInterval(interval);
-      controller.abort();  //cancels anything listening to that signal
-    };
-  }, []);
+  if (!isAuthenticated) return <Login />;
 
   return (
     <div className={` ${appStyle.layout}`}>

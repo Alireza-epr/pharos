@@ -3,10 +3,10 @@
 ## Base URL
 
 **Iteration 1 (Local):**
-http://localhost:<API_PORT>/v1/
+http://localhost:{API_PORT}/v1/
 
 **Future Version (Production):**
-https://<DOMAIN>/api/v1
+https://{DOMAIN}/api/v1
 
 ---
 
@@ -36,6 +36,9 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 ## Table of Contents
 
 - [System Health](#system-health)
+- [Authentication Login](#authentication-login)
+- [Authentication Refresh Token](#authentication-refresh-token)
+- [Authentication Token Check](#authentication-token-check)
 - [Events Report](#events-report)
 
 ---
@@ -98,6 +101,224 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 ---
 
+## Authentication Login
+
+**POST** `/auth/login`
+
+**Description:**
+`Authenticates a user with a username and password and returns a short-lived access token and a long-lived refresh token used to authorize protected endpoints.`
+
+**Authentication:**
+`None (public)`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter | Description             | Required | Format | Param Type |
+| --------- | ----------------------- | -------- | ------ | ---------- |
+| username  | Username of the account | False    | string | query      |
+| password  | Password of the account | False    | string | query      |
+
+---
+
+### 2. Request - Body
+
+| Key      | Description             | Required | Format | Param Type |
+| -------- | ----------------------- | -------- | ------ | ---------- |
+| username | Username of the account | True     | string | body       |
+| password | Password of the account | True     | string | body       |
+
+Example:
+
+```json
+{
+  "username": "user",
+  "password": "user"
+}
+```
+
+---
+
+### 3. Response
+
+| Field        | Description                                       | Format  |
+| ------------ | ------------------------------------------------- | ------- |
+| success      | Request status                                    | boolean |
+| accessToken  | Short-lived JWT used to authorize protected calls | string  |
+| refreshToken | Long-lived JWT used to obtain a new access token  | string  |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "accessToken": "<jwt-access-token>",
+  "refreshToken": "<jwt-refresh-token>"
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Credential is required (username or password missing)
+- `401 Unauthorized` – Invalid credentials
+
+---
+
+### 5. Notes
+
+- Credentials may be provided either in the JSON request body or as `username` / `password` query parameters
+- The returned access token must be sent as `Authorization: Bearer <accessToken>` to call protected endpoints
+- Access tokens are short-lived; use the refresh token to obtain a new access token without re-authenticating
+- For local testing, log in with username `user` and password `user`
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
+## Authentication Refresh Token
+
+**POST** `/auth/refresh`
+
+**Description:**
+`Exchanges a valid, unexpired refresh token for a new short-lived access token without re-entering credentials.`
+
+**Authentication:**
+`None (public)`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter    | Description                                      | Required | Format | Param Type |
+| ------------ | ------------------------------------------------ | -------- | ------ | ---------- |
+| refreshToken | Refresh token previously issued by `/auth/login` | False    | string | query      |
+
+---
+
+### 2. Request - Body
+
+| Key          | Description                                      | Required | Format | Param Type |
+| ------------ | ------------------------------------------------ | -------- | ------ | ---------- |
+| refreshToken | Refresh token previously issued by `/auth/login` | True     | string | body       |
+
+Example:
+
+```json
+{
+  "refreshToken": "<jwt-refresh-token>"
+}
+```
+
+---
+
+### 3. Response
+
+| Field       | Description                               | Format  |
+| ----------- | ----------------------------------------- | ------- |
+| success     | Request status                            | boolean |
+| accessToken | Newly issued short-lived JWT access token | string  |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "accessToken": "<jwt-access-token>"
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Refresh token required (refreshToken missing)
+- `401 Unauthorized` – Refresh token expired, please login again
+- `401 Unauthorized` – Invalid or expired refresh token
+
+---
+
+### 5. Notes
+
+- The refresh token may be provided either in the JSON request body or as a `refreshToken` query parameter
+- An expired refresh token returns `401`; the client must log in again to obtain a new token pair
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
+## Authentication Token Check
+
+**POST** `/auth/check-token`
+
+**Description:**
+`Verifies that an access token is well-formed and unexpired. Returns success when the token is valid.`
+
+**Authentication:**
+`None (public)`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter | Description              | Required | Format | Param Type |
+| --------- | ------------------------ | -------- | ------ | ---------- |
+| token     | Access token to validate | False    | string | query      |
+
+---
+
+### 2. Request - Body
+
+| Key   | Description              | Required | Format | Param Type |
+| ----- | ------------------------ | -------- | ------ | ---------- |
+| token | Access token to validate | True     | string | body       |
+
+Example:
+
+```json
+{
+  "token": "<jwt-access-token>"
+}
+```
+
+---
+
+### 3. Response
+
+| Field   | Description    | Format  |
+| ------- | -------------- | ------- |
+| success | Request status | boolean |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Invalid or expired token (token missing, malformed, or expired)
+
+---
+
+### 5. Notes
+
+- The token may be provided either in the JSON request body or as a `token` query parameter
+- A missing, malformed, or expired token all return `400` with the same error message
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
 ## Events Report
 
 **POST** `/events`
@@ -106,7 +327,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 `Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.`
 
 **Authentication:**
-`None (public)`
+`Bearer access token required`
 
 ---
 
@@ -340,6 +561,7 @@ Default:
 - `400 Bad Request` – Invalid query parameters
 - `400 Bad Request` – Body validation failed
 - `400 Bad Request` – Offset exceeds total available items
+- `401 Unauthorized` – Missing, invalid, or expired access token
 - `500 Internal Server Error` – Unexpected server-side failure
 
 ---

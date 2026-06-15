@@ -18,8 +18,6 @@ import {
   TEventSource,
   IConfigJSON,
   I4wingsEntry,
-  IRejectedEventSchema,
-  ISortOption,
   IFeature,
   IGeometry,
 } from '@packages/types';
@@ -139,8 +137,7 @@ export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
   return a_Source.split(':')[1] as `v${number}.${number}`;
 };
 
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+
 
 export const getSourceFrom4wingsResponse = (
   a_4wingsResponse: I4wingsAPIResponse,

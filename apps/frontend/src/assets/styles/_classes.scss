@@ -193,6 +193,33 @@ body {
   margin-right: var(--margin-default);
 }
 
+// logo 
+.logo {
+  font-family: var(--font-family-tech);
+  color: var(--color-primary-purple8);
+  white-space: nowrap;
+}
+
+.logo-sub {
+  font-family: var(--font-family-header);
+  color: var(--color-secondary-blue9);
+  flex: 1; /* pushes .actions to the right */
+  white-space: nowrap;
+}
+
+// Card
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-md);
+  width: 100%;
+  max-width: 360px;
+  padding: var(--padding-default-lg) var(--padding-default-md);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-md);
+  background: var(--theme-bg-panel);
+}
+
 /* Mobile Grid */
 @media (max-width: $max-width-mobile) {
   .grid {

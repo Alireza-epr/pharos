@@ -1,3 +1,15 @@
+// Stacks an optional title label above the input
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-half);
+  font-family: var(--font-family-tech);
+}
+
+.title {
+  color: var(--theme-text-secondary);
+}
+
 .wrapper {
   display: flex;
   gap: var(--padding-gap);

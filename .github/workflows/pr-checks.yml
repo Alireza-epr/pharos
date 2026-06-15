@@ -35,6 +35,7 @@ jobs:
         working-directory: apps/backend
         run: |
           echo "GFW_TOKEN=${{ secrets.GFW_TOKEN }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
 
       - name: Run Backend Lint
         working-directory: apps/backend

@@ -34,7 +34,8 @@ import { ERequestUserRole } from '../enum/tokenEnum';
 */
 
 export const generateRefreshToken = (a_Payload: JwtPayload) => {
-  const refresh_token_expiry = ms(config.auth.refresh_token_expiry);
+  // jsonwebtoken treats a numeric expiresIn as seconds, so convert ms -> seconds
+  const refresh_token_expiry = ms(config.auth.refresh_token_expiry) / 1000;
   const refreshToken = jwt.sign(a_Payload, config.auth.jwt_secret, {
     expiresIn: refresh_token_expiry,
   });
