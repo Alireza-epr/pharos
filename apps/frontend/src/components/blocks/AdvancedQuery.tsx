@@ -70,7 +70,6 @@ const AdvancedQuery = () => {
                     options={spatialResolutionOptions}
                     onChange={setSpatialResolution}
                     placeholder={t('sidebar.placeholder.none')}
-                    onClear={() => setSpatialResolution('')}
                 />
             </SectionItem>
 
@@ -96,7 +95,6 @@ const AdvancedQuery = () => {
                     options={groupByOptions}
                     onChange={setGroupBy}
                     placeholder={t('sidebar.placeholder.none')}
-                    onClear={() => setGroupBy('')}
                 />
             </SectionItem>
 

@@ -66,8 +66,8 @@ export interface I4wingsReportPostURLParams {
  * If a user is expected to call the same URL multiple times, this can result in a substantial performance improvement.
  */
 export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
-  "region-dataset": ERegionDatasets;
-  "region-id": string;
+  "region-dataset"?: ERegionDatasets;
+  "region-id"?: string;
   "buffer-operation"?: ERegionBufferOperations;
   "buffer-unit"?: ERegionBufferUnits;
   "buffer-value"?: string;

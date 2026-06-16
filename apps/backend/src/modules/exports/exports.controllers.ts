@@ -3,7 +3,6 @@ import { controllerResponse } from '../../helpers/utils/controllerUtils';
 import { EFetchMethods, EResponseMessage, EStatusCode } from '@packages/enum';
 import config from '../../config/pilot.json';
 import { IConfigJSON, TBodyParams, TURLParams } from '@packages/types';
-import URLs from '../../config/globalFishingWatch.json';
 import { evidenceExport } from '../../pipeline/export/bundle';
 import { getUserInfoFromReq } from '../../helpers/utils/backendUtils';
 
@@ -26,27 +25,33 @@ export const evidenceController = async (
   const threshold = body?.threshold ?? config.threshold;
   const sort = body?.sort ?? config.sort;
   const hotspot = body?.hotspot ?? config.hotspot;
+  const pagination = body.pagination;
+  const URL = body.URL
 
   const filter = body?.filter ?? {};
   const body_params = body?.body_params ?? null;
 
-  const configs: IConfigJSON = {
-    method: EFetchMethods.post,
-    URL: URLs.url['4wings'].endpoints.report,
-    body_params,
+
+  const base_config = {
+    URL,
     url_params,
     threshold,
     sort,
     hotspot,
     filter,
+    pagination,
     gitCommitSHA: a_Req.gitCommitSHA,
-    output: 'data/out/exports/',
-    export: {
-      'events.csv': true,
-      'event.geojson': true,
-      'run_metadata.json': true,
-    },
-  };
+  }
+
+  const configs: IConfigJSON = body.method === EFetchMethods.get
+    ? {
+      ...base_config,
+      method: EFetchMethods.get
+    } : {
+      ...base_config,
+      method: EFetchMethods.post,
+      body_params: body.body_params!
+    };
 
   await evidenceExport(
     configs,

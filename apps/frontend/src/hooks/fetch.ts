@@ -1,5 +1,5 @@
-import { EBaseRoutes, EFetchMethods, ELogType, TURLParams } from "@packages/enum";
-import { TBodyParams } from "@packages/types";
+import { EBaseRoutes, EFetchMethods, ELogType} from "@packages/enum";
+import { IEventSchema, IResponse, TBodyParams, TURLParams } from "@packages/types";
 import { log_frontend } from "@packages/utils";
 import { useState, useCallback } from "react";
 import { getAPIConfig } from ".";
@@ -9,14 +9,19 @@ const { BASE_URL } = getAPIConfig()
 
 export const useFetchEvents = () => {
     const url = `${BASE_URL}${EBaseRoutes.events}`
-    const [data, setData] = useState(null);
+    const [response, setResponse] = useState<IResponse<IEventSchema> | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const execute = useCallback(async (a_Method: EFetchMethods, a_URLParams: TURLParams, a_Body: TBodyParams) => {
-        const params = new URLSearchParams(a_URLParams)
+    const execute = useCallback(async (a_URLParams: TURLParams, a_Body: TBodyParams) => {
+        const params = new URLSearchParams(
+            Object.entries(a_URLParams).reduce<Record<string, string>>((acc, [key, value]) => {
+                if (value !== undefined && value.length !== 0) acc[key] = String(value);
+                return acc;
+            }, {})
+        )
         const options = {
-            method: a_Method,
+            method: EFetchMethods.post,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -26,8 +31,8 @@ export const useFetchEvents = () => {
             setLoading(true);
             setError(null);
             const res = await fetchWithAuth(`${url}?${params.toString()}`, options);
-            const json = await res.json();
-            setData(json);
+            const json: IResponse<IEventSchema> = await res.json();
+            setResponse(json);
             return json;
         } catch (err: any) {
             log_frontend(`[useFetchEvents] Error: ${JSON.stringify(err)}`, ELogType.error, "3")
@@ -37,6 +42,6 @@ export const useFetchEvents = () => {
         }
     }, [url]);
 
-    return { data, loading, error, execute };
+    return { response, loading, error, execute };
 }
 

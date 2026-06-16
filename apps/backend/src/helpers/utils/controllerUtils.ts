@@ -7,10 +7,10 @@ import {
 import { EResponseError, EStatusCode, EViolationError } from '@packages/enum';
 import { deepSortObject, isObject } from '@packages/utils';
 
-export const controllerResponse = (
+export const controllerResponse = <T>(
   a_Res: Response,
   a_StatusCode: EStatusCode,
-  a_Json: IResponse,
+  a_Json: IResponse<T>,
 ) => {
   a_Res.status(a_StatusCode).json(deepSortObject(a_Json));
 };

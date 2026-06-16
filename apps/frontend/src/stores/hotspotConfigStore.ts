@@ -6,10 +6,10 @@ import { IHotspotConfigStoreActions, IHotspotConfigStoreStates } from '../helper
 export const useHotspotConfigStore = create<IHotspotConfigStoreStates & IHotspotConfigStoreActions>(
     combine(
         {
-            resolution: 5,
+            resolution: 5 as IHotspotConfigStoreStates["resolution"],
             timeBin: EHotspotTimeBins.HOURLY,
         },
-        (set) => ({
+        (set, get) => ({
             setResolution: (a_Value) =>
                 set((state) => ({
                     resolution: typeof a_Value === 'function' ? a_Value(state.resolution) : a_Value,
@@ -18,6 +18,13 @@ export const useHotspotConfigStore = create<IHotspotConfigStoreStates & IHotspot
                 set((state) => ({
                     timeBin: typeof a_Value === 'function' ? a_Value(state.timeBin) : a_Value,
                 })),
+            getHotspot: () => {
+                const state = get()
+                return {
+                    resolution: state.resolution,
+                    timeBin: state.timeBin
+                } 
+            }
         }),
     ),
 );

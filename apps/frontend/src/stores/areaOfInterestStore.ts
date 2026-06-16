@@ -1,18 +1,20 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import { IAOIStoreActions, IAOIStoreStates } from '../helpers/types/storeTypes';
+import { ERegionDatasets } from '@packages/enum';
 
 export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
     combine(
         {
             zonal: false,
             point: false,
+            feature: null as IAOIStoreStates["feature"],
             eezOptions: [] as IAOIStoreStates["eezOptions"],
             eezActive: undefined as IAOIStoreStates["eezActive"],
             mpaOptions: [] as IAOIStoreStates["mpaOptions"],
             mpaActive: undefined as IAOIStoreStates["mpaActive"],
         },
-        (set) => ({
+        (set, get) => ({
             setZonal: (a_Value) =>
                 set((state) => ({
                     zonal: typeof a_Value === 'function' ? a_Value(state.zonal) : a_Value,
@@ -37,6 +39,12 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
                 set((state) => ({
                     mpaActive: typeof a_Value === 'function' ? a_Value(state.mpaActive) : a_Value,
                 })),
+            getAOI: () => {
+                const { eezActive, mpaActive, feature } = get()
+                if (eezActive) return { "region-dataset": ERegionDatasets.eez, "region-id": eezActive.value }
+                if (mpaActive) return { "region-dataset": ERegionDatasets.mpa, "region-id": mpaActive.value }
+                return feature
+            },
         }),
     ),
 );

@@ -19,10 +19,17 @@ const Filter = () => {
     const filters = useFilterStore(s => s.filters)
     const setFilters = useFilterStore(s => s.setFilters)
 
+    const filtersUI = useFilterStore(s => s.filtersUI)
+    const setFiltersUI = useFilterStore(s => s.setFiltersUI)
+
     const { t } = useTranslator()
 
     const updateFilter = (patch: Partial<IFilterStoreStates['filters']>) => {
         setFilters(prev => ({ ...prev, ...patch }))
+    }
+
+    const updateFilterUI = (patch: Partial<IFilterStoreStates['filtersUI']>) => {
+        setFiltersUI(prev => ({ ...prev, ...patch }))
     }
 
     const toggleReasonCode = (a_Mode: TInclusionMode, a_Code: EReasonCodesStatic) => {
@@ -52,8 +59,8 @@ const Filter = () => {
             <SectionItem title={t('sidebar.titles.matchingStatus')} collapsible={false}>
                 <CheckboxInput
                     label={t('general.label.unmatchedOnly')}
-                    checked={filters.unmatched_only}
-                    onChange={(v) => updateFilter({ unmatched_only: v })}
+                    checked={filtersUI.unmatched_only}
+                    onChange={(v) => updateFilterUI({ unmatched_only: v })}
                 />
             </SectionItem>
 
@@ -81,7 +88,7 @@ const Filter = () => {
             <SectionItem title={t('sidebar.label.bathymetry')} collapsible={false}>
                 <SectionInputGroup direction="row">
                     <NumberInput label={t('general.label.min')} value={filters.bathymetry_min ?? 0} onChange={(v) => updateFilter({ bathymetry_min: v })} />
-                    <NumberInput label={t('general.label.max')} value={filters.bathymetry_max ?? 100} onChange={(v) => updateFilter({ bathymetry_max: v })} />
+                    <NumberInput label={t('general.label.max')} value={filters.bathymetry_max ?? 0} onChange={(v) => updateFilter({ bathymetry_max: v })} />
                 </SectionInputGroup>
             </SectionItem>
 

@@ -1,4 +1,4 @@
-import { useTranslator } from "@/hooks/translator"
+import { useTranslator } from "../../hooks/translator"
 import Section from "../common/section/Section"
 import SectionItem from "../common/section/SectionItem"
 import NumberInput from "../common/inputs/NumberInput"

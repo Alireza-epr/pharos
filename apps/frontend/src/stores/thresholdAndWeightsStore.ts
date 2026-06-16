@@ -28,13 +28,16 @@ const defaultThreshold: IConfigJSON["threshold"] = {
 export const useThresholdAndWeightsStore = create<IThresholdAndWeightsStoreStates & IThresholdAndWeightsStoreActions>(
     combine(
         {
-            threshold: defaultThreshold as IThresholdAndWeightsStoreStates['threshold'],
+            threshold: defaultThreshold satisfies IThresholdAndWeightsStoreStates['threshold'],
         },
-        (set) => ({
+        (set, get) => ({
             setThreshold: (a_Value) =>
                 set((state) => ({
                     threshold: typeof a_Value === 'function' ? a_Value(state.threshold) : a_Value,
-                }))
+                })),
+            getThreshold: () => {
+                return get().threshold
+            }
         }),
     ),
 );

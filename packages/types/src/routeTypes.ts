@@ -1,8 +1,7 @@
 import { ESystemRoutes, EAuthRoutes, EReasonCodes } from "@packages/enum";
 import {
   I4wingsReportGetURLParams,
-  I4wingsReportPostBodyParams,
-  IEventGetURLParams,
+  I4wingsReportPostURLParams,
 } from "./gfwTypes";
 import { IConfigJSON } from "./eventTypes";
 export type TEndpoints = ESystemRoutes | EAuthRoutes;
@@ -27,6 +26,6 @@ export interface IFilteringParamsUI {
   unmatched_only: boolean;
 }
 
-export type TBodyParams = Omit<IConfigJSON, "output">;
+export type TBodyParams = Omit<IConfigJSON, "url_params">;
 
-export type TURLParams = I4wingsReportGetURLParams & IEventGetURLParams;
+export type TURLParams = I4wingsReportGetURLParams | I4wingsReportPostURLParams;

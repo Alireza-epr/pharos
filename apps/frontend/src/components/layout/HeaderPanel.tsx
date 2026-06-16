@@ -1,8 +1,9 @@
-import { useAppStore } from '@/stores/appStore';
+import { useAppStore } from '../../stores/appStore';
 import headerPanelStyle from './HeaderPanel.module.scss';
-import { ETheme } from '@/helpers/enum/storeEnum';
-import { ELanguage } from '@/helpers/enum/translationEnum';
-import { useTranslator } from '@/hooks/translator';
+import { ETheme } from '../../helpers/enum/storeEnum';
+import { ELanguage } from '../../helpers/enum/translationEnum';
+import { useTranslator } from '../../hooks/translator';
+import { useLoginStore } from '../../stores/loginStore';
 
 export interface IHeaderPanelProps { }
 
@@ -16,6 +17,8 @@ const HeaderPanel = () => {
 
   const backendStatus = useAppStore((s) => s.backendStatus);
   const setBackendStatus = useAppStore((s) => s.setBackendStatus);
+
+  const logout = useLoginStore((s) => s.logout);
   
   const toggleTheme = () => {
     setTheme((prev) => (prev === ETheme.dark ? ETheme.light : ETheme.dark));
@@ -55,6 +58,12 @@ const HeaderPanel = () => {
           onClick={toggleTheme}
         >
           {theme === ETheme.dark ? t("header.label.light") : t("header.label.dark")}
+        </span>
+        <span
+          className={`font-size-xs ${headerPanelStyle.chip}`}
+          onClick={logout}
+        >
+          {t("login.logout")}
         </span>
       </div>
     </div>

@@ -189,19 +189,49 @@ paths:
         - bearerAuth: []
 
       parameters:
-        - name: limit
+        - name: datasets[0]
           in: query
           required: true
+          description: >
+            Indexed dataset identifier(s) to query. Repeat with an incrementing
+            index for multiple datasets: datasets[0], datasets[1], ...
           schema:
-            type: integer
-            minimum: 1
+            type: string
 
-        - name: offset
+        - name: filters[0]
+          in: query
+          description: >
+            Indexed filter expression(s) applied to the upstream query:
+            filters[0], filters[1], ...
+          schema:
+            type: string
+
+        - name: format
           in: query
           required: true
           schema:
-            type: integer
-            minimum: 0
+            $ref: "#/components/schemas/Format"
+
+        - name: temporal-resolution
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/TemporalResolution"
+
+        - name: spatial-resolution
+          in: query
+          schema:
+            $ref: "#/components/schemas/SpatialResolution"
+
+        - name: group-by
+          in: query
+          schema:
+            $ref: "#/components/schemas/GroupBy"
+
+        - name: spatial-aggregation
+          in: query
+          schema:
+            type: boolean
 
         - name: region-dataset
           in: query
@@ -339,6 +369,26 @@ components:
       type: string
       enum: [MILES, NAUTICALMILES, KILOMETERS, RADIANS, DEGREES]
 
+    Format:
+      type: string
+      enum: [CSV, TIF, JSON]
+
+    TemporalResolution:
+      type: string
+      enum: [HOURLY, DAILY, MONTHLY, YEARLY, ENTIRE]
+
+    SpatialResolution:
+      type: string
+      enum: [LOW, HIGH]
+
+    GroupBy:
+      type: string
+      enum: [VESSEL_ID, FLAG, GEARTYPE, FLAGANDGEARTYPE, MMSI]
+
+    FetchMethod:
+      type: string
+      enum: [GET, POST]
+
     HealthResponse:
       type: object
       required: [success]
@@ -349,6 +399,11 @@ components:
     EventsReportRequest:
       type: object
       properties:
+        URL:
+          type: string
+          description: Upstream 4Wings report endpoint URL used as the data source.
+        method:
+          $ref: "#/components/schemas/FetchMethod"
         body_params:
           $ref: "#/components/schemas/BodyParams"
         filter:
@@ -359,6 +414,8 @@ components:
           $ref: "#/components/schemas/Hotspot"
         threshold:
           $ref: "#/components/schemas/Threshold"
+        pagination:
+          $ref: "#/components/schemas/PaginationParams"
 
     BodyParams:
       type: object
@@ -474,6 +531,19 @@ components:
             type: object
             additionalProperties:
               type: string
+
+    PaginationParams:
+      type: object
+      required: [limit, offset]
+      properties:
+        limit:
+          type: integer
+          minimum: 1
+          description: Items per page. Defaults to 100 when the pagination object is omitted.
+        offset:
+          type: integer
+          minimum: 0
+          description: Items to skip before collecting results. Defaults to 0 when the pagination object is omitted.
 
     Pagination:
       type: object

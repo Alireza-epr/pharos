@@ -116,4 +116,3 @@ export type TLogType = typeof ELogType[keyof typeof ELogType]
 export const EURLParams= {
   loglevel: "loglevel"
 }
-export type TURLParams = typeof EURLParams[keyof typeof EURLParams]

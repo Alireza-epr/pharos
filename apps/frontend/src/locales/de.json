@@ -14,7 +14,10 @@
             "min": "Min",
             "max": "Max",
             "exportAll": "Alles exportieren",
-            "version": "Ver."
+            "version": "Ver.",
+            "pagination": "Paginierung",
+            "limit": "Limit",
+            "offset": "Versatz"
         },
         "action": {
             "copy": "Kopieren"
@@ -53,7 +56,7 @@
             "selectEEZ": "EEZ auswählen...",
             "selectMPA": "MPA auswählen...",
             "none": "Keine",
-            "filterExpression": "vessel_type in ('cargo')",
+            "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
             "rawQuery": "Freie Abfrage eingeben..."
         },
         "label": {
@@ -174,6 +177,7 @@
         "passwordPlaceholder": "Passwort eingeben",
         "submit": "Anmelden",
         "submitting": "Anmeldung läuft…",
-        "error": "Ungültiger Benutzername oder Passwort"
+        "error": "Ungültiger Benutzername oder Passwort",
+        "logout": "Abmelden"
     }
 }

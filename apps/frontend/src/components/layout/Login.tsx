@@ -50,17 +50,15 @@ const Login = () => {
           disabled={loading}
         />
 
-        {loading && <Loading size={ELoadingSize.sm} /> }
         {error && <p className={`font-size-sm ${loginStyle.error}`}>{t('login.error')}</p>}
 
         <div className={loginStyle.actions}>
           <ButtonInput
             label={loading ? t('login.submitting') : t('login.submit')}
             disabled={!canSubmit}
+            loading={loading}
           />
         </div>
-
-
       </form>
     </div>
   );

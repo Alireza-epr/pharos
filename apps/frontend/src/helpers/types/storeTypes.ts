@@ -1,8 +1,8 @@
-import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, ISortOption } from '@packages/types';
+import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, IGeometry, IHotspotConfig, ISortOption, T4wingsSource } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
-import { EFormat, EGroupBy, EHotspotTimeBins, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
+import { EFormat, EGroupBy, EHotspotTimeBins, ERegionDatasets, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
 import { TMatchFilter } from '../enum/generalEnum';
 
 export interface IAppStoreStates {
@@ -58,13 +58,19 @@ export interface IBottomStoreActions {
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams & IFilteringParamsUI;
+  filters: IFilteringParams;
+  filtersUI: IFilteringParamsUI;
 }
 export interface IFilterStoreActions {
   setFilters: (
     a_Value:
       | IFilterStoreStates['filters']
       | ((a_Prev: IFilterStoreStates['filters']) => IFilterStoreStates['filters']),
+  ) => void;
+  setFiltersUI: (
+    a_Value:
+      | IFilterStoreStates['filtersUI']
+      | ((a_Prev: IFilterStoreStates['filtersUI']) => IFilterStoreStates['filtersUI']),
   ) => void;
 }
 
@@ -102,7 +108,7 @@ export interface ISortOrderStoreActions {
 }
 
 export interface IHotspotConfigStoreStates {
-  resolution: number;
+  resolution: IHotspotConfig["resolution"];
   timeBin: EHotspotTimeBins;
 }
 export interface IHotspotConfigStoreActions {
@@ -116,6 +122,7 @@ export interface IHotspotConfigStoreActions {
       | IHotspotConfigStoreStates['timeBin']
       | ((a_Prev: IHotspotConfigStoreStates['timeBin']) => IHotspotConfigStoreStates['timeBin']),
   ) => void;
+  getHotspot: () => IHotspotConfigStoreStates
 }
 
 export interface ITimeRangeStoreStates {
@@ -138,6 +145,7 @@ export interface ITimeRangeStoreActions {
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
+  feature: IGeometry | null
   eezOptions: IDropdownOption<string>[];
   eezActive: IDropdownOption<string> | undefined;
   mpaOptions: IDropdownOption<string>[];
@@ -174,6 +182,10 @@ export interface IAOIStoreActions {
       | IAOIStoreStates['mpaActive']
       | ((a_Prev: IAOIStoreStates['mpaActive']) => IAOIStoreStates['mpaActive']),
   ) => void;
+  getAOI: () => IGeometry | {
+    "region-dataset": ERegionDatasets,
+    "region-id": string
+  } | null
 }
 
 export interface IThresholdAndWeightsStoreStates {
@@ -185,14 +197,17 @@ export interface IThresholdAndWeightsStoreActions {
       | IThresholdAndWeightsStoreStates['threshold']
       | ((a_Prev: IThresholdAndWeightsStoreStates['threshold']) => IThresholdAndWeightsStoreStates['threshold']),
   ) => void;
+  getThreshold: () => IThresholdAndWeightsStoreStates["threshold"]
 }
 
 export interface IAdvancedQueryStoreStates {
-  spatialResolution: ESpatialResolution | '';
+  spatialResolution: ESpatialResolution;
   format: EFormat;
-  groupBy: EGroupBy | '';
+  groupBy: EGroupBy;
   temporalResolution: ETemporalResolution;
   datasets: T4wingsDatasetsUI[];
+  mainDatasetVersion: number;
+  subDatasetVersion: number;
   filterText: string;
   spatialAggregation: boolean;
   rawQuery: string;
@@ -203,7 +218,21 @@ export interface IAdvancedQueryStoreActions {
   setGroupBy: (a_Value: IAdvancedQueryStoreStates['groupBy'] | ((a_Prev: IAdvancedQueryStoreStates['groupBy']) => IAdvancedQueryStoreStates['groupBy'])) => void;
   setTemporalResolution: (a_Value: IAdvancedQueryStoreStates['temporalResolution'] | ((a_Prev: IAdvancedQueryStoreStates['temporalResolution']) => IAdvancedQueryStoreStates['temporalResolution'])) => void;
   setDatasets: (a_Value: IAdvancedQueryStoreStates['datasets'] | ((a_Prev: IAdvancedQueryStoreStates['datasets']) => IAdvancedQueryStoreStates['datasets'])) => void;
+  setMainDatasetVersion: (a_Value: IAdvancedQueryStoreStates['mainDatasetVersion'] | ((a_Prev: IAdvancedQueryStoreStates['mainDatasetVersion']) => IAdvancedQueryStoreStates['mainDatasetVersion'])) => void;
+  setSubDatasetVersion: (a_Value: IAdvancedQueryStoreStates['subDatasetVersion'] | ((a_Prev: IAdvancedQueryStoreStates['subDatasetVersion']) => IAdvancedQueryStoreStates['subDatasetVersion'])) => void;
   setFilterText: (a_Value: IAdvancedQueryStoreStates['filterText'] | ((a_Prev: IAdvancedQueryStoreStates['filterText']) => IAdvancedQueryStoreStates['filterText'])) => void;
   setSpatialAggregation: (a_Value: IAdvancedQueryStoreStates['spatialAggregation'] | ((a_Prev: IAdvancedQueryStoreStates['spatialAggregation']) => IAdvancedQueryStoreStates['spatialAggregation'])) => void;
   setRawQuery: (a_Value: IAdvancedQueryStoreStates['rawQuery'] | ((a_Prev: IAdvancedQueryStoreStates['rawQuery']) => IAdvancedQueryStoreStates['rawQuery'])) => void;
+  getDatasets: () => Record<string, T4wingsSource> | undefined
+  getAdvancedQuery: () => Omit<IAdvancedQueryStoreStates, "datasets" | "mainDatasetVersion" | "subDatasetVersion" >
+}
+
+export interface IPaginationStoreStates {
+  limit: number | null,
+  offset: number | null
+}
+export interface IPaginationStoreActions {
+  setLimit: (a_Value: IPaginationStoreStates['limit'] | ((a_Prev: IPaginationStoreStates['limit']) => IPaginationStoreStates['limit']) ) => void;
+  setOffset: (a_Value: IPaginationStoreStates['offset'] | ((a_Prev: IPaginationStoreStates['offset']) => IPaginationStoreStates['offset']) ) => void;
+  getPagination: () => IPaginationStoreStates
 }

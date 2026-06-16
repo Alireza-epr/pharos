@@ -87,6 +87,11 @@ export const validateBodyParams = (a_Body: unknown): IValidationResult => {
     };
   }
 
+  // pagination (optional)
+  if (a_Body.pagination !== undefined) {
+    validatePagination(a_Body.pagination, errors);
+  }
+
   // threshold (optional)
   if (a_Body.threshold !== undefined) {
     validateThreshold(a_Body.threshold, errors);
@@ -143,10 +148,6 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
   }
 
   // Required
-  validateNumber(a_Query.limit, 'limit', errors, true);
-
-  validateNumber(a_Query.offset, 'offset', errors, true);
-
   validateEnum(a_Query.format, FORMAT, 'format', errors, true);
 
   validateEnum(
@@ -247,6 +248,38 @@ const validateGeoJSON = (a_Geojson: unknown, a_Errors: IValidationError[]) => {
     );
   }
 };
+
+/* =========================================================
+ * PAGINATION VALIDATION
+ * =======================================================*/
+
+const validatePagination = (
+  a_Pagination: unknown,
+  a_Errors: IValidationError[],
+) => {
+  if (!validateRequiredObject(a_Pagination, 'pagination', a_Errors)) {
+    return;
+  }
+
+  const requiredFields = [ "limit", "offset" ];
+
+  for (const field of requiredFields) {
+    const value = a_Pagination[field];
+
+    if (value === undefined) {
+      addError(
+        a_Errors,
+        EResponseError.REQUIRED_FIELD_MISSING,
+        `pagination.${field}`,
+      );
+      continue;
+    }
+
+    if (!isNumber(value)) {
+      addError(a_Errors, EResponseError.INVALID_NUMBER, `pagination.${field}`);
+    }
+  }
+}
 
 /* =========================================================
  * THRESHOLD VALIDATION

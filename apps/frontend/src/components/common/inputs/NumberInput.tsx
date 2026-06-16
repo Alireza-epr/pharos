@@ -33,7 +33,7 @@ const NumberInput = (props: INumberInputProps) => {
         step={props.step}
         disabled={props.disabled}
         placeholder={props.placeholder}
-        readOnly
+        readOnly={props.readOnly}
         onChange={(e) => props.onChange && props.onChange(Number(e.target.value))}
       />
     </div>
