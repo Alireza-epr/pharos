@@ -5,7 +5,7 @@ export const fetchWithRetry = async (
   a_URL: string | URL | Request,
   a_Init: RequestInit | undefined,
   a_Retries: number,
-  a_Delay: number
+  a_Delay: number,
 ): Promise<Response> => {
   let currentDelay = a_Delay;
 
@@ -27,7 +27,7 @@ export const fetchWithRetry = async (
 
       return response;
     } catch (error) {
-      if ((error as Error).message.includes('Non-retryable error')) {
+      if ((error as Error).message.includes("Non-retryable error")) {
         throw `[fetchWithRetry] Error: ${error}`;
       }
 
@@ -40,5 +40,5 @@ export const fetchWithRetry = async (
     }
   }
 
-  throw new Error('[fetchWithRetry] failed unexpectedly');
+  throw new Error("[fetchWithRetry] failed unexpectedly");
 };

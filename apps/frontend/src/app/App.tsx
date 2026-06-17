@@ -1,5 +1,5 @@
 import { Activity, useEffect } from 'react';
-import appStyle from "./App.module.scss"
+import appStyle from './App.module.scss';
 import Sidebar from '../components/sidebar/Sidebar';
 import MapView from '../components/map/MapView';
 import BottomPanel from '../components/layout/BottomPanel';
@@ -11,12 +11,12 @@ import { useLoginStore } from '../stores/loginStore';
 import { useHealth } from '../hooks/system';
 import Login from '../components/layout/Login';
 
-export interface IAppProps { }
+export interface IAppProps {}
 
 const App = () => {
   const theme = useAppStore((state) => state.theme);
 
-  const isAuthenticated = useLoginStore(s => !!s.accessToken);
+  const isAuthenticated = useLoginStore((s) => !!s.accessToken);
 
   const selectedEvent = useEventStore((state) => state.selectedEvent);
 

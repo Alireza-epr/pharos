@@ -4,42 +4,58 @@ import sectionItemStyle from './SectionItem.module.scss';
 export interface ISectionItemProps {
   title: string;
   children: ReactNode;
-  collapsible?: boolean,
+  collapsible?: boolean;
   caveat?: string;
   tab?: boolean;
   active?: boolean;
-  hint?: string
+  hint?: string;
 }
 
 const SectionItem = (props: ISectionItemProps) => {
   const [open, setOpen] = useState(props.collapsible);
 
   return (
-    <div 
+    <div
       className={` ${sectionItemStyle.wrapper} ${props.collapsible !== undefined ? sectionItemStyle.clickable : ''} ${props.tab ? 'margin-left' : ''}`}
     >
-      <span 
-        onClick={props.collapsible !== undefined ? () => setOpen((prev) => !prev) : undefined}
+      <span
+        onClick={
+          props.collapsible !== undefined
+            ? () => setOpen((prev) => !prev)
+            : undefined
+        }
         className={`font-size-sm ${sectionItemStyle.label}`}
       >
-        <span className={`${sectionItemStyle.titleText} truncate active`} data-active={props.active} >
+        <span
+          className={`${sectionItemStyle.titleText} truncate active`}
+          data-active={props.active}
+        >
           {props.title}
-          {
-            props.caveat && (
-              <span className={`font-size-sm caveat`} title={props.caveat}>⚠</span>
-            )
-          }
-          {
-            props.hint && (
-              <span className={`font-size-sm hint`} title={props.hint}>ℹ</span>
-            )
-          }
+          {props.caveat && (
+            <span className={`font-size-sm caveat`} title={props.caveat}>
+              ⚠
+            </span>
+          )}
+          {props.hint && (
+            <span className={`font-size-sm hint`} title={props.hint}>
+              ℹ
+            </span>
+          )}
         </span>
         {props.collapsible !== undefined && (
-          <span className={`font-size-base ${sectionItemStyle.chevron} ${open ? sectionItemStyle.open : ''}`}>▾</span>
+          <span
+            className={`font-size-base ${sectionItemStyle.chevron} ${open ? sectionItemStyle.open : ''}`}
+          >
+            ▾
+          </span>
         )}
       </span>
-      <Activity children={<div className={` ${sectionItemStyle.content}`}>{props.children}</div>} mode={props.collapsible !== undefined && !open ? "hidden" : "visible"}/>
+      <Activity
+        children={
+          <div className={` ${sectionItemStyle.content}`}>{props.children}</div>
+        }
+        mode={props.collapsible !== undefined && !open ? 'hidden' : 'visible'}
+      />
     </div>
   );
 };

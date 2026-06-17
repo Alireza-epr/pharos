@@ -33,7 +33,7 @@ import { getBathymetryContext } from '../features/bathymetry_cached';
 import {
   formatTimestamp,
   getGitCommitSHA,
-  log
+  log,
 } from '../../helpers/utils/backendUtils';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { sortEventSchema } from '@packages/utils';

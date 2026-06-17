@@ -120,12 +120,12 @@ export interface IConfigBase extends THiddenConfig {
   output?: string;
   filter: IFilteringParams;
   sort: ISortOption[];
-  pagination: TPaginationConfig
+  pagination: TPaginationConfig;
 }
 
 export interface IConfigGet extends IConfigBase {
   method: EFetchMethods.get;
-  url_params: I4wingsReportGetURLParams
+  url_params: I4wingsReportGetURLParams;
   body_params?: never;
 }
 

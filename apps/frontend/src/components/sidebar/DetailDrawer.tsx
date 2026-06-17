@@ -19,7 +19,9 @@ const DetailDrawer = () => {
   const setSelectedEvent = useEventStore((state) => state.setSelectedEvent);
 
   return (
-    <div className={`${sidebarStyle.wrapper} ${!selectedEvent ? detailDrawerStyle.hidden : ''}`}>
+    <div
+      className={`${sidebarStyle.wrapper} ${!selectedEvent ? detailDrawerStyle.hidden : ''}`}
+    >
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         {selectedEvent && (
           <>
@@ -36,11 +38,16 @@ const DetailDrawer = () => {
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup>
           <ButtonInput label={t('detailPanel.action.prev')} />
-          <ButtonInput label={t('detailPanel.action.deselect')} onClick={() => setSelectedEvent(null)}/>
+          <ButtonInput
+            label={t('detailPanel.action.deselect')}
+            onClick={() => setSelectedEvent(null)}
+          />
           <ButtonInput label={t('detailPanel.action.next')} />
         </SectionInputGroup>
 
-        <span className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery}`}>
+        <span
+          className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery}`}
+        >
           {t('detailPanel.text.dataLimitationBody')}
         </span>
       </div>

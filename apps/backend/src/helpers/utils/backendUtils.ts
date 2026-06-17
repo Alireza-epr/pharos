@@ -138,8 +138,6 @@ export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
   return a_Source.split(':')[1] as TDatasetVersion;
 };
 
-
-
 export const getSourceFrom4wingsResponse = (
   a_4wingsResponse: I4wingsAPIResponse,
   a_Dataset: E4wingsDatasets,
@@ -238,12 +236,6 @@ export const getDateBucket = (
     ? getDate(a_Datetime)
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
 };
-
-
-
-
-
-
 
 export const featureFromEvents = (
   a_Events: IEventSchema[],

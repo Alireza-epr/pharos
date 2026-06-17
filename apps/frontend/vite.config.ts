@@ -8,9 +8,18 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@packages/enum': path.resolve(__dirname, '../../packages/enum/src/index.ts'),
-      '@packages/types': path.resolve(__dirname, '../../packages/types/src/index.ts'),
-      '@packages/utils': path.resolve(__dirname, '../../packages/utils/src/index.ts'),
+      '@packages/enum': path.resolve(
+        __dirname,
+        '../../packages/enum/src/index.ts',
+      ),
+      '@packages/types': path.resolve(
+        __dirname,
+        '../../packages/types/src/index.ts',
+      ),
+      '@packages/utils': path.resolve(
+        __dirname,
+        '../../packages/utils/src/index.ts',
+      ),
     },
   },
   css: {

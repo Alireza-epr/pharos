@@ -34,4 +34,4 @@ export interface IPagination {
   currentPage?: number | null;
 }
 
-export type TPaginationConfig = Pick<IPagination, "limit" | "offset">
+export type TPaginationConfig = Pick<IPagination, "limit" | "offset">;

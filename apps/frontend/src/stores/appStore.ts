@@ -15,15 +15,20 @@ export const useAppStore = create<IAppStoreStates & IAppStoreActions>()(
       (set) => ({
         setTheme: (a_Value) =>
           set((state) => ({
-            theme: typeof a_Value === 'function' ? a_Value(state.theme) : a_Value,
+            theme:
+              typeof a_Value === 'function' ? a_Value(state.theme) : a_Value,
           })),
         setLanguage: (a_Value) =>
           set((state) => ({
-            language: typeof a_Value === 'function' ? a_Value(state.language) : a_Value,
+            language:
+              typeof a_Value === 'function' ? a_Value(state.language) : a_Value,
           })),
         setBackendStatus: (a_Value) =>
           set((state) => ({
-            backendStatus: typeof a_Value === 'function' ? a_Value(state.backendStatus) : a_Value,
+            backendStatus:
+              typeof a_Value === 'function'
+                ? a_Value(state.backendStatus)
+                : a_Value,
           })),
       }),
     ),

@@ -261,7 +261,7 @@ const validatePagination = (
     return;
   }
 
-  const requiredFields = [ "limit", "offset" ];
+  const requiredFields = ['limit', 'offset'];
 
   for (const field of requiredFields) {
     const value = a_Pagination[field];
@@ -279,7 +279,7 @@ const validatePagination = (
       addError(a_Errors, EResponseError.INVALID_NUMBER, `pagination.${field}`);
     }
   }
-}
+};
 
 /* =========================================================
  * THRESHOLD VALIDATION
@@ -405,9 +405,7 @@ const validateFilters = (a_Filters: unknown, a_Errors: IValidationError[]) => {
     }
   }
 
-  const textFields: (keyof IFilteringParams)[] = [
-    'event_id'
-  ];
+  const textFields: (keyof IFilteringParams)[] = ['event_id'];
 
   for (const field of textFields) {
     const value = a_Filters[field];
@@ -416,7 +414,6 @@ const validateFilters = (a_Filters: unknown, a_Errors: IValidationError[]) => {
       addError(a_Errors, EResponseError.INVALID_STRING, `filters.${field}`);
     }
   }
-
 };
 
 /* =========================================================

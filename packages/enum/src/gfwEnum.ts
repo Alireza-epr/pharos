@@ -297,8 +297,9 @@ export const E4wingsDatasetsUI = {
   [E4wingsDatasets.fishingEffort]: "AIS Apparent Fishing Effort",
   [E4wingsDatasets.SARVesselDetections]: "SAR Vessel Detections",
   [E4wingsDatasets.AISVesselPresence]: "AIS Vessel Presence",
-} as const
-export type T4wingsDatasetsUI = typeof E4wingsDatasetsUI[keyof typeof E4wingsDatasetsUI]
+} as const;
+export type T4wingsDatasetsUI =
+  (typeof E4wingsDatasetsUI)[keyof typeof E4wingsDatasetsUI];
 
 export enum EEventDatasets {
   fishingEvent = "public-global-fishing-events",

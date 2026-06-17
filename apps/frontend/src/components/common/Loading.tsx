@@ -1,11 +1,11 @@
-import React from "react";
-import loadingStyle from "./Loading.module.scss";
-import { ELoadingSize } from "../../helpers/types/generalTypes";
+import React from 'react';
+import loadingStyle from './Loading.module.scss';
+import { ELoadingSize } from '../../helpers/types/generalTypes';
 
 export interface ILoadingProps {
   text?: string;
   size: ELoadingSize;
-  marginVertical?: React.CSSProperties["margin"];
+  marginVertical?: React.CSSProperties['margin'];
 }
 
 const Loading = (props: ILoadingProps) => {
@@ -17,10 +17,10 @@ const Loading = (props: ILoadingProps) => {
         <></>
       )}
       <div
-        className={` ${loadingStyle.loader} ${props.size ? loadingStyle[props.size] : ""}`}
+        className={` ${loadingStyle.loader} ${props.size ? loadingStyle[props.size] : ''}`}
         style={{
-          marginTop: props.marginVertical ? `${props.marginVertical}` : "",
-          marginBottom: props.marginVertical ? `${props.marginVertical}` : "",
+          marginTop: props.marginVertical ? `${props.marginVertical}` : '',
+          marginBottom: props.marginVertical ? `${props.marginVertical}` : '',
         }}
       />
     </div>

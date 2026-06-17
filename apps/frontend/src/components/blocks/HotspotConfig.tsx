@@ -1,4 +1,3 @@
-
 import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
 import NumberInput from '../common/inputs/NumberInput';
@@ -9,40 +8,42 @@ import { EHotspotTimeBins } from '@packages/enum';
 
 export interface IHotspotConfigProps {}
 
-const timeBinOptions: IDropdownOption<EHotspotTimeBins>[] = Object.values(EHotspotTimeBins).map((bin) => ({
-    label: bin,
-    value: bin,
-}))
+const timeBinOptions: IDropdownOption<EHotspotTimeBins>[] = Object.values(
+  EHotspotTimeBins,
+).map((bin) => ({
+  label: bin,
+  value: bin,
+}));
 
 const HotspotConfig = () => {
-    const resolution = useHotspotConfigStore(s => s.resolution)
-    const setResolution = useHotspotConfigStore(s => s.setResolution)
+  const resolution = useHotspotConfigStore((s) => s.resolution);
+  const setResolution = useHotspotConfigStore((s) => s.setResolution);
 
-    const timeBin = useHotspotConfigStore(s => s.timeBin)
-    const setTimeBin = useHotspotConfigStore(s => s.setTimeBin)
+  const timeBin = useHotspotConfigStore((s) => s.timeBin);
+  const setTimeBin = useHotspotConfigStore((s) => s.setTimeBin);
 
-    const { t } = useTranslator()
+  const { t } = useTranslator();
 
-    return (
-        <Section title={t('sidebar.titles.hotspotConfig')} collapsible={false}>
-            <SectionItem title={t('sidebar.label.resolution')}>
-                <NumberInput
-                    value={resolution}
-                    min={0}
-                    max={15}
-                    step={1}
-                    onChange={setResolution}
-                />
-            </SectionItem>
-            <SectionItem title={t('sidebar.label.timeBin')}>
-                <DropdownInput
-                    value={timeBin}
-                    options={timeBinOptions}
-                    onChange={setTimeBin}
-                />
-            </SectionItem>
-        </Section>
-    )
-}
+  return (
+    <Section title={t('sidebar.titles.hotspotConfig')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.resolution')}>
+        <NumberInput
+          value={resolution}
+          min={0}
+          max={15}
+          step={1}
+          onChange={setResolution}
+        />
+      </SectionItem>
+      <SectionItem title={t('sidebar.label.timeBin')}>
+        <DropdownInput
+          value={timeBin}
+          options={timeBinOptions}
+          onChange={setTimeBin}
+        />
+      </SectionItem>
+    </Section>
+  );
+};
 
-export default HotspotConfig
+export default HotspotConfig;

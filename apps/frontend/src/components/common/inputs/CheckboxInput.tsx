@@ -10,9 +10,15 @@ export interface ICheckboxInputProps {
 
 const CheckboxInput = (props: ICheckboxInputProps) => {
   const control = (
-    <label className={`hover disabled active font-size-sm ${checkboxInputStyle.wrapper}`} data-disabled={props.disabled} data-active={props.checked}>
+    <label
+      className={`hover disabled active font-size-sm ${checkboxInputStyle.wrapper}`}
+      data-disabled={props.disabled}
+      data-active={props.checked}
+    >
       <span className={` ${checkboxInputStyle.box}`}>
-        {props.checked && <span className={`font-size-sm ${checkboxInputStyle.tick}`}>✓</span>}
+        {props.checked && (
+          <span className={`font-size-sm ${checkboxInputStyle.tick}`}>✓</span>
+        )}
       </span>
       <input
         className={checkboxInputStyle.input}
@@ -21,7 +27,9 @@ const CheckboxInput = (props: ICheckboxInputProps) => {
         disabled={props.disabled}
         onChange={(e) => props.onChange(e.target.checked)}
       />
-      <span className={`hover ${checkboxInputStyle.label} truncate`}>{props.label}</span>
+      <span className={`hover ${checkboxInputStyle.label} truncate`}>
+        {props.label}
+      </span>
     </label>
   );
 
@@ -29,7 +37,9 @@ const CheckboxInput = (props: ICheckboxInputProps) => {
 
   return (
     <div className={checkboxInputStyle.field}>
-      <span className={`font-size-sm ${checkboxInputStyle.title}`}>{props.title}</span>
+      <span className={`font-size-sm ${checkboxInputStyle.title}`}>
+        {props.title}
+      </span>
       {control}
     </div>
   );

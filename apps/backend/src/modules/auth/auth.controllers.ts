@@ -89,8 +89,12 @@ export const refreshController = (a_Req: Request, a_Res: Response) => {
 
 export const checkTokenController = (a_Req: Request, a_Res: Response) => {
   // Support both JSON body and query parameters
-  const token = a_Req.body?.accessToken || a_Req.query?.accessToken || a_Req.body?.refreshToken || a_Req.query?.refreshToken;
-  
+  const token =
+    a_Req.body?.accessToken ||
+    a_Req.query?.accessToken ||
+    a_Req.body?.refreshToken ||
+    a_Req.query?.refreshToken;
+
   if (token) {
     try {
       const tokenVerification = verifyToken(token);

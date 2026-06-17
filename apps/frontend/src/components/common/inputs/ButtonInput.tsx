@@ -9,7 +9,7 @@ export interface IButtonInputProps {
   loading?: boolean;
   size?: 'sm';
   onClick?: () => void;
-  readOnly?: boolean
+  readOnly?: boolean;
 }
 
 const ButtonInput = (props: IButtonInputProps) => {

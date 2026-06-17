@@ -1,6 +1,6 @@
 import numberInputStyle from './NumberInput.module.scss';
 
-export type TNumberInputDirection = 'row' | 'column'
+export type TNumberInputDirection = 'row' | 'column';
 
 export interface INumberInputProps {
   value: number;
@@ -16,13 +16,17 @@ export interface INumberInputProps {
 }
 
 const NumberInput = (props: INumberInputProps) => {
-
   const interactionClasses = props.readOnly ? '' : 'focus hover';
 
   return (
-    <div className={numberInputStyle.wrapper} data-direction={props.direction ?? 'column'}>
+    <div
+      className={numberInputStyle.wrapper}
+      data-direction={props.direction ?? 'column'}
+    >
       {props.label && (
-        <span className={`font-size-sm ${numberInputStyle.label}`}>{props.label}</span>
+        <span className={`font-size-sm ${numberInputStyle.label}`}>
+          {props.label}
+        </span>
       )}
       <input
         className={`font-size-sm disabled ${interactionClasses} ${numberInputStyle.input} ${props.readOnly ? numberInputStyle.readonly : ''}`}
@@ -34,7 +38,9 @@ const NumberInput = (props: INumberInputProps) => {
         disabled={props.disabled}
         placeholder={props.placeholder}
         readOnly={props.readOnly}
-        onChange={(e) => props.onChange && props.onChange(Number(e.target.value))}
+        onChange={(e) =>
+          props.onChange && props.onChange(Number(e.target.value))
+        }
       />
     </div>
   );

@@ -94,25 +94,25 @@ export const EPastTime = {
   weeks: "weeks",
   months: "months",
   years: "years",
-} as const
-export type TPastTime = typeof EPastTime[keyof typeof EPastTime]
+} as const;
+export type TPastTime = (typeof EPastTime)[keyof typeof EPastTime];
 
 export const EInclusionMode = {
-  include: 'include',
-  exclude: 'exclude'
-} as const
-export type TInclusionMode = typeof EInclusionMode[keyof typeof EInclusionMode]
+  include: "include",
+  exclude: "exclude",
+} as const;
+export type TInclusionMode =
+  (typeof EInclusionMode)[keyof typeof EInclusionMode];
 
+export const ELogType = {
+  info: "INFO",
+  warn: "WARN",
+  error: "ERROR",
+  request: "REQUEST",
+  success: "SUCCESS",
+};
+export type TLogType = (typeof ELogType)[keyof typeof ELogType];
 
-export const ELogType= {
-  info: 'INFO',
-  warn: 'WARN',
-  error: 'ERROR',
-  request: 'REQUEST',
-  success: 'SUCCESS',
-}
-export type TLogType = typeof ELogType[keyof typeof ELogType]
-
-export const EURLParams= {
-  loglevel: "loglevel"
-}
+export const EURLParams = {
+  loglevel: "loglevel",
+};

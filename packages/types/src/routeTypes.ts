@@ -1,4 +1,15 @@
-import { ESystemRoutes, EAuthRoutes, EReasonCodes, E4wingsDatasets, TMatchFilter, ECountryFlag, ESpeedRange, EGearType, EVessleType, ENeuralVesselType } from "@packages/enum";
+import {
+  ESystemRoutes,
+  EAuthRoutes,
+  EReasonCodes,
+  E4wingsDatasets,
+  TMatchFilter,
+  ECountryFlag,
+  ESpeedRange,
+  EGearType,
+  EVessleType,
+  ENeuralVesselType,
+} from "@packages/enum";
 import {
   I4wingsReportGetURLParams,
   I4wingsReportPostURLParams,
@@ -21,19 +32,22 @@ export interface IFilteringParams {
   is_inside_mpa?: boolean;
   bathymetry_min?: number;
   bathymetry_max?: number;
-  event_id?: string
+  event_id?: string;
 }
 
 export interface IFilteringParamsUI {
-  datasets: Record<E4wingsDatasets, {active: boolean, version: TDatasetVersion}>,
+  datasets: Record<
+    E4wingsDatasets,
+    { active: boolean; version: TDatasetVersion }
+  >;
   vessel_id: string;
   matchingStatus: TMatchFilter;
   flags: ECountryFlag[];
   speeds: ESpeedRange[];
-  gearTypes: EGearType[],
-  vesselTypes: EVessleType[]
-  neuralVesselType: ENeuralVesselType | "",
-  minimumDistanceFromPorts: string
+  gearTypes: EGearType[];
+  vesselTypes: EVessleType[];
+  neuralVesselType: ENeuralVesselType | "";
+  minimumDistanceFromPorts: string;
 }
 
 export type TBodyParams = Omit<IConfigJSON, "url_params">;

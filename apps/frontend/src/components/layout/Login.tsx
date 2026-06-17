@@ -26,7 +26,7 @@ const Login = () => {
       <form className={`card`} onSubmit={handleSubmit}>
         <div className={` ${loginStyle.header}`}>
           <span className={`font-size-xl font-bold logo`}>
-            {t("general.label.appName")}
+            {t('general.label.appName')}
           </span>
           <span className={`font-size-sm font-light logo-sub`}>
             {t('login.subtitle')}
@@ -50,7 +50,11 @@ const Login = () => {
           disabled={loading}
         />
 
-        {error && <p className={`font-size-sm ${loginStyle.error}`}>{t('login.error')}</p>}
+        {error && (
+          <p className={`font-size-sm ${loginStyle.error}`}>
+            {t('login.error')}
+          </p>
+        )}
 
         <div className={loginStyle.actions}>
           <ButtonInput

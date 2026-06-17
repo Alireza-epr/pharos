@@ -26,11 +26,10 @@ export const evidenceController = async (
   const sort = body?.sort ?? config.sort;
   const hotspot = body?.hotspot ?? config.hotspot;
   const pagination = body.pagination;
-  const URL = body.URL
+  const URL = body.URL;
 
   const filter = body?.filter ?? {};
   const body_params = body?.body_params ?? null;
-
 
   const base_config = {
     URL,
@@ -41,17 +40,19 @@ export const evidenceController = async (
     filter,
     pagination,
     gitCommitSHA: a_Req.gitCommitSHA,
-  }
+  };
 
-  const configs: IConfigJSON = body.method === EFetchMethods.get
-    ? {
-      ...base_config,
-      method: EFetchMethods.get
-    } : {
-      ...base_config,
-      method: EFetchMethods.post,
-      body_params: body.body_params!
-    };
+  const configs: IConfigJSON =
+    body.method === EFetchMethods.get
+      ? {
+          ...base_config,
+          method: EFetchMethods.get,
+        }
+      : {
+          ...base_config,
+          method: EFetchMethods.post,
+          body_params: body.body_params!,
+        };
 
   await evidenceExport(
     configs,

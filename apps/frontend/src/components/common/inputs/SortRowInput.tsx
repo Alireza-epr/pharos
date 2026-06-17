@@ -30,10 +30,7 @@ const SortRowInput = (props: ISortRowInputProps) => {
         />
       </div>
       <div className={sortRowStyle.action}>
-        <ButtonInput
-          label="×"
-          onClick={props.onRemove}
-        />
+        <ButtonInput label="×" onClick={props.onRemove} />
       </div>
     </div>
   );

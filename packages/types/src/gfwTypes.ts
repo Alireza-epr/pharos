@@ -342,7 +342,7 @@ export type TGlobalEvent =
   | ILoiteringEvent
   | IPortVisitEvent;
 
-export type TDatasetVersion = `v${number}.${number}`;  
+export type TDatasetVersion = `v${number}.${number}`;
 export type TSourceKey = `datasets[${number}]`;
 export type TFilterKey = `filters[${number}]`;
 export type TDatasetMatchedFilter = `matched in ('${boolean}')`;

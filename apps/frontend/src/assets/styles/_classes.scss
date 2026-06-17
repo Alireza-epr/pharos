@@ -2,7 +2,9 @@
 @import './vars';
 @import './typography';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -124,20 +126,21 @@ body {
   }
 }
 
-// Pseudo-class 
+// Pseudo-class
 .hover {
-  &:hover:not(:disabled, [type="text"]) {
+  &:hover:not(:disabled, [type='text']) {
     background: var(--theme-bg-button-hover);
     color: var(--theme-text-primary-reverse);
   }
 
-  &:hover:not(:disabled):is([type="text"]) {
+  &:hover:not(:disabled):is([type='text']) {
     border-color: var(--color-primary-purple6);
   }
 }
 
-.disabled {  
-  &:disabled, &[data-disabled='true']{
+.disabled {
+  &:disabled,
+  &[data-disabled='true'] {
     opacity: 0.4;
     cursor: not-allowed;
   }
@@ -169,12 +172,14 @@ body {
   letter-spacing: var(--letter-spacing-sm);
 }
 
-.badge-matched, .badge-conf-high {
+.badge-matched,
+.badge-conf-high {
   background: var(--color-accent-teal6);
   color: var(--color-accent-teal2);
 }
 
-.badge-unmatched, .badge-conf-low {
+.badge-unmatched,
+.badge-conf-low {
   background: var(--color-alert-orange6);
   color: var(--color-alert-orange3);
 }
@@ -185,15 +190,15 @@ body {
 }
 
 // Margin
-.margin-left{
+.margin-left {
   margin-left: var(--margin-default);
 }
 
-.margin-right{
+.margin-right {
   margin-right: var(--margin-default);
 }
 
-// logo 
+// logo
 .logo {
   font-family: var(--font-family-tech);
   color: var(--color-primary-purple8);
@@ -220,7 +225,7 @@ body {
   background: var(--theme-bg-panel);
 }
 
-// Caveat and Hint 
+// Caveat and Hint
 .caveat {
   color: var(--color-alert-orange1);
   padding: 0 var(--padding-gap);
@@ -235,8 +240,8 @@ body {
 
 // Truncate
 .truncate {
-  white-space: nowrap;    
-  overflow: hidden;       
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 

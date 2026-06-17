@@ -193,7 +193,7 @@ export const samples = [
           {
             id: '5694',
             label: 'Swedish Exclusive Economic Zone',
-          }
+          },
         ],
         version: 'v12',
       },
@@ -525,7 +525,7 @@ export const samples = [
           {
             id: '5694',
             label: 'Swedish Exclusive Economic Zone',
-          }
+          },
         ],
         version: 'v12',
       },

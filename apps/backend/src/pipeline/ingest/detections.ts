@@ -1,8 +1,6 @@
 import { config } from '../../config/api';
 import { ELogType } from '../../helpers/types/generalTypes';
-import {
-  IConfigJSON,
-} from '@packages/types';
+import { IConfigJSON } from '@packages/types';
 import { log } from '../../helpers/utils/backendUtils';
 import { fetchWithRetry } from '@packages/utils';
 

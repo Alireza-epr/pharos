@@ -1,62 +1,80 @@
-import { useLoginStore } from "../../stores/loginStore";
-import { getAPIConfig } from "../../hooks";
-import { EAuthRoutes, EBaseRoutes, EFetchMethods, ELogType } from "@packages/enum";
-import { fetchWithRetry, log_frontend } from "@packages/utils";
+import { useLoginStore } from '../../stores/loginStore';
+import { getAPIConfig } from '../../hooks';
+import {
+  EAuthRoutes,
+  EBaseRoutes,
+  EFetchMethods,
+  ELogType,
+} from '@packages/enum';
+import { fetchWithRetry, log_frontend } from '@packages/utils';
 
-const { BASE_URL, RETRIES, RETRY_DELAY } = getAPIConfig()
+const { BASE_URL, RETRIES, RETRY_DELAY } = getAPIConfig();
 
 // A single refresh can be shared across concurrent (in-flight) requests so a
 // burst of 401s triggers only one /auth/refresh call.
-let refreshInFlight: Promise<string | null> | null = null
+let refreshInFlight: Promise<string | null> | null = null;
 
 const requestRefresh = async (): Promise<string | null> => {
-    const { refreshToken, setAccessToken, logout } = useLoginStore.getState()
-    if (!refreshToken) return null
-    try {
-        const res = await fetch(`${BASE_URL}${EBaseRoutes.auth}${EAuthRoutes.refresh}`, {
-            method: EFetchMethods.post,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refreshToken }),
-        })
-        if (!res.ok) throw new Error(`HTTP error: ${res.status}`)
-        const json = await res.json()
-        setAccessToken(json.accessToken ?? "")
-        return json.accessToken ?? null
-    } catch (err) {
-        log_frontend(`[requestRefresh] Error: ${JSON.stringify(err)}`, ELogType.error, "3")
-        // Refresh failed -> clear the session so the app routes back to login
-        logout()
-        return null
-    }
-}
+  const { refreshToken, setAccessToken, logout } = useLoginStore.getState();
+  if (!refreshToken) return null;
+  try {
+    const res = await fetch(
+      `${BASE_URL}${EBaseRoutes.auth}${EAuthRoutes.refresh}`,
+      {
+        method: EFetchMethods.post,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+      },
+    );
+    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+    const json = await res.json();
+    setAccessToken(json.accessToken ?? '');
+    return json.accessToken ?? null;
+  } catch (err) {
+    log_frontend(
+      `[requestRefresh] Error: ${JSON.stringify(err)}`,
+      ELogType.error,
+      '3',
+    );
+    // Refresh failed -> clear the session so the app routes back to login
+    logout();
+    return null;
+  }
+};
 
 const refreshAccessToken = (): Promise<string | null> => {
-    if (!refreshInFlight) {
-        refreshInFlight = requestRefresh().finally(() => { refreshInFlight = null })
-    }
-    return refreshInFlight
-}
+  if (!refreshInFlight) {
+    refreshInFlight = requestRefresh().finally(() => {
+      refreshInFlight = null;
+    });
+  }
+  return refreshInFlight;
+};
 
 // General authed-fetch wrapper: injects the current access token at call-time
 // (no stale closures), retries transient errors with backoff via fetchWithRetry,
 // and transparently refreshes the access token once on a 401.
-export const fetchWithAuth = async (a_URL: string, a_Init: RequestInit): Promise<Response> => {
-    const withAuth = (a_Token: string): RequestInit => ({
-        ...a_Init,
-        headers: {
-            ...(a_Init.headers as Record<string, string> | undefined),
-            Authorization: `Bearer ${a_Token}`,
-        },
-    })
+export const fetchWithAuth = async (
+  a_URL: string,
+  a_Init: RequestInit,
+): Promise<Response> => {
+  const withAuth = (a_Token: string): RequestInit => ({
+    ...a_Init,
+    headers: {
+      ...(a_Init.headers as Record<string, string> | undefined),
+      Authorization: `Bearer ${a_Token}`,
+    },
+  });
 
-    const token = useLoginStore.getState().accessToken
-    try {
-        return await fetchWithRetry(a_URL, withAuth(token), RETRIES, RETRY_DELAY)
-    } catch (err) {
-        if (String(err).includes("401")) {
-            const newToken = await refreshAccessToken()
-            if (newToken) return fetchWithRetry(a_URL, withAuth(newToken), RETRIES, RETRY_DELAY)
-        }
-        throw err
+  const token = useLoginStore.getState().accessToken;
+  try {
+    return await fetchWithRetry(a_URL, withAuth(token), RETRIES, RETRY_DELAY);
+  } catch (err) {
+    if (String(err).includes('401')) {
+      const newToken = await refreshAccessToken();
+      if (newToken)
+        return fetchWithRetry(a_URL, withAuth(newToken), RETRIES, RETRY_DELAY);
     }
-}
+    throw err;
+  }
+};

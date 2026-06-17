@@ -6,13 +6,13 @@ export interface IChipGroupInputProps<T extends string> {
   active?: T[];
   onToggle?: (value: T) => void;
   variant?: string;
-  readOnly?: boolean
+  readOnly?: boolean;
 }
 
 const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {
   return (
     <div className={chipGroupStyle.chips}>
-      {props.values.map(value => (
+      {props.values.map((value) => (
         <ButtonInput
           key={value}
           label={value}

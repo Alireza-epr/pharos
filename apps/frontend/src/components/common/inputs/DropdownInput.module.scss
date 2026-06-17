@@ -24,7 +24,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: var(--padding-default-half) 0 var(--padding-default-half) var(--padding-default);
+  padding: var(--padding-default-half) 0 var(--padding-default-half)
+    var(--padding-default);
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-button);

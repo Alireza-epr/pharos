@@ -12,7 +12,7 @@
   color: var(--theme-text-secondary);
 }
 
-.titleText {
+.title-text {
   flex: 1;
   min-width: 0;
   border-radius: var(--radius-sm);
@@ -39,5 +39,3 @@
 .chevron.open {
   transform: rotate(-180deg);
 }
-
-

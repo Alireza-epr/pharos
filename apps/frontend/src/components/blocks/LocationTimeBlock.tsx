@@ -15,14 +15,16 @@ const LocationTimeBlock = (props: ILocationTimeBlockProps) => {
 
   return (
     <Section title={t('detailPanel.title.locationAndTime')} collapsible>
-      <SectionItem title={t('detailPanel.label.gridCellCenter')} caveat={t('detailPanel.text.cellCenterCaveat')}>
-        <TextInput
-          readOnly
-          copiable
-          value={`${event.lat}°N, ${event.lon}°E`}
-        />
+      <SectionItem
+        title={t('detailPanel.label.gridCellCenter')}
+        caveat={t('detailPanel.text.cellCenterCaveat')}
+      >
+        <TextInput readOnly copiable value={`${event.lat}°N, ${event.lon}°E`} />
       </SectionItem>
-      <SectionItem title={t('detailPanel.label.bucketStart')} caveat={t('detailPanel.text.bucketStartCaveat')}>
+      <SectionItem
+        title={t('detailPanel.label.bucketStart')}
+        caveat={t('detailPanel.text.bucketStartCaveat')}
+      >
         <TextInput
           readOnly
           copiable

@@ -15,18 +15,27 @@ export const useLoginStore = create<ILoginStoreStates & ILoginStoreActions>()(
       (set) => ({
         setAccessToken: (a_Value) =>
           set((state) => ({
-            accessToken: typeof a_Value === 'function' ? a_Value(state.accessToken) : a_Value,
+            accessToken:
+              typeof a_Value === 'function'
+                ? a_Value(state.accessToken)
+                : a_Value,
           })),
         setRefreshToken: (a_Value) =>
           set((state) => ({
-            refreshToken: typeof a_Value === 'function' ? a_Value(state.refreshToken) : a_Value,
+            refreshToken:
+              typeof a_Value === 'function'
+                ? a_Value(state.refreshToken)
+                : a_Value,
           })),
         logout: () => set({ accessToken: '', refreshToken: '' }),
       }),
     ),
     {
       name: 'login',
-      partialize: (s) => ({ accessToken: s.accessToken, refreshToken: s.refreshToken }),
+      partialize: (s) => ({
+        accessToken: s.accessToken,
+        refreshToken: s.refreshToken,
+      }),
     },
   ),
 );

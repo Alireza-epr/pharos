@@ -61,10 +61,10 @@ export const eventsController = async (
     const sort = body.sort ?? config.sort;
     const hotspot = body.hotspot ?? config.hotspot;
     const pagination = body.pagination ?? config.pagination;
-    const URL = body.URL
+    const URL = body.URL;
 
     const filter = body.filter ?? {};
-    
+
     const base_config = {
       URL,
       url_params,
@@ -74,17 +74,18 @@ export const eventsController = async (
       filter,
       pagination,
       gitCommitSHA: a_Req.gitCommitSHA,
-    }
+    };
 
     const configs: IConfigJSON = !body.body_params
-    ? {
-      ...base_config,
-      method: EFetchMethods.get
-    } : {
-      ...base_config,
-      method: EFetchMethods.post,
-      body_params: body.body_params
-    };
+      ? {
+          ...base_config,
+          method: EFetchMethods.get,
+        }
+      : {
+          ...base_config,
+          method: EFetchMethods.post,
+          body_params: body.body_params,
+        };
 
     // Filtering
     const filteredEvents = applyFilter(events, configs.filter);

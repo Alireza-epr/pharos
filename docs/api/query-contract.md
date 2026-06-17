@@ -335,35 +335,35 @@ Example:
 
 ### 1. Request - URL Parameters
 
-| Parameter        | Description                                                      | Required | Format                                                               | Param Type |
-| ---------------- | ---------------------------------------------------------------- | -------- | -------------------------------------------------------------------- | ---------- |
-| datasets[i]         | Indexed dataset identifier(s) to query (e.g. `datasets[0]`, `datasets[1]`) | True     | string                                                               | query      |
+| Parameter           | Description                                                                    | Required | Format                                                               | Param Type |
+| ------------------- | ------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------- | ---------- |
+| datasets[i]         | Indexed dataset identifier(s) to query (e.g. `datasets[0]`, `datasets[1]`)     | True     | string                                                               | query      |
 | filters[i]          | Indexed filter expression(s) applied to the upstream query (e.g. `filters[0]`) | False    | string                                                               | query      |
-| format              | Output format of the upstream report                             | True     | Enum: ['CSV', 'TIF', 'JSON']                                         | query      |
-| temporal-resolution | Time aggregation granularity of the report                       | True     | Enum: ['HOURLY', 'DAILY', 'MONTHLY', 'YEARLY', 'ENTIRE']            | query      |
-| spatial-resolution  | Spatial granularity of the report                                | False    | Enum: ['LOW', 'HIGH']                                                | query      |
-| group-by            | Field used to group report results                               | False    | Enum: ['VESSEL_ID', 'FLAG', 'GEARTYPE', 'FLAGANDGEARTYPE', 'MMSI']  | query      |
-| spatial-aggregation | Whether to spatially aggregate report results                    | False    | boolean                                                              | query      |
-| region-dataset   | Dataset used to resolve region context (e.g. EEZ / MPA datasets) | False     | string                                                               | query      |
-| region-id        | Identifier of the selected region                                | False     | string                                                               | query      |
-| buffer-operation | Operation applied to region buffering logic (if used)            | False    | string                                                               | query      |
-| buffer-unit      | Unit used for buffer distance calculation                        | False    | Enum: ['MILES', 'NAUTICALMILES', 'KILOMETERS', 'RADIANS', 'DEGREES'] | query      |
-| buffer-value     | Numeric buffer distance applied to region                        | False    | string                                                               | query      |
+| format              | Output format of the upstream report                                           | True     | Enum: ['CSV', 'TIF', 'JSON']                                         | query      |
+| temporal-resolution | Time aggregation granularity of the report                                     | True     | Enum: ['HOURLY', 'DAILY', 'MONTHLY', 'YEARLY', 'ENTIRE']             | query      |
+| spatial-resolution  | Spatial granularity of the report                                              | False    | Enum: ['LOW', 'HIGH']                                                | query      |
+| group-by            | Field used to group report results                                             | False    | Enum: ['VESSEL_ID', 'FLAG', 'GEARTYPE', 'FLAGANDGEARTYPE', 'MMSI']   | query      |
+| spatial-aggregation | Whether to spatially aggregate report results                                  | False    | boolean                                                              | query      |
+| region-dataset      | Dataset used to resolve region context (e.g. EEZ / MPA datasets)               | False    | string                                                               | query      |
+| region-id           | Identifier of the selected region                                              | False    | string                                                               | query      |
+| buffer-operation    | Operation applied to region buffering logic (if used)                          | False    | string                                                               | query      |
+| buffer-unit         | Unit used for buffer distance calculation                                      | False    | Enum: ['MILES', 'NAUTICALMILES', 'KILOMETERS', 'RADIANS', 'DEGREES'] | query      |
+| buffer-value        | Numeric buffer distance applied to region                                      | False    | string                                                               | query      |
 
 ---
 
 ### 2. Request - Body
 
-| Key                                | Description                                                         | Required | Format | Param Type |
-| ---------------------------------- | ------------------------------------------------------------------- | -------- | ------ | ---------- |
-| URL                                | Upstream 4Wings report endpoint URL used as the data source          | False    | string                | body       |
-| method                             | HTTP method used for the upstream report request (defaults to POST)  | False    | Enum: ['GET', 'POST'] | body       |
-| [body_params](#body_params-object) | Spatial and external request configuration object                   | False    | object | body       |
-| [filter](#filter-object)           | Filtering rules applied before pagination                           | False    | object | body       |
-| [sort](#sort-array)                | Array of sorting rules applied to result set                        | False    | array  | body       |
-| [hotspot](#hotspot-object)         | Configuration object defining hotspot calculation rules             | False    | object | body       |
-| [threshold](#threshold-object)     | Configuration object defining scoring and classification thresholds | False    | object | body       |
-| [pagination](#pagination-object)   | Pagination parameters (page size and offset)                        | False    | object | body       |
+| Key                                | Description                                                         | Required | Format                | Param Type |
+| ---------------------------------- | ------------------------------------------------------------------- | -------- | --------------------- | ---------- |
+| URL                                | Upstream 4Wings report endpoint URL used as the data source         | False    | string                | body       |
+| method                             | HTTP method used for the upstream report request (defaults to POST) | False    | Enum: ['GET', 'POST'] | body       |
+| [body_params](#body_params-object) | Spatial and external request configuration object                   | False    | object                | body       |
+| [filter](#filter-object)           | Filtering rules applied before pagination                           | False    | object                | body       |
+| [sort](#sort-array)                | Array of sorting rules applied to result set                        | False    | array                 | body       |
+| [hotspot](#hotspot-object)         | Configuration object defining hotspot calculation rules             | False    | object                | body       |
+| [threshold](#threshold-object)     | Configuration object defining scoring and classification thresholds | False    | object                | body       |
+| [pagination](#pagination-object)   | Pagination parameters (page size and offset)                        | False    | object                | body       |
 
 ---
 
@@ -538,13 +538,13 @@ Default:
 
 ### 3. Response
 
-| Field                            | Description                                                                                                      | Format  |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| success                          | Request status                                                                                                   | boolean |
+| Field                                     | Description                                                                                                      | Format  |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| success                                   | Request status                                                                                                   | boolean |
 | [pagination](#pagination-response-object) | Pagination information                                                                                           | object  |
-| metadata                         | Execution metadata                                                                                               | object  |
-| stats                            | Aggregated statistics for returned events                                                                        | object  |
-| entries                          | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md). | array   |
+| metadata                                  | Execution metadata                                                                                               | object  |
+| stats                                     | Aggregated statistics for returned events                                                                        | object  |
+| entries                                   | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md). | array   |
 
 ---
 

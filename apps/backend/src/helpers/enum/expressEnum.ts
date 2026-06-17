@@ -1,4 +1,4 @@
 export enum ECORSOrigin {
-    development= "CORS_ORIGIN_DEVELOPMENT",
-    production= "CORS_ORIGIN"
+  development = 'CORS_ORIGIN_DEVELOPMENT',
+  production = 'CORS_ORIGIN',
 }

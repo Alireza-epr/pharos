@@ -67,7 +67,10 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.reason_codes_include !== undefined && a_Filters.reason_codes_include.length > 0) {
+  if (
+    a_Filters.reason_codes_include !== undefined &&
+    a_Filters.reason_codes_include.length > 0
+  ) {
     filteredEvents = filteredEvents.filter((event) =>
       a_Filters.reason_codes_include!.some((reason) =>
         event.scoring.reason_codes?.includes(reason),
@@ -75,7 +78,10 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.reason_codes_exclude !== undefined && a_Filters.reason_codes_exclude.length > 0) {
+  if (
+    a_Filters.reason_codes_exclude !== undefined &&
+    a_Filters.reason_codes_exclude.length > 0
+  ) {
     filteredEvents = filteredEvents.filter(
       (event) =>
         !a_Filters.reason_codes_exclude!.some((reason) =>

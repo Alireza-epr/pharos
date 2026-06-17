@@ -12,7 +12,6 @@ export interface IDateInputProps {
 }
 
 const DateInput = (props: IDateInputProps) => {
-
   const dateRef = useRef<HTMLInputElement>(null);
   const isPickerOpen = useRef(false);
 
@@ -38,7 +37,7 @@ const DateInput = (props: IDateInputProps) => {
       step="1"
       type="datetime-local"
       value={props.value}
-      min={props.min ?? "2017-01-01T00:00:00"}
+      min={props.min ?? '2017-01-01T00:00:00'}
       max={props.max ?? getLocaleISOString(new Date())}
       disabled={props.disabled}
       placeholder={props.placeholder}
