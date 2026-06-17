@@ -15,8 +15,8 @@ import { useBottomStore } from '../../stores/bottomStore';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import { useFetchEvents } from '../../hooks/fetch';
 import { useAOIStore } from '../../stores/areaOfInterestStore';
-import { TBodyParams, TURLParams } from '@packages/types';
-import { EFetchMethods} from '@packages/enum';
+import { IConfigBase, IConfigJSON, TBodyParams, TURLParams } from '@packages/types';
+import { EFetchMethods } from '@packages/enum';
 import { useFilterStore } from '../../stores/filterStore';
 import { useHotspotConfigStore } from '../../stores/hotspotConfigStore';
 import { useThresholdAndWeightsStore } from '../../stores/thresholdAndWeightsStore';
@@ -70,7 +70,7 @@ const Sidebar = () => {
       format,
       groupBy
     } = useAdvancedQueryStore.getState().getAdvancedQuery()
-  
+
     const urlParams_base = {
       "spatial-resolution": spatialResolution,
       "spatial-aggregation": spatialAggregation,
@@ -93,23 +93,29 @@ const Sidebar = () => {
       URL: globalfishingwatch.url['4wings'].endpoints.report,
       sort, filter, hotspot, threshold, pagination,
     }
-    const bodyParams: TBodyParams = "region-dataset" in aoi
+
+    const config_base = {
+      url_params: {
+        ...urlParams
+      },
+      ...bodyParams_base,
+    }
+
+    const config: IConfigJSON = "region-dataset" in aoi 
       ? {
-        ...bodyParams_base,
+        ...config_base,
         method: EFetchMethods.get,
-      }
-      : {
-        ...bodyParams_base,
+      } : {
+        ...config_base,
         method: EFetchMethods.post,
-        body_params: { geojson: aoi },
+        body_params: { geojson: aoi }
       }
 
     // Sync sorts 
     if (sort.length > 0) setSorts(sort)
 
-      log_frontend({url_params:{...urlParams}})
-      log_frontend({body_params:{...bodyParams}})
-    execute(urlParams, bodyParams)
+    log_frontend({ config: { ...config } })
+    execute(config)
   }
 
   const handlePrevQueryClick = () => {
@@ -117,18 +123,18 @@ const Sidebar = () => {
   }
 
   const handleNextQueryClick = () => {
-    
+
   }
 
-  useEffect( () => {
-    if(response) {
-      if(response.success){
-        if(response.entries) {
+  useEffect(() => {
+    if (response) {
+      if (response.success) {
+        if (response.entries) {
           setEvents(response.entries)
         }
       }
     }
-  }, [response] )
+  }, [response])
   return (
     <div className={` ${sidebarStyle.wrapper} margin-left`}>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
@@ -146,7 +152,7 @@ const Sidebar = () => {
         <SectionInputGroup direction='row'>
           <ButtonInput
             label={t("detailPanel.action.prev")}
-            onClick={()=>{}}
+            onClick={() => { }}
             disabled
           />
           <ButtonInput
@@ -157,7 +163,7 @@ const Sidebar = () => {
           />
           <ButtonInput
             label={t("detailPanel.action.next")}
-            onClick={()=>{}}
+            onClick={() => { }}
             disabled
           />
         </SectionInputGroup>

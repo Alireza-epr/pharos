@@ -1,5 +1,5 @@
 import { EBaseRoutes, EFetchMethods, ELogType} from "@packages/enum";
-import { IEventSchema, IResponse, TBodyParams, TURLParams } from "@packages/types";
+import { IConfigJSON, IEventSchema, IResponse, TBodyParams, TURLParams } from "@packages/types";
 import { log_frontend } from "@packages/utils";
 import { useState, useCallback } from "react";
 import { getAPIConfig } from ".";
@@ -13,9 +13,10 @@ export const useFetchEvents = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const execute = useCallback(async (a_URLParams: TURLParams, a_Body: TBodyParams) => {
+    const execute = useCallback(async (a_Config: IConfigJSON) => {
+        const {url_params, ...rest} = a_Config
         const params = new URLSearchParams(
-            Object.entries(a_URLParams).reduce<Record<string, string>>((acc, [key, value]) => {
+            Object.entries(a_Config.url_params).reduce<Record<string, string>>((acc, [key, value]) => {
                 if (value !== undefined && value.length !== 0) acc[key] = String(value);
                 return acc;
             }, {})
@@ -25,7 +26,7 @@ export const useFetchEvents = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(a_Body),
+            body: JSON.stringify(rest),
         }
         try {
             setLoading(true);

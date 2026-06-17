@@ -76,14 +76,14 @@ export const eventsController = async (
       gitCommitSHA: a_Req.gitCommitSHA,
     }
 
-    const configs: IConfigJSON = body.method === EFetchMethods.get 
+    const configs: IConfigJSON = !body.body_params
     ? {
       ...base_config,
       method: EFetchMethods.get
     } : {
       ...base_config,
       method: EFetchMethods.post,
-      body_params: body.body_params!
+      body_params: body.body_params
     };
 
     // Filtering

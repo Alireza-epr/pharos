@@ -110,7 +110,6 @@ const Filter = () => {
                         <DropdownInput title={t('sidebar.label.gearTypes')} onClear={()=>updateFilterUI({gearTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.gearTypes} options={gear_types_options} onChange={(v) => updateFilterUI({gearTypes: v})} multiple/>
                         <DropdownInput title={t('sidebar.label.neuralVesselType')} placeholder={t('sidebar.placeholder.none')} onClear={()=>updateFilterUI({neuralVesselType: ""})} value={filtersUI.neuralVesselType} options={neural_vessel_type_options} onChange={(v) => updateFilterUI({neuralVesselType: v})} />
                         <TextInput title={t("sidebar.label.vesselId")} value={filtersUI.vessel_id} onChange={(v) => updateFilterUI({vessel_id: v})} caveat={t("sidebar.caveat.apiInternalId")}/>
-                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
                     </SectionInputGroup>
                 </SectionItem>
 
@@ -119,7 +118,6 @@ const Filter = () => {
                         <DropdownInput title={t('sidebar.label.flags')} onClear={()=>updateFilterUI({flags: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.flags} options={flags_options} onChange={(v) => updateFilterUI({flags: v})} multiple/>
                         <DropdownInput title={t('sidebar.label.vesselTypes')} onClear={()=>updateFilterUI({vesselTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.vesselTypes} options={vessel_types_options} onChange={(v) => updateFilterUI({vesselTypes: v})} multiple/>
                         <DropdownInput title={t('sidebar.label.speeds')} onClear={()=>updateFilterUI({speeds: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.speeds} options={speed_options} onChange={(v) => updateFilterUI({speeds: v})} multiple/>
-                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
                     </SectionInputGroup>
                 </SectionItem>
 
@@ -129,7 +127,6 @@ const Filter = () => {
                         <DropdownInput title={t('sidebar.label.gearTypes')} onClear={()=>updateFilterUI({gearTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.gearTypes} options={gear_types_options} onChange={(v) => updateFilterUI({gearTypes: v})} multiple/>
                         <DropdownInput title={t('sidebar.label.minimumDistanceFromPorts')} placeholder={t('sidebar.placeholder.none')}  onClear={()=>updateFilterUI({minimumDistanceFromPorts: ''})} value={filtersUI.minimumDistanceFromPorts} options={minimumDistanceFromPorts_options} onChange={(v) => updateFilterUI({minimumDistanceFromPorts: v})}/>
                         <TextInput title={t("sidebar.label.vesselId")} value={filtersUI.vessel_id} onChange={(v) => updateFilterUI({vessel_id: v})} caveat={t("sidebar.caveat.apiInternalId")} />
-                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
                     </SectionInputGroup>
                 </SectionItem  >
             </SectionItem>
@@ -160,6 +157,10 @@ const Filter = () => {
                     <NumberInput label={t('general.label.min')} value={filters.bathymetry_min ?? 0} onChange={(v) => updateFilter({ bathymetry_min: v })} />
                     <NumberInput label={t('general.label.max')} value={filters.bathymetry_max ?? 0} onChange={(v) => updateFilter({ bathymetry_max: v })} />
                 </SectionInputGroup>
+            </SectionItem>
+
+            <SectionItem title={t('bottomPanel.column.detectionId')} collapsible={false}>
+                <TextInput value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} />
             </SectionItem>
 
             <SectionItem title={t('sidebar.label.contextZone')} collapsible={false}>
