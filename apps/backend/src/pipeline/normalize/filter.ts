@@ -90,14 +90,14 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.is_inside_eez) {
+  if (a_Filters.is_inside_eez !== undefined) {
     filteredEvents = filteredEvents.filter(
       (e) =>
         e.context_layers.EEZ.enrichments.length > 0 === a_Filters.is_inside_eez,
     );
   }
 
-  if (a_Filters.is_inside_mpa) {
+  if (a_Filters.is_inside_mpa !== undefined) {
     filteredEvents = filteredEvents.filter(
       (e) =>
         e.context_layers.MPA.enrichments.length > 0 === a_Filters.is_inside_mpa,

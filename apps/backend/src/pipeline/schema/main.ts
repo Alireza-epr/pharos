@@ -181,7 +181,7 @@ export const createSortedEventSchemas = async (
       );
       if (eventSchema.rejected) {
         log(
-          `[createSortedEventSchemas] Entry is rejected: ${JSON.stringify(eventSchema.reasons)}`,
+          `[createSortedEventSchemas] Entry ${JSON.stringify(eventSchema.raw_metadata)} is rejected: ${JSON.stringify(eventSchema.reasons)}`,
           ELogType.error,
         );
       }

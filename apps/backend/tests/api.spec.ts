@@ -11,6 +11,7 @@ import {
   invalidBody_region,
   invalidBody_region_2,
   invalidBody_wrongTypes,
+  invalidBody_pagination,
   validBodyParams,
   validBodyParams_2,
 } from './fixtures/bodyParams.fixture';
@@ -31,7 +32,6 @@ import {
 import {
   invalidQuery_missing_required,
   invalidQuery_wrong_enum,
-  invalidQuery_wrong_types_2,
   invalidQuery_wrongTypes,
   validQueryParams,
   validQueryParams_2,
@@ -120,6 +120,13 @@ describe('validateBodyParams', () => {
 
     expect(result.isValid).toBe(true);
   });
+
+  it('fail_when_pagination_type_is_invalid', () => {
+    const result_3 = validateBodyParams(invalidBody_pagination);
+    expect(result_3.isValid).toBe(false);
+    expect(result_3.errors?.some((e) => e.field === 'pagination.limit')).toBe(true);
+    expect(result_3.errors?.some((e) => e.field === 'pagination.offset')).toBe(true);
+  })
 });
 
 describe('validateQueryParams', () => {
@@ -158,10 +165,6 @@ describe('validateQueryParams', () => {
       result_2.errors?.some((e) => e.field === 'temporal-resolution'),
     ).toBe(true);
 
-    const result_3 = validateQueryParams(invalidQuery_wrong_types_2);
-    expect(result_3.isValid).toBe(false);
-    expect(result_3.errors?.some((e) => e.field === 'limit')).toBe(true);
-    expect(result_3.errors?.some((e) => e.field === 'offset')).toBe(true);
   });
 
   it('accepts_dynamic_keys', () => {

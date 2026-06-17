@@ -141,3 +141,11 @@ export const invalidBody_region_2 = {
     },
   },
 };
+
+export const invalidBody_pagination = {
+  ...validBodyParams_2,
+  pagination: {
+    limit: 'a',
+    offset: 'b',
+  }
+};
