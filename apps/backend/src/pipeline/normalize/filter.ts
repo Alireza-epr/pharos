@@ -6,6 +6,13 @@ export const applyFilter = (
 ): IEventSchema[] => {
   let filteredEvents = a_Events;
 
+  if (a_Filters.event_id !== undefined) {
+    const search = a_Filters.event_id.toLowerCase();
+    filteredEvents = filteredEvents.filter((e) =>
+      e.event_id.toLowerCase().includes(search),
+    );
+  }
+
   if (a_Filters.triage_score_min !== undefined) {
     const min = a_Filters.triage_score_min;
     filteredEvents = filteredEvents.filter(

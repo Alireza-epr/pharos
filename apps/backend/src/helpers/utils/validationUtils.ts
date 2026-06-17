@@ -404,6 +404,19 @@ const validateFilters = (a_Filters: unknown, a_Errors: IValidationError[]) => {
       }
     }
   }
+
+  const textFields: (keyof IFilteringParams)[] = [
+    'event_id'
+  ];
+
+  for (const field of textFields) {
+    const value = a_Filters[field];
+
+    if (value !== undefined && !isString(value)) {
+      addError(a_Errors, EResponseError.INVALID_STRING, `filters.${field}`);
+    }
+  }
+
 };
 
 /* =========================================================
