@@ -7,8 +7,12 @@ import CheckboxInput from '../common/inputs/CheckboxInput';
 import ChipGroupInput from '../common/inputs/ChipGroupInput';
 import { useTranslator } from '../../hooks/translator';
 import { useFilterStore } from '../../stores/filterStore';
-import { EInclusionMode, EReasonCodesStatic, TInclusionMode } from '@packages/enum';
+import { E4wingsDatasets, E4wingsDatasetsUI, EInclusionMode, EMatchFilter, EReasonCodesStatic, T4wingsDatasetsUI, TInclusionMode } from '@packages/enum';
 import { IFilterStoreStates } from '../../helpers/types/storeTypes';
+import DropdownInput from '../common/inputs/DropdownInput';
+import TextInput from '../common/inputs/TextInput';
+import { dataset_version_options, flags_options, gear_types_options, matched_options, minimumDistanceFromPorts_options, neural_vessel_type_options, speed_options, vessel_types_options } from '@/helpers/fixtures/filters';
+import { TDatasetVersion } from '@packages/types';
 
 
 export interface IFilterProps {}
@@ -56,12 +60,78 @@ const Filter = () => {
     return (
         <Section title={t('sidebar.titles.filter')} collapsible={false}>    
 
-            <SectionItem title={t('sidebar.titles.matchingStatus')} collapsible={false}>
-                <CheckboxInput
-                    label={t('general.label.unmatchedOnly')}
-                    checked={filtersUI.unmatched_only}
-                    onChange={(v) => updateFilterUI({ unmatched_only: v })}
-                />
+            <SectionItem title={t('sidebar.label.datasets')} collapsible={false}>
+                {
+                    (Object.entries(filtersUI.datasets) as [E4wingsDatasets, { active: boolean; version: TDatasetVersion; }][]).map( ([ key ], index) => {
+                        return (
+                            <SectionInputGroup direction="row" tab key={index}>
+                                <CheckboxInput 
+                                    label={E4wingsDatasetsUI[key]} 
+                                    checked={filtersUI.datasets[key].active} 
+                                    onChange={(v) => updateFilterUI(
+                                        {   
+                                            datasets: {
+                                                ...filtersUI.datasets,
+                                                [key]: {
+                                                    ...filtersUI.datasets[key],
+                                                    active: v
+                                                }   
+                                            } 
+                                        }
+                                    )}
+                                />
+                                <DropdownInput 
+                                    options={dataset_version_options} 
+                                    value={filtersUI.datasets[key].version}
+                                    onChange={(v) => updateFilterUI(
+                                        {   
+                                            datasets: {
+                                                ...filtersUI.datasets,
+                                                [key]: {
+                                                    ...filtersUI.datasets[key],
+                                                    version: v
+                                                }   
+                                            } 
+                                        }
+                                    )}
+                                />
+                            </SectionInputGroup>
+                        )
+                    })
+                }
+            </SectionItem>
+
+            <SectionItem title={t('sidebar.titles.datasetsFilter')} collapsible={false} caveat={t('sidebar.hint.highlightedDataset')}>
+                <SectionItem title={E4wingsDatasetsUI['public-global-sar-presence']} tab collapsible={false} active={filtersUI.datasets['public-global-sar-presence'].active}>
+                    <SectionInputGroup direction='column' tab>
+                        <DropdownInput title={t('sidebar.titles.matchingStatus')} placeholder={t('sidebar.placeholder.none')} onClear={()=>updateFilterUI({matchingStatus: EMatchFilter.all})} value={filtersUI.matchingStatus} options={matched_options} onChange={(v) => updateFilterUI({matchingStatus: v})} />
+                        <DropdownInput title={t('sidebar.label.flags')} onClear={()=>updateFilterUI({flags: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.flags} options={flags_options} onChange={(v) => updateFilterUI({flags: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.vesselTypes')} onClear={()=>updateFilterUI({vesselTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.vesselTypes} options={vessel_types_options} onChange={(v) => updateFilterUI({vesselTypes: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.gearTypes')} onClear={()=>updateFilterUI({gearTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.gearTypes} options={gear_types_options} onChange={(v) => updateFilterUI({gearTypes: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.neuralVesselType')} placeholder={t('sidebar.placeholder.none')} onClear={()=>updateFilterUI({neuralVesselType: ""})} value={filtersUI.neuralVesselType} options={neural_vessel_type_options} onChange={(v) => updateFilterUI({neuralVesselType: v})} />
+                        <TextInput title={t("sidebar.label.vesselId")} value={filtersUI.vessel_id} onChange={(v) => updateFilterUI({vessel_id: v})} caveat={t("sidebar.caveat.apiInternalId")}/>
+                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
+                    </SectionInputGroup>
+                </SectionItem>
+
+                <SectionItem title={E4wingsDatasetsUI['public-global-presence']} tab collapsible={false} active={filtersUI.datasets['public-global-presence'].active}> 
+                    <SectionInputGroup direction='column' tab>
+                        <DropdownInput title={t('sidebar.label.flags')} onClear={()=>updateFilterUI({flags: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.flags} options={flags_options} onChange={(v) => updateFilterUI({flags: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.vesselTypes')} onClear={()=>updateFilterUI({vesselTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.vesselTypes} options={vessel_types_options} onChange={(v) => updateFilterUI({vesselTypes: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.speeds')} onClear={()=>updateFilterUI({speeds: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.speeds} options={speed_options} onChange={(v) => updateFilterUI({speeds: v})} multiple/>
+                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
+                    </SectionInputGroup>
+                </SectionItem>
+
+                <SectionItem title={E4wingsDatasetsUI['public-global-fishing-effort']} tab collapsible={false} active={filtersUI.datasets['public-global-fishing-effort'].active}>
+                    <SectionInputGroup direction='column' tab>
+                        <DropdownInput title={t('sidebar.label.flags')} onClear={()=>updateFilterUI({flags: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.flags} options={flags_options} onChange={(v) => updateFilterUI({flags: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.gearTypes')} onClear={()=>updateFilterUI({gearTypes: []})} hint={t('sidebar.hint.multipleSelect')} value={filtersUI.gearTypes} options={gear_types_options} onChange={(v) => updateFilterUI({gearTypes: v})} multiple/>
+                        <DropdownInput title={t('sidebar.label.minimumDistanceFromPorts')} placeholder={t('sidebar.placeholder.none')}  onClear={()=>updateFilterUI({minimumDistanceFromPorts: ''})} value={filtersUI.minimumDistanceFromPorts} options={minimumDistanceFromPorts_options} onChange={(v) => updateFilterUI({minimumDistanceFromPorts: v})}/>
+                        <TextInput title={t("sidebar.label.vesselId")} value={filtersUI.vessel_id} onChange={(v) => updateFilterUI({vessel_id: v})} caveat={t("sidebar.caveat.apiInternalId")} />
+                        <TextInput title={t('bottomPanel.column.detectionId')} value={filters.event_id ?? ''} onChange={(v) => updateFilter({event_id: v})} caveat={t("sidebar.caveat.backendInternalId")}/>
+                    </SectionInputGroup>
+                </SectionItem  >
             </SectionItem>
 
             <SectionItem title={t('sidebar.label.triageScore')} collapsible={false}>

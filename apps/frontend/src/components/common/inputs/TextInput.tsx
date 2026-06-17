@@ -14,6 +14,7 @@ export interface ITextInputProps {
   // Value placed on the clipboard when copied; defaults to `value`. Useful when
   // the displayed text is truncated but the full value should be copied.
   copyValue?: string;
+  caveat?: string;
 }
 
 const COPIED_FEEDBACK_MS = 1500;
@@ -82,7 +83,14 @@ const TextInput = (props: ITextInputProps) => {
 
   return (
     <label className={textInputStyle.field}>
-      <span className={`font-size-sm ${textInputStyle.title}`}>{props.title}</span>
+      <span className={`font-size-sm ${textInputStyle.title} truncate`}>
+        {props.title}
+        {
+          props.caveat && (
+            <span className={`font-size-sm caveat`} title={props.caveat}>⚠</span>
+          )
+        }
+      </span>
       {control}
     </label>
   );

@@ -16,11 +16,13 @@ const SortRowInput = (props: ISortRowInputProps) => {
   return (
     <div className={sortRowStyle.row}>
       <span className={`font-size-sm ${sortRowStyle.rank}`}>{props.rank}</span>
-      <DropdownInput
-        value={props.value}
-        options={props.options}
-        onChange={props.onChangeField}
-      />
+      <div className={sortRowStyle.field}>
+        <DropdownInput
+          value={props.value}
+          options={props.options}
+          onChange={props.onChangeField}
+        />
+      </div>
       <div className={sortRowStyle.action}>
         <ButtonInput
           label={props.direction === 'desc' ? '↓' : '↑'}

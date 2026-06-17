@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: var(--padding-default-half);
   font-family: var(--font-family-tech);
+  min-width: 0;
 }
 
 .title {

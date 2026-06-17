@@ -45,7 +45,8 @@
             "sortOrder": "Sortierreihenfolge",
             "filter": "Filter",
             "advancedQuery": "Erweiterte Abfrage",
-            "matchingStatus": "Matching-Status"
+            "matchingStatus": "Matching-Status",
+            "datasetsFilter": "Datensatzfilter"
         },
         "title": {
             "geography": "Geografie",
@@ -76,6 +77,13 @@
             "insideMpaOnly": "Nur innerhalb MPA",
             "reasonCodesInclude": "Reason Codes — Einschließen",
             "reasonCodesExclude": "Reason Codes — Ausschließen",
+            "flags": "Flaggen",
+            "gearTypes": "Gerätetypen",
+            "vesselTypes": "Schiffstypen",
+            "neuralVesselType": "Neuronaler Schiffstyp",
+            "speeds": "Geschwindigkeiten",
+            "vesselId": "Schiffs-ID",
+            "minimumDistanceFromPorts": "Min. Hafenabstand",
             "datasets": "Datensätze",
             "temporalResolution": "Zeitliche Auflösung",
             "spatialResolution": "Räumliche Auflösung",
@@ -107,6 +115,14 @@
             "orChooseEEZRegion": "oder EEZ-Region auswählen",
             "orChooseMPARegion": "oder MPA-Region auswählen",
             "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
+        },
+        "caveat": {
+            "apiInternalId": "API-interne ID",
+            "backendInternalId": "App-interne ID"
+        },
+        "hint": {
+            "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
+            "highlightedDataset": "Hervorgehobene Datensätze sind aktiv — einige Filter werden gemeinsam genutzt"
         }
     },
     "bottomPanel": {

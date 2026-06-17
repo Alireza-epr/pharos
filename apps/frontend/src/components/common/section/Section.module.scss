@@ -20,10 +20,13 @@
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   color: var(--theme-text-primary);
+  flex: 1;
+  min-width: 0;
 }
 
 .chevron {
   color: var(--text-muted);
+  flex-shrink: 0;
   transition: transform var(--transition-duration) var(--transition-easing);
   transform: rotate(0);
 }

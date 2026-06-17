@@ -54,7 +54,8 @@ const Sidebar = () => {
     const sort = useSortOrderStore.getState().sorts
 
     const filter = useFilterStore.getState().filters
-    const filterUI = useFilterStore.getState().filtersUI
+    const sources = useFilterStore.getState().getSources()
+    const filters = useFilterStore.getState().getFilter()
 
     const hotspot = useHotspotConfigStore.getState().getHotspot()
 
@@ -67,20 +68,17 @@ const Sidebar = () => {
       spatialAggregation,
       temporalResolution,
       format,
-      groupBy,
-      filterText, //TODO
-      rawQuery
+      groupBy
     } = useAdvancedQueryStore.getState().getAdvancedQuery()
-    const datasets = useAdvancedQueryStore.getState().getDatasets()
-
+  
     const urlParams_base = {
       "spatial-resolution": spatialResolution,
       "spatial-aggregation": spatialAggregation,
       "temporal-resolution": temporalResolution,
       format,
       "group-by": groupBy,
-      "filters[0]": filterUI.unmatched_only ? "matched='false'" : "",
-      ...datasets,
+      ...filters,
+      ...sources,
     }
     const urlParams: TURLParams = "region-dataset" in aoi
       ? {

@@ -20,6 +20,7 @@ import {
   I4wingsEntry,
   IFeature,
   IGeometry,
+  TDatasetVersion,
 } from '@packages/types';
 import { deepSortObject, deepStripHidden, shortenText } from '@packages/utils';
 
@@ -124,7 +125,7 @@ export const hashFile = async (a_Path: string | File) => {
 
 export const getSource = (
   a_Dataset: E4wingsDatasets | EEventDatasets,
-  a_Version: `v${number}.${number}`,
+  a_Version: TDatasetVersion,
 ) => {
   return `${a_Dataset}:${a_Version}` as T4wingsSource | TEventSource;
 };
@@ -134,7 +135,7 @@ export const getSourceKey = (a_Source: T4wingsSource | TEventSource) => {
 };
 
 export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
-  return a_Source.split(':')[1] as `v${number}.${number}`;
+  return a_Source.split(':')[1] as TDatasetVersion;
 };
 
 

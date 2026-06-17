@@ -1,9 +1,8 @@
-import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, IGeometry, IHotspotConfig, ISortOption, T4wingsSource } from '@packages/types';
+import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, IGeometry, IHotspotConfig, ISortOption, T4wingsSource, TDatasetFlagFilter, TDatasetGearTypeFilter, TDatasetMatchedFilter, TDatasetSpeedFilter, TDatasetVesselTypeFilter, TFilterKey, TSourceKey } from '@packages/types';
 import { TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
-import { EFormat, EGroupBy, EHotspotTimeBins, ERegionDatasets, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
-import { TMatchFilter } from '../enum/generalEnum';
+import { TMatchFilter, EFormat, EGroupBy, EHotspotTimeBins, ERegionDatasets, ESpatialResolution, ETemporalResolution } from '@packages/enum';
 
 export interface IAppStoreStates {
   theme: TTheme;
@@ -62,16 +61,10 @@ export interface IFilterStoreStates {
   filtersUI: IFilteringParamsUI;
 }
 export interface IFilterStoreActions {
-  setFilters: (
-    a_Value:
-      | IFilterStoreStates['filters']
-      | ((a_Prev: IFilterStoreStates['filters']) => IFilterStoreStates['filters']),
-  ) => void;
-  setFiltersUI: (
-    a_Value:
-      | IFilterStoreStates['filtersUI']
-      | ((a_Prev: IFilterStoreStates['filtersUI']) => IFilterStoreStates['filtersUI']),
-  ) => void;
+  setFilters: ( a_Value: IFilterStoreStates['filters'] | ((a_Prev: IFilterStoreStates['filters']) => IFilterStoreStates['filters'])) => void;
+  setFiltersUI: ( a_Value: IFilterStoreStates['filtersUI'] | ((a_Prev: IFilterStoreStates['filtersUI']) => IFilterStoreStates['filtersUI'])) => void;
+  getSources: () => Record<TSourceKey, T4wingsSource> | {}
+  getFilter: () => Record<TFilterKey, string> | {}
 }
 
 export interface IContextLayersStoreStates {
@@ -205,25 +198,14 @@ export interface IAdvancedQueryStoreStates {
   format: EFormat;
   groupBy: EGroupBy;
   temporalResolution: ETemporalResolution;
-  datasets: T4wingsDatasetsUI[];
-  mainDatasetVersion: number;
-  subDatasetVersion: number;
-  filterText: string;
   spatialAggregation: boolean;
-  rawQuery: string;
 }
 export interface IAdvancedQueryStoreActions {
   setSpatialResolution: (a_Value: IAdvancedQueryStoreStates['spatialResolution'] | ((a_Prev: IAdvancedQueryStoreStates['spatialResolution']) => IAdvancedQueryStoreStates['spatialResolution'])) => void;
   setFormat: (a_Value: IAdvancedQueryStoreStates['format'] | ((a_Prev: IAdvancedQueryStoreStates['format']) => IAdvancedQueryStoreStates['format'])) => void;
   setGroupBy: (a_Value: IAdvancedQueryStoreStates['groupBy'] | ((a_Prev: IAdvancedQueryStoreStates['groupBy']) => IAdvancedQueryStoreStates['groupBy'])) => void;
   setTemporalResolution: (a_Value: IAdvancedQueryStoreStates['temporalResolution'] | ((a_Prev: IAdvancedQueryStoreStates['temporalResolution']) => IAdvancedQueryStoreStates['temporalResolution'])) => void;
-  setDatasets: (a_Value: IAdvancedQueryStoreStates['datasets'] | ((a_Prev: IAdvancedQueryStoreStates['datasets']) => IAdvancedQueryStoreStates['datasets'])) => void;
-  setMainDatasetVersion: (a_Value: IAdvancedQueryStoreStates['mainDatasetVersion'] | ((a_Prev: IAdvancedQueryStoreStates['mainDatasetVersion']) => IAdvancedQueryStoreStates['mainDatasetVersion'])) => void;
-  setSubDatasetVersion: (a_Value: IAdvancedQueryStoreStates['subDatasetVersion'] | ((a_Prev: IAdvancedQueryStoreStates['subDatasetVersion']) => IAdvancedQueryStoreStates['subDatasetVersion'])) => void;
-  setFilterText: (a_Value: IAdvancedQueryStoreStates['filterText'] | ((a_Prev: IAdvancedQueryStoreStates['filterText']) => IAdvancedQueryStoreStates['filterText'])) => void;
   setSpatialAggregation: (a_Value: IAdvancedQueryStoreStates['spatialAggregation'] | ((a_Prev: IAdvancedQueryStoreStates['spatialAggregation']) => IAdvancedQueryStoreStates['spatialAggregation'])) => void;
-  setRawQuery: (a_Value: IAdvancedQueryStoreStates['rawQuery'] | ((a_Prev: IAdvancedQueryStoreStates['rawQuery']) => IAdvancedQueryStoreStates['rawQuery'])) => void;
-  getDatasets: () => Record<string, T4wingsSource> | undefined
   getAdvancedQuery: () => Omit<IAdvancedQueryStoreStates, "datasets" | "mainDatasetVersion" | "subDatasetVersion" >
 }
 

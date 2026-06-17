@@ -16,7 +16,7 @@ const Section = (props: ISectionProps) => {
         className={`${sectionStyle.header} ${props.collapsible !== undefined ? sectionStyle.clickable : ''}`}
         onClick={props.collapsible !== undefined ? () => setOpen((prev) => !prev) : undefined}
       >
-        <span className={`font-size-xs ${sectionStyle.title}`}>{props.title}</span>
+        <span className={`font-size-xs ${sectionStyle.title} truncate`}>{props.title}</span>
         {props.collapsible !== undefined && (
           <span className={`font-size-base ${sectionStyle.chevron} ${open ? sectionStyle.open : ''}`}>▾</span>
         )}

@@ -10,11 +10,12 @@ export type TSectionGroupDirection= typeof ESectionGroupDirection[keyof typeof E
 export interface ISectionInputGroupProps {
   direction?: TSectionGroupDirection;
   children: ReactNode;
+  tab?: boolean
 }
 
 const SectionInputGroup = (props: ISectionInputGroupProps) => {
   return (
-    <div className={` ${sectionInputGroupStyle.wrapper}`} data-direction={props.direction}>
+    <div className={` ${sectionInputGroupStyle.wrapper} ${props.tab ? 'margin-left' : ''}`} data-direction={props.direction}>
       {props.children}
     </div>
   );

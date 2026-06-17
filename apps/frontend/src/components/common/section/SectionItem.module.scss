@@ -6,7 +6,16 @@
 }
 
 .label {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default);
   color: var(--theme-text-secondary);
+}
+
+.titleText {
+  flex: 1;
+  min-width: 0;
+  border-radius: var(--radius-sm);
 }
 
 .content {
@@ -22,6 +31,7 @@
 
 .chevron {
   color: var(--text-muted);
+  flex-shrink: 0;
   transition: transform var(--transition-duration) var(--transition-easing);
   transform: rotate(0);
 }
@@ -30,8 +40,4 @@
   transform: rotate(-180deg);
 }
 
-.caveat {
-  color: var(--color-alert-orange1);
-  padding: 0 var(--padding-gap);
-  cursor: pointer;
-}
+

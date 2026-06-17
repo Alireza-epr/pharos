@@ -1,3 +1,6 @@
+import { IDropdownOption } from '@/components/common/inputs/DropdownInput';
+import { EFormat, EGroupBy, ESpatialResolution, ETemporalResolution } from '@packages/enum';
+
 export const sort_field_options = [
     { label: "Triage Score", value: "scoring.triage_score" },
     { label: "Uncertainty Score", value: "scoring.uncertainty_score" },
@@ -11,3 +14,8 @@ export const sort_field_options = [
     { label: "Latitude", value: "lat" },
     { label: "Bathymetry Value", value: "context_layers.Bathymetry.enrichments[0].value" },
 ]
+
+export const spatialResolutionOptions: IDropdownOption<ESpatialResolution>[] = Object.values(ESpatialResolution).map(v => ({ label: v, value: v }))
+export const formatOptions: IDropdownOption<EFormat>[] = Object.values(EFormat).map(v => ({ label: v, value: v }))
+export const groupByOptions: IDropdownOption<EGroupBy>[] = Object.values(EGroupBy).map(v => ({ label: v, value: v }))
+export const temporalResolutionOptions: IDropdownOption<ETemporalResolution>[] = Object.values(ETemporalResolution).map(v => ({ label: v, value: v }))

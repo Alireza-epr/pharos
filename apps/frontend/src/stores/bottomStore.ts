@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import { IBottomStoreStates, IBottomStoreActions} from '../helpers/types/storeTypes';
-import { EMatchFilter } from '@/helpers/enum/generalEnum';
+import { EMatchFilter } from '@packages/enum';
 import { ISortOption } from '@packages/types';
 
 const defaultSorts: ISortOption[] = [{ sortBy: 'scoring.triage_score', direction: 'desc' }]

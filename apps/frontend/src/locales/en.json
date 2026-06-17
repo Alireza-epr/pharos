@@ -45,7 +45,8 @@
             "sortOrder": "Sort Order",
             "filter": "Filter",
             "advancedQuery": "Advanced Query",
-            "matchingStatus": "Matching Status"
+            "matchingStatus": "Matching Status",
+            "datasetsFilter": "Dataset Filters"
         },
         "title": {
             "geography": "Geography",
@@ -76,6 +77,13 @@
             "insideMpaOnly": "Inside MPA only",
             "reasonCodesInclude": "Reason Codes - Include",
             "reasonCodesExclude": "Reason Codes - Exclude",
+            "flags": "Flags",
+            "gearTypes": "Gear Types",
+            "vesselTypes": "Vessel Types",
+            "neuralVesselType": "Neural Vessel Type",
+            "speeds": "Speeds",
+            "vesselId": "Vessel ID",
+            "minimumDistanceFromPorts": "Min. Distance from Ports",
             "datasets": "Datasets",
             "temporalResolution": "Temporal Resolution",
             "spatialResolution": "Spatial Resolution",
@@ -107,6 +115,14 @@
             "orChooseEEZRegion": "or choose EEZ region",
             "orChooseMPARegion": "or choose MPA region",
             "subRunQuery": "Fill area & date to enable"
+        },
+        "caveat": {
+            "apiInternalId": "API Internal ID",
+            "backendInternalId": "App Internal ID"
+        },
+        "hint": {
+            "multipleSelect": "Hold Ctrl and click to select multiple",
+            "highlightedDataset": "Highlighted datasets are active — some filters are shared across them"
         }
     },
     "bottomPanel": {

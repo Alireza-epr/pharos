@@ -12,6 +12,11 @@
   font-family: var(--font-family-tech);
 }
 
+.field {
+  flex: 1;
+  min-width: 0;
+}
+
 .action {
   flex-shrink: 0;
 }

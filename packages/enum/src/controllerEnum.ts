@@ -62,3 +62,10 @@ export enum EViolationError {
   MONTHLY_QUOTA_REACHED = "Monthly quota reached",
   PROVIDER_THROTTLED = "Provider is currently throttling requests",
 }
+
+export const EMatchFilter = {
+    all: "all",
+    unmatched: "unmatched",
+    matched: "matched"
+}
+export type TMatchFilter = typeof EMatchFilter[keyof typeof EMatchFilter];

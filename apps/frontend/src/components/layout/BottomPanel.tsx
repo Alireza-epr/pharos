@@ -4,10 +4,10 @@ import { useTranslator } from '../../hooks/translator';
 import bottomPanelStyle from './BottomPanel.module.scss';
 import { formatTimestamp, getSortValue, shortenText, sortEventSchema } from '@packages/utils';
 import ButtonInput from '../common/inputs/ButtonInput';
-import { EMatchFilter } from '../../helpers/enum/generalEnum';
 import { useBottomStore } from '../../stores/bottomStore';
 import { confidenceBadgeClass } from '../../helpers/utils/cssUtils';
 import { getMatchingStatus } from '../../helpers/utils/eventUtils';
+import { EMatchFilter } from '@packages/enum';
 
 
 const BottomPanel = () => {

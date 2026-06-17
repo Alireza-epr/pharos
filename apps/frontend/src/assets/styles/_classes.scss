@@ -220,6 +220,26 @@ body {
   background: var(--theme-bg-panel);
 }
 
+// Caveat and Hint 
+.caveat {
+  color: var(--color-alert-orange1);
+  padding: 0 var(--padding-gap);
+  cursor: pointer;
+}
+
+.hint {
+  color: var(--color-accent-teal1);
+  padding: 0 var(--padding-gap);
+  cursor: pointer;
+}
+
+// Truncate
+.truncate {
+  white-space: nowrap;    
+  overflow: hidden;       
+  text-overflow: ellipsis;
+}
+
 /* Mobile Grid */
 @media (max-width: $max-width-mobile) {
   .grid {

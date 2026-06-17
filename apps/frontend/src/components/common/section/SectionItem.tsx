@@ -6,7 +6,9 @@ export interface ISectionItemProps {
   children: ReactNode;
   collapsible?: boolean,
   caveat?: string;
-  tab?: boolean
+  tab?: boolean;
+  active?: boolean;
+  hint?: string
 }
 
 const SectionItem = (props: ISectionItemProps) => {
@@ -20,14 +22,19 @@ const SectionItem = (props: ISectionItemProps) => {
         onClick={props.collapsible !== undefined ? () => setOpen((prev) => !prev) : undefined}
         className={`font-size-sm ${sectionItemStyle.label}`}
       >
-        <span>
+        <span className={`${sectionItemStyle.titleText} truncate active`} data-active={props.active} >
           {props.title}
           {
             props.caveat && (
-              <span className={`font-size-sm ${sectionItemStyle.caveat}`} title={props.caveat}>⚠</span>
+              <span className={`font-size-sm caveat`} title={props.caveat}>⚠</span>
             )
           }
-        </span> 
+          {
+            props.hint && (
+              <span className={`font-size-sm hint`} title={props.hint}>ℹ</span>
+            )
+          }
+        </span>
         {props.collapsible !== undefined && (
           <span className={`font-size-base ${sectionItemStyle.chevron} ${open ? sectionItemStyle.open : ''}`}>▾</span>
         )}
