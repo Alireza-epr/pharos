@@ -36,6 +36,15 @@
     }
   },
   "sidebar": {
+    "tab": {
+      "report": "Report",
+      "hotspot": "Hotspot",
+      "event": "Event"
+    },
+    "action": {
+      "collapse": "Hide sidebar",
+      "expand": "Show sidebar"
+    },
     "titles": {
       "areaOfInterest": "Area of Interest",
       "drawOnMap": "Draw on map",
@@ -114,7 +123,8 @@
     "text": {
       "orChooseEEZRegion": "or choose EEZ region",
       "orChooseMPARegion": "or choose MPA region",
-      "subRunQuery": "Fill area & date to enable"
+      "subRunQuery": "Fill area & date to enable",
+      "comingSoon": "Coming soon"
     },
     "caveat": {
       "apiInternalId": "API Internal ID",
@@ -123,6 +133,9 @@
     "hint": {
       "multipleSelect": "Hold Ctrl and click to select multiple",
       "highlightedDataset": "Highlighted datasets are active — some filters are shared across them"
+    },
+    "error": {
+      "runQueryFailed": "Failed to fetch"
     }
   },
   "bottomPanel": {

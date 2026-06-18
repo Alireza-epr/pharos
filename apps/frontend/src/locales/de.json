@@ -36,6 +36,18 @@
     }
   },
   "sidebar": {
+    "tab": {
+      "report": "Bericht",
+      "hotspot": "Hotspot",
+      "event": "Ereignis"
+    },
+    "action": {
+      "collapse": "Seitenleiste ausblenden",
+      "expand": "Seitenleiste einblenden"
+    },
+    "error": {
+      "runQueryFailed": "Abfrage fehlgeschlagen. Bitte erneut versuchen."
+    },
     "titles": {
       "areaOfInterest": "Interessengebiet",
       "drawOnMap": "Auf Karte zeichnen",
@@ -114,7 +126,8 @@
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
       "orChooseMPARegion": "oder MPA-Region auswählen",
-      "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
+      "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren",
+      "comingSoon": "Demnächst verfügbar"
     },
     "caveat": {
       "apiInternalId": "API-interne ID",

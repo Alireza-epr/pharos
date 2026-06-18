@@ -238,6 +238,11 @@ body {
   cursor: pointer;
 }
 
+.error {
+  margin: var(--no-margin);
+  color: var(--color-alert-orange3);
+}
+
 // Truncate
 .truncate {
   white-space: nowrap;

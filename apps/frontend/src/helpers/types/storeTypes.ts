@@ -7,15 +7,10 @@ import {
   IHotspotConfig,
   ISortOption,
   T4wingsSource,
-  TDatasetFlagFilter,
-  TDatasetGearTypeFilter,
-  TDatasetMatchedFilter,
-  TDatasetSpeedFilter,
-  TDatasetVesselTypeFilter,
   TFilterKey,
   TSourceKey,
 } from '@packages/types';
-import { TTheme } from '../enum/storeEnum';
+import { TSidebarTab, TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
 import {
@@ -51,6 +46,14 @@ export interface IAppStoreActions {
           a_Prev: IAppStoreStates['backendStatus'],
         ) => IAppStoreStates['backendStatus']),
   ) => void;
+}
+export interface ISidebarStoreStates {
+  activeTab: TSidebarTab;
+  collapsed: boolean;
+}
+export interface ISidebarStoreActions {
+  setActiveTab: ( a_Value: ISidebarStoreStates['activeTab'] | ((a_Prev: ISidebarStoreStates['activeTab'] ) => ISidebarStoreStates['activeTab']) ) => void;
+  setCollapsed: ( a_Value: ISidebarStoreStates['collapsed'] | ((a_Prev: ISidebarStoreStates['collapsed'] ) => ISidebarStoreStates['collapsed']) ) => void;
 }
 
 export interface ILoginStoreStates {

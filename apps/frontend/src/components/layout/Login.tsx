@@ -51,7 +51,7 @@ const Login = () => {
         />
 
         {error && (
-          <p className={`font-size-sm ${loginStyle.error}`}>
+          <p className={`font-size-sm error`}>
             {t('login.error')}
           </p>
         )}

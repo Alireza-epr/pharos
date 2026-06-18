@@ -5,9 +5,11 @@ import MapView from '../components/map/MapView';
 import BottomPanel from '../components/layout/BottomPanel';
 import DetailDrawer from '../components/sidebar/DetailDrawer';
 import HeaderPanel from '../components/layout/HeaderPanel';
+import SidebarToggleInput from '../components/common/inputs/SidebarToggleInput';
 import { useEventStore } from '../stores/eventStore';
 import { useAppStore } from '../stores/appStore';
 import { useLoginStore } from '../stores/loginStore';
+import { useSidebarStore } from '../stores/sidebarStore';
 import { useHealth } from '../hooks/system';
 import Login from '../components/layout/Login';
 
@@ -19,6 +21,9 @@ const App = () => {
   const isAuthenticated = useLoginStore((s) => !!s.accessToken);
 
   const selectedEvent = useEventStore((state) => state.selectedEvent);
+
+  const sidebarCollapsed = useSidebarStore((s) => s.collapsed);
+  const setSidebarCollapsed = useSidebarStore((s) => s.setCollapsed);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -35,11 +40,19 @@ const App = () => {
       </header>
 
       <div className={` ${appStyle.content}`}>
-        <aside>
+        <aside data-collapsed={sidebarCollapsed}>
           <Sidebar />
         </aside>
 
-        <main>
+        {sidebarCollapsed && (
+          <SidebarToggleInput
+            collapsed={sidebarCollapsed}
+            onClick={() => setSidebarCollapsed(false)}
+            className={appStyle.reopenButton}
+          />
+        )}
+
+        <main className={` ${sidebarCollapsed ? 'margin-left' : ''}`}>
           <MapView />
         </main>
 
