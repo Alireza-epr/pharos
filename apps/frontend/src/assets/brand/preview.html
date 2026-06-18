@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PHAROS — brand preview</title>
+  <style>
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:#12131F; color:#E3E4F1; }
+    .head { padding:24px 32px; border-bottom:1px solid #2B2D42; }
+    .head h1 { margin:0; font-size:16px; letter-spacing:2px; color:#A0A3BD; font-weight:600; }
+    section { padding:32px; border-bottom:1px solid #1A1B2B; }
+    h2 { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#5B607D; margin:0 0 16px; }
+    .row { display:flex; gap:32px; flex-wrap:wrap; align-items:center; }
+    .swatch { padding:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+    .dark  { background:#12131F; border:1px solid #2B2D42; }
+    .panel { background:#1A1B2B; border:1px solid #2B2D42; }
+    .light { background:#FFFFFF; }
+    .sizes { display:flex; gap:24px; align-items:flex-end; }
+    .cap { font-size:11px; color:#5B607D; margin-top:8px; text-align:center; }
+    .full { width:100%; }
+  </style>
+</head>
+<body>
+  <div class="head"><h1>PHAROS — BRAND ASSETS</h1></div>
+
+  <section>
+    <h2>Banner — dark</h2>
+    <img class="full" src="banner.svg" alt="banner dark" style="max-width:1000px;border-radius:8px;" />
+  </section>
+
+  <section>
+    <h2>Banner — light</h2>
+    <img class="full" src="banner-light.svg" alt="banner light" style="max-width:1000px;border-radius:8px;border:1px solid #2B2D42;" />
+  </section>
+
+  <section>
+    <h2>Horizontal logo — dark</h2>
+    <div class="row">
+      <div class="swatch dark"><img src="logo.svg" width="340" alt="logo on app bg" /></div>
+      <div class="swatch panel"><img src="logo.svg" width="340" alt="logo on panel" /></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Horizontal logo — light</h2>
+    <div class="row">
+      <div class="swatch light"><img src="logo-light.svg" width="340" alt="logo on white" /></div>
+      <div class="swatch" style="background:#ECEAF9"><img src="logo-light.svg" width="340" alt="logo on light panel" /></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon mark (dark) — scalability</h2>
+    <div class="sizes">
+      <div><div class="swatch dark"><img src="icon.svg" width="128" height="128" /></div><div class="cap">128px</div></div>
+      <div><div class="swatch dark"><img src="icon.svg" width="64" height="64" /></div><div class="cap">64px</div></div>
+      <div><div class="swatch dark"><img src="icon.svg" width="32" height="32" /></div><div class="cap">32px</div></div>
+      <div><div class="swatch dark"><img src="icon.svg" width="16" height="16" /></div><div class="cap">16px favicon</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon mark (light badge) — for light theme / light surfaces</h2>
+    <div class="sizes">
+      <div><div class="swatch light"><img src="icon-light.svg" width="128" height="128" /></div><div class="cap">128px</div></div>
+      <div><div class="swatch light"><img src="icon-light.svg" width="64" height="64" /></div><div class="cap">64px</div></div>
+      <div><div class="swatch light"><img src="icon-light.svg" width="32" height="32" /></div><div class="cap">32px</div></div>
+      <div><div class="swatch light"><img src="icon-light.svg" width="16" height="16" /></div><div class="cap">16px favicon</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon mark (white mono knockout) — for dark / colored backgrounds</h2>
+    <div class="row">
+      <div class="swatch dark"><img src="icon-light-mono.svg" width="96" height="96" /></div>
+      <div class="swatch" style="background:#2EC4B6"><img src="icon-light-mono.svg" width="96" height="96" /></div>
+      <div class="swatch" style="background:#584AB6"><img src="icon-light-mono.svg" width="96" height="96" /></div>
+      <div class="swatch" style="background:#16162a"><img src="icon-light-mono.svg" width="48" height="48" /></div>
+    </div>
+  </section>
+</body>
+</html>

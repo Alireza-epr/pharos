@@ -21,7 +21,11 @@ const BarInput = (props: IBarInputProps) => {
             style={{ width: `${(props.value ?? 0) * 100}%` }}
           />
         </div>
-        <NumberInput value={props.value ?? 0} readOnly />
+        <NumberInput
+          value={props.value ?? 0}
+          readOnly
+          ariaLabel={props.label}
+        />
       </div>
     </div>
   );

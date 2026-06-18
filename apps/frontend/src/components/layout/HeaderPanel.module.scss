@@ -44,6 +44,8 @@
 }
 
 .online {
-  border: var(--border-width-sm) solid var(--color-accent-teal1);
-  color: var(--color-accent-teal1);
+  // teal2 (not teal1) keeps the chip text >= 4.5:1 against the purple header
+  // background for WCAG AA contrast (a11y: color-contrast).
+  border: var(--border-width-sm) solid var(--color-accent-teal2);
+  color: var(--color-accent-teal2);
 }

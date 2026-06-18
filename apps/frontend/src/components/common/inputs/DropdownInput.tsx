@@ -1,6 +1,7 @@
-import type { ChangeEvent, ReactElement } from 'react';
+import { useContext, type ChangeEvent, type ReactElement } from 'react';
 
 import dropdownInputStyle from './DropdownInput.module.scss';
+import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
 export interface IDropdownOption<T> {
   label: string;
@@ -48,6 +49,12 @@ const DropdownInput = <T extends string | number>(
 
   const isEmpty = props.multiple ? props.value.length === 0 : !props.value;
 
+  // The visible name is the wrapping <label> title when present; otherwise fall
+  // back to the placeholder or the enclosing SectionItem title so the native
+  // <select> always has an accessible name (a11y: select-name).
+  const sectionLabel = useContext(SectionLabelContext);
+  const accessibleName = props.title ?? props.placeholder ?? sectionLabel;
+
   const control = (
     <div className={dropdownInputStyle.wrapper}>
       <select
@@ -55,6 +62,7 @@ const DropdownInput = <T extends string | number>(
         value={props.value as string | string[]}
         multiple={props.multiple}
         disabled={props.disabled}
+        aria-label={accessibleName}
         onChange={handleChange}
       >
         {!props.multiple && props.placeholder && (

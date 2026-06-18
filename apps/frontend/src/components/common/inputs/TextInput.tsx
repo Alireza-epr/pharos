@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import textInputStyle from './TextInput.module.scss';
+import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
 export interface ITextInputProps {
   value: string;
@@ -54,6 +55,7 @@ const CheckIcon = () => (
 
 const TextInput = (props: ITextInputProps) => {
   const [copied, setCopied] = useState(false);
+  const sectionLabel = useContext(SectionLabelContext);
 
   const handleCopy = async () => {
     try {
@@ -82,6 +84,9 @@ const TextInput = (props: ITextInputProps) => {
       disabled={props.disabled}
       readOnly={props.readOnly}
       placeholder={props.placeholder}
+      // When a title is set the field is wrapped in a <label>; otherwise fall
+      // back to the SectionItem title/placeholder so it stays labelled (a11y).
+      aria-label={props.title ? undefined : (sectionLabel ?? props.placeholder)}
       onChange={(e) => props.onChange && props.onChange(e.target.value)}
     />
   );

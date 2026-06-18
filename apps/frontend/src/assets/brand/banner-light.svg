@@ -1,0 +1,75 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PHAROS — Clarity across SAR and AIS">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&amp;family=Montserrat:wght@500;600&amp;display=swap');
+      .word { font-family:'Orbitron','Montserrat',sans-serif; font-weight:800; font-size:96px; letter-spacing:16px; }
+      .tag  { font-family:'Montserrat','Segoe UI',sans-serif; font-weight:600; font-size:24px; letter-spacing:2.5px; }
+    </style>
+    <radialGradient id="bl-bg" cx="180" cy="171" r="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#F2F0FB"/><stop offset="1" stop-color="#E5E2F4"/>
+    </radialGradient>
+    <linearGradient id="bl-tower" x1="24" y1="9" x2="24" y2="49" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6C5DD3"/><stop offset="1" stop-color="#453999"/>
+    </linearGradient>
+    <linearGradient id="bl-beam" x1="26" y1="19" x2="64" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2EC4B6" stop-opacity="0.8"/>
+      <stop offset="0.5" stop-color="#2EC4B6" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#2EC4B6" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="bl-glow" cx="24" cy="20.5" r="7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2EC4B6" stop-opacity="0.95"/><stop offset="0.45" stop-color="#55D1C9" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#2EC4B6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bl-word" x1="0" y1="120" x2="0" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34297C"/><stop offset="1" stop-color="#584AB6"/>
+    </linearGradient>
+    <clipPath id="bl-clip"><rect x="0" y="0" width="1200" height="360" rx="0"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="360" fill="url(#bl-bg)"/>
+
+  <g clip-path="url(#bl-clip)">
+    <!-- graticule -->
+    <g stroke="#D6D0F0" stroke-width="1" opacity="0.8">
+      <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200"/>
+      <path d="M120 0 V360 M280 0 V360 M440 0 V360 M600 0 V360 M760 0 V360 M920 0 V360 M1080 0 V360"/>
+    </g>
+    <!-- radar rings centered on the light -->
+    <g stroke="#2EC4B6" fill="none">
+      <circle cx="180" cy="171" r="120" opacity="0.28"/>
+      <circle cx="180" cy="171" r="185" opacity="0.2"/>
+      <circle cx="180" cy="171" r="255" opacity="0.13"/>
+      <circle cx="180" cy="171" r="330" opacity="0.08"/>
+    </g>
+    <!-- ambient AIS contacts -->
+    <g fill="#2EC4B6" opacity="0.65">
+      <circle cx="430" cy="70" r="2.4"/><circle cx="540" cy="250" r="2"/><circle cx="360" cy="300" r="2.2"/>
+      <circle cx="700" cy="120" r="2"/><circle cx="620" cy="40" r="1.8"/><circle cx="300" cy="120" r="2"/>
+    </g>
+  </g>
+
+  <!-- icon mark (scaled 2.5x at 120,120) -->
+  <g transform="translate(120,120) scale(2.5)">
+    <polygon points="26,18.5 70,-2 70,16" fill="url(#bl-beam)"/>
+    <circle cx="52" cy="11" r="4.4" fill="none" stroke="#FF9F1C" stroke-width="0.9" opacity="0.65"/>
+    <circle cx="52" cy="11" r="2.5" fill="#FF9F1C"/>
+    <circle cx="24" cy="20.5" r="7" fill="url(#bl-glow)"/>
+    <g stroke="#34297C" stroke-width="0.6" stroke-linejoin="round">
+      <polygon points="19,49 29,49 26.5,27 21.5,27" fill="url(#bl-tower)"/>
+      <polygon points="20.48,36 27.52,36 27.98,40 20.02,40" fill="#FF9F1C"/>
+      <rect x="20" y="24.6" width="8" height="2.6" rx="0.6" fill="#453999"/>
+      <rect x="21.4" y="16.5" width="5.2" height="8.1" rx="0.8" fill="#8272F0"/>
+      <polygon points="20.8,16.5 27.2,16.5 24,10" fill="#34297C"/>
+    </g>
+    <circle cx="24" cy="20.4" r="1.7" fill="#FFFFFF"/>
+    <circle cx="24" cy="9.2" r="1.1" fill="#6C5DD3"/>
+    <g stroke-linecap="round" fill="none">
+      <path d="M7,50.5 q4,-3 8,0 t8,0 t8,0 t8,0 t8,0 t8,0" stroke="#2EC4B6" stroke-width="1.6" opacity="0.9"/>
+      <path d="M7,54.5 q4,-3 8,0 t8,0 t8,0 t8,0 t8,0 t8,0" stroke="#453999" stroke-width="1.6" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- wordmark + tagline -->
+  <text x="330" y="190" class="word" fill="url(#bl-word)">PHAROS</text>
+  <text x="336" y="232" class="tag" fill="#1E7F76">Clarity Across SAR and AIS</text>
+</svg>

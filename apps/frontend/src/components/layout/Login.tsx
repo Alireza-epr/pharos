@@ -4,8 +4,7 @@ import TextInput from '../../components/common/inputs/TextInput';
 import ButtonInput from '../../components/common/inputs/ButtonInput';
 import { useLogin } from '../../hooks/login';
 import { useTranslator } from '../../hooks/translator';
-import Loading from '../common/Loading';
-import { ELoadingSize } from '@/helpers/types/generalTypes';
+import Banner from './Banner';
 
 const Login = () => {
   const { t } = useTranslator();
@@ -25,9 +24,7 @@ const Login = () => {
     <div className={` ${loginStyle.screen}`}>
       <form className={`card`} onSubmit={handleSubmit}>
         <div className={` ${loginStyle.header}`}>
-          <span className={`font-size-xl font-bold logo`}>
-            {t('general.label.appName')}
-          </span>
+          <Banner />
           <span className={`font-size-sm font-light logo-sub`}>
             {t('login.subtitle')}
           </span>

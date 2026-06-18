@@ -1,5 +1,6 @@
 import { Activity, ReactNode, useState } from 'react';
 import sectionItemStyle from './SectionItem.module.scss';
+import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
 export interface ISectionItemProps {
   title: string;
@@ -52,7 +53,11 @@ const SectionItem = (props: ISectionItemProps) => {
       </span>
       <Activity
         children={
-          <div className={` ${sectionItemStyle.content}`}>{props.children}</div>
+          <div className={` ${sectionItemStyle.content}`}>
+            <SectionLabelContext.Provider value={props.title}>
+              {props.children}
+            </SectionLabelContext.Provider>
+          </div>
         }
         mode={props.collapsible !== undefined && !open ? 'hidden' : 'visible'}
       />

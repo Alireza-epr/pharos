@@ -7,6 +7,21 @@ import { ECORSOrigin } from '../helpers/enum/expressEnum';
 import { log } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 
+// In development any localhost origin is allowed regardless of port, so the
+// frontend dev server can run on whatever port it picks.
+const DEVELOPMENT_ORIGIN = /^http:\/\/localhost(:\d+)?$/;
+
+// Resolve the allowed origin for the current request. In development we reflect
+// the request origin when it is a localhost URL (a specific origin is required
+// for credentialed requests, so '*' is not usable). Otherwise we use the
+// configured production origin.
+const getAllowedOrigin = (a_Origin?: string): string | undefined => {
+  if (isDevelopment() && a_Origin && DEVELOPMENT_ORIGIN.test(a_Origin)) {
+    return a_Origin;
+  }
+  return getEnvVariable(ECORSOrigin.production);
+};
+
 export const corsCheck = (
   a_Req: Request,
   a_Res: Response,
@@ -16,17 +31,14 @@ export const corsCheck = (
   // `cors` middleware can read it without leaking state across requests.
   let hasCORSMismatching = false;
 
-  // Allow requests only from specific origin.
-  const allowedOrigin = isDevelopment()
-    ? getEnvVariable(ECORSOrigin.development)
-    : getEnvVariable(ECORSOrigin.production);
-
   // Log the possibilities of CORS Checking
 
   // Check Origin
   // Requests without an Origin header (Postman, curl, same-origin, server-to-server)
   // are not cross-origin browser requests, so there is nothing for CORS to guard.
   const origin = a_Req.headers.origin;
+  // Allow requests only from specific origin.
+  const allowedOrigin = getAllowedOrigin(origin);
   if (origin && allowedOrigin !== origin) {
     log(`[CORS] Origin mismatched: ${origin}`, ELogType.error);
     hasCORSMismatching = true;
@@ -65,9 +77,7 @@ export const corsCheck = (
 
 export const cors = (a_Req: Request, a_Res: Response, a_Next: NextFunction) => {
   // Allow requests only from specific origin.
-  const allowedOrigin = isDevelopment()
-    ? getEnvVariable(ECORSOrigin.development)
-    : getEnvVariable(ECORSOrigin.production);
+  const allowedOrigin = getAllowedOrigin(a_Req.headers.origin);
 
   a_Res.header('Access-Control-Allow-Origin', allowedOrigin);
 

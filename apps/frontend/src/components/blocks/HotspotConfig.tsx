@@ -5,6 +5,7 @@ import DropdownInput, { IDropdownOption } from '../common/inputs/DropdownInput';
 import { useTranslator } from '@/hooks/translator';
 import { useHotspotConfigStore } from '@/stores/hotspotConfigStore';
 import { EHotspotTimeBins } from '@packages/enum';
+import { IHotspotConfig } from '@packages/types';
 
 export interface IHotspotConfigProps {}
 
@@ -32,7 +33,16 @@ const HotspotConfig = () => {
           min={0}
           max={15}
           step={1}
-          onChange={setResolution}
+          // NumberInput emits an unbounded number (users can type past min/max),
+          // but resolution is an H3 level 0-15; clamp + round before storing.
+          onChange={(v) =>
+            setResolution(
+              Math.min(
+                15,
+                Math.max(0, Math.round(v)),
+              ) as IHotspotConfig['resolution'],
+            )
+          }
         />
       </SectionItem>
       <SectionItem title={t('sidebar.label.timeBin')}>

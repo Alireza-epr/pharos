@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import numberInputStyle from './NumberInput.module.scss';
+import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
 export type TNumberInputDirection = 'row' | 'column';
 
@@ -12,11 +14,13 @@ export interface INumberInputProps {
   readOnly?: boolean;
   placeholder?: string;
   label?: string;
+  ariaLabel?: string | undefined;
   direction?: TNumberInputDirection;
 }
 
 const NumberInput = (props: INumberInputProps) => {
   const interactionClasses = props.readOnly ? '' : 'focus hover';
+  const sectionLabel = useContext(SectionLabelContext);
 
   return (
     <div
@@ -38,6 +42,7 @@ const NumberInput = (props: INumberInputProps) => {
         disabled={props.disabled}
         placeholder={props.placeholder}
         readOnly={props.readOnly}
+        aria-label={props.ariaLabel ?? props.label ?? sectionLabel}
         onChange={(e) =>
           props.onChange && props.onChange(Number(e.target.value))
         }
