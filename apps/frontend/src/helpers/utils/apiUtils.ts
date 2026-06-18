@@ -1,5 +1,7 @@
 import { useLoginStore } from '../../stores/loginStore';
+import { useAppStore } from '../../stores/appStore';
 import { getAPIConfig } from '../../hooks';
+import { checkHealth } from '../../hooks/system';
 import {
   EAuthRoutes,
   EBaseRoutes,
@@ -58,6 +60,13 @@ export const fetchWithAuth = async (
   a_URL: string,
   a_Init: RequestInit,
 ): Promise<Response> => {
+  // Gate every authed request on backend health. Read the cached status once;
+  // if it's down, re-verify against the health endpoint (which also re-syncs the
+  // Online/Offline chip, since health is polled over HTTP rather than the
+  // websocket) and reject the request when the backend is still unreachable.
+  const online = useAppStore.getState().backendStatus || (await checkHealth());
+  if (!online) throw new Error('[fetchWithAuth] Backend unavailable');
+
   const withAuth = (a_Token: string): RequestInit => ({
     ...a_Init,
     headers: {
