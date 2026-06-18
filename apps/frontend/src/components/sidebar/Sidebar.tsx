@@ -10,7 +10,7 @@ import EventTab from './tabs/EventTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import SectionItem from '../common/section/SectionItem';
 
-export interface ISidebarProps {}
+export interface ISidebarProps { }
 
 const Sidebar = () => {
   const { t } = useTranslator();
@@ -22,32 +22,30 @@ const Sidebar = () => {
 
   return (
     <div className={` ${sidebarStyle.wrapper} margin-left`}>
-      <SectionItem title=''>
-        <SectionInputGroup direction='row' grow>
-          <ButtonInput
-            label={t('sidebar.tab.report')}
-            active={activeTab === ESidebarTab.report}
-            onClick={() => setActiveTab(ESidebarTab.report)}
-            size="sm"
-          />
-          <ButtonInput
-            label={t('sidebar.tab.hotspot')}
-            active={activeTab === ESidebarTab.hotspot}
-            onClick={() => setActiveTab(ESidebarTab.hotspot)}
-            size="sm"
-          />
-          <ButtonInput
-            label={t('sidebar.tab.event')}
-            active={activeTab === ESidebarTab.event}
-            onClick={() => setActiveTab(ESidebarTab.event)}
-            size="sm"
-          />
-          <SidebarToggleInput
-            collapsed={collapsed}
-            onClick={() => setCollapsed((prev) => !prev)}
-          />
-        </SectionInputGroup>
-      </SectionItem>
+      <SectionInputGroup direction='row'>
+        <ButtonInput
+          label={t('sidebar.tab.report')}
+          active={activeTab === ESidebarTab.report}
+          onClick={() => setActiveTab(ESidebarTab.report)}
+          size="sm"
+        />
+        <ButtonInput
+          label={t('sidebar.tab.hotspot')}
+          active={activeTab === ESidebarTab.hotspot}
+          onClick={() => setActiveTab(ESidebarTab.hotspot)}
+          size="sm"
+        />
+        <ButtonInput
+          label={t('sidebar.tab.event')}
+          active={activeTab === ESidebarTab.event}
+          onClick={() => setActiveTab(ESidebarTab.event)}
+          size="sm"
+        />
+        <SidebarToggleInput
+          collapsed={collapsed}
+          onClick={() => setCollapsed((prev) => !prev)}
+        />
+      </SectionInputGroup>
 
       {activeTab === ESidebarTab.report && <ReportTab />}
       {activeTab === ESidebarTab.hotspot && <HotspotTab />}

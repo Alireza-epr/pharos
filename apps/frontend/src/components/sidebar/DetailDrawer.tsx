@@ -19,27 +19,25 @@ const DetailDrawer = () => {
 
   return (
     <div className={`${sidebarStyle.wrapper}`} >
-      <SectionItem title=''>
-        <SectionInputGroup direction='row' grow>
-          <SidebarToggleInput
-            collapsed={collapsed}
-            onClick={() => setCollapsed((prev) => !prev)}
-            reversed
-          />
-          <ButtonInput
-            label={t('detailPanel.tab.detail')}
-            active={activeTab === EDetailTab.detail}
-            onClick={() => setActiveTab(EDetailTab.detail)}
-            size="sm"
-          />
-          <ButtonInput
-            label={t('general.label.export')}
-            active={activeTab === EDetailTab.export}
-            onClick={() => setActiveTab(EDetailTab.export)}
-            size="sm"
-          />
-        </SectionInputGroup>
-      </SectionItem>
+      <SectionInputGroup direction='row'>
+        <SidebarToggleInput
+          collapsed={collapsed}
+          onClick={() => setCollapsed((prev) => !prev)}
+          reversed
+        />
+        <ButtonInput
+          label={t('detailPanel.tab.detail')}
+          active={activeTab === EDetailTab.detail}
+          onClick={() => setActiveTab(EDetailTab.detail)}
+          size="sm"
+        />
+        <ButtonInput
+          label={t('general.label.export')}
+          active={activeTab === EDetailTab.export}
+          onClick={() => setActiveTab(EDetailTab.export)}
+          size="sm"
+        />
+      </SectionInputGroup>
 
       {activeTab === EDetailTab.detail && <DetailTab />}
       {activeTab === EDetailTab.export && <ExportTab />}
