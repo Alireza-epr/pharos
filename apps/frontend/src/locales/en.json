@@ -14,6 +14,7 @@
       "min": "Min",
       "max": "Max",
       "exportAll": "Export all",
+      "export": "Export",
       "version": "Ver.",
       "pagination": "Pagination",
       "limit": "limit",
@@ -127,8 +128,7 @@
       "comingSoon": "Coming soon"
     },
     "caveat": {
-      "apiInternalId": "API Internal ID",
-      "backendInternalId": "App Internal ID"
+      "apiInternalId": "API Internal ID"
     },
     "hint": {
       "multipleSelect": "Hold Ctrl and click to select multiple",
@@ -153,8 +153,7 @@
     },
     "action": {
       "details": "Details",
-      "selected": "Selected",
-      "export": "Export"
+      "selected": "Selected"
     },
     "empty": {
       "title": "No events to display",
@@ -162,6 +161,13 @@
     }
   },
   "detailPanel": {
+    "tab": {
+      "detail": "Detail"
+    },
+    "empty": {
+      "title": "No event to display",
+      "body": "Select an event from the list."
+    },
     "title": {
       "identification": "Identification",
       "locationAndTime": "Location & Time",
@@ -193,7 +199,7 @@
       "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
     },
     "action": {
-      "deselect": "Deselect",
+      "addToExport": "Add to Export",
       "next": "Next ›",
       "prev": "‹ Previous"
     }

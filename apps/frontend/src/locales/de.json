@@ -14,6 +14,7 @@
       "min": "Min",
       "max": "Max",
       "exportAll": "Alles exportieren",
+      "export": "Export",
       "version": "Ver.",
       "pagination": "Paginierung",
       "limit": "Limit",
@@ -130,8 +131,7 @@
       "comingSoon": "Demnächst verfügbar"
     },
     "caveat": {
-      "apiInternalId": "API-interne ID",
-      "backendInternalId": "App-interne ID"
+      "apiInternalId": "API-interne ID"
     },
     "hint": {
       "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
@@ -153,8 +153,7 @@
     },
     "action": {
       "details": "Details",
-      "selected": "Ausgewählt",
-      "export": "Exportieren"
+      "selected": "Ausgewählt"
     },
     "empty": {
       "title": "Keine Ereignisse vorhanden",
@@ -162,6 +161,13 @@
     }
   },
   "detailPanel": {
+    "tab": {
+      "detail": "Detail"
+    },
+    "empty": {
+      "title": "Kein Ereignis zum Anzeigen",
+      "body": "Wählen Sie ein Ereignis aus der Liste."
+    },
     "title": {
       "identification": "Identifikation",
       "locationAndTime": "Ort & Zeit",
@@ -193,7 +199,7 @@
       "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren."
     },
     "action": {
-      "deselect": "Abwählen",
+      "addToExport": "Zum Export hinzufügen",
       "next": "Weiter ›",
       "prev": "‹ Zurück"
     }

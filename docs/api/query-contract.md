@@ -464,7 +464,7 @@ Default:
 
 | Key        | Description                           | Required | Format                   | Param Type |
 | ---------- | ------------------------------------- | -------- | ------------------------ | ---------- |
-| resolution | Spatial resolution level (1–16 scale) | True     | number                   | body       |
+| resolution | Spatial resolution level (0–15 scale) | True     | number                   | body       |
 | timeBin    | Time aggregation bin                  | True     | Enum: ['HOURLY','DAILY'] | body       |
 
 For more information, please refer to [the hotspot documentation](../tech/hotspots.md).

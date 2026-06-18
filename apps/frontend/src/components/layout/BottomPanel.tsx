@@ -281,7 +281,7 @@ const BottomPanel = () => {
                         size="sm"
                       />
                       <ButtonInput
-                        label={`${t('bottomPanel.action.export')} \u21E9`}
+                        label={`${t('general.label.export')} \u21E9`}
                         size="sm"
                       />
                     </td>

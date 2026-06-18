@@ -6,7 +6,7 @@ const EventTab = () => {
 
   return (
     <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
-      <div className={` ${sidebarStyle.placeholder}`}>
+      <div className={` ${sidebarStyle.emptyState}`}>
         <span className={`font-size-sm font-bold font-family-header`}>
           {t('sidebar.tab.event')}
         </span>

@@ -1,14 +1,14 @@
 import sidebarStyle from '../Sidebar.module.scss';
 import { useTranslator } from '../../../hooks/translator';
 
-const HotspotTab = () => {
+const ExportTab = () => {
   const { t } = useTranslator();
 
   return (
     <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
       <div className={` ${sidebarStyle.emptyState}`}>
         <span className={`font-size-sm font-bold font-family-header`}>
-          {t('sidebar.tab.hotspot')}
+          {t('general.label.export')}
         </span>
         <span className={`font-size-xs font-light font-family-header`}>
           {t('sidebar.text.comingSoon')}
@@ -18,4 +18,4 @@ const HotspotTab = () => {
   );
 };
 
-export default HotspotTab;
+export default ExportTab;

@@ -7,6 +7,8 @@ import { ESidebarTab } from '../../helpers/enum/storeEnum';
 import ReportTab from './tabs/ReportTab';
 import HotspotTab from './tabs/HotspotTab';
 import EventTab from './tabs/EventTab';
+import SectionInputGroup from '../common/section/SectionInputGroup';
+import SectionItem from '../common/section/SectionItem';
 
 export interface ISidebarProps {}
 
@@ -20,8 +22,8 @@ const Sidebar = () => {
 
   return (
     <div className={` ${sidebarStyle.wrapper} margin-left`}>
-      <div className={` ${sidebarStyle.header}`}>
-        <div className={` ${sidebarStyle.tabs}`}>
+      <SectionItem title=''>
+        <SectionInputGroup direction='row' grow>
           <ButtonInput
             label={t('sidebar.tab.report')}
             active={activeTab === ESidebarTab.report}
@@ -44,8 +46,8 @@ const Sidebar = () => {
             collapsed={collapsed}
             onClick={() => setCollapsed((prev) => !prev)}
           />
-        </div>
-      </div>
+        </SectionInputGroup>
+      </SectionItem>
 
       {activeTab === ESidebarTab.report && <ReportTab />}
       {activeTab === ESidebarTab.hotspot && <HotspotTab />}

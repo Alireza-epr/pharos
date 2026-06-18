@@ -5,6 +5,7 @@ export interface ISidebarToggleInputProps {
   collapsed: boolean;
   onClick: () => void;
   className?: string | undefined;
+  reversed?: boolean
 }
 
 const SidebarToggleInput = (props: ISidebarToggleInputProps) => {
@@ -21,7 +22,7 @@ const SidebarToggleInput = (props: ISidebarToggleInputProps) => {
       title={label}
       aria-label={label}
     >
-      {props.collapsed ? '»' : '«'}
+      {props.collapsed !== !!props.reversed ? '»' : '«'}
     </button>
   );
 };

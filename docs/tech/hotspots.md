@@ -18,10 +18,13 @@ These settings are defined in `apps/backend/src/config/pilot.json`.
 
 ### Spatial Resolution
 
-The hotspot spatial resolution is configurable via:
+The hotspot spatial resolution is configurable via the `resolution` field of the `hotspot` configuration object:
 
 ```json
-"hotspotResolution": 5
+"hotspot": {
+  "resolution": 5,
+  "timeBin": "HOURLY"
+}
 ```
 
 Allowed values: `0` to `15`.
@@ -30,10 +33,10 @@ Allowed values: `0` to `15`.
 
 ### Time Bin Configuration
 
-Hotspot temporal aggregation can be configured using:
+Hotspot temporal aggregation is configured via the `timeBin` field of the same `hotspot` object:
 
 ```json
-"hotspotTimeBin": "DAILY" | "HOURLY"
+"timeBin": "DAILY" | "HOURLY"
 ```
 
 | Value    | Behaviour                  |
@@ -87,8 +90,10 @@ Thresholds are defined in `apps/backend/src/config/pilot.json`:
 
 | File                                     | Description                                                   |
 | ---------------------------------------- | ------------------------------------------------------------- |
-| `apps/backend/data/out/hotspots.parquet` | Full dataset of hotspots with metrics, suitable for analytics |
-| `apps/backend/data/out/hotspots.geojson` | Simplified polygons for UI visualization, one feature per hex |
+| `<output>hotspots.parquet` | Full dataset of hotspots with metrics, suitable for analytics |
+| `<output>hotspots.geojson` | Simplified polygons for UI visualization, one feature per hex |
+
+`<output>` is the `output` directory configured in `pilot.json` (default `data/out/pilot/`) — e.g. `apps/backend/data/out/pilot/hotspots.parquet`.
 
 ---
 

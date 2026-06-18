@@ -62,6 +62,12 @@ aside {
   z-index: 5;
 }
 
+.reopen-button-detail {
+  position: absolute;
+  right: var(--margin-default);
+  z-index: 5;
+}
+
 // ── Center column ─────────────────────────────────────────────────────────────
 // MapView fills top, BottomPanel is pinned below
 main {

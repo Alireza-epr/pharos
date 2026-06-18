@@ -12,12 +12,13 @@ export interface ISectionInputGroupProps {
   direction?: TSectionGroupDirection;
   children: ReactNode;
   tab?: boolean;
+  grow?: boolean
 }
 
 const SectionInputGroup = (props: ISectionInputGroupProps) => {
   return (
     <div
-      className={` ${sectionInputGroupStyle.wrapper} ${props.tab ? 'margin-left' : ''}`}
+      className={` ${sectionInputGroupStyle.wrapper} ${props.tab ? 'margin-left' : ''} ${props.grow? 'flex-grow' : ''}`}
       data-direction={props.direction}
     >
       {props.children}

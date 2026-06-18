@@ -250,6 +250,12 @@ body {
   text-overflow: ellipsis;
 }
 
+// Flex
+.flex-grow {
+  flex-grow: 1;
+}
+
+
 /* Mobile Grid */
 @media (max-width: $max-width-mobile) {
   .grid {

@@ -17,7 +17,7 @@ servers:
   - url: http://localhost:{port}/v1
     variables:
       port:
-        default: "8080"
+        default: "1370"
   - url: https://{domain}/api/v1
     variables:
       domain:
@@ -440,7 +440,7 @@ components:
             - MultiPolygon
         coordinates:
           type: array
-          items: {}   # ✅ FIXED (no more oneOf crash)
+          items: {}
 
     Region:
       type: object
@@ -473,7 +473,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/SortRule"
-      # ✅ REMOVED default (was crashing Spectral)
 
     SortRule:
       type: object
@@ -491,8 +490,8 @@ components:
       properties:
         resolution:
           type: integer
-          minimum: 1
-          maximum: 16
+          minimum: 0
+          maximum: 15
         timeBin:
           type: string
           enum: [HOURLY, DAILY]

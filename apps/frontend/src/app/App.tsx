@@ -1,4 +1,4 @@
-import { Activity, useEffect } from 'react';
+import { useEffect } from 'react';
 import appStyle from './App.module.scss';
 import Sidebar from '../components/sidebar/Sidebar';
 import MapView from '../components/map/MapView';
@@ -6,12 +6,12 @@ import BottomPanel from '../components/layout/BottomPanel';
 import DetailDrawer from '../components/sidebar/DetailDrawer';
 import HeaderPanel from '../components/layout/HeaderPanel';
 import SidebarToggleInput from '../components/common/inputs/SidebarToggleInput';
-import { useEventStore } from '../stores/eventStore';
 import { useAppStore } from '../stores/appStore';
 import { useLoginStore } from '../stores/loginStore';
 import { useSidebarStore } from '../stores/sidebarStore';
 import { useHealth } from '../hooks/system';
 import Login from '../components/layout/Login';
+import { useDetailStore } from '../stores/detailStore';
 
 export interface IAppProps {}
 
@@ -20,7 +20,8 @@ const App = () => {
 
   const isAuthenticated = useLoginStore((s) => !!s.accessToken);
 
-  const selectedEvent = useEventStore((state) => state.selectedEvent);
+  const detailCollapsed = useDetailStore((s) => s.collapsed);
+  const setDetailCollapsed = useDetailStore((s) => s.setCollapsed);
 
   const sidebarCollapsed = useSidebarStore((s) => s.collapsed);
   const setSidebarCollapsed = useSidebarStore((s) => s.setCollapsed);
@@ -56,9 +57,18 @@ const App = () => {
           <MapView />
         </main>
 
-        <Activity mode={selectedEvent ? 'visible' : 'hidden'}>
+        <aside data-collapsed={detailCollapsed}>
           <DetailDrawer />
-        </Activity>
+        </aside>
+
+        {detailCollapsed && (
+          <SidebarToggleInput
+            collapsed={detailCollapsed}
+            onClick={() => setDetailCollapsed(false)}
+            className={appStyle.reopenButtonDetail}
+            reversed
+          />
+        )}
       </div>
 
       <BottomPanel />

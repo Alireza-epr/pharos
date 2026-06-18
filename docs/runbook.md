@@ -80,7 +80,7 @@ npm run pipeline:validation
 2. Executes the pipeline script in:
 
 ```text
-apps/backend/dist/pipeline/sample.js
+apps/backend/dist/src/pipeline/sample.js
 ```
 
 ### Configuration

@@ -10,7 +10,7 @@ import {
   TFilterKey,
   TSourceKey,
 } from '@packages/types';
-import { TSidebarTab, TTheme } from '../enum/storeEnum';
+import { TDetailTab, TSidebarTab, TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
 import {
@@ -54,6 +54,15 @@ export interface ISidebarStoreStates {
 export interface ISidebarStoreActions {
   setActiveTab: ( a_Value: ISidebarStoreStates['activeTab'] | ((a_Prev: ISidebarStoreStates['activeTab'] ) => ISidebarStoreStates['activeTab']) ) => void;
   setCollapsed: ( a_Value: ISidebarStoreStates['collapsed'] | ((a_Prev: ISidebarStoreStates['collapsed'] ) => ISidebarStoreStates['collapsed']) ) => void;
+}
+
+export interface IDetailStoreStates {
+  activeTab: TDetailTab;
+  collapsed: boolean;
+}
+export interface IDetailStoreActions {
+  setActiveTab: ( a_Value: IDetailStoreStates['activeTab'] | ((a_Prev: IDetailStoreStates['activeTab'] ) => IDetailStoreStates['activeTab']) ) => void;
+  setCollapsed: ( a_Value: IDetailStoreStates['collapsed'] | ((a_Prev: IDetailStoreStates['collapsed'] ) => IDetailStoreStates['collapsed']) ) => void;
 }
 
 export interface ILoginStoreStates {

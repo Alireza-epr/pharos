@@ -11,22 +11,6 @@
   margin-right: var(--margin-default);
 }
 
-.header {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--padding-gap);
-}
-
-.tabs {
-  flex: 1;
-  display: flex;
-  gap: var(--padding-gap);
-  min-width: 0;
-  background: var(--theme-bg-card);
-  border-radius: var(--radius-md);
-}
-
 .scroll-area {
   flex: 9;
   border-radius: var(--radius-md);
@@ -56,5 +40,26 @@
 .sub-run-query {
   color: var(--color-secondary-blue6);
   align-self: center;
+  text-align: center;
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-gap);
+  height: 100%;
+  padding: var(--padding-default-md);
+}
+
+.empty-title {
+  color: var(--theme-text-secondary);
+}
+
+.empty-body {
+  color: var(--theme-text-muted);
   text-align: center;
 }

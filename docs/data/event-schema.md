@@ -112,7 +112,7 @@ If validation fails during record normalization, the following schema will be re
   Information needed to reproduce the run:
   - configuration hash
   - configuration json
-  - code version
+  - git commit version
 
 ---
 
@@ -158,7 +158,7 @@ The hotspot signals are computed based on event data within the pilot scope (def
   "run_metadata": {
     "config_json": "...",
     "config_hash": "...",
-    "code_version": "..."
+    "git_commit_version": "..."
   },
   "scoring": {
     "triage_score": null,

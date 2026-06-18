@@ -20,10 +20,10 @@ rootDir = apps/backend/src/pipeline/features/
 Feature module:
 rootDir/eez.ts
 
-Enrichment fields added to event:
+Each enrichment entry contains:
 
-- eez_id
-- eez_label
+- id
+- label
 
 ---
 
@@ -37,10 +37,10 @@ Enrichment fields added to event:
 Feature module:
 rootDir/mpa.ts
 
-Enrichment fields added to event:
+Each enrichment entry contains:
 
-- mpa_id
-- mpa_label
+- id
+- label
 
 ---
 
