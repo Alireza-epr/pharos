@@ -138,6 +138,13 @@
       "runQueryFailed": "Failed to fetch"
     }
   },
+  "map": {
+    "loading": "Loading map…",
+    "error": {
+      "title": "Map failed to load",
+      "retry": "Retry"
+    }
+  },
   "bottomPanel": {
     "title": {
       "detections": "DETECTIONS"

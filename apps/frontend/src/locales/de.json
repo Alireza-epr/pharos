@@ -138,6 +138,13 @@
       "highlightedDataset": "Hervorgehobene Datensätze sind aktiv — einige Filter werden gemeinsam genutzt"
     }
   },
+  "map": {
+    "loading": "Karte wird geladen…",
+    "error": {
+      "title": "Karte konnte nicht geladen werden",
+      "retry": "Erneut versuchen"
+    }
+  },
   "bottomPanel": {
     "title": {
       "detections": "DETEKTIONEN"

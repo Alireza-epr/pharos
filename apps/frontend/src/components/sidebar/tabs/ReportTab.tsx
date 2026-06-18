@@ -167,7 +167,7 @@ const ReportTab = () => {
           />
         </SectionInputGroup>
         <span
-          className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery} ${error ? 'error' : ''}`}
+          className={`font-size-xs font-light font-family-header sub-text ${error ? 'error' : ''}`}
         >
           {error
             ? t('sidebar.error.runQueryFailed')

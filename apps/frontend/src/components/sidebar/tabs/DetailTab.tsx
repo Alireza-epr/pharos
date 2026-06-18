@@ -66,7 +66,7 @@ const DetailTab = () => {
         </SectionInputGroup>
 
         <span
-          className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery}`}
+          className={`font-size-xs font-light font-family-header sub-text`}
         >
           {t('detailPanel.text.dataLimitationBody')}
         </span>

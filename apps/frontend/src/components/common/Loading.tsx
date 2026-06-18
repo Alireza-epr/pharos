@@ -1,6 +1,7 @@
 import React from 'react';
 import loadingStyle from './Loading.module.scss';
 import { ELoadingSize } from '../../helpers/types/generalTypes';
+import TextInput from './inputs/TextInput';
 
 export interface ILoadingProps {
   text?: string;
@@ -11,10 +12,10 @@ export interface ILoadingProps {
 const Loading = (props: ILoadingProps) => {
   return (
     <div className={` ${loadingStyle.wrapper}`} data-testid="main-loading">
-      {props.text && props.text ? (
-        <div className={` ${loadingStyle.text}`}>{props.text}</div>
-      ) : (
-        <></>
+      {props.text && (
+        <span className={`font-size-xs font-light font-family-header sub-text`} >
+          {props.text}
+        </span>
       )}
       <div
         className={` ${loadingStyle.loader} ${props.size ? loadingStyle[props.size] : ''}`}
