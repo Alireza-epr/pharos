@@ -365,13 +365,13 @@ const Filter = () => {
         <SectionInputGroup direction="column">
           <CheckboxInput
             label={t('sidebar.label.insideEezOnly')}
-            checked={filters.is_inside_eez ?? false}
-            onChange={(v) => updateFilter({ is_inside_eez: v })}
+            checked={filters.only_inside_eez ?? false}
+            onChange={(v) => updateFilter({ only_inside_eez: v })}
           />
           <CheckboxInput
             label={t('sidebar.label.insideMpaOnly')}
-            checked={filters.is_inside_mpa ?? false}
-            onChange={(v) => updateFilter({ is_inside_mpa: v })}
+            checked={filters.only_inside_mpa ?? false}
+            onChange={(v) => updateFilter({ only_inside_mpa: v })}
           />
         </SectionInputGroup>
       </SectionItem>

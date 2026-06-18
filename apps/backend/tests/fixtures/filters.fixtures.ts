@@ -112,24 +112,24 @@ export const FILTER_REASON_CODES_INCLUDE_NONEXISTENT: IFilteringParams = {
 
 // ─── EEZ / MPA ───────────────────────────────────────────────────────────────
 
-/** All 18 events are inside an EEZ */
+/** Keep only events inside an EEZ – all 18 events qualify */
 export const FILTER_INSIDE_EEZ_TRUE: IFilteringParams = {
-  is_inside_eez: true,
+  only_inside_eez: true,
 };
 
-/** No events are outside an EEZ – should return empty array */
+/** false is a no-op – returns all events regardless of EEZ membership */
 export const FILTER_INSIDE_EEZ_FALSE: IFilteringParams = {
-  is_inside_eez: false,
+  only_inside_eez: false,
 };
 
-/** Only event [11] (dfc71c…) is inside an MPA */
+/** Keep only events inside an MPA – only event [11] (dfc71c…) qualifies */
 export const FILTER_INSIDE_MPA_TRUE: IFilteringParams = {
-  is_inside_mpa: true,
+  only_inside_mpa: true,
 };
 
-/** 17 of 18 events are outside an MPA */
+/** false is a no-op – returns all events regardless of MPA membership */
 export const FILTER_INSIDE_MPA_FALSE: IFilteringParams = {
-  is_inside_mpa: false,
+  only_inside_mpa: false,
 };
 
 // ─── Bathymetry ──────────────────────────────────────────────────────────────
@@ -155,7 +155,7 @@ export const FILTER_BATHYMETRY_RANGE_NEG44_TO_NEG43: IFilteringParams = {
 /** High-triage, inside MPA – targets only the highest-priority event (index 11) */
 export const FILTER_HIGH_TRIAGE_INSIDE_MPA: IFilteringParams = {
   triage_score_min: 0.9,
-  is_inside_mpa: true,
+  only_inside_mpa: true,
 };
 
 /** Near-coast events (dist <= 5 km) with high triage (>= 0.73) */
@@ -179,8 +179,8 @@ export const FILTER_ALL_PARAMS_SINGLE_RESULT: IFilteringParams = {
   distance_to_coast_km_min: 18,
   distance_to_coast_km_max: 19,
   reason_codes_include: [EReasonCodesStatic.inside_mpa],
-  is_inside_eez: true,
-  is_inside_mpa: true,
+  only_inside_eez: true,
+  only_inside_mpa: true,
   bathymetry_min: -44,
   bathymetry_max: -43,
 };

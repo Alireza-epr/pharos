@@ -90,17 +90,15 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.is_inside_eez !== undefined) {
+  if (a_Filters.only_inside_eez) {
     filteredEvents = filteredEvents.filter(
-      (e) =>
-        e.context_layers.EEZ.enrichments.length > 0 === a_Filters.is_inside_eez,
+      (e) => e.context_layers.EEZ.enrichments.length > 0,
     );
   }
 
-  if (a_Filters.is_inside_mpa !== undefined) {
+  if (a_Filters.only_inside_mpa) {
     filteredEvents = filteredEvents.filter(
-      (e) =>
-        e.context_layers.MPA.enrichments.length > 0 === a_Filters.is_inside_mpa,
+      (e) => e.context_layers.MPA.enrichments.length > 0,
     );
   }
 

@@ -413,8 +413,8 @@ Default:
 | distance_to_coast_km_max | Maximum distance to coast (km)   | False    | number  | body       |
 | reason_codes_include     | Include specific reason codes    | False    | array   | body       |
 | reason_codes_exclude     | Exclude specific reason codes    | False    | array   | body       |
-| is_inside_eez            | Filter events inside EEZ         | False    | boolean | body       |
-| is_inside_mpa            | Filter events inside MPA         | False    | boolean | body       |
+| only_inside_eez          | Keep only events inside EEZ      | False    | boolean | body       |
+| only_inside_mpa          | Keep only events inside MPA      | False    | boolean | body       |
 | bathymetry_min           | Minimum bathymetry value         | False    | number  | body       |
 | bathymetry_max           | Maximum bathymetry value         | False    | number  | body       |
 

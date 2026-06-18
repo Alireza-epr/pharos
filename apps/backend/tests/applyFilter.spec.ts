@@ -283,17 +283,17 @@ describe('applyFilter_reason_codes_exclude', () => {
   });
 });
 
-describe('applyFilter_is_inside_eez', () => {
-  it('returns_all_events_when_is_inside_eez_is_true_and_all_are_inside', () => {
+describe('applyFilter_only_inside_eez', () => {
+  it('returns_all_events_when_only_inside_eez_is_true_and_all_are_inside', () => {
     const result = applyFilter(events as any, FILTER_INSIDE_EEZ_TRUE);
 
     expect(result).toHaveLength(events.length);
   });
 
-  it('returns_empty_array_when_is_inside_eez_is_false_and_all_are_inside', () => {
+  it('returns_all_events_when_only_inside_eez_is_false', () => {
     const result = applyFilter(events as any, FILTER_INSIDE_EEZ_FALSE);
 
-    expect(result).toHaveLength(0);
+    expect(result).toHaveLength(events.length);
   });
 
   it('each_returned_event_has_at_least_one_eez_enrichment_when_filter_is_true', () => {
@@ -305,8 +305,8 @@ describe('applyFilter_is_inside_eez', () => {
   });
 });
 
-describe('applyFilter_is_inside_mpa', () => {
-  it('returns_only_one_event_when_is_inside_mpa_is_true', () => {
+describe('applyFilter_only_inside_mpa', () => {
+  it('returns_only_one_event_when_only_inside_mpa_is_true', () => {
     const result = applyFilter(events as any, FILTER_INSIDE_MPA_TRUE);
 
     expect(result).toHaveLength(1);
@@ -318,13 +318,18 @@ describe('applyFilter_is_inside_mpa', () => {
     expect(result[0].scoring.reason_codes).toContain('inside_mpa');
   });
 
-  it('returns_all_non_mpa_events_when_is_inside_mpa_is_false', () => {
-    const result = applyFilter(events as any, FILTER_INSIDE_MPA_FALSE);
+  it('each_returned_event_has_at_least_one_mpa_enrichment_when_filter_is_true', () => {
+    const result = applyFilter(events as any, FILTER_INSIDE_MPA_TRUE);
 
     result.forEach((e) => {
-      expect(e.context_layers.MPA.enrichments).toHaveLength(0);
+      expect(e.context_layers.MPA.enrichments.length).toBeGreaterThan(0);
     });
-    expect(result).toHaveLength(events.length - 1);
+  });
+
+  it('returns_all_events_when_only_inside_mpa_is_false', () => {
+    const result = applyFilter(events as any, FILTER_INSIDE_MPA_FALSE);
+
+    expect(result).toHaveLength(events.length);
   });
 });
 

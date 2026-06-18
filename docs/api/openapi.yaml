@@ -464,9 +464,9 @@ components:
           type: number
         triage_score_max:
           type: number
-        is_inside_eez:
+        only_inside_eez:
           type: boolean
-        is_inside_mpa:
+        only_inside_mpa:
           type: boolean
 
     SortArray:

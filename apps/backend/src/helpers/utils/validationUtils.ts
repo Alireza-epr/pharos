@@ -362,8 +362,8 @@ const validateFilters = (a_Filters: unknown, a_Errors: IValidationError[]) => {
   }
 
   const booleanFields: (keyof IFilteringParams)[] = [
-    'is_inside_eez',
-    'is_inside_mpa',
+    'only_inside_eez',
+    'only_inside_mpa',
   ];
 
   for (const field of booleanFields) {
