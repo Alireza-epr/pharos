@@ -1,7 +1,7 @@
 import Loading from '../common/Loading';
 import { ELoadingSize } from '../../helpers/types/generalTypes';
 import { useTranslator } from '../../hooks/translator';
-import mapSkeleton from "./MapSkeleton.module.scss"
+import mapSkeleton from './MapSkeleton.module.scss';
 
 export interface IMapSkeletonProps {}
 

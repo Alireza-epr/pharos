@@ -47,11 +47,7 @@ const Login = () => {
           disabled={loading}
         />
 
-        {error && (
-          <p className={`font-size-sm error`}>
-            {t('login.error')}
-          </p>
-        )}
+        {error && <p className={`font-size-sm error`}>{t('login.error')}</p>}
 
         <div className={loginStyle.actions}>
           <ButtonInput

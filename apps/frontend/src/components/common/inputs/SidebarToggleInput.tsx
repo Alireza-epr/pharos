@@ -5,7 +5,7 @@ export interface ISidebarToggleInputProps {
   collapsed: boolean;
   onClick: () => void;
   className?: string | undefined;
-  reversed?: boolean
+  reversed?: boolean;
 }
 
 const SidebarToggleInput = (props: ISidebarToggleInputProps) => {

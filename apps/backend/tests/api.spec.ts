@@ -124,9 +124,13 @@ describe('validateBodyParams', () => {
   it('fail_when_pagination_type_is_invalid', () => {
     const result_3 = validateBodyParams(invalidBody_pagination);
     expect(result_3.isValid).toBe(false);
-    expect(result_3.errors?.some((e) => e.field === 'pagination.limit')).toBe(true);
-    expect(result_3.errors?.some((e) => e.field === 'pagination.offset')).toBe(true);
-  })
+    expect(result_3.errors?.some((e) => e.field === 'pagination.limit')).toBe(
+      true,
+    );
+    expect(result_3.errors?.some((e) => e.field === 'pagination.offset')).toBe(
+      true,
+    );
+  });
 });
 
 describe('validateQueryParams', () => {
@@ -164,7 +168,6 @@ describe('validateQueryParams', () => {
     expect(
       result_2.errors?.some((e) => e.field === 'temporal-resolution'),
     ).toBe(true);
-
   });
 
   it('accepts_dynamic_keys', () => {

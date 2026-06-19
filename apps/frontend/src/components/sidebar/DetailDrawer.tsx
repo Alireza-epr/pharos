@@ -17,8 +17,8 @@ const DetailDrawer = () => {
   const setCollapsed = useDetailStore((s) => s.setCollapsed);
 
   return (
-    <div className={`${sidebarStyle.wrapper}`} >
-      <SectionInputGroup direction='row'>
+    <div className={`${sidebarStyle.wrapper}`}>
+      <SectionInputGroup direction="row">
         <SidebarToggleInput
           collapsed={collapsed}
           onClick={() => setCollapsed((prev) => !prev)}

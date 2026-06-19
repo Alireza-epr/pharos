@@ -6,7 +6,9 @@ import {
   IDetailStoreStates,
 } from '../helpers/types/storeTypes';
 
-export const useDetailStore = create<IDetailStoreStates & IDetailStoreActions>()(
+export const useDetailStore = create<
+  IDetailStoreStates & IDetailStoreActions
+>()(
   persist(
     combine(
       {
@@ -14,8 +16,20 @@ export const useDetailStore = create<IDetailStoreStates & IDetailStoreActions>()
         collapsed: false,
       },
       (set) => ({
-        setActiveTab: (a_Value) => set((state) => ({ activeTab: typeof a_Value === 'function' ? a_Value(state.activeTab) : a_Value})),
-        setCollapsed: (a_Value) => set((state) => ({ collapsed: typeof a_Value === 'function' ? a_Value(state.collapsed) : a_Value}))
+        setActiveTab: (a_Value) =>
+          set((state) => ({
+            activeTab:
+              typeof a_Value === 'function'
+                ? a_Value(state.activeTab)
+                : a_Value,
+          })),
+        setCollapsed: (a_Value) =>
+          set((state) => ({
+            collapsed:
+              typeof a_Value === 'function'
+                ? a_Value(state.collapsed)
+                : a_Value,
+          })),
       }),
     ),
     {

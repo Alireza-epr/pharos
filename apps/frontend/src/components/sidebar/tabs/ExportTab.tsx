@@ -16,30 +16,30 @@ import Section from '../../../components/common/section/Section';
 const ExportTab = () => {
   const { t } = useTranslator();
 
-  const { execute, loading, error } = useFetchExportEvents()
+  const { execute, loading, error } = useFetchExportEvents();
 
-  const selectedEvents = useEventStore(s => s.selectedEvents)
-  const setSelectedEvents = useEventStore(s => s.setSelectedEvents)
+  const selectedEvents = useEventStore((s) => s.selectedEvents);
+  const setSelectedEvents = useEventStore((s) => s.setSelectedEvents);
 
-  const config = useConfigStore(s => s.config)
-  const setConfig = useConfigStore(s => s.setConfig)
-  const exportConfig = useConfigStore(s => s.getExport())
+  const config = useConfigStore((s) => s.config);
+  const setConfig = useConfigStore((s) => s.setConfig);
+  const exportConfig = useConfigStore((s) => s.getExport());
 
   const handleExportClick = async () => {
-    if (!config) return
+    if (!config) return;
     const body: TBodyParams_export = {
       config,
-      events: selectedEvents
-    }
+      events: selectedEvents,
+    };
     const file = await execute(body);
     if (file) {
-      downloadFile(file.blob, file.filename)
+      downloadFile(file.blob, file.filename);
     }
-  }
+  };
 
   const handleRemoveClick = (a_EventId: string) => {
-    setSelectedEvents(prev => prev.filter(e => e.event_id !== a_EventId))
-  }
+    setSelectedEvents((prev) => prev.filter((e) => e.event_id !== a_EventId));
+  };
 
   const toggleConfig = (a_Config: EExportEvidence) => {
     setConfig((prev) => {
@@ -52,11 +52,11 @@ const ExportTab = () => {
         export: { ...current, [a_Config]: !current[a_Config] },
       };
     });
-  }
+  };
 
   const handleClearClick = () => {
-    setSelectedEvents([])
-  }
+    setSelectedEvents([]);
+  };
 
   return (
     <>
@@ -72,7 +72,7 @@ const ExportTab = () => {
                     value={event.event_id}
                     onRemove={() => handleRemoveClick(event.event_id)}
                   />
-                )
+                );
               })
             ) : (
               <div className={` ${sidebarStyle.emptyState}`}>
@@ -86,15 +86,20 @@ const ExportTab = () => {
             )}
           </SectionItem>
 
-          <SectionItem title={t("exportPanel.title.includeFiles")}>
+          <SectionItem title={t('exportPanel.title.includeFiles')}>
             <ChipGroupInput
               disabled={selectedEvents.length === 0}
-              values={Object.keys(EExportEvidence).filter(e => !e.includes("hotspot")) as EExportEvidence[]}
-              active={Object.entries(exportConfig).filter(([_, v]) => v).map(([k]) => k as EExportEvidence)}
+              values={
+                Object.keys(EExportEvidence).filter(
+                  (e) => !e.includes('hotspot'),
+                ) as EExportEvidence[]
+              }
+              active={Object.entries(exportConfig)
+                .filter(([_, v]) => v)
+                .map(([k]) => k as EExportEvidence)}
               onToggle={(config) => toggleConfig(config)}
             />
           </SectionItem>
-
         </Section>
 
         <Section title={t('sidebar.tab.hotspot')} collapsible>
@@ -108,17 +113,21 @@ const ExportTab = () => {
               </span>
             </div>
           </SectionItem>
-          <SectionItem title={t("exportPanel.title.includeFiles")}>
+          <SectionItem title={t('exportPanel.title.includeFiles')}>
             <ChipGroupInput
               disabled={true}
-              values={Object.keys(EExportEvidence).filter(e => e.includes("hotspot")) as EExportEvidence[]}
-              active={Object.entries(exportConfig).filter(([_, v]) => v).map(([k]) => k as EExportEvidence)}
+              values={
+                Object.keys(EExportEvidence).filter((e) =>
+                  e.includes('hotspot'),
+                ) as EExportEvidence[]
+              }
+              active={Object.entries(exportConfig)
+                .filter(([_, v]) => v)
+                .map(([k]) => k as EExportEvidence)}
               onToggle={(config) => toggleConfig(config)}
             />
           </SectionItem>
         </Section>
-
-
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">

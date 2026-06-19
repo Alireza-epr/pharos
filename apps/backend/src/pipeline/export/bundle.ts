@@ -164,7 +164,7 @@ export const evidenceExport = async (
     }
   }
   const filename = getExportId();
-  let buffer: Buffer<ArrayBufferLike> | null = null
+  let buffer: Buffer<ArrayBufferLike> | null = null;
   if (a_Zipped) {
     buffer = await writeZip(`${a_Config.output}${filename}.zip`, zipFiles);
   }
@@ -188,7 +188,7 @@ export const evidenceExport = async (
     );
   }
 
-  return { filename, buffer }
+  return { filename, buffer };
 };
 
 export const validationExport = async (

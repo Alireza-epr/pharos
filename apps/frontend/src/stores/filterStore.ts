@@ -12,13 +12,7 @@ import {
   IFilterStoreActions,
   IFilterStoreStates,
 } from '../helpers/types/storeTypes';
-import {
-  E4wingsDatasets,
-  E4wingsDatasetsUI,
-  EMatchFilter,
-  ENeuralVesselType,
-  TMatchFilter,
-} from '@packages/enum';
+import { E4wingsDatasets, EMatchFilter } from '@packages/enum';
 import {
   getFlags,
   getGearTypes,

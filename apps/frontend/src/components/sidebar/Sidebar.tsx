@@ -8,9 +8,8 @@ import ReportTab from './tabs/ReportTab';
 import HotspotTab from './tabs/HotspotTab';
 import EventTab from './tabs/EventTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
-import SectionItem from '../common/section/SectionItem';
 
-export interface ISidebarProps { }
+export interface ISidebarProps {}
 
 const Sidebar = () => {
   const { t } = useTranslator();
@@ -22,7 +21,7 @@ const Sidebar = () => {
 
   return (
     <div className={` ${sidebarStyle.wrapper} margin-left`}>
-      <SectionInputGroup direction='row'>
+      <SectionInputGroup direction="row">
         <ButtonInput
           label={t('sidebar.tab.report')}
           active={activeTab === ESidebarTab.report}

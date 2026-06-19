@@ -634,11 +634,11 @@ Default:
 
 ### 2. Request - Body
 
-| Key                             | Description                                                                                                                                        | Required | Format | Param Type |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------ | ---------- |
+| Key                             | Description                                                                                                                                         | Required | Format | Param Type |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | ---------- |
 | [config](#export-config-object) | Run configuration used to build the bundle and its run metadata. Same shape as the [Events Report](#events-report) body, plus an `export` selector. | True     | object | body       |
-| events                          | Canonical event records to include in the bundle                                                                                                   | True     | array  | body       |
-| hotspots                        | Hotspot records to include when hotspot files are selected                                                                                         | False    | array  | body       |
+| events                          | Canonical event records to include in the bundle                                                                                                    | True     | array  | body       |
+| hotspots                        | Hotspot records to include when hotspot files are selected                                                                                          | False    | array  | body       |
 
 ---
 

@@ -55,7 +55,7 @@ export type TBodyParams = Omit<IConfigJSON, "url_params">;
 export type TURLParams = I4wingsReportGetURLParams | I4wingsReportPostURLParams;
 
 export type TBodyParams_export = {
-  config: IConfigJSON,
-  events: IEventSchema[],
-  hotspots?: IHotspot[]
+  config: IConfigJSON;
+  events: IEventSchema[];
+  hotspots?: IHotspot[];
 };

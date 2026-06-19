@@ -55,7 +55,6 @@ export const invalidQuery_wrong_types = {
   'spatial-aggregation': 'yes',
 };
 
-
 export const invalidQuery_wrong_enum = {
   format: 'XML',
   'temporal-resolution': 'WEEKLY',

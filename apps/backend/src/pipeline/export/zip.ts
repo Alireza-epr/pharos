@@ -56,5 +56,5 @@ export const writeZip = async (a_OutputPath: string, a_Files: IZipFile[]) => {
 
   fs.writeFileSync(a_OutputPath, buffer);
 
-  return buffer
+  return buffer;
 };

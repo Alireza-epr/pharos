@@ -88,8 +88,8 @@ Thresholds are defined in `apps/backend/src/config/pilot.json`:
 
 ## 6. Outputs
 
-| File                                     | Description                                                   |
-| ---------------------------------------- | ------------------------------------------------------------- |
+| File                       | Description                                                   |
+| -------------------------- | ------------------------------------------------------------- |
 | `<output>hotspots.parquet` | Full dataset of hotspots with metrics, suitable for analytics |
 | `<output>hotspots.geojson` | Simplified polygons for UI visualization, one feature per hex |
 

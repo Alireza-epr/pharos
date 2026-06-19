@@ -53,8 +53,20 @@ export interface ISidebarStoreStates {
   collapsed: boolean;
 }
 export interface ISidebarStoreActions {
-  setActiveTab: ( a_Value: ISidebarStoreStates['activeTab'] | ((a_Prev: ISidebarStoreStates['activeTab'] ) => ISidebarStoreStates['activeTab']) ) => void;
-  setCollapsed: ( a_Value: ISidebarStoreStates['collapsed'] | ((a_Prev: ISidebarStoreStates['collapsed'] ) => ISidebarStoreStates['collapsed']) ) => void;
+  setActiveTab: (
+    a_Value:
+      | ISidebarStoreStates['activeTab']
+      | ((
+          a_Prev: ISidebarStoreStates['activeTab'],
+        ) => ISidebarStoreStates['activeTab']),
+  ) => void;
+  setCollapsed: (
+    a_Value:
+      | ISidebarStoreStates['collapsed']
+      | ((
+          a_Prev: ISidebarStoreStates['collapsed'],
+        ) => ISidebarStoreStates['collapsed']),
+  ) => void;
 }
 
 export interface IDetailStoreStates {
@@ -62,8 +74,20 @@ export interface IDetailStoreStates {
   collapsed: boolean;
 }
 export interface IDetailStoreActions {
-  setActiveTab: ( a_Value: IDetailStoreStates['activeTab'] | ((a_Prev: IDetailStoreStates['activeTab'] ) => IDetailStoreStates['activeTab']) ) => void;
-  setCollapsed: ( a_Value: IDetailStoreStates['collapsed'] | ((a_Prev: IDetailStoreStates['collapsed'] ) => IDetailStoreStates['collapsed']) ) => void;
+  setActiveTab: (
+    a_Value:
+      | IDetailStoreStates['activeTab']
+      | ((
+          a_Prev: IDetailStoreStates['activeTab'],
+        ) => IDetailStoreStates['activeTab']),
+  ) => void;
+  setCollapsed: (
+    a_Value:
+      | IDetailStoreStates['collapsed']
+      | ((
+          a_Prev: IDetailStoreStates['collapsed'],
+        ) => IDetailStoreStates['collapsed']),
+  ) => void;
 }
 
 export interface ILoginStoreStates {
@@ -95,9 +119,25 @@ export interface IEventStoreStates {
   selectedEvents: IEventSchema[];
 }
 export interface IEventStoreActions {
-  setEvents: ( a_Value: IEventStoreStates['events'] | ((a_Prev: IEventStoreStates['events']) => IEventStoreStates['events']) ) => void;
-  setActiveEvent: ( a_Value: IEventStoreStates['activeEvent'] | (( a_Prev: IEventStoreStates['activeEvent'] ) => IEventStoreStates['activeEvent']) ) => void;
-  setSelectedEvents: ( a_Value: IEventStoreStates['selectedEvents'] | ((a_Prev: IEventStoreStates['selectedEvents']) => IEventStoreStates['selectedEvents']) ) => void;
+  setEvents: (
+    a_Value:
+      | IEventStoreStates['events']
+      | ((a_Prev: IEventStoreStates['events']) => IEventStoreStates['events']),
+  ) => void;
+  setActiveEvent: (
+    a_Value:
+      | IEventStoreStates['activeEvent']
+      | ((
+          a_Prev: IEventStoreStates['activeEvent'],
+        ) => IEventStoreStates['activeEvent']),
+  ) => void;
+  setSelectedEvents: (
+    a_Value:
+      | IEventStoreStates['selectedEvents']
+      | ((
+          a_Prev: IEventStoreStates['selectedEvents'],
+        ) => IEventStoreStates['selectedEvents']),
+  ) => void;
 }
 
 export interface IBottomStoreStates {
@@ -284,12 +324,18 @@ export interface IAOIStoreActions {
 }
 
 export interface IConfigStoreStates {
-  config: IConfigJSON | null
+  config: IConfigJSON | null;
 }
 export interface IConfigStoreActions {
-  setConfig: ( a_Value: IConfigStoreStates['config'] | ((a_Prev: IConfigStoreStates['config']) => IConfigStoreStates['config']) ) => void;
-  getThreshold: () => IConfigJSON["threshold"]
-  getExport: () => TExportConfig 
+  setConfig: (
+    a_Value:
+      | IConfigStoreStates['config']
+      | ((
+          a_Prev: IConfigStoreStates['config'],
+        ) => IConfigStoreStates['config']),
+  ) => void;
+  getThreshold: () => IConfigJSON['threshold'];
+  getExport: () => TExportConfig;
 }
 
 export interface IAdvancedQueryStoreStates {

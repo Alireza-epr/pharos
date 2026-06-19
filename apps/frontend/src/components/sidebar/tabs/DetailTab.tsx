@@ -15,26 +15,26 @@ const DetailTab = () => {
   const { t } = useTranslator();
 
   const activeEvent = useEventStore((state) => state.activeEvent);
-  const selectedEvents = useEventStore( s => s.selectedEvents ) 
-  const setSelectedEvents = useEventStore( s => s.setSelectedEvents ) 
+  const selectedEvents = useEventStore((s) => s.selectedEvents);
+  const setSelectedEvents = useEventStore((s) => s.setSelectedEvents);
 
-  const handleNextClick = () => {
+  const handleNextClick = () => {};
 
-  }
-
-  const handlePrevClick = () => {
-    
-  }
+  const handlePrevClick = () => {};
 
   const handleExportClick = () => {
-    if(!activeEvent) return
-    const event = selectedEvents.find( e => e.event_id === activeEvent?.event_id )
-    if(!event) {
-      setSelectedEvents( prev => [...prev, activeEvent] )
+    if (!activeEvent) return;
+    const event = selectedEvents.find(
+      (e) => e.event_id === activeEvent?.event_id,
+    );
+    if (!event) {
+      setSelectedEvents((prev) => [...prev, activeEvent]);
     } else {
-      setSelectedEvents( prev => prev.filter( e => e.event_id !== event.event_id ) )
+      setSelectedEvents((prev) =>
+        prev.filter((e) => e.event_id !== event.event_id),
+      );
     }
-  }
+  };
 
   return (
     <>
@@ -62,26 +62,28 @@ const DetailTab = () => {
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">
-          <ButtonInput 
-            label={t('detailPanel.action.prev')} 
+          <ButtonInput
+            label={t('detailPanel.action.prev')}
             onClick={handlePrevClick}
           />
           <ButtonInput
-            label={selectedEvents.find( e => e.event_id === activeEvent?.event_id ) === undefined
-              ?`${t('detailPanel.action.addToExport')} +`
-              :`${t('detailPanel.action.removeFromExport')} +`   
+            label={
+              selectedEvents.find(
+                (e) => e.event_id === activeEvent?.event_id,
+              ) === undefined
+                ? `${t('detailPanel.action.addToExport')} +`
+                : `${t('detailPanel.action.removeFromExport')} +`
             }
             onClick={handleExportClick}
-            disabled= {!activeEvent}
+            disabled={!activeEvent}
           />
-          <ButtonInput label={t('detailPanel.action.next')} 
+          <ButtonInput
+            label={t('detailPanel.action.next')}
             onClick={handleNextClick}
           />
         </SectionInputGroup>
 
-        <span
-          className={`font-size-xs font-light font-family-header sub-text`}
-        >
+        <span className={`font-size-xs font-light font-family-header sub-text`}>
           {t('detailPanel.text.dataLimitationBody')}
         </span>
       </div>

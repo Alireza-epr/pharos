@@ -1,7 +1,11 @@
 import { Request, Response } from 'express';
 import { controllerResponse } from '../../helpers/utils/controllerUtils';
 import { EStatusCode } from '@packages/enum';
-import { IConfigJSON, TBodyParams_export, TExportConfig } from '@packages/types';
+import {
+  IConfigJSON,
+  TBodyParams_export,
+  TExportConfig,
+} from '@packages/types';
 import { evidenceExport } from '../../pipeline/export/bundle';
 import { getUserInfoFromReq } from '../../helpers/utils/backendUtils';
 import { formatTimestamp } from '@packages/utils';
@@ -11,7 +15,6 @@ export const evidenceController = async (
   a_Req: Request<{}, {}, TBodyParams_export, {}>,
   a_Res: Response,
 ) => {
-
   const body = a_Req.body;
 
   if (body === undefined) {
@@ -29,22 +32,23 @@ export const evidenceController = async (
       error: [`No events available`],
     });
   }
-  
 
   // Configuration
-  const default_export_output = "data/out/exports/"
-  const config_export: TExportConfig = !body.config.export ? {
-    "events.csv": true,
-    "event.geojson": true,
-    "run_metadata.json": true
-  } : body.config.export
+  const default_export_output = 'data/out/exports/';
+  const config_export: TExportConfig = !body.config.export
+    ? {
+        'events.csv': true,
+        'event.geojson': true,
+        'run_metadata.json': true,
+      }
+    : body.config.export;
 
   const configs: IConfigJSON = {
     ...body.config,
     output: default_export_output,
     export: config_export,
     gitCommitSHA: a_Req.gitCommitSHA,
-  }
+  };
 
   try {
     const export_bundle = await evidenceExport(
@@ -59,12 +63,7 @@ export const evidenceController = async (
 
     // Response
     if (export_bundle.buffer) {
-      return controllerResponse(
-        a_Res,
-        EStatusCode.OK_200,
-        {},
-        export_bundle
-      );
+      return controllerResponse(a_Res, EStatusCode.OK_200, {}, export_bundle);
     } else {
       // Metadata
       const metadata = await generateRunMetadata(
@@ -77,7 +76,7 @@ export const evidenceController = async (
       return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
         success: false,
         error: ['No export bundle found'],
-        metadata
+        metadata,
       });
     }
   } catch (e) {
@@ -95,5 +94,4 @@ export const evidenceController = async (
       error: [e instanceof Error ? e.message : String(e)],
     });
   }
-
 };

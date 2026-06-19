@@ -23,7 +23,11 @@ const MapErrorFallback = (props: IMapErrorFallbackProps) => {
   return (
     <div className={` ${mapErrorStyle.wrapper}`} role="alert">
       <p className={` ${mapErrorStyle.title}`}>{t('map.error.title')}</p>
-      <ButtonInput label={t('map.error.retry')} onClick={props.onRetry} size="sm" />
+      <ButtonInput
+        label={t('map.error.retry')}
+        onClick={props.onRetry}
+        size="sm"
+      />
     </div>
   );
 };

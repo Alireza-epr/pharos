@@ -7,7 +7,7 @@ export interface IChipGroupInputProps<T extends string> {
   onToggle?: (value: T) => void;
   variant?: string;
   readOnly?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {

@@ -11,12 +11,28 @@ export const useEventStore = create<IEventStoreStates & IEventStoreActions>(
     {
       events: [] as IEventStoreStates['events'],
       activeEvent: null as IEventStoreStates['activeEvent'],
-      selectedEvents: [] as IEventStoreStates['selectedEvents']
+      selectedEvents: [] as IEventStoreStates['selectedEvents'],
     },
     (set) => ({
-      setActiveEvent: (a_Value) => set((state) => ({ activeEvent: typeof a_Value === 'function' ? a_Value(state.activeEvent) : a_Value})),
-      setEvents: (a_Value) => set((state) => ({ events: typeof a_Value === 'function' ? a_Value(state.events) : a_Value })),
-      setSelectedEvents: (a_Value) => set((state) => ({ selectedEvents: typeof a_Value === 'function' ? a_Value(state.selectedEvents) : a_Value })),
+      setActiveEvent: (a_Value) =>
+        set((state) => ({
+          activeEvent:
+            typeof a_Value === 'function'
+              ? a_Value(state.activeEvent)
+              : a_Value,
+        })),
+      setEvents: (a_Value) =>
+        set((state) => ({
+          events:
+            typeof a_Value === 'function' ? a_Value(state.events) : a_Value,
+        })),
+      setSelectedEvents: (a_Value) =>
+        set((state) => ({
+          selectedEvents:
+            typeof a_Value === 'function'
+              ? a_Value(state.selectedEvents)
+              : a_Value,
+        })),
     }),
   ),
 );

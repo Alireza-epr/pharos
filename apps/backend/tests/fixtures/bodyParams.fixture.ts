@@ -147,5 +147,5 @@ export const invalidBody_pagination = {
   pagination: {
     limit: 'a',
     offset: 'b',
-  }
+  },
 };

@@ -16,7 +16,6 @@ const HeaderPanel = () => {
   const setLanguage = useAppStore((s) => s.setLanguage);
 
   const backendStatus = useAppStore((s) => s.backendStatus);
-  const setBackendStatus = useAppStore((s) => s.setBackendStatus);
 
   const logout = useLoginStore((s) => s.logout);
 

@@ -7,10 +7,10 @@ import {
 import { IConfigJSON } from '@packages/types';
 
 const default_export: IConfigJSON['export'] = {
-  "events.csv": true,
-  "event.geojson": true,
-  "run_metadata.json": true
-}
+  'events.csv': true,
+  'event.geojson': true,
+  'run_metadata.json': true,
+};
 
 const default_threshold: IConfigJSON['threshold'] = {
   near_coast_threshold: 10,
@@ -34,14 +34,17 @@ const default_threshold: IConfigJSON['threshold'] = {
   high_confidence_tier_weight: -0.05,
 };
 
-
 export const useConfigStore = create<IConfigStoreStates & IConfigStoreActions>(
   combine(
     {
-      config: null as IConfigStoreStates["config"]
+      config: null as IConfigStoreStates['config'],
     },
     (set, get) => ({
-      setConfig: (a_Value) => set((state) => ({ config: typeof a_Value === 'function' ? a_Value(state.config) : a_Value})),
+      setConfig: (a_Value) =>
+        set((state) => ({
+          config:
+            typeof a_Value === 'function' ? a_Value(state.config) : a_Value,
+        })),
       getThreshold: () => {
         return get().config?.threshold ?? default_threshold;
       },

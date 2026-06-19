@@ -174,4 +174,3 @@ In addition to the ZIP file, an audit log is generated containing the following 
 `exportId`: The unique identifier of the export, which is also used as the ZIP file name.
 
 Note: the audit log is written server-side to a pre-defined output directory configured on the backend, and is not part of the downloaded ZIP file.
-

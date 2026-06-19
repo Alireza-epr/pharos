@@ -271,7 +271,7 @@ export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
   return filteredConfiguration;
 };
 
-export const getUserInfoFromReq = <P, R, B={}, Q={}>(
+export const getUserInfoFromReq = <P, R, B = {}, Q = {}>(
   a_Req: Request<P, R, B, Q>,
 ): string => {
   const ip =

@@ -55,11 +55,7 @@ export const useFetchEvents = () => {
         return json;
       } catch (err: any) {
         const message = err instanceof Error ? err.message : String(err);
-        log_frontend(
-          `[useFetchEvents] Error: ${message}`,
-          ELogType.error,
-          '3',
-        );
+        log_frontend(`[useFetchEvents] Error: ${message}`, ELogType.error, '3');
         setError(err);
       } finally {
         setLoading(false);

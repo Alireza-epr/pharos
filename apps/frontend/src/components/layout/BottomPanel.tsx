@@ -72,14 +72,16 @@ const BottomPanel = () => {
   };
 
   const handleExportClick = (a_EventId: string) => {
-    const event = selectedEvents.find( e => e.event_id === a_EventId )
-    if(!event) {
-      const eventToAdd = events.find( e => e.event_id === a_EventId)
-      if(eventToAdd) setSelectedEvents( prev => [...prev, eventToAdd] )
+    const event = selectedEvents.find((e) => e.event_id === a_EventId);
+    if (!event) {
+      const eventToAdd = events.find((e) => e.event_id === a_EventId);
+      if (eventToAdd) setSelectedEvents((prev) => [...prev, eventToAdd]);
     } else {
-      setSelectedEvents( prev => prev.filter( e => e.event_id !== event.event_id ) )
+      setSelectedEvents((prev) =>
+        prev.filter((e) => e.event_id !== event.event_id),
+      );
     }
-  }
+  };
 
   return (
     <div className={` ${bottomPanelStyle.wrapper}`}>
@@ -228,12 +230,13 @@ const BottomPanel = () => {
             <tbody>
               {sortedEvents.map((event, index) => {
                 const isSelected = activeEvent?.event_id === event.event_id;
-                const isExported = selectedEvents.find( e => e.event_id === event.event_id )
+                const isExported = selectedEvents.find(
+                  (e) => e.event_id === event.event_id,
+                );
                 return (
                   <tr
                     key={event.event_id}
                     className={`${bottomPanelStyle.tr} ${isSelected ? bottomPanelStyle.trSelected : ''}`}
-                    
                   >
                     <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>
                       {index + 1}
@@ -291,13 +294,16 @@ const BottomPanel = () => {
                             ? `← ${t('bottomPanel.action.selected')}`
                             : `${t('bottomPanel.action.details')} →`
                         }
-                        onClick={() => setActiveEvent(isSelected ? null : event)}
+                        onClick={() =>
+                          setActiveEvent(isSelected ? null : event)
+                        }
                         size="sm"
                       />
                       <ButtonInput
-                        label={!isExported
-                          ?`${t('detailPanel.action.addToExport')} +`
-                          :`${t('detailPanel.action.removeFromExport')} +`   
+                        label={
+                          !isExported
+                            ? `${t('detailPanel.action.addToExport')} +`
+                            : `${t('detailPanel.action.removeFromExport')} +`
                         }
                         onClick={() => handleExportClick(event.event_id)}
                         size="sm"

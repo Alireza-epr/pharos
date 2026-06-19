@@ -7,7 +7,7 @@ import MapSkeleton from './MapSkeleton';
 // with the app; MapCanvas (and everything heavy it will import) loads on demand.
 const MapCanvas = lazy(() => import('./MapCanvas'));
 
-export interface IMapViewProps { }
+export interface IMapViewProps {}
 
 const MapView = () => (
   <div className={` ${mapViewStyle.wrapper}`}>

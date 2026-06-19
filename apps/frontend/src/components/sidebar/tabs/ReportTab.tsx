@@ -43,13 +43,6 @@ const ReportTab = () => {
     const aoi = useAOIStore.getState().getAOI();
     if (!aoi) return;
 
-    let method: EFetchMethods;
-    if ('region-dataset' in aoi) {
-      method = EFetchMethods.get;
-    } else {
-      method = EFetchMethods.post;
-    }
-
     const sort = useSortOrderStore.getState().sorts;
 
     const filter = useFilterStore.getState().filters;
@@ -59,7 +52,7 @@ const ReportTab = () => {
     const hotspot = useHotspotConfigStore.getState().getHotspot();
 
     const threshold = useConfigStore.getState().getThreshold();
-    const exportConfig = useConfigStore.getState().getExport()
+    const exportConfig = useConfigStore.getState().getExport();
 
     const pagination = usePaginationStore.getState().getPagination();
 
@@ -98,7 +91,7 @@ const ReportTab = () => {
       hotspot,
       threshold,
       pagination,
-      export: exportConfig
+      export: exportConfig,
     };
 
     const config_base = {
@@ -124,7 +117,7 @@ const ReportTab = () => {
     if (sort.length > 0) setSorts(sort);
 
     log_frontend({ config: { ...config } });
-    setConfig(config)      
+    setConfig(config);
     execute(config);
   };
 
