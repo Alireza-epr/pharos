@@ -13,12 +13,13 @@
       "all": "All",
       "min": "Min",
       "max": "Max",
-      "exportAll": "Export all",
+      "exportAll": "Add All to Export",
       "export": "Export",
       "version": "Ver.",
       "pagination": "Pagination",
-      "limit": "limit",
-      "offset": "offset"
+      "limit": "Limit",
+      "offset": "Offset",
+      "list": "List"
     },
     "action": {
       "copy": "Copy"
@@ -207,8 +208,26 @@
     },
     "action": {
       "addToExport": "Add to Export",
+      "removeFromExport": "Remove from Export",
       "next": "Next ›",
       "prev": "‹ Previous"
+    }
+  },
+  "exportPanel": {
+    "empty": {
+      "title": "No event to export",
+      "body": "Add events to export list.",
+      "titleHotspot": "No hotspot to export",
+      "bodyHotspot": "Add hotspots to export list."
+    },
+    "text": {
+      "downloadNote": "Items zipped and downloaded"
+    },
+    "error": {
+      "exportFailed": "Export failed"
+    },
+    "title": {
+      "includeFiles": "Include Files"
     }
   },
   "login": {

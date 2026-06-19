@@ -76,5 +76,10 @@ export interface IAuditLog {
   date: string;
   eventCount: number;
   configHash: string;
-  exportId: string;
+  filename: string;
+}
+
+export interface IExportBuffer {
+  filename: string;
+  buffer: Buffer<ArrayBufferLike> | null;
 }

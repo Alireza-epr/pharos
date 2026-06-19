@@ -13,12 +13,13 @@
       "all": "Alle",
       "min": "Min",
       "max": "Max",
-      "exportAll": "Alles exportieren",
+      "exportAll": "Alle zum Export hinzufügen",
       "export": "Export",
       "version": "Ver.",
       "pagination": "Paginierung",
       "limit": "Limit",
-      "offset": "Versatz"
+      "offset": "Versatz",
+      "list": "Liste"
     },
     "action": {
       "copy": "Kopieren"
@@ -207,8 +208,26 @@
     },
     "action": {
       "addToExport": "Zum Export hinzufügen",
+      "removeFromExport": "Aus Export entfernen",
       "next": "Weiter ›",
       "prev": "‹ Zurück"
+    }
+  },
+  "exportPanel": {
+    "empty": {
+      "title": "Kein Ereignis zum Exportieren",
+      "body": "Fügen Sie Ereignisse zur Exportliste hinzu.",
+      "titleHotspot": "Kein Hotspot zum Exportieren",
+      "bodyHotspot": "Fügen Sie Hotspots zur Exportliste hinzu."
+    },
+    "text": {
+      "downloadNote": "Elemente werden gezippt und heruntergeladen"
+    },
+    "error": {
+      "exportFailed": "Export fehlgeschlagen"
+    },
+    "title": {
+      "includeFiles": "Dateien einschließen"
     }
   },
   "login": {

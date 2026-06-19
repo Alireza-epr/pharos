@@ -10,3 +10,8 @@ export enum ELoadingSize {
   md = 'md',
   lg = 'lg',
 }
+
+export interface IExportBlob {
+  filename: string;
+  blob: Blob;
+}

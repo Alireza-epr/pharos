@@ -19,7 +19,7 @@ import { IConfigJSON, TURLParams } from '@packages/types';
 import { EFetchMethods } from '@packages/enum';
 import { useFilterStore } from '../../../stores/filterStore';
 import { useHotspotConfigStore } from '../../../stores/hotspotConfigStore';
-import { useThresholdAndWeightsStore } from '../../../stores/thresholdAndWeightsStore';
+import { useConfigStore } from '../../../stores/configStore';
 import { useAdvancedQueryStore } from '../../../stores/advancedQueryStore';
 import Pagination from '../../blocks/Pagination';
 import { usePaginationStore } from '../../../stores/paginationStore';
@@ -32,6 +32,7 @@ const ReportTab = () => {
   const { t } = useTranslator();
 
   const setEvents = useEventStore((s) => s.setEvents);
+  const setConfig = useConfigStore((s) => s.setConfig);
   const setSorts = useBottomStore((s) => s.setSorts);
 
   const hasAOI = useAOIStore((s) =>
@@ -57,7 +58,8 @@ const ReportTab = () => {
 
     const hotspot = useHotspotConfigStore.getState().getHotspot();
 
-    const threshold = useThresholdAndWeightsStore.getState().getThreshold();
+    const threshold = useConfigStore.getState().getThreshold();
+    const exportConfig = useConfigStore.getState().getExport()
 
     const pagination = usePaginationStore.getState().getPagination();
 
@@ -96,6 +98,7 @@ const ReportTab = () => {
       hotspot,
       threshold,
       pagination,
+      export: exportConfig
     };
 
     const config_base = {
@@ -121,6 +124,7 @@ const ReportTab = () => {
     if (sort.length > 0) setSorts(sort);
 
     log_frontend({ config: { ...config } });
+    setConfig(config)      
     execute(config);
   };
 

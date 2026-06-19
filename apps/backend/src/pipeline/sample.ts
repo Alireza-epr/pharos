@@ -118,8 +118,8 @@ const main = async (a_Config: IConfigJSON) => {
   await evidenceExport(
     { ...a_Config, export: fullExport },
     enrichedEvents,
-    start,
     hotspots,
+    start,
   );
 
   log('Pilot finished.', ELogType.info);

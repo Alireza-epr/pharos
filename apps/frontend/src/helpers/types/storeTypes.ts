@@ -7,6 +7,7 @@ import {
   IHotspotConfig,
   ISortOption,
   T4wingsSource,
+  TExportConfig,
   TFilterKey,
   TSourceKey,
 } from '@packages/types';
@@ -90,21 +91,13 @@ export interface ILoginStoreActions {
 
 export interface IEventStoreStates {
   events: IEventSchema[];
-  selectedEvent: IEventSchema | null;
+  activeEvent: IEventSchema | null;
+  selectedEvents: IEventSchema[];
 }
 export interface IEventStoreActions {
-  setSelectedEvent: (
-    a_Value:
-      | IEventStoreStates['selectedEvent']
-      | ((
-          a_Prev: IEventStoreStates['selectedEvent'],
-        ) => IEventStoreStates['selectedEvent']),
-  ) => void;
-  setEvents: (
-    a_Value:
-      | IEventStoreStates['events']
-      | ((a_Prev: IEventStoreStates['events']) => IEventStoreStates['events']),
-  ) => void;
+  setEvents: ( a_Value: IEventStoreStates['events'] | ((a_Prev: IEventStoreStates['events']) => IEventStoreStates['events']) ) => void;
+  setActiveEvent: ( a_Value: IEventStoreStates['activeEvent'] | (( a_Prev: IEventStoreStates['activeEvent'] ) => IEventStoreStates['activeEvent']) ) => void;
+  setSelectedEvents: ( a_Value: IEventStoreStates['selectedEvents'] | ((a_Prev: IEventStoreStates['selectedEvents']) => IEventStoreStates['selectedEvents']) ) => void;
 }
 
 export interface IBottomStoreStates {
@@ -290,18 +283,13 @@ export interface IAOIStoreActions {
     | null;
 }
 
-export interface IThresholdAndWeightsStoreStates {
-  threshold: IConfigJSON['threshold'];
+export interface IConfigStoreStates {
+  config: IConfigJSON | null
 }
-export interface IThresholdAndWeightsStoreActions {
-  setThreshold: (
-    a_Value:
-      | IThresholdAndWeightsStoreStates['threshold']
-      | ((
-          a_Prev: IThresholdAndWeightsStoreStates['threshold'],
-        ) => IThresholdAndWeightsStoreStates['threshold']),
-  ) => void;
-  getThreshold: () => IThresholdAndWeightsStoreStates['threshold'];
+export interface IConfigStoreActions {
+  setConfig: ( a_Value: IConfigStoreStates['config'] | ((a_Prev: IConfigStoreStates['config']) => IConfigStoreStates['config']) ) => void;
+  getThreshold: () => IConfigJSON["threshold"]
+  getExport: () => TExportConfig 
 }
 
 export interface IAdvancedQueryStoreStates {

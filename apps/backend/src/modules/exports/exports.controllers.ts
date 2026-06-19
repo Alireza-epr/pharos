@@ -1,70 +1,99 @@
 import { Request, Response } from 'express';
 import { controllerResponse } from '../../helpers/utils/controllerUtils';
-import { EFetchMethods, EResponseMessage, EStatusCode } from '@packages/enum';
-import config from '../../config/pilot.json';
-import { IConfigJSON, TBodyParams, TURLParams } from '@packages/types';
+import { EStatusCode } from '@packages/enum';
+import { IConfigJSON, TBodyParams_export, TExportConfig } from '@packages/types';
 import { evidenceExport } from '../../pipeline/export/bundle';
 import { getUserInfoFromReq } from '../../helpers/utils/backendUtils';
+import { formatTimestamp } from '@packages/utils';
+import { generateRunMetadata } from '../../pipeline/normalize/generation';
 
 export const evidenceController = async (
-  a_Req: Request<{}, {}, TBodyParams, TURLParams>,
+  a_Req: Request<{}, {}, TBodyParams_export, {}>,
   a_Res: Response,
 ) => {
-  const events = a_Req.events;
-  if (events === undefined) {
-    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+
+  const body = a_Req.body;
+
+  if (body === undefined) {
+    return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
+      success: false,
+      error: [`No body in request`],
+    });
+  }
+
+  const events = body.events;
+
+  if (events === undefined || events.length === 0) {
+    return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
       success: false,
       error: [`No events available`],
     });
   }
-
-  const body = a_Req.body;
-  const url_params = a_Req.query;
+  
 
   // Configuration
-  const threshold = body?.threshold ?? config.threshold;
-  const sort = body?.sort ?? config.sort;
-  const hotspot = body?.hotspot ?? config.hotspot;
-  const pagination = body.pagination;
-  const URL = body.URL;
+  const default_export_output = "data/out/exports/"
+  const config_export: TExportConfig = !body.config.export ? {
+    "events.csv": true,
+    "event.geojson": true,
+    "run_metadata.json": true
+  } : body.config.export
 
-  const filter = body?.filter ?? {};
-  const body_params = body?.body_params ?? null;
-
-  const base_config = {
-    URL,
-    url_params,
-    threshold,
-    sort,
-    hotspot,
-    filter,
-    pagination,
+  const configs: IConfigJSON = {
+    ...body.config,
+    output: default_export_output,
+    export: config_export,
     gitCommitSHA: a_Req.gitCommitSHA,
-  };
+  }
 
-  const configs: IConfigJSON =
-    body.method === EFetchMethods.get
-      ? {
-          ...base_config,
-          method: EFetchMethods.get,
-        }
-      : {
-          ...base_config,
-          method: EFetchMethods.post,
-          body_params: body.body_params!,
-        };
+  try {
+    const export_bundle = await evidenceExport(
+      configs,
+      events,
+      a_Req.body.hotspots,
+      a_Req.start_time,
+      true,
+      true,
+      getUserInfoFromReq<{}, {}, TBodyParams_export, {}>(a_Req),
+    );
 
-  await evidenceExport(
-    configs,
-    events,
-    a_Req.start_time,
-    undefined,
-    true,
-    true,
-    getUserInfoFromReq<{}, {}, TBodyParams, TURLParams>(a_Req),
-  );
+    // Response
+    if (export_bundle.buffer) {
+      return controllerResponse(
+        a_Res,
+        EStatusCode.OK_200,
+        {},
+        export_bundle
+      );
+    } else {
+      // Metadata
+      const metadata = await generateRunMetadata(
+        [configs],
+        events,
+        a_Req.start_time,
+        formatTimestamp(),
+      );
 
-  return controllerResponse(a_Res, EStatusCode.OK_200, {
-    success: true,
-  });
+      return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+        success: false,
+        error: ['No export bundle found'],
+        metadata
+      });
+    }
+  } catch (e) {
+    // Metadata
+    const metadata = await generateRunMetadata(
+      [configs],
+      events,
+      a_Req.start_time,
+      formatTimestamp(),
+    );
+
+    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
+      success: false,
+      metadata,
+      error: [e instanceof Error ? e.message : String(e)],
+    });
+  }
+
 };

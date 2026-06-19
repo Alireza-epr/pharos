@@ -16,6 +16,7 @@ export interface ITextInputProps {
   // the displayed text is truncated but the full value should be copied.
   copyValue?: string;
   caveat?: string;
+  fullWidth?: boolean
 }
 
 const COPIED_FEEDBACK_MS = 1500;
@@ -78,7 +79,7 @@ const TextInput = (props: ITextInputProps) => {
 
   const input = (
     <input
-      className={`font-size-sm disabled ${interactionClasses} ${textInputStyle.input} ${props.readOnly ? textInputStyle.readonly : ''}`}
+      className={`font-size-sm disabled ${interactionClasses} ${textInputStyle.input} ${props.readOnly ? textInputStyle.readonly : ''} ${props.fullWidth ? "full-width": ""}`}
       type={type}
       value={props.value}
       disabled={props.disabled}

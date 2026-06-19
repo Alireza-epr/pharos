@@ -7,7 +7,6 @@ import SidebarToggleInput from '../common/inputs/SidebarToggleInput';
 import DetailTab from './tabs/DetailTab';
 import ExportTab from './tabs/ExportTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
-import SectionItem from '../common/section/SectionItem';
 
 const DetailDrawer = () => {
   const { t } = useTranslator();

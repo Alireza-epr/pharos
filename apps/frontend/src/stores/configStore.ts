@@ -1,12 +1,18 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import {
-  IThresholdAndWeightsStoreStates,
-  IThresholdAndWeightsStoreActions,
+  IConfigStoreActions,
+  IConfigStoreStates,
 } from '../helpers/types/storeTypes';
 import { IConfigJSON } from '@packages/types';
 
-const defaultThreshold: IConfigJSON['threshold'] = {
+const default_export: IConfigJSON['export'] = {
+  "events.csv": true,
+  "event.geojson": true,
+  "run_metadata.json": true
+}
+
+const default_threshold: IConfigJSON['threshold'] = {
   near_coast_threshold: 10,
   low_confidence_proxy_threshold: 2,
   shallow_water_threshold: -50,
@@ -28,22 +34,19 @@ const defaultThreshold: IConfigJSON['threshold'] = {
   high_confidence_tier_weight: -0.05,
 };
 
-export const useThresholdAndWeightsStore = create<
-  IThresholdAndWeightsStoreStates & IThresholdAndWeightsStoreActions
->(
+
+export const useConfigStore = create<IConfigStoreStates & IConfigStoreActions>(
   combine(
     {
-      threshold:
-        defaultThreshold satisfies IThresholdAndWeightsStoreStates['threshold'],
+      config: null as IConfigStoreStates["config"]
     },
     (set, get) => ({
-      setThreshold: (a_Value) =>
-        set((state) => ({
-          threshold:
-            typeof a_Value === 'function' ? a_Value(state.threshold) : a_Value,
-        })),
+      setConfig: (a_Value) => set((state) => ({ config: typeof a_Value === 'function' ? a_Value(state.config) : a_Value})),
       getThreshold: () => {
-        return get().threshold;
+        return get().config?.threshold ?? default_threshold;
+      },
+      getExport: () => {
+        return get().config?.export ?? default_export;
       },
     }),
   ),

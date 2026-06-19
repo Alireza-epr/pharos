@@ -8,9 +8,23 @@ This bundle contains a filtered and scored set of events enriched with geospatia
 
 ## Files in this bundle
 
-The output of this bundle is a ZIP file containing the following data:
+The output of this bundle is a ZIP file. Its contents are configurable: the caller selects which files to include through the export configuration (`config.export`), so a given archive may contain any subset of the files below. When no selection is provided, the bundle defaults to `events.csv`, `events.geojson`, and `run_metadata.json`.
 
-### 1. `events.csv`
+The hotspot files (`hotspots.geojson`, `hotspots.parquet`) are written only when hotspot records are supplied with the request.
+
+### 1. `canonicalSchema.json`
+
+The selected events in their full canonical schema form (JSON), exactly as produced by the normalization pipeline.
+
+This is the authoritative, unflattened representation of each event, preserving the nested structure (`context_layers`, `scoring`, etc.).
+
+For additional details:
+
+- Event Schema: [`event-schema.md`](../data/event-schema.md)
+
+---
+
+### 2. `events.csv`
 
 Tabular representation of selected events with:
 
@@ -23,7 +37,7 @@ Note: CSV includes derived boolean flags and numeric enrichments used in scoring
 
 ---
 
-### 2. `events.geojson`
+### 3. `events.geojson`
 
 GeoJSON representation of the same events for spatial workflows.
 
@@ -43,7 +57,43 @@ This format is intended for GIS tools and spatial analysis pipelines.
 
 ---
 
-### 3. `run_metadata.json`
+### 4. `events.parquet`
+
+Columnar Parquet representation of the same flattened event rows as `events.csv`.
+
+Intended for analytical and large-scale data workflows where a compact, typed, columnar format is preferred over CSV.
+
+---
+
+### 5. `stats.json`
+
+Aggregated summary statistics computed across the selected events, such as counts and distributions of scoring outputs, context flags, and confidence tiers.
+
+Provides a quick overview of the exported set without scanning the per-event files.
+
+---
+
+### 6. `hotspots.geojson`
+
+GeoJSON `FeatureCollection` of the aggregated spatial hotspots derived from the selected events.
+
+Only present when hotspot records are included in the request.
+
+For additional details:
+
+- Hotspot aggregation: [`hotspots.md`](./hotspots.md)
+
+---
+
+### 7. `hotspots.parquet`
+
+Columnar Parquet representation of the same hotspot records as `hotspots.geojson`.
+
+Only present when hotspot records are included in the request.
+
+---
+
+### 8. `run_metadata.json`
 
 Execution and configuration traceability file, including queries and scoring configuration used for data export.
 
@@ -84,8 +134,9 @@ Different enrichment dataset versions may produce slightly different outputs.
 
 ### 3. GeoJSON is authoritative for spatial analysis
 
-- CSV is a flattened representation
-- GeoJSON preserves hierarchical structure and is preferred for GIS workflows
+- CSV and Parquet are flattened, tabular representations
+- `canonicalSchema.json` preserves the full nested event structure
+- GeoJSON preserves geometry and nested properties, and is preferred for GIS workflows
 
 ---
 
@@ -121,3 +172,6 @@ In addition to the ZIP file, an audit log is generated containing the following 
 `eventCount`: The total number of exported events.
 `configHash`: A hash generated from the query parameters and request body used to retrieve the events.
 `exportId`: The unique identifier of the export, which is also used as the ZIP file name.
+
+Note: the audit log is written server-side to a pre-defined output directory configured on the backend, and is not part of the downloaded ZIP file.
+

@@ -27,6 +27,7 @@ tags:
   - name: System
   - name: Auth
   - name: Events
+  - name: Exports
 
 paths:
   /system/health:
@@ -302,6 +303,64 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+  /exports/events:
+    post:
+      tags: [Exports]
+      summary: Export selected events as a ZIP bundle
+      description: >
+        Builds a ZIP archive from the supplied events (and optional hotspots) containing
+        the files selected in `config.export`, and streams it as a binary download.
+        On success the response body is the ZIP archive (`application/zip`), not JSON;
+        the generated file name is returned in the `Content-Disposition` header.
+        Requires a valid access token in the `Authorization: Bearer <accessToken>` header.
+      operationId: exportEvents
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventsExportRequest"
+
+      responses:
+        "200":
+          description: ZIP archive containing the selected export files
+          headers:
+            Content-Disposition:
+              description: >
+                Attachment carrying the generated export id file name, e.g.
+                `attachment; filename="<exportId>.zip"`.
+              schema:
+                type: string
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+
+        "400":
+          description: No events available (events missing or empty)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "401":
+          description: Missing, invalid, or expired access token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "500":
+          description: Export bundle could not be generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   securitySchemes:
     bearerAuth:
@@ -530,6 +589,59 @@ components:
             type: object
             additionalProperties:
               type: string
+
+    EventsExportRequest:
+      type: object
+      required: [config, events]
+      properties:
+        config:
+          $ref: "#/components/schemas/ExportConfig"
+        events:
+          type: array
+          description: Canonical event records to include in the bundle.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+        hotspots:
+          type: array
+          description: Hotspot records to include when hotspot files are selected.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+
+    ExportConfig:
+      allOf:
+        - $ref: "#/components/schemas/EventsReportRequest"
+        - type: object
+          properties:
+            export:
+              $ref: "#/components/schemas/ExportFiles"
+
+    ExportFiles:
+      type: object
+      description: >
+        Selects which files are written into the archive; each key toggles one output
+        file. When omitted, the bundle defaults to events.csv, event.geojson, and
+        run_metadata.json.
+      properties:
+        "canonicalSchema.json":
+          type: boolean
+        "event.geojson":
+          type: boolean
+        "event.parquet":
+          type: boolean
+        "events.csv":
+          type: boolean
+        "stats.json":
+          type: boolean
+        "hotspots.geojson":
+          type: boolean
+        "hotspots.parquet":
+          type: boolean
+        "run_metadata.json":
+          type: boolean
 
     PaginationParams:
       type: object

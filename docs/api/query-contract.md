@@ -40,6 +40,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Authentication Refresh Token](#authentication-refresh-token)
 - [Authentication Token Check](#authentication-token-check)
 - [Events Report](#events-report)
+- [Events Export](#events-export)
 
 ---
 
@@ -612,6 +613,102 @@ Default:
 - Sorting supports multiple fields
 - Filters applied before pagination
 - Intended for analytics workloads
+
+---
+
+## Events Export
+
+**POST** `/exports/events`
+
+**Description:**
+`Builds a ZIP archive from the supplied items containing the files selected in the export configuration, and streams it back to the caller as a binary download.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+---
+
+### 2. Request - Body
+
+| Key                             | Description                                                                                                                                        | Required | Format | Param Type |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------ | ---------- |
+| [config](#export-config-object) | Run configuration used to build the bundle and its run metadata. Same shape as the [Events Report](#events-report) body, plus an `export` selector. | True     | object | body       |
+| events                          | Canonical event records to include in the bundle                                                                                                   | True     | array  | body       |
+| hotspots                        | Hotspot records to include when hotspot files are selected                                                                                         | False    | array  | body       |
+
+---
+
+#### Export Config Object
+
+The `config` object reuses the [Events Report](#events-report) request body (URL, method, body_params, filter, sort, hotspot, threshold, pagination) and adds an `export` object that selects which files are written into the archive.
+
+- export
+
+| Key                  | Description                             | Required | Format  | Param Type |
+| -------------------- | --------------------------------------- | -------- | ------- | ---------- |
+| canonicalSchema.json | Include the canonical event schema JSON | False    | boolean | body       |
+| event.geojson        | Include events as GeoJSON               | False    | boolean | body       |
+| event.parquet        | Include events as Parquet               | False    | boolean | body       |
+| events.csv           | Include events as CSV                   | False    | boolean | body       |
+| stats.json           | Include aggregated statistics JSON      | False    | boolean | body       |
+| hotspots.geojson     | Include hotspots as GeoJSON             | False    | boolean | body       |
+| hotspots.parquet     | Include hotspots as Parquet             | False    | boolean | body       |
+| run_metadata.json    | Include run metadata JSON               | False    | boolean | body       |
+
+When the `export` object is omitted it defaults to `events.csv`, `event.geojson`, and `run_metadata.json`.
+
+Default:
+
+```json
+{
+  "export": {
+    "events.csv": true,
+    "event.geojson": true,
+    "run_metadata.json": true
+  }
+}
+```
+
+---
+
+### 3. Response
+
+On success the endpoint streams a binary ZIP archive (not a JSON envelope). The archive contains one file per selected `export` entry.
+
+| Header              | Description                                          | Example                                 |
+| ------------------- | ---------------------------------------------------- | --------------------------------------- |
+| Content-Type        | Always `application/zip`                             | `application/zip`                       |
+| Content-Disposition | Attachment carrying the generated export id filename | `attachment; filename="<exportId>.zip"` |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```
+Binary ZIP archive (application/zip) — see Content-Disposition for the file name
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – No events available (the `events` array is missing or empty)
+- `401 Unauthorized` – Missing, invalid, or expired access token
+- `500 Internal Server Error` – Export bundle could not be generated
+
+---
+
+### 5. Notes
+
+- The success response is a binary ZIP download, not a JSON payload; error responses use the standard JSON error envelope
+- The generated file name (`<exportId>.zip`) is returned in the `Content-Disposition` header, which is exposed to the browser via CORS
+- The caller selects which files to include through `config.export`; hotspot files are written only when `hotspots` records are supplied in the request body
+- Each export also writes a server-side audit log (`<exportId>_audit_log.json`) capturing the user, timestamp, configuration hash, and event count
+- The archive is retained server-side in addition to being returned to the caller
 
 ---
 

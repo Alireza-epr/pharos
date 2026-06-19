@@ -13,3 +13,14 @@ export const downloadJSON = (a_Data: Record<any, any>, a_Filename: string) => {
   link.remove();
   URL.revokeObjectURL(url);
 };
+
+export const downloadFile = (a_Blob: Blob, a_Filename: string) => {
+  const href = URL.createObjectURL(a_Blob);
+  const link = document.createElement('a');
+  link.href = href;
+  link.download = a_Filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(href), 0);
+};

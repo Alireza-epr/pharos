@@ -7,6 +7,7 @@ export interface IChipGroupInputProps<T extends string> {
   onToggle?: (value: T) => void;
   variant?: string;
   readOnly?: boolean;
+  disabled?: boolean
 }
 
 const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {
@@ -20,6 +21,7 @@ const ChipGroupInput = <T extends string>(props: IChipGroupInputProps<T>) => {
           active={props.active ? props.active.includes(value) : false}
           onClick={() => props.onToggle && props.onToggle(value)}
           readOnly={props.readOnly ?? false}
+          disabled={props.disabled ?? false}
         />
       ))}
     </div>

@@ -2,6 +2,7 @@ import { IConfigJSON, IEventSchema, IHotspot, IZipFile } from '@packages/types';
 import {
   IAuditLog,
   ICSVGroup,
+  IExportBuffer,
   TEventCSVRow,
 } from '../../helpers/types/generalTypes';
 import {
@@ -35,12 +36,12 @@ import { deepSortObject, getExportId } from '@packages/utils';
 export const evidenceExport = async (
   a_Config: IConfigJSON,
   a_Events: IEventSchema[],
-  a_StartTime?: string,
   a_Hotspots?: IHotspot[],
+  a_StartTime?: string,
   a_Zipped: boolean = false,
   a_Log: boolean = false,
   a_User: string = '',
-) => {
+): Promise<IExportBuffer> => {
   const gitCommitSHA = await getGitCommitSHA();
   const zipFiles: IZipFile[] = [];
   if (a_Config.export?.['canonicalSchema.json']) {
@@ -162,9 +163,10 @@ export const evidenceExport = async (
       writeJSON(`${a_Config.output}run_metadata`, run_metadata);
     }
   }
-  const exportId = getExportId();
+  const filename = getExportId();
+  let buffer: Buffer<ArrayBufferLike> | null = null
   if (a_Zipped) {
-    await writeZip(`${a_Config.output}${exportId}.zip`, zipFiles);
+    buffer = await writeZip(`${a_Config.output}${filename}.zip`, zipFiles);
   }
 
   if (a_Log) {
@@ -178,13 +180,15 @@ export const evidenceExport = async (
         : getISO8601(formatTimestamp()),
       configHash,
       eventCount: a_Events.length,
-      exportId,
+      filename,
     };
     writeJSON(
-      `${a_Config.output}${exportId}_audit_log`,
+      `${a_Config.output}${filename}_audit_log`,
       deepSortObject(audit_log),
     );
   }
+
+  return { filename, buffer }
 };
 
 export const validationExport = async (

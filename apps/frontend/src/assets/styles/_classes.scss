@@ -261,6 +261,10 @@ body {
   flex-grow: 1;
 }
 
+.full-width {
+  width: 100%
+}
+
 
 /* Mobile Grid */
 @media (max-width: $max-width-mobile) {

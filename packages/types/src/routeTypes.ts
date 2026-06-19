@@ -15,7 +15,7 @@ import {
   I4wingsReportPostURLParams,
   TDatasetVersion,
 } from "./gfwTypes";
-import { IConfigJSON } from "./eventTypes";
+import { IConfigJSON, IEventSchema, IHotspot } from "./eventTypes";
 export type TEndpoints = ESystemRoutes | EAuthRoutes;
 export type TRepositoryValue = any;
 
@@ -53,3 +53,9 @@ export interface IFilteringParamsUI {
 export type TBodyParams = Omit<IConfigJSON, "url_params">;
 
 export type TURLParams = I4wingsReportGetURLParams | I4wingsReportPostURLParams;
+
+export type TBodyParams_export = {
+  config: IConfigJSON,
+  events: IEventSchema[],
+  hotspots?: IHotspot[]
+};

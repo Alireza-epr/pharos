@@ -2,20 +2,29 @@ import { useTranslator } from '../../hooks/translator';
 import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
 import NumberInput from '../common/inputs/NumberInput';
-import { useThresholdAndWeightsStore } from '../../stores/thresholdAndWeightsStore';
+
 import { IConfigJSON } from '@packages/types';
+import { useConfigStore } from '@/stores/configStore';
 
 export interface IThresholdAndWeightsProps {}
 
 const ThresholdAndWeights = () => {
-  const threshold = useThresholdAndWeightsStore((s) => s.threshold);
-  const setThreshold = useThresholdAndWeightsStore((s) => s.setThreshold);
-
-  const updateThreshold = (a_Patch: Partial<IConfigJSON['threshold']>) => {
-    setThreshold((prev) => ({ ...prev, ...a_Patch }));
-  };
+  const threshold = useConfigStore((s) => s.getThreshold());
+  const setConfig = useConfigStore((s) => s.setConfig);
 
   const { t } = useTranslator();
+
+  const updateThreshold = (a_Patch: Partial<IConfigJSON['threshold']>) => {
+    setConfig(
+      (prev) =>
+        ({
+          ...prev,
+          // Seed from the current (defaulted) threshold so the first edit keeps
+          // every other value; the full config is assembled when a query runs.
+          threshold: { ...(prev?.threshold ?? threshold), ...a_Patch },
+        }) as IConfigJSON,
+    );
+  };
 
   return (
     <Section

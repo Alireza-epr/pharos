@@ -14,8 +14,9 @@ import SectionInputGroup from '../../common/section/SectionInputGroup';
 const DetailTab = () => {
   const { t } = useTranslator();
 
-  const selectedEvent = useEventStore((state) => state.selectedEvent);
-  const setSelectedEvent = useEventStore((state) => state.setSelectedEvent);
+  const activeEvent = useEventStore((state) => state.activeEvent);
+  const selectedEvents = useEventStore( s => s.selectedEvents ) 
+  const setSelectedEvents = useEventStore( s => s.setSelectedEvents ) 
 
   const handleNextClick = () => {
 
@@ -25,18 +26,28 @@ const DetailTab = () => {
     
   }
 
+  const handleExportClick = () => {
+    if(!activeEvent) return
+    const event = selectedEvents.find( e => e.event_id === activeEvent?.event_id )
+    if(!event) {
+      setSelectedEvents( prev => [...prev, activeEvent] )
+    } else {
+      setSelectedEvents( prev => prev.filter( e => e.event_id !== event.event_id ) )
+    }
+  }
+
   return (
     <>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
-        {selectedEvent ? (
+        {activeEvent ? (
           <>
-            <Identification event={selectedEvent} />
-            <LocationTimeBlock event={selectedEvent} />
-            <SourceDetection event={selectedEvent} />
-            <Scoring event={selectedEvent} />
-            <HotspotContext event={selectedEvent} />
-            <ContextLayersBlock event={selectedEvent} />
-            <RunMetadata event={selectedEvent} />
+            <Identification event={activeEvent} />
+            <LocationTimeBlock event={activeEvent} />
+            <SourceDetection event={activeEvent} />
+            <Scoring event={activeEvent} />
+            <HotspotContext event={activeEvent} />
+            <ContextLayersBlock event={activeEvent} />
+            <RunMetadata event={activeEvent} />
           </>
         ) : (
           <div className={` ${sidebarStyle.emptyState}`}>
@@ -56,9 +67,12 @@ const DetailTab = () => {
             onClick={handlePrevClick}
           />
           <ButtonInput
-            label={t('detailPanel.action.addToExport')}
-            onClick={() => setSelectedEvent(null)}
-            disabled= {!selectedEvent}
+            label={selectedEvents.find( e => e.event_id === activeEvent?.event_id ) === undefined
+              ?`${t('detailPanel.action.addToExport')} +`
+              :`${t('detailPanel.action.removeFromExport')} +`   
+            }
+            onClick={handleExportClick}
+            disabled= {!activeEvent}
           />
           <ButtonInput label={t('detailPanel.action.next')} 
             onClick={handleNextClick}

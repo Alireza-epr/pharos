@@ -6,13 +6,25 @@ import {
 } from '@packages/types';
 import { EResponseError, EStatusCode, EViolationError } from '@packages/enum';
 import { deepSortObject, isObject } from '@packages/utils';
+import { IExportBuffer } from '../types/generalTypes';
 
 export const controllerResponse = <T>(
   a_Res: Response,
   a_StatusCode: EStatusCode,
   a_Json: IResponse<T>,
+  a_ExportBundle?: IExportBuffer
 ) => {
-  a_Res.status(a_StatusCode).json(deepSortObject(a_Json));
+  if(!a_ExportBundle) {
+    a_Res.status(a_StatusCode).json(deepSortObject(a_Json));
+  } else {
+    a_Res
+    .status(a_StatusCode)
+    .set({
+      'Content-Type': 'application/zip',
+      'Content-Disposition': `attachment; filename="${a_ExportBundle.filename}.zip"`,
+    })
+    .send(a_ExportBundle.buffer);
+  }
 };
 
 export const addError = (

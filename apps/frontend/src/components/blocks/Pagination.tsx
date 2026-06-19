@@ -13,7 +13,7 @@ const Pagination = () => {
   const { t } = useTranslator();
 
   return (
-    <Section title={t('general.label.pagination')}>
+    <Section title={t('general.label.pagination')} collapsible>
       <SectionItem title={t('general.label.limit')}>
         <NumberInput
           direction="row"
