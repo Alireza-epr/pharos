@@ -156,6 +156,7 @@ const ReportTab = () => {
             onClick={handleRunQueryClick}
             disabled={loading || !hasAOI}
             loading={loading}
+            testId="run-query-button"
           />
           <ButtonInput
             label={t('detailPanel.action.next')}

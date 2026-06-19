@@ -9,6 +9,7 @@
     "format": "prettier --write ./**/*.{ts,tsx,js,json,md,scss}",
     "lint": "npm --prefix apps/frontend run lint && npm --prefix apps/backend run lint",
     "test": "npm --prefix apps/frontend run test && npm --prefix apps/backend run test",
+    "e2e": "npm --prefix apps/frontend run e2e",
     "lint:style": "npm --prefix apps/frontend run lint:style",
     "typecheck": "npm --prefix apps/frontend run typecheck && npm --prefix apps/backend run typecheck",
     "frontend:dev": "npm --prefix apps/frontend run dev",

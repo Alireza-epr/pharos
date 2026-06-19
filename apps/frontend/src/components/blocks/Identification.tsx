@@ -23,6 +23,7 @@ const Identification = (props: IHeaderBlockProps) => {
           readOnly
           copiable
           copyLabel={t('general.action.copy')}
+          testId="detail-event-id"
         />
       </SectionItem>
       <SectionItem title={t('sidebar.titles.matchingStatus')}>
