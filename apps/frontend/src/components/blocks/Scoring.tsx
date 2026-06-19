@@ -16,22 +16,16 @@ const Scoring = (props: IScoringBlockProps) => {
   return (
     <Section title={t('detailPanel.title.scoring')} collapsible={false}>
       <SectionItem title={t('sidebar.label.triageScore')}>
-        <BarInput
-          label={""}
-          value={scoring.triage_score}
-        />
+        <BarInput label={''} value={scoring.triage_score} />
       </SectionItem>
       <SectionItem title={t('sidebar.label.uncertaintyScore')}>
-        <BarInput
-          label={""}
-          value={scoring.uncertainty_score}
-        />
+        <BarInput label={''} value={scoring.uncertainty_score} />
       </SectionItem>
-      <SectionItem title={t('detailPanel.label.reasonCodes')} collapsible={false}>
-        <ChipGroupInput
-          values={scoring.reason_codes ?? []}
-          readOnly
-        />
+      <SectionItem
+        title={t('detailPanel.label.reasonCodes')}
+        collapsible={false}
+      >
+        <ChipGroupInput values={scoring.reason_codes ?? []} readOnly />
       </SectionItem>
     </Section>
   );

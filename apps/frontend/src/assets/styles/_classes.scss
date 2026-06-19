@@ -2,7 +2,9 @@
 @import './vars';
 @import './typography';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -124,20 +126,21 @@ body {
   }
 }
 
-// Pseudo-class 
+// Pseudo-class
 .hover {
-  &:hover:not(:disabled, [type="text"]) {
+  &:hover:not(:disabled, [type='text']) {
     background: var(--theme-bg-button-hover);
     color: var(--theme-text-primary-reverse);
   }
 
-  &:hover:not(:disabled):is([type="text"]) {
+  &:hover:not(:disabled):is([type='text']) {
     border-color: var(--color-primary-purple6);
   }
 }
 
-.disabled {  
-  &:disabled, &[data-disabled='true']{
+.disabled {
+  &:disabled,
+  &[data-disabled='true'] {
     opacity: 0.4;
     cursor: not-allowed;
   }
@@ -169,12 +172,14 @@ body {
   letter-spacing: var(--letter-spacing-sm);
 }
 
-.badge-matched, .badge-conf-high {
+.badge-matched,
+.badge-conf-high {
   background: var(--color-accent-teal6);
   color: var(--color-accent-teal2);
 }
 
-.badge-unmatched, .badge-conf-low {
+.badge-unmatched,
+.badge-conf-low {
   background: var(--color-alert-orange6);
   color: var(--color-alert-orange3);
 }
@@ -185,12 +190,79 @@ body {
 }
 
 // Margin
-.margin-left{
+.margin-left {
   margin-left: var(--margin-default);
 }
 
-.margin-right{
+.margin-right {
   margin-right: var(--margin-default);
+}
+
+// logo
+.logo {
+  font-family: var(--font-family-tech);
+  color: var(--color-primary-purple8);
+  white-space: nowrap;
+}
+
+.logo-sub {
+  font-family: var(--font-family-header);
+  color: var(--color-secondary-blue9);
+  flex: 1; /* pushes .actions to the right */
+  white-space: nowrap;
+}
+
+.sub-text {
+  color: var(--color-secondary-blue6);
+  align-self: center;
+  text-align: center;
+}
+
+// Card
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-md);
+  width: 100%;
+  max-width: 360px;
+  padding: var(--padding-default-lg) var(--padding-default-md);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-md);
+  background: var(--theme-bg-panel);
+}
+
+// Caveat and Hint
+.caveat {
+  color: var(--color-alert-orange1);
+  padding: 0 var(--padding-gap);
+  cursor: pointer;
+}
+
+.hint {
+  color: var(--color-accent-teal1);
+  padding: 0 var(--padding-gap);
+  cursor: pointer;
+}
+
+.error {
+  margin: var(--no-margin);
+  color: var(--color-alert-orange3);
+}
+
+// Truncate
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Flex
+.flex-grow {
+  flex-grow: 1;
+}
+
+.full-width {
+  width: 100%;
 }
 
 /* Mobile Grid */

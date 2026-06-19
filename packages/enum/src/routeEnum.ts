@@ -14,10 +14,11 @@ export enum EAuthRoutes {
   login = "/login",
   testToken = "/test-token",
   checkToken = "/check-token",
+  refresh = "/refresh",
 }
 
 export enum EExportsRoutes {
-  evidence = "/evidence",
+  events = "/events",
 }
 
 // -- Route Service --

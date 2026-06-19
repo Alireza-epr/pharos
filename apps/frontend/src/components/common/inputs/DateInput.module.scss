@@ -1,14 +1,14 @@
 .wrapper {
   font-family: var(--font-family-tech);
   flex: 1;
-  padding: var(--padding-default-half) 0 var(--padding-default-half) var(--padding-default);
+  padding: var(--padding-default-half) 0 var(--padding-default-half)
+    var(--padding-default);
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-sm);
   background: var(--theme-bg-button);
   color: var(--theme-text-primary);
   transition: border-color var(--transition-duration) var(--transition-easing);
   cursor: pointer;
-
 
   &::-webkit-calendar-picker-indicator {
     display: none;

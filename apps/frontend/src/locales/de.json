@@ -1,167 +1,244 @@
 {
-    "general": {
-        "label": {
-            "appName": "PHAROS",
-            "zonal": "Zonal",
-            "point": "Punkt",
-            "clear": "Löschen",
-            "from": "Von",
-            "to": "Bis",
-            "matched": "Zugeordnet",
-            "unmatched": "Nicht zugeordnet",
-            "unmatchedOnly": "Nur nicht zugeordnet",
-            "all": "Alle",
-            "min": "Min",
-            "max": "Max",
-            "exportAll": "Alles exportieren"
-        },
-        "action": {
-            "copy": "Kopieren"
-        }
+  "general": {
+    "label": {
+      "appName": "PHAROS",
+      "zonal": "Zonal",
+      "point": "Punkt",
+      "clear": "Löschen",
+      "from": "Von",
+      "to": "Bis",
+      "matched": "Zugeordnet",
+      "unmatched": "Nicht zugeordnet",
+      "unmatchedOnly": "Nur nicht zugeordnet",
+      "all": "Alle",
+      "min": "Min",
+      "max": "Max",
+      "exportAll": "Alle zum Export hinzufügen",
+      "export": "Export",
+      "version": "Ver.",
+      "pagination": "Paginierung",
+      "limit": "Limit",
+      "offset": "Versatz",
+      "list": "Liste"
     },
-    "header": {
-        "label": {
-            "dark": "Dunkel",
-            "light": "Hell",
-            "language": "Deutsch",
-            "online": "Online",
-            "offline": "Offline"
-        },
-        "text": {
-            "subLogo": "Klarheit über SAR und AIS"
-        }
-    },
-    "sidebar": {
-        "titles": {
-            "areaOfInterest": "Interessengebiet",
-            "drawOnMap": "Auf Karte zeichnen",
-            "thresholdAndWeights": "Schwellenwerte & Gewichtungen",
-            "timeRange": "Zeitraum",
-            "hotspotConfig": "Hotspot-Konfiguration",
-            "sortOrder": "Sortierreihenfolge",
-            "filter": "Filter",
-            "advancedQuery": "Erweiterte Abfrage",
-            "matchingStatus": "Matching-Status"
-        },
-        "title": {
-            "geography": "Geografie",
-            "scoreTiers": "Score-Stufen",
-            "weights": "Gewichtungen"
-        },
-        "placeholder": {
-            "selectEEZ": "EEZ auswählen...",
-            "selectMPA": "MPA auswählen...",
-            "none": "Keine",
-            "filterExpression": "vessel_type in ('cargo')",
-            "rawQuery": "Freie Abfrage eingeben..."
-        },
-        "label": {
-            "runQuery": "Abfrage starten",
-            "hotspots": "Hotspots",
-            "eezBoundaries": "EEZ-Grenzen",
-            "mpaZones": "MPA-Zonen",
-            "resolution": "Auflösung",
-            "timeBin": "Zeiteinheit",
-            "addSort": "+ Sortierung hinzufügen",
-            "triageScore": "Triage-Score",
-            "uncertaintyScore": "Unsicherheits-Score",
-            "distanceToCoast": "Küstenabstand (km)",
-            "bathymetry": "Bathymetrie (m)",
-            "contextZone": "Kontextzone",
-            "insideEezOnly": "Nur innerhalb EEZ",
-            "insideMpaOnly": "Nur innerhalb MPA",
-            "reasonCodesInclude": "Reason Codes — Einschließen",
-            "reasonCodesExclude": "Reason Codes — Ausschließen",
-            "datasets": "Datensätze",
-            "temporalResolution": "Zeitliche Auflösung",
-            "spatialResolution": "Räumliche Auflösung",
-            "format": "Format",
-            "groupBy": "Gruppieren nach",
-            "spatialAggregation": "Räumliche Aggregation",
-            "filterExpression": "Filterausdruck",
-            "rawQuery": "Freie Abfrage",
-            "nearCoastThr": "Küstennähe-Grenzw.",
-            "shallowWaterThr": "Flachwasser-Grenzw.",
-            "deepWaterThr": "Tiefwasser-Grenzw.",
-            "lowConfProxyThr": "Niedr. Konfid.-Proxy-Grenzw.",
-            "lowTriageThr": "Niedr. Triage-Grenzw.",
-            "medTriageThr": "Mittl. Triage-Grenzw.",
-            "highTriageThr": "Hoher Triage-Grenzw.",
-            "baseUncertaintyWeight": "Basis-Unsicherheit",
-            "missingFieldWeight": "Fehlendes Feld",
-            "noisyWeight": "Verrauscht",
-            "nearCoastWeight": "Küstennähe",
-            "eezWeight": "AWZ",
-            "mpaWeight": "MPA",
-            "missingConfProxyWeight": "Fehl. Konfid.-Proxy",
-            "lowConfProxyWeight": "Niedr. Konfid.-Proxy",
-            "lowConfTierWeight": "Niedr. Konfid.-Stufe",
-            "medConfTierWeight": "Mittl. Konfid.-Stufe",
-            "highConfTierWeight": "Hohe Konfid.-Stufe"
-        },
-        "text": {
-            "orChooseEEZRegion": "oder EEZ-Region auswählen",
-            "orChooseMPARegion": "oder MPA-Region auswählen",
-            "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren"
-        }
-    },
-    "bottomPanel": {
-        "title": {
-            "detections": "DETEKTIONEN"
-        },
-        "column": {
-            "detectionId": "Event-ID",
-            "longitude": "Längengrad",
-            "latitude": "Breitengrad",
-            "timestamp": "Zeitstempel",
-            "confidenceTier": "Konfidenzstufe",
-            "confidenceProxy": "Konfid.-Proxy",
-            "actions": "Aktionen"
-        },
-        "action": {
-            "details": "Details",
-            "selected": "Ausgewählt",
-            "export": "Exportieren"
-        },
-        "empty": {
-            "title": "Keine Ereignisse vorhanden",
-            "body": "Konfigurieren Sie eine Abfrage und klicken Sie auf Abfrage starten."
-        }
-    },
-    "detailPanel": {
-        "title": {
-            "identification": "Identifikation",
-            "locationAndTime": "Ort & Zeit",
-            "sourceAndDetection": "Quelle & Detektion",
-            "scoring": "Bewertung",
-            "hotspotContext": "Hotspot-Kontext",
-            "contextLayers": "Kontextebenen",
-            "runMetadata": "Lauf-Metadaten"
-        },
-        "label": {
-            "gridCellCenter": "Rasterzellen-Zentrum",
-            "bucketStart": "Bucket-Start",
-            "dataset": "Datensatz",
-            "reasonCodes": "Reason Codes",
-            "h3Cell": "H3-Zelle",
-            "recurrence": "Wiederkehr",
-            "timeBinsUnmatched": "Zeiteinheiten",
-            "strength": "Stärke",
-            "config": "Konfiguration",
-            "runTime": "Laufzeit",
-            "downloadConfig": "Konfiguration herunterladen",
-            "contextLayersDatasets": "Kontextebenen-Datensätze"
-        },
-        "text": {
-            "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
-            "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
-            "nullProxy": "n. v.",
-            "dataLimitationBody": "Nicht zugeordnet ≠ illegal."
-        },
-        "action": {
-            "deselect": "Abwählen",
-            "next": "Weiter ›",
-            "prev": "‹ Zurück"
-        }
+    "action": {
+      "copy": "Kopieren"
     }
+  },
+  "header": {
+    "label": {
+      "dark": "Dunkel",
+      "light": "Hell",
+      "language": "Deutsch",
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "text": {
+      "subLogo": "Klarheit über SAR und AIS"
+    }
+  },
+  "sidebar": {
+    "tab": {
+      "report": "Bericht",
+      "hotspot": "Hotspot",
+      "event": "Ereignis"
+    },
+    "action": {
+      "collapse": "Seitenleiste ausblenden",
+      "expand": "Seitenleiste einblenden"
+    },
+    "error": {
+      "runQueryFailed": "Abfrage fehlgeschlagen. Bitte erneut versuchen."
+    },
+    "titles": {
+      "areaOfInterest": "Interessengebiet",
+      "drawOnMap": "Auf Karte zeichnen",
+      "thresholdAndWeights": "Schwellenwerte & Gewichtungen",
+      "timeRange": "Zeitraum",
+      "hotspotConfig": "Hotspot-Konfiguration",
+      "sortOrder": "Sortierreihenfolge",
+      "filter": "Filter",
+      "advancedQuery": "Erweiterte Abfrage",
+      "matchingStatus": "Matching-Status",
+      "datasetsFilter": "Datensatzfilter"
+    },
+    "title": {
+      "geography": "Geografie",
+      "scoreTiers": "Score-Stufen",
+      "weights": "Gewichtungen"
+    },
+    "placeholder": {
+      "selectEEZ": "EEZ auswählen...",
+      "selectMPA": "MPA auswählen...",
+      "none": "Keine",
+      "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
+      "rawQuery": "Freie Abfrage eingeben..."
+    },
+    "label": {
+      "runQuery": "Abfrage starten",
+      "hotspots": "Hotspots",
+      "eezBoundaries": "EEZ-Grenzen",
+      "mpaZones": "MPA-Zonen",
+      "resolution": "Auflösung",
+      "timeBin": "Zeiteinheit",
+      "addSort": "+ Sortierung hinzufügen",
+      "triageScore": "Triage-Score",
+      "uncertaintyScore": "Unsicherheits-Score",
+      "distanceToCoast": "Küstenabstand (km)",
+      "bathymetry": "Bathymetrie (m)",
+      "contextZone": "Kontextzone",
+      "insideEezOnly": "Nur innerhalb EEZ",
+      "insideMpaOnly": "Nur innerhalb MPA",
+      "reasonCodesInclude": "Reason Codes — Einschließen",
+      "reasonCodesExclude": "Reason Codes — Ausschließen",
+      "flags": "Flaggen",
+      "gearTypes": "Gerätetypen",
+      "vesselTypes": "Schiffstypen",
+      "neuralVesselType": "Neuronaler Schiffstyp",
+      "speeds": "Geschwindigkeiten",
+      "vesselId": "Schiffs-ID",
+      "minimumDistanceFromPorts": "Min. Hafenabstand",
+      "datasets": "Datensätze",
+      "temporalResolution": "Zeitliche Auflösung",
+      "spatialResolution": "Räumliche Auflösung",
+      "format": "Format",
+      "groupBy": "Gruppieren nach",
+      "spatialAggregation": "Räumliche Aggregation",
+      "filterExpression": "Filterausdruck",
+      "rawQuery": "Freie Abfrage",
+      "nearCoastThr": "Küstennähe-Grenzw.",
+      "shallowWaterThr": "Flachwasser-Grenzw.",
+      "deepWaterThr": "Tiefwasser-Grenzw.",
+      "lowConfProxyThr": "Niedr. Konfid.-Proxy-Grenzw.",
+      "lowTriageThr": "Niedr. Triage-Grenzw.",
+      "medTriageThr": "Mittl. Triage-Grenzw.",
+      "highTriageThr": "Hoher Triage-Grenzw.",
+      "baseUncertaintyWeight": "Basis-Unsicherheit",
+      "missingFieldWeight": "Fehlendes Feld",
+      "noisyWeight": "Verrauscht",
+      "nearCoastWeight": "Küstennähe",
+      "eezWeight": "AWZ",
+      "mpaWeight": "MPA",
+      "missingConfProxyWeight": "Fehl. Konfid.-Proxy",
+      "lowConfProxyWeight": "Niedr. Konfid.-Proxy",
+      "lowConfTierWeight": "Niedr. Konfid.-Stufe",
+      "medConfTierWeight": "Mittl. Konfid.-Stufe",
+      "highConfTierWeight": "Hohe Konfid.-Stufe"
+    },
+    "text": {
+      "orChooseEEZRegion": "oder EEZ-Region auswählen",
+      "orChooseMPARegion": "oder MPA-Region auswählen",
+      "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren",
+      "comingSoon": "Demnächst verfügbar"
+    },
+    "caveat": {
+      "apiInternalId": "API-interne ID"
+    },
+    "hint": {
+      "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
+      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv — einige Filter werden gemeinsam genutzt"
+    }
+  },
+  "map": {
+    "loading": "Karte wird geladen…",
+    "error": {
+      "title": "Karte konnte nicht geladen werden",
+      "retry": "Erneut versuchen"
+    }
+  },
+  "bottomPanel": {
+    "title": {
+      "detections": "DETEKTIONEN"
+    },
+    "column": {
+      "detectionId": "Event-ID",
+      "longitude": "Längengrad",
+      "latitude": "Breitengrad",
+      "timestamp": "Zeitstempel",
+      "confidenceTier": "Konfidenzstufe",
+      "confidenceProxy": "Konfid.-Proxy",
+      "actions": "Aktionen"
+    },
+    "action": {
+      "details": "Details",
+      "selected": "Ausgewählt"
+    },
+    "empty": {
+      "title": "Keine Ereignisse vorhanden",
+      "body": "Konfigurieren Sie eine Abfrage und klicken Sie auf Abfrage starten."
+    }
+  },
+  "detailPanel": {
+    "tab": {
+      "detail": "Detail"
+    },
+    "empty": {
+      "title": "Kein Ereignis zum Anzeigen",
+      "body": "Wählen Sie ein Ereignis aus der Liste."
+    },
+    "title": {
+      "identification": "Identifikation",
+      "locationAndTime": "Ort & Zeit",
+      "sourceAndDetection": "Quelle & Detektion",
+      "scoring": "Bewertung",
+      "hotspotContext": "Hotspot-Kontext",
+      "contextLayers": "Kontextebenen",
+      "runMetadata": "Lauf-Metadaten"
+    },
+    "label": {
+      "gridCellCenter": "Rasterzellen-Zentrum",
+      "bucketStart": "Bucket-Start",
+      "dataset": "Datensatz",
+      "reasonCodes": "Reason Codes",
+      "h3Cell": "H3-Zelle",
+      "recurrence": "Wiederkehr",
+      "timeBinsUnmatched": "Zeiteinheiten",
+      "strength": "Stärke",
+      "config": "Konfiguration",
+      "runTime": "Laufzeit",
+      "downloadConfig": "Konfiguration herunterladen",
+      "contextLayersDatasets": "Kontextebenen-Datensätze",
+      "downloadRawData": "Rohdaten herunterladen"
+    },
+    "text": {
+      "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
+      "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
+      "nullProxy": "n. v.",
+      "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren."
+    },
+    "action": {
+      "addToExport": "Zum Export hinzufügen",
+      "removeFromExport": "Aus Export entfernen",
+      "next": "Weiter ›",
+      "prev": "‹ Zurück"
+    }
+  },
+  "exportPanel": {
+    "empty": {
+      "title": "Kein Ereignis zum Exportieren",
+      "body": "Fügen Sie Ereignisse zur Exportliste hinzu.",
+      "titleHotspot": "Kein Hotspot zum Exportieren",
+      "bodyHotspot": "Fügen Sie Hotspots zur Exportliste hinzu."
+    },
+    "text": {
+      "downloadNote": "Elemente werden gezippt und heruntergeladen"
+    },
+    "error": {
+      "exportFailed": "Export fehlgeschlagen"
+    },
+    "title": {
+      "includeFiles": "Dateien einschließen"
+    }
+  },
+  "login": {
+    "subtitle": "Zum Fortfahren anmelden",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "usernamePlaceholder": "Benutzername eingeben",
+    "passwordPlaceholder": "Passwort eingeben",
+    "submit": "Anmelden",
+    "submitting": "Anmeldung läuft…",
+    "error": "Ungültiger Benutzername oder Passwort",
+    "logout": "Abmelden"
+  }
 }

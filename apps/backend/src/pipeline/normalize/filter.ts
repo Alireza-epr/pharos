@@ -6,6 +6,13 @@ export const applyFilter = (
 ): IEventSchema[] => {
   let filteredEvents = a_Events;
 
+  if (a_Filters.event_id !== undefined) {
+    const search = a_Filters.event_id.toLowerCase();
+    filteredEvents = filteredEvents.filter((e) =>
+      e.event_id.toLowerCase().includes(search),
+    );
+  }
+
   if (a_Filters.triage_score_min !== undefined) {
     const min = a_Filters.triage_score_min;
     filteredEvents = filteredEvents.filter(
@@ -60,7 +67,10 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.reason_codes_include !== undefined) {
+  if (
+    a_Filters.reason_codes_include !== undefined &&
+    a_Filters.reason_codes_include.length > 0
+  ) {
     filteredEvents = filteredEvents.filter((event) =>
       a_Filters.reason_codes_include!.some((reason) =>
         event.scoring.reason_codes?.includes(reason),
@@ -68,7 +78,10 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.reason_codes_exclude !== undefined) {
+  if (
+    a_Filters.reason_codes_exclude !== undefined &&
+    a_Filters.reason_codes_exclude.length > 0
+  ) {
     filteredEvents = filteredEvents.filter(
       (event) =>
         !a_Filters.reason_codes_exclude!.some((reason) =>
@@ -77,17 +90,15 @@ export const applyFilter = (
     );
   }
 
-  if (a_Filters.is_inside_eez !== undefined) {
+  if (a_Filters.only_inside_eez) {
     filteredEvents = filteredEvents.filter(
-      (e) =>
-        e.context_layers.EEZ.enrichments.length > 0 === a_Filters.is_inside_eez,
+      (e) => e.context_layers.EEZ.enrichments.length > 0,
     );
   }
 
-  if (a_Filters.is_inside_mpa !== undefined) {
+  if (a_Filters.only_inside_mpa) {
     filteredEvents = filteredEvents.filter(
-      (e) =>
-        e.context_layers.MPA.enrichments.length > 0 === a_Filters.is_inside_mpa,
+      (e) => e.context_layers.MPA.enrichments.length > 0,
     );
   }
 

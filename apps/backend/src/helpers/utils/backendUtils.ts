@@ -18,10 +18,9 @@ import {
   TEventSource,
   IConfigJSON,
   I4wingsEntry,
-  IRejectedEventSchema,
-  ISortOption,
   IFeature,
   IGeometry,
+  TDatasetVersion,
 } from '@packages/types';
 import { deepSortObject, deepStripHidden, shortenText } from '@packages/utils';
 
@@ -126,7 +125,7 @@ export const hashFile = async (a_Path: string | File) => {
 
 export const getSource = (
   a_Dataset: E4wingsDatasets | EEventDatasets,
-  a_Version: `v${number}.${number}`,
+  a_Version: TDatasetVersion,
 ) => {
   return `${a_Dataset}:${a_Version}` as T4wingsSource | TEventSource;
 };
@@ -136,11 +135,8 @@ export const getSourceKey = (a_Source: T4wingsSource | TEventSource) => {
 };
 
 export const getSourceVersion = (a_Source: T4wingsSource | TEventSource) => {
-  return a_Source.split(':')[1] as `v${number}.${number}`;
+  return a_Source.split(':')[1] as TDatasetVersion;
 };
-
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getSourceFrom4wingsResponse = (
   a_4wingsResponse: I4wingsAPIResponse,
@@ -241,12 +237,6 @@ export const getDateBucket = (
     : a_Datetime.slice(0, 13).replace('T', ' ') + ':00:00';
 };
 
-
-
-
-
-
-
 export const featureFromEvents = (
   a_Events: IEventSchema[],
 ): IFeature<IGeometry, TEventProperties>[] => {
@@ -281,7 +271,7 @@ export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
   return filteredConfiguration;
 };
 
-export const getUserInfoFromReq = <P, R, B, Q>(
+export const getUserInfoFromReq = <P, R, B = {}, Q = {}>(
   a_Req: Request<P, R, B, Q>,
 ): string => {
   const ip =

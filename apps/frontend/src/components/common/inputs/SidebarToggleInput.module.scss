@@ -1,0 +1,13 @@
+.wrapper {
+  flex-shrink: 0;
+  padding: var(--padding-default-half) var(--padding-default);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  background: var(--theme-bg-button);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    background var(--transition-duration) var(--transition-easing),
+    color var(--transition-duration) var(--transition-easing);
+}

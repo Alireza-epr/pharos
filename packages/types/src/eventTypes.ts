@@ -16,10 +16,12 @@ import {
   I4wingsEntry,
   I4wingsReportGetURLParams,
   I4wingsReportPostBodyParams,
+  I4wingsReportPostURLParams,
   TGlobalEvent,
 } from "./gfwTypes";
 import { TBuildRange } from "./generalTypes";
 import { IFilteringParams } from "./routeTypes";
+import { TPaginationConfig } from "./controllerTypes";
 
 export interface IContextLayer {
   dataset: EContextLayerDatasets;
@@ -111,18 +113,29 @@ export type THiddenConfig = {
   [EHiddenConfig.gitCommitSHA]?: string;
   [EHiddenConfig.export]?: TExportConfig;
 };
-
-export interface IConfigJSON extends THiddenConfig {
+export interface IConfigBase extends THiddenConfig {
   URL: string;
-  method: EFetchMethods;
-  body_params: I4wingsReportPostBodyParams;
-  url_params: I4wingsReportGetURLParams;
   threshold: Record<EThresholdConfig, number>;
   hotspot: IHotspotConfig;
   output?: string;
   filter: IFilteringParams;
   sort: ISortOption[];
+  pagination: TPaginationConfig;
 }
+
+export interface IConfigGet extends IConfigBase {
+  method: EFetchMethods.get;
+  url_params: I4wingsReportGetURLParams;
+  body_params?: never;
+}
+
+export interface IConfigPost extends IConfigBase {
+  method: EFetchMethods.post;
+  url_params: I4wingsReportPostURLParams;
+  body_params: I4wingsReportPostBodyParams;
+}
+
+export type IConfigJSON = IConfigGet | IConfigPost;
 
 export interface IHotspotConfig {
   resolution: TBuildRange<16>;

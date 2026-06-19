@@ -6,7 +6,6 @@ import {
 import { EFetchMethods, EStatusCode } from '@packages/enum';
 
 import config from '../../config/pilot.json';
-import URLs from '../../config/globalFishingWatch.json';
 
 import {
   IConfigJSON,
@@ -61,29 +60,39 @@ export const eventsController = async (
     const threshold = body.threshold ?? config.threshold;
     const sort = body.sort ?? config.sort;
     const hotspot = body.hotspot ?? config.hotspot;
+    const pagination = body.pagination ?? config.pagination;
+    const URL = body.URL;
 
     const filter = body.filter ?? {};
-    const body_params = body.body_params ?? null;
 
-    const configs: IConfigJSON = {
-      method: EFetchMethods.post,
-      URL: URLs.url['4wings'].endpoints.report,
-      body_params,
+    const base_config = {
+      URL,
       url_params,
       threshold,
       sort,
       hotspot,
       filter,
+      pagination,
       gitCommitSHA: a_Req.gitCommitSHA,
     };
 
+    const configs: IConfigJSON = !body.body_params
+      ? {
+          ...base_config,
+          method: EFetchMethods.get,
+        }
+      : {
+          ...base_config,
+          method: EFetchMethods.post,
+          body_params: body.body_params,
+        };
+
     // Filtering
     const filteredEvents = applyFilter(events, configs.filter);
-
     // Pagination
     const total = filteredEvents.length;
-    const limit = Number(url_params.limit);
-    const offset = Number(url_params.offset);
+    const limit = Number(pagination.limit);
+    const offset = Number(pagination.offset);
     if (offset > total) {
       return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {
         success: false,
@@ -100,9 +109,9 @@ export const eventsController = async (
 
     const prevOffset = offset === 0 ? null : Math.max(0, offset - limit);
 
-    const pagination: IPagination = {
+    const pagination_resp: IPagination = {
+      ...pagination,
       total,
-      limit,
       nextOffset,
       prevOffset,
       pageSize,
@@ -123,7 +132,7 @@ export const eventsController = async (
       return controllerResponse(a_Res, EStatusCode.OK_200, {
         success: true,
         metadata,
-        pagination,
+        pagination: pagination_resp,
         entries: [],
       });
     }
@@ -132,7 +141,7 @@ export const eventsController = async (
     return controllerResponse(a_Res, EStatusCode.OK_200, {
       success: true,
       metadata,
-      pagination,
+      pagination: pagination_resp,
       stats: getStats(thisPageEvents),
       entries: thisPageEvents,
     });

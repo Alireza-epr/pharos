@@ -22,7 +22,7 @@ const port: number = config.port;
 app.set('trust proxy', true);
 
 // Check CORS
-app.use(corsCheck)
+app.use(corsCheck);
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());

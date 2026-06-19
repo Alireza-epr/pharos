@@ -3,10 +3,10 @@
 ## Base URL
 
 **Iteration 1 (Local):**
-http://localhost:<API_PORT>/v1/
+http://localhost:{API_PORT}/v1/
 
 **Future Version (Production):**
-https://<DOMAIN>/api/v1
+https://{DOMAIN}/api/v1
 
 ---
 
@@ -36,7 +36,11 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 ## Table of Contents
 
 - [System Health](#system-health)
+- [Authentication Login](#authentication-login)
+- [Authentication Refresh Token](#authentication-refresh-token)
+- [Authentication Token Check](#authentication-token-check)
 - [Events Report](#events-report)
+- [Events Export](#events-export)
 
 ---
 
@@ -98,12 +102,12 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 ---
 
-## Events Report
+## Authentication Login
 
-**POST** `/events`
+**POST** `/auth/login`
 
 **Description:**
-`Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.`
+`Authenticates a user with a username and password and returns a short-lived access token and a long-lived refresh token used to authorize protected endpoints.`
 
 **Authentication:**
 `None (public)`
@@ -112,27 +116,255 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 
 ### 1. Request - URL Parameters
 
-| Parameter        | Description                                                      | Required | Format                                                               | Param Type |
-| ---------------- | ---------------------------------------------------------------- | -------- | -------------------------------------------------------------------- | ---------- |
-| limit            | Number of items per page returned in the response                | True     | number                                                               | query      |
-| offset           | Pagination offset used to fetch a specific slice of results      | True     | number                                                               | query      |
-| region-dataset   | Dataset used to resolve region context (e.g. EEZ / MPA datasets) | True     | string                                                               | query      |
-| region-id        | Identifier of the selected region                                | True     | string                                                               | query      |
-| buffer-operation | Operation applied to region buffering logic (if used)            | False    | string                                                               | query      |
-| buffer-unit      | Unit used for buffer distance calculation                        | False    | Enum: ['MILES', 'NAUTICALMILES', 'KILOMETERS', 'RADIANS', 'DEGREES'] | query      |
-| buffer-value     | Numeric buffer distance applied to region                        | False    | string                                                               | query      |
+| Parameter | Description             | Required | Format | Param Type |
+| --------- | ----------------------- | -------- | ------ | ---------- |
+| username  | Username of the account | False    | string | query      |
+| password  | Password of the account | False    | string | query      |
 
 ---
 
 ### 2. Request - Body
 
-| Key                                | Description                                                         | Required | Format | Param Type |
-| ---------------------------------- | ------------------------------------------------------------------- | -------- | ------ | ---------- |
-| [body_params](#body_params-object) | Spatial and external request configuration object                   | False    | object | body       |
-| [filter](#filter-object)           | Filtering rules applied before pagination                           | False    | object | body       |
-| [sort](#sort-array)                | Array of sorting rules applied to result set                        | False    | array  | body       |
-| [hotspot](#hotspot-object)         | Configuration object defining hotspot calculation rules             | False    | object | body       |
-| [threshold](#threshold-object)     | Configuration object defining scoring and classification thresholds | False    | object | body       |
+| Key      | Description             | Required | Format | Param Type |
+| -------- | ----------------------- | -------- | ------ | ---------- |
+| username | Username of the account | True     | string | body       |
+| password | Password of the account | True     | string | body       |
+
+Example:
+
+```json
+{
+  "username": "user",
+  "password": "user"
+}
+```
+
+---
+
+### 3. Response
+
+| Field        | Description                                       | Format  |
+| ------------ | ------------------------------------------------- | ------- |
+| success      | Request status                                    | boolean |
+| accessToken  | Short-lived JWT used to authorize protected calls | string  |
+| refreshToken | Long-lived JWT used to obtain a new access token  | string  |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "accessToken": "<jwt-access-token>",
+  "refreshToken": "<jwt-refresh-token>"
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Credential is required (username or password missing)
+- `401 Unauthorized` – Invalid credentials
+
+---
+
+### 5. Notes
+
+- Credentials may be provided either in the JSON request body or as `username` / `password` query parameters
+- The returned access token must be sent as `Authorization: Bearer <accessToken>` to call protected endpoints
+- Access tokens are short-lived; use the refresh token to obtain a new access token without re-authenticating
+- For local testing, log in with username `user` and password `user`
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
+## Authentication Refresh Token
+
+**POST** `/auth/refresh`
+
+**Description:**
+`Exchanges a valid, unexpired refresh token for a new short-lived access token without re-entering credentials.`
+
+**Authentication:**
+`None (public)`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter    | Description                                      | Required | Format | Param Type |
+| ------------ | ------------------------------------------------ | -------- | ------ | ---------- |
+| refreshToken | Refresh token previously issued by `/auth/login` | False    | string | query      |
+
+---
+
+### 2. Request - Body
+
+| Key          | Description                                      | Required | Format | Param Type |
+| ------------ | ------------------------------------------------ | -------- | ------ | ---------- |
+| refreshToken | Refresh token previously issued by `/auth/login` | True     | string | body       |
+
+Example:
+
+```json
+{
+  "refreshToken": "<jwt-refresh-token>"
+}
+```
+
+---
+
+### 3. Response
+
+| Field       | Description                               | Format  |
+| ----------- | ----------------------------------------- | ------- |
+| success     | Request status                            | boolean |
+| accessToken | Newly issued short-lived JWT access token | string  |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "accessToken": "<jwt-access-token>"
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Refresh token required (refreshToken missing)
+- `401 Unauthorized` – Refresh token expired, please login again
+- `401 Unauthorized` – Invalid or expired refresh token
+
+---
+
+### 5. Notes
+
+- The refresh token may be provided either in the JSON request body or as a `refreshToken` query parameter
+- An expired refresh token returns `401`; the client must log in again to obtain a new token pair
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
+## Authentication Token Check
+
+**POST** `/auth/check-token`
+
+**Description:**
+`Verifies that an access token is well-formed and unexpired. Returns success when the token is valid.`
+
+**Authentication:**
+`None (public)`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter    | Description               | Required | Format | Param Type |
+| ------------ | ------------------------- | -------- | ------ | ---------- |
+| accessToken  | Access token to validate  | False    | string | query      |
+| refreshToken | Refresh token to validate | False    | string | query      |
+
+---
+
+### 2. Request - Body
+
+| Key          | Description               | Required | Format | Param Type |
+| ------------ | ------------------------- | -------- | ------ | ---------- |
+| accessToken  | Access token to validate  | False    | string | body       |
+| refreshToken | Refresh token to validate | False    | string | body       |
+
+Example:
+
+```json
+{
+  "accessToken": "<jwt-access-token>"
+}
+```
+
+---
+
+### 3. Response
+
+| Field   | Description    | Format  |
+| ------- | -------------- | ------- |
+| success | Request status | boolean |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Invalid or expired token (token missing, malformed, or expired)
+
+---
+
+### 5. Notes
+
+- Provide either an `accessToken` or a `refreshToken` to validate; it may be supplied in the JSON request body or as a matching query parameter
+- At least one token must be provided; a missing, malformed, or expired token all return `400` with the same error message
+- For the full authentication flow, see [the authentication documentation](./authentication.md)
+
+---
+
+## Events Report
+
+**POST** `/events`
+
+**Description:**
+`Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter           | Description                                                                    | Required | Format                                                               | Param Type |
+| ------------------- | ------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------- | ---------- |
+| datasets[i]         | Indexed dataset identifier(s) to query (e.g. `datasets[0]`, `datasets[1]`)     | True     | string                                                               | query      |
+| filters[i]          | Indexed filter expression(s) applied to the upstream query (e.g. `filters[0]`) | False    | string                                                               | query      |
+| format              | Output format of the upstream report                                           | True     | Enum: ['CSV', 'TIF', 'JSON']                                         | query      |
+| temporal-resolution | Time aggregation granularity of the report                                     | True     | Enum: ['HOURLY', 'DAILY', 'MONTHLY', 'YEARLY', 'ENTIRE']             | query      |
+| spatial-resolution  | Spatial granularity of the report                                              | False    | Enum: ['LOW', 'HIGH']                                                | query      |
+| group-by            | Field used to group report results                                             | False    | Enum: ['VESSEL_ID', 'FLAG', 'GEARTYPE', 'FLAGANDGEARTYPE', 'MMSI']   | query      |
+| spatial-aggregation | Whether to spatially aggregate report results                                  | False    | boolean                                                              | query      |
+| region-dataset      | Dataset used to resolve region context (e.g. EEZ / MPA datasets)               | False    | string                                                               | query      |
+| region-id           | Identifier of the selected region                                              | False    | string                                                               | query      |
+| buffer-operation    | Operation applied to region buffering logic (if used)                          | False    | string                                                               | query      |
+| buffer-unit         | Unit used for buffer distance calculation                                      | False    | Enum: ['MILES', 'NAUTICALMILES', 'KILOMETERS', 'RADIANS', 'DEGREES'] | query      |
+| buffer-value        | Numeric buffer distance applied to region                                      | False    | string                                                               | query      |
+
+---
+
+### 2. Request - Body
+
+| Key                                | Description                                                         | Required | Format                | Param Type |
+| ---------------------------------- | ------------------------------------------------------------------- | -------- | --------------------- | ---------- |
+| URL                                | Upstream 4Wings report endpoint URL used as the data source         | False    | string                | body       |
+| method                             | HTTP method used for the upstream report request (defaults to POST) | False    | Enum: ['GET', 'POST'] | body       |
+| [body_params](#body_params-object) | Spatial and external request configuration object                   | False    | object                | body       |
+| [filter](#filter-object)           | Filtering rules applied before pagination                           | False    | object                | body       |
+| [sort](#sort-array)                | Array of sorting rules applied to result set                        | False    | array                 | body       |
+| [hotspot](#hotspot-object)         | Configuration object defining hotspot calculation rules             | False    | object                | body       |
+| [threshold](#threshold-object)     | Configuration object defining scoring and classification thresholds | False    | object                | body       |
+| [pagination](#pagination-object)   | Pagination parameters (page size and offset)                        | False    | object                | body       |
 
 ---
 
@@ -182,8 +414,8 @@ Default:
 | distance_to_coast_km_max | Maximum distance to coast (km)   | False    | number  | body       |
 | reason_codes_include     | Include specific reason codes    | False    | array   | body       |
 | reason_codes_exclude     | Exclude specific reason codes    | False    | array   | body       |
-| is_inside_eez            | Filter events inside EEZ         | False    | boolean | body       |
-| is_inside_mpa            | Filter events inside MPA         | False    | boolean | body       |
+| only_inside_eez          | Keep only events inside EEZ      | False    | boolean | body       |
+| only_inside_mpa          | Keep only events inside MPA      | False    | boolean | body       |
 | bathymetry_min           | Minimum bathymetry value         | False    | number  | body       |
 | bathymetry_max           | Maximum bathymetry value         | False    | number  | body       |
 
@@ -233,7 +465,7 @@ Default:
 
 | Key        | Description                           | Required | Format                   | Param Type |
 | ---------- | ------------------------------------- | -------- | ------------------------ | ---------- |
-| resolution | Spatial resolution level (1–16 scale) | True     | number                   | body       |
+| resolution | Spatial resolution level (0–15 scale) | True     | number                   | body       |
 | timeBin    | Time aggregation bin                  | True     | Enum: ['HOURLY','DAILY'] | body       |
 
 For more information, please refer to [the hotspot documentation](../tech/hotspots.md).
@@ -283,19 +515,41 @@ Default:
 
 ---
 
-### 3. Response
+#### Pagination Object
 
-| Field                            | Description                                                                                                      | Format  |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| success                          | Request status                                                                                                   | boolean |
-| [pagination](#pagination-object) | Pagination information                                                                                           | object  |
-| metadata                         | Execution metadata                                                                                               | object  |
-| stats                            | Aggregated statistics for returned events                                                                        | object  |
-| entries                          | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md). | array   |
+| Key    | Description                                       | Required | Format | Param Type |
+| ------ | ------------------------------------------------- | -------- | ------ | ---------- |
+| limit  | Number of items per page returned in the response | False    | number | body       |
+| offset | Number of items to skip before collecting results | False    | number | body       |
+
+If the pagination object is omitted, it defaults to `limit: 100` and `offset: 0`. When the object is provided, both `limit` and `offset` are required.
+
+Default:
+
+```json
+{
+  "pagination": {
+    "limit": 100,
+    "offset": 0
+  }
+}
+```
 
 ---
 
-#### Pagination Object
+### 3. Response
+
+| Field                                     | Description                                                                                                      | Format  |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| success                                   | Request status                                                                                                   | boolean |
+| [pagination](#pagination-response-object) | Pagination information                                                                                           | object  |
+| metadata                                  | Execution metadata                                                                                               | object  |
+| stats                                     | Aggregated statistics for returned events                                                                        | object  |
+| entries                                   | List of event records. For more information, please refer to [the event documentation](../data/event-schema.md). | array   |
+
+---
+
+#### Pagination Response Object
 
 | Field       | Description                      | Format         |
 | ----------- | -------------------------------- | -------------- |
@@ -340,6 +594,7 @@ Default:
 - `400 Bad Request` – Invalid query parameters
 - `400 Bad Request` – Body validation failed
 - `400 Bad Request` – Offset exceeds total available items
+- `401 Unauthorized` – Missing, invalid, or expired access token
 - `500 Internal Server Error` – Unexpected server-side failure
 
 ---
@@ -358,6 +613,102 @@ Default:
 - Sorting supports multiple fields
 - Filters applied before pagination
 - Intended for analytics workloads
+
+---
+
+## Events Export
+
+**POST** `/exports/events`
+
+**Description:**
+`Builds a ZIP archive from the supplied items containing the files selected in the export configuration, and streams it back to the caller as a binary download.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+---
+
+### 2. Request - Body
+
+| Key                             | Description                                                                                                                                         | Required | Format | Param Type |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | ---------- |
+| [config](#export-config-object) | Run configuration used to build the bundle and its run metadata. Same shape as the [Events Report](#events-report) body, plus an `export` selector. | True     | object | body       |
+| events                          | Canonical event records to include in the bundle                                                                                                    | True     | array  | body       |
+| hotspots                        | Hotspot records to include when hotspot files are selected                                                                                          | False    | array  | body       |
+
+---
+
+#### Export Config Object
+
+The `config` object reuses the [Events Report](#events-report) request body (URL, method, body_params, filter, sort, hotspot, threshold, pagination) and adds an `export` object that selects which files are written into the archive.
+
+- export
+
+| Key                  | Description                             | Required | Format  | Param Type |
+| -------------------- | --------------------------------------- | -------- | ------- | ---------- |
+| canonicalSchema.json | Include the canonical event schema JSON | False    | boolean | body       |
+| event.geojson        | Include events as GeoJSON               | False    | boolean | body       |
+| event.parquet        | Include events as Parquet               | False    | boolean | body       |
+| events.csv           | Include events as CSV                   | False    | boolean | body       |
+| stats.json           | Include aggregated statistics JSON      | False    | boolean | body       |
+| hotspots.geojson     | Include hotspots as GeoJSON             | False    | boolean | body       |
+| hotspots.parquet     | Include hotspots as Parquet             | False    | boolean | body       |
+| run_metadata.json    | Include run metadata JSON               | False    | boolean | body       |
+
+When the `export` object is omitted it defaults to `events.csv`, `event.geojson`, and `run_metadata.json`.
+
+Default:
+
+```json
+{
+  "export": {
+    "events.csv": true,
+    "event.geojson": true,
+    "run_metadata.json": true
+  }
+}
+```
+
+---
+
+### 3. Response
+
+On success the endpoint streams a binary ZIP archive (not a JSON envelope). The archive contains one file per selected `export` entry.
+
+| Header              | Description                                          | Example                                 |
+| ------------------- | ---------------------------------------------------- | --------------------------------------- |
+| Content-Type        | Always `application/zip`                             | `application/zip`                       |
+| Content-Disposition | Attachment carrying the generated export id filename | `attachment; filename="<exportId>.zip"` |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```
+Binary ZIP archive (application/zip) — see Content-Disposition for the file name
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – No events available (the `events` array is missing or empty)
+- `401 Unauthorized` – Missing, invalid, or expired access token
+- `500 Internal Server Error` – Export bundle could not be generated
+
+---
+
+### 5. Notes
+
+- The success response is a binary ZIP download, not a JSON payload; error responses use the standard JSON error envelope
+- The generated file name (`<exportId>.zip`) is returned in the `Content-Disposition` header, which is exposed to the browser via CORS
+- The caller selects which files to include through `config.export`; hotspot files are written only when `hotspots` records are supplied in the request body
+- Each export also writes a server-side audit log (`<exportId>_audit_log.json`) capturing the user, timestamp, configuration hash, and event count
+- The archive is retained server-side in addition to being returned to the caller
 
 ---
 

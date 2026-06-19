@@ -67,6 +67,18 @@ For more information, please refer to [the runbook](docs/runbook.md).
 Important: Obtain your GFW_TOKEN from Global Fishing Watch API Token
 and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
 
+Set a JWT_SECRET in the same apps/backend/.env file. It is used to sign and verify authentication tokens (access + refresh), so it must be a long, random, secret string and must never be committed. Generate one locally with `node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"` (or `openssl rand -base64 48`).
+
+In CI, the values are supplied via GitHub Actions; the secret keys must match the local secret keys. Use a different secret per environment.
+
+---
+
+## Authentication
+
+The app requires login. The backend issues a short-lived **access token** and a long-lived **refresh token** (JWT, signed with `JWT_SECRET`); the frontend stores them, attaches the access token to API requests, and refreshes it automatically when it expires. Protected endpoints such as `/v1/events` reject requests without a valid access token.
+
+See the [authentication guide](docs/api/authentication.md) for the full login flow.
+
 ---
 
 ## Docker

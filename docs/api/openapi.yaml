@@ -17,7 +17,7 @@ servers:
   - url: http://localhost:{port}/v1
     variables:
       port:
-        default: "8080"
+        default: "1370"
   - url: https://{domain}/api/v1
     variables:
       domain:
@@ -25,7 +25,9 @@ servers:
 
 tags:
   - name: System
+  - name: Auth
   - name: Events
+  - name: Exports
 
 paths:
   /system/health:
@@ -46,29 +48,191 @@ paths:
         "503":
           description: Service unhealthy
 
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Log in with username and password
+      description: >
+        Authenticates a user with a username and password. On success it returns a
+        short-lived access token (default 1 hour) and a long-lived refresh token
+        (default 7 days). Send the access token on protected endpoints as
+        `Authorization: Bearer <accessToken>`.
+      operationId: login
+      security: []
+      parameters:
+        - name: username
+          in: query
+          schema:
+            type: string
+
+        - name: password
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Authenticated; access and refresh tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Username or password missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Exchange a refresh token for a new access token
+      description: >
+        Issues a new access token when given a valid, unexpired refresh token. When
+        the refresh token is missing the response is 400; when it is invalid or
+        expired the response is 401 and the client must log in again.
+      operationId: refreshToken
+      security: []
+      parameters:
+        - name: refreshToken
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+      responses:
+        "200":
+          description: New access token issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefreshResponse"
+        "400":
+          description: Refresh token missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Refresh token invalid or expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/check-token:
+    post:
+      tags: [Auth]
+      summary: Validate an access token
+      description: >
+        Verifies that a token is well-formed and unexpired. Returns success when the
+        token is valid; otherwise returns 400.
+      operationId: checkToken
+      security: []
+      parameters:
+        - name: accessToken
+          in: query
+          schema:
+            type: string
+
+        - name: refreshToken
+          in: query
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckTokenRequest"
+      responses:
+        "200":
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckTokenResponse"
+        "400":
+          description: Token missing, invalid, or expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /events:
     post:
       tags: [Events]
       summary: Get events report
       description: >
         Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.
+        Requires a valid access token in the `Authorization: Bearer <accessToken>` header.
       operationId: getEventsReport
-      security: []
+      security:
+        - bearerAuth: []
 
       parameters:
-        - name: limit
+        - name: datasets[0]
           in: query
           required: true
+          description: >
+            Indexed dataset identifier(s) to query. Repeat with an incrementing
+            index for multiple datasets: datasets[0], datasets[1], ...
           schema:
-            type: integer
-            minimum: 1
+            type: string
 
-        - name: offset
+        - name: filters[0]
+          in: query
+          description: >
+            Indexed filter expression(s) applied to the upstream query:
+            filters[0], filters[1], ...
+          schema:
+            type: string
+
+        - name: format
           in: query
           required: true
           schema:
-            type: integer
-            minimum: 0
+            $ref: "#/components/schemas/Format"
+
+        - name: temporal-resolution
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/TemporalResolution"
+
+        - name: spatial-resolution
+          in: query
+          schema:
+            $ref: "#/components/schemas/SpatialResolution"
+
+        - name: group-by
+          in: query
+          schema:
+            $ref: "#/components/schemas/GroupBy"
+
+        - name: spatial-aggregation
+          in: query
+          schema:
+            type: boolean
 
         - name: region-dataset
           in: query
@@ -118,6 +282,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+        "401":
+          description: Missing, invalid, or expired access token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
         "429":
           description: Rate limit exceeded
           content:
@@ -132,12 +303,150 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+  /exports/events:
+    post:
+      tags: [Exports]
+      summary: Export selected events as a ZIP bundle
+      description: >
+        Builds a ZIP archive from the supplied events (and optional hotspots) containing
+        the files selected in `config.export`, and streams it as a binary download.
+        On success the response body is the ZIP archive (`application/zip`), not JSON;
+        the generated file name is returned in the `Content-Disposition` header.
+        Requires a valid access token in the `Authorization: Bearer <accessToken>` header.
+      operationId: exportEvents
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventsExportRequest"
+
+      responses:
+        "200":
+          description: ZIP archive containing the selected export files
+          headers:
+            Content-Disposition:
+              description: >
+                Attachment carrying the generated export id file name, e.g.
+                `attachment; filename="<exportId>.zip"`.
+              schema:
+                type: string
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+
+        "400":
+          description: No events available (events missing or empty)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "401":
+          description: Missing, invalid, or expired access token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "500":
+          description: Export bundle could not be generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from /auth/login or /auth/refresh.
+
   schemas:
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      required: [success, accessToken, refreshToken]
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+          description: "Short-lived JWT (default 1h). Send as `Authorization: Bearer <accessToken>`."
+        refreshToken:
+          type: string
+          description: Long-lived JWT (default 7d) used to obtain new access tokens via /auth/refresh.
+
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+
+    RefreshResponse:
+      type: object
+      required: [success, accessToken]
+      properties:
+        success:
+          type: boolean
+        accessToken:
+          type: string
+
+    CheckTokenRequest:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+
+    CheckTokenResponse:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
 
     BufferUnit:
       type: string
       enum: [MILES, NAUTICALMILES, KILOMETERS, RADIANS, DEGREES]
+
+    Format:
+      type: string
+      enum: [CSV, TIF, JSON]
+
+    TemporalResolution:
+      type: string
+      enum: [HOURLY, DAILY, MONTHLY, YEARLY, ENTIRE]
+
+    SpatialResolution:
+      type: string
+      enum: [LOW, HIGH]
+
+    GroupBy:
+      type: string
+      enum: [VESSEL_ID, FLAG, GEARTYPE, FLAGANDGEARTYPE, MMSI]
+
+    FetchMethod:
+      type: string
+      enum: [GET, POST]
 
     HealthResponse:
       type: object
@@ -149,6 +458,11 @@ components:
     EventsReportRequest:
       type: object
       properties:
+        URL:
+          type: string
+          description: Upstream 4Wings report endpoint URL used as the data source.
+        method:
+          $ref: "#/components/schemas/FetchMethod"
         body_params:
           $ref: "#/components/schemas/BodyParams"
         filter:
@@ -159,6 +473,8 @@ components:
           $ref: "#/components/schemas/Hotspot"
         threshold:
           $ref: "#/components/schemas/Threshold"
+        pagination:
+          $ref: "#/components/schemas/PaginationParams"
 
     BodyParams:
       type: object
@@ -183,7 +499,7 @@ components:
             - MultiPolygon
         coordinates:
           type: array
-          items: {}   # ✅ FIXED (no more oneOf crash)
+          items: {}
 
     Region:
       type: object
@@ -207,16 +523,15 @@ components:
           type: number
         triage_score_max:
           type: number
-        is_inside_eez:
+        only_inside_eez:
           type: boolean
-        is_inside_mpa:
+        only_inside_mpa:
           type: boolean
 
     SortArray:
       type: array
       items:
         $ref: "#/components/schemas/SortRule"
-      # ✅ REMOVED default (was crashing Spectral)
 
     SortRule:
       type: object
@@ -234,8 +549,8 @@ components:
       properties:
         resolution:
           type: integer
-          minimum: 1
-          maximum: 16
+          minimum: 0
+          maximum: 15
         timeBin:
           type: string
           enum: [HOURLY, DAILY]
@@ -274,6 +589,72 @@ components:
             type: object
             additionalProperties:
               type: string
+
+    EventsExportRequest:
+      type: object
+      required: [config, events]
+      properties:
+        config:
+          $ref: "#/components/schemas/ExportConfig"
+        events:
+          type: array
+          description: Canonical event records to include in the bundle.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+        hotspots:
+          type: array
+          description: Hotspot records to include when hotspot files are selected.
+          items:
+            type: object
+            additionalProperties:
+              type: string
+
+    ExportConfig:
+      allOf:
+        - $ref: "#/components/schemas/EventsReportRequest"
+        - type: object
+          properties:
+            export:
+              $ref: "#/components/schemas/ExportFiles"
+
+    ExportFiles:
+      type: object
+      description: >
+        Selects which files are written into the archive; each key toggles one output
+        file. When omitted, the bundle defaults to events.csv, event.geojson, and
+        run_metadata.json.
+      properties:
+        "canonicalSchema.json":
+          type: boolean
+        "event.geojson":
+          type: boolean
+        "event.parquet":
+          type: boolean
+        "events.csv":
+          type: boolean
+        "stats.json":
+          type: boolean
+        "hotspots.geojson":
+          type: boolean
+        "hotspots.parquet":
+          type: boolean
+        "run_metadata.json":
+          type: boolean
+
+    PaginationParams:
+      type: object
+      required: [limit, offset]
+      properties:
+        limit:
+          type: integer
+          minimum: 1
+          description: Items per page. Defaults to 100 when the pagination object is omitted.
+        offset:
+          type: integer
+          minimum: 0
+          description: Items to skip before collecting results. Defaults to 0 when the pagination object is omitted.
 
     Pagination:
       type: object

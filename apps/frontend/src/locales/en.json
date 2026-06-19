@@ -1,167 +1,244 @@
 {
-    "general": {
-        "label": {
-            "appName": "PHAROS",
-            "zonal": "Zonal",
-            "point": "Point",
-            "clear": "Clear",
-            "from": "From",
-            "to": "To",
-            "matched": "Matched",
-            "unmatched": "Unmatched",
-            "unmatchedOnly": "Unmatched only",
-            "all": "All",
-            "min": "Min",
-            "max": "Max",
-            "exportAll": "Export all"
-        },
-        "action": {
-            "copy": "Copy"
-        }
+  "general": {
+    "label": {
+      "appName": "PHAROS",
+      "zonal": "Zonal",
+      "point": "Point",
+      "clear": "Clear",
+      "from": "From",
+      "to": "To",
+      "matched": "Matched",
+      "unmatched": "Unmatched",
+      "unmatchedOnly": "Unmatched only",
+      "all": "All",
+      "min": "Min",
+      "max": "Max",
+      "exportAll": "Add All to Export",
+      "export": "Export",
+      "version": "Ver.",
+      "pagination": "Pagination",
+      "limit": "Limit",
+      "offset": "Offset",
+      "list": "List"
     },
-    "header": {
-        "label": {
-            "dark": "Dark",
-            "light": "Light",
-            "language": "English",
-            "online": "Online",
-            "offline": "Offline"
-        },
-        "text": {
-            "subLogo": "Clarity Across SAR and AIS"
-        }
-    },
-    "sidebar": {
-        "titles": {
-            "areaOfInterest": "Area of Interest",
-            "drawOnMap": "Draw on map",
-            "thresholdAndWeights": "Threshold & Weights",
-            "timeRange": "Time Range",
-            "hotspotConfig": "Hotspot Config",
-            "sortOrder": "Sort Order",
-            "filter": "Filter",
-            "advancedQuery": "Advanced Query",
-            "matchingStatus": "Matching Status"
-        },
-        "title": {
-            "geography": "Geography",
-            "scoreTiers": "Score Tiers",
-            "weights": "Weights"
-        },
-        "placeholder": {
-            "selectEEZ": "Select EEZ...",
-            "selectMPA": "Select MPA...",
-            "none": "None",
-            "filterExpression": "vessel_type in ('cargo')",
-            "rawQuery": "Enter raw query..."
-        },
-        "label": {
-            "runQuery": "Run Query",
-            "hotspots": "Hotspots",
-            "eezBoundaries": "EEZ Boundaries",
-            "mpaZones": "MPA Zones",
-            "resolution": "Resolution",
-            "timeBin": "Time Bin",
-            "addSort": "+ Add Sort",
-            "triageScore": "Triage Score",
-            "uncertaintyScore": "Uncertainty Score",
-            "distanceToCoast": "Distance to Coast (km)",
-            "bathymetry": "Bathymetry (m)",
-            "contextZone": "Context Zone",
-            "insideEezOnly": "Inside EEZ only",
-            "insideMpaOnly": "Inside MPA only",
-            "reasonCodesInclude": "Reason Codes - Include",
-            "reasonCodesExclude": "Reason Codes - Exclude",
-            "datasets": "Datasets",
-            "temporalResolution": "Temporal Resolution",
-            "spatialResolution": "Spatial Resolution",
-            "format": "Format",
-            "groupBy": "Group By",
-            "spatialAggregation": "Spatial Aggregation",
-            "filterExpression": "Filter Expression",
-            "rawQuery": "Raw Query",
-            "nearCoastThr": "Near Coast Thr.",
-            "shallowWaterThr": "Shallow Water Thr.",
-            "deepWaterThr": "Deep Water Thr.",
-            "lowConfProxyThr": "Low Conf. Proxy Thr.",
-            "lowTriageThr": "Low Triage Thr.",
-            "medTriageThr": "Med. Triage Thr.",
-            "highTriageThr": "High Triage Thr.",
-            "baseUncertaintyWeight": "Base Uncertainty",
-            "missingFieldWeight": "Missing Field",
-            "noisyWeight": "Noisy",
-            "nearCoastWeight": "Near Coast",
-            "eezWeight": "EEZ",
-            "mpaWeight": "MPA",
-            "missingConfProxyWeight": "Missing Conf. Proxy",
-            "lowConfProxyWeight": "Low Conf. Proxy",
-            "lowConfTierWeight": "Low Conf. Tier",
-            "medConfTierWeight": "Med. Conf. Tier",
-            "highConfTierWeight": "High Conf. Tier"
-        },
-        "text": {
-            "orChooseEEZRegion": "or choose EEZ region",
-            "orChooseMPARegion": "or choose MPA region",
-            "subRunQuery": "Fill area & date to enable"
-        }
-    },
-    "bottomPanel": {
-        "title": {
-            "detections": "DETECTIONS"
-        },
-        "column": {
-            "detectionId": "Event ID",
-            "longitude": "Longitude",
-            "latitude": "Latitude",
-            "timestamp": "Timestamp",
-            "confidenceTier": "Confidence Tier",
-            "confidenceProxy": "Confidence Proxy",
-            "actions": "Actions"
-        },
-        "action": {
-            "details": "Details",
-            "selected": "Selected",
-            "export": "Export"
-        },
-        "empty": {
-            "title": "No events to display",
-            "body": "Configure a query and click Run Query to load events."
-        }
-    },
-    "detailPanel": {
-        "title": {
-            "identification": "Identification",
-            "locationAndTime": "Location & Time",
-            "sourceAndDetection": "Source & Detection",
-            "scoring": "Scoring",
-            "hotspotContext": "Hotspot Context",
-            "contextLayers": "Context Layers",
-            "runMetadata": "Run Metadata"
-        },
-        "label": {
-            "gridCellCenter": "Grid Cell Center",
-            "bucketStart": "Bucket Start",
-            "dataset": "Dataset",
-            "reasonCodes": "Reason Codes",
-            "h3Cell": "H3 Cell",
-            "recurrence": "Recurrence",
-            "timeBinsUnmatched": "Time Bins",
-            "strength": "Strength",
-            "config": "Configuration",
-            "runTime": "Run Time",
-            "downloadConfig": "Download Config",
-            "contextLayersDatasets": "Context Layer Datasets"
-        },
-        "text": {
-            "cellCenterCaveat": "cell center · not exact vessel position",
-            "bucketStartCaveat": "bucket start · not exact detection time",
-            "nullProxy": "N/A",
-            "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
-        },
-        "action": {
-            "deselect": "Deselect",
-            "next": "Next ›",
-            "prev": "‹ Previous"
-        }
+    "action": {
+      "copy": "Copy"
     }
+  },
+  "header": {
+    "label": {
+      "dark": "Dark",
+      "light": "Light",
+      "language": "English",
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "text": {
+      "subLogo": "Clarity Across SAR and AIS"
+    }
+  },
+  "sidebar": {
+    "tab": {
+      "report": "Report",
+      "hotspot": "Hotspot",
+      "event": "Event"
+    },
+    "action": {
+      "collapse": "Hide sidebar",
+      "expand": "Show sidebar"
+    },
+    "titles": {
+      "areaOfInterest": "Area of Interest",
+      "drawOnMap": "Draw on map",
+      "thresholdAndWeights": "Threshold & Weights",
+      "timeRange": "Time Range",
+      "hotspotConfig": "Hotspot Config",
+      "sortOrder": "Sort Order",
+      "filter": "Filter",
+      "advancedQuery": "Advanced Query",
+      "matchingStatus": "Matching Status",
+      "datasetsFilter": "Dataset Filters"
+    },
+    "title": {
+      "geography": "Geography",
+      "scoreTiers": "Score Tiers",
+      "weights": "Weights"
+    },
+    "placeholder": {
+      "selectEEZ": "Select EEZ...",
+      "selectMPA": "Select MPA...",
+      "none": "None",
+      "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
+      "rawQuery": "Enter raw query..."
+    },
+    "label": {
+      "runQuery": "Run Query",
+      "hotspots": "Hotspots",
+      "eezBoundaries": "EEZ Boundaries",
+      "mpaZones": "MPA Zones",
+      "resolution": "Resolution",
+      "timeBin": "Time Bin",
+      "addSort": "+ Add Sort",
+      "triageScore": "Triage Score",
+      "uncertaintyScore": "Uncertainty Score",
+      "distanceToCoast": "Distance to Coast (km)",
+      "bathymetry": "Bathymetry (m)",
+      "contextZone": "Context Zone",
+      "insideEezOnly": "Inside EEZ only",
+      "insideMpaOnly": "Inside MPA only",
+      "reasonCodesInclude": "Reason Codes - Include",
+      "reasonCodesExclude": "Reason Codes - Exclude",
+      "flags": "Flags",
+      "gearTypes": "Gear Types",
+      "vesselTypes": "Vessel Types",
+      "neuralVesselType": "Neural Vessel Type",
+      "speeds": "Speeds",
+      "vesselId": "Vessel ID",
+      "minimumDistanceFromPorts": "Min. Distance from Ports",
+      "datasets": "Datasets",
+      "temporalResolution": "Temporal Resolution",
+      "spatialResolution": "Spatial Resolution",
+      "format": "Format",
+      "groupBy": "Group By",
+      "spatialAggregation": "Spatial Aggregation",
+      "filterExpression": "Filter Expression",
+      "rawQuery": "Raw Query",
+      "nearCoastThr": "Near Coast Thr.",
+      "shallowWaterThr": "Shallow Water Thr.",
+      "deepWaterThr": "Deep Water Thr.",
+      "lowConfProxyThr": "Low Conf. Proxy Thr.",
+      "lowTriageThr": "Low Triage Thr.",
+      "medTriageThr": "Med. Triage Thr.",
+      "highTriageThr": "High Triage Thr.",
+      "baseUncertaintyWeight": "Base Uncertainty",
+      "missingFieldWeight": "Missing Field",
+      "noisyWeight": "Noisy",
+      "nearCoastWeight": "Near Coast",
+      "eezWeight": "EEZ",
+      "mpaWeight": "MPA",
+      "missingConfProxyWeight": "Missing Conf. Proxy",
+      "lowConfProxyWeight": "Low Conf. Proxy",
+      "lowConfTierWeight": "Low Conf. Tier",
+      "medConfTierWeight": "Med. Conf. Tier",
+      "highConfTierWeight": "High Conf. Tier"
+    },
+    "text": {
+      "orChooseEEZRegion": "or choose EEZ region",
+      "orChooseMPARegion": "or choose MPA region",
+      "subRunQuery": "Fill area & date to enable",
+      "comingSoon": "Coming soon"
+    },
+    "caveat": {
+      "apiInternalId": "API Internal ID"
+    },
+    "hint": {
+      "multipleSelect": "Hold Ctrl and click to select multiple",
+      "highlightedDataset": "Highlighted datasets are active — some filters are shared across them"
+    },
+    "error": {
+      "runQueryFailed": "Failed to fetch"
+    }
+  },
+  "map": {
+    "loading": "Loading map…",
+    "error": {
+      "title": "Map failed to load",
+      "retry": "Retry"
+    }
+  },
+  "bottomPanel": {
+    "title": {
+      "detections": "DETECTIONS"
+    },
+    "column": {
+      "detectionId": "Event ID",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
+      "timestamp": "Timestamp",
+      "confidenceTier": "Confidence Tier",
+      "confidenceProxy": "Confidence Proxy",
+      "actions": "Actions"
+    },
+    "action": {
+      "details": "Details",
+      "selected": "Selected"
+    },
+    "empty": {
+      "title": "No events to display",
+      "body": "Configure a query and click Run Query to load events."
+    }
+  },
+  "detailPanel": {
+    "tab": {
+      "detail": "Detail"
+    },
+    "empty": {
+      "title": "No event to display",
+      "body": "Select an event from the list."
+    },
+    "title": {
+      "identification": "Identification",
+      "locationAndTime": "Location & Time",
+      "sourceAndDetection": "Source & Detection",
+      "scoring": "Scoring",
+      "hotspotContext": "Hotspot Context",
+      "contextLayers": "Context Layers",
+      "runMetadata": "Run Metadata"
+    },
+    "label": {
+      "gridCellCenter": "Grid Cell Center",
+      "bucketStart": "Bucket Start",
+      "dataset": "Dataset",
+      "reasonCodes": "Reason Codes",
+      "h3Cell": "H3 Cell",
+      "recurrence": "Recurrence",
+      "timeBinsUnmatched": "Time Bins",
+      "strength": "Strength",
+      "config": "Configuration",
+      "runTime": "Run Time",
+      "downloadConfig": "Download Config",
+      "contextLayersDatasets": "Context Layer Datasets",
+      "downloadRawData": "Download Raw Data"
+    },
+    "text": {
+      "cellCenterCaveat": "cell center · not exact vessel position",
+      "bucketStartCaveat": "bucket start · not exact detection time",
+      "nullProxy": "N/A",
+      "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
+    },
+    "action": {
+      "addToExport": "Add to Export",
+      "removeFromExport": "Remove from Export",
+      "next": "Next ›",
+      "prev": "‹ Previous"
+    }
+  },
+  "exportPanel": {
+    "empty": {
+      "title": "No event to export",
+      "body": "Add events to export list.",
+      "titleHotspot": "No hotspot to export",
+      "bodyHotspot": "Add hotspots to export list."
+    },
+    "text": {
+      "downloadNote": "Items zipped and downloaded"
+    },
+    "error": {
+      "exportFailed": "Export failed"
+    },
+    "title": {
+      "includeFiles": "Include Files"
+    }
+  },
+  "login": {
+    "subtitle": "Sign in to continue",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter your username",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "error": "Invalid username or password",
+    "logout": "Logout"
+  }
 }

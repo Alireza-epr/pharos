@@ -1,5 +1,5 @@
-import { ELogType, EPastTime, EURLParams, TLogType } from "@packages/enum"
-import { IPastTime } from "@packages/types"
+import { ELogType, EPastTime, EURLParams, TLogType } from "@packages/enum";
+import { IPastTime } from "@packages/types";
 
 export const log_frontend = (
   a_Message: any,
@@ -8,11 +8,11 @@ export const log_frontend = (
 ): void => {
   const formattedMessage = `[${formatTimestamp()}]`;
   const params =
-    typeof window !== 'undefined'
+    typeof window !== "undefined"
       ? new URLSearchParams(window.location.search)
       : new URLSearchParams();
   const logLevel = params.get(EURLParams.loglevel);
-  if ((logLevel && logLevel === '3') || (a_logLevel && a_logLevel === '3')) {
+  if ((logLevel && logLevel === "3") || (a_logLevel && a_logLevel === "3")) {
     switch (a_Type) {
       case ELogType.info:
         console.log(formattedMessage, a_Message);
@@ -164,20 +164,18 @@ export const getLocaleISOString = (a_Date: Date, a_Past?: IPastTime) => {
 };
 
 export const shortenText = (a_Text: string, a_Limit: number) => {
-  return a_Text.length > a_Limit
-    ? `${a_Text.slice(0, a_Limit)}...`
-    : a_Text;
+  return a_Text.length > a_Limit ? `${a_Text.slice(0, a_Limit)}...` : a_Text;
 };
 
 // Format timestamp as [YYYY-MM-DD HH:mm:ss.SSS]
 export const formatTimestamp = (a_Date?: Date): string => {
   const now = a_Date ?? new Date();
-  const timestamp = now.toISOString().replace('T', ' ').replace('Z', '');
+  const timestamp = now.toISOString().replace("T", " ").replace("Z", "");
   return timestamp.substring(0, 23);
 };
 
 export const lightenHexColor = (a_Hex: string, a_Percent: number) => {
-  a_Hex = a_Hex.replace('#', '');
+  a_Hex = a_Hex.replace("#", "");
 
   const r = parseInt(a_Hex.substring(0, 2), 16);
   const g = parseInt(a_Hex.substring(2, 4), 16);
@@ -189,17 +187,17 @@ export const lightenHexColor = (a_Hex: string, a_Percent: number) => {
   const newB = Math.min(255, Math.round(b * factor));
 
   const lightenHex =
-    '#' +
+    "#" +
     ((1 << 24) + (newR << 16) + (newG << 8) + newB)
       .toString(16)
       .slice(1)
       .toUpperCase();
 
   return lightenHex;
-}
+};
 
 export const darkenHexColor = (a_Hex: string, a_Percent: number) => {
-  a_Hex = a_Hex.replace('#', '');
+  a_Hex = a_Hex.replace("#", "");
 
   const r = parseInt(a_Hex.substring(0, 2), 16);
   const g = parseInt(a_Hex.substring(2, 4), 16);
@@ -210,11 +208,11 @@ export const darkenHexColor = (a_Hex: string, a_Percent: number) => {
   const newG = Math.max(0, Math.round(g * factor));
   const newB = Math.max(0, Math.round(b * factor));
   const darkenHex =
-    '#' +
+    "#" +
     ((1 << 24) + (newR << 16) + (newG << 8) + newB)
       .toString(16)
       .slice(1)
       .toUpperCase();
 
   return darkenHex;
-}  
+};

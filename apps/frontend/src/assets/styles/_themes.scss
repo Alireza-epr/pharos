@@ -13,6 +13,9 @@
   --theme-text-muted: var(--color-secondary-blue6);
   --theme-map-bg: var(--color-secondary-blue3);
   --theme-tr-hover: var(--color-secondary-blue6);
+  --theme-loader-strong: var(--color-primary-purple8);
+  --theme-loader-mid: var(--color-primary-purple7);
+  --theme-loader-soft: var(--color-primary-purple6);
 }
 
 [data-theme='light'] {
@@ -30,4 +33,7 @@
   --theme-text-muted: var(--color-secondary-blue7);
   --theme-map-bg: var(--color-primary-purple10);
   --theme-tr-hover: var(--color-primary-purple9-1);
+  --theme-loader-strong: var(--color-primary-purple6);
+  --theme-loader-mid: var(--color-primary-purple5);
+  --theme-loader-soft: var(--color-primary-purple4);
 }

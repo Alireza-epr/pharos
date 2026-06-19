@@ -40,14 +40,9 @@ const HotspotContext = (props: IHotspotContextProps) => {
         />
       </SectionItem>
       <SectionItem title={t('detailPanel.label.strength')}>
-        <TextInput
-          readOnly
-          copiable
-          value={hotspot.signals.hotspot_strength}
-        />
+        <TextInput readOnly copiable value={hotspot.signals.hotspot_strength} />
       </SectionItem>
     </Section>
-
   );
 };
 

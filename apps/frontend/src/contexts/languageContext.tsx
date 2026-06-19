@@ -16,8 +16,8 @@ export const LanguageProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const language = useAppStore(s => s.language);
-  const setLanguage = useAppStore(s => s.setLanguage);
+  const language = useAppStore((s) => s.language);
+  const setLanguage = useAppStore((s) => s.setLanguage);
 
   const changeLanguage = (lang: TLanguage) => {
     setLanguage(lang);

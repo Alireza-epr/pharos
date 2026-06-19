@@ -8,10 +8,12 @@
   "scripts": {
     "format": "prettier --write ./**/*.{ts,tsx,js,json,md,scss}",
     "lint": "npm --prefix apps/frontend run lint && npm --prefix apps/backend run lint",
+    "test": "npm --prefix apps/frontend run test && npm --prefix apps/backend run test",
     "lint:style": "npm --prefix apps/frontend run lint:style",
+    "typecheck": "npm --prefix apps/frontend run typecheck && npm --prefix apps/backend run typecheck",
     "frontend:dev": "npm --prefix apps/frontend run dev",
     "frontend:build": "npm --prefix apps/frontend run build",
-    "frontend:preview": "npm --prefix apps/frontend run preview",
+    "frontend:preview": "npm --prefix apps/frontend run build && npm --prefix apps/frontend run preview",
     "backend:dev": "npm --prefix apps/backend run dev",
     "backend:test": "npm --prefix apps/backend run test",
     "pipeline:sample": "npm --prefix apps/backend run pipeline:sample -- --config src/config/pilot.json",
@@ -23,8 +25,5 @@
   },
   "devDependencies": {
     "typescript": "^5.9.2"
-  },
-  "dependencies": {
-    "jszip": "^3.10.1"
   }
 }

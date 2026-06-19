@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(npm run *)",
+      "PowerShell($base=\"e:\\\\Technical Coaching\\\\pharos\\\\apps\\\\frontend\\\\src\\\\assets\\\\brand\"; foreach\\($f in \"icon.svg\",\"icon-light.svg\",\"icon-light-mono.svg\",\"logo.svg\",\"logo-light.svg\",\"banner.svg\",\"banner-light.svg\",\"preview.html\"\\){ try { [xml]\\(Get-Content \\(Join-Path $base $f\\) -Raw\\) | Out-Null; \"OK  $f\" } catch { \"BAD $f -> $\\($_.Exception.Message\\)\" } })"
+    ]
+  }
+}

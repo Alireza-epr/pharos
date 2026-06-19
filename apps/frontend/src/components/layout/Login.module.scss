@@ -1,0 +1,33 @@
+// Full-screen centered login, shown when there is no valid session
+.screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: var(--theme-bg-app);
+  color: var(--theme-text-primary);
+  font-family: var(--font-family-base);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-gap);
+  text-align: center;
+}
+
+.title {
+  margin: var(--no-margin);
+  color: var(--theme-text-primary);
+}
+
+.subtitle {
+  margin: var(--no-margin);
+  color: var(--theme-text-muted);
+}
+
+.actions {
+  display: flex;
+  margin-top: var(--padding-default-half);
+}

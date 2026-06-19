@@ -1,5 +1,5 @@
 {
-  "count_total": 18,
+  "count_total": 17,
   "geo_sanity": {
     "latitude": {
       "max": 55.25,
@@ -12,10 +12,10 @@
   },
   "matching_stats": {
     "matched": 17,
-    "unmatched": 1
+    "unmatched": 0
   },
   "mean_score": 0.68,
-  "mean_uncertainty": 0.39,
+  "mean_uncertainty": 0.38,
   "missingness": {
     "confidence_proxy": "100.00%",
     "distance_to_coast_km": "0.00%",

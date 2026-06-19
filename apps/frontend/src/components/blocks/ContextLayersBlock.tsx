@@ -3,6 +3,7 @@ import { useTranslator } from '../../hooks/translator';
 import { IEventSchema } from '@packages/types';
 import SectionItem from '../common/section/SectionItem';
 import TextInput from '../common/inputs/TextInput';
+import { EContextLayers } from '@packages/enum';
 
 export interface IContextLayersBlockProps {
   event: IEventSchema;
@@ -13,23 +14,27 @@ const ContextLayersBlock = (props: IContextLayersBlockProps) => {
 
   return (
     <Section title={t('detailPanel.title.contextLayers')} collapsible={false}>
-      {Object.entries(props.event.context_layers).filter( ([_, value ]) => value.enrichments.length > 0 ).map(([name, layer], index) => {
-        return(
-          <SectionItem title={name} key={index}>
-            {layer.enrichments.map((e, index2) => {
-              const value = e.value ?? e.label ?? ''
-              return (
-                <TextInput 
-                  value={value}
-                  readOnly
-                  copiable
-                  key={index2}
-                />
-              )
-            })}
-          </SectionItem>
-        )
-      })}
+      {Object.entries(props.event.context_layers)
+        .filter(([_, value]) => value.enrichments.length > 0)
+        .map(([name, layer], index) => {
+          return (
+            <SectionItem title={name} key={index}>
+              {layer.enrichments.map((e, index2) => {
+                const value = e.value ?? e.label ?? '';
+                return (
+                  <TextInput
+                    value={
+                      name === EContextLayers.bathymetry ? `${value} m` : value
+                    }
+                    readOnly
+                    copiable
+                    key={index2}
+                  />
+                );
+              })}
+            </SectionItem>
+          );
+        })}
     </Section>
   );
 };

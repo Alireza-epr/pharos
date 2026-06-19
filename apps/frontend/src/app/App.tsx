@@ -1,53 +1,38 @@
-import { Activity, useEffect } from 'react';
-import appStyle from "./App.module.scss"
+import { useEffect } from 'react';
+import appStyle from './App.module.scss';
 import Sidebar from '../components/sidebar/Sidebar';
 import MapView from '../components/map/MapView';
 import BottomPanel from '../components/layout/BottomPanel';
 import DetailDrawer from '../components/sidebar/DetailDrawer';
 import HeaderPanel from '../components/layout/HeaderPanel';
-import { useEventStore } from '../stores/eventStore';
+import SidebarToggleInput from '../components/common/inputs/SidebarToggleInput';
 import { useAppStore } from '../stores/appStore';
-import { log_frontend } from '@packages/utils';
-import { ELogType } from '@packages/enum';
+import { useLoginStore } from '../stores/loginStore';
+import { useSidebarStore } from '../stores/sidebarStore';
+import { useHealth } from '../hooks/system';
+import Login from '../components/layout/Login';
+import { useDetailStore } from '../stores/detailStore';
 
-export interface IAppProps { }
+export interface IAppProps {}
 
 const App = () => {
   const theme = useAppStore((state) => state.theme);
-  const setBackendStatus = useAppStore(s => s.setBackendStatus)
 
-  const selectedEvent = useEventStore((state) => state.selectedEvent);
+  const isAuthenticated = useLoginStore((s) => !!s.accessToken);
+
+  const detailCollapsed = useDetailStore((s) => s.collapsed);
+  const setDetailCollapsed = useDetailStore((s) => s.setCollapsed);
+
+  const sidebarCollapsed = useSidebarStore((s) => s.collapsed);
+  const setSidebarCollapsed = useSidebarStore((s) => s.setCollapsed);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const checkBackendStatus = async () => {
-      try {
-        const resp = await fetch(`${import.meta.env.VITE_BASE_API_URL}/v1/system/health`, {
-          signal: controller.signal, //a read-only object passed to fetch
-        });
-        if (!resp.ok) throw new Error("[App] Backend health check failed");
-        const respJSON = await resp.json();
-        if (!respJSON.success) throw new Error("[App] Backend health check failed");
-        setBackendStatus(true);
-      } catch (err) {
-        // When controller.abort() is called, the fetch throws an AbortError immediately. So no further code is executed
-        if ((err as Error).name === "AbortError") return;
-        log_frontend(err, ELogType.error);
-        setBackendStatus(false);
-      }
-    };
+  useHealth(isAuthenticated);
 
-    checkBackendStatus();
-    const interval = setInterval(checkBackendStatus, 30000);
-    return () => {
-      clearInterval(interval);
-      controller.abort();  //cancels anything listening to that signal
-    };
-  }, []);
+  if (!isAuthenticated) return <Login />;
 
   return (
     <div className={` ${appStyle.layout}`}>
@@ -56,17 +41,34 @@ const App = () => {
       </header>
 
       <div className={` ${appStyle.content}`}>
-        <aside>
+        <aside data-collapsed={sidebarCollapsed}>
           <Sidebar />
         </aside>
 
-        <main>
+        {sidebarCollapsed && (
+          <SidebarToggleInput
+            collapsed={sidebarCollapsed}
+            onClick={() => setSidebarCollapsed(false)}
+            className={appStyle.reopenButton}
+          />
+        )}
+
+        <main className={` ${sidebarCollapsed ? 'margin-left' : ''}`}>
           <MapView />
         </main>
 
-        <Activity mode={selectedEvent ? 'visible' : 'hidden'}>
+        <aside data-collapsed={detailCollapsed}>
           <DetailDrawer />
-        </Activity>
+        </aside>
+
+        {detailCollapsed && (
+          <SidebarToggleInput
+            collapsed={detailCollapsed}
+            onClick={() => setDetailCollapsed(false)}
+            className={appStyle.reopenButtonDetail}
+            reversed
+          />
+        )}
       </div>
 
       <BottomPanel />

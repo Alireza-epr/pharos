@@ -77,7 +77,7 @@ export const validBodyParams_2 = {
     triage_score_min: 1,
     triage_score_max: 10,
     reason_codes_include: true,
-    is_inside_eez: false,
+    only_inside_eez: false,
   },
   sort: [{ sortBy: 'date', direction: 'asc' }],
   body_params: {
@@ -139,5 +139,13 @@ export const invalidBody_region_2 = {
       dataset: 'EEZ',
       id: 123,
     },
+  },
+};
+
+export const invalidBody_pagination = {
+  ...validBodyParams_2,
+  pagination: {
+    limit: 'a',
+    offset: 'b',
   },
 };

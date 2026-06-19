@@ -5,7 +5,7 @@ import {
   EFormat,
   EGearType,
   EGroupBy,
-  EMaritimeIdentificationDigits,
+  ECountryFlag,
   ENeuralVesselType,
   ERegionBufferOperations,
   ERegionBufferUnits,
@@ -18,7 +18,7 @@ import {
 import { IGeometry } from "./geoJSONTypes";
 
 export interface IFishingEffortFilters {
-  flag: EMaritimeIdentificationDigits; // flag in ('ESP', 'USA')
+  flag: ECountryFlag; // flag in ('ESP', 'USA')
   geartype: EGearType;
   vessel_id: string;
   distance_from_port_km: 0 | 1 | 2 | 3 | 4 | 5; // kilometers
@@ -26,7 +26,7 @@ export interface IFishingEffortFilters {
 
 export interface ISARVesselDetectionsFilters {
   matched?: boolean;
-  flag?: EMaritimeIdentificationDigits;
+  flag?: ECountryFlag;
   vessel_id?: string;
   geartype?: EGearType;
   neural_vessel_type?: ENeuralVesselType;
@@ -34,7 +34,7 @@ export interface ISARVesselDetectionsFilters {
 }
 
 export interface IAISVesselPresenceFilters {
-  flag: EMaritimeIdentificationDigits;
+  flag: ECountryFlag;
   vessel_type: EVessleType;
   speed: ESpeedRange;
 }
@@ -52,8 +52,8 @@ export interface I4wingsReportPostURLParams {
   format: EFormat;
   "group-by"?: EGroupBy;
   "temporal-resolution": ETemporalResolution;
-  [key: `datasets[${number}]`]: T4wingsSource;
-  [key: `filters[${number}]`]: string;
+  [key: TSourceKey]: T4wingsSource;
+  [key: TFilterKey]: string;
   "date-range"?: string;
   "spatial-aggregation"?: boolean;
 }
@@ -66,8 +66,8 @@ export interface I4wingsReportPostURLParams {
  * If a user is expected to call the same URL multiple times, this can result in a substantial performance improvement.
  */
 export interface I4wingsReportGetURLParams extends I4wingsReportPostURLParams {
-  "region-dataset": ERegionDatasets;
-  "region-id": string;
+  "region-dataset"?: ERegionDatasets;
+  "region-id"?: string;
   "buffer-operation"?: ERegionBufferOperations;
   "buffer-unit"?: ERegionBufferUnits;
   "buffer-value"?: string;
@@ -136,7 +136,7 @@ export interface IEventPostURLParams {
 }
 
 export interface IEventGetURLParams extends IEventPostURLParams {
-  [key: `datasets[${number}]`]: TEventSource;
+  [key: TSourceKey]: TEventSource;
   [key: `vessels[${number}]`]: string;
   types?: "ENCOUNTER" | "FISHING" | "LOITERING" | "GAP" | "PORT_VISIT";
   "start-date"?: string;
@@ -342,5 +342,13 @@ export type TGlobalEvent =
   | ILoiteringEvent
   | IPortVisitEvent;
 
-export type T4wingsSource = `${E4wingsDatasets}:v${number}.${number}`;
-export type TEventSource = `${EEventDatasets}:v${number}.${number}`;
+export type TDatasetVersion = `v${number}.${number}`;
+export type TSourceKey = `datasets[${number}]`;
+export type TFilterKey = `filters[${number}]`;
+export type TDatasetMatchedFilter = `matched in ('${boolean}')`;
+export type TDatasetFlagFilter = `flag in (${string})`;
+export type TDatasetVesselTypeFilter = `vessel_type in (${string})`;
+export type TDatasetSpeedFilter = `speed in (${string})`;
+export type TDatasetGearTypeFilter = `geartype in (${string})`;
+export type T4wingsSource = `${E4wingsDatasets}:${TDatasetVersion}`;
+export type TEventSource = `${EEventDatasets}:${TDatasetVersion}`;

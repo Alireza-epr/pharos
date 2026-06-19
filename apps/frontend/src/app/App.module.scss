@@ -30,18 +30,42 @@ header {
 
 // ── Sidebar column ────────────────────────────────────────────────────────────
 // flex-shrink must be on the flex child (<aside>), not on the .wrapper inside it
+// Collapses to zero width (kept mounted so its block state survives) via the
+// data-collapsed flag toggled from the sidebar store.
 aside {
   flex-shrink: 0;
+  overflow: hidden;
+  transition: width var(--transition-duration) var(--transition-easing);
+
+  &[data-collapsed='true'] {
+    width: 0;
+  }
 }
 
 // ── Horizontal content row ────────────────────────────────────────────────────
 // aside | main | DetailDrawer — fills all remaining height
 .content {
+  position: relative; // anchors the floating re-open button
   flex: 1;
   min-height: 0; // required: lets this flex child shrink below content height
   display: flex;
   flex-direction: row;
   overflow: hidden;
+}
+
+// ── Re-open button ────────────────────────────────────────────────────────────
+// Pins SidebarToggleInput to the left edge while the sidebar is collapsed;
+// the button's visual styling lives in the component, this only positions it.
+.reopen-button {
+  position: absolute;
+  left: var(--margin-default);
+  z-index: 5;
+}
+
+.reopen-button-detail {
+  position: absolute;
+  right: var(--margin-default);
+  z-index: 5;
 }
 
 // ── Center column ─────────────────────────────────────────────────────────────

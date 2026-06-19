@@ -1,4 +1,5 @@
 import { IEventSchema } from '@packages/types';
+import { TDecoded } from './tokenTypes';
 
 export {};
 
@@ -8,6 +9,7 @@ declare global {
       events?: IEventSchema[];
       start_time?: string;
       gitCommitSHA?: string;
+      user?: TDecoded;
     }
   }
 }

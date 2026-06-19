@@ -287,7 +287,7 @@ export const generateScoring = (
   }
 
   if (
-    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    entry.vesselType.trim().toUpperCase() === EVessleType.Cargo &&
     inside_mpa
   ) {
     importance_score += 0.4; // high-risk combo
@@ -317,7 +317,7 @@ export const generateScoring = (
 
   // 4. Cargo vessel in fishing/shallow zones = anomaly signal
   if (
-    entry.vesselType.trim().toUpperCase() === EVessleType.CARGO &&
+    entry.vesselType.trim().toUpperCase() === EVessleType.Cargo &&
     (isFishingZone || isShallowWater)
   ) {
     importance_score += 0.2;

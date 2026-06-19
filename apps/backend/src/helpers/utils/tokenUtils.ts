@@ -34,7 +34,8 @@ import { ERequestUserRole } from '../enum/tokenEnum';
 */
 
 export const generateRefreshToken = (a_Payload: JwtPayload) => {
-  const refresh_token_expiry = ms(config.auth.refresh_token_expiry);
+  // jsonwebtoken treats a numeric expiresIn as seconds, so convert ms -> seconds
+  const refresh_token_expiry = ms(config.auth.refresh_token_expiry) / 1000;
   const refreshToken = jwt.sign(a_Payload, config.auth.jwt_secret, {
     expiresIn: refresh_token_expiry,
   });
@@ -75,7 +76,7 @@ export const verifyToken = (a_Token: string) => {
 export const logTokenExpiry = (a_Decoded: TDecoded) => {
   if (!(a_Decoded as JwtPayload).exp) {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} has no expiry`,
+      `Token for username:: ${(a_Decoded as JwtPayload).username} has no expiry`,
       ELogType.info,
     );
     return;
@@ -86,12 +87,12 @@ export const logTokenExpiry = (a_Decoded: TDecoded) => {
 
   if (timeLeft <= 0) {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} has expired`,
+      `Token for username: ${(a_Decoded as JwtPayload).username} has expired`,
       ELogType.warn,
     );
   } else {
     log(
-      `Token for user ${(a_Decoded as JwtPayload).username} expires in ${timeLeft} seconds`,
+      `Token for username: ${(a_Decoded as JwtPayload).username} expires in ${timeLeft} seconds`,
       ELogType.info,
     );
   }

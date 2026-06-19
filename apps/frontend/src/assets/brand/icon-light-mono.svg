@@ -1,0 +1,41 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PHAROS">
+  <defs>
+    <linearGradient id="pm-beam" x1="26" y1="19" x2="62" y2="9" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pm-glow" cx="24" cy="20.5" r="6.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- detection sweep / light beam -->
+  <polygon points="26,18.5 62,2 62,17" fill="url(#pm-beam)"/>
+
+  <!-- unmatched detection caught in the beam -->
+  <circle cx="52" cy="11" r="4.4" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.5"/>
+  <circle cx="52" cy="11" r="2.4" fill="#FFFFFF"/>
+
+  <!-- light glow -->
+  <circle cx="24" cy="20.5" r="6.5" fill="url(#pm-glow)"/>
+
+  <!-- lighthouse -->
+  <g fill="#FFFFFF">
+    <polygon points="19,49 29,49 26.5,27 21.5,27"/>
+    <rect x="20" y="24.6" width="8" height="2.6" rx="0.6"/>
+    <rect x="21.4" y="16.5" width="5.2" height="8.1" rx="0.8"/>
+    <polygon points="20.8,16.5 27.2,16.5 24,10"/>
+    <circle cx="24" cy="9.2" r="1.1"/>
+  </g>
+  <!-- accent band cut as negative space -->
+  <polygon points="20.48,36 27.52,36 27.98,40 20.02,40" fill="#FFFFFF" opacity="0.45"/>
+
+  <!-- sea -->
+  <g stroke-linecap="round" fill="none" stroke="#FFFFFF">
+    <path d="M7,50.5 q4,-3 8,0 t8,0 t8,0 t8,0 t8,0 t8,0" stroke-width="1.6" opacity="0.95"/>
+    <path d="M7,54.5 q4,-3 8,0 t8,0 t8,0 t8,0 t8,0 t8,0" stroke-width="1.6" opacity="0.55"/>
+  </g>
+</svg>

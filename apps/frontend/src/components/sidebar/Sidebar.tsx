@@ -1,57 +1,54 @@
 import sidebarStyle from './Sidebar.module.scss';
-import AreaOfInterest from "../blocks/AreaOfInterest"
-import TimeRange from "../blocks/TimeRange"
-import ContextLayers from "../blocks/DataLayers"
-import HotspotConfig from "../blocks/HotspotConfig"
-import SortOrder from "../blocks/SortOrder"
-import Filter from "../blocks/Filter"
-import ThresholdAndWeights from "../blocks/ThresholdAndWeights"
-import AdvancedQuery from "../blocks/AdvancedQuery"
 import ButtonInput from '../common/inputs/ButtonInput';
+import SidebarToggleInput from '../common/inputs/SidebarToggleInput';
 import { useTranslator } from '../../hooks/translator';
-import { useEventStore } from '../../stores/eventStore';
-import { useSortOrderStore } from '../../stores/sortOrderStore';
-import { useBottomStore } from '../../stores/bottomStore';
-import { samples } from '../../helpers/fixtures/samples';
+import { useSidebarStore } from '../../stores/sidebarStore';
+import { ESidebarTab } from '../../helpers/enum/storeEnum';
+import ReportTab from './tabs/ReportTab';
+import HotspotTab from './tabs/HotspotTab';
+import EventTab from './tabs/EventTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 
 export interface ISidebarProps {}
 
 const Sidebar = () => {
+  const { t } = useTranslator();
 
-  const {t} = useTranslator()
-  const setEvents = useEventStore( s => s.setEvents )
-  const sorts = useSortOrderStore(s => s.sorts)
-  const setSorts = useBottomStore(s => s.setSorts)
+  const activeTab = useSidebarStore((s) => s.activeTab);
+  const setActiveTab = useSidebarStore((s) => s.setActiveTab);
+  const collapsed = useSidebarStore((s) => s.collapsed);
+  const setCollapsed = useSidebarStore((s) => s.setCollapsed);
 
-  const handleRunQueryClick = () => {
-    setEvents(samples as any)
-    if (sorts.length > 0) setSorts(sorts)
-  }
   return (
     <div className={` ${sidebarStyle.wrapper} margin-left`}>
-      <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
-        <AreaOfInterest />
-        <TimeRange />
-        <ContextLayers />
-        <HotspotConfig />
-        <SortOrder />
-        <Filter />
-        <ThresholdAndWeights />
-        <AdvancedQuery />
-      </div>
-      <div className={` ${sidebarStyle.footer}`}>
-        <SectionInputGroup>
-          <ButtonInput 
-            label={t("sidebar.label.runQuery")}
-            onClick={handleRunQueryClick}
-          />
-        </SectionInputGroup>
-        
-        <span className={`font-size-xs font-light font-family-header ${sidebarStyle.subRunQuery}`}>
-          {t("sidebar.text.subRunQuery")}
-        </span>
-      </div>
+      <SectionInputGroup direction="row">
+        <ButtonInput
+          label={t('sidebar.tab.report')}
+          active={activeTab === ESidebarTab.report}
+          onClick={() => setActiveTab(ESidebarTab.report)}
+          size="sm"
+        />
+        <ButtonInput
+          label={t('sidebar.tab.hotspot')}
+          active={activeTab === ESidebarTab.hotspot}
+          onClick={() => setActiveTab(ESidebarTab.hotspot)}
+          size="sm"
+        />
+        <ButtonInput
+          label={t('sidebar.tab.event')}
+          active={activeTab === ESidebarTab.event}
+          onClick={() => setActiveTab(ESidebarTab.event)}
+          size="sm"
+        />
+        <SidebarToggleInput
+          collapsed={collapsed}
+          onClick={() => setCollapsed((prev) => !prev)}
+        />
+      </SectionInputGroup>
+
+      {activeTab === ESidebarTab.report && <ReportTab />}
+      {activeTab === ESidebarTab.hotspot && <HotspotTab />}
+      {activeTab === ESidebarTab.event && <EventTab />}
     </div>
   );
 };

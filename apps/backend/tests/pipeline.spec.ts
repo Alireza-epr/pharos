@@ -28,7 +28,7 @@ import {
   IEventSchema,
   IRejectedEventSchema,
 } from '@packages/types';
-import { deepSortObject, sortEventSchema, getSortValue} from '@packages/utils';
+import { deepSortObject, sortEventSchema, getSortValue } from '@packages/utils';
 import {
   getEntriesFrom4wingsResponse,
   getSourceFrom4wingsResponse,

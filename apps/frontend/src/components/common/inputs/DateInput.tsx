@@ -1,6 +1,7 @@
 import { getLocaleISOString } from '@packages/utils';
 import dateInputStyle from './DateInput.module.scss';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
 export interface IDateInputProps {
   value: string;
@@ -9,11 +10,12 @@ export interface IDateInputProps {
   max?: string;
   disabled?: boolean;
   placeholder?: string;
+  ariaLabel?: string;
 }
 
 const DateInput = (props: IDateInputProps) => {
-
   const dateRef = useRef<HTMLInputElement>(null);
+  const sectionLabel = useContext(SectionLabelContext);
   const isPickerOpen = useRef(false);
 
   const handleDateClick = () => {
@@ -38,10 +40,11 @@ const DateInput = (props: IDateInputProps) => {
       step="1"
       type="datetime-local"
       value={props.value}
-      min={props.min ?? "2017-01-01T00:00:00"}
+      min={props.min ?? '2017-01-01T00:00:00'}
       max={props.max ?? getLocaleISOString(new Date())}
       disabled={props.disabled}
       placeholder={props.placeholder}
+      aria-label={props.ariaLabel ?? props.placeholder ?? sectionLabel}
       onChange={(e) => props.onChange(e.target.value)}
       onClick={handleDateClick}
       onBlur={handleBlur}

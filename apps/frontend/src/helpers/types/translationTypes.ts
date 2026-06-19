@@ -1,5 +1,4 @@
 import en from '../../locales/en.json';
-import de from '../../locales/de.json';
 import { TLanguage } from '../enum/translationEnum';
 
 export type TTranslations = typeof en;

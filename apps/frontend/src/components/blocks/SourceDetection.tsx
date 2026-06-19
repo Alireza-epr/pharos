@@ -13,26 +13,25 @@ const SourceDetection = (props: ISourceDetectionBlockProps) => {
   const { event } = props;
 
   return (
-    <Section title={t('detailPanel.title.sourceAndDetection')} collapsible={false}>
+    <Section
+      title={t('detailPanel.title.sourceAndDetection')}
+      collapsible={false}
+    >
       <SectionItem title={t('detailPanel.label.dataset')}>
-        <TextInput
-          readOnly
-          copiable
-          value={event.source}
-        />
+        <TextInput readOnly copiable value={event.source} />
       </SectionItem>
       <SectionItem title={t('bottomPanel.column.confidenceTier')}>
-        <TextInput
-          readOnly
-          copiable
-          value={event.confidence_tier}
-        />
+        <TextInput readOnly copiable value={event.confidence_tier} />
       </SectionItem>
       <SectionItem title={t('bottomPanel.column.confidenceProxy')}>
         <TextInput
           readOnly
           copiable
-          value={event.confidence_proxy !== null ? String(event.confidence_proxy) : t('detailPanel.text.nullProxy')}
+          value={
+            event.confidence_proxy !== null
+              ? String(event.confidence_proxy)
+              : t('detailPanel.text.nullProxy')
+          }
         />
       </SectionItem>
     </Section>

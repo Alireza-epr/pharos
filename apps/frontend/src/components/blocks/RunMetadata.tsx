@@ -8,6 +8,7 @@ import TextInput from '../common/inputs/TextInput';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import ButtonInput from '../common/inputs/ButtonInput';
 import { downloadJSON } from '@/helpers/utils/downloadUtils';
+import NumberInput from '../common/inputs/NumberInput';
 
 export interface IRunMetadataBlockProps {
   event: IEventSchema;
@@ -15,14 +16,12 @@ export interface IRunMetadataBlockProps {
 
 const RunMetadata = (props: IRunMetadataBlockProps) => {
   const { t } = useTranslator();
-  const { run_metadata } = props.event;
+  const { event_id, run_metadata, raw_metadata } = props.event;
 
   if (!run_metadata) return null;
 
-  
   return (
     <Section title={t('detailPanel.title.runMetadata')} collapsible={false}>
-
       <SectionItem title={t('detailPanel.label.runTime')}>
         <TextInput
           value={formatTimestamp(new Date(run_metadata.run_time))}
@@ -32,34 +31,58 @@ const RunMetadata = (props: IRunMetadataBlockProps) => {
         />
       </SectionItem>
 
-      <SectionItem title={t('detailPanel.label.config')}>
-        <SectionInputGroup direction='column'>
+      <SectionItem title={t('detailPanel.label.config')} collapsible={false}>
+        <SectionInputGroup direction="column">
           <TextInput
             value={shortenText(run_metadata.config_hash, 16)}
             copyValue={run_metadata.config_hash}
             readOnly
             copiable
-            copyLabel={t("general.action.copy")}
+            copyLabel={t('general.action.copy')}
           />
-          <ButtonInput 
+          <ButtonInput
             label={t('detailPanel.label.downloadConfig')}
-            onClick={() => downloadJSON( run_metadata.config_json, `${run_metadata.config_hash}` )}
+            onClick={() =>
+              downloadJSON(run_metadata.config_json, `${event_id}_run_metadata`)
+            }
+          />
+          <ButtonInput
+            label={t('detailPanel.label.downloadRawData')}
+            onClick={() =>
+              downloadJSON(raw_metadata, `${event_id}_raw_metadata`)
+            }
           />
         </SectionInputGroup>
       </SectionItem>
 
-      <SectionItem title={t('detailPanel.label.contextLayersDatasets')}>
-        {run_metadata.context_layer_versions?.split(",").map( (dataset, index) => 
-          <TextInput 
-            value={shortenText(dataset.trim(), 16)}
-            copyValue={dataset.trim()}
-            readOnly
-            copiable
-            key={index}
-          />
-         )}
-      </SectionItem>  
-
+      <SectionItem
+        title={t('detailPanel.label.contextLayersDatasets')}
+        collapsible={false}
+      >
+        {run_metadata.context_layer_versions?.split(',').map((full, index) => {
+          const context = full.trim().split(':')[0] ?? '';
+          const dataset = full.trim().split(':')[1] ?? '';
+          const version = Number(full.trim().split(':')[2]?.substring(1));
+          return (
+            <SectionItem title={context} key={index} tab>
+              <SectionInputGroup direction="column">
+                <TextInput
+                  value={shortenText(dataset, 16)}
+                  readOnly
+                  copiable
+                  copyValue={dataset}
+                />
+                <NumberInput
+                  direction="row"
+                  label={t('general.label.version')}
+                  value={version}
+                  readOnly
+                />
+              </SectionInputGroup>
+            </SectionItem>
+          );
+        })}
+      </SectionItem>
     </Section>
   );
 };

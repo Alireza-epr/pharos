@@ -1,14 +1,33 @@
-import { IConfigJSON, IEventSchema, IFilteringParams, IFilteringParamsUI, ISortOption } from '@packages/types';
-import { TTheme } from '../enum/storeEnum';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IFilteringParams,
+  IFilteringParamsUI,
+  IGeometry,
+  IHotspotConfig,
+  ISortOption,
+  T4wingsSource,
+  TExportConfig,
+  TFilterKey,
+  TSourceKey,
+} from '@packages/types';
+import { TDetailTab, TSidebarTab, TTheme } from '../enum/storeEnum';
 import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
-import { EFormat, EGroupBy, EHotspotTimeBins, ESpatialResolution, ETemporalResolution, T4wingsDatasetsUI } from '@packages/enum';
-import { TMatchFilter } from '../enum/generalEnum';
+import {
+  TMatchFilter,
+  EFormat,
+  EGroupBy,
+  EHotspotTimeBins,
+  ERegionDatasets,
+  ESpatialResolution,
+  ETemporalResolution,
+} from '@packages/enum';
 
 export interface IAppStoreStates {
   theme: TTheme;
   language: TLanguage;
-  backendStatus: boolean
+  backendStatus: boolean;
 }
 export interface IAppStoreActions {
   setTheme: (
@@ -24,17 +43,101 @@ export interface IAppStoreActions {
   setBackendStatus: (
     a_Value:
       | IAppStoreStates['backendStatus']
-      | ((a_Prev: IAppStoreStates['backendStatus']) => IAppStoreStates['backendStatus']),
+      | ((
+          a_Prev: IAppStoreStates['backendStatus'],
+        ) => IAppStoreStates['backendStatus']),
   ) => void;
+}
+export interface ISidebarStoreStates {
+  activeTab: TSidebarTab;
+  collapsed: boolean;
+}
+export interface ISidebarStoreActions {
+  setActiveTab: (
+    a_Value:
+      | ISidebarStoreStates['activeTab']
+      | ((
+          a_Prev: ISidebarStoreStates['activeTab'],
+        ) => ISidebarStoreStates['activeTab']),
+  ) => void;
+  setCollapsed: (
+    a_Value:
+      | ISidebarStoreStates['collapsed']
+      | ((
+          a_Prev: ISidebarStoreStates['collapsed'],
+        ) => ISidebarStoreStates['collapsed']),
+  ) => void;
+}
+
+export interface IDetailStoreStates {
+  activeTab: TDetailTab;
+  collapsed: boolean;
+}
+export interface IDetailStoreActions {
+  setActiveTab: (
+    a_Value:
+      | IDetailStoreStates['activeTab']
+      | ((
+          a_Prev: IDetailStoreStates['activeTab'],
+        ) => IDetailStoreStates['activeTab']),
+  ) => void;
+  setCollapsed: (
+    a_Value:
+      | IDetailStoreStates['collapsed']
+      | ((
+          a_Prev: IDetailStoreStates['collapsed'],
+        ) => IDetailStoreStates['collapsed']),
+  ) => void;
+}
+
+export interface ILoginStoreStates {
+  accessToken: string;
+  refreshToken: string;
+}
+export interface ILoginStoreActions {
+  setAccessToken: (
+    a_Value:
+      | ILoginStoreStates['accessToken']
+      | ((
+          a_Prev: ILoginStoreStates['accessToken'],
+        ) => ILoginStoreStates['accessToken']),
+  ) => void;
+  setRefreshToken: (
+    a_Value:
+      | ILoginStoreStates['refreshToken']
+      | ((
+          a_Prev: ILoginStoreStates['refreshToken'],
+        ) => ILoginStoreStates['refreshToken']),
+  ) => void;
+  // Clears the session so the app routes back to the login screen.
+  logout: () => void;
 }
 
 export interface IEventStoreStates {
   events: IEventSchema[];
-  selectedEvent: IEventSchema | null;
+  activeEvent: IEventSchema | null;
+  selectedEvents: IEventSchema[];
 }
 export interface IEventStoreActions {
-  setSelectedEvent: ( a_Value: IEventStoreStates['selectedEvent'] | ((a_Prev: IEventStoreStates['selectedEvent'] ) => IEventStoreStates['selectedEvent']) ) => void;
-  setEvents: ( a_Value: IEventStoreStates['events'] | ((a_Prev: IEventStoreStates['events'] ) => IEventStoreStates['events']) ) => void;
+  setEvents: (
+    a_Value:
+      | IEventStoreStates['events']
+      | ((a_Prev: IEventStoreStates['events']) => IEventStoreStates['events']),
+  ) => void;
+  setActiveEvent: (
+    a_Value:
+      | IEventStoreStates['activeEvent']
+      | ((
+          a_Prev: IEventStoreStates['activeEvent'],
+        ) => IEventStoreStates['activeEvent']),
+  ) => void;
+  setSelectedEvents: (
+    a_Value:
+      | IEventStoreStates['selectedEvents']
+      | ((
+          a_Prev: IEventStoreStates['selectedEvents'],
+        ) => IEventStoreStates['selectedEvents']),
+  ) => void;
 }
 
 export interface IBottomStoreStates {
@@ -42,19 +145,41 @@ export interface IBottomStoreStates {
   sorts: ISortOption[];
 }
 export interface IBottomStoreActions {
-  setFilter: ( a_Value: IBottomStoreStates['filter'] | ((a_Prev: IBottomStoreStates['filter'] ) => IBottomStoreStates['filter']) ) => void;
-  setSorts: ( a_Value: IBottomStoreStates['sorts'] | ((a_Prev: IBottomStoreStates['sorts'] ) => IBottomStoreStates['sorts']) ) => void;
+  setFilter: (
+    a_Value:
+      | IBottomStoreStates['filter']
+      | ((
+          a_Prev: IBottomStoreStates['filter'],
+        ) => IBottomStoreStates['filter']),
+  ) => void;
+  setSorts: (
+    a_Value:
+      | IBottomStoreStates['sorts']
+      | ((a_Prev: IBottomStoreStates['sorts']) => IBottomStoreStates['sorts']),
+  ) => void;
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams & IFilteringParamsUI;
+  filters: IFilteringParams;
+  filtersUI: IFilteringParamsUI;
 }
 export interface IFilterStoreActions {
   setFilters: (
     a_Value:
       | IFilterStoreStates['filters']
-      | ((a_Prev: IFilterStoreStates['filters']) => IFilterStoreStates['filters']),
+      | ((
+          a_Prev: IFilterStoreStates['filters'],
+        ) => IFilterStoreStates['filters']),
   ) => void;
+  setFiltersUI: (
+    a_Value:
+      | IFilterStoreStates['filtersUI']
+      | ((
+          a_Prev: IFilterStoreStates['filtersUI'],
+        ) => IFilterStoreStates['filtersUI']),
+  ) => void;
+  getSources: () => Record<TSourceKey, T4wingsSource> | {};
+  getFilter: () => Record<TFilterKey, string> | {};
 }
 
 export interface IContextLayersStoreStates {
@@ -66,17 +191,23 @@ export interface IContextLayersStoreActions {
   setHotspots: (
     a_Value:
       | IContextLayersStoreStates['hotspots']
-      | ((a_Prev: IContextLayersStoreStates['hotspots']) => IContextLayersStoreStates['hotspots']),
+      | ((
+          a_Prev: IContextLayersStoreStates['hotspots'],
+        ) => IContextLayersStoreStates['hotspots']),
   ) => void;
   setEezBoundaries: (
     a_Value:
       | IContextLayersStoreStates['eezBoundaries']
-      | ((a_Prev: IContextLayersStoreStates['eezBoundaries']) => IContextLayersStoreStates['eezBoundaries']),
+      | ((
+          a_Prev: IContextLayersStoreStates['eezBoundaries'],
+        ) => IContextLayersStoreStates['eezBoundaries']),
   ) => void;
   setMpaZones: (
     a_Value:
       | IContextLayersStoreStates['mpaZones']
-      | ((a_Prev: IContextLayersStoreStates['mpaZones']) => IContextLayersStoreStates['mpaZones']),
+      | ((
+          a_Prev: IContextLayersStoreStates['mpaZones'],
+        ) => IContextLayersStoreStates['mpaZones']),
   ) => void;
 }
 export interface ISortOrderStoreStates {
@@ -86,25 +217,32 @@ export interface ISortOrderStoreActions {
   setSorts: (
     a_Value:
       | ISortOrderStoreStates['sorts']
-      | ((a_Prev: ISortOrderStoreStates['sorts']) => ISortOrderStoreStates['sorts']),
+      | ((
+          a_Prev: ISortOrderStoreStates['sorts'],
+        ) => ISortOrderStoreStates['sorts']),
   ) => void;
 }
 
 export interface IHotspotConfigStoreStates {
-  resolution: number;
+  resolution: IHotspotConfig['resolution'];
   timeBin: EHotspotTimeBins;
 }
 export interface IHotspotConfigStoreActions {
   setResolution: (
     a_Value:
       | IHotspotConfigStoreStates['resolution']
-      | ((a_Prev: IHotspotConfigStoreStates['resolution']) => IHotspotConfigStoreStates['resolution']),
+      | ((
+          a_Prev: IHotspotConfigStoreStates['resolution'],
+        ) => IHotspotConfigStoreStates['resolution']),
   ) => void;
   setTimeBin: (
     a_Value:
       | IHotspotConfigStoreStates['timeBin']
-      | ((a_Prev: IHotspotConfigStoreStates['timeBin']) => IHotspotConfigStoreStates['timeBin']),
+      | ((
+          a_Prev: IHotspotConfigStoreStates['timeBin'],
+        ) => IHotspotConfigStoreStates['timeBin']),
   ) => void;
+  getHotspot: () => IHotspotConfigStoreStates;
 }
 
 export interface ITimeRangeStoreStates {
@@ -115,18 +253,23 @@ export interface ITimeRangeStoreActions {
   setDateFrom: (
     a_Value:
       | ITimeRangeStoreStates['dateFrom']
-      | ((a_Prev: ITimeRangeStoreStates['dateFrom']) => ITimeRangeStoreStates['dateFrom']),
+      | ((
+          a_Prev: ITimeRangeStoreStates['dateFrom'],
+        ) => ITimeRangeStoreStates['dateFrom']),
   ) => void;
   setDateTo: (
     a_Value:
       | ITimeRangeStoreStates['dateTo']
-      | ((a_Prev: ITimeRangeStoreStates['dateTo']) => ITimeRangeStoreStates['dateTo']),
+      | ((
+          a_Prev: ITimeRangeStoreStates['dateTo'],
+        ) => ITimeRangeStoreStates['dateTo']),
   ) => void;
 }
 
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
+  feature: IGeometry | null;
   eezOptions: IDropdownOption<string>[];
   eezActive: IDropdownOption<string> | undefined;
   mpaOptions: IDropdownOption<string>[];
@@ -146,53 +289,122 @@ export interface IAOIStoreActions {
   setEEZOptions: (
     a_Value:
       | IAOIStoreStates['eezOptions']
-      | ((a_Prev: IAOIStoreStates['eezOptions']) => IAOIStoreStates['eezOptions']),
+      | ((
+          a_Prev: IAOIStoreStates['eezOptions'],
+        ) => IAOIStoreStates['eezOptions']),
   ) => void;
   setEEZActive: (
     a_Value:
       | IAOIStoreStates['eezActive']
-      | ((a_Prev: IAOIStoreStates['eezActive']) => IAOIStoreStates['eezActive']),
+      | ((
+          a_Prev: IAOIStoreStates['eezActive'],
+        ) => IAOIStoreStates['eezActive']),
   ) => void;
   setMPAOptions: (
     a_Value:
       | IAOIStoreStates['mpaOptions']
-      | ((a_Prev: IAOIStoreStates['mpaOptions']) => IAOIStoreStates['mpaOptions']),
+      | ((
+          a_Prev: IAOIStoreStates['mpaOptions'],
+        ) => IAOIStoreStates['mpaOptions']),
   ) => void;
   setMPAActive: (
     a_Value:
       | IAOIStoreStates['mpaActive']
-      | ((a_Prev: IAOIStoreStates['mpaActive']) => IAOIStoreStates['mpaActive']),
+      | ((
+          a_Prev: IAOIStoreStates['mpaActive'],
+        ) => IAOIStoreStates['mpaActive']),
   ) => void;
+  getAOI: () =>
+    | IGeometry
+    | {
+        'region-dataset': ERegionDatasets;
+        'region-id': string;
+      }
+    | null;
 }
 
-export interface IThresholdAndWeightsStoreStates {
-  threshold: IConfigJSON["threshold"]
+export interface IConfigStoreStates {
+  config: IConfigJSON | null;
 }
-export interface IThresholdAndWeightsStoreActions {
-  setThreshold: (
+export interface IConfigStoreActions {
+  setConfig: (
     a_Value:
-      | IThresholdAndWeightsStoreStates['threshold']
-      | ((a_Prev: IThresholdAndWeightsStoreStates['threshold']) => IThresholdAndWeightsStoreStates['threshold']),
+      | IConfigStoreStates['config']
+      | ((
+          a_Prev: IConfigStoreStates['config'],
+        ) => IConfigStoreStates['config']),
   ) => void;
+  getThreshold: () => IConfigJSON['threshold'];
+  getExport: () => TExportConfig;
 }
 
 export interface IAdvancedQueryStoreStates {
-  spatialResolution: ESpatialResolution | '';
+  spatialResolution: ESpatialResolution;
   format: EFormat;
-  groupBy: EGroupBy | '';
+  groupBy: EGroupBy;
   temporalResolution: ETemporalResolution;
-  datasets: T4wingsDatasetsUI[];
-  filterText: string;
   spatialAggregation: boolean;
-  rawQuery: string;
 }
 export interface IAdvancedQueryStoreActions {
-  setSpatialResolution: (a_Value: IAdvancedQueryStoreStates['spatialResolution'] | ((a_Prev: IAdvancedQueryStoreStates['spatialResolution']) => IAdvancedQueryStoreStates['spatialResolution'])) => void;
-  setFormat: (a_Value: IAdvancedQueryStoreStates['format'] | ((a_Prev: IAdvancedQueryStoreStates['format']) => IAdvancedQueryStoreStates['format'])) => void;
-  setGroupBy: (a_Value: IAdvancedQueryStoreStates['groupBy'] | ((a_Prev: IAdvancedQueryStoreStates['groupBy']) => IAdvancedQueryStoreStates['groupBy'])) => void;
-  setTemporalResolution: (a_Value: IAdvancedQueryStoreStates['temporalResolution'] | ((a_Prev: IAdvancedQueryStoreStates['temporalResolution']) => IAdvancedQueryStoreStates['temporalResolution'])) => void;
-  setDatasets: (a_Value: IAdvancedQueryStoreStates['datasets'] | ((a_Prev: IAdvancedQueryStoreStates['datasets']) => IAdvancedQueryStoreStates['datasets'])) => void;
-  setFilterText: (a_Value: IAdvancedQueryStoreStates['filterText'] | ((a_Prev: IAdvancedQueryStoreStates['filterText']) => IAdvancedQueryStoreStates['filterText'])) => void;
-  setSpatialAggregation: (a_Value: IAdvancedQueryStoreStates['spatialAggregation'] | ((a_Prev: IAdvancedQueryStoreStates['spatialAggregation']) => IAdvancedQueryStoreStates['spatialAggregation'])) => void;
-  setRawQuery: (a_Value: IAdvancedQueryStoreStates['rawQuery'] | ((a_Prev: IAdvancedQueryStoreStates['rawQuery']) => IAdvancedQueryStoreStates['rawQuery'])) => void;
+  setSpatialResolution: (
+    a_Value:
+      | IAdvancedQueryStoreStates['spatialResolution']
+      | ((
+          a_Prev: IAdvancedQueryStoreStates['spatialResolution'],
+        ) => IAdvancedQueryStoreStates['spatialResolution']),
+  ) => void;
+  setFormat: (
+    a_Value:
+      | IAdvancedQueryStoreStates['format']
+      | ((
+          a_Prev: IAdvancedQueryStoreStates['format'],
+        ) => IAdvancedQueryStoreStates['format']),
+  ) => void;
+  setGroupBy: (
+    a_Value:
+      | IAdvancedQueryStoreStates['groupBy']
+      | ((
+          a_Prev: IAdvancedQueryStoreStates['groupBy'],
+        ) => IAdvancedQueryStoreStates['groupBy']),
+  ) => void;
+  setTemporalResolution: (
+    a_Value:
+      | IAdvancedQueryStoreStates['temporalResolution']
+      | ((
+          a_Prev: IAdvancedQueryStoreStates['temporalResolution'],
+        ) => IAdvancedQueryStoreStates['temporalResolution']),
+  ) => void;
+  setSpatialAggregation: (
+    a_Value:
+      | IAdvancedQueryStoreStates['spatialAggregation']
+      | ((
+          a_Prev: IAdvancedQueryStoreStates['spatialAggregation'],
+        ) => IAdvancedQueryStoreStates['spatialAggregation']),
+  ) => void;
+  getAdvancedQuery: () => Omit<
+    IAdvancedQueryStoreStates,
+    'datasets' | 'mainDatasetVersion' | 'subDatasetVersion'
+  >;
+}
+
+export interface IPaginationStoreStates {
+  limit: number | null;
+  offset: number | null;
+}
+export interface IPaginationStoreActions {
+  setLimit: (
+    a_Value:
+      | IPaginationStoreStates['limit']
+      | ((
+          a_Prev: IPaginationStoreStates['limit'],
+        ) => IPaginationStoreStates['limit']),
+  ) => void;
+  setOffset: (
+    a_Value:
+      | IPaginationStoreStates['offset']
+      | ((
+          a_Prev: IPaginationStoreStates['offset'],
+        ) => IPaginationStoreStates['offset']),
+  ) => void;
+  getPagination: () => IPaginationStoreStates;
 }

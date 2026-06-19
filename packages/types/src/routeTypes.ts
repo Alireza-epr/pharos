@@ -1,10 +1,21 @@
-import { ESystemRoutes, EAuthRoutes, EReasonCodes } from "@packages/enum";
+import {
+  ESystemRoutes,
+  EAuthRoutes,
+  EReasonCodes,
+  E4wingsDatasets,
+  TMatchFilter,
+  ECountryFlag,
+  ESpeedRange,
+  EGearType,
+  EVessleType,
+  ENeuralVesselType,
+} from "@packages/enum";
 import {
   I4wingsReportGetURLParams,
-  I4wingsReportPostBodyParams,
-  IEventGetURLParams,
+  I4wingsReportPostURLParams,
+  TDatasetVersion,
 } from "./gfwTypes";
-import { IConfigJSON } from "./eventTypes";
+import { IConfigJSON, IEventSchema, IHotspot } from "./eventTypes";
 export type TEndpoints = ESystemRoutes | EAuthRoutes;
 export type TRepositoryValue = any;
 
@@ -17,16 +28,34 @@ export interface IFilteringParams {
   distance_to_coast_km_max?: number;
   reason_codes_include?: EReasonCodes[];
   reason_codes_exclude?: EReasonCodes[];
-  is_inside_eez?: boolean;
-  is_inside_mpa?: boolean;
+  only_inside_eez?: boolean;
+  only_inside_mpa?: boolean;
   bathymetry_min?: number;
   bathymetry_max?: number;
+  event_id?: string;
 }
 
 export interface IFilteringParamsUI {
-  unmatched_only: boolean;
+  datasets: Record<
+    E4wingsDatasets,
+    { active: boolean; version: TDatasetVersion }
+  >;
+  vessel_id: string;
+  matchingStatus: TMatchFilter;
+  flags: ECountryFlag[];
+  speeds: ESpeedRange[];
+  gearTypes: EGearType[];
+  vesselTypes: EVessleType[];
+  neuralVesselType: ENeuralVesselType | "";
+  minimumDistanceFromPorts: string;
 }
 
-export type TBodyParams = Omit<IConfigJSON, "output">;
+export type TBodyParams = Omit<IConfigJSON, "url_params">;
 
-export type TURLParams = I4wingsReportGetURLParams & IEventGetURLParams;
+export type TURLParams = I4wingsReportGetURLParams | I4wingsReportPostURLParams;
+
+export type TBodyParams_export = {
+  config: IConfigJSON;
+  events: IEventSchema[];
+  hotspots?: IHotspot[];
+};
