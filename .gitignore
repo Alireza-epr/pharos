@@ -5,3 +5,10 @@
 /packages/utils/dist
 *raw*.md
 *.zip
+
+# Playwright
+test-results
+playwright-report
+blob-report
+.playwright
+test-artifacts

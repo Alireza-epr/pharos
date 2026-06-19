@@ -17,6 +17,7 @@ export interface ITextInputProps {
   copyValue?: string;
   caveat?: string;
   fullWidth?: boolean;
+  testId?: string;
 }
 
 const COPIED_FEEDBACK_MS = 1500;
@@ -85,6 +86,7 @@ const TextInput = (props: ITextInputProps) => {
       disabled={props.disabled}
       readOnly={props.readOnly}
       placeholder={props.placeholder}
+      data-testid={props.testId}
       // When a title is set the field is wrapped in a <label>; otherwise fall
       // back to the SectionItem title/placeholder so it stays labelled (a11y).
       aria-label={props.title ? undefined : (sectionLabel ?? props.placeholder)}

@@ -123,6 +123,7 @@ const AreaOfInterest = () => {
           onChange={handleChangeEEZOption}
           onClear={handleClearEEZ}
           clearLabel={t('general.label.clear')}
+          testId="eez-select"
         />
       </SectionItem>
 

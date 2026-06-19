@@ -10,6 +10,7 @@ export interface IButtonInputProps {
   size?: 'sm';
   onClick?: () => void;
   readOnly?: boolean;
+  testId?: string;
 }
 
 const ButtonInput = (props: IButtonInputProps) => {
@@ -19,6 +20,7 @@ const ButtonInput = (props: IButtonInputProps) => {
       data-active={props.active}
       data-readonly={props.readOnly}
       data-size={props.size}
+      data-testid={props.testId}
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
     >

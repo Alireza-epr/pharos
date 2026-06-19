@@ -86,7 +86,10 @@ const BottomPanel = () => {
   return (
     <div className={` ${bottomPanelStyle.wrapper}`}>
       <div className={` ${bottomPanelStyle.header}`}>
-        <span className={`font-size-sm font-bold ${bottomPanelStyle.title}`}>
+        <span
+          className={`font-size-sm font-bold ${bottomPanelStyle.title}`}
+          data-testid="detections-title"
+        >
           {t('bottomPanel.title.detections')}
           {events.length > 0 && ` (${events.length})`}
         </span>
@@ -237,12 +240,14 @@ const BottomPanel = () => {
                   <tr
                     key={event.event_id}
                     className={`${bottomPanelStyle.tr} ${isSelected ? bottomPanelStyle.trSelected : ''}`}
+                    data-testid="detection-row"
                   >
                     <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>
                       {index + 1}
                     </td>
                     <td
                       className={`font-size-xs ${bottomPanelStyle.td} ${isSelected ? bottomPanelStyle.bold : ''}`}
+                      data-testid="detection-row-id"
                     >
                       {shortenText(event.event_id, 10)}
                     </td>
@@ -298,6 +303,7 @@ const BottomPanel = () => {
                           setActiveEvent(isSelected ? null : event)
                         }
                         size="sm"
+                        testId="event-details-button"
                       />
                       <ButtonInput
                         label={

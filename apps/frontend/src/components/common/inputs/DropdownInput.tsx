@@ -16,6 +16,7 @@ interface IDropdownInputBaseProps<T> {
   onClear?: () => void;
   clearLabel?: string;
   hint?: string;
+  testId?: string;
 }
 
 interface ISingleDropdownInputProps<T> extends IDropdownInputBaseProps<T> {
@@ -63,6 +64,7 @@ const DropdownInput = <T extends string | number>(
         multiple={props.multiple}
         disabled={props.disabled}
         aria-label={accessibleName}
+        data-testid={props.testId}
         onChange={handleChange}
       >
         {!props.multiple && props.placeholder && (
