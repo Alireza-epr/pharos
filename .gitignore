@@ -12,3 +12,7 @@ playwright-report
 blob-report
 .playwright
 test-artifacts
+
+# Personal planning & knowledge notes (kept local, per the sprint plan)
+/docs/planning/
+/docs/knowledge/
