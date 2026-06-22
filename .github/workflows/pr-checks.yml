@@ -4,10 +4,16 @@ on:
   pull_request:
     branches:
       - master
+      - develop
     paths:
       - 'apps/frontend/**'
       - 'apps/backend/**'
       - 'packages/**'
+
+# Cancel superseded runs when new commits are pushed to the same PR branch.
+concurrency:
+  group: pr-checks-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   pr-checks:
@@ -19,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: 'npm'
