@@ -16,3 +16,7 @@ test-artifacts
 # Personal planning & knowledge notes (kept local, per the sprint plan)
 /docs/planning/
 /docs/knowledge/
+
+# Claude Code local overrides (personal, machine-specific)
+.claude/settings.local.json
+CLAUDE.local.md
