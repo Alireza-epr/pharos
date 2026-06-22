@@ -1,5 +1,6 @@
 import { deepSortObject } from '@packages/utils';
 import fs from 'fs';
+import path from 'path';
 
 export const fs_writeFileSync = (
   a_OutputPath: string,
@@ -8,6 +9,7 @@ export const fs_writeFileSync = (
   a_Space: number = 2,
   a_Options?: fs.WriteFileOptions,
 ) => {
+  fs.mkdirSync(path.dirname(a_OutputPath), { recursive: true });
   fs.writeFileSync(
     a_OutputPath,
     typeof a_Data === 'string'

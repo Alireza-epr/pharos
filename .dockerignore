@@ -1,0 +1,54 @@
+# Dependencies (reinstalled inside the image)
+node_modules
+**/node_modules
+
+# Build output (rebuilt inside the image)
+dist
+**/dist
+build
+**/build
+
+# Version control / CI
+.git
+.github
+.gitignore
+
+# Local env & secrets — kept out of the image by default.
+# The backend's secrets are injected at runtime via compose `env_file`.
+**/.env
+**/.env.*
+# Exception: the frontend's VITE_* vars are inlined into the bundle at BUILD
+# time and are not secret, so this file must be in the build context.
+!apps/frontend/src/.env
+
+# Editor / OS cruft
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs & caches
+*.log
+**/*.log
+.npm
+.cache
+**/.cache
+coverage
+**/coverage
+
+# Test / e2e artifacts
+**/playwright-report
+**/test-results
+
+# Large local data — only used by the pipeline, not the server image.
+# Keep apps/backend/data/context: its JSON is imported at build time.
+apps/backend/data/bathymetry_rasters
+apps/backend/data/coastline_polylines
+apps/backend/data/eez_polygons
+apps/backend/data/land_polygons
+apps/backend/data/mpa_polygons
+apps/backend/data/out
+**/*.zip
+
+# Docs / planning (not needed in image)
+docs

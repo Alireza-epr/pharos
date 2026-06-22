@@ -73,11 +73,24 @@ export const log = (
 };
 
 export const getGitCommitSHA = async (a_Short = true): Promise<string> => {
+  // Prefer a value baked at build time (e.g. the Docker image, which has no
+  // .git directory or git binary). docker-compose passes it as a build arg.
+  const fromEnv = process.env.GIT_COMMIT_SHA?.trim();
+  if (fromEnv) {
+    return fromEnv;
+  }
+
   try {
     if (typeof window == 'undefined') {
       // Node.js version
       const { execSync } = await import('child_process');
-      const gitCommit = execSync('git rev-parse HEAD').toString().trim();
+      const gitCommit = execSync('git rev-parse HEAD', {
+        // Discard stderr so a missing git binary doesn't spam the logs; the
+        // catch below still maps any failure to 'N/A'.
+        stdio: ['ignore', 'pipe', 'ignore'],
+      })
+        .toString()
+        .trim();
       if (gitCommit) {
         return gitCommit;
       } else {

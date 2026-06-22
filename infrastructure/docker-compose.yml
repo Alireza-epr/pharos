@@ -2,7 +2,12 @@ services:
   backend:
     build:
       context: ..
-      dockerfile: infrastructure/docker/backend.Dockerfile
+      dockerfile: infrastructure/docker/Dockerfile
+      target: backend
+      args:
+        # Set GIT_COMMIT_SHA in the environment before building to stamp
+        # exports with the real commit (e.g. `git rev-parse HEAD`); else N/A.
+        GIT_COMMIT_SHA: ${GIT_COMMIT_SHA:-N/A}
     container_name: pharos-backend
     ports:
       - "1370:1370"
@@ -20,7 +25,8 @@ services:
   frontend:
     build:
       context: ..
-      dockerfile: infrastructure/docker/frontend.Dockerfile
+      dockerfile: infrastructure/docker/Dockerfile
+      target: frontend
     container_name: pharos-frontend
     ports:
       - "5173:80"
