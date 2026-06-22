@@ -1,2 +1,3 @@
 scratch file for testing /format-and-push output
 line 1
+line 2 — modified during the test commit
