@@ -1,4 +1,6 @@
 import { deepSortObject } from '@packages/utils';
+import fs from 'fs';
+import path from 'path';
 import parquet from 'parquetjs';
 
 export const writeParquet = async (
@@ -6,6 +8,7 @@ export const writeParquet = async (
   a_Rows: { [key: string]: any }[],
   a_ParquetSchema: parquet.ParquetSchema,
 ) => {
+  fs.mkdirSync(path.dirname(a_OutputPath), { recursive: true });
   const writer = await parquet.ParquetWriter.openFile(
     a_ParquetSchema,
     `${a_OutputPath}.parquet`,

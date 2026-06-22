@@ -62,6 +62,28 @@ Previews the production build locally.
 npm run frontend:preview
 ```
 
+### Full Stack (backend + frontend together)
+
+Run both apps from the repo root:
+
+- **Development (hot reload):** builds the shared packages, then starts the
+  backend (ts-node) and the Vite dev server concurrently.
+
+  ```bash
+  npm run dev
+  ```
+
+- **Production-style (build & serve):** builds packages, backend, and frontend,
+  then runs the compiled backend server alongside the Vite preview of the built
+  UI.
+
+  ```bash
+  npm start
+  ```
+
+> Both use `concurrently`, so a single `Ctrl-C` stops backend and frontend
+> together.
+
 ---
 
 ## 3. Running the Pipeline
@@ -197,6 +219,26 @@ docker-compose up --build
 
 > Backend health is checked periodically every 30s. Frontend will wait until backend container is available at startup.
 
+> The images contain the API server and the built frontend only. Large datasets
+> (bathymetry rasters and the coastline/EEZ/MPA polygons) are **not** baked into
+> the image — they are used solely by the host-run pipeline (see sections 3–4),
+> so excluding them keeps the build context small.
+
+### Recording the commit SHA (optional)
+
+Exports embed the source commit SHA for provenance. The image has no `.git`, so
+pass it as a build arg; it defaults to `N/A` when omitted.
+
+```bash
+# bash / sh
+GIT_COMMIT_SHA=$(git rev-parse HEAD) docker-compose up --build
+```
+
+```powershell
+# PowerShell
+$env:GIT_COMMIT_SHA = git rev-parse HEAD; docker-compose up --build
+```
+
 ---
 
 ## 7. Troubleshooting
@@ -206,28 +248,28 @@ If something goes wrong, use the following scripts to diagnose issues:
 ### Type Checking
 
 ```bash
-npm run typecheck --workspace=apps/backend
-npm run typecheck --workspace=apps/frontend
+npm run backend:typecheck
+npm run frontend:typecheck
 ```
 
 ### Linting
 
 ```bash
-npm run lint --workspace=apps/backend
-npm run lint --workspace=apps/frontend
+npm run backend:lint
+npm run frontend:lint
 ```
 
 ### Unit Tests
 
 ```bash
-npm run test --workspace=apps/backend
-npm run test --workspace=apps/frontend
+npm run backend:test
+npm run frontend:test
 ```
 
 ### End-to-End Tests
 
 ```bash
-npm run e2e --workspace=apps/frontend
+npm run frontend:e2e
 ```
 
 ---
@@ -237,7 +279,7 @@ npm run e2e --workspace=apps/frontend
 ### Pipeline build fails
 
 - Check GFW_TOKEN in `apps/backend/.env`
-- Run `npm run typecheck --workspace=apps/backend`
+- Run `npm run backend:typecheck`
 
 ### No output generated
 
