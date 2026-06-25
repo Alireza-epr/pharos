@@ -46,6 +46,11 @@ npm --prefix apps/frontend run test -- tests/foo.test.ts
 npm --prefix apps/backend run test -- -t "matches detection"
 ```
 
+### Test naming convention
+Test-case descriptions are **`snake_case`, no spaces** (words joined by `_`), matching the existing specs:
+- `it(...)`/`test(...)`: e.g. `it('parses_a_valid_ISO_range', ...)`, `it('keeps_one_row_per_event_id_in_stable_id_sorted_order', ...)`. Acronyms keep case (`ISO`, `UTC`, `AOI`, `EEZ`); drop punctuation; keep identifiers intact (`event_id`).
+- `describe(...)`: the unit's identifier (camelCase fn name, e.g. `validateBodyParams`) or a `Capitalized_With_Underscores` concept (e.g. `Hotspot_generation`, `Coverage_manifest`).
+
 ### Data pipeline
 The pipeline (`apps/backend/src/pipeline`, entry `sample.ts`) is config-driven via `apps/backend/src/config/*.json`:
 

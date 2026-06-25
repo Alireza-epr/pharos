@@ -3,6 +3,7 @@ import {
   IEventSchema,
   IRejectedEventSchema,
   I4wingsEntry,
+  I4wingsAPIResponse,
   TGlobalEvent,
   IGeometry,
 } from '@packages/types';
@@ -32,11 +33,16 @@ import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
 import { getBathymetryContext } from '../features/bathymetry_cached';
 import {
   formatTimestamp,
+  getEntriesFrom4wingsResponse,
   getGitCommitSHA,
   log,
 } from '../../helpers/utils/backendUtils';
 import { ELogType } from '../../helpers/types/generalTypes';
 import { sortEventSchema } from '@packages/utils';
+import { config } from '../../config/api';
+import { detectionGFW } from '../ingest/detections';
+import { readBathymetryTiles } from '../../helpers/utils/datasetUtils';
+import { report_response } from '../../helpers/fixtures/samples';
 
 export const createEventSchema = async (
   a_Configuration: IConfigJSON,
@@ -195,4 +201,47 @@ export const createSortedEventSchemas = async (
   }
   const sortedEvents = sortEventSchema(events, a_Configuration.sort);
   return sortedEvents;
+};
+
+let bathymetryLoaded = false;
+
+/** Load bathymetry rasters into memory once (other datasets load on import). */
+const ensureDatasetsLoaded = async (): Promise<void> => {
+  if (bathymetryLoaded) return;
+  await readBathymetryTiles();
+  bathymetryLoaded = true;
+};
+
+/**
+ * Fetch detections for a query and return them as fully enriched canonical
+ * events (the shape persisted into partitions and returned to the client).
+ *
+ * - With a configured `GFW_TOKEN` this is the live path: call the provider,
+ *   normalise the 4Wings response, and run the enrichment pipeline.
+ * - Without a token (local/offline dev, as the repo runs today) it serves the
+ *   bundled sample, which is already enriched. This keeps the partitioned cache
+ *   path fully exercisable offline; production deployments set the token.
+ *   Structured upstream-failure handling is owned by master-plan item 2.5.
+ */
+export const fetchEnrichedDetections = async (
+  a_Config: IConfigJSON,
+): Promise<IEventSchema[]> => {
+  if (!config.auth.gfw_token) {
+    log(
+      '[serving] GFW_TOKEN not set - serving bundled sample detections (dev path)',
+      ELogType.warn,
+    );
+    return report_response.data as IEventSchema[];
+  }
+
+  await ensureDatasetsLoaded();
+
+  const response = await detectionGFW<I4wingsAPIResponse>(a_Config);
+  const entriesMap = getEntriesFrom4wingsResponse(a_Config, response);
+  const entries = Array.from(entriesMap).flatMap(([, list]) => list);
+
+  if (entries.length === 0) return [];
+
+  const events = await createSortedEventSchemas(a_Config, entries);
+  return events.filter((event): event is IEventSchema => !event.rejected);
 };

@@ -67,3 +67,18 @@ export const parquetSchema_hotspot = new parquet.ParquetSchema({
   time_bins_total: { type: 'DOUBLE' },
   time_bins_with_unmatched: { type: 'DOUBLE' },
 });
+
+/**
+ * Storage schema for a served partition (the serving cache, not an export).
+ * The full canonical event is preserved losslessly in `canonical_json` so the
+ * read path can return complete `IEventSchema` records; `event_id` is kept as an
+ * inspectable primary/dedup key. (Extra scalar columns for predicate pushdown —
+ * time / bbox / H3 — are intentionally omitted until the read path actually
+ * filters on columns; today it parses `canonical_json`.) This is deliberately
+ * NOT `parquetSchema` above — that one is flat/lossy for the analyst-facing
+ * export bundle, whereas the serving store must round-trip full fidelity.
+ */
+export const parquetSchema_serving = new parquet.ParquetSchema({
+  event_id: { type: 'UTF8' },
+  canonical_json: { type: 'UTF8' },
+});

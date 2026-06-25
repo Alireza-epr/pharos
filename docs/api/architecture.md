@@ -15,8 +15,8 @@ flowchart LR
 - **Middleware Layer**: Central entry point for cross-cutting concerns such as logging, authentication, session creation, and request parsing.
 - **Controller Handler**: Receives the request and delegates work to the appropriate service.
 - **Service**: Contains business logic, session lifecycle, enforces rules, and side effects.
-- **Repository**: Handles communication with resources such as APIs or notification services.
-- **External Systems**: Integrations such as APIs, email, or notification services.
+- **Repository**: Handles communication with resources such as APIs, data stores, or notification services. Each repository hides one endpoint's syntax behind generic verbs (read / write / fetch / …), so swapping the backend is a new implementation, not a service change. Implemented for the serving slice as `repositories/serving` (`ParquetServingRepository` behind `IServingRepository` — the contract lives in `helpers/types/serviceTypes.ts` so service and repository share the abstraction without a cycle — plus a config-selectable factory; Parquet today, DB/object-store tomorrow).
+- **External Systems**: Integrations such as APIs, data stores (Parquet/DB), email, or notification services.
 
 ---
 

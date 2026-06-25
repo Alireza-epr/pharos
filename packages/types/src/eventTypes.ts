@@ -10,6 +10,7 @@ import {
   EThresholdConfig,
   EHiddenConfig,
   EExportEvidence,
+  TCache,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -79,6 +80,12 @@ export interface IEventSchema {
   rejected: false;
   hotspot: IEventHotspot | null;
 }
+
+export interface IServedEvents {
+  events: IEventSchema[];
+  cache: TCache;
+}
+
 
 export interface IEventHotspot {
   cell_id: string;

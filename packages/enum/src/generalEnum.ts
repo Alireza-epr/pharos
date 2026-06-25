@@ -116,3 +116,9 @@ export type TLogType = (typeof ELogType)[keyof typeof ELogType];
 export const EURLParams = {
   loglevel: "loglevel",
 };
+
+export const ECache = {
+  hit: 'hit',
+  miss: 'miss'
+} as const
+export type TCache = typeof ECache[keyof typeof ECache]
