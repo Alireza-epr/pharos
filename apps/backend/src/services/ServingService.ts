@@ -1,7 +1,7 @@
 import { IConfigJSON, IEventSchema, IServedEvents } from '@packages/types';
 import { sortEventSchema } from '@packages/utils';
 import { ECache, EFetchMethods, TCache } from '@packages/enum';
-import { fetchEnrichedDetections } from '../pipeline/schema/main';
+import { getDetections } from './DetectionService';
 import { log } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 import {
@@ -93,7 +93,7 @@ export const getServedEvents = async (
       };
     }
 
-    const fetched = await fetchEnrichedDetections(fetchConfig);
+    const fetched = await getDetections(fetchConfig);
     const missing = new Set(missingDates);
     const buckets = new Map<string, Map<string, IEventSchema[]>>();
 

@@ -1,4 +1,4 @@
-import { IEventSchema } from '@packages/types';
+import { IConfigJSON, IEventSchema } from '@packages/types';
 import { ICoverageManifest } from '../utils/servingUtils';
 
 /**
@@ -28,4 +28,15 @@ export interface IServingRepository {
 
   /** Persist the coverage manifest. */
   writeCoverage(a_Manifest: ICoverageManifest): void;
+}
+
+/**
+ * Repository contract for a detection provider. It hides one provider's syntax
+ * (GFW today) behind a single verb and returns the provider's **raw** response;
+ * normalising and enriching it into canonical events is the `DetectionService`'s
+ * job. Swapping the SAR/AIS source is a new implementation of this interface.
+ */
+export interface IDetectionRepository<T> {
+  /** Fetch the raw provider response for a query. */
+  fetch(a_Config: IConfigJSON): Promise<T>;
 }

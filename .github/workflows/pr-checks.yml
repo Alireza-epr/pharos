@@ -40,7 +40,7 @@ jobs:
       - name: Create .env file for CI
         working-directory: apps/backend
         run: |
-          echo "GFW_TOKEN=${{ secrets.GFW_TOKEN }}" >> .env
+          echo "DETECTION_TOKEN=${{ secrets.DETECTION_TOKEN }}" >> .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
 
       - name: Run Backend Lint

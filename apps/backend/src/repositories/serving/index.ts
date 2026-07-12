@@ -1,16 +1,13 @@
-import { IServingRepository } from '../../helpers/types/serviceTypes';
+import { EServingRepository } from '@packages/enum';
 import { ParquetServingRepository } from './ParquetServingRepository';
+import { IServingRepository } from '../../helpers/types/serviceTypes';
 
 /** Available serving-repository strategies (config-selectable). */
-export enum EServingRepositoryStrategy {
-  parquet = 'parquet',
-}
-
-const factories: Record<EServingRepositoryStrategy, () => IServingRepository> = {
-  [EServingRepositoryStrategy.parquet]: () => new ParquetServingRepository(),
+const factories: Record<EServingRepository, () => IServingRepository> = {
+  [EServingRepository.parquet]: () => new ParquetServingRepository(),
 };
 
-const instances = new Map<EServingRepositoryStrategy, IServingRepository>();
+const instances = new Map<EServingRepository, IServingRepository>();
 
 /**
  * Resolve the serving repository for a strategy. Defaults to the
@@ -19,14 +16,14 @@ const instances = new Map<EServingRepositoryStrategy, IServingRepository>();
  * are memoised so callers share one repository per strategy.
  */
 export const getServingRepository = (
-  a_Strategy?: EServingRepositoryStrategy,
+  a_Strategy?: EServingRepository,
 ): IServingRepository => {
   const strategy =
     a_Strategy ??
-    (process.env.SERVING_REPOSITORY_STRATEGY as EServingRepositoryStrategy) ??
-    EServingRepositoryStrategy.parquet;
+    (process.env.SERVING_REPOSITORY_STRATEGY as EServingRepository) ??
+    EServingRepository.parquet;
 
-  const make = factories[strategy] ?? factories[EServingRepositoryStrategy.parquet];
+  const make = factories[strategy] ?? factories[EServingRepository.parquet];
   if (!instances.has(strategy)) instances.set(strategy, make());
   return instances.get(strategy)!;
 };

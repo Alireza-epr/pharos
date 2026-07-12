@@ -72,7 +72,7 @@ npm run setup:data               # downloads bathymetry rasters (Windows shell s
 Backend issues a short-lived **access** JWT and a long-lived **refresh** JWT, both signed with `JWT_SECRET`. Frontend attaches the access token and silently refreshes on expiry. Protected endpoints (e.g. `/v1/events`) reject requests without a valid access token. See `docs/api/authentication.md`.
 
 ### Required env (`apps/backend/.env`, see `.env.example`)
-- `GFW_TOKEN` — Global Fishing Watch API token.
+- `DETECTION_TOKEN` — detection-provider API token (Global Fishing Watch in this iteration).
 - `JWT_SECRET` — long random string; different per environment; must match the keys CI injects. Never commit it.
 
 ## Frontend architecture

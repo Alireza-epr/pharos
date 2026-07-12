@@ -21,8 +21,3 @@ export enum EExportsRoutes {
   events = "/events",
 }
 
-// -- Route Service --
-
-export enum ERepositoryKey {
-  gfw = "gfw",
-}

@@ -4,7 +4,7 @@ import {
   EMessageStatus,
   EMethodId,
 } from '../enum/ioEnum';
-import { ERepositoryKey } from '@packages/enum';
+import { EDetectionRepository } from '@packages/enum';
 
 export interface IMessage {
   header: {
@@ -13,7 +13,7 @@ export interface IMessage {
     classId: EClassId;
     methodId: EMethodId;
     status: EMessageStatus;
-    repository: ERepositoryKey;
+    repository: EDetectionRepository;
   };
   // Body should match one of the Models ( Schema )
   body: TMessageBody;

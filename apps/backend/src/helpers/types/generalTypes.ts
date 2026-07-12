@@ -8,7 +8,7 @@ export interface IBackendConfig {
     log_file_path: string;
   };
   auth: {
-    gfw_token: string;
+    detection_token: string;
     jwt_secret: string;
     jwt_expiry: string; // JWT expiration time
     refresh_token_expiry: string; // Refresh token expiration time

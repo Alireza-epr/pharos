@@ -18,7 +18,8 @@ The API does not normally call the provider, except when coverage is missing (ca
 | Spatial logic (AOI → partition resolution, per-event routing, H3 + exact-polygon filters) | `helpers/geo/spatial.ts` |
 | Orchestration (resolve → coverage → cache-on-miss → filter → sort) | `services/ServingService.ts` |
 | Serving **repository** (partition Parquet read/write + coverage manifest), behind `IServingRepository` + a config-selectable factory | `repositories/serving/` (`IServingRepository` in `helpers/types/serviceTypes.ts`) |
-| Fetch + enrich on miss (provider or bundled sample) | `pipeline/schema/main.ts` (`fetchEnrichedDetections`) |
+| Detection service: fetch → normalise → enrich on miss (+ dev fixture fallback) | `services/DetectionService.ts` |
+| Detection **repository** (raw provider fetch), behind `IDetectionRepository` + a config-selectable factory | `repositories/detection/` (`GfwDetectionRepository`; `IDetectionRepository` in `helpers/types/serviceTypes.ts`) |
 
 ---
 
@@ -79,7 +80,7 @@ It is NOT created per request.
 
 Ingestion is **lazy / cache-on-miss**, not a scheduled background job. When a
 request misses, the serving path itself ingests the data it needs, in one pass
-(`services/ServingService.ts` → `pipeline/schema/main.ts` (`fetchEnrichedDetections`)):
+(`services/ServingService.ts` → `services/DetectionService.ts` → `repositories/detection` → GFW):
 
 1. Call the provider once for the requested window.
 2. Enrich events (EEZ, H3, scoring, metadata).

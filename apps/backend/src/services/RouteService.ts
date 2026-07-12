@@ -1,4 +1,4 @@
-import { ERepositoryKey } from '@packages/enum';
+import { EDetectionRepository } from '@packages/enum';
 import { IMessage, TMessageBody } from '../helpers/types/ioTypes';
 import { Observer, Subject } from '../helpers/utils/servicesUtils';
 import { IOService } from './IOService';
@@ -8,7 +8,7 @@ import { EMessageStatus } from '../helpers/enum/ioEnum';
 import { ELogType } from '../helpers/types/generalTypes';
 
 export default class RouteService extends Subject<IMessage> {
-  private _repositories = new Map<ERepositoryKey, TRepositoryValue>();
+  private _repositories = new Map<EDetectionRepository, TRepositoryValue>();
 
   constructor(a_IOService: IOService) {
     super();
@@ -27,7 +27,7 @@ export default class RouteService extends Subject<IMessage> {
     );
     let repository;
     switch (a_Message.header.repository) {
-      case ERepositoryKey.gfw:
+      case EDetectionRepository.gfw:
         break;
       default:
         this.pushErrorToBody(
@@ -82,11 +82,11 @@ export default class RouteService extends Subject<IMessage> {
     }, 100);
   }
 
-  public addRepository(a_Key: ERepositoryKey, a_Value: TRepositoryValue) {
+  public addRepository(a_Key: EDetectionRepository, a_Value: TRepositoryValue) {
     this._repositories.set(a_Key, a_Value);
   }
 
-  public hasRepository(a_Key: ERepositoryKey) {
+  public hasRepository(a_Key: EDetectionRepository) {
     return this._repositories.has(a_Key);
   }
 }

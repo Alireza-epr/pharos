@@ -3,8 +3,8 @@ import dotenv from '@dotenvx/dotenvx';
 dotenv.config();
 import { IBackendConfig } from '../helpers/types/generalTypes';
 
-/* if (!process.env.GFW_TOKEN || process.env.GFW_TOKEN.length === 0) {
-  throw new Error("GFW_TOKEN is required. For more information, please refer to docs/runbook.md." )
+/* if (!process.env.DETECTION_TOKEN || process.env.DETECTION_TOKEN.length === 0) {
+  throw new Error("DETECTION_TOKEN is required. For more information, please refer to docs/runbook.md." )
 } */
 
 export const config: IBackendConfig = {
@@ -14,7 +14,7 @@ export const config: IBackendConfig = {
     log_file_path: './logs/api.log',
   },
   auth: {
-    gfw_token: process.env.GFW_TOKEN ?? '',
+    detection_token: process.env.DETECTION_TOKEN ?? '',
     jwt_secret: process.env.JWT_SECRET ?? '',
     jwt_expiry: '1h',
     refresh_token_expiry: '7d',

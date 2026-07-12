@@ -18,7 +18,7 @@ Make sure you have the following installed:
 
 ### Token
 
-Obtain your `GFW_TOKEN` from [Global Fishing Watch API Token](https://globalfishingwatch.org/our-apis/tokens) and place it in a `.env` file inside the `apps/backend` directory. A `.env.example` file is provided for reference.
+Set `DETECTION_TOKEN` — the detection-provider API token. **In this iteration the provider is Global Fishing Watch**, so obtain the token from the [Global Fishing Watch API Token](https://globalfishingwatch.org/our-apis/tokens) page and place it in a `.env` file inside the `apps/backend` directory. A `.env.example` file is provided for reference.
 
 ---
 
@@ -278,7 +278,7 @@ npm run frontend:e2e
 
 ### Pipeline build fails
 
-- Check GFW_TOKEN in `apps/backend/.env`
+- Check DETECTION_TOKEN in `apps/backend/.env`
 - Run `npm run backend:typecheck`
 
 ### No output generated

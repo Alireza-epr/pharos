@@ -64,7 +64,7 @@ npm run setup:data
 
 For more information, please refer to [the runbook](docs/runbook.md).
 
-Important: Obtain your GFW_TOKEN from Global Fishing Watch API Token
+Important: Set `DETECTION_TOKEN` — the detection-provider API token. In this iteration the provider is Global Fishing Watch, so obtain the token from the GFW API Token page
 and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
 
 Set a JWT_SECRET in the same apps/backend/.env file. It is used to sign and verify authentication tokens (access + refresh), so it must be a long, random, secret string and must never be committed. Generate one locally with `node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"` (or `openssl rand -base64 48`).
