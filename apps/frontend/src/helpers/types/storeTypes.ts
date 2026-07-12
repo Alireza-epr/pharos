@@ -408,3 +408,15 @@ export interface IPaginationStoreActions {
   ) => void;
   getPagination: () => IPaginationStoreStates;
 }
+
+export interface IMessageStoreStates {
+  info: string | null
+  warn: string | null
+  error: string | null
+}
+
+export interface IMessageStoreActions {
+  setMessage: ( a_Value: IMessageStoreStates['info'] | ((a_Prev: IMessageStoreStates['info']) => IMessageStoreStates['info']) ) => void;
+  setWarn: ( a_Value: IMessageStoreStates['warn'] | ((a_Prev: IMessageStoreStates['warn']) => IMessageStoreStates['warn']) ) => void;
+  setError: ( a_Value: IMessageStoreStates['error'] | ((a_Prev: IMessageStoreStates['error']) => IMessageStoreStates['error']) ) => void;
+}

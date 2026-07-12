@@ -1,5 +1,6 @@
 import { useLoginStore } from '../../stores/loginStore';
 import { useAppStore } from '../../stores/appStore';
+import { useMessageStore } from '../../stores/messageStore';
 import { getAPIConfig } from '../../hooks';
 import { checkHealth } from '../../hooks/system';
 import {
@@ -7,6 +8,7 @@ import {
   EBaseRoutes,
   EFetchMethods,
   ELogType,
+  EResponseError,
 } from '@packages/enum';
 import { fetchWithRetry, log_frontend } from '@packages/utils';
 
@@ -18,6 +20,7 @@ let refreshInFlight: Promise<string | null> | null = null;
 
 const requestRefresh = async (): Promise<string | null> => {
   const { refreshToken, setAccessToken, logout } = useLoginStore.getState();
+  const { setError } = useMessageStore.getState();
   if (!refreshToken) return null;
   try {
     const res = await fetch(
@@ -28,7 +31,19 @@ const requestRefresh = async (): Promise<string | null> => {
         body: JSON.stringify({ refreshToken }),
       },
     );
-    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+    if (!res.ok) {
+      // Surface WHY the refresh failed so the login screen can tell an expired
+      // session ("please log in again") apart from a generic failure.
+      const body = (await res.json().catch(() => null)) as {
+        error?: string[];
+      } | null;
+      const expired = !!body?.error?.includes(EResponseError.RefreshTokenExpired);
+      setError(
+        expired ? EResponseError.RefreshTokenExpired : EResponseError.Failed,
+      );
+      logout();
+      return null;
+    }
     const json = await res.json();
     setAccessToken(json.accessToken ?? '');
     return json.accessToken ?? null;
@@ -38,7 +53,9 @@ const requestRefresh = async (): Promise<string | null> => {
       ELogType.error,
       '3',
     );
-    // Refresh failed -> clear the session so the app routes back to login
+    // Network/parse failure (not a token-expiry case) -> clear the session so
+    // the app routes back to login and show a generic error.
+    setError(EResponseError.Failed);
     logout();
     return null;
   }

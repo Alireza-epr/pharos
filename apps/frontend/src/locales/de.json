@@ -239,6 +239,8 @@
     "submit": "Anmelden",
     "submitting": "Anmeldung läuft…",
     "error": "Ungültiger Benutzername oder Passwort",
+    "sessionExpired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an",
+    "genericError": "Etwas ist schiefgelaufen, bitte melden Sie sich erneut an",
     "logout": "Abmelden"
   }
 }

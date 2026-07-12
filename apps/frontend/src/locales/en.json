@@ -239,6 +239,8 @@
     "submit": "Sign in",
     "submitting": "Signing in…",
     "error": "Invalid username or password",
+    "sessionExpired": "Your session expired, please log in again",
+    "genericError": "Something went wrong, please try logging in again",
     "logout": "Logout"
   }
 }
