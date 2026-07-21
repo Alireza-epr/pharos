@@ -15,7 +15,7 @@ const Identification = (props: IHeaderBlockProps) => {
   const { event } = props;
 
   return (
-    <Section title={t('detailPanel.title.identification')} collapsible>
+    <Section title={t('detailPanel.title.identification')} collapsible={false}>
       <SectionItem title={t('bottomPanel.column.detectionId')}>
         <TextInput
           value={shortenText(event.event_id, 30)}

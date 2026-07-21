@@ -16,7 +16,7 @@ const TimeRange = () => {
   const { t } = useTranslator();
 
   return (
-    <Section title={t('sidebar.titles.timeRange')} collapsible>
+    <Section title={t('sidebar.titles.timeRange')} collapsible={false}>
       <SectionItem title={t('general.label.from')}>
         <DateInput value={dateFrom} max={dateTo} onChange={setDateFrom} />
       </SectionItem>

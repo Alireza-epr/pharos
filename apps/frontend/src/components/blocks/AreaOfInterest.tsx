@@ -99,7 +99,7 @@ const AreaOfInterest = () => {
   }, []);
 
   return (
-    <Section title={t('sidebar.titles.areaOfInterest')} collapsible>
+    <Section title={t('sidebar.titles.areaOfInterest')} collapsible={false}>
       <SectionItem title={t('sidebar.titles.drawOnMap')}>
         <SectionInputGroup>
           <ButtonInput

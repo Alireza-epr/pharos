@@ -14,7 +14,7 @@ const LocationTimeBlock = (props: ILocationTimeBlockProps) => {
   const { event } = props;
 
   return (
-    <Section title={t('detailPanel.title.locationAndTime')} collapsible>
+    <Section title={t('detailPanel.title.locationAndTime')} collapsible={false}>
       <SectionItem
         title={t('detailPanel.label.gridCellCenter')}
         caveat={t('detailPanel.text.cellCenterCaveat')}

@@ -61,7 +61,7 @@ const ExportTab = () => {
   return (
     <>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
-        <Section title={t('sidebar.tab.event')} collapsible>
+        <Section title={t('sidebar.tab.event')} collapsible={false}>
           <SectionItem title={t('general.label.list')} collapsible={false}>
             {selectedEvents.length > 0 ? (
               selectedEvents.map((event, index) => {
@@ -134,7 +134,8 @@ const ExportTab = () => {
           <ButtonInput
             label={t('general.label.export')}
             onClick={handleExportClick}
-            disabled={selectedEvents.length === 0 || loading || !config}
+            disabled={selectedEvents.length === 0 || loading || !config 
+              || Object.entries(exportConfig).filter(([_, v]) => v).length === 0 }
             loading={loading}
           />
           <ButtonInput
