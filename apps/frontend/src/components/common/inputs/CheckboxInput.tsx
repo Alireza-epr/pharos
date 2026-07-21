@@ -11,9 +11,10 @@ export interface ICheckboxInputProps {
 const CheckboxInput = (props: ICheckboxInputProps) => {
   const control = (
     <label
-      className={`hover disabled active font-size-sm ${checkboxInputStyle.wrapper}`}
+      className={`hover disabled active font-size-xs  ${checkboxInputStyle.wrapper}`}
       data-disabled={props.disabled}
       data-active={props.checked}
+      title={props.label}
     >
       <span className={` ${checkboxInputStyle.box}`}>
         {props.checked && (

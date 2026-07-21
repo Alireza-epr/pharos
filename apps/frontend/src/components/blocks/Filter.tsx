@@ -89,36 +89,40 @@ const Filter = () => {
         ).map(([key], index) => {
           return (
             <SectionInputGroup direction="row" tab key={index}>
-              <CheckboxInput
-                label={E4wingsDatasetsUI[key]}
-                checked={filtersUI.datasets[key].active}
-                onChange={(v) =>
-                  updateFilterUI({
-                    datasets: {
-                      ...filtersUI.datasets,
-                      [key]: {
-                        ...filtersUI.datasets[key],
-                        active: v,
+              <div style={{width: "70%"}}>
+                <CheckboxInput
+                  label={E4wingsDatasetsUI[key]}
+                  checked={filtersUI.datasets[key].active}
+                  onChange={(v) =>
+                    updateFilterUI({
+                      datasets: {
+                        ...filtersUI.datasets,
+                        [key]: {
+                          ...filtersUI.datasets[key],
+                          active: v,
+                        },
                       },
-                    },
-                  })
-                }
-              />
-              <DropdownInput
-                options={dataset_version_options}
-                value={filtersUI.datasets[key].version}
-                onChange={(v) =>
-                  updateFilterUI({
-                    datasets: {
-                      ...filtersUI.datasets,
-                      [key]: {
-                        ...filtersUI.datasets[key],
-                        version: v,
+                    })
+                  }
+                />
+              </div>
+              <div style={{width: "30%", display: "flex" }}>
+                <DropdownInput
+                  options={dataset_version_options}
+                  value={filtersUI.datasets[key].version}
+                  onChange={(v) =>
+                    updateFilterUI({
+                      datasets: {
+                        ...filtersUI.datasets,
+                        [key]: {
+                          ...filtersUI.datasets[key],
+                          version: v,
+                        },
                       },
-                    },
-                  })
-                }
-              />
+                    })
+                  }
+                />
+              </div>
             </SectionInputGroup>
           );
         })}
