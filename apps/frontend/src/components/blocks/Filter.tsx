@@ -80,7 +80,7 @@ const Filter = () => {
 
   return (
     <Section title={t('sidebar.titles.filter')} collapsible={false}>
-      <SectionItem title={t('sidebar.label.datasets')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.datasets')} collapsible={false} tab >
         {(
           Object.entries(filtersUI.datasets) as [
             E4wingsDatasets,
@@ -132,6 +132,7 @@ const Filter = () => {
         title={t('sidebar.titles.datasetsFilter')}
         collapsible={false}
         caveat={t('sidebar.hint.highlightedDataset')}
+        tab
       >
         <SectionItem
           title={E4wingsDatasetsUI['public-global-sar-presence']}
@@ -274,7 +275,7 @@ const Filter = () => {
         </SectionItem>
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.triageScore')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.triageScore')} collapsible={false} tab >
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
@@ -298,6 +299,7 @@ const Filter = () => {
       <SectionItem
         title={t('sidebar.label.uncertaintyScore')}
         collapsible={false}
+        tab
       >
         <SectionInputGroup direction="row">
           <NumberInput
@@ -322,6 +324,7 @@ const Filter = () => {
       <SectionItem
         title={t('sidebar.label.distanceToCoast')}
         collapsible={false}
+        tab
       >
         <SectionInputGroup direction="row">
           <NumberInput
@@ -339,7 +342,7 @@ const Filter = () => {
         </SectionInputGroup>
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.bathymetry')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.bathymetry')} collapsible={false} tab>
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
@@ -357,6 +360,7 @@ const Filter = () => {
       <SectionItem
         title={t('bottomPanel.column.detectionId')}
         collapsible={false}
+        tab
       >
         <TextInput
           value={filters.event_id ?? ''}
@@ -364,7 +368,7 @@ const Filter = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.contextZone')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.contextZone')} collapsible={false} tab>
         <SectionInputGroup direction="column">
           <CheckboxInput
             label={t('sidebar.label.insideEezOnly')}
@@ -382,6 +386,7 @@ const Filter = () => {
       <SectionItem
         title={t('sidebar.label.reasonCodesInclude')}
         collapsible={false}
+        tab
       >
         <ChipGroupInput
           values={reasonCodes}
@@ -394,6 +399,7 @@ const Filter = () => {
       <SectionItem
         title={t('sidebar.label.reasonCodesExclude')}
         collapsible={false}
+        tab
       >
         <ChipGroupInput
           values={reasonCodes}

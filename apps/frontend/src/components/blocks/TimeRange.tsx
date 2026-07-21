@@ -17,10 +17,10 @@ const TimeRange = () => {
 
   return (
     <Section title={t('sidebar.titles.timeRange')} collapsible={false}>
-      <SectionItem title={t('general.label.from')}>
+      <SectionItem title={t('general.label.from')} tab >
         <DateInput value={dateFrom} max={dateTo} onChange={setDateFrom} />
       </SectionItem>
-      <SectionItem title={t('general.label.to')}>
+      <SectionItem title={t('general.label.to')} tab >
         <DateInput value={dateTo} min={dateFrom} onChange={setDateTo} />
       </SectionItem>
     </Section>

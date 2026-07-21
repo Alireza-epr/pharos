@@ -38,6 +38,7 @@ const AdvancedQuery = () => {
       <SectionItem
         title={t('sidebar.label.temporalResolution')}
         collapsible={false}
+        tab
       >
         <DropdownInput
           value={temporalResolution}
@@ -49,6 +50,7 @@ const AdvancedQuery = () => {
       <SectionItem
         title={t('sidebar.label.spatialResolution')}
         collapsible={false}
+        tab
       >
         <DropdownInput
           value={spatialResolution}
@@ -61,6 +63,7 @@ const AdvancedQuery = () => {
       <SectionItem
         title={t('sidebar.label.spatialAggregation')}
         collapsible={false}
+        tab
       >
         <CheckboxInput
           label={t('sidebar.label.spatialAggregation')}
@@ -69,7 +72,7 @@ const AdvancedQuery = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.format')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.format')} collapsible={false} tab>
         <DropdownInput
           value={format}
           options={formatOptions}
@@ -77,7 +80,7 @@ const AdvancedQuery = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.groupBy')} collapsible={false}>
+      <SectionItem title={t('sidebar.label.groupBy')} collapsible={false} tab>
         <DropdownInput
           value={groupBy}
           options={groupByOptions}

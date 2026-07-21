@@ -28,7 +28,7 @@ const NumberInput = (props: INumberInputProps) => {
       data-direction={props.direction ?? 'column'}
     >
       {props.label && (
-        <span className={`font-size-sm ${numberInputStyle.label}`}>
+        <span className={`font-size-xs ${numberInputStyle.label}`}>
           {props.label}
         </span>
       )}

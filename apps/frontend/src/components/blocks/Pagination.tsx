@@ -14,7 +14,7 @@ const Pagination = () => {
 
   return (
     <Section title={t('general.label.pagination')} collapsible={false}>
-      <SectionItem title={t('general.label.limit')}>
+      <SectionItem title={t('general.label.limit')} tab >
         <NumberInput
           direction="row"
           min={0}
@@ -23,7 +23,7 @@ const Pagination = () => {
           onChange={(e) => setLimit(e)}
         />
       </SectionItem>
-      <SectionItem title={t('general.label.offset')}>
+      <SectionItem title={t('general.label.offset')} tab >
         <NumberInput
           direction="row"
           min={0}

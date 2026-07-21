@@ -27,7 +27,7 @@ const HotspotConfig = () => {
 
   return (
     <Section title={t('sidebar.titles.hotspotConfig')} collapsible={false}>
-      <SectionItem title={t('sidebar.label.resolution')}>
+      <SectionItem title={t('sidebar.label.resolution')} tab>
         <NumberInput
           value={resolution}
           min={0}
@@ -45,7 +45,7 @@ const HotspotConfig = () => {
           }
         />
       </SectionItem>
-      <SectionItem title={t('sidebar.label.timeBin')}>
+      <SectionItem title={t('sidebar.label.timeBin')} tab>
         <DropdownInput
           value={timeBin}
           options={timeBinOptions}

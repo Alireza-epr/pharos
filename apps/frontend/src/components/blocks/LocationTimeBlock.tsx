@@ -18,12 +18,14 @@ const LocationTimeBlock = (props: ILocationTimeBlockProps) => {
       <SectionItem
         title={t('detailPanel.label.gridCellCenter')}
         caveat={t('detailPanel.text.cellCenterCaveat')}
+        tab
       >
         <TextInput readOnly copiable value={`${event.lat}°N, ${event.lon}°E`} />
       </SectionItem>
       <SectionItem
         title={t('detailPanel.label.bucketStart')}
         caveat={t('detailPanel.text.bucketStartCaveat')}
+        tab
       >
         <TextInput
           readOnly
@@ -31,7 +33,7 @@ const LocationTimeBlock = (props: ILocationTimeBlockProps) => {
           value={formatTimestamp(new Date(event.timestamp_utc))}
         />
       </SectionItem>
-      <SectionItem title={t('sidebar.label.distanceToCoast')}>
+      <SectionItem title={t('sidebar.label.distanceToCoast')} tab>
         <TextInput
           readOnly
           copiable

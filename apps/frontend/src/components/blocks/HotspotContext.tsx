@@ -17,7 +17,7 @@ const HotspotContext = (props: IHotspotContextProps) => {
 
   return (
     <Section title={t('detailPanel.title.hotspotContext')} collapsible={false}>
-      <SectionItem title={t('detailPanel.label.h3Cell')}>
+      <SectionItem title={t('detailPanel.label.h3Cell')} tab>
         <TextInput
           readOnly
           copiable
@@ -25,21 +25,21 @@ const HotspotContext = (props: IHotspotContextProps) => {
           value={shortenText(hotspot.cell_id, 16)}
         />
       </SectionItem>
-      <SectionItem title={t('detailPanel.label.recurrence')}>
+      <SectionItem title={t('detailPanel.label.recurrence')} tab>
         <TextInput
           readOnly
           copiable
           value={String(hotspot.signals.recurrence_count)}
         />
       </SectionItem>
-      <SectionItem title={t('detailPanel.label.timeBinsUnmatched')}>
+      <SectionItem title={t('detailPanel.label.timeBinsUnmatched')} tab>
         <TextInput
           readOnly
           copiable
           value={String(hotspot.signals.time_bins_with_unmatched)}
         />
       </SectionItem>
-      <SectionItem title={t('detailPanel.label.strength')}>
+      <SectionItem title={t('detailPanel.label.strength')} tab>
         <TextInput readOnly copiable value={hotspot.signals.hotspot_strength} />
       </SectionItem>
     </Section>

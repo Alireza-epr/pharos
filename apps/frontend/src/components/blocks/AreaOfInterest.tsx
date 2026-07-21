@@ -100,7 +100,7 @@ const AreaOfInterest = () => {
 
   return (
     <Section title={t('sidebar.titles.areaOfInterest')} collapsible={false}>
-      <SectionItem title={t('sidebar.titles.drawOnMap')}>
+      <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
         <SectionInputGroup>
           <ButtonInput
             label={t('general.label.zonal')}
@@ -115,7 +115,7 @@ const AreaOfInterest = () => {
         </SectionInputGroup>
       </SectionItem>
 
-      <SectionItem title={t('sidebar.text.orChooseEEZRegion')}>
+      <SectionItem title={t('sidebar.text.orChooseEEZRegion')} tab >
         <DropdownInput
           placeholder={t('sidebar.placeholder.selectEEZ')}
           options={eezOptions}
@@ -127,7 +127,7 @@ const AreaOfInterest = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.text.orChooseMPARegion')}>
+      <SectionItem title={t('sidebar.text.orChooseMPARegion')} tab >
         <DropdownInput
           placeholder={t('sidebar.placeholder.selectMPA')}
           options={mpaOptions}

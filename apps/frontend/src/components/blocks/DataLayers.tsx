@@ -20,7 +20,7 @@ const DataLayers = () => {
 
   return (
     <Section title={t('detailPanel.title.contextLayers')} collapsible={false}>
-      <SectionInputGroup direction="column">
+      <SectionInputGroup direction="column" tab>
         <CheckboxInput
           label={t('sidebar.label.hotspots')}
           checked={hotspots}
