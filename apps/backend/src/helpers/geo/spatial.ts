@@ -1,5 +1,9 @@
 import { IConfigJSON, IEventSchema, IGeometry } from '@packages/types';
-import { EFetchMethods, EGeoJSONGeometryType } from '@packages/enum';
+import {
+  EFetchMethods,
+  EGeoJSONGeometryType,
+  ERegionDatasets,
+} from '@packages/enum';
 import {
   bbox,
   booleanContains,
@@ -13,7 +17,7 @@ import {
   latLngToCell,
   polygonToCells,
 } from 'h3-js';
-import { eezPolygons } from '../../pipeline/sample';
+import { eezPolygons, mpaPolygons } from '../../pipeline/sample';
 import { log } from '../utils/backendUtils';
 import { ELogType } from '../types/generalTypes';
 import { HIGH_SEAS } from '../utils/servingUtils';
@@ -32,10 +36,64 @@ const overlaps = (a: TBBox, b: TBBox): boolean =>
   a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
 
 /**
+ * Split a geometry into single-Polygon features. Turf's boolean predicates only
+ * accept a Polygon as the *contained* argument, so MultiPolygon AOIs (most EEZ
+ * and MPA shapes) have to be tested part by part.
+ */
+const toPolygonFeatures = (a_Geometry: IGeometry): TFeature[] => {
+  if (a_Geometry.type === EGeoJSONGeometryType.Polygon) {
+    return [{ type: 'Feature', geometry: a_Geometry, properties: {} }];
+  }
+  if (a_Geometry.type === EGeoJSONGeometryType.MultiPolygon) {
+    return (a_Geometry.coordinates as number[][][][]).map((coordinates) => ({
+      type: 'Feature',
+      geometry: {
+        type: EGeoJSONGeometryType.Polygon,
+        coordinates,
+      } as IGeometry,
+      properties: {},
+    }));
+  }
+  return [];
+};
+
+/**
+ * Whether `a_Container` fully contains `a_AOI`. Wraps `booleanContains`, which
+ * throws on a MultiPolygon second argument: the AOI is decomposed into its
+ * constituent polygons and every part must sit inside the container.
+ */
+const containsAOI = (a_Container: TFeature, a_AOI: TFeature): boolean => {
+  const parts = toPolygonFeatures(a_AOI.geometry);
+  if (parts.length === 0) return false;
+  return parts.every((part) =>
+    booleanContains(a_Container as any, part as any),
+  );
+};
+
+/** The EEZ feature whose MRGID matches the requested region id. */
+const findEEZById = (a_RegionId: string): TFeature | null => {
+  const eez = eezPolygons.features.find(
+    (f) => String(f.properties.MRGID) === a_RegionId,
+  );
+  return eez ? { type: 'Feature', geometry: eez.geometry, properties: {} } : null;
+};
+
+/** The MPA feature whose SITE_ID / SITE_PID matches the requested region id. */
+const findMPAById = (a_RegionId: string): TFeature | null => {
+  const mpa = mpaPolygons.features.find(
+    (f) =>
+      String(f.properties.SITE_ID) === a_RegionId ||
+      String(f.properties.SITE_PID) === a_RegionId,
+  );
+  return mpa ? { type: 'Feature', geometry: mpa.geometry, properties: {} } : null;
+};
+
+/**
  * Resolve the area-of-interest geometry from the request:
  * - POST requests carry a custom polygon in `body_params.geojson`.
- * - Otherwise we fall back to the EEZ polygon named by `region-id` (the only
- *   region kind the pilot resolves spatially).
+ * - Otherwise we fall back to the polygon named by `region-id`, looked up in the
+ *   dataset named by `region-dataset` (EEZ or MPA). When the dataset is absent
+ *   we try EEZ first, then MPA.
  *
  * Returns null when no usable geometry can be derived.
  */
@@ -48,21 +106,22 @@ export const getAOIPolygon = (a_Config: IConfigJSON): TFeature | null => {
     };
   }
 
-  const regionId =
-    a_Config.method === EFetchMethods.post
-      ? a_Config.body_params?.region?.id
-      : a_Config.url_params['region-id'];
+  const isPost = a_Config.method === EFetchMethods.post;
+  const regionId = isPost
+    ? a_Config.body_params?.region?.id
+    : a_Config.url_params['region-id'];
+  const regionDataset = isPost
+    ? a_Config.body_params?.region?.dataset
+    : a_Config.url_params['region-dataset'];
 
-  if (regionId) {
-    const eez = eezPolygons.features.find(
-      (f) => String(f.properties.MRGID) === String(regionId),
-    );
-    if (eez) {
-      return { type: 'Feature', geometry: eez.geometry, properties: {} };
-    }
-  }
+  if (!regionId) return null;
 
-  return null;
+  const id = String(regionId);
+
+  if (regionDataset === ERegionDatasets.mpa) return findMPAById(id);
+  if (regionDataset === ERegionDatasets.eez) return findEEZById(id);
+
+  return findEEZById(id) ?? findMPAById(id);
 };
 
 /**
@@ -94,7 +153,10 @@ export const resolvePartitions = (a_Config: IConfigJSON): string[] => {
     if (!booleanIntersects(aoi, feature)) continue;
 
     intersecting.add(String(feature.properties.MRGID));
-    if (!fullyContained && booleanContains(feature, aoi)) {
+    if (
+      !fullyContained &&
+      containsAOI({ type: 'Feature', geometry: feature.geometry, properties: {} }, aoi)
+    ) {
       fullyContained = true;
     }
   }

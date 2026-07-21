@@ -26,6 +26,7 @@ import { usePaginationStore } from '../../../stores/paginationStore';
 import { globalfishingwatch } from '../../../helpers/fixtures/url';
 import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
+import { useTimeRangeStore } from '@/stores/timeRangeStore';
 
 const ReportTab = () => {
   const { response, loading, error, execute } = useFetchEvents();
@@ -43,6 +44,9 @@ const ReportTab = () => {
     const aoi = useAOIStore.getState().getAOI();
     if (!aoi) return;
 
+    const dateFrom = useTimeRangeStore.getState().dateFrom + "Z";
+    const dateTo = useTimeRangeStore.getState().dateTo + "Z";
+    
     const sort = useSortOrderStore.getState().sorts;
 
     const filter = useFilterStore.getState().filters;
@@ -68,11 +72,14 @@ const ReportTab = () => {
       'spatial-resolution': spatialResolution,
       'spatial-aggregation': spatialAggregation,
       'temporal-resolution': temporalResolution,
+      'date-range': `${dateFrom},${dateTo}`,
       format,
       'group-by': groupBy,
       ...filters,
       ...sources,
     };
+    console.log("urlParams_base")
+    console.log(urlParams_base)
     const urlParams: TURLParams =
       'region-dataset' in aoi
         ? {

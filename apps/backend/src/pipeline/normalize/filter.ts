@@ -110,6 +110,10 @@ export const applyFilter = (
         event.context_layers.Bathymetry.enrichments[0]?.value,
       );
 
+      if(Number.isNaN(bathymetry)){
+        return true
+      }
+
       return !Number.isNaN(bathymetry) && bathymetry >= min;
     });
   }
@@ -121,6 +125,10 @@ export const applyFilter = (
       const bathymetry = Number(
         event.context_layers.Bathymetry.enrichments[0]?.value,
       );
+
+      if(Number.isNaN(bathymetry)){
+        return true
+      }
 
       return !Number.isNaN(bathymetry) && bathymetry <= max;
     });
