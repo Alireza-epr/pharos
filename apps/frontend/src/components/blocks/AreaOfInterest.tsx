@@ -3,10 +3,15 @@ import SectionItem from '../common/section/SectionItem';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import ButtonInput from '../common/inputs/ButtonInput';
 import DropdownInput from '../common/inputs/DropdownInput';
-import { useTranslator } from '@/hooks/translator';
+import NumberInput from '../common/inputs/NumberInput';
+import { useTranslator } from '../../hooks/translator';
 import { useEffect } from 'react';
-import { eez_options, mpa_options } from '@/helpers/fixtures/context';
-import { useAOIStore } from '@/stores/areaOfInterestStore';
+import { eez_options, mpa_options } from '../../helpers/fixtures/context';
+import {
+  AOI_RADIUS_MIN_KM,
+  useAOIStore,
+} from '../../stores/areaOfInterestStore';
+import { EGeoJSONGeometryType } from '@packages/enum';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -25,6 +30,11 @@ const AreaOfInterest = () => {
 
   const point = useAOIStore((s) => s.point);
   const setPoint = useAOIStore((s) => s.setPoint);
+
+  const feature = useAOIStore((s) => s.feature);
+  const setFeature = useAOIStore((s) => s.setFeature);
+  const radius = useAOIStore((s) => s.radius);
+  const setRadius = useAOIStore((s) => s.setRadius);
 
   const eezOptions = useAOIStore((s) => s.eezOptions);
   const setEEZOptions = useAOIStore((s) => s.setEEZOptions);
@@ -63,24 +73,44 @@ const AreaOfInterest = () => {
     }
   };
 
+  // A drawn AOI lives in `feature`; its geometry type tells us which tool owns
+  // it (tools are mutually exclusive and clear each other's geometry).
+  const zonalHasFeature = feature?.type === EGeoJSONGeometryType.Polygon;
+  const pointHasFeature = feature?.type === EGeoJSONGeometryType.Point;
+
   const handleZonalClick = () => {
+    // Re-clicking once a shape exists clears it (button reads "Clear Zonal").
+    if (zonalHasFeature) {
+      setFeature(null);
+      setZonal(false);
+      return;
+    }
     deactivateExcept(EAreaOfInterestTools.zonal);
+    setFeature(null);
     setZonal(!zonal);
   };
 
   const handlePointClick = () => {
+    if (pointHasFeature) {
+      setFeature(null);
+      setPoint(false);
+      return;
+    }
     deactivateExcept(EAreaOfInterestTools.point);
+    setFeature(null);
     setPoint(!point);
   };
 
   const handleChangeEEZOption = (a_Value: string) => {
     deactivateExcept(EAreaOfInterestTools.eez);
+    setFeature(null);
     const eez = eezOptions.find((eez) => eez.value === a_Value);
     setEEZActive(eez);
   };
 
   const handleChangeMPAOption = (a_Value: string) => {
     deactivateExcept(EAreaOfInterestTools.mpa);
+    setFeature(null);
     const mpa = mpaOptions.find((mpa) => mpa.value === a_Value);
     setMPAActive(mpa);
   };
@@ -103,16 +133,34 @@ const AreaOfInterest = () => {
       <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
         <SectionInputGroup>
           <ButtonInput
-            label={t('general.label.zonal')}
+            label={
+              zonalHasFeature
+                ? t('general.label.clearZonal')
+                : t('general.label.zonal')
+            }
             onClick={handleZonalClick}
-            active={zonal}
+            active={zonal || zonalHasFeature}
           />
           <ButtonInput
-            label={t('general.label.point')}
+            label={
+              pointHasFeature
+                ? t('general.label.clearPoint')
+                : t('general.label.point')
+            }
             onClick={handlePointClick}
-            active={point}
+            active={point || pointHasFeature}
           />
         </SectionInputGroup>
+        {(point || pointHasFeature) && (
+          <NumberInput
+            label={t('sidebar.label.radiusKm')}
+            value={radius}
+            onChange={setRadius}
+            min={AOI_RADIUS_MIN_KM}
+            step={1}
+            direction="row"
+          />
+        )}
       </SectionItem>
 
       <SectionItem title={t('sidebar.text.orChooseEEZRegion')} tab >

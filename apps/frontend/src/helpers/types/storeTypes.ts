@@ -270,6 +270,9 @@ export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
   feature: IGeometry | null;
+  // Circle radius (km) for the point tool. A point AOI is a circular buffer of
+  // this radius; enforced minimum lives in AOI_RADIUS_MIN_KM.
+  radius: number;
   eezOptions: IDropdownOption<string>[];
   eezActive: IDropdownOption<string> | undefined;
   mpaOptions: IDropdownOption<string>[];
@@ -285,6 +288,16 @@ export interface IAOIStoreActions {
     a_Value:
       | IAOIStoreStates['point']
       | ((a_Prev: IAOIStoreStates['point']) => IAOIStoreStates['point']),
+  ) => void;
+  setFeature: (
+    a_Value:
+      | IAOIStoreStates['feature']
+      | ((a_Prev: IAOIStoreStates['feature']) => IAOIStoreStates['feature']),
+  ) => void;
+  setRadius: (
+    a_Value:
+      | IAOIStoreStates['radius']
+      | ((a_Prev: IAOIStoreStates['radius']) => IAOIStoreStates['radius']),
   ) => void;
   setEEZOptions: (
     a_Value:

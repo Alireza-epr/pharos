@@ -19,7 +19,9 @@
       "pagination": "Pagination",
       "limit": "Limit",
       "offset": "Offset",
-      "list": "List"
+      "list": "List",
+      "clearZonal": "Clear Zonal",
+      "clearPoint": "Clear Point"
     },
     "action": {
       "copy": "Copy"
@@ -120,13 +122,17 @@
       "lowConfProxyWeight": "Low Conf. Proxy",
       "lowConfTierWeight": "Low Conf. Tier",
       "medConfTierWeight": "Med. Conf. Tier",
-      "highConfTierWeight": "High Conf. Tier"
+      "highConfTierWeight": "High Conf. Tier",
+      "radiusKm": "Radius (km)"
     },
     "text": {
       "orChooseEEZRegion": "or choose EEZ region",
       "orChooseMPARegion": "or choose MPA region",
       "subRunQuery": "Fill area & date to enable",
-      "comingSoon": "Coming soon"
+      "comingSoon": "Coming soon",
+      "zonalMinPoints": "Add at least 3 points to close the area.",
+      "zonalHint": "Click to add points · double-click, Enter or right-click to finish · Esc to cancel",
+      "pointHint": "Click on the map to place a point"
     },
     "caveat": {
       "apiInternalId": "API Internal ID"

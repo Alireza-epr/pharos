@@ -79,8 +79,7 @@ const ReportTab = () => {
       ...filters,
       ...sources,
     };
-    console.log("urlParams_base")
-    console.log(urlParams_base)
+    
     const urlParams: TURLParams =
       'region-dataset' in aoi
         ? {
