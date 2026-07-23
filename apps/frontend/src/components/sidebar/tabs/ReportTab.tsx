@@ -26,7 +26,8 @@ import { usePaginationStore } from '../../../stores/paginationStore';
 import { globalfishingwatch } from '../../../helpers/fixtures/url';
 import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
-import { useTimeRangeStore } from '@/stores/timeRangeStore';
+import { useTimeRangeStore } from '../../../stores/timeRangeStore';
+import ExportAndImportConfig from '../../../components/blocks/ExportAndImportConfig';
 
 const ReportTab = () => {
   const { response, loading, error, execute } = useFetchEvents();
@@ -150,6 +151,7 @@ const ReportTab = () => {
         <ContextLayers />
         <HotspotConfig />
         <AdvancedQuery />
+        <ExportAndImportConfig />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">
