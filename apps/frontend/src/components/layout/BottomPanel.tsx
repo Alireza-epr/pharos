@@ -241,15 +241,17 @@ const BottomPanel = () => {
                     key={event.event_id}
                     className={`${bottomPanelStyle.tr} ${isSelected ? bottomPanelStyle.trSelected : ''}`}
                     data-testid="detection-row"
+                    data-selected={isSelected}
+                    onClick={()=>setActiveEvent(isSelected ? null : event)}
                   >
                     <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>
                       {index + 1}
                     </td>
                     <td
-                      className={`font-size-xs ${bottomPanelStyle.td} ${isSelected ? bottomPanelStyle.bold : ''}`}
+                      className={`font-size-xs ${bottomPanelStyle.td}`}
                       data-testid="detection-row-id"
                     >
-                      {shortenText(event.event_id, 10)}
+                      <span title={event.event_id}>{shortenText(event.event_id, 10)}</span>
                     </td>
                     <td className={`font-size-xs ${bottomPanelStyle.td}`}>
                       {event.lon.toFixed(3)}
@@ -292,7 +294,10 @@ const BottomPanel = () => {
                         {getMatchingStatus(event, t)}
                       </span>
                     </td>
-                    <td className={`font-size-xs ${bottomPanelStyle.tdAction}`}>
+                    <td
+                      className={`font-size-xs ${bottomPanelStyle.tdAction}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <ButtonInput
                         label={
                           isSelected
