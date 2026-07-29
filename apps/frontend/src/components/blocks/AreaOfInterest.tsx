@@ -129,7 +129,11 @@ const AreaOfInterest = () => {
   }, []);
 
   return (
-    <Section title={t('sidebar.titles.areaOfInterest')} collapsible={false}>
+    <Section
+      title={t('sidebar.titles.areaOfInterest')}
+      collapsible={false}
+      testId="aoi-section-header"
+    >
       <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
         <SectionInputGroup>
           <ButtonInput
