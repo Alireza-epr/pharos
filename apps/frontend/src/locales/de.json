@@ -21,10 +21,12 @@
       "offset": "Versatz",
       "list": "Liste",
       "clearZonal": "Zonal löschen",
-      "clearPoint": "Punkt löschen"
+      "clearPoint": "Punkt löschen",
+      "maximize": "Maximieren"
     },
     "action": {
-      "copy": "Kopieren"
+      "copy": "Kopieren",
+      "close": "Schließen"
     }
   },
   "header": {

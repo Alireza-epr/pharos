@@ -21,10 +21,12 @@
       "offset": "Offset",
       "list": "List",
       "clearZonal": "Clear Zonal",
-      "clearPoint": "Clear Point"
+      "clearPoint": "Clear Point",
+      "maximize": "Maximize"
     },
     "action": {
-      "copy": "Copy"
+      "copy": "Copy",
+      "close": "Close"
     }
   },
   "header": {

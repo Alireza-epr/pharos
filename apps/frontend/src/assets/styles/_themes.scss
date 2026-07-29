@@ -16,6 +16,7 @@
   --theme-loader-strong: var(--color-primary-purple8);
   --theme-loader-mid: var(--color-primary-purple7);
   --theme-loader-soft: var(--color-primary-purple6);
+  --theme-overlay: rgb(0 0 0 / 60%);
 }
 
 [data-theme='light'] {
@@ -36,4 +37,5 @@
   --theme-loader-strong: var(--color-primary-purple6);
   --theme-loader-mid: var(--color-primary-purple5);
   --theme-loader-soft: var(--color-primary-purple4);
+  --theme-overlay: rgb(0 0 0 / 40%);
 }

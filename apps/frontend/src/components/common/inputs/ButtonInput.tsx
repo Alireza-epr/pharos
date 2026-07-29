@@ -11,16 +11,20 @@ export interface IButtonInputProps {
   onClick?: () => void;
   readOnly?: boolean;
   testId?: string;
+  title?: string;
+  className?: string | undefined;
+  icon?: boolean;
 }
 
 const ButtonInput = (props: IButtonInputProps) => {
   return (
     <button
-      className={`hover disabled active font-size-xs  ${buttonInputStyle.wrapper}`}
+      className={`hover disabled active font-size-xs  ${buttonInputStyle.wrapper} ${props.icon ? buttonInputStyle.iconButton : ''} ${props.className ?? ''}`}
       data-active={props.active}
       data-readonly={props.readOnly}
       //data-size={props.size}
       data-testid={props.testId}
+      title={props.title}
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
     >
