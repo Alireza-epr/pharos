@@ -9,7 +9,7 @@ import { EClassId, EMessageStatus, EMethodId } from '../helpers/enum/ioEnum';
 import { Observer } from '../helpers/utils/servicesUtils';
 import { IOService } from './IOService';
 import RouteService from './RouteService';
-import { ERepositoryKey } from '@packages/enum';
+import { EDetectionRepository } from '@packages/enum';
 
 export class GenericComService {
   private ioService: IOService;
@@ -53,7 +53,7 @@ export class GenericComService {
     a_SessionId: string,
     a_ClassId: EClassId,
     a_MethodId: EMethodId,
-    a_Repository: ERepositoryKey,
+    a_Repository: EDetectionRepository,
     a_Data: TMessageBody,
   ): Promise<T> {
     const message: IMessage = {

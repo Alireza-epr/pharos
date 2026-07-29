@@ -22,6 +22,10 @@ const DetailTab = () => {
 
   const handlePrevClick = () => {};
 
+  const isExported = selectedEvents.some(
+    (e) => e.event_id === activeEvent?.event_id,
+  );
+
   const handleExportClick = () => {
     if (!activeEvent) return;
     const event = selectedEvents.find(
@@ -67,12 +71,13 @@ const DetailTab = () => {
             onClick={handlePrevClick}
           />
           <ButtonInput
-            label={
-              selectedEvents.find(
-                (e) => e.event_id === activeEvent?.event_id,
-              ) === undefined
-                ? `${t('detailPanel.action.addToExport')} +`
-                : `${t('detailPanel.action.removeFromExport')} +`
+            active={isExported}
+            icon
+            label={isExported ? '✓' : '+'}
+            title={
+              isExported
+                ? t('detailPanel.action.removeFromExport')
+                : t('detailPanel.action.addToExport')
             }
             onClick={handleExportClick}
             disabled={!activeEvent}

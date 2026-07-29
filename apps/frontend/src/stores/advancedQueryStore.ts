@@ -20,7 +20,7 @@ export const useAdvancedQueryStore = create<
         ESpatialResolution.HIGH as IAdvancedQueryStoreStates['spatialResolution'],
       format: EFormat.JSON,
       groupBy: EGroupBy.VESSEL_ID as IAdvancedQueryStoreStates['groupBy'],
-      temporalResolution: ETemporalResolution.DAILY,
+      temporalResolution: ETemporalResolution.HOURLY,
       spatialAggregation: false,
     },
     (set, get) => ({

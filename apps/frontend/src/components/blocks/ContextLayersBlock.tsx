@@ -18,7 +18,7 @@ const ContextLayersBlock = (props: IContextLayersBlockProps) => {
         .filter(([_, value]) => value.enrichments.length > 0)
         .map(([name, layer], index) => {
           return (
-            <SectionItem title={name} key={index}>
+            <SectionItem title={name} key={index} tab>
               {layer.enrichments.map((e, index2) => {
                 const value = e.value ?? e.label ?? '';
                 return (

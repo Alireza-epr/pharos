@@ -59,7 +59,7 @@ const DropdownInput = <T extends string | number>(
   const control = (
     <div className={dropdownInputStyle.wrapper}>
       <select
-        className={`${!props.multiple ? 'hover' : ''} disabled focus font-size-sm ${dropdownInputStyle.select}`}
+        className={`${!props.multiple ? 'hover' : ''} disabled focus font-size-xs  ${dropdownInputStyle.select}`}
         value={props.value as string | string[]}
         multiple={props.multiple}
         disabled={props.disabled}

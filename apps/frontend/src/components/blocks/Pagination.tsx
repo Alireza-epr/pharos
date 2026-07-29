@@ -13,8 +13,8 @@ const Pagination = () => {
   const { t } = useTranslator();
 
   return (
-    <Section title={t('general.label.pagination')} collapsible>
-      <SectionItem title={t('general.label.limit')}>
+    <Section title={t('general.label.pagination')} collapsible={false}>
+      <SectionItem title={t('general.label.limit')} tab >
         <NumberInput
           direction="row"
           min={0}
@@ -23,7 +23,7 @@ const Pagination = () => {
           onChange={(e) => setLimit(e)}
         />
       </SectionItem>
-      <SectionItem title={t('general.label.offset')}>
+      <SectionItem title={t('general.label.offset')} tab >
         <NumberInput
           direction="row"
           min={0}

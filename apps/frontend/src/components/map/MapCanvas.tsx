@@ -1,9 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import mapCanvasStyle from './MapCanvas.module.scss';
 import { buildBasemapStyle, initialView } from '../../helpers/fixtures/map';
 import { useAppStore } from '@/stores/appStore';
+import { useAOIStore } from '@/stores/areaOfInterestStore';
+import { useAOIDraw } from '@/hooks/useAOIDraw';
+import { useTranslator } from '@/hooks/translator';
 import { log_frontend } from '@packages/utils';
 import { ELogType } from '@packages/enum';
 
@@ -20,10 +23,18 @@ const MapCanvas = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const theme = useAppStore((s) => s.theme);
+  const { t } = useTranslator();
+
+  // Exposed only once the style has loaded, so the AOI draw hook can safely add
+  // its source/layers.
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
+  const zonal = useAOIStore((s) => s.zonal);
+  const point = useAOIStore((s) => s.point);
+  useAOIDraw(map);
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const map = new maplibregl.Map({
+    const mapInstance = new maplibregl.Map({
       container: containerRef.current,
       // Initial basemap uses the theme at mount; runtime toggles are handled by
       // the effect below so we don't recreate the whole map.
@@ -43,17 +54,22 @@ const MapCanvas = () => {
       fadeDuration: 0,
     });
 
-    mapRef.current = map;
+    mapRef.current = mapInstance;
 
     // Runtime failures (e.g. a tile request failing mid-session) surface here,
     // NOT through the React error boundary. Log rather than crash so the map
     // stays usable.
-    map.on('error', (e) => {
+    mapInstance.on('error', (e) => {
       log_frontend(`maplibre runtime error: ${e.error}`, ELogType.error);
     });
 
+    // Only hand the map to the draw hook once the style is ready; adding sources
+    // / layers before 'load' throws.
+    mapInstance.on('load', () => setMap(mapInstance));
+
     return () => {
-      map.remove();
+      setMap(null);
+      mapInstance.remove();
       mapRef.current = null;
     };
   }, []);
@@ -62,12 +78,25 @@ const MapCanvas = () => {
     mapRef.current?.setStyle(buildBasemapStyle(theme));
   }, [theme]);
 
+  const drawHint = zonal
+    ? t('sidebar.text.zonalHint')
+    : point
+      ? t('sidebar.text.pointHint')
+      : null;
+
   return (
-    <div
-      ref={containerRef}
-      className={` ${mapCanvasStyle.wrapper}`}
-      data-testid="map-canvas"
-    />
+    <div className={` ${mapCanvasStyle.wrapper}`}>
+      <div
+        ref={containerRef}
+        className={` ${mapCanvasStyle.canvas}`}
+        data-testid="map-canvas"
+      />
+      {drawHint && (
+        <div className={`font-size-xs ${mapCanvasStyle.drawHint}`}>
+          {drawHint}
+        </div>
+      )}
+    </div>
   );
 };
 

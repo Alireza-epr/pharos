@@ -61,7 +61,7 @@ const SortOrder = () => {
 
   return (
     <Section title={t('sidebar.titles.sortOrder')} collapsible={false}>
-      <SectionInputGroup direction="column">
+      <SectionInputGroup direction="column" tab>
         {sorts.map((sort, index) => (
           <SortRowInput
             key={sort.sortBy}

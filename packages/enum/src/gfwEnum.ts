@@ -31,6 +31,7 @@ export enum EVessleType {
   Fishing = "FISHING",
   Discrepancy = "DISCREPANCY",
   NotApplicable = "",
+  NA= "NA"
 }
 
 export enum ECountryFlag {

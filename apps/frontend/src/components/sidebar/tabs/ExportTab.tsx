@@ -61,8 +61,8 @@ const ExportTab = () => {
   return (
     <>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
-        <Section title={t('sidebar.tab.event')} collapsible>
-          <SectionItem title={t('general.label.list')} collapsible={false}>
+        <Section title={t('sidebar.tab.event')} collapsible={false}>
+          <SectionItem title={t('general.label.list')} collapsible={false} tab>
             {selectedEvents.length > 0 ? (
               selectedEvents.map((event, index) => {
                 return (
@@ -86,7 +86,7 @@ const ExportTab = () => {
             )}
           </SectionItem>
 
-          <SectionItem title={t('exportPanel.title.includeFiles')}>
+          <SectionItem title={t('exportPanel.title.includeFiles')} tab>
             <ChipGroupInput
               disabled={selectedEvents.length === 0}
               values={
@@ -103,7 +103,7 @@ const ExportTab = () => {
         </Section>
 
         <Section title={t('sidebar.tab.hotspot')} collapsible>
-          <SectionItem title={t('general.label.list')} collapsible={false}>
+          <SectionItem title={t('general.label.list')} collapsible={false} tab>
             <div className={` ${sidebarStyle.emptyState}`}>
               <span className={`font-size-sm font-bold font-family-header`}>
                 {t('exportPanel.empty.titleHotspot')}
@@ -113,7 +113,7 @@ const ExportTab = () => {
               </span>
             </div>
           </SectionItem>
-          <SectionItem title={t('exportPanel.title.includeFiles')}>
+          <SectionItem title={t('exportPanel.title.includeFiles')} tab>
             <ChipGroupInput
               disabled={true}
               values={
@@ -134,7 +134,8 @@ const ExportTab = () => {
           <ButtonInput
             label={t('general.label.export')}
             onClick={handleExportClick}
-            disabled={selectedEvents.length === 0 || loading || !config}
+            disabled={selectedEvents.length === 0 || loading || !config 
+              || Object.entries(exportConfig).filter(([_, v]) => v).length === 0 }
             loading={loading}
           />
           <ButtonInput

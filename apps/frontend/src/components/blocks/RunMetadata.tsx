@@ -22,7 +22,7 @@ const RunMetadata = (props: IRunMetadataBlockProps) => {
 
   return (
     <Section title={t('detailPanel.title.runMetadata')} collapsible={false}>
-      <SectionItem title={t('detailPanel.label.runTime')}>
+      <SectionItem title={t('detailPanel.label.runTime')} tab>
         <TextInput
           value={formatTimestamp(new Date(run_metadata.run_time))}
           copyValue={run_metadata.run_time}
@@ -31,7 +31,7 @@ const RunMetadata = (props: IRunMetadataBlockProps) => {
         />
       </SectionItem>
 
-      <SectionItem title={t('detailPanel.label.config')} collapsible={false}>
+      <SectionItem title={t('detailPanel.label.config')} collapsible={false} tab>
         <SectionInputGroup direction="column">
           <TextInput
             value={shortenText(run_metadata.config_hash, 16)}
@@ -58,6 +58,7 @@ const RunMetadata = (props: IRunMetadataBlockProps) => {
       <SectionItem
         title={t('detailPanel.label.contextLayersDatasets')}
         collapsible={false}
+        tab
       >
         {run_metadata.context_layer_versions?.split(',').map((full, index) => {
           const context = full.trim().split(':')[0] ?? '';

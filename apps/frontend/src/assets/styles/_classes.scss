@@ -150,7 +150,6 @@ body {
   &[data-active='true'] {
     background: var(--theme-bg-button-active);
     border-color: var(--theme-text-primary);
-    font-weight: var(--font-weight-bold);
   }
 }
 

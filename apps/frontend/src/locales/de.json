@@ -19,10 +19,14 @@
       "pagination": "Paginierung",
       "limit": "Limit",
       "offset": "Versatz",
-      "list": "Liste"
+      "list": "Liste",
+      "clearZonal": "Zonal löschen",
+      "clearPoint": "Punkt löschen",
+      "maximize": "Maximieren"
     },
     "action": {
-      "copy": "Kopieren"
+      "copy": "Kopieren",
+      "close": "Schließen"
     }
   },
   "header": {
@@ -123,13 +127,17 @@
       "lowConfProxyWeight": "Niedr. Konfid.-Proxy",
       "lowConfTierWeight": "Niedr. Konfid.-Stufe",
       "medConfTierWeight": "Mittl. Konfid.-Stufe",
-      "highConfTierWeight": "Hohe Konfid.-Stufe"
+      "highConfTierWeight": "Hohe Konfid.-Stufe",
+      "radiusKm": "Radius (km)"
     },
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
       "orChooseMPARegion": "oder MPA-Region auswählen",
       "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren",
-      "comingSoon": "Demnächst verfügbar"
+      "comingSoon": "Demnächst verfügbar",
+      "zonalMinPoints": "Fügen Sie mindestens 3 Punkte hinzu, um das Gebiet zu schließen.",
+      "zonalHint": "Klicken zum Hinzufügen · Doppelklick, Enter oder Rechtsklick zum Abschließen · Esc zum Abbrechen",
+      "pointHint": "Klicken Sie auf die Karte, um einen Punkt zu setzen"
     },
     "caveat": {
       "apiInternalId": "API-interne ID"
@@ -239,6 +247,8 @@
     "submit": "Anmelden",
     "submitting": "Anmeldung läuft…",
     "error": "Ungültiger Benutzername oder Passwort",
+    "sessionExpired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an",
+    "genericError": "Etwas ist schiefgelaufen, bitte melden Sie sich erneut an",
     "logout": "Abmelden"
   }
 }

@@ -9,7 +9,6 @@ import config from '../../config/pilot.json';
 
 import {
   IConfigJSON,
-  IEventSchema,
   IPagination,
   TBodyParams,
   TURLParams,
@@ -17,24 +16,21 @@ import {
 import { getStats } from '../../pipeline/aggregate/stats';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
 import { applyFilter } from '../../pipeline/normalize/filter';
+import {
+  enrichEventsWithHotspots,
+  generateHotspots,
+} from '../../pipeline/aggregate/hotspots';
 import { formatTimestamp } from '../../helpers/utils/backendUtils';
 import {
   validateBodyParams,
   validateQueryParams,
 } from '../../helpers/utils/validationUtils';
+import { getServedEvents } from '../../services/ServingService';
 
 export const eventsController = async (
   a_Req: Request<{}, {}, TBodyParams, TURLParams>,
   a_Res: Response,
 ) => {
-  const events = a_Req.events;
-  if (events === undefined) {
-    return controllerResponse(a_Res, EStatusCode.INTERNAL_SERVER_ERROR_500, {
-      success: false,
-      error: [`No events available`],
-    });
-  }
-
   const body = a_Req.body;
   const url_params = a_Req.query;
 
@@ -87,10 +83,21 @@ export const eventsController = async (
           body_params: body.body_params,
         };
 
-    // Filtering
-    const filteredEvents = applyFilter(events, configs.filter);
+    // Live partitioned serving path: resolve partitions, read the Parquet
+    // cache (fetching + enriching from the provider on a miss), and filter by
+    // polygon/H3/time. Replaces the previous in-memory fixture path.
+    const { events: servedEvents } = await getServedEvents(configs);
+
+    // Filtering (score / reason-code / distance / context predicates)
+    const filteredEvents = applyFilter(servedEvents, configs.filter);
+
+    // Hotspot enrichment over the full filtered set (per-event signals depend
+    // on the result set, so they are recomputed per request, before paging).
+    const hotspots = generateHotspots(configs, filteredEvents);
+    const enrichedEvents = enrichEventsWithHotspots(filteredEvents, hotspots);
+
     // Pagination
-    const total = filteredEvents.length;
+    const total = enrichedEvents.length;
     const limit = Number(pagination.limit);
     const offset = Number(pagination.offset);
     if (offset > total) {
@@ -103,7 +110,7 @@ export const eventsController = async (
     const totalPages = Math.ceil(total / limit);
     const currentPage = Math.floor(offset / limit) + 1;
 
-    const thisPageEvents = filteredEvents.slice(offset, offset + limit);
+    const thisPageEvents = enrichedEvents.slice(offset, offset + limit);
     const pageSize = thisPageEvents.length;
     const nextOffset = offset + limit >= total ? null : offset + limit;
 
@@ -123,7 +130,7 @@ export const eventsController = async (
     const end = formatTimestamp();
     const metadata = await generateRunMetadata(
       [configs],
-      events,
+      enrichedEvents,
       a_Req.start_time,
       end,
     );

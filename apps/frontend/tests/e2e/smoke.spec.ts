@@ -59,7 +59,11 @@ test.describe('UI_smoke', () => {
     // AOI is required: the button stays disabled until an area is chosen.
     await expect(runQuery).toBeDisabled();
 
-    // 2) Satisfy the AOI requirement by picking the first EEZ from the dropdown.
+    // 2) Expand the Area of Interest section: it is collapsed by default, so
+    // its controls (including the EEZ dropdown) are hidden until opened.
+    await page.getByTestId('aoi-section-header').click();
+
+    // 3) Satisfy the AOI requirement by picking the first EEZ from the dropdown.
     const eezSelect = page.getByTestId('eez-select');
     const firstEez = await eezSelect
       .locator('option:not([disabled])')
@@ -71,19 +75,19 @@ test.describe('UI_smoke', () => {
     // The button activates once an AOI is set.
     await expect(runQuery).toBeEnabled();
 
-    // 3) Run the query and wait for the (mocked) events response.
+    // 4) Run the query and wait for the (mocked) events response.
     const eventsCall = page.waitForResponse('**/events*');
     await runQuery.click();
     await eventsCall;
 
-    // 4) The detections list renders one row per returned event.
+    // 5) The detections list renders one row per returned event.
     const rows = page.getByTestId('detection-row');
     await expect(rows).toHaveCount(eventsResponse.entries.length);
     await expect(page.getByTestId('detections-title')).toContainText(
       `(${eventsResponse.entries.length})`,
     );
 
-    // 5) Open the first row's details. The list is sorted client-side, so verify
+    // 6) Open the first row's details. The list is sorted client-side, so verify
     // the panel against the row we actually clicked (not the fixture order):
     // capture the row's truncated event id (shortenText(id, 10) -> "<10 chars>...").
     const firstRow = rows.first();

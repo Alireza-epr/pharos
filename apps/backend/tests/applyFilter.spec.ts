@@ -383,7 +383,7 @@ describe('applyFilter_bathymetry', () => {
     });
   });
 
-  it('event_with_no_bathymetry_enrichments_is_excluded_by_bathymetry_filter', () => {
+  it('event_with_no_bathymetry_enrichments_is_included_by_bathymetry_filter', () => {
     const eventWithoutBath = {
       ...events[0],
       event_id: 'test_no_bath',
@@ -397,7 +397,7 @@ describe('applyFilter_bathymetry', () => {
     const result = applyFilter(mixedEvents, FILTER_BATHYMETRY_MAX_NEG_45).map(
       (e) => e.event_id,
     );
-    expect(result).not.toContain('test_no_bath');
+    expect(result).toContain('test_no_bath');
   });
 });
 

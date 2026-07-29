@@ -31,7 +31,7 @@ const ThresholdAndWeights = () => {
       title={t('sidebar.titles.thresholdAndWeights')}
       collapsible={false}
     >
-      <SectionItem title={t('sidebar.title.geography')} collapsible={false}>
+      <SectionItem title={t('sidebar.title.geography')} collapsible={false} tab>
         <NumberInput
           direction="row"
           label={t('sidebar.label.nearCoastThr')}
@@ -60,7 +60,7 @@ const ThresholdAndWeights = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.title.scoreTiers')} collapsible={false}>
+      <SectionItem title={t('sidebar.title.scoreTiers')} collapsible={false} tab>
         <NumberInput
           direction="row"
           label={t('sidebar.label.lowTriageThr')}
@@ -83,7 +83,7 @@ const ThresholdAndWeights = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.title.weights')} collapsible={false}>
+      <SectionItem title={t('sidebar.title.weights')} collapsible={false} tab>
         <NumberInput
           direction="row"
           label={t('sidebar.label.baseUncertaintyWeight')}

@@ -4,7 +4,7 @@ import { IConfigJSON } from '@packages/types';
 import { log } from '../../helpers/utils/backendUtils';
 import { fetchWithRetry } from '@packages/utils';
 
-const token = config.auth.gfw_token;
+const token = config.auth.detection_token;
 
 export const detectionGFW = async <T>(a_Config: IConfigJSON) => {
   const searchParams = Object.entries(a_Config.url_params).reduce<

@@ -17,13 +17,13 @@ const SourceDetection = (props: ISourceDetectionBlockProps) => {
       title={t('detailPanel.title.sourceAndDetection')}
       collapsible={false}
     >
-      <SectionItem title={t('detailPanel.label.dataset')}>
+      <SectionItem title={t('detailPanel.label.dataset')} tab >
         <TextInput readOnly copiable value={event.source} />
       </SectionItem>
-      <SectionItem title={t('bottomPanel.column.confidenceTier')}>
+      <SectionItem title={t('bottomPanel.column.confidenceTier')} tab>
         <TextInput readOnly copiable value={event.confidence_tier} />
       </SectionItem>
-      <SectionItem title={t('bottomPanel.column.confidenceProxy')}>
+      <SectionItem title={t('bottomPanel.column.confidenceProxy')} tab>
         <TextInput
           readOnly
           copiable

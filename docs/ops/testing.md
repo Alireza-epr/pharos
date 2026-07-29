@@ -40,7 +40,7 @@ API** - Playwright builds and previews the frontend itself.
   npm run packages:build
   ```
 
-> No secrets are required to run the tests. `GFW_TOKEN` / `JWT_SECRET` are needed
+> No secrets are required to run the tests. `DETECTION_TOKEN` / `JWT_SECRET` are needed
 > to *run* the backend, but the unit tests mock the config loader and the E2E
 > test mocks the API.
 

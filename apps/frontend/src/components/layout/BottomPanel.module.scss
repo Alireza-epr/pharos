@@ -80,15 +80,21 @@
   text-align: left;
   font-weight: bold;
   letter-spacing: var(--letter-spacing-sm);
-  text-transform: uppercase;
   color: var(--theme-text-secondary);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  vertical-align: top;
   background: var(--theme-bg-button);
-  border-bottom: var(--border-width-sm) solid var(--theme-border);
+  border-bottom: var(--border-width-sm) solid var(--theme-text-primary);;
+  border-right: var(--border-width-sm) solid var(--theme-text-primary);;
   font-family: var(--font-family-header);
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.th:last-of-type {
+  border-right: none
 }
 
 .th-sortable {
@@ -122,6 +128,11 @@
   &:hover {
     background: var(--theme-tr-hover);
   }
+
+  &[data-selected='true'] td { 
+    font-weight: var(--font-weight-bold);
+  }
+  
 }
 
 .tr-selected {

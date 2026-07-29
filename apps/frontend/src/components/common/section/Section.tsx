@@ -5,6 +5,7 @@ export interface ISectionProps {
   title: string;
   collapsible?: boolean;
   children: ReactNode;
+  testId?: string;
 }
 
 const Section = (props: ISectionProps) => {
@@ -19,6 +20,7 @@ const Section = (props: ISectionProps) => {
             ? () => setOpen((prev) => !prev)
             : undefined
         }
+        data-testid={props.testId}
       >
         <span className={`font-size-xs ${sectionStyle.title} truncate`}>
           {props.title}

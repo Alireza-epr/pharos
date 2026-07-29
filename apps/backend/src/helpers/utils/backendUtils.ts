@@ -178,6 +178,7 @@ export const getContextLayersFromEvents = (a_Events: IEventSchema[]) => {
     const thisEventLayers = event.context_layers;
     let thisContextLayer = [];
     for (const layer in thisEventLayers) {
+      if(thisEventLayers[layer as EContextLayers].enrichments.length === 0) continue
       const thisLayerDataset = thisEventLayers[layer as EContextLayers].dataset;
       const thisLayerVersion = thisEventLayers[layer as EContextLayers].version;
       thisContextLayer.push(

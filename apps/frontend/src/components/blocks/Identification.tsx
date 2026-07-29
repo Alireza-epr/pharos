@@ -15,8 +15,8 @@ const Identification = (props: IHeaderBlockProps) => {
   const { event } = props;
 
   return (
-    <Section title={t('detailPanel.title.identification')} collapsible>
-      <SectionItem title={t('bottomPanel.column.detectionId')}>
+    <Section title={t('detailPanel.title.identification')} collapsible={false}>
+      <SectionItem title={t('bottomPanel.column.detectionId')} tab >
         <TextInput
           value={shortenText(event.event_id, 30)}
           copyValue={event.event_id}
@@ -26,7 +26,7 @@ const Identification = (props: IHeaderBlockProps) => {
           testId="detail-event-id"
         />
       </SectionItem>
-      <SectionItem title={t('sidebar.titles.matchingStatus')}>
+      <SectionItem title={t('sidebar.titles.matchingStatus')} tab >
         <TextInput value={getMatchingStatus(event, t)} readOnly />
       </SectionItem>
     </Section>

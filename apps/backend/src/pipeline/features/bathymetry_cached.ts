@@ -8,7 +8,7 @@ export const getBathymetry_cached = async (a_Lon: number, a_Lat: number) => {
   const tile = findTile(a_Lon, a_Lat);
 
   if (!tile || !tile.image) {
-    log('[Bathymetry] Failed to get COG file', ELogType.error);
+    //log('[Bathymetry] Failed to get COG file', ELogType.error);
     return null;
   }
 
@@ -50,6 +50,13 @@ export const getBathymetryContext = async (
   a_Lat: number,
 ): Promise<IContextLayer> => {
   const bathymetry = await getBathymetry_cached(a_Lon, a_Lat);
+  if (!bathymetry) {
+    return {
+      dataset: EContextLayerDatasets.bathymetry,
+      version: 'v2.7',
+      enrichments: [],
+    };
+  }
 
   return {
     dataset: EContextLayerDatasets.bathymetry,

@@ -21,3 +21,11 @@
     font-size: smaller;
   }
 }
+
+// Fixed-size icon button: keeps width stable when the glyph toggles (+ / ✓)
+
+.icon-button {
+  flex: 0 0 auto;
+  min-width: 2rem;
+  text-align: center;
+}
