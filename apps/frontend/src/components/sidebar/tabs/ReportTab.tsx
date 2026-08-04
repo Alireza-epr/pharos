@@ -102,7 +102,7 @@ const ReportTab = () => {
       filter,
       hotspot,
       threshold,
-      pagination,
+      ...pagination,
       export: exportConfig,
     };
 

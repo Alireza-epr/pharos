@@ -24,12 +24,14 @@ export const usePaginationStore = create<
             typeof a_Value === 'function' ? a_Value(state.offset) : a_Value,
         })),
       getPagination: () => {
-        const state = get();
-        return {
-          limit: state.limit,
-          offset: state.offset,
-        };
+        const { limit, offset } = get();
+        return { pagination: { limit, offset } };
       },
+      importPagination: (a_Data) =>
+        set({
+          limit: a_Data.pagination.limit,
+          offset: a_Data.pagination.offset,
+        }),
     }),
   ),
 );

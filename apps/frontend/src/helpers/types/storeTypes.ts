@@ -440,6 +440,13 @@ export interface IPaginationStoreStates {
   limit: number | null;
   offset: number | null;
 }
+
+// The `pagination` body param ReportTab already builds for the query — reused
+// as-is for the section's import/export button, same as getAOI()/getTimeRange().
+export interface IPaginationQuery {
+  pagination: IPaginationStoreStates;
+}
+
 export interface IPaginationStoreActions {
   setLimit: (
     a_Value:
@@ -455,7 +462,8 @@ export interface IPaginationStoreActions {
           a_Prev: IPaginationStoreStates['offset'],
         ) => IPaginationStoreStates['offset']),
   ) => void;
-  getPagination: () => IPaginationStoreStates;
+  getPagination: () => IPaginationQuery;
+  importPagination: (a_Data: IPaginationQuery) => void;
 }
 
 export interface IMessageStoreStates {
