@@ -18,7 +18,7 @@ export const useTimeRangeStore = create<
       }) as ITimeRangeStoreStates['dateFrom'],
       dateTo: getLocaleISOString(new Date()) as ITimeRangeStoreStates['dateTo'],
     },
-    (set) => ({
+    (set, get) => ({
       setDateFrom: (a_Value) =>
         set((state) => ({
           dateFrom:
@@ -29,6 +29,17 @@ export const useTimeRangeStore = create<
           dateTo:
             typeof a_Value === 'function' ? a_Value(state.dateTo) : a_Value,
         })),
+      getTimeRange: () => {
+        const { dateFrom, dateTo } = get();
+        return { 'date-range': `${dateFrom}Z,${dateTo}Z` };
+      },
+      importTimeRange: (a_Data) => {
+        const [from, to] = a_Data['date-range'].split(',');
+        set({
+          dateFrom: (from ?? '').replace(/Z$/, ''),
+          dateTo: (to ?? '').replace(/Z$/, ''),
+        });
+      },
     }),
   ),
 );

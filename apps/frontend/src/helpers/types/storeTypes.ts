@@ -250,6 +250,13 @@ export interface ITimeRangeStoreStates {
   dateFrom: string;
   dateTo: string;
 }
+
+// The `date-range` URL param ReportTab already builds for the query — reused
+// as-is for the section's import/export button, same as getAOI().
+export interface ITimeRangeQuery {
+  'date-range': string;
+}
+
 export interface ITimeRangeStoreActions {
   setDateFrom: (
     a_Value:
@@ -265,6 +272,8 @@ export interface ITimeRangeStoreActions {
           a_Prev: ITimeRangeStoreStates['dateTo'],
         ) => ITimeRangeStoreStates['dateTo']),
   ) => void;
+  getTimeRange: () => ITimeRangeQuery;
+  importTimeRange: (a_Data: ITimeRangeQuery) => void;
 }
 
 // A drawn AOI is a standard GeoJSON Feature (RFC 7946) — geometry plus a

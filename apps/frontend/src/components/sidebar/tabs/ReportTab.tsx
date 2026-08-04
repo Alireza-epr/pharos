@@ -45,9 +45,8 @@ const ReportTab = () => {
     const aoi = useAOIStore.getState().getAOI();
     if (!aoi) return;
 
-    const dateFrom = useTimeRangeStore.getState().dateFrom + "Z";
-    const dateTo = useTimeRangeStore.getState().dateTo + "Z";
-    
+    const dateRange = useTimeRangeStore.getState().getTimeRange();
+
     const sort = useSortOrderStore.getState().sorts;
 
     const filter = useFilterStore.getState().filters;
@@ -73,9 +72,9 @@ const ReportTab = () => {
       'spatial-resolution': spatialResolution,
       'spatial-aggregation': spatialAggregation,
       'temporal-resolution': temporalResolution,
-      'date-range': `${dateFrom},${dateTo}`,
       format,
       'group-by': groupBy,
+      ...dateRange,
       ...filters,
       ...sources,
     };
