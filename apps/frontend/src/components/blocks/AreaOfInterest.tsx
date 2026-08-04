@@ -11,7 +11,11 @@ import {
   AOI_RADIUS_MIN_KM,
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
-import { EGeoJSONGeometryType } from '@packages/enum';
+import { EGeoJSONGeometryType, ERegionDatasets } from '@packages/enum';
+import { isNumber, isObject, isString } from '@packages/utils';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { useMessageStore } from '../../stores/messageStore';
+import { TAOIQuery } from '../../helpers/types/storeTypes';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -23,6 +27,34 @@ export type TAreaOfInterestTools =
   (typeof EAreaOfInterestTools)[keyof typeof EAreaOfInterestTools];
 
 export interface IAreaOfInterestProps {}
+
+// Matches the shape getAOI() produces (a standard GeoJSON Feature): a named
+// region has null geometry and a region descriptor in properties; a drawn
+// Zonal polygon has real geometry and null properties; a drawn Point has real
+// (buffered) geometry plus its radius in properties. An imported file is
+// trusted only if it could plausibly have come from this section's own export.
+const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
+  if (a_Data === null) return true;
+  if (!isObject(a_Data) || a_Data['type'] !== 'Feature') return false;
+
+  const geometry = a_Data['geometry'];
+  const hasValidGeometry =
+    geometry === null ||
+    (isObject(geometry) &&
+      isString(geometry['type']) &&
+      'coordinates' in geometry);
+  if (!hasValidGeometry) return false;
+
+  const properties = a_Data['properties'];
+  return (
+    properties === null ||
+    (isObject(properties) &&
+      ((isString(properties['region-id']) &&
+        (properties['region-dataset'] === ERegionDatasets.eez ||
+          properties['region-dataset'] === ERegionDatasets.mpa)) ||
+        isNumber(properties['radius'])))
+  );
+};
 
 const AreaOfInterest = () => {
   const zonal = useAOIStore((s) => s.zonal);
@@ -45,6 +77,9 @@ const AreaOfInterest = () => {
   const setMPAOptions = useAOIStore((s) => s.setMPAOptions);
   const mpaActive = useAOIStore((s) => s.mpaActive);
   const setMPAActive = useAOIStore((s) => s.setMPAActive);
+
+  const getAOI = useAOIStore((s) => s.getAOI);
+  const importAOI = useAOIStore((s) => s.importAOI);
 
   const { t } = useTranslator();
 
@@ -73,10 +108,11 @@ const AreaOfInterest = () => {
     }
   };
 
-  // A drawn AOI lives in `feature`; its geometry type tells us which tool owns
-  // it (tools are mutually exclusive and clear each other's geometry).
-  const zonalHasFeature = feature?.type === EGeoJSONGeometryType.Polygon;
-  const pointHasFeature = feature?.type === EGeoJSONGeometryType.Point;
+  // A drawn AOI lives in `feature` (a standard GeoJSON Feature); its geometry
+  // type tells us which tool owns it (tools are mutually exclusive and clear
+  // each other's geometry).
+  const zonalHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Polygon;
+  const pointHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Point;
 
   const handleZonalClick = () => {
     // Re-clicking once a shape exists clears it (button reads "Clear Zonal").
@@ -128,11 +164,34 @@ const AreaOfInterest = () => {
     setMPAOptions(mpa_options);
   }, []);
 
+  const handleExport = () => {
+    const aoi = getAOI();
+    if (!aoi) return;
+    downloadJSON(aoi, 'area_of_interest');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidAOIQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importAOI(data);
+    }, reportInvalid);
+  };
+
   return (
     <Section
       title={t('sidebar.titles.areaOfInterest')}
       collapsible={false}
       testId="aoi-section-header"
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
     >
       <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
         <SectionInputGroup>

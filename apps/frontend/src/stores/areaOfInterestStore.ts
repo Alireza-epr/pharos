@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import { circle } from '@turf/turf';
-import { IAOIStoreActions, IAOIStoreStates } from '../helpers/types/storeTypes';
+import { centroid, circle } from '@turf/turf';
+import {
+  IAOIStoreActions,
+  IAOIStoreStates,
+  TAOIQuery,
+} from '../helpers/types/storeTypes';
 import { ERegionDatasets, EGeoJSONGeometryType } from '@packages/enum';
 
 /**
@@ -11,7 +15,7 @@ import { ERegionDatasets, EGeoJSONGeometryType } from '@packages/enum';
 export const AOI_RADIUS_MIN_KM = 10;
 
 // Number of segments used to approximate the point AOI's circle as a polygon
-// when handing it to the backend via getAOI(). Enough to look round at any zoom.
+// in getAOI(). Enough to look round at any zoom.
 const AOI_CIRCLE_STEPS = 64;
 
 export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
@@ -67,32 +71,107 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           mpaActive:
             typeof a_Value === 'function' ? a_Value(state.mpaActive) : a_Value,
         })),
-      getAOI: () => {
-        const { eezActive, mpaActive, feature, radius } = get();
+      // Always a standard Feature: a named region has no local geometry (null,
+      // per RFC 7946 §3.2) and carries its descriptor in properties; a drawn
+      // AOI carries real geometry and null properties. Never a bare object.
+      getAOI: (): TAOIQuery => {
+        const { eezActive, mpaActive, feature } = get();
         if (eezActive)
           return {
-            'region-dataset': ERegionDatasets.eez,
-            'region-id': eezActive.value,
+            type: 'Feature',
+            geometry: null,
+            properties: {
+              'region-dataset': ERegionDatasets.eez,
+              'region-id': eezActive.value,
+            },
           };
         if (mpaActive)
           return {
-            'region-dataset': ERegionDatasets.mpa,
-            'region-id': mpaActive.value,
+            type: 'Feature',
+            geometry: null,
+            properties: {
+              'region-dataset': ERegionDatasets.mpa,
+              'region-id': mpaActive.value,
+            },
           };
+        if (!feature) return null;
         // A point AOI is a circle: buffer the centre into a Polygon of `radius`
-        // km so the backend always receives an area geometry, never a bare point.
-        if (feature && feature.type === EGeoJSONGeometryType.Point) {
+        // km so the AOI is always an area, never a bare point. `radius` is only
+        // meaningful here, so it's only read here — and it's carried in
+        // properties too, since buffering is what erases the fact this came
+        // from the Point tool rather than a freehand Zonal polygon.
+        if (feature.geometry.type === EGeoJSONGeometryType.Point) {
+          const radius = get().radius;
           const buffered = circle(
-            feature.coordinates as [number, number],
+            feature.geometry.coordinates as [number, number],
             radius,
             { units: 'kilometers', steps: AOI_CIRCLE_STEPS },
           );
           return {
-            type: EGeoJSONGeometryType.Polygon,
-            coordinates: buffered.geometry.coordinates,
+            type: 'Feature',
+            geometry: {
+              type: EGeoJSONGeometryType.Polygon,
+              coordinates: buffered.geometry.coordinates,
+            },
+            properties: { radius },
           };
         }
         return feature;
+      },
+      // Consumes exactly what getAOI() produces — no separate export shape.
+      // A region descriptor re-resolves against the current EEZ/MPA option
+      // list. A `radius` property means the geometry is a buffered Point
+      // circle, not a freehand Zonal polygon — recover the original centre
+      // (the buffer's centroid) so the Point tool re-arms at the right spot.
+      // Anything else is a plain drawn polygon. Either way, no draw tool is
+      // left armed.
+      importAOI: (a_Data) => {
+        const { eezOptions, mpaOptions } = get();
+        const properties = a_Data?.properties;
+
+        if (properties && 'region-dataset' in properties) {
+          const isEEZ = properties['region-dataset'] === ERegionDatasets.eez;
+          const options = isEEZ ? eezOptions : mpaOptions;
+          const active = options.find(
+            (o) => o.value === properties['region-id'],
+          );
+          set({
+            zonal: false,
+            point: false,
+            feature: null,
+            eezActive: isEEZ ? active : undefined,
+            mpaActive: isEEZ ? undefined : active,
+          });
+          return;
+        }
+
+        if (a_Data?.geometry && properties && 'radius' in properties) {
+          const center = centroid(a_Data.geometry as any).geometry
+            .coordinates as [number, number];
+          set({
+            zonal: false,
+            point: false,
+            feature: {
+              type: 'Feature',
+              geometry: { type: EGeoJSONGeometryType.Point, coordinates: center },
+              properties: null,
+            },
+            radius: Math.max(AOI_RADIUS_MIN_KM, properties.radius),
+            eezActive: undefined,
+            mpaActive: undefined,
+          });
+          return;
+        }
+
+        set({
+          zonal: false,
+          point: false,
+          feature: a_Data?.geometry
+            ? { type: 'Feature', geometry: a_Data.geometry, properties: null }
+            : null,
+          eezActive: undefined,
+          mpaActive: undefined,
+        });
       },
     }),
   ),

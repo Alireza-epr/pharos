@@ -15,7 +15,7 @@ import { useBottomStore } from '../../../stores/bottomStore';
 import SectionInputGroup from '../../common/section/SectionInputGroup';
 import { useFetchEvents } from '../../../hooks/fetch';
 import { useAOIStore } from '../../../stores/areaOfInterestStore';
-import { IConfigJSON, TURLParams } from '@packages/types';
+import { IConfigJSON, IGeometry, TURLParams } from '@packages/types';
 import { EFetchMethods } from '@packages/enum';
 import { useFilterStore } from '../../../stores/filterStore';
 import { useHotspotConfigStore } from '../../../stores/hotspotConfigStore';
@@ -80,16 +80,22 @@ const ReportTab = () => {
       ...sources,
     };
     
-    const urlParams: TURLParams =
-      'region-dataset' in aoi
-        ? {
-            ...urlParams_base,
-            'region-dataset': aoi['region-dataset'],
-            'region-id': aoi['region-id'],
-          }
-        : {
-            ...urlParams_base,
-          };
+    // A radius-only properties bag (a buffered Point AOI) isn't a named
+    // region — only `'region-dataset' in properties` means "use GET".
+    const region =
+      aoi.properties && 'region-dataset' in aoi.properties
+        ? aoi.properties
+        : undefined;
+
+    const urlParams: TURLParams = region
+      ? {
+          ...urlParams_base,
+          'region-dataset': region['region-dataset'],
+          'region-id': region['region-id'],
+        }
+      : {
+          ...urlParams_base,
+        };
 
     const bodyParams_base = {
       URL: globalfishingwatch.url['4wings'].endpoints.report,
@@ -108,17 +114,20 @@ const ReportTab = () => {
       ...bodyParams_base,
     };
 
-    const config: IConfigJSON =
-      'region-dataset' in aoi
-        ? {
-            ...config_base,
-            method: EFetchMethods.get,
-          }
-        : {
-            ...config_base,
-            method: EFetchMethods.post,
-            body_params: { geojson: aoi },
-          };
+    const config: IConfigJSON = region
+      ? {
+          ...config_base,
+          method: EFetchMethods.get,
+        }
+      : {
+          ...config_base,
+          method: EFetchMethods.post,
+          // The backend's geojson body param is a bare Geometry (see
+          // docs/api/query-contract.md), so unwrap the Feature's geometry here.
+          // getAOI() always pairs a named region with null geometry, so this
+          // branch's `aoi.geometry` (Zonal or buffered Point) is never null.
+          body_params: { geojson: aoi.geometry as IGeometry },
+        };
 
     // Sync sorts
     if (sort.length > 0) setSorts(sort);

@@ -52,3 +52,18 @@
   display: flex;
   gap: var(--padding-default)
 }
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: var(--no-padding);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--theme-text-primary);
+  }
+}

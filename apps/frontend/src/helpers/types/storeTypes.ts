@@ -1,6 +1,7 @@
 import {
   IConfigJSON,
   IEventSchema,
+  IFeature,
   IFilteringParams,
   IFilteringParamsUI,
   IGeometry,
@@ -266,10 +267,15 @@ export interface ITimeRangeStoreActions {
   ) => void;
 }
 
+// A drawn AOI is a standard GeoJSON Feature (RFC 7946) — geometry plus a
+// properties bag — not a bare Geometry. Properties are unused for now, but
+// the envelope is what makes this a real, portable Feature.
+export type TAOIFeature = IFeature<IGeometry, null>;
+
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
-  feature: IGeometry | null;
+  feature: TAOIFeature | null;
   // Circle radius (km) for the point tool. A point AOI is a circular buffer of
   // this radius; enforced minimum lives in AOI_RADIUS_MIN_KM.
   radius: number;
@@ -278,6 +284,32 @@ export interface IAOIStoreStates {
   mpaOptions: IDropdownOption<string>[];
   mpaActive: IDropdownOption<string> | undefined;
 }
+
+export interface IAOIRegionProperties {
+  'region-dataset': ERegionDatasets;
+  'region-id': string;
+}
+
+// A Point AOI is buffered into a circle Polygon before it's ever returned
+// (the backend/export never sees a bare Point), which loses the one thing
+// that told a Point apart from a freehand Zonal polygon: the radius. Carried
+// here instead, so a Point AOI can be told apart from Zonal and reconstructed
+// on import; a Zonal polygon needs no properties at all.
+export interface IAOIPointProperties {
+  radius: number;
+}
+
+// getAOI()'s return — reused as-is for the import/export button so there's a
+// single AOI representation, not two, and it's always a standard GeoJSON
+// Feature either way: a drawn AOI carries real geometry (plus radius
+// properties if it came from the Point tool); a named region has no local
+// geometry (geometry: null is valid per RFC 7946 §3.2), so its descriptor
+// lives in properties instead.
+export type TAOIQuery = IFeature<
+  IGeometry | null,
+  IAOIRegionProperties | IAOIPointProperties | null
+> | null;
+
 export interface IAOIStoreActions {
   setZonal: (
     a_Value:
@@ -327,13 +359,8 @@ export interface IAOIStoreActions {
           a_Prev: IAOIStoreStates['mpaActive'],
         ) => IAOIStoreStates['mpaActive']),
   ) => void;
-  getAOI: () =>
-    | IGeometry
-    | {
-        'region-dataset': ERegionDatasets;
-        'region-id': string;
-      }
-    | null;
+  getAOI: () => TAOIQuery;
+  importAOI: (a_Data: TAOIQuery) => void;
 }
 
 export interface IConfigStoreStates {

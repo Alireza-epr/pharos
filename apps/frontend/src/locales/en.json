@@ -22,11 +22,15 @@
       "list": "List",
       "clearZonal": "Clear Zonal",
       "clearPoint": "Clear Point",
-      "maximize": "Maximize"
+      "maximize": "Maximize",
+      "import": "Import"
     },
     "action": {
       "copy": "Copy",
       "close": "Close"
+    },
+    "text": {
+      "invalidImportFile": "Invalid or unreadable import file."
     }
   },
   "header": {

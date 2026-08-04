@@ -1,5 +1,6 @@
 import { ReactNode, useState, Activity, MouseEvent } from 'react';
 import sectionStyle from './Section.module.scss';
+import { useTranslator } from '../../../hooks/translator';
 
 export interface ISectionProps {
   title: string;
@@ -13,6 +14,7 @@ export interface ISectionProps {
 }
 
 const Section = (props: ISectionProps) => {
+  const { t } = useTranslator();
   const [open, setOpen] = useState(props.collapsible);
 
   const handleImport = (e: MouseEvent) => {
@@ -40,23 +42,27 @@ const Section = (props: ISectionProps) => {
           {props.title}
         </span>
         <div className={sectionStyle.actionsWrapper}>
-          {props.showImport !== undefined && (
-            <span
-              className={`font-size-l ${sectionStyle.chevron}`}
+          {props.showImport && (
+            <button
+              type="button"
+              className={`font-size-l ${sectionStyle.iconButton}`}
               onClick={handleImport}
-              title='Import'
+              title={t('general.label.import')}
+              aria-label={t('general.label.import')}
             >
               ↧
-            </span>
+            </button>
           )}
-          {props.showExport !== undefined && (
-            <span
-              className={`font-size-l ${sectionStyle.chevron}`}
+          {props.showExport && (
+            <button
+              type="button"
+              className={`font-size-l ${sectionStyle.iconButton}`}
               onClick={handleExport}
-              title='Export'
+              title={t('general.label.export')}
+              aria-label={t('general.label.export')}
             >
               ↥
-            </span>
+            </button>
           )}
           {props.collapsible !== undefined && (
             <span
