@@ -10,25 +10,16 @@ import AdvancedQuery from '../../blocks/AdvancedQuery';
 import ButtonInput from '../../common/inputs/ButtonInput';
 import { useTranslator } from '../../../hooks/translator';
 import { useEventStore } from '../../../stores/eventStore';
-import { useSortOrderStore } from '../../../stores/sortOrderStore';
 import { useBottomStore } from '../../../stores/bottomStore';
 import SectionInputGroup from '../../common/section/SectionInputGroup';
 import { useFetchEvents } from '../../../hooks/fetch';
 import { useAOIStore } from '../../../stores/areaOfInterestStore';
-import { IConfigJSON, IGeometry, TURLParams } from '@packages/types';
-import { EFetchMethods } from '@packages/enum';
-import { useFilterStore } from '../../../stores/filterStore';
-import { useHotspotConfigStore } from '../../../stores/hotspotConfigStore';
 import { useConfigStore } from '../../../stores/configStore';
-import { useThresholdStore } from '../../../stores/thresholdStore';
-import { useAdvancedQueryStore } from '../../../stores/advancedQueryStore';
 import Pagination from '../../blocks/Pagination';
-import { usePaginationStore } from '../../../stores/paginationStore';
-import { globalfishingwatch } from '../../../helpers/fixtures/url';
 import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
-import { useTimeRangeStore } from '../../../stores/timeRangeStore';
 import ExportAndImportConfig from '../../../components/blocks/ExportAndImportConfig';
+import { buildConfig } from '../../../helpers/utils/configUtils';
 
 const ReportTab = () => {
   const { response, loading, error, execute } = useFetchEvents();
@@ -43,92 +34,11 @@ const ReportTab = () => {
   );
 
   const handleRunQueryClick = () => {
-    const aoi = useAOIStore.getState().getAOI();
-    if (!aoi) return;
-
-    const dateRange = useTimeRangeStore.getState().getTimeRange();
-
-    const sortOrder = useSortOrderStore.getState().getSortOrder();
-
-    const filter = useFilterStore.getState().filter;
-    const sources = useFilterStore.getState().getSources();
-    const filters = useFilterStore.getState().getFilter();
-
-    const hotspot = useHotspotConfigStore.getState().getHotspot();
-
-    const threshold = useThresholdStore.getState().threshold;
-    
-    const exportConfig = useConfigStore.getState().getExport();
-
-    const pagination = usePaginationStore.getState().getPagination();
-
-    const {
-      spatialResolution,
-      spatialAggregation,
-      temporalResolution,
-      format,
-      groupBy,
-    } = useAdvancedQueryStore.getState().getAdvancedQuery();
-
-    const urlParams_base = {
-      'spatial-resolution': spatialResolution,
-      'spatial-aggregation': spatialAggregation,
-      'temporal-resolution': temporalResolution,
-      format,
-      'group-by': groupBy,
-      ...dateRange,
-      ...filters,
-      ...sources,
-    };
-    const region =
-      aoi.properties && 'region-dataset' in aoi.properties
-        ? aoi.properties
-        : undefined;
-
-    const urlParams: TURLParams = region
-      ? {
-          ...urlParams_base,
-          'region-dataset': region['region-dataset'],
-          'region-id': region['region-id'],
-        }
-      : {
-          ...urlParams_base,
-        };
-
-    const bodyParams_base = {
-      URL: globalfishingwatch.url['4wings'].endpoints.report,
-      ...sortOrder,
-      filter,
-      hotspot,
-      threshold,
-      ...pagination,
-      export: exportConfig,
-    };
-
-    const config_base = {
-      url_params: {
-        ...urlParams,
-      },
-      ...bodyParams_base,
-    };
-
-    const config: IConfigJSON = region
-      ? {
-          ...config_base,
-          method: EFetchMethods.get,
-        }
-      : {
-          ...config_base,
-          method: EFetchMethods.post,
-          // The backend's geojson body param is a bare Geometry (see
-          // docs/api/query-contract.md), so unwrap the Feature's geometry here.
-          // getAOI() always pairs a named region with null geometry, so this
-          // branch's `aoi.geometry` (Zonal or buffered Point) is never null.
-          body_params: { geojson: aoi.geometry as IGeometry },
-        };
+    if (!hasAOI) return;
+    const config = buildConfig();
 
     // Sync sorts
-    if (sortOrder.sort.length > 0) setSorts(sortOrder.sort);
+    if (config.sort.length > 0) setSorts(config.sort);
 
     log_frontend({ config: { ...config } });
     setConfig(config);

@@ -274,17 +274,6 @@ export const featureFromEvents = (
   });
 };
 
-export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
-  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
-
-  const filteredConfiguration = deepStripHidden(
-    a_Configurations,
-    new Set(hiddenKeys),
-  ) as IConfigJSON[];
-
-  return filteredConfiguration;
-};
-
 export const getUserInfoFromReq = <P, R, B = {}, Q = {}>(
   a_Req: Request<P, R, B, Q>,
 ): string => {

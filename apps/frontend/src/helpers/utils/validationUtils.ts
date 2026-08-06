@@ -11,27 +11,42 @@ import {
   TAOIQuery,
 } from '../types/storeTypes';
 
+// Matches getAOI()'s two possible shapes exactly: a named region lives under
+// url_params; a drawn Zonal/Point polygon lives under body_params.geojson
+// (with the Point tool's radius riding alongside type/coordinates there).
 export const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
   if (a_Data === null) return true;
-  if (!isObject(a_Data) || a_Data['type'] !== 'Feature') return false;
+  if (!isObject(a_Data)) return false;
 
-  const geometry = a_Data['geometry'];
-  const hasValidGeometry =
-    geometry === null ||
-    (isObject(geometry) &&
-      isString(geometry['type']) &&
-      'coordinates' in geometry);
-  if (!hasValidGeometry) return false;
+  if ('url_params' in a_Data) {
+    const url_params = a_Data['url_params'];
+    return (
+      isObject(url_params) &&
+      isString(url_params['region-id']) &&
+      (url_params['region-dataset'] === ERegionDatasets.eez ||
+        url_params['region-dataset'] === ERegionDatasets.mpa)
+    );
+  }
 
-  const properties = a_Data['properties'];
-  return (
-    properties === null ||
-    (isObject(properties) &&
-      ((isString(properties['region-id']) &&
-        (properties['region-dataset'] === ERegionDatasets.eez ||
-          properties['region-dataset'] === ERegionDatasets.mpa)) ||
-        isNumber(properties['radius'])))
-  );
+  if ('body_params' in a_Data) {
+    const body_params = a_Data['body_params'];
+    if (!isObject(body_params)) return false;
+    const geojson = body_params['geojson'];
+    if (
+      !isObject(geojson) ||
+      !isString(geojson['type']) ||
+      !('coordinates' in geojson)
+    ) {
+      return false;
+    }
+    const properties = geojson['properties'];
+    return (
+      properties === null ||
+      (isObject(properties) && isNumber(properties['radius']))
+    );
+  }
+
+  return false;
 };
 
 // The same `date-range` URL param ReportTab sends to the backend. Trusted

@@ -68,7 +68,8 @@
       "filter": "Filter",
       "advancedQuery": "Erweiterte Abfrage",
       "matchingStatus": "Matching-Status",
-      "datasetsFilter": "Datensatzfilter"
+      "datasetsFilter": "Datensatzfilter",
+      "exportImportConfig": "Konfiguration exportieren/importieren"
     },
     "title": {
       "geography": "Geografie",
@@ -132,7 +133,9 @@
       "lowConfTierWeight": "Niedr. Konfid.-Stufe",
       "medConfTierWeight": "Mittl. Konfid.-Stufe",
       "highConfTierWeight": "Hohe Konfid.-Stufe",
-      "radiusKm": "Radius (km)"
+      "radiusKm": "Radius (km)",
+      "exportAllConfig": "Alle exportieren",
+      "importAllConfig": "Alle importieren"
     },
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
@@ -144,7 +147,8 @@
       "pointHint": "Klicken Sie auf die Karte, um einen Punkt zu setzen"
     },
     "caveat": {
-      "apiInternalId": "API-interne ID"
+      "apiInternalId": "API-interne ID",
+      "importReplacesConfig": "Das Importieren ersetzt die gesamte aktuelle Konfiguration."
     },
     "hint": {
       "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",

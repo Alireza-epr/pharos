@@ -328,10 +328,23 @@ export interface IAOIPointProperties {
   radius: number;
 }
 
-export type TAOIQuery = IFeature<
-  IGeometry | null,
-  IAOIRegionProperties | IAOIPointProperties | null
-> | null;
+// getAOI()'s return, reused as-is for the AOI section's import/export button
+// — same principle as every other section, but AOI's own query shape splits
+// across two different IConfigJSON locations depending on the tool used, so
+// this mirrors that directly instead of wrapping in a synthetic envelope: a
+// named region belongs in url_params; a drawn Zonal/Point polygon belongs in
+// body_params.geojson (with the Point tool's radius riding alongside
+// type/coordinates there, since geojson has no other place to carry it —
+// see configUtils.ts's buildConfig()).
+export interface IAOIRegionQuery {
+  url_params: IAOIRegionProperties;
+}
+export interface IAOIGeometryQuery {
+  body_params: {
+    geojson: IGeometry & { properties: IAOIPointProperties | null };
+  };
+}
+export type TAOIQuery = IAOIRegionQuery | IAOIGeometryQuery | null;
 
 export interface IAOIStoreActions {
   setZonal: (

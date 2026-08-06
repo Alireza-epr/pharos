@@ -1,9 +1,11 @@
 import {
+  IConfigJSON,
   IEventSchema,
   IRejectedEventSchema,
   ISortOption,
 } from "@packages/types";
-import { deepSortObject } from "./generalUtils";
+import { deepSortObject, deepStripHidden } from "./generalUtils";
+import { EHiddenConfig } from "@packages/enum";
 
 export const getSortValue = (obj: any, path: string) => {
   return path
@@ -89,4 +91,15 @@ export const sortEventSchema = (
   }
 
   return [...deepSortObject(accepted), ...deepSortObject(rejected)];
+};
+
+export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
+  const hiddenKeys = Object.values(EHiddenConfig) as EHiddenConfig[];
+
+  const filteredConfiguration = deepStripHidden(
+    a_Configurations,
+    new Set(hiddenKeys),
+  ) as IConfigJSON[];
+
+  return filteredConfiguration;
 };

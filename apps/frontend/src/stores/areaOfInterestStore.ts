@@ -71,25 +71,21 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           mpaActive:
             typeof a_Value === 'function' ? a_Value(state.mpaActive) : a_Value,
         })),
-      // Always a standard Feature: a named region has no local geometry (null,
-      // per RFC 7946 §3.2) and carries its descriptor in properties; a drawn
-      // AOI carries real geometry and null properties. Never a bare object.
+      // Mirrors literally where this AOI lives in IConfigJSON: a named region
+      // is a url_params fragment; a drawn Zonal/Point polygon is a
+      // body_params.geojson fragment — never a synthetic envelope of our own.
       getAOI: (): TAOIQuery => {
         const { eezActive, mpaActive, feature } = get();
         if (eezActive)
           return {
-            type: 'Feature',
-            geometry: null,
-            properties: {
+            url_params: {
               'region-dataset': ERegionDatasets.eez,
               'region-id': eezActive.value,
             },
           };
         if (mpaActive)
           return {
-            type: 'Feature',
-            geometry: null,
-            properties: {
+            url_params: {
               'region-dataset': ERegionDatasets.mpa,
               'region-id': mpaActive.value,
             },
@@ -97,9 +93,10 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
         if (!feature) return null;
         // A point AOI is a circle: buffer the centre into a Polygon of `radius`
         // km so the AOI is always an area, never a bare point. `radius` is only
-        // meaningful here, so it's only read here — and it's carried in
-        // properties too, since buffering is what erases the fact this came
-        // from the Point tool rather than a freehand Zonal polygon.
+        // meaningful here, so it's only read here — and it rides alongside
+        // type/coordinates on geojson itself (the backend ignores unknown
+        // keys there), since buffering is what erases the fact this came from
+        // the Point tool rather than a freehand Zonal polygon.
         if (feature.geometry.type === EGeoJSONGeometryType.Point) {
           const radius = get().radius;
           const buffered = circle(
@@ -108,33 +105,37 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             { units: 'kilometers', steps: AOI_CIRCLE_STEPS },
           );
           return {
-            type: 'Feature',
-            geometry: {
-              type: EGeoJSONGeometryType.Polygon,
-              coordinates: buffered.geometry.coordinates,
+            body_params: {
+              geojson: {
+                type: EGeoJSONGeometryType.Polygon,
+                coordinates: buffered.geometry.coordinates,
+                properties: { radius },
+              },
             },
-            properties: { radius },
           };
         }
-        return feature;
+        return {
+          body_params: {
+            geojson: { ...feature.geometry, properties: null },
+          },
+        };
       },
       // Consumes exactly what getAOI() produces — no separate export shape.
-      // A region descriptor re-resolves against the current EEZ/MPA option
-      // list. A `radius` property means the geometry is a buffered Point
-      // circle, not a freehand Zonal polygon — recover the original centre
-      // (the buffer's centroid) so the Point tool re-arms at the right spot.
-      // Anything else is a plain drawn polygon. Either way, no draw tool is
-      // left armed.
+      // A url_params fragment re-resolves against the current EEZ/MPA option
+      // list. A body_params fragment whose geojson carries a `radius`
+      // property came from a buffered Point circle, not a freehand Zonal
+      // polygon — recover the original centre (the buffer's centroid) so the
+      // Point tool re-arms at the right spot. Anything else is a plain drawn
+      // polygon. Either way, no draw tool is left armed.
       importAOI: (a_Data) => {
         const { eezOptions, mpaOptions } = get();
-        const properties = a_Data?.properties;
 
-        if (properties && 'region-dataset' in properties) {
-          const isEEZ = properties['region-dataset'] === ERegionDatasets.eez;
+        if (a_Data && 'url_params' in a_Data) {
+          const { 'region-dataset': dataset, 'region-id': id } =
+            a_Data.url_params;
+          const isEEZ = dataset === ERegionDatasets.eez;
           const options = isEEZ ? eezOptions : mpaOptions;
-          const active = options.find(
-            (o) => o.value === properties['region-id'],
-          );
+          const active = options.find((o) => o.value === id);
           set({
             zonal: false,
             point: false,
@@ -145,18 +146,34 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           return;
         }
 
-        if (a_Data?.geometry && properties && 'radius' in properties) {
-          const center = centroid(a_Data.geometry as any).geometry
-            .coordinates as [number, number];
+        if (a_Data && 'body_params' in a_Data) {
+          const { properties, ...geometry } = a_Data.body_params.geojson;
+          if (properties) {
+            const center = centroid(geometry as any).geometry.coordinates as [
+              number,
+              number,
+            ];
+            set({
+              zonal: false,
+              point: false,
+              feature: {
+                type: 'Feature',
+                geometry: {
+                  type: EGeoJSONGeometryType.Point,
+                  coordinates: center,
+                },
+                properties: null,
+              },
+              radius: Math.max(AOI_RADIUS_MIN_KM, properties.radius),
+              eezActive: undefined,
+              mpaActive: undefined,
+            });
+            return;
+          }
           set({
             zonal: false,
             point: false,
-            feature: {
-              type: 'Feature',
-              geometry: { type: EGeoJSONGeometryType.Point, coordinates: center },
-              properties: null,
-            },
-            radius: Math.max(AOI_RADIUS_MIN_KM, properties.radius),
+            feature: { type: 'Feature', geometry, properties: null },
             eezActive: undefined,
             mpaActive: undefined,
           });
@@ -166,9 +183,7 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
         set({
           zonal: false,
           point: false,
-          feature: a_Data?.geometry
-            ? { type: 'Feature', geometry: a_Data.geometry, properties: null }
-            : null,
+          feature: null,
           eezActive: undefined,
           mpaActive: undefined,
         });
