@@ -20,6 +20,7 @@ import { EFetchMethods } from '@packages/enum';
 import { useFilterStore } from '../../../stores/filterStore';
 import { useHotspotConfigStore } from '../../../stores/hotspotConfigStore';
 import { useConfigStore } from '../../../stores/configStore';
+import { useThresholdStore } from '../../../stores/thresholdStore';
 import { useAdvancedQueryStore } from '../../../stores/advancedQueryStore';
 import Pagination from '../../blocks/Pagination';
 import { usePaginationStore } from '../../../stores/paginationStore';
@@ -55,7 +56,8 @@ const ReportTab = () => {
 
     const hotspot = useHotspotConfigStore.getState().getHotspot();
 
-    const threshold = useConfigStore.getState().getThreshold();
+    const threshold = useThresholdStore.getState().threshold;
+    
     const exportConfig = useConfigStore.getState().getExport();
 
     const pagination = usePaginationStore.getState().getPagination();

@@ -392,8 +392,25 @@ export interface IConfigStoreActions {
           a_Prev: IConfigStoreStates['config'],
         ) => IConfigStoreStates['config']),
   ) => void;
-  getThreshold: () => IConfigJSON['threshold'];
   getExport: () => TExportConfig;
+}
+
+export interface IThresholdStoreStates {
+  threshold: IConfigJSON['threshold'];
+}
+
+export type IThresholdQuery = Pick<IConfigBase, 'threshold'>;
+
+export interface IThresholdStoreActions {
+  setThreshold: (
+    a_Value:
+      | IThresholdStoreStates['threshold']
+      | ((
+          a_Prev: IThresholdStoreStates['threshold'],
+        ) => IThresholdStoreStates['threshold']),
+  ) => void;
+  getThresholdConfig: () => IThresholdQuery;
+  importThresholdConfig: (a_Data: IThresholdQuery) => void;
 }
 
 export interface IAdvancedQueryStoreStates {

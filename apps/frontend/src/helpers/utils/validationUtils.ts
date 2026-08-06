@@ -4,6 +4,7 @@ import {
   IFilterQuery,
   IPaginationQuery,
   ISortOrderQuery,
+  IThresholdQuery,
   ITimeRangeQuery,
   TAOIQuery,
 } from '../types/storeTypes';
@@ -87,4 +88,12 @@ export const isValidFilterQuery = (
   if (!isObject(a_Data)) return false;
   const { filter, url_params } = a_Data;
   return isObject(filter) && isObject(url_params);
+};
+
+export const isValidThresholdQuery = (
+  a_Data: unknown,
+): a_Data is IThresholdQuery => {
+  if (!isObject(a_Data)) return false;
+  const { threshold } = a_Data;
+  return isObject(threshold) && Object.values(threshold).every(isNumber);
 };
