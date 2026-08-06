@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import {
+  IPaginationQuery,
   IPaginationStoreStates,
   IPaginationStoreActions,
 } from '../helpers/types/storeTypes';
@@ -23,14 +24,14 @@ export const usePaginationStore = create<
           offset:
             typeof a_Value === 'function' ? a_Value(state.offset) : a_Value,
         })),
-      getPagination: () => {
+      getPagination: (): IPaginationQuery => {
         const { limit, offset } = get();
         return { pagination: { limit, offset } };
       },
       importPagination: (a_Data) =>
         set({
-          limit: a_Data.pagination.limit,
-          offset: a_Data.pagination.offset,
+          limit: a_Data.pagination.limit ?? null,
+          offset: a_Data.pagination.offset ?? null,
         }),
     }),
   ),

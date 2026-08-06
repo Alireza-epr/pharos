@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import {
+  ITimeRangeQuery,
   ITimeRangeStoreActions,
   ITimeRangeStoreStates,
 } from '../helpers/types/storeTypes';
@@ -29,12 +30,12 @@ export const useTimeRangeStore = create<
           dateTo:
             typeof a_Value === 'function' ? a_Value(state.dateTo) : a_Value,
         })),
-      getTimeRange: () => {
+      getTimeRange: (): ITimeRangeQuery => {
         const { dateFrom, dateTo } = get();
         return { 'date-range': `${dateFrom}Z,${dateTo}Z` };
       },
       importTimeRange: (a_Data) => {
-        const [from, to] = a_Data['date-range'].split(',');
+        const [from, to] = (a_Data['date-range'] ?? '').split(',');
         set({
           dateFrom: (from ?? '').replace(/Z$/, ''),
           dateTo: (to ?? '').replace(/Z$/, ''),

@@ -47,7 +47,7 @@ const ReportTab = () => {
 
     const dateRange = useTimeRangeStore.getState().getTimeRange();
 
-    const sort = useSortOrderStore.getState().sorts;
+    const sortOrder = useSortOrderStore.getState().getSortOrder();
 
     const filter = useFilterStore.getState().filters;
     const sources = useFilterStore.getState().getSources();
@@ -98,7 +98,7 @@ const ReportTab = () => {
 
     const bodyParams_base = {
       URL: globalfishingwatch.url['4wings'].endpoints.report,
-      sort,
+      ...sortOrder,
       filter,
       hotspot,
       threshold,
@@ -129,7 +129,7 @@ const ReportTab = () => {
         };
 
     // Sync sorts
-    if (sort.length > 0) setSorts(sort);
+    if (sortOrder.sort.length > 0) setSorts(sortOrder.sort);
 
     log_frontend({ config: { ...config } });
     setConfig(config);

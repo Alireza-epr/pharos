@@ -4,29 +4,10 @@ import DateInput from '../common/inputs/DateInput';
 import { useTranslator } from '@/hooks/translator';
 import { useTimeRangeStore } from '@/stores/timeRangeStore';
 import { downloadJSON, openJSONFile } from '@/helpers/utils/downloadUtils';
+import { isValidTimeRangeQuery } from '@/helpers/utils/validationUtils';
 import { useMessageStore } from '@/stores/messageStore';
-import { isObject, isString } from '@packages/utils';
-import { ITimeRangeQuery } from '@/helpers/types/storeTypes';
 
 export interface ITimeRangeProps {}
-
-// Matches the shape getTimeRange() produces — the same `date-range` URL param
-// ReportTab sends to the backend. An imported file is trusted only if it
-// splits into two comma-separated values that actually parse as dates.
-const isValidTimeRangeQuery = (
-  a_Data: unknown,
-): a_Data is ITimeRangeQuery => {
-  if (!isObject(a_Data)) return false;
-  const dateRange = a_Data['date-range'];
-  if (!isString(dateRange)) return false;
-  const [from, to] = dateRange.split(',');
-  return (
-    isString(from) &&
-    isString(to) &&
-    !Number.isNaN(Date.parse(from)) &&
-    !Number.isNaN(Date.parse(to))
-  );
-};
 
 const TimeRange = () => {
   const dateFrom = useTimeRangeStore((s) => s.dateFrom);

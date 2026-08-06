@@ -6,6 +6,7 @@
 /packages/utils/dist
 *raw*.md
 *.zip
+.vscode
 
 # Playwright
 test-results

@@ -1,28 +1,11 @@
-import { usePaginationStore } from '@/stores/paginationStore';
+import { usePaginationStore } from '../../stores/paginationStore';
 import { useTranslator } from '../../hooks/translator';
 import NumberInput from '../common/inputs/NumberInput';
 import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
-import { downloadJSON, openJSONFile } from '@/helpers/utils/downloadUtils';
-import { useMessageStore } from '@/stores/messageStore';
-import { isNumber, isObject } from '@packages/utils';
-import { IPaginationQuery } from '@/helpers/types/storeTypes';
-
-// Matches the shape getPagination() produces — the same `pagination` body
-// param ReportTab already sends to the backend. An imported file is trusted
-// only if both fields are a number or null, same as the store itself allows.
-const isValidPaginationQuery = (
-  a_Data: unknown,
-): a_Data is IPaginationQuery => {
-  if (!isObject(a_Data)) return false;
-  const pagination = a_Data['pagination'];
-  if (!isObject(pagination)) return false;
-  const { limit, offset } = pagination;
-  return (
-    (limit === null || isNumber(limit)) &&
-    (offset === null || isNumber(offset))
-  );
-};
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidPaginationQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 const Pagination = () => {
   const limit = usePaginationStore((s) => s.limit);

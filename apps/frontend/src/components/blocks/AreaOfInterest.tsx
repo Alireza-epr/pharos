@@ -11,11 +11,10 @@ import {
   AOI_RADIUS_MIN_KM,
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
-import { EGeoJSONGeometryType, ERegionDatasets } from '@packages/enum';
-import { isNumber, isObject, isString } from '@packages/utils';
+import { EGeoJSONGeometryType } from '@packages/enum';
 import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
-import { TAOIQuery } from '../../helpers/types/storeTypes';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -27,34 +26,6 @@ export type TAreaOfInterestTools =
   (typeof EAreaOfInterestTools)[keyof typeof EAreaOfInterestTools];
 
 export interface IAreaOfInterestProps {}
-
-// Matches the shape getAOI() produces (a standard GeoJSON Feature): a named
-// region has null geometry and a region descriptor in properties; a drawn
-// Zonal polygon has real geometry and null properties; a drawn Point has real
-// (buffered) geometry plus its radius in properties. An imported file is
-// trusted only if it could plausibly have come from this section's own export.
-const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
-  if (a_Data === null) return true;
-  if (!isObject(a_Data) || a_Data['type'] !== 'Feature') return false;
-
-  const geometry = a_Data['geometry'];
-  const hasValidGeometry =
-    geometry === null ||
-    (isObject(geometry) &&
-      isString(geometry['type']) &&
-      'coordinates' in geometry);
-  if (!hasValidGeometry) return false;
-
-  const properties = a_Data['properties'];
-  return (
-    properties === null ||
-    (isObject(properties) &&
-      ((isString(properties['region-id']) &&
-        (properties['region-dataset'] === ERegionDatasets.eez ||
-          properties['region-dataset'] === ERegionDatasets.mpa)) ||
-        isNumber(properties['radius'])))
-  );
-};
 
 const AreaOfInterest = () => {
   const zonal = useAOIStore((s) => s.zonal);

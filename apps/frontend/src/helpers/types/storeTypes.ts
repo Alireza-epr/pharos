@@ -1,4 +1,6 @@
 import {
+  I4wingsReportPostURLParams,
+  IConfigBase,
   IConfigJSON,
   IEventSchema,
   IFeature,
@@ -212,16 +214,21 @@ export interface IContextLayersStoreActions {
   ) => void;
 }
 export interface ISortOrderStoreStates {
-  sorts: ISortOption[];
+  sort: ISortOption[];
 }
+
+export type ISortOrderQuery = Pick<IConfigBase, 'sort'>;
+
 export interface ISortOrderStoreActions {
-  setSorts: (
+  setSort: (
     a_Value:
-      | ISortOrderStoreStates['sorts']
+      | ISortOrderStoreStates['sort']
       | ((
-          a_Prev: ISortOrderStoreStates['sorts'],
-        ) => ISortOrderStoreStates['sorts']),
+          a_Prev: ISortOrderStoreStates['sort'],
+        ) => ISortOrderStoreStates['sort']),
   ) => void;
+  getSortOrder: () => ISortOrderQuery;
+  importSortOrder: (a_Data: ISortOrderQuery) => void;
 }
 
 export interface IHotspotConfigStoreStates {
@@ -251,11 +258,7 @@ export interface ITimeRangeStoreStates {
   dateTo: string;
 }
 
-// The `date-range` URL param ReportTab already builds for the query — reused
-// as-is for the section's import/export button, same as getAOI().
-export interface ITimeRangeQuery {
-  'date-range': string;
-}
+export type ITimeRangeQuery = Pick<I4wingsReportPostURLParams, 'date-range'>;
 
 export interface ITimeRangeStoreActions {
   setDateFrom: (
@@ -299,21 +302,10 @@ export interface IAOIRegionProperties {
   'region-id': string;
 }
 
-// A Point AOI is buffered into a circle Polygon before it's ever returned
-// (the backend/export never sees a bare Point), which loses the one thing
-// that told a Point apart from a freehand Zonal polygon: the radius. Carried
-// here instead, so a Point AOI can be told apart from Zonal and reconstructed
-// on import; a Zonal polygon needs no properties at all.
 export interface IAOIPointProperties {
   radius: number;
 }
 
-// getAOI()'s return — reused as-is for the import/export button so there's a
-// single AOI representation, not two, and it's always a standard GeoJSON
-// Feature either way: a drawn AOI carries real geometry (plus radius
-// properties if it came from the Point tool); a named region has no local
-// geometry (geometry: null is valid per RFC 7946 §3.2), so its descriptor
-// lives in properties instead.
 export type TAOIQuery = IFeature<
   IGeometry | null,
   IAOIRegionProperties | IAOIPointProperties | null
@@ -441,11 +433,7 @@ export interface IPaginationStoreStates {
   offset: number | null;
 }
 
-// The `pagination` body param ReportTab already builds for the query — reused
-// as-is for the section's import/export button, same as getAOI()/getTimeRange().
-export interface IPaginationQuery {
-  pagination: IPaginationStoreStates;
-}
+export type IPaginationQuery = Pick<IConfigBase, 'pagination'>;
 
 export interface IPaginationStoreActions {
   setLimit: (
