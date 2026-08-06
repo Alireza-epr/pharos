@@ -49,7 +49,7 @@ const ReportTab = () => {
 
     const sortOrder = useSortOrderStore.getState().getSortOrder();
 
-    const filter = useFilterStore.getState().filters;
+    const filter = useFilterStore.getState().filter;
     const sources = useFilterStore.getState().getSources();
     const filters = useFilterStore.getState().getFilter();
 
@@ -78,9 +78,6 @@ const ReportTab = () => {
       ...filters,
       ...sources,
     };
-    
-    // A radius-only properties bag (a buffered Point AOI) isn't a named
-    // region — only `'region-dataset' in properties` means "use GET".
     const region =
       aoi.properties && 'region-dataset' in aoi.properties
         ? aoi.properties

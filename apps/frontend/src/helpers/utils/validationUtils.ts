@@ -1,20 +1,13 @@
 import { isNumber, isObject, isString } from '@packages/utils';
 import { ERegionDatasets } from '@packages/enum';
 import {
+  IFilterQuery,
   IPaginationQuery,
   ISortOrderQuery,
   ITimeRangeQuery,
   TAOIQuery,
 } from '../types/storeTypes';
 
-// Type guards for each Report-tab section's import file. Every one matches
-// the shape that section's own getX() produces — an imported file is trusted
-// only if it could plausibly have come from that section's own export.
-
-// A drawn AOI is a standard GeoJSON Feature: a named region has null geometry
-// and a region descriptor in properties; a drawn Zonal polygon has real
-// geometry and null properties; a drawn Point has real (buffered) geometry
-// plus its radius in properties.
 export const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
   if (a_Data === null) return true;
   if (!isObject(a_Data) || a_Data['type'] !== 'Feature') return false;
@@ -86,4 +79,12 @@ export const isValidSortOrderQuery = (
         item['direction'] === 'asc' ||
         item['direction'] === 'desc'),
   );
+};
+
+export const isValidFilterQuery = (
+  a_Data: unknown,
+): a_Data is IFilterQuery => {
+  if (!isObject(a_Data)) return false;
+  const { filter, url_params } = a_Data;
+  return isObject(filter) && isObject(url_params);
 };

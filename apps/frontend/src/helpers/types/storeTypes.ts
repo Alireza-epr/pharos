@@ -163,16 +163,31 @@ export interface IBottomStoreActions {
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams;
+  filter: IFilteringParams;
   filtersUI: IFilteringParamsUI;
 }
+
+export type TFilterURLParams = Omit<
+  I4wingsReportPostURLParams,
+  | "format"
+  | "spatial-resolution"
+  | "group-by"
+  | "temporal-resolution"
+  | "date-range"
+  | "spatial-aggregation"
+>;
+
+export interface IFilterQuery extends Pick<IConfigBase, 'filter'> {
+  url_params: TFilterURLParams;
+}
+
 export interface IFilterStoreActions {
-  setFilters: (
+  setFilter: (
     a_Value:
-      | IFilterStoreStates['filters']
+      | IFilterStoreStates['filter']
       | ((
-          a_Prev: IFilterStoreStates['filters'],
-        ) => IFilterStoreStates['filters']),
+          a_Prev: IFilterStoreStates['filter'],
+        ) => IFilterStoreStates['filter']),
   ) => void;
   setFiltersUI: (
     a_Value:
@@ -183,6 +198,8 @@ export interface IFilterStoreActions {
   ) => void;
   getSources: () => Record<TSourceKey, T4wingsSource> | {};
   getFilter: () => Record<TFilterKey, string> | {};
+  getFilterConfig: () => IFilterQuery;
+  importFilterConfig: (a_Data: IFilterQuery) => void;
 }
 
 export interface IContextLayersStoreStates {
