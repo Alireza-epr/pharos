@@ -3,9 +3,12 @@ import SectionItem from '../common/section/SectionItem';
 import NumberInput from '../common/inputs/NumberInput';
 import DropdownInput, { IDropdownOption } from '../common/inputs/DropdownInput';
 import { useTranslator } from '@/hooks/translator';
-import { useHotspotConfigStore } from '@/stores/hotspotConfigStore';
+import { useHotspotConfigStore } from '../../stores/hotspotConfigStore';
 import { EHotspotTimeBins } from '@packages/enum';
 import { IHotspotConfig } from '@packages/types';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidHotspotQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 export interface IHotspotConfigProps {}
 
@@ -23,10 +26,39 @@ const HotspotConfig = () => {
   const timeBin = useHotspotConfigStore((s) => s.timeBin);
   const setTimeBin = useHotspotConfigStore((s) => s.setTimeBin);
 
+  const getHotspotConfig = useHotspotConfigStore((s) => s.getHotspotConfig);
+  const importHotspotConfig = useHotspotConfigStore(
+    (s) => s.importHotspotConfig,
+  );
+
   const { t } = useTranslator();
 
+  const handleExport = () => {
+    downloadJSON(getHotspotConfig(), 'hotspot');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidHotspotQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importHotspotConfig(data);
+    }, reportInvalid);
+  };
+
   return (
-    <Section title={t('sidebar.titles.hotspotConfig')} collapsible={false}>
+    <Section
+      title={t('sidebar.titles.hotspotConfig')}
+      collapsible={false}
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
+    >
       <SectionItem title={t('sidebar.label.resolution')} tab>
         <NumberInput
           value={resolution}

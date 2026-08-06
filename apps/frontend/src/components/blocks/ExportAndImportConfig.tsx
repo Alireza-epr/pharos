@@ -15,9 +15,9 @@ const ExportAndImportConfig = () => {
   
   return (
     <Section title='Export/Import Config' collapsible={false}>
-        <SectionInputGroup direction='column' tab>
-            <ButtonInput label='Export' onClick={handleExportConfig} />
-            <ButtonInput label='Import' onClick={handleImportConfig} />
+        <SectionInputGroup direction='column'>
+          <ButtonInput label='Export All' onClick={handleExportConfig} />
+          <ButtonInput label='Import All' onClick={handleImportConfig} caveat='importing will replace all current config'/>
         </SectionInputGroup>
     </Section>
   )

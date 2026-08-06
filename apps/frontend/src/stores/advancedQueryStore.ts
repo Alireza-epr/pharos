@@ -7,9 +7,13 @@ import {
   ETemporalResolution,
 } from '@packages/enum';
 import {
+  IAdvancedQueryQuery,
   IAdvancedQueryStoreActions,
   IAdvancedQueryStoreStates,
 } from '../helpers/types/storeTypes';
+
+const default_spatialResolution = ESpatialResolution.HIGH;
+const default_groupBy = EGroupBy.VESSEL_ID;
 
 export const useAdvancedQueryStore = create<
   IAdvancedQueryStoreStates & IAdvancedQueryStoreActions
@@ -17,9 +21,9 @@ export const useAdvancedQueryStore = create<
   combine(
     {
       spatialResolution:
-        ESpatialResolution.HIGH as IAdvancedQueryStoreStates['spatialResolution'],
+        default_spatialResolution as IAdvancedQueryStoreStates['spatialResolution'],
       format: EFormat.JSON,
-      groupBy: EGroupBy.VESSEL_ID as IAdvancedQueryStoreStates['groupBy'],
+      groupBy: default_groupBy as IAdvancedQueryStoreStates['groupBy'],
       temporalResolution: ETemporalResolution.HOURLY,
       spatialAggregation: false,
     },
@@ -59,6 +63,34 @@ export const useAdvancedQueryStore = create<
         const status = get();
         return status;
       },
+      getAdvancedQueryConfig: (): IAdvancedQueryQuery => {
+        const {
+          spatialResolution,
+          format,
+          groupBy,
+          temporalResolution,
+          spatialAggregation,
+        } = get();
+        return {
+          url_params: {
+            'spatial-resolution': spatialResolution,
+            format,
+            'group-by': groupBy,
+            'temporal-resolution': temporalResolution,
+            'spatial-aggregation': spatialAggregation,
+          },
+        };
+      },
+      importAdvancedQueryConfig: (a_Data) =>
+        set({
+          spatialResolution:
+            a_Data.url_params['spatial-resolution'] ??
+            default_spatialResolution,
+          format: a_Data.url_params.format,
+          groupBy: a_Data.url_params['group-by'] ?? default_groupBy,
+          temporalResolution: a_Data.url_params['temporal-resolution'],
+          spatialAggregation: a_Data.url_params['spatial-aggregation'] ?? false,
+        }),
     }),
   ),
 );

@@ -154,10 +154,10 @@ const ReportTab = () => {
         <SortOrder />
         <Filter />
         <ThresholdAndWeights />
-        <ContextLayers />
         <HotspotConfig />
         <AdvancedQuery />
         <ExportAndImportConfig />
+        <ContextLayers />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">

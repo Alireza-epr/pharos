@@ -1,7 +1,9 @@
-import { isNumber, isObject, isString } from '@packages/utils';
-import { ERegionDatasets } from '@packages/enum';
+import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
+import { ERegionDatasets, EHotspotTimeBins } from '@packages/enum';
 import {
+  IAdvancedQueryQuery,
   IFilterQuery,
+  IHotspotQuery,
   IPaginationQuery,
   ISortOrderQuery,
   IThresholdQuery,
@@ -96,4 +98,38 @@ export const isValidThresholdQuery = (
   if (!isObject(a_Data)) return false;
   const { threshold } = a_Data;
   return isObject(threshold) && Object.values(threshold).every(isNumber);
+};
+
+export const isValidHotspotQuery = (
+  a_Data: unknown,
+): a_Data is IHotspotQuery => {
+  if (!isObject(a_Data)) return false;
+  const hotspot = a_Data['hotspot'];
+  if (!isObject(hotspot)) return false;
+  const { resolution, timeBin } = hotspot;
+  return (
+    isNumber(resolution) &&
+    Number.isInteger(resolution) &&
+    resolution >= 0 &&
+    resolution <= 15 &&
+    (timeBin === EHotspotTimeBins.DAILY || timeBin === EHotspotTimeBins.HOURLY)
+  );
+};
+
+export const isValidAdvancedQueryQuery = (
+  a_Data: unknown,
+): a_Data is IAdvancedQueryQuery => {
+  if (!isObject(a_Data)) return false;
+  const url_params = a_Data['url_params'];
+  if (!isObject(url_params)) return false;
+  return (
+    isString(url_params['format']) &&
+    isString(url_params['temporal-resolution']) &&
+    (url_params['spatial-resolution'] === undefined ||
+      isString(url_params['spatial-resolution'])) &&
+    (url_params['group-by'] === undefined ||
+      isString(url_params['group-by'])) &&
+    (url_params['spatial-aggregation'] === undefined ||
+      isBoolean(url_params['spatial-aggregation']))
+  );
 };

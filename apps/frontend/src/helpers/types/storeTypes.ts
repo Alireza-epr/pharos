@@ -252,6 +252,9 @@ export interface IHotspotConfigStoreStates {
   resolution: IHotspotConfig['resolution'];
   timeBin: EHotspotTimeBins;
 }
+
+export type IHotspotQuery = Pick<IConfigBase, 'hotspot'>;
+
 export interface IHotspotConfigStoreActions {
   setResolution: (
     a_Value:
@@ -268,6 +271,8 @@ export interface IHotspotConfigStoreActions {
         ) => IHotspotConfigStoreStates['timeBin']),
   ) => void;
   getHotspot: () => IHotspotConfigStoreStates;
+  getHotspotConfig: () => IHotspotQuery;
+  importHotspotConfig: (a_Data: IHotspotQuery) => void;
 }
 
 export interface ITimeRangeStoreStates {
@@ -420,6 +425,21 @@ export interface IAdvancedQueryStoreStates {
   temporalResolution: ETemporalResolution;
   spatialAggregation: boolean;
 }
+
+// These 5 fields live under IConfigJSON.url_params, not at the top level, so
+// the export is wrapped the same way — same as getFilterConfig()'s
+// url_params fragment, derived via Pick so it can't drift from the actual
+// URL params contract.
+export interface IAdvancedQueryQuery {
+  url_params: Pick<
+    I4wingsReportPostURLParams,
+    | 'spatial-resolution'
+    | 'format'
+    | 'group-by'
+    | 'temporal-resolution'
+    | 'spatial-aggregation'
+  >;
+}
 export interface IAdvancedQueryStoreActions {
   setSpatialResolution: (
     a_Value:
@@ -460,6 +480,8 @@ export interface IAdvancedQueryStoreActions {
     IAdvancedQueryStoreStates,
     'datasets' | 'mainDatasetVersion' | 'subDatasetVersion'
   >;
+  getAdvancedQueryConfig: () => IAdvancedQueryQuery;
+  importAdvancedQueryConfig: (a_Data: IAdvancedQueryQuery) => void;
 }
 
 export interface IPaginationStoreStates {
