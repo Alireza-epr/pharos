@@ -3,6 +3,9 @@ import SectionItem from '../common/section/SectionItem';
 import DateInput from '../common/inputs/DateInput';
 import { useTranslator } from '@/hooks/translator';
 import { useTimeRangeStore } from '@/stores/timeRangeStore';
+import { downloadJSON, openJSONFile } from '@/helpers/utils/downloadUtils';
+import { isValidTimeRangeQuery } from '@/helpers/utils/validationUtils';
+import { useMessageStore } from '@/stores/messageStore';
 
 export interface ITimeRangeProps {}
 
@@ -13,10 +16,37 @@ const TimeRange = () => {
   const dateTo = useTimeRangeStore((s) => s.dateTo);
   const setDateTo = useTimeRangeStore((s) => s.setDateTo);
 
+  const getTimeRange = useTimeRangeStore((s) => s.getTimeRange);
+  const importTimeRange = useTimeRangeStore((s) => s.importTimeRange);
+
   const { t } = useTranslator();
 
+  const handleExport = () => {
+    downloadJSON(getTimeRange(), 'time_range');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidTimeRangeQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importTimeRange(data);
+    }, reportInvalid);
+  };
+
   return (
-    <Section title={t('sidebar.titles.timeRange')} collapsible={false}>
+    <Section
+      title={t('sidebar.titles.timeRange')}
+      collapsible={false}
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
+    >
       <SectionItem title={t('general.label.from')} tab >
         <DateInput value={dateFrom} max={dateTo} onChange={setDateFrom} />
       </SectionItem>

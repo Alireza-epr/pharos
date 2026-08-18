@@ -1,6 +1,9 @@
 import {
+  I4wingsReportPostURLParams,
+  IConfigBase,
   IConfigJSON,
   IEventSchema,
+  IFeature,
   IFilteringParams,
   IFilteringParamsUI,
   IGeometry,
@@ -160,16 +163,31 @@ export interface IBottomStoreActions {
 }
 
 export interface IFilterStoreStates {
-  filters: IFilteringParams;
+  filter: IFilteringParams;
   filtersUI: IFilteringParamsUI;
 }
+
+export type TFilterURLParams = Omit<
+  I4wingsReportPostURLParams,
+  | "format"
+  | "spatial-resolution"
+  | "group-by"
+  | "temporal-resolution"
+  | "date-range"
+  | "spatial-aggregation"
+>;
+
+export interface IFilterQuery extends Pick<IConfigBase, 'filter'> {
+  url_params: TFilterURLParams;
+}
+
 export interface IFilterStoreActions {
-  setFilters: (
+  setFilter: (
     a_Value:
-      | IFilterStoreStates['filters']
+      | IFilterStoreStates['filter']
       | ((
-          a_Prev: IFilterStoreStates['filters'],
-        ) => IFilterStoreStates['filters']),
+          a_Prev: IFilterStoreStates['filter'],
+        ) => IFilterStoreStates['filter']),
   ) => void;
   setFiltersUI: (
     a_Value:
@@ -180,6 +198,8 @@ export interface IFilterStoreActions {
   ) => void;
   getSources: () => Record<TSourceKey, T4wingsSource> | {};
   getFilter: () => Record<TFilterKey, string> | {};
+  getFilterConfig: () => IFilterQuery;
+  importFilterConfig: (a_Data: IFilterQuery) => void;
 }
 
 export interface IContextLayersStoreStates {
@@ -211,22 +231,30 @@ export interface IContextLayersStoreActions {
   ) => void;
 }
 export interface ISortOrderStoreStates {
-  sorts: ISortOption[];
+  sort: ISortOption[];
 }
+
+export type ISortOrderQuery = Pick<IConfigBase, 'sort'>;
+
 export interface ISortOrderStoreActions {
-  setSorts: (
+  setSort: (
     a_Value:
-      | ISortOrderStoreStates['sorts']
+      | ISortOrderStoreStates['sort']
       | ((
-          a_Prev: ISortOrderStoreStates['sorts'],
-        ) => ISortOrderStoreStates['sorts']),
+          a_Prev: ISortOrderStoreStates['sort'],
+        ) => ISortOrderStoreStates['sort']),
   ) => void;
+  getSortOrder: () => ISortOrderQuery;
+  importSortOrder: (a_Data: ISortOrderQuery) => void;
 }
 
 export interface IHotspotConfigStoreStates {
   resolution: IHotspotConfig['resolution'];
   timeBin: EHotspotTimeBins;
 }
+
+export type IHotspotQuery = Pick<IConfigBase, 'hotspot'>;
+
 export interface IHotspotConfigStoreActions {
   setResolution: (
     a_Value:
@@ -243,12 +271,17 @@ export interface IHotspotConfigStoreActions {
         ) => IHotspotConfigStoreStates['timeBin']),
   ) => void;
   getHotspot: () => IHotspotConfigStoreStates;
+  getHotspotConfig: () => IHotspotQuery;
+  importHotspotConfig: (a_Data: IHotspotQuery) => void;
 }
 
 export interface ITimeRangeStoreStates {
   dateFrom: string;
   dateTo: string;
 }
+
+export type ITimeRangeQuery = Pick<I4wingsReportPostURLParams, 'date-range'>;
+
 export interface ITimeRangeStoreActions {
   setDateFrom: (
     a_Value:
@@ -264,12 +297,19 @@ export interface ITimeRangeStoreActions {
           a_Prev: ITimeRangeStoreStates['dateTo'],
         ) => ITimeRangeStoreStates['dateTo']),
   ) => void;
+  getTimeRange: () => ITimeRangeQuery;
+  importTimeRange: (a_Data: ITimeRangeQuery) => void;
 }
+
+// A drawn AOI is a standard GeoJSON Feature (RFC 7946) — geometry plus a
+// properties bag — not a bare Geometry. Properties are unused for now, but
+// the envelope is what makes this a real, portable Feature.
+export type TAOIFeature = IFeature<IGeometry, null>;
 
 export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
-  feature: IGeometry | null;
+  feature: TAOIFeature | null;
   // Circle radius (km) for the point tool. A point AOI is a circular buffer of
   // this radius; enforced minimum lives in AOI_RADIUS_MIN_KM.
   radius: number;
@@ -278,6 +318,34 @@ export interface IAOIStoreStates {
   mpaOptions: IDropdownOption<string>[];
   mpaActive: IDropdownOption<string> | undefined;
 }
+
+export interface IAOIRegionProperties {
+  'region-dataset': ERegionDatasets;
+  'region-id': string;
+}
+
+export interface IAOIPointProperties {
+  radius: number;
+}
+
+// getAOI()'s return, reused as-is for the AOI section's import/export button
+// — same principle as every other section, but AOI's own query shape splits
+// across two different IConfigJSON locations depending on the tool used, so
+// this mirrors that directly instead of wrapping in a synthetic envelope: a
+// named region belongs in url_params; a drawn Zonal/Point polygon belongs in
+// body_params.geojson (with the Point tool's radius riding alongside
+// type/coordinates there, since geojson has no other place to carry it —
+// see configUtils.ts's buildConfig()).
+export interface IAOIRegionQuery {
+  url_params: IAOIRegionProperties;
+}
+export interface IAOIGeometryQuery {
+  body_params: {
+    geojson: IGeometry & { properties: IAOIPointProperties | null };
+  };
+}
+export type TAOIQuery = IAOIRegionQuery | IAOIGeometryQuery | null;
+
 export interface IAOIStoreActions {
   setZonal: (
     a_Value:
@@ -327,13 +395,8 @@ export interface IAOIStoreActions {
           a_Prev: IAOIStoreStates['mpaActive'],
         ) => IAOIStoreStates['mpaActive']),
   ) => void;
-  getAOI: () =>
-    | IGeometry
-    | {
-        'region-dataset': ERegionDatasets;
-        'region-id': string;
-      }
-    | null;
+  getAOI: () => TAOIQuery;
+  importAOI: (a_Data: TAOIQuery) => void;
 }
 
 export interface IConfigStoreStates {
@@ -347,8 +410,25 @@ export interface IConfigStoreActions {
           a_Prev: IConfigStoreStates['config'],
         ) => IConfigStoreStates['config']),
   ) => void;
-  getThreshold: () => IConfigJSON['threshold'];
   getExport: () => TExportConfig;
+}
+
+export interface IThresholdStoreStates {
+  threshold: IConfigJSON['threshold'];
+}
+
+export type IThresholdQuery = Pick<IConfigBase, 'threshold'>;
+
+export interface IThresholdStoreActions {
+  setThreshold: (
+    a_Value:
+      | IThresholdStoreStates['threshold']
+      | ((
+          a_Prev: IThresholdStoreStates['threshold'],
+        ) => IThresholdStoreStates['threshold']),
+  ) => void;
+  getThresholdConfig: () => IThresholdQuery;
+  importThresholdConfig: (a_Data: IThresholdQuery) => void;
 }
 
 export interface IAdvancedQueryStoreStates {
@@ -357,6 +437,21 @@ export interface IAdvancedQueryStoreStates {
   groupBy: EGroupBy;
   temporalResolution: ETemporalResolution;
   spatialAggregation: boolean;
+}
+
+// These 5 fields live under IConfigJSON.url_params, not at the top level, so
+// the export is wrapped the same way — same as getFilterConfig()'s
+// url_params fragment, derived via Pick so it can't drift from the actual
+// URL params contract.
+export interface IAdvancedQueryQuery {
+  url_params: Pick<
+    I4wingsReportPostURLParams,
+    | 'spatial-resolution'
+    | 'format'
+    | 'group-by'
+    | 'temporal-resolution'
+    | 'spatial-aggregation'
+  >;
 }
 export interface IAdvancedQueryStoreActions {
   setSpatialResolution: (
@@ -398,12 +493,17 @@ export interface IAdvancedQueryStoreActions {
     IAdvancedQueryStoreStates,
     'datasets' | 'mainDatasetVersion' | 'subDatasetVersion'
   >;
+  getAdvancedQueryConfig: () => IAdvancedQueryQuery;
+  importAdvancedQueryConfig: (a_Data: IAdvancedQueryQuery) => void;
 }
 
 export interface IPaginationStoreStates {
   limit: number | null;
   offset: number | null;
 }
+
+export type IPaginationQuery = Pick<IConfigBase, 'pagination'>;
+
 export interface IPaginationStoreActions {
   setLimit: (
     a_Value:
@@ -419,7 +519,8 @@ export interface IPaginationStoreActions {
           a_Prev: IPaginationStoreStates['offset'],
         ) => IPaginationStoreStates['offset']),
   ) => void;
-  getPagination: () => IPaginationStoreStates;
+  getPagination: () => IPaginationQuery;
+  importPagination: (a_Data: IPaginationQuery) => void;
 }
 
 export interface IMessageStoreStates {

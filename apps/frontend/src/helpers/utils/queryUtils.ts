@@ -66,3 +66,44 @@ export const getMinimumDistanceFromPorts = (a_Value: string) => {
   }
   return '';
 };
+
+const parseInClause = (a_Expression: string, a_Field: string): string[] => {
+  const match = a_Expression.match(new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`));
+  if (!match || !match[1]) return [];
+  return match[1]
+    .split(',')
+    .map((v) => v.trim().replace(/^'|'$/g, ''))
+    .filter(Boolean);
+};
+
+export const parseFlags = (a_Expression: string): ECountryFlag[] =>
+  parseInClause(a_Expression, 'flag') as ECountryFlag[];
+
+export const parseMatched = (a_Expression: string): TMatchFilter => {
+  const [value] = parseInClause(a_Expression, 'matched');
+  if (value === 'true') return EMatchFilter.matched;
+  if (value === 'false') return EMatchFilter.unmatched;
+  return EMatchFilter.all;
+};
+
+export const parseVesselTypes = (a_Expression: string): EVessleType[] =>
+  parseInClause(a_Expression, 'vessel_type') as EVessleType[];
+
+export const parseGearTypes = (a_Expression: string): EGearType[] =>
+  parseInClause(a_Expression, 'geartype') as EGearType[];
+
+export const parseSpeeds = (a_Expression: string): ESpeedRange[] =>
+  parseInClause(a_Expression, 'speed') as ESpeedRange[];
+
+export const parseNeuralVesselType = (
+  a_Expression: string,
+): ENeuralVesselType | '' =>
+  (parseInClause(a_Expression, 'neural_vessel_type')[0] ?? '') as
+    | ENeuralVesselType
+    | '';
+
+export const parseVesselId = (a_Expression: string): string =>
+  parseInClause(a_Expression, 'vessel_id')[0] ?? '';
+
+export const parseMinimumDistanceFromPorts = (a_Expression: string): string =>
+  parseInClause(a_Expression, 'distance_from_port_km')[0] ?? '';

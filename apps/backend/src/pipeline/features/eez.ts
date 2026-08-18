@@ -1,4 +1,4 @@
-import EEZs from '../../../data/context/EEZ.json';
+import fs from 'fs';
 import { EContextLayerDatasets } from '@packages/enum';
 import {
   FeatureCollection,
@@ -14,6 +14,24 @@ import {
 import { point } from '@turf/helpers';
 import { booleanPointInPolygon, bbox } from '@turf/turf';
 import { log } from '../../helpers/utils/backendUtils';
+import { ELogType } from '../../helpers/types/generalTypes';
+import { IEEZLookupEntry } from '../../helpers/types/contextTypes';
+
+/** EEZ id -> label lookup (~56KB on disk). Loaded lazily on first use rather
+ * than at import time, so the server boots without parsing it unless a
+ * request actually needs an EEZ context layer. */
+let eezLookup: IEEZLookupEntry[] | null = null;
+
+const getEEZLookup = (): IEEZLookupEntry[] => {
+  if (eezLookup) return eezLookup;
+  try {
+    eezLookup = JSON.parse(fs.readFileSync('data/context/EEZ.json', 'utf-8'));
+  } catch (e) {
+    log(`[EEZ] Failed to load EEZ.json: ${e}`, ELogType.error);
+    eezLookup = [];
+  }
+  return eezLookup ?? [];
+};
 
 export const generateEEZ = (
   a_EventEntry: TGlobalEvent | undefined,
@@ -28,6 +46,7 @@ export const generateEEZ = (
   const eezs = a_EventEntry.regions.eez;
 
   if (eezs && eezs.length > 0) {
+    const EEZs = getEEZLookup();
     let enrichments: IContextLayerEnrichment[] = [];
     for (const eezId of eezs) {
       const eezEntry = EEZs.find((eez) => eez.id === +eezId);

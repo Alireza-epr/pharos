@@ -22,11 +22,15 @@
       "list": "List",
       "clearZonal": "Clear Zonal",
       "clearPoint": "Clear Point",
-      "maximize": "Maximize"
+      "maximize": "Maximize",
+      "import": "Import"
     },
     "action": {
       "copy": "Copy",
       "close": "Close"
+    },
+    "text": {
+      "invalidImportFile": "Invalid or unreadable import file."
     }
   },
   "header": {
@@ -61,7 +65,8 @@
       "filter": "Filter",
       "advancedQuery": "Advanced Query",
       "matchingStatus": "Matching Status",
-      "datasetsFilter": "Dataset Filters"
+      "datasetsFilter": "Dataset Filters",
+      "exportImportConfig": "Export/Import Config"
     },
     "title": {
       "geography": "Geography",
@@ -125,7 +130,9 @@
       "lowConfTierWeight": "Low Conf. Tier",
       "medConfTierWeight": "Med. Conf. Tier",
       "highConfTierWeight": "High Conf. Tier",
-      "radiusKm": "Radius (km)"
+      "radiusKm": "Radius (km)",
+      "exportAllConfig": "Export All",
+      "importAllConfig": "Import All"
     },
     "text": {
       "orChooseEEZRegion": "or choose EEZ region",
@@ -137,7 +144,8 @@
       "pointHint": "Click on the map to place a point"
     },
     "caveat": {
-      "apiInternalId": "API Internal ID"
+      "apiInternalId": "API Internal ID",
+      "importReplacesConfig": "Importing replaces the entire current config."
     },
     "hint": {
       "multipleSelect": "Hold Ctrl and click to select multiple",

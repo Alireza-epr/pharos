@@ -4,6 +4,7 @@ import { EHotspotTimeBins } from '@packages/enum';
 import {
   IHotspotConfigStoreActions,
   IHotspotConfigStoreStates,
+  IHotspotQuery,
 } from '../helpers/types/storeTypes';
 
 export const useHotspotConfigStore = create<
@@ -32,6 +33,15 @@ export const useHotspotConfigStore = create<
           timeBin: state.timeBin,
         };
       },
+      getHotspotConfig: (): IHotspotQuery => {
+        const { resolution, timeBin } = get();
+        return { hotspot: { resolution, timeBin } };
+      },
+      importHotspotConfig: (a_Data) =>
+        set({
+          resolution: a_Data.hotspot.resolution,
+          timeBin: a_Data.hotspot.timeBin,
+        }),
     }),
   ),
 );

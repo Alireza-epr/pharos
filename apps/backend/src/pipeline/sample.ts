@@ -35,6 +35,8 @@ import { applyFilter } from './normalize/filter';
 import { writeJSON } from './export/json';
 import { evidenceExport, rawExport, validationExport } from './export/bundle';
 import { validateBodyParams } from '../helpers/utils/validationUtils';
+import { filterEventsToQuery, getAOIPolygon } from '../helpers/geo/spatial';
+import { parseDateRange } from '../helpers/utils/servingUtils';
 
 const args = process.argv.slice(2);
 
@@ -88,7 +90,16 @@ const main = async (a_Config: IConfigJSON) => {
     log('Pilot quit because no valid entry was found.', ELogType.info);
     return;
   }
-  const filteredEvents = applyFilter(notRejectedEvents, a_Config.filter);
+
+  // Re-clip to the exact AOI/date-range: the provider's own AOI handling is
+  // grid/cell based, not exact, so this matches getServedEvents' filter.
+  const scopedEvents = filterEventsToQuery(
+    notRejectedEvents,
+    parseDateRange(a_Config.url_params['date-range']),
+    getAOIPolygon(a_Config),
+  );
+
+  const filteredEvents = applyFilter(scopedEvents, a_Config.filter);
   if (filteredEvents.length === 0) {
     log(
       'Pilot processing quit because no entries remained after filtering.',

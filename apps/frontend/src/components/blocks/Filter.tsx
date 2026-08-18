@@ -26,24 +26,30 @@ import {
   neural_vessel_type_options,
   speed_options,
   vessel_types_options,
-} from '@/helpers/fixtures/filters';
+} from '../../helpers/fixtures/filters';
 import { TDatasetVersion } from '@packages/types';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidFilterQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 export interface IFilterProps {}
 
 const reasonCodes = Object.values(EReasonCodesStatic);
 
 const Filter = () => {
-  const filters = useFilterStore((s) => s.filters);
-  const setFilters = useFilterStore((s) => s.setFilters);
+  const filter = useFilterStore((s) => s.filter);
+  const setFilter = useFilterStore((s) => s.setFilter);
 
   const filtersUI = useFilterStore((s) => s.filtersUI);
   const setFiltersUI = useFilterStore((s) => s.setFiltersUI);
 
+  const getFilterConfig = useFilterStore((s) => s.getFilterConfig);
+  const importFilterConfig = useFilterStore((s) => s.importFilterConfig);
+
   const { t } = useTranslator();
 
-  const updateFilter = (patch: Partial<IFilterStoreStates['filters']>) => {
-    setFilters((prev) => ({ ...prev, ...patch }));
+  const updateFilter = (patch: Partial<IFilterStoreStates['filter']>) => {
+    setFilter((prev) => ({ ...prev, ...patch }));
   };
 
   const updateFilterUI = (patch: Partial<IFilterStoreStates['filtersUI']>) => {
@@ -54,7 +60,7 @@ const Filter = () => {
     a_Mode: TInclusionMode,
     a_Code: EReasonCodesStatic,
   ) => {
-    setFilters((prev) => {
+    setFilter((prev) => {
       const include = (prev.reason_codes_include ?? []) as EReasonCodesStatic[];
       const exclude = (prev.reason_codes_exclude ?? []) as EReasonCodesStatic[];
       if (a_Mode === EInclusionMode.include) {
@@ -78,8 +84,32 @@ const Filter = () => {
     });
   };
 
+  const handleExport = () => {
+    downloadJSON(getFilterConfig(), 'filter');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidFilterQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importFilterConfig(data);
+    }, reportInvalid);
+  };
+
   return (
-    <Section title={t('sidebar.titles.filter')} collapsible={false}>
+    <Section
+      title={t('sidebar.titles.filter')}
+      collapsible={false}
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
+    >
       <SectionItem title={t('sidebar.label.datasets')} collapsible={false} tab >
         {(
           Object.entries(filtersUI.datasets) as [
@@ -279,7 +309,7 @@ const Filter = () => {
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
-            value={filters.triage_score_min ?? 0}
+            value={filter.triage_score_min ?? 0}
             min={0}
             max={1}
             step={0.01}
@@ -287,7 +317,7 @@ const Filter = () => {
           />
           <NumberInput
             label={t('general.label.max')}
-            value={filters.triage_score_max ?? 1}
+            value={filter.triage_score_max ?? 1}
             min={0}
             max={1}
             step={0.01}
@@ -304,7 +334,7 @@ const Filter = () => {
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
-            value={filters.uncertainty_score_min ?? 0}
+            value={filter.uncertainty_score_min ?? 0}
             min={0}
             max={1}
             step={0.01}
@@ -312,7 +342,7 @@ const Filter = () => {
           />
           <NumberInput
             label={t('general.label.max')}
-            value={filters.uncertainty_score_max ?? 1}
+            value={filter.uncertainty_score_max ?? 1}
             min={0}
             max={1}
             step={0.01}
@@ -329,13 +359,13 @@ const Filter = () => {
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
-            value={filters.distance_to_coast_km_min ?? 0}
+            value={filter.distance_to_coast_km_min ?? 0}
             min={0}
             onChange={(v) => updateFilter({ distance_to_coast_km_min: v })}
           />
           <NumberInput
             label={t('general.label.max')}
-            value={filters.distance_to_coast_km_max ?? 100}
+            value={filter.distance_to_coast_km_max ?? 100}
             min={0}
             onChange={(v) => updateFilter({ distance_to_coast_km_max: v })}
           />
@@ -346,12 +376,12 @@ const Filter = () => {
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
-            value={filters.bathymetry_min ?? 0}
+            value={filter.bathymetry_min ?? 0}
             onChange={(v) => updateFilter({ bathymetry_min: v })}
           />
           <NumberInput
             label={t('general.label.max')}
-            value={filters.bathymetry_max ?? 0}
+            value={filter.bathymetry_max ?? 0}
             onChange={(v) => updateFilter({ bathymetry_max: v })}
           />
         </SectionInputGroup>
@@ -363,7 +393,7 @@ const Filter = () => {
         tab
       >
         <TextInput
-          value={filters.event_id ?? ''}
+          value={filter.event_id ?? ''}
           onChange={(v) => updateFilter({ event_id: v })}
         />
       </SectionItem>
@@ -372,12 +402,12 @@ const Filter = () => {
         <SectionInputGroup direction="column">
           <CheckboxInput
             label={t('sidebar.label.insideEezOnly')}
-            checked={filters.only_inside_eez ?? false}
+            checked={filter.only_inside_eez ?? false}
             onChange={(v) => updateFilter({ only_inside_eez: v })}
           />
           <CheckboxInput
             label={t('sidebar.label.insideMpaOnly')}
-            checked={filters.only_inside_mpa ?? false}
+            checked={filter.only_inside_mpa ?? false}
             onChange={(v) => updateFilter({ only_inside_mpa: v })}
           />
         </SectionInputGroup>
@@ -390,7 +420,7 @@ const Filter = () => {
       >
         <ChipGroupInput
           values={reasonCodes}
-          active={(filters.reason_codes_include ?? []) as EReasonCodesStatic[]}
+          active={(filter.reason_codes_include ?? []) as EReasonCodesStatic[]}
           onToggle={(code) => toggleReasonCode(EInclusionMode.include, code)}
           variant={EInclusionMode.include}
         />
@@ -403,7 +433,7 @@ const Filter = () => {
       >
         <ChipGroupInput
           values={reasonCodes}
-          active={(filters.reason_codes_exclude ?? []) as EReasonCodesStatic[]}
+          active={(filter.reason_codes_exclude ?? []) as EReasonCodesStatic[]}
           onToggle={(code) => toggleReasonCode(EInclusionMode.exclude, code)}
           variant={EInclusionMode.exclude}
         />

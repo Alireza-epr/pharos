@@ -41,8 +41,10 @@ export interface IMultiLineStringGeometry extends IGeometry {
   coordinates: number[][][]; // array of rings
 }
 
-// Feature Interface
-export interface IFeature<G extends IGeometry = IGeometry, P = any> {
+// Feature Interface. `geometry` may be null per RFC 7946 §3.2 (a feature
+// defined by its properties alone, e.g. a named region with no local
+// geometry), so G is allowed to be IGeometry | null.
+export interface IFeature<G extends IGeometry | null = IGeometry, P = any> {
   type: "Feature";
   geometry: G;
   properties: P; // optional metadata

@@ -6,10 +6,8 @@ import { log } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 import {
   COVERAGE_H3_RES,
-  SERVING_H3_RES,
   addCoverage,
   enumerateDates,
-  filterByTime,
   getEventDate,
   hasCoverage,
   nonSpatialQueryKey,
@@ -17,8 +15,7 @@ import {
 } from '../helpers/utils/servingUtils';
 import {
   cellSetBBoxGeometry,
-  filterByH3,
-  filterByPolygon,
+  filterEventsToQuery,
   getAOIH3Cells,
   getAOIPolygon,
   partitionForEvent,
@@ -50,6 +47,11 @@ const servingRepository = getServingRepository();
  *    polygon differs (e.g. zooming in).
  * 3. Read the resolved region partitions back and filter time → H3 → polygon.
  * 4. Sort deterministically so pagination is stable.
+ *
+ * `cache: "disabled"` skips steps 1-2 but still runs the step-3 filter — the
+ * provider's own AOI handling is grid/cell based, not exact, so both branches
+ * share `filterEventsToQuery` and disabling the cache only changes *how*
+ * events are fetched, never *which* ones are returned.
  */
 export const getServedEvents = async (
   a_Config: IConfigJSON,
@@ -59,6 +61,25 @@ export const getServedEvents = async (
     throw new Error('[serving] Missing or invalid date-range');
   }
 
+  const aoi = getAOIPolygon(a_Config);
+
+  let cache: TCache = ECache.disabled;
+
+  if(a_Config.cache && a_Config.cache === cache){
+    const fetched = await getDetections(a_Config);
+    const filtered = filterEventsToQuery(fetched, range, aoi);
+    const sorted = sortEventSchema(filtered, a_Config.sort) as IEventSchema[];
+
+    log(
+      `[serving] ${cache.toUpperCase()} - ${sorted.length} events, no partition(s), no day(s)`,
+      ELogType.info,
+    );
+
+    return { events: sorted, cache };
+  }
+
+  cache = ECache.hit
+
   const dates = enumerateDates(range);
   const partitions = resolvePartitions(a_Config);
   const queryKey = nonSpatialQueryKey(a_Config);
@@ -66,7 +87,6 @@ export const getServedEvents = async (
 
   // The (coarse) cells this AOI needs covered. Empty only when no AOI geometry
   // can be resolved — then we can't gate spatially and always fetch.
-  const aoi = getAOIPolygon(a_Config);
   const coverageCells = aoi
     ? getAOIH3Cells(aoi.geometry, COVERAGE_H3_RES)
     : new Set<string>();
@@ -76,8 +96,6 @@ export const getServedEvents = async (
     cellList.length === 0
       ? dates
       : dates.filter((date) => !hasCoverage(manifest, date, queryKey, cellList));
-
-  let cache: TCache = ECache.hit;
 
   if (missingDates.length > 0) {
     cache = ECache.miss;
@@ -137,17 +155,12 @@ export const getServedEvents = async (
   }
 
   // Filter: time → coarse H3 prune → exact polygon.
-  let result = filterByTime(merged, range);
-  if (aoi) {
-    const cells = getAOIH3Cells(aoi.geometry, SERVING_H3_RES);
-    result = filterByH3(result, cells, SERVING_H3_RES);
-    result = filterByPolygon(result, aoi);
-  }
+  const result = filterEventsToQuery(merged, range, aoi);
 
   const sorted = sortEventSchema(result, a_Config.sort) as IEventSchema[];
 
   log(
-    `[serving] ${cache.toUpperCase()} — ${sorted.length} events, ${partitions.length} partition(s), ${dates.length} day(s)`,
+    `[serving] ${cache.toUpperCase()} - ${sorted.length} events, ${partitions.length} partition(s), ${dates.length} day(s)`,
     ELogType.info,
   );
 

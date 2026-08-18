@@ -17,13 +17,15 @@ export const useSortOrderStore = create<
 >(
   combine(
     {
-      sorts: defaultSorts as ISortOrderStoreStates['sorts'],
+      sort: defaultSorts as ISortOrderStoreStates['sort'],
     },
-    (set) => ({
-      setSorts: (a_Value) =>
+    (set, get) => ({
+      setSort: (a_Value) =>
         set((state) => ({
-          sorts: typeof a_Value === 'function' ? a_Value(state.sorts) : a_Value,
+          sort: typeof a_Value === 'function' ? a_Value(state.sort) : a_Value,
         })),
+      getSortOrder: () => ({ sort: get().sort }),
+      importSortOrder: (a_Data) => set({ sort: a_Data.sort }),
     }),
   ),
 );

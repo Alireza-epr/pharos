@@ -4,32 +4,53 @@ import SectionItem from '../common/section/SectionItem';
 import NumberInput from '../common/inputs/NumberInput';
 
 import { IConfigJSON } from '@packages/types';
-import { useConfigStore } from '@/stores/configStore';
+import { useThresholdStore } from '../../stores/thresholdStore';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidThresholdQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 export interface IThresholdAndWeightsProps {}
 
 const ThresholdAndWeights = () => {
-  const threshold = useConfigStore((s) => s.getThreshold());
-  const setConfig = useConfigStore((s) => s.setConfig);
+  const threshold = useThresholdStore((s) => s.threshold);
+  const setThreshold = useThresholdStore((s) => s.setThreshold);
+
+  const getThresholdConfig = useThresholdStore((s) => s.getThresholdConfig);
+  const importThresholdConfig = useThresholdStore(
+    (s) => s.importThresholdConfig,
+  );
 
   const { t } = useTranslator();
 
   const updateThreshold = (a_Patch: Partial<IConfigJSON['threshold']>) => {
-    setConfig(
-      (prev) =>
-        ({
-          ...prev,
-          // Seed from the current (defaulted) threshold so the first edit keeps
-          // every other value; the full config is assembled when a query runs.
-          threshold: { ...(prev?.threshold ?? threshold), ...a_Patch },
-        }) as IConfigJSON,
-    );
+    setThreshold((prev) => ({ ...prev, ...a_Patch }));
+  };
+
+  const handleExport = () => {
+    downloadJSON(getThresholdConfig(), 'threshold');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidThresholdQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importThresholdConfig(data);
+    }, reportInvalid);
   };
 
   return (
     <Section
       title={t('sidebar.titles.thresholdAndWeights')}
       collapsible={false}
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
     >
       <SectionItem title={t('sidebar.title.geography')} collapsible={false} tab>
         <NumberInput

@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import { circle } from '@turf/turf';
-import { IAOIStoreActions, IAOIStoreStates } from '../helpers/types/storeTypes';
+import { centroid, circle } from '@turf/turf';
+import {
+  IAOIStoreActions,
+  IAOIStoreStates,
+  TAOIQuery,
+} from '../helpers/types/storeTypes';
 import { ERegionDatasets, EGeoJSONGeometryType } from '@packages/enum';
 
 /**
@@ -11,7 +15,7 @@ import { ERegionDatasets, EGeoJSONGeometryType } from '@packages/enum';
 export const AOI_RADIUS_MIN_KM = 10;
 
 // Number of segments used to approximate the point AOI's circle as a polygon
-// when handing it to the backend via getAOI(). Enough to look round at any zoom.
+// in getAOI(). Enough to look round at any zoom.
 const AOI_CIRCLE_STEPS = 64;
 
 export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
@@ -67,32 +71,122 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           mpaActive:
             typeof a_Value === 'function' ? a_Value(state.mpaActive) : a_Value,
         })),
-      getAOI: () => {
-        const { eezActive, mpaActive, feature, radius } = get();
+      // Mirrors literally where this AOI lives in IConfigJSON: a named region
+      // is a url_params fragment; a drawn Zonal/Point polygon is a
+      // body_params.geojson fragment — never a synthetic envelope of our own.
+      getAOI: (): TAOIQuery => {
+        const { eezActive, mpaActive, feature } = get();
         if (eezActive)
           return {
-            'region-dataset': ERegionDatasets.eez,
-            'region-id': eezActive.value,
+            url_params: {
+              'region-dataset': ERegionDatasets.eez,
+              'region-id': eezActive.value,
+            },
           };
         if (mpaActive)
           return {
-            'region-dataset': ERegionDatasets.mpa,
-            'region-id': mpaActive.value,
+            url_params: {
+              'region-dataset': ERegionDatasets.mpa,
+              'region-id': mpaActive.value,
+            },
           };
+        if (!feature) return null;
         // A point AOI is a circle: buffer the centre into a Polygon of `radius`
-        // km so the backend always receives an area geometry, never a bare point.
-        if (feature && feature.type === EGeoJSONGeometryType.Point) {
+        // km so the AOI is always an area, never a bare point. `radius` is only
+        // meaningful here, so it's only read here — and it rides alongside
+        // type/coordinates on geojson itself (the backend ignores unknown
+        // keys there), since buffering is what erases the fact this came from
+        // the Point tool rather than a freehand Zonal polygon.
+        if (feature.geometry.type === EGeoJSONGeometryType.Point) {
+          const radius = get().radius;
           const buffered = circle(
-            feature.coordinates as [number, number],
+            feature.geometry.coordinates as [number, number],
             radius,
             { units: 'kilometers', steps: AOI_CIRCLE_STEPS },
           );
           return {
-            type: EGeoJSONGeometryType.Polygon,
-            coordinates: buffered.geometry.coordinates,
+            body_params: {
+              geojson: {
+                type: EGeoJSONGeometryType.Polygon,
+                coordinates: buffered.geometry.coordinates,
+                properties: { radius },
+              },
+            },
           };
         }
-        return feature;
+        return {
+          body_params: {
+            geojson: { ...feature.geometry, properties: null },
+          },
+        };
+      },
+      // Consumes exactly what getAOI() produces — no separate export shape.
+      // A url_params fragment re-resolves against the current EEZ/MPA option
+      // list. A body_params fragment whose geojson carries a `radius`
+      // property came from a buffered Point circle, not a freehand Zonal
+      // polygon — recover the original centre (the buffer's centroid) so the
+      // Point tool re-arms at the right spot. Anything else is a plain drawn
+      // polygon. Either way, no draw tool is left armed.
+      importAOI: (a_Data) => {
+        const { eezOptions, mpaOptions } = get();
+
+        if (a_Data && 'url_params' in a_Data) {
+          const { 'region-dataset': dataset, 'region-id': id } =
+            a_Data.url_params;
+          const isEEZ = dataset === ERegionDatasets.eez;
+          const options = isEEZ ? eezOptions : mpaOptions;
+          const active = options.find((o) => o.value === id);
+          set({
+            zonal: false,
+            point: false,
+            feature: null,
+            eezActive: isEEZ ? active : undefined,
+            mpaActive: isEEZ ? undefined : active,
+          });
+          return;
+        }
+
+        if (a_Data && 'body_params' in a_Data) {
+          const { properties, ...geometry } = a_Data.body_params.geojson;
+          if (properties) {
+            const center = centroid(geometry as any).geometry.coordinates as [
+              number,
+              number,
+            ];
+            set({
+              zonal: false,
+              point: false,
+              feature: {
+                type: 'Feature',
+                geometry: {
+                  type: EGeoJSONGeometryType.Point,
+                  coordinates: center,
+                },
+                properties: null,
+              },
+              radius: Math.max(AOI_RADIUS_MIN_KM, properties.radius),
+              eezActive: undefined,
+              mpaActive: undefined,
+            });
+            return;
+          }
+          set({
+            zonal: false,
+            point: false,
+            feature: { type: 'Feature', geometry, properties: null },
+            eezActive: undefined,
+            mpaActive: undefined,
+          });
+          return;
+        }
+
+        set({
+          zonal: false,
+          point: false,
+          feature: null,
+          eezActive: undefined,
+          mpaActive: undefined,
+        });
       },
     }),
   ),

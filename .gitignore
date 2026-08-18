@@ -1,10 +1,12 @@
 /misc
 /node_modules
+.DS_Store
 /packages/enum/dist
 /packages/types/dist
 /packages/utils/dist
 *raw*.md
 *.zip
+.vscode
 
 # Playwright
 test-results

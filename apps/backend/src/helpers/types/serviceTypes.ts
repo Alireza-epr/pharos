@@ -1,5 +1,5 @@
 import { IConfigJSON, IEventSchema } from '@packages/types';
-import { ICoverageManifest } from '../utils/servingUtils';
+import { ICoverageManifest } from './servingTypes';
 
 /**
  * Repository contract for the serving service: the partition data plus the

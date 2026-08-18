@@ -12,6 +12,9 @@ import {
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
 import { EGeoJSONGeometryType } from '@packages/enum';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -46,6 +49,9 @@ const AreaOfInterest = () => {
   const mpaActive = useAOIStore((s) => s.mpaActive);
   const setMPAActive = useAOIStore((s) => s.setMPAActive);
 
+  const getAOI = useAOIStore((s) => s.getAOI);
+  const importAOI = useAOIStore((s) => s.importAOI);
+
   const { t } = useTranslator();
 
   const deactivateExcept = (a_Tool: TAreaOfInterestTools) => {
@@ -73,10 +79,11 @@ const AreaOfInterest = () => {
     }
   };
 
-  // A drawn AOI lives in `feature`; its geometry type tells us which tool owns
-  // it (tools are mutually exclusive and clear each other's geometry).
-  const zonalHasFeature = feature?.type === EGeoJSONGeometryType.Polygon;
-  const pointHasFeature = feature?.type === EGeoJSONGeometryType.Point;
+  // A drawn AOI lives in `feature` (a standard GeoJSON Feature); its geometry
+  // type tells us which tool owns it (tools are mutually exclusive and clear
+  // each other's geometry).
+  const zonalHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Polygon;
+  const pointHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Point;
 
   const handleZonalClick = () => {
     // Re-clicking once a shape exists clears it (button reads "Clear Zonal").
@@ -128,11 +135,34 @@ const AreaOfInterest = () => {
     setMPAOptions(mpa_options);
   }, []);
 
+  const handleExport = () => {
+    const aoi = getAOI();
+    if (!aoi) return;
+    downloadJSON(aoi, 'area_of_interest');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidAOIQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importAOI(data);
+    }, reportInvalid);
+  };
+
   return (
     <Section
       title={t('sidebar.titles.areaOfInterest')}
       collapsible={false}
       testId="aoi-section-header"
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
     >
       <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
         <SectionInputGroup>

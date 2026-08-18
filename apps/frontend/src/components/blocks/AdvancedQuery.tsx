@@ -10,6 +10,9 @@ import {
   spatialResolutionOptions,
   temporalResolutionOptions,
 } from '../../helpers/fixtures/query';
+import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
+import { useMessageStore } from '../../stores/messageStore';
 
 export interface IAdvancedQueryProps {}
 
@@ -31,10 +34,41 @@ const AdvancedQuery = () => {
     (s) => s.setSpatialAggregation,
   );
 
+  const getAdvancedQueryConfig = useAdvancedQueryStore(
+    (s) => s.getAdvancedQueryConfig,
+  );
+  const importAdvancedQueryConfig = useAdvancedQueryStore(
+    (s) => s.importAdvancedQueryConfig,
+  );
+
   const { t } = useTranslator();
 
+  const handleExport = () => {
+    downloadJSON(getAdvancedQueryConfig(), 'advanced_query');
+  };
+
+  const handleImport = () => {
+    const reportInvalid = () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
+
+    openJSONFile((data) => {
+      if (!isValidAdvancedQueryQuery(data)) {
+        reportInvalid();
+        return;
+      }
+      importAdvancedQueryConfig(data);
+    }, reportInvalid);
+  };
+
   return (
-    <Section title={t('sidebar.titles.advancedQuery')} collapsible={false}>
+    <Section
+      title={t('sidebar.titles.advancedQuery')}
+      collapsible={false}
+      showExport
+      showImport
+      onExport={handleExport}
+      onImport={handleImport}
+    >
       <SectionItem
         title={t('sidebar.label.temporalResolution')}
         collapsible={false}

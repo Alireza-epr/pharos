@@ -7,6 +7,7 @@ import type { IGeometry } from '@packages/types';
 import { useAOIStore } from '@/stores/areaOfInterestStore';
 import { useMessageStore } from '@/stores/messageStore';
 import { useTranslator } from '@/hooks/translator';
+import type { TAOIFeature } from '@/helpers/types/storeTypes';
 import useAOIDrawStyle from "./useAOIDraw.module.scss"
 
 /**
@@ -76,18 +77,24 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
     let committed: TCommitted = null;
     let vertexHandles: maplibregl.Marker[] = [];
     let pointHandle: maplibregl.Marker | null = null;
-    // The exact geometry object last pushed to the store, so we can recognise
+    // The exact Feature object last pushed to the store, so we can recognise
     // the store echo in syncFeature and skip re-rendering our own commit.
-    let lastApplied: IGeometry | null = null;
+    let lastApplied: TAOIFeature | null = null;
     let lastClick = { t: 0, x: 0, y: 0 };
 
     const teal = readToken('--color-accent-teal4', '#2bb3a3');
     const orange = readToken('--color-alert-orange4', '#e8833a');
 
     // ---- store access (setters/values are stable via getState) -------------
+    // The store holds a standard GeoJSON Feature, not a bare geometry; wrap
+    // here so every other helper in this file can keep working with plain
+    // Point/Polygon geometry.
     const commitFeature = (a_Geom: IGeometry | null) => {
-      lastApplied = a_Geom;
-      useAOIStore.getState().setFeature(a_Geom);
+      const nextFeature: TAOIFeature | null = a_Geom
+        ? { type: 'Feature', geometry: a_Geom, properties: null }
+        : null;
+      lastApplied = nextFeature;
+      useAOIStore.getState().setFeature(nextFeature);
     };
     const endZonal = () => useAOIStore.getState().setZonal(false);
     const endPoint = () => useAOIStore.getState().setPoint(false);
@@ -412,20 +419,21 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
     };
 
     // React to external feature changes (Clear button, or a programmatic set).
-    const syncFeature = (a_Feature: IGeometry | null) => {
+    const syncFeature = (a_Feature: TAOIFeature | null) => {
       if (a_Feature === lastApplied) return; // our own commit echo
       clearGeometry();
       lastApplied = a_Feature;
       if (!a_Feature) return;
-      if (a_Feature.type === EGeoJSONGeometryType.Polygon) {
-        const ring = (a_Feature.coordinates as [number, number][][])[0] ?? [];
+      const geometry = a_Feature.geometry;
+      if (geometry.type === EGeoJSONGeometryType.Polygon) {
+        const ring = (geometry.coordinates as [number, number][][])[0] ?? [];
         // Drop the closing vertex (ring is [v0..vn, v0]).
         ring.slice(0, Math.max(0, ring.length - 1)).forEach((c) => {
           addVertexHandle(c as [number, number]);
         });
         committed = 'zonal';
-      } else if (a_Feature.type === EGeoJSONGeometryType.Point) {
-        setPointHandle(a_Feature.coordinates as [number, number]);
+      } else if (geometry.type === EGeoJSONGeometryType.Point) {
+        setPointHandle(geometry.coordinates as [number, number]);
         committed = 'point';
       }
       render();

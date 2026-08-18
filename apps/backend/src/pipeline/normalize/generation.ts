@@ -21,12 +21,12 @@ import {
   deepStripHidden,
   getExecutionDuration,
   isNumber,
+  stripHiddenConfiguration,
 } from '@packages/utils';
 import {
   getContextLayersFromEvents,
   getSourcesFromEvents,
   hashString,
-  stripHiddenConfiguration,
 } from '../../helpers/utils/backendUtils';
 import { isNoisyCase, missingRequiredFields } from './validation';
 import { isNearCoast } from '../features/coast_distance';

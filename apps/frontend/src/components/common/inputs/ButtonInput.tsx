@@ -14,6 +14,8 @@ export interface IButtonInputProps {
   title?: string;
   className?: string | undefined;
   icon?: boolean;
+  hint?: string
+  caveat?: string
 }
 
 const ButtonInput = (props: IButtonInputProps) => {
@@ -28,6 +30,16 @@ const ButtonInput = (props: IButtonInputProps) => {
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
     >
+      {props.caveat && (
+        <span className={`font-size-sm caveat`} title={props.caveat}>
+          ⚠
+        </span>
+      )}
+      {props.hint && (
+        <span className={`font-size-sm hint`} title={props.hint}>
+          ℹ
+        </span>
+      )}
       {props.loading ? <Loading size={ELoadingSize.sm} /> : props.label}
     </button>
   );
