@@ -17,7 +17,7 @@ import {
   latLngToCell,
   polygonToCells,
 } from 'h3-js';
-import { eezPolygons, mpaPolygons } from '../../pipeline/sample';
+import { readEEZPolygons, readMPAPolygons } from '../utils/datasetUtils';
 import { log } from '../utils/backendUtils';
 import { ELogType } from '../types/generalTypes';
 import { HIGH_SEAS, SERVING_H3_RES, filterByTime } from '../utils/servingUtils';
@@ -73,7 +73,7 @@ const containsAOI = (a_Container: TFeature, a_AOI: TFeature): boolean => {
 
 /** The EEZ feature whose MRGID matches the requested region id. */
 const findEEZById = (a_RegionId: string): TFeature | null => {
-  const eez = eezPolygons.features.find(
+  const eez = readEEZPolygons().features.find(
     (f) => String(f.properties.MRGID) === a_RegionId,
   );
   return eez ? { type: 'Feature', geometry: eez.geometry, properties: {} } : null;
@@ -81,7 +81,7 @@ const findEEZById = (a_RegionId: string): TFeature | null => {
 
 /** The MPA feature whose SITE_ID / SITE_PID matches the requested region id. */
 const findMPAById = (a_RegionId: string): TFeature | null => {
-  const mpa = mpaPolygons.features.find(
+  const mpa = readMPAPolygons().features.find(
     (f) =>
       String(f.properties.SITE_ID) === a_RegionId ||
       String(f.properties.SITE_PID) === a_RegionId,
@@ -148,7 +148,7 @@ export const resolvePartitions = (a_Config: IConfigJSON): string[] => {
   const intersecting = new Set<string>();
   let fullyContained = false;
 
-  for (const feature of eezPolygons.features) {
+  for (const feature of readEEZPolygons().features) {
     const featureBBox = bbox(feature) as TBBox;
     if (!overlaps(aoiBBox, featureBBox)) continue;
     if (!booleanIntersects(aoi, feature)) continue;

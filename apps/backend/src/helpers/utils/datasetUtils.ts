@@ -15,7 +15,20 @@ import { IBathymetryCachedTile } from '../types/generalTypes';
 import path from 'path';
 import { log } from './backendUtils';
 
+// Each reader below is memoized after its first call: these backing files are
+// tens of MB of GeoJSON, so the live server must never read/parse them more
+// than once per process, and must never do so unless something actually asks
+// for them (see below -- eager top-level reads of these caused a boot-time
+// heap OOM on memory-constrained hosts once anything imported `pipeline/sample`).
+
+let landPolygonsCache: FeatureCollection<
+  IMultiPolygonGeometry,
+  ILandPolygonProperties
+> | null = null;
+
 export const readLandPolygons = () => {
+  if (landPolygonsCache) return landPolygonsCache;
+
   const landPolygons: FeatureCollection<
     IMultiPolygonGeometry,
     ILandPolygonProperties
@@ -27,10 +40,18 @@ export const readLandPolygons = () => {
     throw new Error('Failed to read land polygons');
   }
 
-  return landPolygons;
+  landPolygonsCache = landPolygons;
+  return landPolygonsCache;
 };
 
+let coastlinePolylinesCache: FeatureCollection<
+  IMultiLineStringGeometry,
+  ICoastlinePolylineProperties
+> | null = null;
+
 export const readCoastlinePolylines = () => {
+  if (coastlinePolylinesCache) return coastlinePolylinesCache;
+
   const coastlinePolylines: FeatureCollection<
     IMultiLineStringGeometry,
     ICoastlinePolylineProperties
@@ -45,10 +66,18 @@ export const readCoastlinePolylines = () => {
     throw new Error('Failed to read coastline polylines');
   }
 
-  return coastlinePolylines;
+  coastlinePolylinesCache = coastlinePolylines;
+  return coastlinePolylinesCache;
 };
 
+let eezPolygonsCache: FeatureCollection<
+  IMultiPolygonGeometry,
+  IEEZPolygonProperties
+> | null = null;
+
 export const readEEZPolygons = () => {
+  if (eezPolygonsCache) return eezPolygonsCache;
+
   const eezPolygons: FeatureCollection<
     IMultiPolygonGeometry,
     IEEZPolygonProperties
@@ -60,10 +89,18 @@ export const readEEZPolygons = () => {
     throw new Error('Failed to read EEZ polygons');
   }
 
-  return eezPolygons;
+  eezPolygonsCache = eezPolygons;
+  return eezPolygonsCache;
 };
 
+let mpaPolygonsCache: FeatureCollection<
+  IMultiPolygonGeometry,
+  IMPAPolygonProperties
+> | null = null;
+
 export const readMPAPolygons = () => {
+  if (mpaPolygonsCache) return mpaPolygonsCache;
+
   const mpaPolygons: FeatureCollection<
     IMultiPolygonGeometry,
     IMPAPolygonProperties
@@ -75,7 +112,8 @@ export const readMPAPolygons = () => {
     throw new Error('Failed to read MPA polygons');
   }
 
-  return mpaPolygons;
+  mpaPolygonsCache = mpaPolygons;
+  return mpaPolygonsCache;
 };
 
 const bathymetryTiles: IBathymetryCachedTile[] = [];

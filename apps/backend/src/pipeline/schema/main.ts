@@ -28,7 +28,11 @@ import {
   generateVersion,
   getISO8601,
 } from '../normalize/generation';
-import { coastlinePolylines, eezPolygons, mpaPolygons } from '../sample';
+import {
+  readCoastlinePolylines,
+  readEEZPolygons,
+  readMPAPolygons,
+} from '../../helpers/utils/datasetUtils';
 import { getBathymetryContext } from '../features/bathymetry_cached';
 import {
   formatTimestamp,
@@ -108,9 +112,9 @@ export const createEventSchema = async (
 
   let geom: IGeometry = generateGeom(lon, lat);
 
-  const eez = getEEZContext(eezPolygons, lon, lat);
+  const eez = getEEZContext(readEEZPolygons(), lon, lat);
 
-  const mpa = getMPAContext(mpaPolygons, lon, lat);
+  const mpa = getMPAContext(readMPAPolygons(), lon, lat);
 
   const bathymetry = await getBathymetryContext(lon, lat);
 
@@ -121,7 +125,7 @@ export const createEventSchema = async (
   };
 
   const distance_to_coast_km = distanceToCoast(
-    coastlinePolylines,
+    readCoastlinePolylines(),
     a_4wingsEntry.lon,
     a_4wingsEntry.lat,
   );
