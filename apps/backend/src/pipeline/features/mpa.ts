@@ -1,4 +1,4 @@
-import MPAs from '../../../data/context/MPA.json';
+import fs from 'fs';
 import { EContextLayerDatasets } from '@packages/enum';
 import {
   FeatureCollection,
@@ -11,6 +11,24 @@ import { IMPAPolygonProperties } from '../../helpers/types/validationTypes';
 import { point } from '@turf/helpers';
 import { booleanPointInPolygon, bbox } from '@turf/turf';
 import { log } from '../../helpers/utils/backendUtils';
+import { ELogType } from '../../helpers/types/generalTypes';
+import { IMPALookupEntry } from '../../helpers/types/contextTypes';
+
+/** MPA id -> label lookup (~1.7MB on disk). Loaded lazily on first use rather
+ * than at import time, so the server boots without parsing it unless a
+ * request actually needs an MPA context layer. */
+let mpaLookup: IMPALookupEntry[] | null = null;
+
+const getMPALookup = (): IMPALookupEntry[] => {
+  if (mpaLookup) return mpaLookup;
+  try {
+    mpaLookup = JSON.parse(fs.readFileSync('data/context/MPA.json', 'utf-8'));
+  } catch (e) {
+    log(`[MPA] Failed to load MPA.json: ${e}`, ELogType.error);
+    mpaLookup = [];
+  }
+  return mpaLookup ?? [];
+};
 
 export const generateMPA = (
   a_EventEntry: TGlobalEvent | undefined,
@@ -25,6 +43,7 @@ export const generateMPA = (
   const mpas = a_EventEntry.regions.mpa;
 
   if (mpas && mpas.length > 0) {
+    const MPAs = getMPALookup();
     let enrichments: IContextLayerEnrichment[] = [];
     for (const mpaId of mpas) {
       const mpaEntry = MPAs.find((mpa) => mpa.id === mpaId);
