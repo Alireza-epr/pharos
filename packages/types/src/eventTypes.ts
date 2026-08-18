@@ -11,6 +11,7 @@ import {
   EHiddenConfig,
   EExportEvidence,
   TCache,
+  TCacheStatus,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 import {
@@ -118,6 +119,7 @@ export type TExportConfig = {
 
 export type THiddenConfig = {
   [EHiddenConfig.gitCommitSHA]?: string;
+  [EHiddenConfig.cache]?: TCacheStatus;
   [EHiddenConfig.export]?: TExportConfig;
 };
 export interface IConfigBase extends THiddenConfig {

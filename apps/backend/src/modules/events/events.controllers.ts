@@ -3,7 +3,7 @@ import {
   controllerResponse,
   createErrorMessage,
 } from '../../helpers/utils/controllerUtils';
-import { EFetchMethods, EStatusCode } from '@packages/enum';
+import { ECacheStatus, EFetchMethods, EStatusCode } from '@packages/enum';
 
 import config from '../../config/pilot.json';
 
@@ -58,6 +58,7 @@ export const eventsController = async (
     const hotspot = body.hotspot ?? config.hotspot;
     const pagination = body.pagination ?? config.pagination;
     const URL = body.URL;
+    const cache = body.cache ?? ECacheStatus.enabled;
 
     const filter = body.filter ?? {};
 
@@ -70,6 +71,7 @@ export const eventsController = async (
       filter,
       pagination,
       gitCommitSHA: a_Req.gitCommitSHA,
+      cache
     };
 
     const configs: IConfigJSON = !body.body_params

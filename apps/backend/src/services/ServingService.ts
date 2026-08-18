@@ -59,6 +59,22 @@ export const getServedEvents = async (
     throw new Error('[serving] Missing or invalid date-range');
   }
 
+  let cache: TCache = ECache.disabled;
+
+  if(a_Config.cache && a_Config.cache === cache){
+    const fetched = await getDetections(a_Config);
+    const sorted = sortEventSchema(fetched, a_Config.sort) as IEventSchema[];
+
+    log(
+      `[serving] ${cache.toUpperCase()} - ${sorted.length} events, no partition(s), no day(s)`,
+      ELogType.info,
+    );
+
+    return { events: sorted, cache };
+  }
+
+  cache = ECache.hit
+
   const dates = enumerateDates(range);
   const partitions = resolvePartitions(a_Config);
   const queryKey = nonSpatialQueryKey(a_Config);
@@ -76,8 +92,6 @@ export const getServedEvents = async (
     cellList.length === 0
       ? dates
       : dates.filter((date) => !hasCoverage(manifest, date, queryKey, cellList));
-
-  let cache: TCache = ECache.hit;
 
   if (missingDates.length > 0) {
     cache = ECache.miss;
@@ -147,7 +161,7 @@ export const getServedEvents = async (
   const sorted = sortEventSchema(result, a_Config.sort) as IEventSchema[];
 
   log(
-    `[serving] ${cache.toUpperCase()} — ${sorted.length} events, ${partitions.length} partition(s), ${dates.length} day(s)`,
+    `[serving] ${cache.toUpperCase()} - ${sorted.length} events, ${partitions.length} partition(s), ${dates.length} day(s)`,
     ELogType.info,
   );
 

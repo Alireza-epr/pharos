@@ -1,5 +1,5 @@
 import { IConfigJSON, IGeometry, TURLParams } from '@packages/types';
-import { EFetchMethods } from '@packages/enum';
+import { ECacheStatus, EFetchMethods, EURLParams, TCacheStatus } from '@packages/enum';
 import { useAOIStore } from '../../stores/areaOfInterestStore';
 import { useTimeRangeStore } from '../../stores/timeRangeStore';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
@@ -21,6 +21,7 @@ import {
   isValidThresholdQuery,
   isValidTimeRangeQuery,
 } from './validationUtils';
+import { getURLParam } from '@packages/utils';
 
 export const buildConfig = (): IConfigJSON => {
   const aoi = useAOIStore.getState().getAOI();
@@ -77,6 +78,7 @@ export const buildConfig = (): IConfigJSON => {
       ...urlParams,
     },
     ...bodyParams_base,
+    cache: getURLParam<TCacheStatus>(EURLParams.cache) ?? ECacheStatus.enabled
   };
 
   const config: IConfigJSON =
