@@ -20,7 +20,8 @@ import {
 import { eezPolygons, mpaPolygons } from '../../pipeline/sample';
 import { log } from '../utils/backendUtils';
 import { ELogType } from '../types/generalTypes';
-import { HIGH_SEAS } from '../utils/servingUtils';
+import { HIGH_SEAS, SERVING_H3_RES, filterByTime } from '../utils/servingUtils';
+import { ITimeRange } from '../types/servingTypes';
 
 /**
  * Spatial helpers for the serving path: turn a request into the storage
@@ -290,3 +291,22 @@ export const filterByPolygon = (
   a_Events.filter((event) =>
     booleanPointInPolygon(point([event.lon, event.lat]), a_AOI as any),
   );
+
+/**
+ * The authoritative time + AOI filter (time window → coarse H3 prune → exact
+ * polygon). Every path returning events for a query must run this, since the
+ * provider's own AOI handling is grid/cell based, not exact vector containment.
+ */
+export const filterEventsToQuery = (
+  a_Events: IEventSchema[],
+  a_Range: ITimeRange | null,
+  a_AOI: TFeature | null,
+): IEventSchema[] => {
+  let result = a_Range ? filterByTime(a_Events, a_Range) : a_Events;
+  if (a_AOI) {
+    const cells = getAOIH3Cells(a_AOI.geometry, SERVING_H3_RES);
+    result = filterByH3(result, cells, SERVING_H3_RES);
+    result = filterByPolygon(result, a_AOI);
+  }
+  return result;
+};

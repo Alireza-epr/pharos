@@ -9,9 +9,9 @@ import { parquetSchema_serving } from '../../helpers/types/parquetTypes';
 import {
   COVERAGE_FILE,
   EVENTS_PARTITION_DIR,
-  ICoverageManifest,
   dedupEventsById,
 } from '../../helpers/utils/servingUtils';
+import { ICoverageManifest } from '../../helpers/types/servingTypes';
 
 /** Path (without extension) handed to the parquet writer. */
 const partitionBasePath = (a_Date: string, a_Partition: string): string =>

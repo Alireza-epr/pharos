@@ -1,5 +1,4 @@
 import {
-  ICoverageManifest,
   addCoverage,
   dedupEventsById,
   enumerateDates,
@@ -8,6 +7,7 @@ import {
   nonSpatialQueryKey,
   parseDateRange,
 } from '../src/helpers/utils/servingUtils';
+import { ICoverageManifest } from '../src/helpers/types/servingTypes';
 import { IConfigJSON, IEventSchema } from '@packages/types';
 import { EFetchMethods } from '@packages/enum';
 

@@ -1,5 +1,6 @@
 import { IConfigJSON, IEventSchema } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
+import { ICoverageManifest, ITimeRange } from '../types/servingTypes';
 
 /**
  * Pure helpers for the partitioned serving path.
@@ -32,23 +33,6 @@ export const SERVING_H3_RES = 8;
  * small while still discriminating zoom levels. ~36 km² average cells at res 6.
  */
 export const COVERAGE_H3_RES = 6;
-
-/**
- * Records, per day and per non-spatial query key, the set of H3 cells already
- * fetched into the cache. A day is "covered" for a query when every cell its AOI
- * needs is already present — so a zoomed-in AOI whose cells are a subset of an
- * earlier fetch is a pure cache hit (no provider call), even though its exact
- * polygon differs from the earlier request.
- */
-export interface ICoverageManifest {
-  [date: string]: { [queryKey: string]: string[] };
-}
-
-/** A parsed inclusive time window. */
-export interface ITimeRange {
-  start: Date;
-  end: Date;
-}
 
 /**
  * Parse the `date-range` url param ("<startISO>,<endISO>") into a time window.
