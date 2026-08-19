@@ -5,3 +5,8 @@ export enum EDetectionRepository {
 export enum EServingRepository {
   parquet = 'parquet',
 }
+
+export enum EContextDatasetQuality {
+  simplified = 'simplified',
+  full = 'full',
+}

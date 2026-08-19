@@ -45,6 +45,10 @@ Accuracy may be reduced in complex maritime environments.
 
 Outputs generated in these regions inherently carry higher uncertainty.
 
+### Context-Layer Boundary Precision
+
+EEZ, MPA, and coastline boundary geometry is simplified to keep the serving process within its memory budget (see `docs/data/context-layers.md`). Classifications right at a boundary edge (within roughly 100–550m, depending on the dataset) can occasionally differ from the full-resolution source. This is a property of our own processing, independent of the upstream AIS/SAR matching caveats described elsewhere in this document.
+
 ---
 
 ## 3. Upstream Data Gaps and Coverage Limitations
