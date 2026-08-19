@@ -14,12 +14,28 @@ import { IBathymetryCachedTile } from '../types/generalTypes';
 //import { fromFile } from "geotiff";
 import path from 'path';
 import { log } from './backendUtils';
+import { EContextDatasetQuality } from '@packages/enum';
 
 // Each reader below is memoized after its first call: these backing files are
 // tens of MB of GeoJSON, so the live server must never read/parse them more
 // than once per process, and must never do so unless something actually asks
 // for them (see below -- eager top-level reads of these caused a boot-time
 // heap OOM on memory-constrained hosts once anything imported `pipeline/sample`).
+
+// EEZ/MPA/coastline each ship two versions of their source file: a simplified
+// one (default -- fits a memory-constrained host) and a `.full` one with the
+// unsimplified upstream geometry, for once hosting moves to a tier with
+// enough RAM to hold it. Toggle via CONTEXT_DATASET_QUALITY; see
+// docs/data/context-layers.md.
+const contextDatasetQuality = (): EContextDatasetQuality =>
+  process.env.CONTEXT_DATASET_QUALITY === EContextDatasetQuality.full
+    ? EContextDatasetQuality.full
+    : EContextDatasetQuality.simplified;
+
+const withQualitySuffix = (a_Path: string): string =>
+  contextDatasetQuality() === EContextDatasetQuality.full
+    ? a_Path.replace(/\.geojson$/, '.full.geojson')
+    : a_Path;
 
 let landPolygonsCache: FeatureCollection<
   IMultiPolygonGeometry,
@@ -57,7 +73,7 @@ export const readCoastlinePolylines = () => {
     ICoastlinePolylineProperties
   > = JSON.parse(
     fs.readFileSync(
-      './data/coastline_polylines/coastline_polylines.geojson',
+      withQualitySuffix('./data/coastline_polylines/coastline_polylines.geojson'),
       'utf8',
     ),
   );
@@ -82,7 +98,10 @@ export const readEEZPolygons = () => {
     IMultiPolygonGeometry,
     IEEZPolygonProperties
   > = JSON.parse(
-    fs.readFileSync('./data/eez_polygons/eez_polygons.geojson', 'utf8'),
+    fs.readFileSync(
+      withQualitySuffix('./data/eez_polygons/eez_polygons.geojson'),
+      'utf8',
+    ),
   );
 
   if (!eezPolygons) {
@@ -105,7 +124,10 @@ export const readMPAPolygons = () => {
     IMultiPolygonGeometry,
     IMPAPolygonProperties
   > = JSON.parse(
-    fs.readFileSync('./data/mpa_polygons/mpa_polygons.geojson', 'utf8'),
+    fs.readFileSync(
+      withQualitySuffix('./data/mpa_polygons/mpa_polygons.geojson'),
+      'utf8',
+    ),
   );
 
   if (!mpaPolygons) {

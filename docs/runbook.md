@@ -18,7 +18,7 @@ Make sure you have the following installed:
 
 ### Token
 
-Set `DETECTION_TOKEN` — the detection-provider API token. **In this iteration the provider is Global Fishing Watch**, so obtain the token from the [Global Fishing Watch API Token](https://globalfishingwatch.org/our-apis/tokens) page and place it in a `.env` file inside the `apps/backend` directory. A `.env.example` file is provided for reference.
+Set `DETECTION_TOKEN` - the detection-provider API token. **In this iteration the provider is Global Fishing Watch**, so obtain the token from the [Global Fishing Watch API Token](https://globalfishingwatch.org/our-apis/tokens) page and place it in a `.env` file inside the `apps/backend` directory. A `.env.example` file is provided for reference.
 
 ---
 
@@ -188,6 +188,17 @@ If the command fails:
 
 ---
 
+## 4b. Context Layer Dataset Quality (EEZ / MPA / Coastline)
+
+The EEZ, MPA, and coastline boundary files each ship two versions in the repo:
+
+- `*.geojson` - simplified (default). Fits a memory-constrained host.
+- `*.full.geojson` - the original, unsimplified upstream geometry.
+
+Controlled by `CONTEXT_DATASET_QUALITY` in `apps/backend/.env` (`simplified` | `full`, defaults to `simplified`).
+
+---
+
 ## 5. Output Location
 
 By default, pipeline outputs are stored in:
@@ -221,7 +232,7 @@ docker-compose up --build
 
 > The images contain the API server and the built frontend only. Large datasets
 > (bathymetry rasters and the coastline/EEZ/MPA polygons) are **not** baked into
-> the image — they are used solely by the host-run pipeline (see sections 3–4),
+> the image - they are used solely by the host-run pipeline (see sections 3–4),
 > so excluding them keeps the build context small.
 
 ### Recording the commit SHA (optional)
