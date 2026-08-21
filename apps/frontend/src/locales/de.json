@@ -32,7 +32,7 @@
     "text": {
       "invalidImportFile": "Ungültige oder nicht lesbare Importdatei.",
       "noMatchesFound": "Keine Treffer gefunden.",
-      "moreMatchesRefine": "+{{count}} weitere — Suche eingrenzen"
+      "moreMatchesRefine": "+{{count}} weitere - Suche eingrenzen"
     }
   },
   "header": {
@@ -88,6 +88,7 @@
     },
     "label": {
       "runQuery": "Abfrage starten",
+      "viewProgress": "Fortschritt anzeigen",
       "hotspots": "Hotspots",
       "eezBoundaries": "EEZ-Grenzen",
       "mpaZones": "MPA-Zonen",
@@ -101,8 +102,8 @@
       "contextZone": "Kontextzone",
       "insideEezOnly": "Nur innerhalb EEZ",
       "insideMpaOnly": "Nur innerhalb MPA",
-      "reasonCodesInclude": "Reason Codes — Einschließen",
-      "reasonCodesExclude": "Reason Codes — Ausschließen",
+      "reasonCodesInclude": "Reason Codes - Einschließen",
+      "reasonCodesExclude": "Reason Codes - Ausschließen",
       "flags": "Flaggen",
       "gearTypes": "Gerätetypen",
       "vesselTypes": "Schiffstypen",
@@ -156,7 +157,7 @@
     },
     "hint": {
       "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
-      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv — einige Filter werden gemeinsam genutzt"
+      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv - einige Filter werden gemeinsam genutzt"
     }
   },
   "map": {
@@ -262,5 +263,56 @@
     "sessionExpired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an",
     "genericError": "Etwas ist schiefgelaufen, bitte melden Sie sich erneut an",
     "logout": "Abmelden"
+  },
+  "queryProgress": {
+    "title": "Abfrage läuft",
+    "status": {
+      "pending": "Ausstehend",
+      "running": "Läuft",
+      "success": "Fertig",
+      "skipped": "Übersprungen",
+      "error": "Fehlgeschlagen"
+    },
+    "skipReason": {
+      "cache_disabled": "Cache für diese Abfrage deaktiviert",
+      "fully_cached": "Bereits vollständig zwischengespeichert"
+    },
+    "step": {
+      "validate": {
+        "label": "Anfrage wird validiert"
+      },
+      "cacheCheck": {
+        "label": "Cache-Abdeckung wird geprüft",
+        "detail": "{{daysCached}}/{{daysTotal}} Tag(e) zwischengespeichert"
+      },
+      "fetchProvider": {
+        "label": "Daten werden vom Anbieter abgerufen",
+        "detail": "{{count}} Erkennung(en) erhalten"
+      },
+      "writeCache": {
+        "label": "Ergebnisse werden zwischengespeichert",
+        "detail": "{{partitions}} Partition(en) geschrieben, {{days}} Tag(e) als abgedeckt markiert"
+      },
+      "readCache": {
+        "label": "Zwischengespeicherte Ereignisse werden gelesen",
+        "detail": "{{count}} Ereignis(se) zusammengeführt"
+      },
+      "filterScope": {
+        "label": "Filterung auf Gebiet & Zeitraum",
+        "detail": "{{valid}} von {{total}} Ereignis(sen) für diese Abfrage gültig"
+      },
+      "filterPredicates": {
+        "label": "Score- & Grund-Filter werden angewendet",
+        "detail": "{{matched}} von {{total}} Ereignis(sen) entsprechen"
+      },
+      "hotspots": {
+        "label": "Hotspots werden berechnet",
+        "detail": "{{count}} Hotspot(s)"
+      },
+      "paginate": {
+        "label": "Ergebnisse werden vorbereitet",
+        "detail": "Zeige {{pageSize}} von {{total}} - Seite {{currentPage}} von {{totalPages}}"
+      }
+    }
   }
 }

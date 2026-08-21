@@ -4,3 +4,4 @@ export * from "./routeEnum";
 export * from "./controllerEnum";
 export * from "./geoJSONEnum";
 export * from "./serviceEnum";
+export * from "./queryProgressEnum";

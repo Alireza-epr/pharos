@@ -8,6 +8,8 @@ export interface IModalProps {
   onClose: () => void;
   title?: string;
   children: ReactNode;
+  /** 'default' (90vw/85vh, e.g. the maximized detections table) or a small, content-sized centered box. */
+  size?: 'default' | 'small';
 }
 
 const Modal = (props: IModalProps) => {
@@ -27,7 +29,7 @@ const Modal = (props: IModalProps) => {
   return createPortal(
     <div className={` ${modalStyle.overlay}`} onClick={props.onClose}>
       <div
-        className={` ${modalStyle.dialog}`}
+        className={`${modalStyle.dialog} ${props.size === 'small' ? modalStyle.small : ''}`}
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}

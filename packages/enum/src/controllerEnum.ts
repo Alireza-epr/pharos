@@ -20,6 +20,10 @@ export enum EResponseMessage {
 
 export enum EResponseError {
   Failed = "Failed",
+  // Generic, safe-to-display fallback for an unexpected server-side failure -
+  // never the raw exception (which can carry an upstream provider payload).
+  // Full detail always still goes to the server log.
+  UnexpectedFailure = "Unexpected error - please try again",
   EndpointNotFound = "Endpoint not found",
   // Token
   RefreshTokenRequired = "Refresh token required",

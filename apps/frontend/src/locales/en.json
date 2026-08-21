@@ -32,7 +32,7 @@
     "text": {
       "invalidImportFile": "Invalid or unreadable import file.",
       "noMatchesFound": "No matches found.",
-      "moreMatchesRefine": "+{{count}} more — refine your search"
+      "moreMatchesRefine": "+{{count}} more - refine your search"
     }
   },
   "header": {
@@ -85,6 +85,7 @@
     },
     "label": {
       "runQuery": "Run Query",
+      "viewProgress": "View Progress",
       "hotspots": "Hotspots",
       "eezBoundaries": "EEZ Boundaries",
       "mpaZones": "MPA Zones",
@@ -153,7 +154,7 @@
     },
     "hint": {
       "multipleSelect": "Hold Ctrl and click to select multiple",
-      "highlightedDataset": "Highlighted datasets are active — some filters are shared across them"
+      "highlightedDataset": "Highlighted datasets are active - some filters are shared across them"
     },
     "error": {
       "runQueryFailed": "Failed to fetch"
@@ -262,5 +263,56 @@
     "sessionExpired": "Your session expired, please log in again",
     "genericError": "Something went wrong, please try logging in again",
     "logout": "Logout"
+  },
+  "queryProgress": {
+    "title": "Running Query",
+    "status": {
+      "pending": "Pending",
+      "running": "Running",
+      "success": "Done",
+      "skipped": "Skipped",
+      "error": "Failed"
+    },
+    "skipReason": {
+      "cache_disabled": "Cache disabled for this query",
+      "fully_cached": "Already fully cached"
+    },
+    "step": {
+      "validate": {
+        "label": "Validating request"
+      },
+      "cacheCheck": {
+        "label": "Checking cache coverage",
+        "detail": "{{daysCached}}/{{daysTotal}} day(s) cached"
+      },
+      "fetchProvider": {
+        "label": "Fetching from data provider",
+        "detail": "{{count}} detection(s) returned"
+      },
+      "writeCache": {
+        "label": "Caching results",
+        "detail": "{{partitions}} partition(s) written, {{days}} day(s) marked covered"
+      },
+      "readCache": {
+        "label": "Reading cached events",
+        "detail": "{{count}} event(s) merged"
+      },
+      "filterScope": {
+        "label": "Filtering to AOI & date range",
+        "detail": "{{valid}} of {{total}} event(s) valid for this query"
+      },
+      "filterPredicates": {
+        "label": "Applying score & reason filters",
+        "detail": "{{matched}} of {{total}} event(s) matched"
+      },
+      "hotspots": {
+        "label": "Computing hotspots",
+        "detail": "{{count}} hotspot(s)"
+      },
+      "paginate": {
+        "label": "Preparing results",
+        "detail": "Showing {{pageSize}} of {{total}} - page {{currentPage}} of {{totalPages}}"
+      }
+    }
   }
 }

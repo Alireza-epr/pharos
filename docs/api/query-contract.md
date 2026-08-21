@@ -540,6 +540,57 @@ Default:
 
 ### 3. Response
 
+The response is a **newline-delimited JSON (NDJSON) stream**
+(`Content-Type: application/x-ndjson`), not a single JSON body: one `step`
+line per checklist step as the request works through it, followed by exactly
+one `result` line carrying the same envelope this endpoint used to return in
+a single response. The HTTP status is committed to `200` the moment the
+stream opens — before the outcome is known — so **`payload.success` in the
+final `result` line, not the HTTP status code, is the real outcome**. This
+lets the frontend render a live step-by-step checklist (see `EQueryStepId` /
+`QUERY_STEP_ORDER` in `@packages/enum`) while the request is still in flight.
+
+#### Step line
+
+```json
+{ "type": "step", "id": "fetch-provider", "status": "success", "meta": { "count": 812 } }
+```
+
+| Field  | Description                                                                 | Format |
+| ------ | ------------------------------------------------------------------------------ | ------ |
+| type   | Always `"step"`                                                              | string |
+| id     | One of the checklist steps below                                             | string |
+| status | `pending` \| `running` \| `success` \| `skipped` \| `error`                  | string |
+| meta   | Step-specific counters (present on `success`; keys vary per step, see below) | object |
+| reason | Why a `skipped` step didn't run: `cache_disabled` \| `fully_cached`          | string |
+| error  | Failure detail (present on `error`)                                          | string |
+
+The checklist is a fixed, ordered list — the same steps every run, in this
+order. Whether the cache-related steps run or resolve straight to `skipped`
+depends on the query's `cache` flag and the cache hit/miss outcome for that
+run; every other step always runs.
+
+| # | id                  | Runs                                     | `skipped` when                                     | `meta` on success                          |
+| - | ------------------- | ----------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| 1 | `validate`          | Always                                    | never                                                  | —                                               |
+| 2 | `cache-check`       | `cache` enabled                           | `cache` disabled (`cache_disabled`)                    | `{ daysCached, daysTotal }`                     |
+| 3 | `fetch-provider`    | `cache` disabled, or enabled with a miss  | `cache` enabled and fully covered (`fully_cached`)     | `{ count }`                                     |
+| 4 | `write-cache`       | `cache` enabled with a miss               | `cache` disabled, or enabled and fully covered         | `{ partitions, days }`                          |
+| 5 | `read-cache`        | `cache` enabled                           | `cache` disabled (`cache_disabled`)                    | `{ count }`                                     |
+| 6 | `filter-scope`      | Always                                    | never                                                  | `{ valid, total }`                              |
+| 7 | `filter-predicates` | Always                                    | never                                                  | `{ matched, total }`                            |
+| 8 | `hotspots`          | Always                                    | never                                                  | `{ count }`                                     |
+| 9 | `paginate`          | Always                                    | never                                                  | `{ pageSize, total, currentPage, totalPages }`  |
+
+#### Result line
+
+```json
+{ "type": "result", "payload": { "success": true, "metadata": {}, "pagination": {}, "stats": {}, "entries": [] } }
+```
+
+`payload` is the envelope described below — identical to what this endpoint
+used to return as its entire body.
+
 | Field                                     | Description                                                                                                      | Format  |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
 | success                                   | Request status                                                                                                   | boolean |
@@ -565,7 +616,7 @@ Default:
 
 ---
 
-#### Example: Success Response (200 OK) - With data
+#### Example: `result` line `payload` - With data
 
 ```json
 {
@@ -577,7 +628,7 @@ Default:
 }
 ```
 
-#### Example: Success Response (200 OK) - Empty dataset
+#### Example: `result` line `payload` - Empty dataset
 
 ```json
 {
@@ -592,11 +643,13 @@ Default:
 
 ### 4. Errors
 
-- `400 Bad Request` – Invalid query parameters
-- `400 Bad Request` – Body validation failed
-- `400 Bad Request` – Offset exceeds total available items
-- `401 Unauthorized` – Missing, invalid, or expired access token
-- `500 Internal Server Error` – Unexpected server-side failure
+- `401 Unauthorized` – Missing, invalid, or expired access token (rejected before the stream opens)
+- `429 Too Many Requests` – Rate limit exceeded (rejected before the stream opens)
+- `200 OK` with `payload.success: false` in the final `result` line, for every failure that used to be a distinct status code:
+  - Invalid query parameters
+  - Body validation failed
+  - Offset exceeds total available items
+  - Unexpected server-side failure
 
 ---
 
