@@ -4,6 +4,7 @@ export enum EBaseRoutes {
   events = "/events",
   hotspots = "/hotspots",
   exports = "/exports",
+  regions = "/regions",
 }
 
 export enum ESystemRoutes {

@@ -57,6 +57,17 @@ export interface FeatureCollection<G extends IGeometry = IGeometry, P = any> {
   features: IFeature<G, P>[];
 }
 
+export interface IRegionOptionProperties {
+  id: string;
+  title: string;
+}
+
+export type TRegionOption = IFeature<IPointGeometry, IRegionOptionProperties>;
+export type TRegionOptionFeature = FeatureCollection<
+  IPointGeometry,
+  IRegionOptionProperties
+>;
+
 export const EVENT_MISSINGNESS_KEYS = {
   event_id: "event_id",
   timestamp_utc: "timestamp_utc",

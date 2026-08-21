@@ -197,6 +197,8 @@ The EEZ, MPA, and coastline boundary files each ship two versions in the repo:
 
 Controlled by `CONTEXT_DATASET_QUALITY` in `apps/backend/.env` (`simplified` | `full`, defaults to `simplified`).
 
+`GET /v1/regions` (the EEZ/MPA option list behind the Area of Interest dropdowns) reads these same files to compute each region's bbox/centroid, so it's subject to the same setting. Unlike the point-in-polygon serving path — which only loads them when a query actually uses a named-region AOI — this endpoint loads them on its first hit, which in practice means on first sidebar load of any session. On a memory-constrained host this brings the cost forward; see the deferred fix noted for this in project memory (precompute a small `{id, title, bbox, centroid}` file offline instead of reading the full boundary files at request time).
+
 ---
 
 ## 5. Output Location

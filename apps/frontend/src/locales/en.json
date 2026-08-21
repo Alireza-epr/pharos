@@ -30,7 +30,9 @@
       "close": "Close"
     },
     "text": {
-      "invalidImportFile": "Invalid or unreadable import file."
+      "invalidImportFile": "Invalid or unreadable import file.",
+      "noMatchesFound": "No matches found.",
+      "moreMatchesRefine": "+{{count}} more — refine your search"
     }
   },
   "header": {
@@ -76,6 +78,7 @@
     "placeholder": {
       "selectEEZ": "Select EEZ...",
       "selectMPA": "Select MPA...",
+      "loadingRegions": "Loading regions...",
       "none": "None",
       "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
       "rawQuery": "Enter raw query..."
@@ -141,7 +144,8 @@
       "comingSoon": "Coming soon",
       "zonalMinPoints": "Add at least 3 points to close the area.",
       "zonalHint": "Click to add points · double-click, Enter or right-click to finish · Esc to cancel",
-      "pointHint": "Click on the map to place a point"
+      "pointHint": "Click on the map to place a point",
+      "regionsLoadFailed": "Could not load EEZ/MPA regions."
     },
     "caveat": {
       "apiInternalId": "API Internal ID",

@@ -2,19 +2,19 @@ import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 import ButtonInput from '../common/inputs/ButtonInput';
-import DropdownInput from '../common/inputs/DropdownInput';
+import DropdownInput, { IDropdownOption } from '../common/inputs/DropdownInput';
 import NumberInput from '../common/inputs/NumberInput';
 import { useTranslator } from '../../hooks/translator';
-import { useEffect } from 'react';
-import { eez_options, mpa_options } from '../../helpers/fixtures/context';
+import { useEffect, useMemo } from 'react';
 import {
   AOI_RADIUS_MIN_KM,
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
-import { EGeoJSONGeometryType } from '@packages/enum';
+import { EContextLayers, EGeoJSONGeometryType } from '@packages/enum';
 import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
 import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
+import { useFetchRegions } from '../../hooks/fetch';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -53,6 +53,9 @@ const AreaOfInterest = () => {
   const importAOI = useAOIStore((s) => s.importAOI);
 
   const { t } = useTranslator();
+
+  const eezFetch = useFetchRegions();
+  const mpaFetch = useFetchRegions();
 
   const deactivateExcept = (a_Tool: TAreaOfInterestTools) => {
     switch (a_Tool) {
@@ -111,14 +114,14 @@ const AreaOfInterest = () => {
   const handleChangeEEZOption = (a_Value: string) => {
     deactivateExcept(EAreaOfInterestTools.eez);
     setFeature(null);
-    const eez = eezOptions.find((eez) => eez.value === a_Value);
+    const eez = eezOptions.find((eez) => eez.properties.id === a_Value);
     setEEZActive(eez);
   };
 
   const handleChangeMPAOption = (a_Value: string) => {
     deactivateExcept(EAreaOfInterestTools.mpa);
     setFeature(null);
-    const mpa = mpaOptions.find((mpa) => mpa.value === a_Value);
+    const mpa = mpaOptions.find((mpa) => mpa.properties.id === a_Value);
     setMPAActive(mpa);
   };
 
@@ -131,9 +134,31 @@ const AreaOfInterest = () => {
   };
 
   useEffect(() => {
-    setEEZOptions(eez_options);
-    setMPAOptions(mpa_options);
+    const reportLoadFailed = () =>
+      useMessageStore.getState().setWarn(t('sidebar.text.regionsLoadFailed'));
+
+    eezFetch.execute(EContextLayers.eez).then((json) => {
+      if (!json?.success) return reportLoadFailed();
+      setEEZOptions(json.entries ?? []);
+    });
+    mpaFetch.execute(EContextLayers.mpa).then((json) => {
+      if (!json?.success) return reportLoadFailed();
+      setMPAOptions(json.entries ?? []);
+    });
   }, []);
+
+  // MPA alone is 17k+ rows -- derive the dropdown's plain {value,label} shape
+  // once per fetch rather than re-mapping on every render.
+  const eezDropdownOptions = useMemo<IDropdownOption<string>[]>(
+    () =>
+      eezOptions.map((o) => ({ value: o.properties.id, label: o.properties.title })),
+    [eezOptions],
+  );
+  const mpaDropdownOptions = useMemo<IDropdownOption<string>[]>(
+    () =>
+      mpaOptions.map((o) => ({ value: o.properties.id, label: o.properties.title })),
+    [mpaOptions],
+  );
 
   const handleExport = () => {
     const aoi = getAOI();
@@ -199,9 +224,15 @@ const AreaOfInterest = () => {
 
       <SectionItem title={t('sidebar.text.orChooseEEZRegion')} tab >
         <DropdownInput
-          placeholder={t('sidebar.placeholder.selectEEZ')}
-          options={eezOptions}
-          value={eezActive ? eezActive.value : ''}
+          placeholder={
+            eezFetch.loading
+              ? t('sidebar.placeholder.loadingRegions')
+              : t('sidebar.placeholder.selectEEZ')
+          }
+          disabled={eezFetch.loading}
+          searchable
+          options={eezDropdownOptions}
+          value={eezActive ? eezActive.properties.id : ''}
           onChange={handleChangeEEZOption}
           onClear={handleClearEEZ}
           clearLabel={t('general.label.clear')}
@@ -211,12 +242,19 @@ const AreaOfInterest = () => {
 
       <SectionItem title={t('sidebar.text.orChooseMPARegion')} tab >
         <DropdownInput
-          placeholder={t('sidebar.placeholder.selectMPA')}
-          options={mpaOptions}
-          value={mpaActive ? mpaActive.value : ''}
+          placeholder={
+            mpaFetch.loading
+              ? t('sidebar.placeholder.loadingRegions')
+              : t('sidebar.placeholder.selectMPA')
+          }
+          disabled={mpaFetch.loading}
+          searchable
+          options={mpaDropdownOptions}
+          value={mpaActive ? mpaActive.properties.id : ''}
           onChange={handleChangeMPAOption}
           onClear={handleClearMPA}
           clearLabel={t('general.label.clear')}
+          testId="mpa-select"
         />
       </SectionItem>
     </Section>

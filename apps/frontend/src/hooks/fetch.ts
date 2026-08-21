@@ -1,5 +1,6 @@
 import {
   EBaseRoutes,
+  EContextLayers,
   EExportsRoutes,
   EFetchMethods,
   ELogType,
@@ -9,6 +10,7 @@ import {
   IEventSchema,
   IResponse,
   TBodyParams_export,
+  TRegionOption,
 } from '@packages/types';
 import { log_frontend } from '@packages/utils';
 import { useState, useCallback } from 'react';
@@ -56,6 +58,39 @@ export const useFetchEvents = () => {
       } catch (err: any) {
         const message = err instanceof Error ? err.message : String(err);
         log_frontend(`[useFetchEvents] Error: ${message}`, ELogType.error, '3');
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url],
+  );
+
+  return { response, loading, error, execute };
+};
+
+export const useFetchRegions = () => {
+  const url = `${BASE_URL}${EBaseRoutes.regions}`;
+  const [response, setResponse] = useState<IResponse<TRegionOption> | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const execute = useCallback(
+    async (a_Dataset: EContextLayers) => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetchWithAuth(`${url}?dataset=${a_Dataset}`, {
+          method: EFetchMethods.get,
+        });
+        const json: IResponse<TRegionOption> = await res.json();
+        setResponse(json);
+        return json;
+      } catch (err: any) {
+        const message = err instanceof Error ? err.message : String(err);
+        log_frontend(`[useFetchRegions] Error: ${message}`, ELogType.error, '3');
         setError(err);
       } finally {
         setLoading(false);

@@ -4,6 +4,7 @@ import {
   IValidationResult,
 } from '@packages/types';
 import {
+  EContextLayers,
   EFormat,
   EGeoJSONGeometryType,
   EGroupBy,
@@ -211,11 +212,41 @@ export const validateQueryParams = (a_Query: unknown): IValidationResult => {
 };
 
 /* =========================================================
+ * REGIONS QUERY VALIDATOR (GET /v1/regions)
+ * =======================================================*/
+
+export const validateRegionsQueryParams = (
+  a_Query: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Query)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.QUERY_NOT_OBJECT,
+          field: 'query',
+        },
+      ],
+    };
+  }
+
+  validateEnum(a_Query.dataset, REGIONS_DATASETS, 'dataset', errors, true);
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/* =========================================================
  * HELPERS
  * =======================================================*/
 
 const GEOJSON_TYPES = Object.values(EGeoJSONGeometryType);
 const REGION_DATASETS = Object.values(ERegionDatasets);
+const REGIONS_DATASETS = Object.values(EContextLayers);
 const REGION_BUFFER_OPERATIONS = Object.values(ERegionBufferOperations);
 const REGION_BUFFER_UNITS = Object.values(ERegionBufferUnits);
 const HOTSPOT_TIME_BINS = Object.values(EHotspotTimeBins);

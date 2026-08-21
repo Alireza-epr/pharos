@@ -2,8 +2,10 @@ import { EViolationError } from '@packages/enum';
 import {
   validateBodyParams,
   validateQueryParams,
+  validateRegionsQueryParams,
   validateViolation,
 } from '../src/helpers/utils/validationUtils';
+import { EContextLayers } from '@packages/enum';
 import {
   invalidBody_geojson,
   invalidBody_invalid_sort,
@@ -190,6 +192,46 @@ describe('validateQueryParams', () => {
     });
 
     expect(result.isValid).toBe(true);
+  });
+});
+
+describe('validateRegionsQueryParams', () => {
+  it('accepts_EEZ_and_MPA_datasets', () => {
+    const eez = validateRegionsQueryParams({ dataset: EContextLayers.eez });
+    const mpa = validateRegionsQueryParams({ dataset: EContextLayers.mpa });
+
+    expect(eez.isValid).toBe(true);
+    expect(eez.errors).toBeNull();
+    expect(mpa.isValid).toBe(true);
+    expect(mpa.errors).toBeNull();
+  });
+
+  it('fail_when_dataset_is_missing', () => {
+    const result = validateRegionsQueryParams({});
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'dataset')).toBe(true);
+  });
+
+  it('fail_when_dataset_is_not_a_recognized_EContextLayers_value', () => {
+    const unknown = validateRegionsQueryParams({ dataset: 'not-a-dataset' });
+
+    expect(unknown.isValid).toBe(false);
+  });
+
+  it('accepts_bathymetry_as_a_recognized_dataset_value', () => {
+    const bathymetry = validateRegionsQueryParams({
+      dataset: EContextLayers.bathymetry,
+    });
+
+    expect(bathymetry.isValid).toBe(true);
+  });
+
+  it('fail_when_query_is_not_an_object', () => {
+    const result = validateRegionsQueryParams(null);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.[0]?.field).toBe('query');
   });
 });
 
