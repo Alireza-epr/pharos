@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { circle } from '@turf/turf';
+import { bbox, circle } from '@turf/turf';
 import type { Feature, FeatureCollection } from 'geojson';
 import { EGeoJSONGeometryType } from '@packages/enum';
 import type { IGeometry } from '@packages/types';
@@ -43,6 +43,15 @@ const KIND = {
 
 const MIN_VERTICES = 3;
 const CIRCLE_STEPS = 64;
+// Camera framing for a newly-established AOI (drawn, imported, or a named
+// EEZ/MPA region picked from the dropdown). One mechanism -- fitBounds to the
+// AOI's extent -- covers "jump to a point" (frame its radius circle) and
+// "zoom out for an overview" (frame a whole EEZ/MPA) alike.
+const FLY_TO_PADDING_PX = 48;
+// Caps how far a fitBounds is allowed to zoom in, so a tiny MPA or a
+// minimum-radius point doesn't snap in uncomfortably close.
+const FLY_TO_MAX_ZOOM = 10;
+const FLY_TO_DURATION_MS = 2600;
 // A click within DUP_MS of the previous one and closer than DUP_PX is treated as
 // the second half of a double-click, so finishing doesn't leave a stray vertex.
 const DUP_MS = 300;
@@ -279,6 +288,26 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
       });
     };
 
+    // ---- camera --------------------------------------------------------
+    const flyToExtent = (a_Bounds: [number, number, number, number]) => {
+      map.fitBounds(a_Bounds, {
+        padding: FLY_TO_PADDING_PX,
+        maxZoom: FLY_TO_MAX_ZOOM,
+        duration: FLY_TO_DURATION_MS,
+      });
+    };
+
+    // Frames the point AOI's full radius circle (not just its centre), so the
+    // camera move stays consistent with the "fit the AOI's extent" mechanism
+    // zonal/region jumps use, and re-frames correctly if radius changes.
+    const flyToPointRadius = (a_Center: [number, number]) => {
+      const c = circle(a_Center, getRadius(), {
+        units: 'kilometers',
+        steps: CIRCLE_STEPS,
+      });
+      flyToExtent(bbox(c) as [number, number, number, number]);
+    };
+
     // ---- zonal -------------------------------------------------------------
     const onZonalClick = (e: maplibregl.MapMouseEvent) => {
       const now = Date.now();
@@ -359,6 +388,9 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
       mode = 'idle';
       unbindZonal();
       commitFeature(geom);
+      // Only on the finishing commit, not recommitZonal()'s later vertex-drag
+      // adjustments -- those shouldn't yank the camera out from under an edit.
+      flyToExtent(bbox(geom) as [number, number, number, number]);
       endZonal();
       render();
     };
@@ -379,6 +411,9 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
       map.off('click', onPointClick);
       setCursor('');
       commitPoint(center);
+      // Only the initial placement click, not the handle's later dragend
+      // adjustments -- those shouldn't yank the camera out from under a drag.
+      flyToPointRadius(center);
       endPoint();
       render();
     };
@@ -418,7 +453,10 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
       if (committed === 'point' || mode === 'point') render();
     };
 
-    // React to external feature changes (Clear button, or a programmatic set).
+    // React to external feature changes (Clear button, or a programmatic set
+    // -- chiefly importAOI()). Unlike finishZonal()/onPointClick(), this path
+    // has no "was it just an edit" ambiguity: an external write always means a
+    // new AOI arrived (or was cleared), so it's always fine to fly here.
     const syncFeature = (a_Feature: TAOIFeature | null) => {
       if (a_Feature === lastApplied) return; // our own commit echo
       clearGeometry();
@@ -432,9 +470,11 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
           addVertexHandle(c as [number, number]);
         });
         committed = 'zonal';
+        flyToExtent(bbox(geometry) as [number, number, number, number]);
       } else if (geometry.type === EGeoJSONGeometryType.Point) {
         setPointHandle(geometry.coordinates as [number, number]);
         committed = 'point';
+        flyToPointRadius(geometry.coordinates as [number, number]);
       }
       render();
     };
@@ -448,12 +488,23 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
     syncFeature(initial.feature);
     setZonalActive(initial.zonal);
     setPointActive(initial.point);
+    if (initial.eezActive?.bbox) flyToExtent(initial.eezActive.bbox);
+    else if (initial.mpaActive?.bbox) flyToExtent(initial.mpaActive.bbox);
 
     const unsubscribe = useAOIStore.subscribe((cur, prev) => {
       if (cur.zonal !== prev.zonal) setZonalActive(cur.zonal);
       if (cur.point !== prev.point) setPointActive(cur.point);
       if (cur.radius !== prev.radius) onRadiusChange();
       if (cur.feature !== prev.feature) syncFeature(cur.feature);
+      // Covers both picking a region from the dropdown and importAOI()'s
+      // named-region branch (which writes these same fields). Skipped on
+      // clear (new value undefined) -- there's no bounds to fly to.
+      if (cur.eezActive !== prev.eezActive && cur.eezActive?.bbox) {
+        flyToExtent(cur.eezActive.bbox);
+      }
+      if (cur.mpaActive !== prev.mpaActive && cur.mpaActive?.bbox) {
+        flyToExtent(cur.mpaActive.bbox);
+      }
     });
 
     return () => {

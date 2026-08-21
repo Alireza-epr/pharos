@@ -9,6 +9,7 @@ import systemRoutes from '../modules/system/system.routes';
 import authRoutes from '../modules/auth/auth.routes';
 import eventsRoutes from '../modules/events/events.routes';
 import exportsRoutes from '../modules/exports/exports.routes';
+import regionsRoutes from '../modules/regions/regions.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
 import { attachStartTime } from '../middlewares/timeMiddleware';
@@ -52,6 +53,8 @@ app.use(prependRoute + EBaseRoutes.auth, authRoutes);
 app.use(prependRoute + EBaseRoutes.events, eventsRoutes);
 // Exports
 app.use(prependRoute + EBaseRoutes.exports, exportsRoutes);
+// Regions (EEZ/MPA option lists)
+app.use(prependRoute + EBaseRoutes.regions, regionsRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {

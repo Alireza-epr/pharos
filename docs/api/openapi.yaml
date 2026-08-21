@@ -28,6 +28,7 @@ tags:
   - name: Auth
   - name: Events
   - name: Exports
+  - name: Regions
 
 paths:
   /system/health:
@@ -361,6 +362,51 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+  /regions:
+    get:
+      tags: [Regions]
+      summary: List selectable EEZ or MPA region options
+      description: >
+        Returns the selectable EEZ or MPA region options for building an Area of
+        Interest query -- one entry per region with its id, title, bounding box,
+        and a centroid point (not the real boundary geometry). Requires a valid
+        access token in the `Authorization: Bearer <accessToken>` header.
+      operationId: getRegions
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: Which region collection to list.
+          schema:
+            $ref: "#/components/schemas/RegionDataset"
+
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegionsResponse"
+
+        "400":
+          description: >
+            dataset is missing or not a recognized value, or is a recognized
+            value with no region list to serve (e.g. Bathymetry)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        "401":
+          description: Missing, invalid, or expired access token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   securitySchemes:
     bearerAuth:
@@ -684,6 +730,68 @@ components:
           type: integer
         currentPage:
           type: integer
+
+    RegionDataset:
+      type: string
+      enum: [EEZ, MPA]
+
+    RegionFeatureProperties:
+      type: object
+      required: [id, title]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+
+    RegionPointGeometry:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          enum: [Point]
+        coordinates:
+          type: array
+          description: "[longitude, latitude] of the region's centroid."
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+
+    RegionFeature:
+      type: object
+      description: >
+        A single selectable region: a GeoJSON Feature whose geometry is a cheap
+        centroid Point (not the real boundary), plus the bbox a client fits/zooms
+        a map to.
+      required: [type, properties, geometry]
+      properties:
+        type:
+          type: string
+          enum: [Feature]
+        properties:
+          $ref: "#/components/schemas/RegionFeatureProperties"
+        bbox:
+          type: array
+          description: "[minLng, minLat, maxLng, maxLat]"
+          items:
+            type: number
+          minItems: 4
+          maxItems: 4
+        geometry:
+          $ref: "#/components/schemas/RegionPointGeometry"
+
+    RegionsResponse:
+      type: object
+      required: [success, entries]
+      properties:
+        success:
+          type: boolean
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionFeature"
 
     ErrorResponse:
       type: object

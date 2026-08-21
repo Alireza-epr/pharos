@@ -34,20 +34,12 @@ export const deepSortObject = <T>(a_Object: T): T => {
   if (Array.isArray(a_Object)) {
     const mapped = a_Object.map(deepSortObject);
 
-    // Only sort arrays of primitives (safe case)
-    const isPrimitiveArray = mapped.every(
-      (v) =>
-        typeof v === "string" ||
-        typeof v === "number" ||
-        typeof v === "boolean" ||
-        v === null,
-    );
+    const isStringArray = mapped.every((v) => typeof v === "string");
 
-    if (isPrimitiveArray) {
+    if (isStringArray) {
       return mapped.sort((a, b) => String(a).localeCompare(String(b))) as T;
     }
 
-    // Keep order for arrays of objects / arrays (e.g. coordinates)
     return mapped as T;
   }
 

@@ -41,6 +41,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Authentication Token Check](#authentication-token-check)
 - [Events Report](#events-report)
 - [Events Export](#events-export)
+- [Regions](#regions)
 
 ---
 
@@ -709,6 +710,81 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 - The caller selects which files to include through `config.export`; hotspot files are written only when `hotspots` records are supplied in the request body
 - Each export also writes a server-side audit log (`<exportId>_audit_log.json`) capturing the user, timestamp, configuration hash, and event count
 - The archive is retained server-side in addition to being returned to the caller
+
+---
+
+## Regions
+
+**GET** `/regions`
+
+**Description:**
+`Returns the selectable EEZ or MPA region options for building an Area of Interest query — one entry per region with its id, title, bounding box, and a centroid point (not the real boundary geometry).`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+| Key     | Description                      | Required | Format               | Param Type |
+| ------- | --------------------------------- | -------- | -------------------- | ---------- |
+| dataset | Which region collection to list   | True     | Enum: ['EEZ', 'MPA'] | query      |
+
+---
+
+### 2. Request - Body
+
+```json
+{}
+```
+
+---
+
+### 3. Response
+
+| Field   | Description                                                                                                            | Format  |
+| ------- | ----------------------------------------------------------------------------------------------------------------------- | ------- |
+| success | Request status                                                                                                           | boolean |
+| entries | One entry per region: a GeoJSON Feature with a centroid Point geometry, `bbox`, and `properties.id` / `properties.title` | array   |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "entries": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "8444",
+        "title": "United States Exclusive Economic Zone (American Samoa)"
+      },
+      "bbox": [-173.77, -17.56, -165.2, -10.02],
+      "geometry": { "type": "Point", "coordinates": [-170.2, -14.02] }
+    }
+  ]
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – `dataset` is missing or not a recognized value
+- `400 Bad Request` – `dataset` is a recognized value with no region list to serve (e.g. `Bathymetry` — it has no selectable regions)
+- `401 Unauthorized` – Missing, invalid, or expired access token
+
+---
+
+### 5. Notes
+
+- `dataset` uses the same `EEZ` / `MPA` values as the `region-dataset` field on [Events Report](#events-report); the `id` returned here is the same `region-id` that endpoint accepts
+- Each feature's `geometry` is a cheap centroid point, not the real boundary polygon — the MPA dataset alone is 17,000+ features, so shipping full boundaries would be a much larger payload than a dropdown or a "zoom the map to this region" use case needs. `bbox` is what a client fits/zooms the map to; the centroid is enough to place a marker or fly to a point
+- A small share of the source EEZ/MPA data (an overlapping-claim EEZ, and roughly a fifth of MPA sites) has no boundary geometry recorded upstream; those entries are silently excluded rather than returned with a broken bbox/centroid
+- Options for a dataset are computed once per server process and memoized — repeat requests are served from the cached list, not recomputed
 
 ---
 

@@ -12,6 +12,7 @@ import { EExportEvidence } from '@packages/enum';
 import { TBodyParams_export } from '@packages/types';
 import { downloadFile } from '../../../helpers/utils/downloadUtils';
 import Section from '../../../components/common/section/Section';
+import { log_frontend } from '@packages/utils';
 
 const ExportTab = () => {
   const { t } = useTranslator();
@@ -31,6 +32,7 @@ const ExportTab = () => {
       config,
       events: selectedEvents,
     };
+    log_frontend(body);
     const file = await execute(body);
     if (file) {
       downloadFile(file.blob, file.filename);

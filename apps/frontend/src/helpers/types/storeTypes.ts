@@ -12,10 +12,10 @@ import {
   T4wingsSource,
   TExportConfig,
   TFilterKey,
+  TRegionOption,
   TSourceKey,
 } from '@packages/types';
 import { TDetailTab, TSidebarTab, TTheme } from '../enum/storeEnum';
-import { IDropdownOption } from '../../components/common/inputs/DropdownInput';
 import { TLanguage } from '../enum/translationEnum';
 import {
   TMatchFilter,
@@ -310,13 +310,11 @@ export interface IAOIStoreStates {
   zonal: boolean;
   point: boolean;
   feature: TAOIFeature | null;
-  // Circle radius (km) for the point tool. A point AOI is a circular buffer of
-  // this radius; enforced minimum lives in AOI_RADIUS_MIN_KM.
   radius: number;
-  eezOptions: IDropdownOption<string>[];
-  eezActive: IDropdownOption<string> | undefined;
-  mpaOptions: IDropdownOption<string>[];
-  mpaActive: IDropdownOption<string> | undefined;
+  eezOptions: TRegionOption[];
+  eezActive: TRegionOption | undefined;
+  mpaOptions: TRegionOption[];
+  mpaActive: TRegionOption | undefined;
 }
 
 export interface IAOIRegionProperties {

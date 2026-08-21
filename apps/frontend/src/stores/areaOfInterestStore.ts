@@ -80,14 +80,14 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           return {
             url_params: {
               'region-dataset': ERegionDatasets.eez,
-              'region-id': eezActive.value,
+              'region-id': eezActive.properties.id,
             },
           };
         if (mpaActive)
           return {
             url_params: {
               'region-dataset': ERegionDatasets.mpa,
-              'region-id': mpaActive.value,
+              'region-id': mpaActive.properties.id,
             },
           };
         if (!feature) return null;
@@ -135,7 +135,7 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             a_Data.url_params;
           const isEEZ = dataset === ERegionDatasets.eez;
           const options = isEEZ ? eezOptions : mpaOptions;
-          const active = options.find((o) => o.value === id);
+          const active = options.find((o) => o.properties.id === id);
           set({
             zonal: false,
             point: false,

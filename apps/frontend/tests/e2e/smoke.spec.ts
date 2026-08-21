@@ -17,6 +17,21 @@ const eventsResponse = JSON.parse(
 // report success or the events request is never sent.
 const healthResponse = { success: true };
 
+// The EEZ/MPA dropdowns populate from GET /v1/regions?dataset=EEZ|MPA (see
+// useFetchRegions / AreaOfInterest.tsx) rather than a static fixture, so the
+// happy path needs at least one option per dataset to pick from.
+const regionsResponse = (a_Dataset: 'EEZ' | 'MPA') => ({
+  success: true,
+  entries: [
+    {
+      type: 'Feature',
+      properties: { id: `${a_Dataset.toLowerCase()}-1`, title: `Test ${a_Dataset} Region` },
+      bbox: [14.0, 55.0, 15.0, 56.0],
+      geometry: { type: 'Point', coordinates: [14.5, 55.5] },
+    },
+  ],
+});
+
 // A persisted access token short-circuits the auth gate in App.tsx so the smoke
 // test lands directly on the main UI. Matches zustand's persist envelope
 // ({ state, version }) under the loginStore's "login" key.
@@ -40,6 +55,10 @@ const stubBackend = async (page: Page) => {
   await page.route('**/events*', (route) =>
     route.fulfill({ json: eventsResponse }),
   );
+  await page.route('**/regions*', (route) => {
+    const dataset = new URL(route.request().url()).searchParams.get('dataset');
+    route.fulfill({ json: regionsResponse(dataset === 'MPA' ? 'MPA' : 'EEZ') });
+  });
 };
 
 test.describe('UI_smoke', () => {
@@ -63,14 +82,18 @@ test.describe('UI_smoke', () => {
     // its controls (including the EEZ dropdown) are hidden until opened.
     await page.getByTestId('aoi-section-header').click();
 
-    // 3) Satisfy the AOI requirement by picking the first EEZ from the dropdown.
-    const eezSelect = page.getByTestId('eez-select');
-    const firstEez = await eezSelect
-      .locator('option:not([disabled])')
-      .first()
-      .getAttribute('value');
-    expect(firstEez).toBeTruthy();
-    await eezSelect.selectOption(firstEez!);
+    // 3) Satisfy the AOI requirement by picking the first EEZ from the
+    // dropdown. It's a searchable combobox (see DropdownInput's
+    // SearchableSelect), not a native <select>: focusing it opens a listbox
+    // of options, and clicking one commits it.
+    const eezInput = page.getByTestId('eez-select');
+    await eezInput.click();
+    const firstEezOption = page.getByRole('option').first();
+    await expect(firstEezOption).toBeVisible();
+    const firstEezLabel = await firstEezOption.textContent();
+    await firstEezOption.click();
+    expect(firstEezLabel).toBeTruthy();
+    await expect(eezInput).toHaveValue(firstEezLabel!);
 
     // The button activates once an AOI is set.
     await expect(runQuery).toBeEnabled();
