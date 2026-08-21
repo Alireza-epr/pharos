@@ -27,6 +27,13 @@ export const fetchWithRetry = async (
 
       return response;
     } catch (error) {
+      // An aborted request (AbortController.abort(), e.g. the caller gave up
+      // waiting) is never worth retrying — rethrow immediately instead of
+      // sleeping and trying again on an already-cancelled signal.
+      if ((error as Error).name === "AbortError") {
+        throw error;
+      }
+
       if ((error as Error).message.includes("Non-retryable error")) {
         throw `[fetchWithRetry] Error: ${error}`;
       }

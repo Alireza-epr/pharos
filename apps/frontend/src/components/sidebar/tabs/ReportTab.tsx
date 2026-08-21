@@ -19,10 +19,12 @@ import Pagination from '../../blocks/Pagination';
 import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
 import ExportAndImportConfig from '../../../components/blocks/ExportAndImportConfig';
+import QueryProgressModal from '../../../components/blocks/QueryProgressModal';
+import { useQueryProgressStore } from '../../../stores/queryProgressStore';
 import { buildConfig } from '../../../helpers/utils/configUtils';
 
 const ReportTab = () => {
-  const { response, loading, error, execute } = useFetchEvents();
+  const { response, error, execute } = useFetchEvents();
   const { t } = useTranslator();
 
   const setEvents = useEventStore((s) => s.setEvents);
@@ -33,7 +35,25 @@ const ReportTab = () => {
     Boolean(s.eezActive || s.mpaActive || s.feature),
   );
 
+  // isRunning/isOpen live in the store (not local state) so they survive this
+  // component unmounting/remounting (e.g. switching sidebar tabs) — a query
+  // in flight must never look "idle" again just because its owning component
+  // was torn down and rebuilt.
+  const isRunning = useQueryProgressStore((s) => s.isRunning);
+  const isProgressOpen = useQueryProgressStore((s) => s.isOpen);
+  const openProgress = useQueryProgressStore((s) => s.open);
+
   const handleRunQueryClick = () => {
+    // A run is already in flight — its modal may just be hidden. Reopen it
+    // instead of silently starting a second, overlapping request: the
+    // detection provider allows only one concurrent report per token, and
+    // cancelling our side doesn't reliably stop one already accepted
+    // upstream, so a duplicate submit collides with the one still running.
+    if (isRunning) {
+      openProgress();
+      return;
+    }
+
     if (!hasAOI) return;
     const config = buildConfig();
 
@@ -57,6 +77,7 @@ const ReportTab = () => {
 
   return (
     <>
+      <QueryProgressModal />
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         <AreaOfInterest />
         <TimeRange />
@@ -77,10 +98,19 @@ const ReportTab = () => {
             disabled
           />
           <ButtonInput
-            label={t('sidebar.label.runQuery')}
+            label={
+              isRunning && !isProgressOpen
+                ? t('sidebar.label.viewProgress')
+                : t('sidebar.label.runQuery')
+            }
             onClick={handleRunQueryClick}
-            disabled={loading || !hasAOI}
-            loading={loading}
+            // While running with the modal open, the button shows its own
+            // spinner and is inert (the modal already has focus). While
+            // running with the modal closed it must stay clickable — that's
+            // how the user gets back to a run they dismissed early — so only
+            // gate on AOI once there's no run to reopen.
+            disabled={isRunning ? isProgressOpen : !hasAOI}
+            loading={isRunning && isProgressOpen}
             testId="run-query-button"
           />
           <ButtonInput

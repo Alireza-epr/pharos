@@ -8,6 +8,7 @@ import {
   IFilteringParamsUI,
   IGeometry,
   IHotspotConfig,
+  IQueryProgressStepMessage,
   ISortOption,
   T4wingsSource,
   TExportConfig,
@@ -519,6 +520,30 @@ export interface IPaginationStoreActions {
   ) => void;
   getPagination: () => IPaginationQuery;
   importPagination: (a_Data: IPaginationQuery) => void;
+}
+
+export interface IQueryProgressStoreStates {
+  isOpen: boolean;
+  /** True from `start()` until the request settles (success or error) — see `finish()`. */
+  isRunning: boolean;
+  steps: Omit<IQueryProgressStepMessage, "type">[];
+}
+
+export interface IQueryProgressStoreActions {
+  /** Starts a new run: resets every step to `pending`, opens the modal, marks it running. */
+  start: () => void;
+  applyStep: (a_Message: IQueryProgressStepMessage) => void;
+  /** Marks the first unsettled step as `error` — for failures the stream never reported. */
+  fail: (a_Error: string) => void;
+  /**
+   * Reopens the modal on the current/last run without resetting anything —
+   * for a run still in flight whose modal was dismissed early (see ReportTab).
+   */
+  open: () => void;
+  /** Hides the modal only. The run, if still in flight, keeps going. */
+  close: () => void;
+  /** Marks the run as no longer in flight, whichever way it ended. */
+  finish: () => void;
 }
 
 export interface IMessageStoreStates {

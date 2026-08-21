@@ -23,6 +23,16 @@
   overflow: hidden;
 }
 
+// A compact, content-sized box centered on screen (e.g. the query progress
+// checklist) instead of the near-fullscreen default — the overlay's own
+// padding keeps it clear of the viewport edges on small screens.
+.dialog.small {
+  width: min(90vw, 26rem);
+  max-width: 26rem;
+  height: auto;
+  max-height: 80vh;
+}
+
 .header {
   flex-shrink: 0;
   display: flex;

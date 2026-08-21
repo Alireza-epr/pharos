@@ -270,18 +270,24 @@ paths:
 
       responses:
         "200":
-          description: Success
+          description: >
+            A newline-delimited JSON (NDJSON) progress stream, not a single JSON
+            body: one `{ "type": "step", "id": ..., "status": ... }` line per
+            checklist step (see docs/api/query-contract.md, Events Report ->
+            Response), followed by exactly one
+            `{ "type": "result", "payload": ... }` line whose `payload` is the
+            same envelope this endpoint used to return in one shot
+            (`EventsReportResponse` on success, `ErrorResponse`-shaped on
+            failure). The HTTP status is committed to 200 the moment the
+            stream opens, before the outcome is known, so `payload.success` in
+            that final line — not this status code — is the real result; a
+            failed step (e.g. invalid params, an internal error) surfaces as
+            `payload.success: false` there instead of a 400/500 status.
           content:
-            application/json:
+            application/x-ndjson:
               schema:
-                $ref: "#/components/schemas/EventsReportResponse"
-
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                type: string
+                description: One JSON object per line, as described above.
 
         "401":
           description: Missing, invalid, or expired access token
@@ -296,13 +302,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RateLimitErrorResponse"
-
-        "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
 
   /exports/events:
     post:

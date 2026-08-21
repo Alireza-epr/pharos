@@ -1,6 +1,12 @@
-import { IConfigJSON, IEventSchema, IServedEvents } from '@packages/types';
+import { IConfigJSON, IEventSchema, IServedEvents, IStepReporter } from '@packages/types';
 import { sortEventSchema } from '@packages/utils';
-import { ECache, EFetchMethods, TCache } from '@packages/enum';
+import {
+  ECache,
+  EFetchMethods,
+  EQuerySkipReason,
+  EQueryStepId,
+  TCache,
+} from '@packages/enum';
 import { getDetections } from './DetectionService';
 import { log } from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
@@ -52,9 +58,14 @@ const servingRepository = getServingRepository();
  * provider's own AOI handling is grid/cell based, not exact, so both branches
  * share `filterEventsToQuery` and disabling the cache only changes *how*
  * events are fetched, never *which* ones are returned.
+ *
+ * `a_Report` (optional) is fed the checklist steps this run actually took —
+ * see `EQueryStepId`/`docs/api/query-contract.md` — so the caller can stream them
+ * to the frontend. This function only reports; it knows nothing about HTTP.
  */
 export const getServedEvents = async (
   a_Config: IConfigJSON,
+  a_Report?: IStepReporter,
 ): Promise<IServedEvents> => {
   const range = parseDateRange(a_Config.url_params['date-range']);
   if (!range) {
@@ -66,8 +77,22 @@ export const getServedEvents = async (
   let cache: TCache = ECache.disabled;
 
   if(a_Config.cache && a_Config.cache === cache){
+    a_Report?.skipped(EQueryStepId.cacheCheck, EQuerySkipReason.cacheDisabled);
+
+    a_Report?.running(EQueryStepId.fetchProvider);
     const fetched = await getDetections(a_Config);
+    a_Report?.success(EQueryStepId.fetchProvider, { count: fetched.length });
+
+    a_Report?.skipped(EQueryStepId.writeCache, EQuerySkipReason.cacheDisabled);
+    a_Report?.skipped(EQueryStepId.readCache, EQuerySkipReason.cacheDisabled);
+
+    a_Report?.running(EQueryStepId.filterScope);
     const filtered = filterEventsToQuery(fetched, range, aoi);
+    a_Report?.success(EQueryStepId.filterScope, {
+      valid: filtered.length,
+      total: fetched.length,
+    });
+
     const sorted = sortEventSchema(filtered, a_Config.sort) as IEventSchema[];
 
     log(
@@ -83,6 +108,8 @@ export const getServedEvents = async (
   const dates = enumerateDates(range);
   const partitions = resolvePartitions(a_Config);
   const queryKey = nonSpatialQueryKey(a_Config);
+
+  a_Report?.running(EQueryStepId.cacheCheck);
   const manifest = servingRepository.readCoverage();
 
   // The (coarse) cells this AOI needs covered. Empty only when no AOI geometry
@@ -97,8 +124,15 @@ export const getServedEvents = async (
       ? dates
       : dates.filter((date) => !hasCoverage(manifest, date, queryKey, cellList));
 
+  a_Report?.success(EQueryStepId.cacheCheck, {
+    daysCached: dates.length - missingDates.length,
+    daysTotal: dates.length,
+  });
+
   if (missingDates.length > 0) {
     cache = ECache.miss;
+
+    a_Report?.running(EQueryStepId.fetchProvider);
 
     // Align the fetch to the cells' bounding box so each cell we mark covered is
     // fully fetched (a covered cell must never be partially populated). A single
@@ -112,6 +146,8 @@ export const getServedEvents = async (
     }
 
     const fetched = await getDetections(fetchConfig);
+    a_Report?.success(EQueryStepId.fetchProvider, { count: fetched.length });
+
     const missing = new Set(missingDates);
     const buckets = new Map<string, Map<string, IEventSchema[]>>();
 
@@ -126,11 +162,14 @@ export const getServedEvents = async (
       buckets.set(date, dayMap);
     }
 
+    a_Report?.running(EQueryStepId.writeCache);
+    let partitionsWritten = 0;
     for (const date of missingDates) {
       const dayMap = buckets.get(date);
       if (dayMap) {
         for (const [partition, events] of dayMap) {
           await servingRepository.writePartition(date, partition, events);
+          partitionsWritten++;
         }
       }
       // Mark the AOI's cells covered for this day — including days that came
@@ -138,9 +177,17 @@ export const getServedEvents = async (
       if (cellList.length > 0) addCoverage(manifest, date, queryKey, cellList);
     }
     if (cellList.length > 0) servingRepository.writeCoverage(manifest);
+    a_Report?.success(EQueryStepId.writeCache, {
+      partitions: partitionsWritten,
+      days: missingDates.length,
+    });
+  } else {
+    a_Report?.skipped(EQueryStepId.fetchProvider, EQuerySkipReason.fullyCached);
+    a_Report?.skipped(EQueryStepId.writeCache, EQuerySkipReason.fullyCached);
   }
 
   // Read resolved region partitions for every day, merging and de-duplicating.
+  a_Report?.running(EQueryStepId.readCache);
   const merged: IEventSchema[] = [];
   const seen = new Set<string>();
   for (const date of dates) {
@@ -153,9 +200,15 @@ export const getServedEvents = async (
       }
     }
   }
+  a_Report?.success(EQueryStepId.readCache, { count: merged.length });
 
   // Filter: time → coarse H3 prune → exact polygon.
+  a_Report?.running(EQueryStepId.filterScope);
   const result = filterEventsToQuery(merged, range, aoi);
+  a_Report?.success(EQueryStepId.filterScope, {
+    valid: result.length,
+    total: merged.length,
+  });
 
   const sorted = sortEventSchema(result, a_Config.sort) as IEventSchema[];
 
