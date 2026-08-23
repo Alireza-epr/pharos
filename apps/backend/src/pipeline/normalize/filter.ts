@@ -1,4 +1,64 @@
 import { IEventSchema, IFilteringParams } from '@packages/types';
+import { IRecoverableEventFilters } from '../../helpers/types/servingTypes';
+
+/**
+ * The read-time counterpart to `sanitizeFetchUrlParams` (`helpers/utils/servingUtils.ts`):
+ * enforces the `filters[i]` predicates that are recoverable from a cached raw
+ * event (`matched_flag` / `raw_metadata`) instead of letting them narrow the
+ * provider fetch — see `IRecoverableEventFilters` and "Partition fetch
+ * options" in `docs/tech/serving-strategy.md`. Runs uniformly regardless of
+ * cache state, right alongside `applyFilter`.
+ */
+export const applyRecoverableEventFilters = (
+  a_Events: IEventSchema[],
+  a_Filters: IRecoverableEventFilters,
+): IEventSchema[] => {
+  let filteredEvents = a_Events;
+
+  if (a_Filters.matched !== undefined) {
+    const matched = a_Filters.matched;
+    filteredEvents = filteredEvents.filter(
+      (e) => Boolean(e.matched_flag) === matched,
+    );
+  }
+
+  // `raw_metadata` is the provider's raw entry — its flag/vesselType/geartype
+  // are plain `string` (the provider doesn't type-guarantee enum membership),
+  // while the filter values are the known enum. The casts below only bridge
+  // that gap for comparison; they don't assert the raw value is a valid member.
+  const flagFilter = a_Filters.flag;
+  if (flagFilter && flagFilter.length > 0) {
+    const flags = new Set(flagFilter);
+    filteredEvents = filteredEvents.filter((e) =>
+      flags.has(e.raw_metadata?.flag as (typeof flagFilter)[number]),
+    );
+  }
+
+  const vesselTypeFilter = a_Filters.vessel_type;
+  if (vesselTypeFilter && vesselTypeFilter.length > 0) {
+    const vesselTypes = new Set(vesselTypeFilter);
+    filteredEvents = filteredEvents.filter((e) =>
+      vesselTypes.has(e.raw_metadata?.vesselType as (typeof vesselTypeFilter)[number]),
+    );
+  }
+
+  const geartypeFilter = a_Filters.geartype;
+  if (geartypeFilter && geartypeFilter.length > 0) {
+    const geartypes = new Set(geartypeFilter);
+    filteredEvents = filteredEvents.filter((e) =>
+      geartypes.has(e.raw_metadata?.geartype as (typeof geartypeFilter)[number]),
+    );
+  }
+
+  if (a_Filters.vessel_id && a_Filters.vessel_id.length > 0) {
+    const vesselIds = new Set(a_Filters.vessel_id);
+    filteredEvents = filteredEvents.filter((e) =>
+      vesselIds.has(e.raw_metadata?.vesselId),
+    );
+  }
+
+  return filteredEvents;
+};
 
 export const applyFilter = (
   a_Events: IEventSchema[],

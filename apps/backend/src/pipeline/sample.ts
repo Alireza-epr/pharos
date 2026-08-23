@@ -355,10 +355,16 @@ if (args.includes('--main')) {
   } else {
     configPath = 'src/config/pilot.json';
   }
-  const config = fs_readFileSync<IConfigJSON>(configPath);
+  let config = fs_readFileSync<IConfigJSON>(configPath);
   if (!config) {
     throw new Error(`Config file not found: ${configPath}`);
   }
+
+  config = config.output ? config : {
+    ...config,
+    output: "data/out/pilot/",
+  }
+
   main(config).catch(console.error);
 } else if (args.includes('--validation')) {
   const configIndex = args.indexOf('--config');

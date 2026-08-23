@@ -348,6 +348,45 @@ export const generateScoring = (
   };
 };
 
+/**
+ * Recompute `scoring` for a batch of served events against the CURRENT
+ * request's `threshold`. An event served from the partition cache carries
+ * whatever `scoring` was baked in by the request that originally populated
+ * that partition (or, in dev fixture mode, the bundled sample's own scoring)
+ * — potentially a different threshold than this request's. `generateScoring`
+ * only reads immutable, already-cached facts off the event (`matched_flag`,
+ * `confidence_proxy`/`confidence_tier`, `context_layers`,
+ * `distance_to_coast_km`, `raw_metadata`) plus `a_Config.threshold`, so it's
+ * safe and cheap to re-run unconditionally on every response.
+ *
+ * Must run before any score-based filtering (`applyFilter`'s
+ * `triage_score_min`/`max`, `uncertainty_score_min`/`max`,
+ * `reason_codes_include`/`exclude`) so those predicates evaluate against the
+ * current config too, not a stale cached score.
+ */
+export const rescoreEvents = (
+  a_Events: IEventSchema[],
+  a_Config: IConfigJSON,
+): IEventSchema[] =>
+  a_Events.map((event) => ({
+    ...event,
+    scoring: generateScoring(event, a_Config),
+  }));
+
+/**
+ * Stamp the events actually being returned with the `run_metadata` computed
+ * for THIS request. A cached event's own `run_metadata` otherwise still
+ * describes whichever request originally fetched it into the partition
+ * (config hash, git commit, run time) — misleading for an exported evidence
+ * bundle, which must reflect the query that actually produced it, not
+ * whatever happened to populate the cache.
+ */
+export const stampRunMetadata = (
+  a_Events: IEventSchema[],
+  a_RunMetadata: IRunMetadata,
+): IEventSchema[] =>
+  a_Events.map((event) => ({ ...event, run_metadata: a_RunMetadata }));
+
 export const generateGeom = (a_Lon: number, a_Lat: number): IGeometry => {
   return {
     type: EGeoJSONGeometryType.Point,

@@ -16,8 +16,13 @@ import {
   TURLParams,
 } from '@packages/types';
 import { getStats } from '../../pipeline/aggregate/stats';
-import { generateRunMetadata } from '../../pipeline/normalize/generation';
-import { applyFilter } from '../../pipeline/normalize/filter';
+import {
+  generateRunMetadata,
+  rescoreEvents,
+  stampRunMetadata,
+} from '../../pipeline/normalize/generation';
+import { applyFilter, applyRecoverableEventFilters } from '../../pipeline/normalize/filter';
+import { recoverableEventFilters } from '../../helpers/utils/servingUtils';
 import {
   enrichEventsWithHotspots,
   generateHotspots,
@@ -98,12 +103,28 @@ export const eventsController = async (
     // filter-scope) straight into `stream`.
     const { events: servedEvents } = await getServedEvents(configs, stream);
 
-    // Filtering (score / reason-code / distance / context predicates)
+    // A cached event's `scoring` reflects whatever `threshold` was active on
+    // the request that originally populated its partition — recompute it for
+    // THIS request's threshold before any score-based filtering runs, so
+    // triage/uncertainty predicates (and the scores themselves) are never
+    // stale, cache hit or not. See `rescoreEvents`.
+    const rescoredEvents = rescoreEvents(servedEvents, configs);
+
+    // Filtering (score / reason-code / distance / context predicates), plus
+    // the `filters[i]` predicates recoverable from a cached raw event
+    // (matched/flag/vessel_type/geartype/vessel_id) — enforced here rather
+    // than by narrowing the provider fetch, so it applies identically
+    // regardless of cache state. See "Partition fetch options" in
+    // `docs/tech/serving-strategy.md`.
     stream.running(EQueryStepId.filterPredicates);
-    const filteredEvents = applyFilter(servedEvents, configs.filter);
+    const recoverableFiltered = applyRecoverableEventFilters(
+      rescoredEvents,
+      recoverableEventFilters(configs),
+    );
+    const filteredEvents = applyFilter(recoverableFiltered, configs.filter);
     stream.success(EQueryStepId.filterPredicates, {
       matched: filteredEvents.length,
-      total: servedEvents.length,
+      total: rescoredEvents.length,
     });
 
     // Hotspot enrichment over the full filtered set (per-event signals depend
@@ -152,6 +173,13 @@ export const eventsController = async (
       end,
     );
 
+    // A cached event's own `run_metadata` still describes whichever request
+    // originally fetched it into the partition (config hash, git commit, run
+    // time) — stamp the page actually being returned with THIS request's
+    // metadata instead, so an exported event's `run_metadata` always matches
+    // the query that produced it, not whatever happened to populate the cache.
+    const responseEvents = stampRunMetadata(thisPageEvents, metadata);
+
     stream.success(EQueryStepId.paginate, {
       pageSize,
       total,
@@ -159,7 +187,7 @@ export const eventsController = async (
       totalPages,
     });
 
-    if (thisPageEvents.length === 0) {
+    if (responseEvents.length === 0) {
       return stream.result({
         success: true,
         metadata,
@@ -173,8 +201,8 @@ export const eventsController = async (
       success: true,
       metadata,
       pagination: pagination_resp,
-      stats: getStats(thisPageEvents),
-      entries: thisPageEvents,
+      stats: getStats(responseEvents),
+      entries: responseEvents,
     });
   } catch (error: any) {
     // Full detail (which can include upstream provider payloads, e.g. GFW's

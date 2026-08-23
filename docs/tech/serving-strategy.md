@@ -45,20 +45,30 @@ those reconstructed objects.
 
 # How data is stored
 
-Data is stored per **day** and split into:
+Data is stored per **day**, then per **fetch options signature** (see
+[Partition fetch options](#partition-fetch-options) below), then split into:
 
 - EEZ-based files
-- ONE HIGH_SEAS file per day (fallback bucket)
+- ONE HIGH_SEAS file per day + options (fallback bucket)
 
 ### Example structure
 
 ```
 events/
   date=2026-05-26/
-    8444.parquet
-    8812.parquet
-    HIGH_SEAS.parquet
+    8444/opts=3f1a9c0e2b7d.parquet
+    8812/opts=3f1a9c0e2b7d.parquet
+    HIGH_SEAS/opts=3f1a9c0e2b7d.parquet
 ```
+
+> `opts=3f1a9c0e2b7d` is the default/most-common signature (default dataset
+> selection, resolution, and aggregation settings, no `distance_from_port_km` /
+> `neural_vessel_type` / `speed` filter) — every request that doesn't change
+> one of the [partition fetch options](#partition-fetch-options) shares this
+> one path, so the common case's layout looks the same as before this
+> dimension existed. A request that *does* change one of them — including
+> just switching `temporal-resolution` from HOURLY to DAILY — gets its own
+> sibling directory instead of sharing — or corrupting — this one.
 
 ---
 
@@ -142,11 +152,16 @@ Coverage is tracked in a **coverage manifest** (`data/events/coverage.json`) by
 **area, not by request shape**. Its structure is `date → queryKey → covered H3
 cells`:
 
-- The **queryKey** is the *non-spatial, non-temporal* shape of the request
-  (URL, method, datasets, resolutions, group-by, filters). It **excludes**
-  `date-range` (the day is the partition dimension) **and all geometry** (the
-  spatial dimension is the cell set). So a different map box with the same
-  datasets resolves to the same queryKey.
+- The **queryKey** is the *non-spatial, non-temporal* shape of the request —
+  URL, method, and its [partition fetch options](#partition-fetch-options)
+  (dataset selection; `distance_from_port_km`/`neural_vessel_type`/`speed`;
+  and `spatial-resolution`/`temporal-resolution`/`spatial-aggregation`/
+  `group-by`/`format`). It **excludes** `date-range` (the day is the partition dimension), **all
+  geometry** (the spatial dimension is the cell set), and — deliberately — the
+  *recoverable* `filters[i]` predicates (`matched`, `flag`, `vessel_type`,
+  `geartype`, `vessel_id`; see below). So a different map box, or a request
+  that only changes one of those recoverable predicates, resolves to the same
+  queryKey.
 - The **covered cells** are the H3 cells (at a coarse coverage resolution) that
   have actually been fetched for that day + queryKey.
 
@@ -160,13 +175,17 @@ On a miss (any requested day whose cells aren't all covered):
 1. **Align the fetch to the cells' bounding box** and call the provider **once**
    for the whole window. Fetching the cell-bbox (⊇ the cells we'll mark)
    guarantees every covered cell is *fully* fetched — so a later subset query
-   can be served from cache without losing events at cell edges.
+   can be served from cache without losing events at cell edges. The
+   recoverable `filters[i]` predicates are stripped out of this call first
+   (`sanitizeFetchUrlParams`) — see [Partition fetch options](#partition-fetch-options).
 2. Process and enrich events.
-3. Route each event to its `(day, region)` partition file (`region = its EEZ
-   MRGID`, else `HIGH_SEAS`) and **merge + dedup**.
+3. Route each event to its `(day, region, options)` partition file (`region =
+   its EEZ MRGID`, else `HIGH_SEAS`; `options` = the fetch options signature)
+   and **merge + dedup**.
 4. **Union the AOI's cells** into the coverage set for each missed day —
    including days that came back empty, so a repeat is a hit, not a re-fetch.
-5. Read the partitions back, filter, and return.
+5. Read the partitions back, apply the recoverable predicates
+   (`applyRecoverableEventFilters`), filter, and return.
 
 A second identical **or zoomed-in** request finds its cells covered and is a
 **pure cache hit** (no provider call). The hit/miss outcome is logged; surfacing
@@ -176,6 +195,61 @@ it in the response payload is owned by the response-cache work (master-plan 2.2)
 > regions decide *which file* an event is stored in/read from; cells decide
 > *whether we need to fetch*. That separation is what lets zoom-in hit the cache
 > without changing the file layout.
+
+---
+
+# Partition fetch options
+
+`filters[i]` on a request can carry two very different kinds of predicate, and
+conflating them was a real bug: a request that only changed
+`matched`/`unmatched` was forcing an unnecessary re-fetch, and — because the
+partition file was keyed only by `(day, region)` — a narrower fetch's rows
+would merge into the same shared file a broader query had already populated,
+after which every future read of that file (any filter, cache hit or miss)
+returned the merged union with no way to narrow it back down.
+
+The fix splits `filters[i]`/`datasets[i]` into two disjoint sets, backed by two
+backend-only types in `helpers/types/servingTypes.ts`:
+
+- **`IPartitionFetchOptions`** — values that genuinely scope *what the
+  provider is asked for*, in two different ways:
+  - `datasets[i]` and `filters[i]`'s `distance_from_port_km` /
+    `neural_vessel_type` / `speed` narrow *which rows* come back from the same
+    grid, and we don't (or, for `speed`/`distance_from_port_km`, can't — they
+    belong to the fishing-effort / AIS-presence datasets, not `IEventSchema`)
+    persist them per cached event.
+  - The plain top-level `url_params` `spatial-resolution`,
+    `temporal-resolution`, `spatial-aggregation`, `group-by`, and `format`
+    change the grid/aggregation/encoding itself (e.g. DAILY vs HOURLY bins) —
+    a result fetched under one combination can't be reinterpreted as another
+    after the fact, so these can't be dropped from the key either even though
+    they aren't `filters[i]`/`datasets[i]` at all.
+
+  These **must** both reach the provider on a miss-fetch and key the
+  partition — coverage manifest *and* physical file — computed by
+  `partitionFetchOptions()` / `partitionOptionsSignature()` in
+  `servingUtils.ts`. Two requests whose options differ are always treated as a
+  hard miss against each other — there's no general subset relationship the
+  way there is for AOI cells (a future refinement could add one specifically
+  for numeric thresholds like `distance_from_port_km`, but that isn't
+  implemented).
+- **`IRecoverableEventFilters`** (`matched`, `flag`, `vessel_type`, `geartype`,
+  `vessel_id`) — values that ARE recoverable from a cached raw event
+  afterward: `matched` from `IEventSchema.matched_flag`, the rest from
+  `IEventSchema.raw_metadata` (the provider's original entry, preserved
+  verbatim). These are deliberately excluded from the queryKey and from the
+  partition path, stripped out of the miss-fetch request
+  (`sanitizeFetchUrlParams()`), and enforced instead at read time
+  (`applyRecoverableEventFilters()`, called from `eventsController` right
+  alongside `applyFilter`) — uniformly, regardless of whether the response
+  came from a cache hit or a fresh fetch.
+
+In short: **the partition always holds the full raw set for its
+`IPartitionFetchOptions`; every `IRecoverableEventFilters` predicate is a
+read-time view over that raw set, never a reason to fetch less or to fork the
+file.** This applies to the `cache: "enabled"` path only — `cache: "disabled"`
+is unaffected: it already forwards every `filters[i]` predicate straight to
+the provider on every request, with no shared partition at risk.
 
 ---
 
@@ -193,12 +267,19 @@ accumulating duplicates at pilot scale.
 
 # Multiple request behavior
 
-If another request comes for the same day (same or overlapping area):
+If another request comes for the same day (same or overlapping area) **with
+the same [partition fetch options](#partition-fetch-options)**:
 
 - the system reuses the existing region Parquet files,
 - only calls the provider when the AOI needs a cell not yet covered,
 - merges any newly fetched data into the region files, deduped by `event_id`,
   and unions the new cells into coverage.
+
+A request that only changes a *recoverable* filter (`matched`, `flag`,
+`vessel_type`, `geartype`, `vessel_id`) is included in "same options" above —
+it reuses the same files and is narrowed at read time instead. A request that
+changes `distance_from_port_km` / `neural_vessel_type` / `speed` / dataset
+selection gets its own sibling files under a different `opts=` signature.
 
 ---
 
@@ -226,6 +307,12 @@ If another request comes for the same day (same or overlapping area):
   diagonal AOI the cells' bbox can be noticeably larger than the AOI, so the
   provider call pulls more than strictly needed (deduped on write). Fine for the
   compact AOIs at pilot scale.
+- **Partition fetch options match exactly, with no subset reasoning.** Unlike
+  AOI cells, a request for `distance_from_port_km: 2` gets its own partition
+  even though `distance_from_port_km: 1` (say) would satisfy it too — there's
+  no general containment relationship implemented across arbitrary
+  `IPartitionFetchOptions` combinations. Every distinct combination that's
+  actually used gets its own partition family under the day directory.
 
 ---
 
@@ -238,6 +325,10 @@ If another request comes for the same day (same or overlapping area):
   over-fetched events for thin/diagonal AOIs).
 - Background prefetching for hot areas; partition-file compaction for `HIGH_SEAS`.
 - Move to a lakehouse system (Iceberg/Delta) with a scheduled ingestion worker.
+- Subset reasoning for monotonic `IPartitionFetchOptions` fields — e.g. a
+  request for `distance_from_port_km >= 20` could be served from a partition
+  already fetched at `>= 10` — if fragmentation from that field turns out to
+  matter in practice.
 
 ---
 
@@ -257,21 +348,26 @@ flowchart TD
     D -->|No| F[Fetch provider for the cells' bbox]
 
     F --> G[Ingest + enrich events]
-    G --> H[Write region partitions + union cells into coverage]
+    G --> H[Write region+options partitions<br/>+ union cells into coverage]
     H --> I
 
-    E --> I[Merge region data]
+    E --> I[Merge region+options data]
 
     I --> J[Filter results:<br/>- time filter<br/>- H3 filter<br/>- exact polygon check]
 
-    J --> K[Return response]
+    J --> L[Apply recoverable filters:<br/>matched / flag / vessel_type /<br/>geartype / vessel_id]
+
+    L --> K[Return response]
 ```
+
+> "Region partitions" above is shorthand for `(day, region, options)` — see
+> [Partition fetch options](#partition-fetch-options).
 
 ---
 
 # Summary
 
-Data is stored per day and split into:
+Data is stored per day, per fetch-options signature, and split into:
 
 - EEZ partitions
 - ONE HIGH_SEAS fallback partition
@@ -280,4 +376,6 @@ H3 is used in two places: a coarse read-time filter prune, and (at a coarser
 resolution) the coverage manifest that decides hit vs. fetch by area.
 
 The system learns and grows its cache based on usage — and because coverage is
-tracked by area (cells), zooming into an already-fetched region is a cache hit.
+tracked by area (cells) and [fetch options](#partition-fetch-options),
+zooming into an already-fetched region, or changing only a recoverable filter
+(matched/flag/vessel_type/geartype/vessel_id), is a cache hit.

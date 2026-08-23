@@ -657,6 +657,19 @@ used to return as its entire body.
 
 - Filtering matched events must be specified in the URL query parameters using the filters[0] key.
   `Example: filters[0]=matched='false'`
+- When `cache` is enabled, `filters[i]` predicates split into two groups with
+  different caching behavior — see "Partition fetch options" in
+  `docs/tech/serving-strategy.md`:
+  - `matched`, `flag`, `vessel_type`, `geartype`, `vessel_id` are recoverable
+    from a cached event and are applied at read time; changing only one of
+    these never forces a re-fetch and never affects which partition file is
+    used.
+  - `distance_from_port_km`, `neural_vessel_type`, `speed`, and dataset
+    selection (`datasets[i]`) are not recoverable from a cached event, so they
+    scope the partition itself — changing one of these fetches and caches
+    separately from other combinations.
+  - This split doesn't apply when `cache` is disabled: every `filters[i]`
+    predicate is forwarded to the provider as given, on every request.
 - Filtering is applied before pagination
 - Sorting is applied before pagination
 - Empty results still return valid pagination structure
