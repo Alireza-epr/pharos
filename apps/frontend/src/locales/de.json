@@ -2,6 +2,7 @@
   "general": {
     "label": {
       "appName": "PHAROS",
+      "aoi": "AOI",
       "zonal": "Zonal",
       "point": "Punkt",
       "clear": "Löschen",
@@ -89,9 +90,6 @@
     "label": {
       "runQuery": "Abfrage starten",
       "viewProgress": "Fortschritt anzeigen",
-      "hotspots": "Hotspots",
-      "eezBoundaries": "EEZ-Grenzen",
-      "mpaZones": "MPA-Zonen",
       "resolution": "Auflösung",
       "timeBin": "Zeiteinheit",
       "addSort": "+ Sortierung hinzufügen",
@@ -211,6 +209,7 @@
       "bucketStart": "Bucket-Start",
       "dataset": "Datensatz",
       "reasonCodes": "Reason Codes",
+      "showOnMap": "Auf Karte anzeigen",
       "h3Cell": "H3-Zelle",
       "recurrence": "Wiederkehr",
       "timeBinsUnmatched": "Zeiteinheiten",
@@ -224,6 +223,7 @@
     "text": {
       "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
       "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
+      "recurrenceVisibleCaveat": "{{visible}} von {{total}} nicht zugeordneten wiederkehrenden Ereignissen sichtbar · Rest auf anderen Seiten",
       "nullProxy": "n. v.",
       "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren."
     },

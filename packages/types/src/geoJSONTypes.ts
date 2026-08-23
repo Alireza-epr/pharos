@@ -68,6 +68,11 @@ export type TRegionOptionFeature = FeatureCollection<
   IRegionOptionProperties
 >;
 
+// A single EEZ/MPA feature's full boundary geometry, as returned by
+// GET /v1/regions/geometry -- distinct from TRegionOption, which carries only
+// a centroid + bbox for the AOI dropdown, not the boundary itself.
+export type TRegionGeometry = IFeature<IMultiPolygonGeometry, object>;
+
 export const EVENT_MISSINGNESS_KEYS = {
   event_id: "event_id",
   timestamp_utc: "timestamp_utc",

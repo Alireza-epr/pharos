@@ -1,0 +1,54 @@
+// Colors mirror the tokens read at draw time in useAOIDraw / useHotspotBoundary
+// / useRegionBoundary -- keep both sides in sync if a layer's color changes.
+.wrapper {
+  position: absolute;
+  bottom: var(--padding-default);
+  left: var(--padding-default);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-half);
+  padding: var(--padding-default-half) var(--padding-default);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--theme-border);
+  background: var(--theme-bg-card);
+  pointer-events: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default-half);
+}
+
+.swatch {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sm);
+}
+
+.swatch-aoi-zonal {
+  background: var(--color-accent-teal4);
+}
+
+.swatch-aoi-point {
+  background: var(--color-alert-orange4);
+}
+
+.swatch-hotspot {
+  background: var(--color-primary-purple6);
+}
+
+.swatch-eez {
+  background: var(--color-secondary-blue5);
+}
+
+.swatch-mpa {
+  background: var(--color-secondary-blue8);
+}
+
+.label {
+  color: var(--theme-text-secondary);
+  white-space: nowrap;
+}

@@ -241,6 +241,36 @@ export const validateRegionsQueryParams = (
 };
 
 /* =========================================================
+ * REGION GEOMETRY QUERY VALIDATOR (GET /v1/regions/geometry)
+ * =======================================================*/
+
+export const validateRegionGeometryQueryParams = (
+  a_Query: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Query)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.QUERY_NOT_OBJECT,
+          field: 'query',
+        },
+      ],
+    };
+  }
+
+  validateEnum(a_Query.dataset, REGIONS_DATASETS, 'dataset', errors, true);
+  validateString(a_Query.id, 'id', errors, true);
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/* =========================================================
  * HELPERS
  * =======================================================*/
 

@@ -199,6 +199,8 @@ Controlled by `CONTEXT_DATASET_QUALITY` in `apps/backend/.env` (`simplified` | `
 
 `GET /v1/regions` (the EEZ/MPA option list behind the Area of Interest dropdowns) reads these same files to compute each region's bbox/centroid, so it's subject to the same setting. Unlike the point-in-polygon serving path — which only loads them when a query actually uses a named-region AOI — this endpoint loads them on its first hit, which in practice means on first sidebar load of any session. On a memory-constrained host this brings the cost forward; see the deferred fix noted for this in project memory (precompute a small `{id, title, bbox, centroid}` file offline instead of reading the full boundary files at request time).
 
+`GET /v1/regions/geometry` (one EEZ/MPA feature's real boundary, looked up by id — used to draw an inspected event's region context on the map) reads the same files via `findEEZById`/`findMPAById`, so it's a third trigger for the same eager load, alongside `GET /v1/regions` and a named-region AOI query. It doesn't add its own memory regression (no whole-dataset scan, just the shared readers' existing memoized cache), but on a session that never touches the AOI dropdown or a named-region AOI, it can now be the first thing that pulls the heavy readers into memory — e.g. inspecting an event's EEZ context from the Detail tab before ever opening the AOI sidebar section.
+
 ---
 
 ## 5. Output Location

@@ -5,7 +5,6 @@ import { useTranslator } from '../../hooks/translator';
 import { useSidebarStore } from '../../stores/sidebarStore';
 import { ESidebarTab } from '../../helpers/enum/storeEnum';
 import ReportTab from './tabs/ReportTab';
-import HotspotTab from './tabs/HotspotTab';
 import EventTab from './tabs/EventTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 
@@ -29,12 +28,6 @@ const Sidebar = () => {
           size="sm"
         />
         <ButtonInput
-          label={t('sidebar.tab.hotspot')}
-          active={activeTab === ESidebarTab.hotspot}
-          onClick={() => setActiveTab(ESidebarTab.hotspot)}
-          size="sm"
-        />
-        <ButtonInput
           label={t('sidebar.tab.event')}
           active={activeTab === ESidebarTab.event}
           onClick={() => setActiveTab(ESidebarTab.event)}
@@ -47,7 +40,6 @@ const Sidebar = () => {
       </SectionInputGroup>
 
       {activeTab === ESidebarTab.report && <ReportTab />}
-      {activeTab === ESidebarTab.hotspot && <HotspotTab />}
       {activeTab === ESidebarTab.event && <EventTab />}
     </div>
   );

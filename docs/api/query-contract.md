@@ -42,6 +42,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Events Report](#events-report)
 - [Events Export](#events-export)
 - [Regions](#regions)
+- [Regions Geometry](#regions-geometry)
 
 ---
 
@@ -851,6 +852,82 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 - Each feature's `geometry` is a cheap centroid point, not the real boundary polygon — the MPA dataset alone is 17,000+ features, so shipping full boundaries would be a much larger payload than a dropdown or a "zoom the map to this region" use case needs. `bbox` is what a client fits/zooms the map to; the centroid is enough to place a marker or fly to a point
 - A small share of the source EEZ/MPA data (an overlapping-claim EEZ, and roughly a fifth of MPA sites) has no boundary geometry recorded upstream; those entries are silently excluded rather than returned with a broken bbox/centroid
 - Options for a dataset are computed once per server process and memoized — repeat requests are served from the cached list, not recomputed
+
+---
+
+## Regions Geometry
+
+**GET** `/regions/geometry`
+
+**Description:**
+`Returns a single EEZ or MPA feature's real boundary polygon, looked up by id — unlike Regions above, which lists every option in a dataset with only a centroid and bbox. Used to draw a specific event's region context on the map, so the response is always exactly one feature, never a whole dataset.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+| Key     | Description                                       | Required | Format               | Param Type |
+| ------- | -------------------------------------------------- | -------- | --------------------- | ---------- |
+| dataset | Which region collection to look the id up in       | True     | Enum: ['EEZ', 'MPA']  | query      |
+| id      | The region's id (EEZ MRGID or MPA SITE_ID/SITE_PID) | True     | string                | query      |
+
+---
+
+### 2. Request - Body
+
+```json
+{}
+```
+
+---
+
+### 3. Response
+
+| Field   | Description                                                                                    | Format  |
+| ------- | ------------------------------------------------------------------------------------------------ | ------- |
+| success | Request status                                                                                   | boolean |
+| entries | Always at most one entry: a GeoJSON Feature whose geometry is the region's real MultiPolygon boundary | array   |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "entries": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [[[[-170.85, -14.58], [-170.49, -14.58], [-170.49, -14.2], [-170.85, -14.2], [-170.85, -14.58]]]]
+      }
+    }
+  ]
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – `dataset` or `id` is missing
+- `400 Bad Request` – `dataset` is not a recognized value
+- `400 Bad Request` – `dataset` is a recognized value with no boundary geometry to look up (e.g. `Bathymetry` — it's a point-sampled depth reading, not a region)
+- `400 Bad Request` – no region with the given `id` exists in that dataset
+- `401 Unauthorized` – Missing, invalid, or expired access token
+
+---
+
+### 5. Notes
+
+- Unlike [Regions](#regions), this endpoint never returns more than one feature — it's a lookup by a specific id, not a list, so there's no whole-dataset payload risk to guard against
+- `properties` is always an empty object; identifying metadata (`id`, `title`) lives on the [Regions](#regions) list entries, not here
+- Intended caller: a client that already has a region id from elsewhere (e.g. an event's `context_layers` enrichment) and wants that one boundary to draw, not the full selectable list
 
 ---
 

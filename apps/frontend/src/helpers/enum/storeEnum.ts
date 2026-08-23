@@ -6,7 +6,6 @@ export type TTheme = (typeof ETheme)[keyof typeof ETheme];
 
 export const ESidebarTab = {
   report: 'report',
-  hotspot: 'hotspot',
   event: 'event',
 } as const;
 export type TSidebarTab = (typeof ESidebarTab)[keyof typeof ESidebarTab];

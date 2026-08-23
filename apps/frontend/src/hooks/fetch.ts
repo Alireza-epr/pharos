@@ -4,6 +4,7 @@ import {
   EExportsRoutes,
   EFetchMethods,
   ELogType,
+  ERegionsRoutes,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -11,6 +12,7 @@ import {
   IResponse,
   TBodyParams_export,
   TQueryProgressMessage,
+  TRegionGeometry,
   TRegionOption,
 } from '@packages/types';
 import { log_frontend } from '@packages/utils';
@@ -162,6 +164,44 @@ export const useFetchRegions = () => {
       } catch (err: any) {
         const message = err instanceof Error ? err.message : String(err);
         log_frontend(`[useFetchRegions] Error: ${message}`, ELogType.error, '3');
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url],
+  );
+
+  return { response, loading, error, execute };
+};
+
+export const useFetchRegionGeometry = () => {
+  const url = `${BASE_URL}${EBaseRoutes.regions}${ERegionsRoutes.geometry}`;
+  const [response, setResponse] = useState<IResponse<TRegionGeometry> | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const execute = useCallback(
+    async (a_Dataset: EContextLayers, a_Id: string) => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetchWithAuth(
+          `${url}?dataset=${a_Dataset}&id=${encodeURIComponent(a_Id)}`,
+          { method: EFetchMethods.get },
+        );
+        const json: IResponse<TRegionGeometry> = await res.json();
+        setResponse(json);
+        return json;
+      } catch (err: any) {
+        const message = err instanceof Error ? err.message : String(err);
+        log_frontend(
+          `[useFetchRegionGeometry] Error: ${message}`,
+          ELogType.error,
+          '3',
+        );
         setError(err);
       } finally {
         setLoading(false);

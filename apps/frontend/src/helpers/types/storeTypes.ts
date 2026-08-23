@@ -13,6 +13,7 @@ import {
   T4wingsSource,
   TExportConfig,
   TFilterKey,
+  TRegionGeometry,
   TRegionOption,
   TSourceKey,
 } from '@packages/types';
@@ -207,6 +208,14 @@ export interface IContextLayersStoreStates {
   hotspots: boolean;
   eezBoundaries: boolean;
   mpaZones: boolean;
+  // The currently-selected event's EEZ/MPA boundaries, once fetched by id
+  // (ContextLayersBlock.tsx) -- an event can carry more than one enrichment
+  // per layer (overlapping/disputed EEZ claims), so this is an array, empty
+  // while the toggle is off, still loading, or the event has no such layer.
+  // Kept in the store (not component state) so the map-drawing hook can read
+  // it without a prop chain.
+  eezGeometries: TRegionGeometry[];
+  mpaGeometries: TRegionGeometry[];
 }
 export interface IContextLayersStoreActions {
   setHotspots: (
@@ -229,6 +238,20 @@ export interface IContextLayersStoreActions {
       | ((
           a_Prev: IContextLayersStoreStates['mpaZones'],
         ) => IContextLayersStoreStates['mpaZones']),
+  ) => void;
+  setEezGeometries: (
+    a_Value:
+      | IContextLayersStoreStates['eezGeometries']
+      | ((
+          a_Prev: IContextLayersStoreStates['eezGeometries'],
+        ) => IContextLayersStoreStates['eezGeometries']),
+  ) => void;
+  setMpaGeometries: (
+    a_Value:
+      | IContextLayersStoreStates['mpaGeometries']
+      | ((
+          a_Prev: IContextLayersStoreStates['mpaGeometries'],
+        ) => IContextLayersStoreStates['mpaGeometries']),
   ) => void;
 }
 export interface ISortOrderStoreStates {

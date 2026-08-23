@@ -1,13 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useEventStore } from '../../stores/eventStore';
 import { useTranslator } from '../../hooks/translator';
+import { useVisibleEvents } from '../../hooks/useVisibleEvents';
 import bottomPanelStyle from './BottomPanel.module.scss';
-import {
-  formatTimestamp,
-  getSortValue,
-  shortenText,
-  sortEventSchema,
-} from '@packages/utils';
+import { formatTimestamp, getSortValue, shortenText } from '@packages/utils';
 import ButtonInput from '../common/inputs/ButtonInput';
 import Modal from '../common/Modal';
 import { useBottomStore } from '../../stores/bottomStore';
@@ -40,15 +36,10 @@ const BottomPanel = () => {
     [events],
   );
 
-  const filteredEvents = useMemo(() => {
-    if (filter === 'unmatched') return events.filter((e) => !e.matched_flag);
-    if (filter === 'matched') return events.filter((e) => !!e.matched_flag);
-    return events;
-  }, [events, filter]);
-
-  const sortedEvents = useMemo(() => {
-    return sortEventSchema(filteredEvents, sorts).filter((e) => !e.rejected);
-  }, [filteredEvents, sorts]);
+  // Filtered by the matched/unmatched tab, sorted by the active column,
+  // rejected events dropped — shared with DetailTab so its Next/Prev buttons
+  // step through this exact same order.
+  const sortedEvents = useVisibleEvents();
 
   const sortIndicator = (a_Field: string) => {
     const active = sorts.find((s) => s.sortBy === a_Field);
