@@ -21,6 +21,8 @@ import {
   generateConfidence,
   generateGeom,
   generateConfidence_heuristic,
+  rescoreEvents,
+  stampRunMetadata,
 } from '../src/pipeline/normalize/generation';
 import {
   EVENT_MISSINGNESS_KEYS,
@@ -562,6 +564,127 @@ describe('generateRunMetadata', () => {
 
     expect(metadata).toEqual(expect.objectContaining(expected));
     expect(metadata_2).toEqual(expect.objectContaining(expected));
+  });
+});
+
+describe('rescoreEvents', () => {
+  it('replaces_a_stale_cached_scoring_with_scoring_for_the_current_threshold', () => {
+    // A "cached" event carries scoring computed under some other threshold —
+    // deliberately different from what `sarConfig` would produce.
+    const staleCachedEvent: IEventSchema = {
+      ...eventSchema_matched_near_coast,
+      scoring: {
+        triage_score: 0,
+        uncertainty_score: 0,
+        reason_codes: [],
+      },
+    };
+
+    const [result] = rescoreEvents([staleCachedEvent], sarConfig);
+
+    expect(result!.scoring).toEqual(
+      generateScoring(eventSchema_matched_near_coast, sarConfig),
+    );
+    expect(result!.scoring).not.toEqual(staleCachedEvent.scoring);
+  });
+
+  it('reflects_a_changed_threshold_on_the_next_request_for_the_same_cached_event', () => {
+    const looserConfig = {
+      ...sarConfig,
+      threshold: {
+        ...sarConfig.threshold,
+        near_coast_importance_weight: 0.9,
+      },
+    };
+
+    const [scoredWithSarConfig] = rescoreEvents(
+      [eventSchema_matched_near_coast],
+      sarConfig,
+    );
+    const [scoredWithLooserConfig] = rescoreEvents(
+      [eventSchema_matched_near_coast],
+      looserConfig,
+    );
+
+    expect(scoredWithLooserConfig!.scoring.triage_score).not.toBe(
+      scoredWithSarConfig!.scoring.triage_score,
+    );
+  });
+
+  it('does_not_mutate_the_events_it_was_given', () => {
+    const originalScoring = eventSchema_matched_near_coast.scoring;
+
+    rescoreEvents([eventSchema_matched_near_coast], sarConfig);
+
+    expect(eventSchema_matched_near_coast.scoring).toBe(originalScoring);
+  });
+
+  it('preserves_every_non_scoring_field_of_the_event', () => {
+    const [result] = rescoreEvents([eventSchema_matched_near_coast], sarConfig);
+
+    expect(result).toEqual({
+      ...eventSchema_matched_near_coast,
+      scoring: result!.scoring,
+    });
+  });
+
+  it('returns_an_empty_array_unchanged', () => {
+    expect(rescoreEvents([], sarConfig)).toEqual([]);
+  });
+});
+
+describe('stampRunMetadata', () => {
+  it('overwrites_a_stale_cached_run_metadata_with_the_metadata_given', async () => {
+    const staleCachedEvent: IEventSchema = {
+      ...eventSchema_matched_near_coast,
+      run_metadata: {
+        config_hash: 'stale-hash-from-whatever-request-populated-the-cache',
+        config_json: [],
+        git_commit_version: 'stale-commit',
+        run_time: '2020-01-01T00:00:00.000Z',
+        dataset_version: undefined,
+        context_layer_versions: undefined,
+        execution_duration_sec: undefined,
+      },
+    };
+    const currentRequestMetadata = await generateRunMetadata([sarConfig]);
+
+    const [result] = stampRunMetadata([staleCachedEvent], currentRequestMetadata);
+
+    expect(result!.run_metadata).toBe(currentRequestMetadata);
+    expect(result!.run_metadata).not.toEqual(staleCachedEvent.run_metadata);
+  });
+
+  it('preserves_every_non_metadata_field_of_the_event', async () => {
+    const currentRequestMetadata = await generateRunMetadata([sarConfig]);
+
+    const [result] = stampRunMetadata(
+      [eventSchema_matched_near_coast],
+      currentRequestMetadata,
+    );
+
+    expect(result).toEqual({
+      ...eventSchema_matched_near_coast,
+      run_metadata: currentRequestMetadata,
+    });
+  });
+
+  it('stamps_every_event_in_the_batch_with_the_same_metadata', async () => {
+    const currentRequestMetadata = await generateRunMetadata([sarConfig]);
+
+    const result = stampRunMetadata(
+      [eventSchema_matched_near_coast, eventSchema_umatched_offshore],
+      currentRequestMetadata,
+    );
+
+    result.forEach((event) => {
+      expect(event.run_metadata).toBe(currentRequestMetadata);
+    });
+  });
+
+  it('returns_an_empty_array_unchanged', async () => {
+    const currentRequestMetadata = await generateRunMetadata([sarConfig]);
+    expect(stampRunMetadata([], currentRequestMetadata)).toEqual([]);
   });
 });
 
