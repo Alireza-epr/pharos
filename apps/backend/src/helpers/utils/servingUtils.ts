@@ -126,7 +126,7 @@ const datasetsOf = (a_Config: IConfigJSON): IPartitionFetchOptions['datasets'] =
 };
 
 /**
- * The fetch-scoping subset of a request's `filters[i]` — see
+ * The fetch-scoping subset of a request's `url_params` — see
  * {@link IPartitionFetchOptions}. Used both to key the partition cache and to
  * build the miss-fetch request; `matched`/`flag`/`vessel_type`/`geartype`/
  * `vessel_id` are deliberately not read here (see {@link recoverableEventFilters}).
@@ -136,6 +136,13 @@ export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOpt
   const [distance] = parseInClauseValues(expression, 'distance_from_port_km');
   const [neuralVesselType] = parseInClauseValues(expression, 'neural_vessel_type');
   const speed = parseInClauseValues(expression, 'speed');
+
+  const urlParams = a_Config.url_params;
+  const spatialResolution = urlParams['spatial-resolution'];
+  const temporalResolution = urlParams['temporal-resolution'];
+  const spatialAggregation = urlParams['spatial-aggregation'];
+  const groupBy = urlParams['group-by'];
+  const format = urlParams.format;
 
   return {
     datasets: datasetsOf(a_Config),
@@ -148,6 +155,17 @@ export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOpt
     ...(speed.length > 0 && {
       speed: speed as IPartitionFetchOptions['speed'],
     }),
+    ...(spatialResolution !== undefined && {
+      'spatial-resolution': spatialResolution,
+    }),
+    ...(temporalResolution !== undefined && {
+      'temporal-resolution': temporalResolution,
+    }),
+    ...(spatialAggregation !== undefined && {
+      'spatial-aggregation': spatialAggregation,
+    }),
+    ...(groupBy !== undefined && { 'group-by': groupBy }),
+    ...(format !== undefined && { format }),
   };
 };
 

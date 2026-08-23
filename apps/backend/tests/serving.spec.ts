@@ -190,12 +190,101 @@ describe('nonSpatialQueryKey', () => {
     } as unknown as IConfigJSON;
     expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withSpeed));
   });
+
+  it('changes_when_temporal_resolution_changes', () => {
+    const withDailyResolution = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        'temporal-resolution': 'DAILY',
+      },
+    } as unknown as IConfigJSON;
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withDailyResolution),
+    );
+  });
+
+  it('changes_when_spatial_resolution_is_set', () => {
+    const withSpatialResolution = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        'spatial-resolution': 'LOW',
+      },
+    } as unknown as IConfigJSON;
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withSpatialResolution),
+    );
+  });
+
+  it('changes_when_spatial_aggregation_is_set', () => {
+    const withSpatialAggregation = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        'spatial-aggregation': false,
+      },
+    } as unknown as IConfigJSON;
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withSpatialAggregation),
+    );
+  });
+
+  it('changes_when_group_by_is_set', () => {
+    const withGroupBy = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        'group-by': 'VESSEL_ID',
+      },
+    } as unknown as IConfigJSON;
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withGroupBy));
+  });
+
+  it('changes_when_format_changes', () => {
+    const withCsvFormat = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        format: 'CSV',
+      },
+    } as unknown as IConfigJSON;
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withCsvFormat));
+  });
 });
 
 describe('partitionFetchOptions', () => {
-  it('is_just_the_dataset_selection_when_no_filters_are_set', () => {
+  // baseConfig.url_params already carries `format: 'JSON'` and
+  // `temporal-resolution: 'HOURLY'` — both fetch-scoping, so every case below
+  // expects them alongside whatever else is under test.
+
+  it('is_the_dataset_selection_plus_format_and_temporal_resolution_when_no_filters_are_set', () => {
     expect(partitionFetchOptions(baseConfig)).toEqual({
       datasets: ['public-global-sar-presence:v3.0'],
+      format: 'JSON',
+      'temporal-resolution': 'HOURLY',
+    });
+  });
+
+  it('picks_up_spatial_resolution_spatial_aggregation_and_group_by', () => {
+    const config = {
+      ...(baseConfig as any),
+      url_params: {
+        ...(baseConfig as any).url_params,
+        'spatial-resolution': 'LOW',
+        'spatial-aggregation': false,
+        'group-by': 'VESSEL_ID',
+        'temporal-resolution': 'DAILY',
+      },
+    } as unknown as IConfigJSON;
+
+    expect(partitionFetchOptions(config)).toEqual({
+      datasets: ['public-global-sar-presence:v3.0'],
+      format: 'JSON',
+      'temporal-resolution': 'DAILY',
+      'spatial-resolution': 'LOW',
+      'spatial-aggregation': false,
+      'group-by': 'VESSEL_ID',
     });
   });
 
@@ -212,6 +301,8 @@ describe('partitionFetchOptions', () => {
 
     expect(partitionFetchOptions(config)).toEqual({
       datasets: ['public-global-sar-presence:v3.0'],
+      format: 'JSON',
+      'temporal-resolution': 'HOURLY',
       neural_vessel_type: 'Likely fishing',
       speed: ['<2', '2-4'],
       distance_from_port_km: 3,
@@ -230,6 +321,8 @@ describe('partitionFetchOptions', () => {
 
     expect(partitionFetchOptions(config)).toEqual({
       datasets: ['public-global-sar-presence:v3.0'],
+      format: 'JSON',
+      'temporal-resolution': 'HOURLY',
     });
   });
 });

@@ -61,11 +61,13 @@ events/
     HIGH_SEAS/opts=3f1a9c0e2b7d.parquet
 ```
 
-> `opts=3f1a9c0e2b7d` is the default/most-common signature (no
-> `distance_from_port_km` / `neural_vessel_type` / `speed` filter, default
-> dataset selection) — every request that doesn't set one of those shares this
+> `opts=3f1a9c0e2b7d` is the default/most-common signature (default dataset
+> selection, resolution, and aggregation settings, no `distance_from_port_km` /
+> `neural_vessel_type` / `speed` filter) — every request that doesn't change
+> one of the [partition fetch options](#partition-fetch-options) shares this
 > one path, so the common case's layout looks the same as before this
-> dimension existed. A request that *does* set one of them gets its own
+> dimension existed. A request that *does* change one of them — including
+> just switching `temporal-resolution` from HOURLY to DAILY — gets its own
 > sibling directory instead of sharing — or corrupting — this one.
 
 ---
@@ -152,8 +154,9 @@ cells`:
 
 - The **queryKey** is the *non-spatial, non-temporal* shape of the request —
   URL, method, and its [partition fetch options](#partition-fetch-options)
-  (dataset selection, `distance_from_port_km`, `neural_vessel_type`, `speed`).
-  It **excludes** `date-range` (the day is the partition dimension), **all
+  (dataset selection; `distance_from_port_km`/`neural_vessel_type`/`speed`;
+  and `spatial-resolution`/`temporal-resolution`/`spatial-aggregation`/
+  `group-by`/`format`). It **excludes** `date-range` (the day is the partition dimension), **all
   geometry** (the spatial dimension is the cell set), and — deliberately — the
   *recoverable* `filters[i]` predicates (`matched`, `flag`, `vessel_type`,
   `geartype`, `vessel_id`; see below). So a different map box, or a request
@@ -208,18 +211,28 @@ returned the merged union with no way to narrow it back down.
 The fix splits `filters[i]`/`datasets[i]` into two disjoint sets, backed by two
 backend-only types in `helpers/types/servingTypes.ts`:
 
-- **`IPartitionFetchOptions`** (`distance_from_port_km`, `neural_vessel_type`,
-  `speed`, dataset selection) — values that genuinely scope *what the provider
-  is asked for*, and that we don't (or, for `speed`/`distance_from_port_km`,
-  can't — they belong to the fishing-effort / AIS-presence datasets, not
-  `IEventSchema`) persist per cached event. These **must** both reach the
-  provider on a miss-fetch and key the partition — coverage manifest *and*
-  physical file — computed by `partitionFetchOptions()` /
-  `partitionOptionsSignature()` in `servingUtils.ts`. Two requests whose
-  options differ are always treated as a hard miss against each other —
-  there's no general subset relationship the way there is for AOI cells (a
-  future refinement could add one specifically for numeric thresholds like
-  `distance_from_port_km`, but that isn't implemented).
+- **`IPartitionFetchOptions`** — values that genuinely scope *what the
+  provider is asked for*, in two different ways:
+  - `datasets[i]` and `filters[i]`'s `distance_from_port_km` /
+    `neural_vessel_type` / `speed` narrow *which rows* come back from the same
+    grid, and we don't (or, for `speed`/`distance_from_port_km`, can't — they
+    belong to the fishing-effort / AIS-presence datasets, not `IEventSchema`)
+    persist them per cached event.
+  - The plain top-level `url_params` `spatial-resolution`,
+    `temporal-resolution`, `spatial-aggregation`, `group-by`, and `format`
+    change the grid/aggregation/encoding itself (e.g. DAILY vs HOURLY bins) —
+    a result fetched under one combination can't be reinterpreted as another
+    after the fact, so these can't be dropped from the key either even though
+    they aren't `filters[i]`/`datasets[i]` at all.
+
+  These **must** both reach the provider on a miss-fetch and key the
+  partition — coverage manifest *and* physical file — computed by
+  `partitionFetchOptions()` / `partitionOptionsSignature()` in
+  `servingUtils.ts`. Two requests whose options differ are always treated as a
+  hard miss against each other — there's no general subset relationship the
+  way there is for AOI cells (a future refinement could add one specifically
+  for numeric thresholds like `distance_from_port_km`, but that isn't
+  implemented).
 - **`IRecoverableEventFilters`** (`matched`, `flag`, `vessel_type`, `geartype`,
   `vessel_id`) — values that ARE recoverable from a cached raw event
   afterward: `matched` from `IEventSchema.matched_flag`, the rest from

@@ -1,5 +1,6 @@
 import {
   IAISVesselPresenceFilters,
+  I4wingsReportPostURLParams,
   IFishingEffortFilters,
   ISARVesselDetectionsFilters,
   T4wingsSource,
@@ -22,23 +23,20 @@ export interface ITimeRange {
   end: Date;
 }
 
-/**
- * The subset of a request's `datasets[i]`/`filters[i]` values that genuinely
- * scope *what* the provider is asked for — a value here can't be recovered
- * from a cached raw event afterward, so it must (a) reach the provider on a
- * miss-fetch, and (b) key the partition (coverage manifest *and* physical
- * storage), so two requests with different values here are never merged into
- * — or served from — the same partition. See "Partition fetch options" in
- * `docs/tech/serving-strategy.md`.
- *
- * Everything else `filters[i]` can carry (`matched`, `flag`, `vessel_type`,
- * `geartype`, `vessel_id`) *is* recoverable from a cached event's
- * `matched_flag` / `raw_metadata`, so it's deliberately excluded here and
- * enforced at read time instead — see {@link IRecoverableEventFilters}.
- */
+// refetch triggers
 export interface IPartitionFetchOptions
   extends Partial<Pick<IFishingEffortFilters, 'distance_from_port_km'>>,
-    Partial<Pick<ISARVesselDetectionsFilters, 'neural_vessel_type'>> {
+    Partial<Pick<ISARVesselDetectionsFilters, 'neural_vessel_type'>>,
+    Partial<
+      Pick<
+        I4wingsReportPostURLParams,
+        | 'spatial-resolution'
+        | 'temporal-resolution'
+        | 'spatial-aggregation'
+        | 'group-by'
+        | 'format'
+      >
+    > {
   /**
    * `IAISVesselPresenceFilters.speed` models a single value, but the UI can
    * select several at once (`speed in ('<2','2-4')`) — kept as a list to
