@@ -18,6 +18,10 @@ import {
   hasCoverage,
   nonSpatialQueryKey,
   parseDateRange,
+  partitionFetchOptions,
+  partitionKey,
+  partitionOptionsSignature,
+  sanitizeFetchUrlParams,
 } from '../helpers/utils/servingUtils';
 import {
   cellSetBBoxGeometry,
@@ -109,6 +113,15 @@ export const getServedEvents = async (
   const partitions = resolvePartitions(a_Config);
   const queryKey = nonSpatialQueryKey(a_Config);
 
+  // The fetch-scoping options (dataset selection, distance-from-port,
+  // neural-vessel-type, speed) segregate the physical partition — a request
+  // that differs only in a *recoverable* filter (matched/flag/vessel_type/
+  // geartype/vessel_id) shares this signature and reuses the same file; see
+  // `IPartitionFetchOptions` and "Partition fetch options" in
+  // `docs/tech/serving-strategy.md`.
+  const fetchOptions = partitionFetchOptions(a_Config);
+  const optionsSignature = partitionOptionsSignature(fetchOptions);
+
   a_Report?.running(EQueryStepId.cacheCheck);
   const manifest = servingRepository.readCoverage();
 
@@ -137,12 +150,26 @@ export const getServedEvents = async (
     // Align the fetch to the cells' bounding box so each cell we mark covered is
     // fully fetched (a covered cell must never be partially populated). A single
     // call covers the whole window; route each event to its (day, region) bucket.
-    let fetchConfig: IConfigJSON = a_Config;
+    //
+    // The recoverable predicates (matched/flag/vessel_type/geartype/vessel_id)
+    // are stripped out of the fetch first, so the partition always caches the
+    // FULL raw set for `fetchOptions` — those predicates are enforced at read
+    // time instead (`applyRecoverableEventFilters`), never by narrowing what
+    // gets fetched/cached here.
+    const sanitizedUrlParams = sanitizeFetchUrlParams(
+      a_Config.url_params as unknown as Record<string, unknown>,
+    );
+
+    let fetchConfig: IConfigJSON = {
+      ...a_Config,
+      url_params: sanitizedUrlParams,
+    } as unknown as IConfigJSON;
     if (a_Config.method === EFetchMethods.post && coverageCells.size > 0) {
       fetchConfig = {
         ...a_Config,
+        url_params: sanitizedUrlParams,
         body_params: { geojson: cellSetBBoxGeometry(coverageCells) },
-      };
+      } as unknown as IConfigJSON;
     }
 
     const fetched = await getDetections(fetchConfig);
@@ -154,7 +181,7 @@ export const getServedEvents = async (
     for (const event of fetched) {
       const date = getEventDate(event);
       if (!missing.has(date)) continue;
-      const partition = partitionForEvent(event);
+      const partition = partitionKey(partitionForEvent(event), optionsSignature);
       const dayMap = buckets.get(date) ?? new Map<string, IEventSchema[]>();
       const list = dayMap.get(partition) ?? [];
       list.push(event);
@@ -191,8 +218,11 @@ export const getServedEvents = async (
   const merged: IEventSchema[] = [];
   const seen = new Set<string>();
   for (const date of dates) {
-    for (const partition of partitions) {
-      const partEvents = await servingRepository.readPartition(date, partition);
+    for (const region of partitions) {
+      const partEvents = await servingRepository.readPartition(
+        date,
+        partitionKey(region, optionsSignature),
+      );
       for (const event of partEvents) {
         if (seen.has(event.event_id)) continue;
         seen.add(event.event_id);

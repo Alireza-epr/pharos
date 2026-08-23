@@ -1,6 +1,12 @@
+import { createHash } from 'crypto';
 import { IConfigJSON, IEventSchema } from '@packages/types';
 import { deepSortObject } from '@packages/utils';
-import { ICoverageManifest, ITimeRange } from '../types/servingTypes';
+import {
+  ICoverageManifest,
+  IPartitionFetchOptions,
+  IRecoverableEventFilters,
+  ITimeRange,
+} from '../types/servingTypes';
 
 /**
  * Pure helpers for the partitioned serving path.
@@ -86,30 +92,178 @@ export const getEventDate = (a_Event: IEventSchema): string =>
   a_Event.timestamp_utc.slice(0, 10);
 
 /**
- * A stable cache key for the **non-spatial, non-temporal** shape of a request:
- * datasets, resolutions, group-by, format, filters — independent of key
- * ordering. The time window (`date-range`) is excluded because the day is the
- * partition dimension, and ALL geometry (polygon / region / buffer) is excluded
- * because the spatial dimension is tracked separately as covered H3 cells. This
- * is what lets a different map box with the same datasets reuse the cache.
+ * Parse the `in ('a','b')` clause for `a_Field` out of a `filters[i]`-style
+ * expression (the `filters[i]` values joined with `AND`, mirroring the
+ * frontend's own `parseInClause` in `apps/frontend/src/helpers/utils/queryUtils.ts`
+ * — kept as an independent copy since the two run against different inputs;
+ * keep them in sync if the query grammar changes). Returns `[]` when the field
+ * isn't present.
  */
-export const nonSpatialQueryKey = (a_Config: IConfigJSON): string => {
-  const urlParams: Record<string, unknown> = { ...a_Config.url_params };
-  for (const geoParam of [
-    'date-range',
-    'region-id',
-    'region-dataset',
-    'buffer-operation',
-    'buffer-unit',
-    'buffer-value',
-  ]) {
-    delete urlParams[geoParam];
+const parseInClauseValues = (a_Expression: string, a_Field: string): string[] => {
+  const match = a_Expression.match(new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`));
+  if (!match?.[1]) return [];
+  return match[1]
+    .split(',')
+    .map((v) => v.trim().replace(/^'|'$/g, ''))
+    .filter(Boolean);
+};
+
+/** Every `filters[i]` value on the request, joined with `AND` into one expression. */
+const filterExpressionOf = (a_Config: IConfigJSON): string => {
+  const urlParams = a_Config.url_params as unknown as Record<string, unknown>;
+  return Object.entries(urlParams)
+    .filter(([key]) => /^filters\[\d+\]$/.test(key))
+    .map(([, value]) => String(value))
+    .join(' AND ');
+};
+
+/** Every `datasets[i]` value on the request. */
+const datasetsOf = (a_Config: IConfigJSON): IPartitionFetchOptions['datasets'] => {
+  const urlParams = a_Config.url_params as unknown as Record<string, unknown>;
+  return Object.entries(urlParams)
+    .filter(([key]) => /^datasets\[\d+\]$/.test(key))
+    .map(([, value]) => String(value)) as IPartitionFetchOptions['datasets'];
+};
+
+/**
+ * The fetch-scoping subset of a request's `filters[i]` — see
+ * {@link IPartitionFetchOptions}. Used both to key the partition cache and to
+ * build the miss-fetch request; `matched`/`flag`/`vessel_type`/`geartype`/
+ * `vessel_id` are deliberately not read here (see {@link recoverableEventFilters}).
+ */
+export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOptions => {
+  const expression = filterExpressionOf(a_Config);
+  const [distance] = parseInClauseValues(expression, 'distance_from_port_km');
+  const [neuralVesselType] = parseInClauseValues(expression, 'neural_vessel_type');
+  const speed = parseInClauseValues(expression, 'speed');
+
+  return {
+    datasets: datasetsOf(a_Config),
+    ...(distance !== undefined && {
+      distance_from_port_km: Number(distance) as IPartitionFetchOptions['distance_from_port_km'],
+    }),
+    ...(neuralVesselType !== undefined && {
+      neural_vessel_type: neuralVesselType as IPartitionFetchOptions['neural_vessel_type'],
+    }),
+    ...(speed.length > 0 && {
+      speed: speed as IPartitionFetchOptions['speed'],
+    }),
+  };
+};
+
+/**
+ * The `filters[i]` predicates that ARE recoverable from a cached raw event —
+ * see {@link IRecoverableEventFilters}. Applied at read time
+ * (`applyRecoverableEventFilters`) instead of gating the partition cache.
+ */
+export const recoverableEventFilters = (a_Config: IConfigJSON): IRecoverableEventFilters => {
+  const expression = filterExpressionOf(a_Config);
+  const [matched] = parseInClauseValues(expression, 'matched');
+  const flag = parseInClauseValues(expression, 'flag');
+  const vesselType = parseInClauseValues(expression, 'vessel_type');
+  const geartype = parseInClauseValues(expression, 'geartype');
+  const vesselId = parseInClauseValues(expression, 'vessel_id');
+
+  return {
+    ...(matched !== undefined && { matched: matched === 'true' }),
+    ...(flag.length > 0 && { flag: flag as IRecoverableEventFilters['flag'] }),
+    ...(vesselType.length > 0 && {
+      vessel_type: vesselType as IRecoverableEventFilters['vessel_type'],
+    }),
+    ...(geartype.length > 0 && {
+      geartype: geartype as IRecoverableEventFilters['geartype'],
+    }),
+    ...(vesselId.length > 0 && {
+      vessel_id: vesselId as IRecoverableEventFilters['vessel_id'],
+    }),
+  };
+};
+
+/** The recoverable predicate field names, as they appear in a `filters[i]` clause. */
+const RECOVERABLE_FILTER_FIELDS = [
+  'matched',
+  'flag',
+  'vessel_type',
+  'geartype',
+  'vessel_id',
+];
+
+/**
+ * `url_params` for the miss-fetch, with the recoverable predicates
+ * ({@link RECOVERABLE_FILTER_FIELDS}) stripped out of every `filters[i]`
+ * clause so the fetch always returns — and the partition always caches — the
+ * full raw set for its {@link IPartitionFetchOptions}. The recoverable
+ * predicates are re-applied at read time instead (`applyRecoverableEventFilters`),
+ * uniformly regardless of what populated the cache.
+ */
+export const sanitizeFetchUrlParams = <T extends Record<string, unknown>>(
+  a_UrlParams: T,
+): T => {
+  const sanitized: Record<string, unknown> = { ...a_UrlParams };
+
+  for (const [key, value] of Object.entries(a_UrlParams)) {
+    if (!/^filters\[\d+\]$/.test(key) || typeof value !== 'string') continue;
+
+    const clauses = value
+      .split(/\s+AND\s+/i)
+      .filter(
+        (clause) =>
+          !RECOVERABLE_FILTER_FIELDS.some((field) =>
+            new RegExp(`^${field}\\b`).test(clause.trim()),
+          ),
+      );
+
+    if (clauses.length > 0) {
+      sanitized[key] = clauses.join(' AND ');
+    } else {
+      delete sanitized[key];
+    }
   }
 
+  return sanitized as T;
+};
+
+/**
+ * A short, filesystem-safe fingerprint of {@link IPartitionFetchOptions},
+ * deterministic and independent of key ordering — used to segregate the
+ * physical partition files of two requests whose fetch-scoping options differ
+ * (see `partitionKey`).
+ */
+export const partitionOptionsSignature = (a_Options: IPartitionFetchOptions): string =>
+  createHash('sha256')
+    .update(JSON.stringify(deepSortObject(a_Options as unknown as Record<string, unknown>)))
+    .digest('hex')
+    .slice(0, 12);
+
+/**
+ * The physical partition file key for a spatial region under a given fetch
+ * options signature. Two requests for the same region with different
+ * {@link IPartitionFetchOptions} must never read or write the same file —
+ * nesting the signature as a sub-directory keeps the common case (default
+ * options) at a stable, predictable path.
+ */
+export const partitionKey = (a_Region: string, a_OptionsSignature: string): string =>
+  `${a_Region}/opts=${a_OptionsSignature}`;
+
+/**
+ * A stable cache key for the **non-spatial, non-temporal** shape of a
+ * request — independent of key ordering. The time window (`date-range`) is
+ * excluded because the day is the partition dimension, and ALL geometry
+ * (polygon / region / buffer) is excluded because the spatial dimension is
+ * tracked separately as covered H3 cells. This is what lets a different map
+ * box with the same {@link IPartitionFetchOptions} reuse the cache.
+ *
+ * Only {@link partitionFetchOptions} (datasets, `distance_from_port_km`,
+ * `neural_vessel_type`, `speed`) factors into this key — the recoverable
+ * `filters[i]` predicates (`matched`, `flag`, `vessel_type`, `geartype`,
+ * `vessel_id`) deliberately do NOT, so changing only those never forces a
+ * miss or a separate partition; they're enforced at read time instead.
+ */
+export const nonSpatialQueryKey = (a_Config: IConfigJSON): string => {
   const keyObject = {
     URL: a_Config.URL,
     method: a_Config.method,
-    url_params: urlParams,
+    options: partitionFetchOptions(a_Config),
   };
 
   return JSON.stringify(deepSortObject(keyObject));

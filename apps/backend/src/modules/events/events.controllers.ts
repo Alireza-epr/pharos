@@ -17,7 +17,8 @@ import {
 } from '@packages/types';
 import { getStats } from '../../pipeline/aggregate/stats';
 import { generateRunMetadata } from '../../pipeline/normalize/generation';
-import { applyFilter } from '../../pipeline/normalize/filter';
+import { applyFilter, applyRecoverableEventFilters } from '../../pipeline/normalize/filter';
+import { recoverableEventFilters } from '../../helpers/utils/servingUtils';
 import {
   enrichEventsWithHotspots,
   generateHotspots,
@@ -100,7 +101,11 @@ export const eventsController = async (
 
     // Filtering (score / reason-code / distance / context predicates)
     stream.running(EQueryStepId.filterPredicates);
-    const filteredEvents = applyFilter(servedEvents, configs.filter);
+    const recoverableFiltered = applyRecoverableEventFilters(
+      servedEvents,
+      recoverableEventFilters(configs),
+    );
+    const filteredEvents = applyFilter(recoverableFiltered, configs.filter);
     stream.success(EQueryStepId.filterPredicates, {
       matched: filteredEvents.length,
       total: servedEvents.length,
