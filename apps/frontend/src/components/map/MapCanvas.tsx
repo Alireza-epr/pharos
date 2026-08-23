@@ -6,7 +6,10 @@ import { buildBasemapStyle, initialView } from '../../helpers/fixtures/map';
 import { useAppStore } from '@/stores/appStore';
 import { useAOIStore } from '@/stores/areaOfInterestStore';
 import { useAOIDraw } from '@/hooks/useAOIDraw';
+import { useHotspotBoundary } from '@/hooks/useHotspotBoundary';
+import { useRegionBoundary } from '@/hooks/useRegionBoundary';
 import { useTranslator } from '@/hooks/translator';
+import MapLegend from './MapLegend';
 import { log_frontend } from '@packages/utils';
 import { ELogType } from '@packages/enum';
 
@@ -31,6 +34,8 @@ const MapCanvas = () => {
   const zonal = useAOIStore((s) => s.zonal);
   const point = useAOIStore((s) => s.point);
   useAOIDraw(map);
+  useHotspotBoundary(map);
+  useRegionBoundary(map);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -96,6 +101,7 @@ const MapCanvas = () => {
           {drawHint}
         </div>
       )}
+      <MapLegend />
     </div>
   );
 };

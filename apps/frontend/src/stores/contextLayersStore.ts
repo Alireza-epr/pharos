@@ -13,6 +13,8 @@ export const useContextLayersStore = create<
       hotspots: false as IContextLayersStoreStates['hotspots'],
       eezBoundaries: false as IContextLayersStoreStates['eezBoundaries'],
       mpaZones: false as IContextLayersStoreStates['mpaZones'],
+      eezGeometries: [] as IContextLayersStoreStates['eezGeometries'],
+      mpaGeometries: [] as IContextLayersStoreStates['mpaGeometries'],
     },
     (set) => ({
       setHotspots: (a_Value) =>
@@ -31,6 +33,20 @@ export const useContextLayersStore = create<
         set((state) => ({
           mpaZones:
             typeof a_Value === 'function' ? a_Value(state.mpaZones) : a_Value,
+        })),
+      setEezGeometries: (a_Value) =>
+        set((state) => ({
+          eezGeometries:
+            typeof a_Value === 'function'
+              ? a_Value(state.eezGeometries)
+              : a_Value,
+        })),
+      setMpaGeometries: (a_Value) =>
+        set((state) => ({
+          mpaGeometries:
+            typeof a_Value === 'function'
+              ? a_Value(state.mpaGeometries)
+              : a_Value,
         })),
     }),
   ),

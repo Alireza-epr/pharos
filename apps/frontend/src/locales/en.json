@@ -2,6 +2,7 @@
   "general": {
     "label": {
       "appName": "PHAROS",
+      "aoi": "AOI",
       "zonal": "Zonal",
       "point": "Point",
       "clear": "Clear",
@@ -86,9 +87,6 @@
     "label": {
       "runQuery": "Run Query",
       "viewProgress": "View Progress",
-      "hotspots": "Hotspots",
-      "eezBoundaries": "EEZ Boundaries",
-      "mpaZones": "MPA Zones",
       "resolution": "Resolution",
       "timeBin": "Time Bin",
       "addSort": "+ Add Sort",
@@ -211,6 +209,7 @@
       "bucketStart": "Bucket Start",
       "dataset": "Dataset",
       "reasonCodes": "Reason Codes",
+      "showOnMap": "Show on map",
       "h3Cell": "H3 Cell",
       "recurrence": "Recurrence",
       "timeBinsUnmatched": "Time Bins",
@@ -224,6 +223,7 @@
     "text": {
       "cellCenterCaveat": "cell center · not exact vessel position",
       "bucketStartCaveat": "bucket start · not exact detection time",
+      "recurrenceVisibleCaveat": "{{visible}} of {{total}} unmatched recurring events shown · rest are on other pages",
       "nullProxy": "N/A",
       "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
     },

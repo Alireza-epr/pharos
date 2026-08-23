@@ -2,6 +2,7 @@ import { EViolationError } from '@packages/enum';
 import {
   validateBodyParams,
   validateQueryParams,
+  validateRegionGeometryQueryParams,
   validateRegionsQueryParams,
   validateViolation,
 } from '../src/helpers/utils/validationUtils';
@@ -229,6 +230,68 @@ describe('validateRegionsQueryParams', () => {
 
   it('fail_when_query_is_not_an_object', () => {
     const result = validateRegionsQueryParams(null);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.[0]?.field).toBe('query');
+  });
+});
+
+describe('validateRegionGeometryQueryParams', () => {
+  it('accepts_EEZ_and_MPA_datasets_with_an_id', () => {
+    const eez = validateRegionGeometryQueryParams({
+      dataset: EContextLayers.eez,
+      id: '1',
+    });
+    const mpa = validateRegionGeometryQueryParams({
+      dataset: EContextLayers.mpa,
+      id: '1',
+    });
+
+    expect(eez.isValid).toBe(true);
+    expect(eez.errors).toBeNull();
+    expect(mpa.isValid).toBe(true);
+    expect(mpa.errors).toBeNull();
+  });
+
+  it('fail_when_dataset_is_missing', () => {
+    const result = validateRegionGeometryQueryParams({ id: '1' });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'dataset')).toBe(true);
+  });
+
+  it('fail_when_id_is_missing', () => {
+    const result = validateRegionGeometryQueryParams({
+      dataset: EContextLayers.eez,
+    });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'id')).toBe(true);
+  });
+
+  it('fail_when_dataset_is_not_a_recognized_EContextLayers_value', () => {
+    const unknown = validateRegionGeometryQueryParams({
+      dataset: 'not-a-dataset',
+      id: '1',
+    });
+
+    expect(unknown.isValid).toBe(false);
+  });
+
+  // Bathymetry passes validation (it's a recognized EContextLayers value) but
+  // is rejected downstream by regionGeometryController -- it has no boundary
+  // polygon to look up, unlike EEZ/MPA.
+  it('accepts_bathymetry_as_a_recognized_dataset_value', () => {
+    const bathymetry = validateRegionGeometryQueryParams({
+      dataset: EContextLayers.bathymetry,
+      id: '1',
+    });
+
+    expect(bathymetry.isValid).toBe(true);
+  });
+
+  it('fail_when_query_is_not_an_object', () => {
+    const result = validateRegionGeometryQueryParams(null);
 
     expect(result.isValid).toBe(false);
     expect(result.errors?.[0]?.field).toBe('query');

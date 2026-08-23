@@ -1,7 +1,6 @@
 import sidebarStyle from '../Sidebar.module.scss';
 import AreaOfInterest from '../../blocks/AreaOfInterest';
 import TimeRange from '../../blocks/TimeRange';
-import ContextLayers from '../../blocks/DataLayers';
 import HotspotConfig from '../../blocks/HotspotConfig';
 import SortOrder from '../../blocks/SortOrder';
 import Filter from '../../blocks/Filter';
@@ -118,7 +117,6 @@ const ReportTab = () => {
         <HotspotConfig />
         <AdvancedQuery />
         <ExportAndImportConfig />
-        <ContextLayers />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">

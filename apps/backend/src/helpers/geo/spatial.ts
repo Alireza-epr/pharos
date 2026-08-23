@@ -72,21 +72,21 @@ const containsAOI = (a_Container: TFeature, a_AOI: TFeature): boolean => {
 };
 
 /** The EEZ feature whose MRGID matches the requested region id. */
-const findEEZById = (a_RegionId: string): TFeature | null => {
+export const findEEZById = (a_RegionId: string): TFeature | null => {
   const eez = readEEZPolygons().features.find(
     (f) => String(f.properties.MRGID) === a_RegionId,
   );
-  return eez ? { type: 'Feature', geometry: eez.geometry, properties: {} } : null;
+  return eez ? { type: 'Feature', geometry: eez.geometry, properties: {id: a_RegionId, label: eez.properties.GEONAME} } : null;
 };
 
 /** The MPA feature whose SITE_ID / SITE_PID matches the requested region id. */
-const findMPAById = (a_RegionId: string): TFeature | null => {
+export const findMPAById = (a_RegionId: string): TFeature | null => {
   const mpa = readMPAPolygons().features.find(
     (f) =>
       String(f.properties.SITE_ID) === a_RegionId ||
       String(f.properties.SITE_PID) === a_RegionId,
   );
-  return mpa ? { type: 'Feature', geometry: mpa.geometry, properties: {} } : null;
+  return mpa ? { type: 'Feature', geometry: mpa.geometry, properties: {id: a_RegionId, label: mpa.properties.NAME_ENG} } : null;
 };
 
 /**

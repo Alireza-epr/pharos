@@ -7,6 +7,11 @@ export enum EBaseRoutes {
   regions = "/regions",
 }
 
+export enum ERegionsRoutes {
+  geometry = "/geometry"
+}
+
+
 export enum ESystemRoutes {
   health = "/health",
 }
