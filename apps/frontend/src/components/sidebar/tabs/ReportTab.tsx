@@ -16,6 +16,7 @@ import { useFetchEvents } from '../../../hooks/fetch';
 import { useAOIStore } from '../../../stores/areaOfInterestStore';
 import { useConfigStore } from '../../../stores/configStore';
 import Pagination from '../../blocks/Pagination';
+import { usePaginationStore } from '../../../stores/paginationStore';
 import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
 import ExportAndImportConfig from '../../../components/blocks/ExportAndImportConfig';
@@ -30,6 +31,7 @@ const ReportTab = () => {
   const setEvents = useEventStore((s) => s.setEvents);
   const setConfig = useConfigStore((s) => s.setConfig);
   const setSorts = useBottomStore((s) => s.setSorts);
+  const setOffset = usePaginationStore((s) => s.setOffset);
 
   const hasAOI = useAOIStore((s) =>
     Boolean(s.eezActive || s.mpaActive || s.feature),
@@ -43,6 +45,24 @@ const ReportTab = () => {
   const isProgressOpen = useQueryProgressStore((s) => s.isOpen);
   const openProgress = useQueryProgressStore((s) => s.open);
 
+  // Shared by the Run Query button and the pagination buttons below: an
+  // offset override moves the pagination store to that page before the
+  // config is built, so a next/prev click re-runs the full query (there's
+  // no separate "just fetch this page" endpoint) with every other filter
+  // left untouched and only the offset advanced/retreated.
+  const runQuery = (offsetOverride?: number) => {
+    if (!hasAOI) return;
+    if (offsetOverride !== undefined) setOffset(offsetOverride);
+    const config = buildConfig();
+
+    // Sync sorts
+    if (config.sort.length > 0) setSorts(config.sort);
+
+    log_frontend({ config: { ...config } });
+    setConfig(config);
+    execute(config);
+  };
+
   const handleRunQueryClick = () => {
     // A run is already in flight — its modal may just be hidden. Reopen it
     // instead of silently starting a second, overlapping request: the
@@ -54,15 +74,25 @@ const ReportTab = () => {
       return;
     }
 
-    if (!hasAOI) return;
-    const config = buildConfig();
+    runQuery();
+  };
 
-    // Sync sorts
-    if (config.sort.length > 0) setSorts(config.sort);
+  // The backend hands back nextOffset/prevOffset (null once there's no
+  // further page in that direction) alongside every page of results — see
+  // events.controllers.ts. Drive the buttons off the most recent response
+  // rather than re-deriving page bounds on the frontend.
+  const pagination = response?.pagination;
+  const nextOffset = pagination?.nextOffset;
+  const prevOffset = pagination?.prevOffset;
 
-    log_frontend({ config: { ...config } });
-    setConfig(config);
-    execute(config);
+  const handlePrevClick = () => {
+    if (isRunning || prevOffset == null) return;
+    runQuery(prevOffset);
+  };
+
+  const handleNextClick = () => {
+    if (isRunning || nextOffset == null) return;
+    runQuery(nextOffset);
   };
 
   useEffect(() => {
@@ -94,8 +124,9 @@ const ReportTab = () => {
         <SectionInputGroup direction="row">
           <ButtonInput
             label={t('detailPanel.action.prev')}
-            onClick={() => {}}
-            disabled
+            onClick={handlePrevClick}
+            disabled={isRunning || !hasAOI || prevOffset == null}
+            testId="prev-page-button"
           />
           <ButtonInput
             label={
@@ -115,8 +146,9 @@ const ReportTab = () => {
           />
           <ButtonInput
             label={t('detailPanel.action.next')}
-            onClick={() => {}}
-            disabled
+            onClick={handleNextClick}
+            disabled={isRunning || !hasAOI || nextOffset == null}
+            testId="next-page-button"
           />
         </SectionInputGroup>
         <span

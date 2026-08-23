@@ -1,6 +1,7 @@
 import sidebarStyle from '../Sidebar.module.scss';
 import { useEventStore } from '../../../stores/eventStore';
 import { useTranslator } from '../../../hooks/translator';
+import { useVisibleEvents } from '../../../hooks/useVisibleEvents';
 import ButtonInput from '../../common/inputs/ButtonInput';
 import Identification from '../../blocks/Identification';
 import LocationTimeBlock from '../../blocks/LocationTimeBlock';
@@ -17,10 +18,30 @@ const DetailTab = () => {
   const activeEvent = useEventStore((state) => state.activeEvent);
   const selectedEvents = useEventStore((s) => s.selectedEvents);
   const setSelectedEvents = useEventStore((s) => s.setSelectedEvents);
+  const setActiveEvent = useEventStore((s) => s.setActiveEvent);
 
-  const handleNextClick = () => {};
+  // Same filtered/sorted order the bottom panel table renders, so Next/Prev
+  // here steps through detections in the order the user actually clicked
+  // through — not raw fetch order.
+  const visibleEvents = useVisibleEvents();
+  const activeIndex = activeEvent
+    ? visibleEvents.findIndex((e) => e.event_id === activeEvent.event_id)
+    : -1;
 
-  const handlePrevClick = () => {};
+  // -1 covers both "nothing active" and "active event fell out of the
+  // visible list" (e.g. the matched/unmatched filter changed underneath it).
+  const hasPrev = activeIndex > 0;
+  const hasNext = activeIndex !== -1 && activeIndex < visibleEvents.length - 1;
+
+  const handleNextClick = () => {
+    if (!hasNext) return;
+    setActiveEvent(visibleEvents[activeIndex + 1] ?? null);
+  };
+
+  const handlePrevClick = () => {
+    if (!hasPrev) return;
+    setActiveEvent(visibleEvents[activeIndex - 1] ?? null);
+  };
 
   const isExported = selectedEvents.some(
     (e) => e.event_id === activeEvent?.event_id,
@@ -69,6 +90,8 @@ const DetailTab = () => {
           <ButtonInput
             label={t('detailPanel.action.prev')}
             onClick={handlePrevClick}
+            disabled={!hasPrev}
+            testId="detail-prev-button"
           />
           <ButtonInput
             active={isExported}
@@ -85,6 +108,8 @@ const DetailTab = () => {
           <ButtonInput
             label={t('detailPanel.action.next')}
             onClick={handleNextClick}
+            disabled={!hasNext}
+            testId="detail-next-button"
           />
         </SectionInputGroup>
 
