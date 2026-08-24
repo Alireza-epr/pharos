@@ -15,6 +15,7 @@ import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
 import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 import { useFetchRegions } from '../../hooks/fetch';
+import { useSyncRegionGeometry } from '../../hooks/useSyncRegionGeometry';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -49,6 +50,9 @@ const AreaOfInterest = () => {
   const mpaActive = useAOIStore((s) => s.mpaActive);
   const setMPAActive = useAOIStore((s) => s.setMPAActive);
 
+  const setEezGeometries = useAOIStore((s) => s.setEezGeometries);
+  const setMpaGeometries = useAOIStore((s) => s.setMpaGeometries);
+
   const getAOI = useAOIStore((s) => s.getAOI);
   const importAOI = useAOIStore((s) => s.importAOI);
 
@@ -56,6 +60,26 @@ const AreaOfInterest = () => {
 
   const eezFetch = useFetchRegions();
   const mpaFetch = useFetchRegions();
+
+  // Fetches the chosen EEZ/MPA's full boundary so it can be drawn on the map
+  // as the AOI (useAOIRegionBoundary) -- same fetch-by-id mechanism
+  // ContextLayersBlock.tsx uses for an event's own EEZ/MPA. Always "enabled"
+  // (no separate show-on-map toggle here): picking a region from the
+  // dropdown *is* the AOI, so its boundary should always draw. The id array
+  // is at most one entry -- eez/mpa selection is single-select -- and
+  // resolves to [] on clear, which the hook reads as "clear the geometry".
+  useSyncRegionGeometry(
+    EContextLayers.eez,
+    true,
+    eezActive ? [eezActive.properties.id] : [],
+    setEezGeometries,
+  );
+  useSyncRegionGeometry(
+    EContextLayers.mpa,
+    true,
+    mpaActive ? [mpaActive.properties.id] : [],
+    setMpaGeometries,
+  );
 
   const deactivateExcept = (a_Tool: TAreaOfInterestTools) => {
     switch (a_Tool) {

@@ -6,6 +6,7 @@ import { buildBasemapStyle, initialView } from '../../helpers/fixtures/map';
 import { useAppStore } from '@/stores/appStore';
 import { useAOIStore } from '@/stores/areaOfInterestStore';
 import { useAOIDraw } from '@/hooks/useAOIDraw';
+import { useAOIRegionBoundary } from '@/hooks/useAOIRegionBoundary';
 import { useHotspotBoundary } from '@/hooks/useHotspotBoundary';
 import { useRegionBoundary } from '@/hooks/useRegionBoundary';
 import { useTranslator } from '@/hooks/translator';
@@ -34,6 +35,7 @@ const MapCanvas = () => {
   const zonal = useAOIStore((s) => s.zonal);
   const point = useAOIStore((s) => s.point);
   useAOIDraw(map);
+  useAOIRegionBoundary(map);
   useHotspotBoundary(map);
   useRegionBoundary(map);
 

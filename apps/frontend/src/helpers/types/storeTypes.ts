@@ -339,6 +339,15 @@ export interface IAOIStoreStates {
   eezActive: TRegionOption | undefined;
   mpaOptions: TRegionOption[];
   mpaActive: TRegionOption | undefined;
+  // The active EEZ/MPA region's full boundary, once fetched by id
+  // (AreaOfInterest.tsx, via useSyncRegionGeometry -- same mechanism
+  // ContextLayersBlock.tsx uses for an event's own EEZ/MPA). Array for
+  // symmetry with that hook's contract; a chosen AOI region only ever
+  // populates one entry. Empty while nothing's chosen or still loading.
+  // Kept in the store so the map-drawing hook can read it without a prop
+  // chain -- see useAOIRegionBoundary.
+  eezGeometries: TRegionGeometry[];
+  mpaGeometries: TRegionGeometry[];
 }
 
 export interface IAOIRegionProperties {
@@ -416,6 +425,20 @@ export interface IAOIStoreActions {
       | ((
           a_Prev: IAOIStoreStates['mpaActive'],
         ) => IAOIStoreStates['mpaActive']),
+  ) => void;
+  setEezGeometries: (
+    a_Value:
+      | IAOIStoreStates['eezGeometries']
+      | ((
+          a_Prev: IAOIStoreStates['eezGeometries'],
+        ) => IAOIStoreStates['eezGeometries']),
+  ) => void;
+  setMpaGeometries: (
+    a_Value:
+      | IAOIStoreStates['mpaGeometries']
+      | ((
+          a_Prev: IAOIStoreStates['mpaGeometries'],
+        ) => IAOIStoreStates['mpaGeometries']),
   ) => void;
   getAOI: () => TAOIQuery;
   importAOI: (a_Data: TAOIQuery) => void;
