@@ -9,13 +9,14 @@ export interface IMapLegendProps {}
 
 /**
  * A small, non-interactive color key for whatever is actually drawn on the
- * map right now -- AOI (zonal / point), the selected event's hotspot cell,
- * and its EEZ/MPA boundaries. Deliberately dynamic, not a static catalog of
- * every possible layer: a swatch only appears while its layer is actually
- * on screen, so the legend never claims something is drawn that isn't (see
- * useAOIDraw / useHotspotBoundary / useRegionBoundary, whose draw conditions
- * this mirrors). Colors are read from the same design tokens those hooks use
- * -- keep the two in sync if either changes.
+ * map right now -- AOI (zonal / point / a chosen EEZ/MPA region), the
+ * selected event's hotspot cell, and its EEZ/MPA boundaries. Deliberately
+ * dynamic, not a static catalog of every possible layer: a swatch only
+ * appears while its layer is actually on screen, so the legend never claims
+ * something is drawn that isn't (see useAOIDraw / useAOIRegionBoundary /
+ * useHotspotBoundary / useRegionBoundary, whose draw conditions this
+ * mirrors). Colors are read from the same design tokens those hooks use --
+ * keep the two in sync if either changes.
  */
 const MapLegend = () => {
   const { t } = useTranslator();
@@ -23,6 +24,10 @@ const MapLegend = () => {
   const aoiFeature = useAOIStore((s) => s.feature);
   const aoiZonal = useAOIStore((s) => s.zonal);
   const aoiPoint = useAOIStore((s) => s.point);
+  const aoiEezActive = useAOIStore((s) => s.eezActive);
+  const aoiMpaActive = useAOIStore((s) => s.mpaActive);
+  const aoiEezGeometries = useAOIStore((s) => s.eezGeometries);
+  const aoiMpaGeometries = useAOIStore((s) => s.mpaGeometries);
 
   const activeEvent = useEventStore((s) => s.activeEvent);
 
@@ -43,6 +48,16 @@ const MapLegend = () => {
       show: aoiPoint || aoiFeature?.geometry.type === EGeoJSONGeometryType.Point,
       swatch: mapLegendStyle.swatchAoiPoint,
       label: `${t('general.label.aoi')} · ${t('general.label.point')}`,
+    },
+    {
+      show: !!aoiEezActive && aoiEezGeometries.length > 0,
+      swatch: mapLegendStyle.swatchAoiRegion,
+      label: `${t('general.label.aoi')} · ${t('sidebar.label.eezWeight')}`,
+    },
+    {
+      show: !!aoiMpaActive && aoiMpaGeometries.length > 0,
+      swatch: mapLegendStyle.swatchAoiRegion,
+      label: `${t('general.label.aoi')} · ${t('sidebar.label.mpaWeight')}`,
     },
     {
       show: !!activeEvent && hotspotOn && !!activeEvent.hotspot,

@@ -22,6 +22,7 @@ import ExportAndImportConfig from '../../../components/blocks/ExportAndImportCon
 import QueryProgressModal from '../../../components/blocks/QueryProgressModal';
 import { useQueryProgressStore } from '../../../stores/queryProgressStore';
 import { buildConfig } from '../../../helpers/utils/configUtils';
+import { syncConfigToURL } from '../../../helpers/utils/URLUtils';
 
 const ReportTab = () => {
   const { response, error, execute } = useFetchEvents();
@@ -53,6 +54,14 @@ const ReportTab = () => {
     if (!hasAOI) return;
     if (offsetOverride !== undefined) setOffset(offsetOverride);
     const config = buildConfig();
+
+    // useSyncConfigToURL already keeps the URL live-synced to every store
+    // change, debounced -- this un-debounced call just guarantees the URL
+    // is exactly current at the instant a query runs, even if the user's
+    // last edit landed inside that debounce window. Either way, copy-pasting
+    // the URL into a new tab reproduces the same sections (see
+    // useHydrateConfigFromURL for the read side).
+    syncConfigToURL(config);
 
     // Sync sorts
     if (config.sort.length > 0) setSorts(config.sort);

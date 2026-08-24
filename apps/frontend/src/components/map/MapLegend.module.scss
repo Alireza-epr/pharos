@@ -36,6 +36,14 @@
   background: var(--color-alert-orange4);
 }
 
+// A chosen EEZ/MPA region drawn as the AOI (useAOIRegionBoundary). Shares
+// the Zonal AOI's color on purpose -- eez/mpa selection is mutually
+// exclusive with the Zonal/Point tools, so they never appear together and
+// the shared color reads as "this is the AOI" either way.
+.swatch-aoi-region {
+  background: var(--color-accent-teal4);
+}
+
 .swatch-hotspot {
   background: var(--color-primary-purple6);
 }

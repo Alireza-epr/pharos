@@ -29,6 +29,8 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
       eezActive: undefined as IAOIStoreStates['eezActive'],
       mpaOptions: [] as IAOIStoreStates['mpaOptions'],
       mpaActive: undefined as IAOIStoreStates['mpaActive'],
+      eezGeometries: [] as IAOIStoreStates['eezGeometries'],
+      mpaGeometries: [] as IAOIStoreStates['mpaGeometries'],
     },
     (set, get) => ({
       setZonal: (a_Value) =>
@@ -70,6 +72,20 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
         set((state) => ({
           mpaActive:
             typeof a_Value === 'function' ? a_Value(state.mpaActive) : a_Value,
+        })),
+      setEezGeometries: (a_Value) =>
+        set((state) => ({
+          eezGeometries:
+            typeof a_Value === 'function'
+              ? a_Value(state.eezGeometries)
+              : a_Value,
+        })),
+      setMpaGeometries: (a_Value) =>
+        set((state) => ({
+          mpaGeometries:
+            typeof a_Value === 'function'
+              ? a_Value(state.mpaGeometries)
+              : a_Value,
         })),
       // Mirrors literally where this AOI lives in IConfigJSON: a named region
       // is a url_params fragment; a drawn Zonal/Point polygon is a

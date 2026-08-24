@@ -10,6 +10,10 @@ import { useAppStore } from '../stores/appStore';
 import { useLoginStore } from '../stores/loginStore';
 import { useSidebarStore } from '../stores/sidebarStore';
 import { useHealth } from '../hooks/system';
+import {
+  useHydrateConfigFromURL,
+  useSyncConfigToURL,
+} from '../hooks/useURLConfigSync';
 import Login from '../components/layout/Login';
 import { useDetailStore } from '../stores/detailStore';
 
@@ -31,6 +35,9 @@ const App = () => {
   }, [theme]);
 
   useHealth(isAuthenticated);
+
+  useHydrateConfigFromURL(isAuthenticated);
+  useSyncConfigToURL(isAuthenticated);
 
   if (!isAuthenticated) return <Login />;
 

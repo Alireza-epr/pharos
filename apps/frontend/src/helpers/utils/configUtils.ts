@@ -1,5 +1,13 @@
 import { IConfigJSON, IGeometry, TURLParams } from '@packages/types';
-import { ECacheStatus, EFetchMethods, EURLParams, TCacheStatus } from '@packages/enum';
+import {
+  EContextLayers,
+  ECacheStatus,
+  EFetchMethods,
+  ERegionDatasets,
+  EURLParams,
+  TCacheStatus,
+} from '@packages/enum';
+import { loadRegionOptions } from '../../hooks/fetch';
 import { useAOIStore } from '../../stores/areaOfInterestStore';
 import { useTimeRangeStore } from '../../stores/timeRangeStore';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
@@ -169,4 +177,32 @@ export const importConfig = (a_Config: IConfigJSON): void => {
     .importHotspotConfig({ hotspot: a_Config.hotspot });
 
   useConfigStore.getState().setConfig(a_Config);
+};
+
+/**
+ * importConfig(), but first makes sure a region-based AOI (region-dataset +
+ * region-id in url_params) can actually resolve. importAOI() looks the id
+ * up in areaOfInterestStore's eezOptions/mpaOptions, which are normally
+ * populated by AreaOfInterest.tsx's own mount-time fetch -- fine for a
+ * button-driven file import (the app's been open a while by then), but a
+ * URL hydrate (useURLConfigSync) can run before that fetch has even
+ * started, let alone resolved, silently dropping the AOI. loadRegionOptions()
+ * is cached, so this never doubles AreaOfInterest.tsx's own request.
+ */
+export const importConfigWithRegionPreload = async (
+  a_Config: IConfigJSON,
+): Promise<void> => {
+  const aoiQuery = aoiQueryFromConfig(a_Config);
+  const dataset =
+    aoiQuery && 'url_params' in aoiQuery
+      ? aoiQuery.url_params['region-dataset']
+      : undefined;
+
+  if (dataset === ERegionDatasets.eez) {
+    await loadRegionOptions(EContextLayers.eez);
+  } else if (dataset === ERegionDatasets.mpa) {
+    await loadRegionOptions(EContextLayers.mpa);
+  }
+
+  importConfig(a_Config);
 };

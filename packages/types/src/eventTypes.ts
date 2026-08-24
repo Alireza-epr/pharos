@@ -108,6 +108,11 @@ export interface IRejectedEventSchema extends Pick<
   rejected: true;
 }
 
+export interface IEventDetection {
+  valid: IEventSchema[];
+  rejected: IRejectedEventSchema[];
+}
+
 export interface IZipFile {
   name: string;
   content: any;

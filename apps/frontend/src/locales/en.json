@@ -32,6 +32,7 @@
     },
     "text": {
       "invalidImportFile": "Invalid or unreadable import file.",
+      "invalidURLConfig": "Invalid or unreadable configuration in the URL.",
       "noMatchesFound": "No matches found.",
       "moreMatchesRefine": "+{{count}} more - refine your search"
     }
@@ -287,7 +288,7 @@
       },
       "fetchProvider": {
         "label": "Fetching from data provider",
-        "detail": "{{count}} detection(s) returned"
+        "detail": "{{count}} detection(s) returned, {{rejected}} rejected"
       },
       "writeCache": {
         "label": "Caching results",

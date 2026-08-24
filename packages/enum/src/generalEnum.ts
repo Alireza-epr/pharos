@@ -116,7 +116,8 @@ export type TLogType = (typeof ELogType)[keyof typeof ELogType];
 
 export const EURLParams = {
   loglevel: "loglevel",
-  cache: "cache"
+  cache: "cache",
+  config: "config"
 } as const
 export type TURLSearchParams = typeof EURLParams[keyof typeof EURLParams]
 

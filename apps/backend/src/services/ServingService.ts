@@ -84,8 +84,11 @@ export const getServedEvents = async (
     a_Report?.skipped(EQueryStepId.cacheCheck, EQuerySkipReason.cacheDisabled);
 
     a_Report?.running(EQueryStepId.fetchProvider);
-    const fetched = await getDetections(a_Config);
-    a_Report?.success(EQueryStepId.fetchProvider, { count: fetched.length });
+    const { valid: fetched, rejected } = await getDetections(a_Config);
+    a_Report?.success(EQueryStepId.fetchProvider, {
+      count: fetched.length,
+      rejected: rejected.length,
+    });
 
     a_Report?.skipped(EQueryStepId.writeCache, EQuerySkipReason.cacheDisabled);
     a_Report?.skipped(EQueryStepId.readCache, EQuerySkipReason.cacheDisabled);
@@ -172,8 +175,11 @@ export const getServedEvents = async (
       } as unknown as IConfigJSON;
     }
 
-    const fetched = await getDetections(fetchConfig);
-    a_Report?.success(EQueryStepId.fetchProvider, { count: fetched.length });
+    const { valid: fetched, rejected } = await getDetections(fetchConfig);
+    a_Report?.success(EQueryStepId.fetchProvider, {
+      count: fetched.length,
+      rejected: rejected.length,
+    });
 
     const missing = new Set(missingDates);
     const buckets = new Map<string, Map<string, IEventSchema[]>>();
