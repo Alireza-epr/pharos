@@ -24,7 +24,14 @@
       "clearZonal": "Clear Zonal",
       "clearPoint": "Clear Point",
       "maximize": "Maximize",
-      "import": "Import"
+      "import": "Import",
+      "triagePriority": "Triage priority",
+      "inExportList": "In export list",
+      "outsideHotspotGroup": "Outside hotspot group",
+      "name": "Name",
+      "vesselType": "Vessel type",
+      "gearType": "Gear type",
+      "flag": "Flag"
     },
     "action": {
       "copy": "Copy",

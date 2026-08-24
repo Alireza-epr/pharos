@@ -24,7 +24,14 @@
       "clearZonal": "Zonal löschen",
       "clearPoint": "Punkt löschen",
       "maximize": "Maximieren",
-      "import": "Importieren"
+      "import": "Importieren",
+      "triagePriority": "Triage-Priorität",
+      "inExportList": "In Exportliste",
+      "outsideHotspotGroup": "Außerhalb der Hotspot-Gruppe",
+      "name": "Name",
+      "vesselType": "Schiffstyp",
+      "gearType": "Fanggerätetyp",
+      "flag": "Flagge"
     },
     "action": {
       "copy": "Kopieren",

@@ -1,0 +1,41 @@
+// Hover popup content rendered as a MapLibre DOM popup by useEventMarkers.
+// Kept here (not inline styles) so it uses design tokens like the rest of
+// the app. MapLibre's own popup chrome (bg/border/close button) is plain
+// global markup it injects itself, not something a CSS module class can
+// reach -- overridden below via :global() so it matches the theme instead
+// of maplibre's hardcoded white default.
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--theme-text-primary);
+}
+
+.popup-id {
+  font-family: var(--font-family-header);
+}
+
+.popup-line {
+  color: var(--theme-text-secondary);
+}
+
+:global(.maplibregl-popup-content) {
+  background: var(--theme-bg-card);
+  border: 1px solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  padding: var(--padding-default-half) var(--padding-default);
+  box-shadow: none;
+}
+
+:global(.maplibregl-popup-anchor-bottom .maplibregl-popup-tip) {
+  border-top-color: var(--theme-bg-card);
+}
+
+:global(.maplibregl-popup-anchor-top .maplibregl-popup-tip) {
+  border-bottom-color: var(--theme-bg-card);
+}
+
+:global(.maplibregl-popup-close-button) {
+  color: var(--theme-text-secondary);
+}

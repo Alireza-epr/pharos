@@ -1,10 +1,8 @@
 // Colors mirror the tokens read at draw time in useAOIDraw / useHotspotBoundary
 // / useRegionBoundary -- keep both sides in sync if a layer's color changes.
+// Positioned by the parent .legends wrapper (MapCanvas.module.scss), which
+// also lays this out next to EventMarkersLegend -- this owns box styling only.
 .wrapper {
-  position: absolute;
-  bottom: var(--padding-default);
-  left: var(--padding-default);
-  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: var(--padding-default-half);
