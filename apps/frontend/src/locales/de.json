@@ -32,6 +32,7 @@
     },
     "text": {
       "invalidImportFile": "Ungültige oder nicht lesbare Importdatei.",
+      "invalidURLConfig": "Ungültige oder nicht lesbare Konfiguration in der URL.",
       "noMatchesFound": "Keine Treffer gefunden.",
       "moreMatchesRefine": "+{{count}} weitere - Suche eingrenzen"
     }

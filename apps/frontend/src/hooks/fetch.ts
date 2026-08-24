@@ -21,6 +21,7 @@ import { getAPIConfig } from '.';
 import { fetchWithAuth } from '../helpers/utils/apiUtils';
 import { IExportBlob } from '../helpers/types/generalTypes';
 import { useQueryProgressStore } from '../stores/queryProgressStore';
+import { useAOIStore } from '../stores/areaOfInterestStore';
 
 const { BASE_URL } = getAPIConfig();
 
@@ -173,6 +174,56 @@ export const useFetchRegions = () => {
   );
 
   return { response, loading, error, execute };
+};
+
+// A dataset's region option list never changes during a session, and MPA
+// alone is 17k+ rows -- every *caller of this function* shares one in-flight
+// request per dataset rather than firing its own. Note this doesn't cover
+// AreaOfInterest.tsx's own mount-time fetch above (useFetchRegions, a
+// separate request predating this cache) -- so a cold load whose URL/file
+// config carries a region-based AOI can still race one duplicate request
+// for that dataset against AreaOfInterest's own. Harmless (both converge on
+// the same data), just not free; consolidating that path onto this cache
+// too is follow-up work, not done here to keep this fix's footprint small.
+const regionOptionsCache = new Map<EContextLayers, Promise<TRegionOption[]>>();
+
+/**
+ * Fetches (once, cached) a dataset's region options and pushes them into
+ * areaOfInterestStore -- the same eezOptions/mpaOptions a region-based AOI
+ * resolves against (see areaOfInterestStore.importAOI). Returns the list so
+ * a caller can also use it directly without a second store read.
+ */
+export const loadRegionOptions = (
+  a_Dataset: EContextLayers,
+): Promise<TRegionOption[]> => {
+  const cached = regionOptionsCache.get(a_Dataset);
+  if (cached) return cached;
+
+  const url = `${BASE_URL}${EBaseRoutes.regions}`;
+  const promise = fetchWithAuth(`${url}?dataset=${a_Dataset}`, {
+    method: EFetchMethods.get,
+  })
+    .then((res) => res.json() as Promise<IResponse<TRegionOption>>)
+    .then((json) => {
+      const entries = json.success ? (json.entries ?? []) : [];
+      const setOptions =
+        a_Dataset === EContextLayers.eez
+          ? useAOIStore.getState().setEEZOptions
+          : useAOIStore.getState().setMPAOptions;
+      setOptions(entries);
+      return entries;
+    })
+    .catch((err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      log_frontend(`[loadRegionOptions] Error: ${message}`, ELogType.error, '3');
+      // Failed, not just empty -- let a later call retry instead of caching
+      // the failure forever.
+      regionOptionsCache.delete(a_Dataset);
+      return [];
+    });
+
+  regionOptionsCache.set(a_Dataset, promise);
+  return promise;
 };
 
 export const useFetchRegionGeometry = () => {
