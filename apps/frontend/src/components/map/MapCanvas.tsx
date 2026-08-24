@@ -9,8 +9,10 @@ import { useAOIDraw } from '@/hooks/useAOIDraw';
 import { useAOIRegionBoundary } from '@/hooks/useAOIRegionBoundary';
 import { useHotspotBoundary } from '@/hooks/useHotspotBoundary';
 import { useRegionBoundary } from '@/hooks/useRegionBoundary';
+import { useEventMarkers } from '@/hooks/useEventMarkers';
 import { useTranslator } from '@/hooks/translator';
 import MapLegend from './MapLegend';
+import EventMarkersLegend from './EventMarkersLegend';
 import { log_frontend } from '@packages/utils';
 import { ELogType } from '@packages/enum';
 
@@ -38,6 +40,7 @@ const MapCanvas = () => {
   useAOIRegionBoundary(map);
   useHotspotBoundary(map);
   useRegionBoundary(map);
+  useEventMarkers(map);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -103,7 +106,10 @@ const MapCanvas = () => {
           {drawHint}
         </div>
       )}
-      <MapLegend />
+      <div className={mapCanvasStyle.legends}>
+        <MapLegend />
+        <EventMarkersLegend />
+      </div>
     </div>
   );
 };

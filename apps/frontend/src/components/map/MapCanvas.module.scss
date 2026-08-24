@@ -9,6 +9,19 @@
   height: 100%;
 }
 
+// Positions MapLegend and EventMarkersLegend side by side in the same
+// corner -- each owns only its own box styling, this owns where the pair
+// of boxes sits on the map.
+.legends {
+  position: absolute;
+  bottom: var(--padding-default);
+  left: var(--padding-default);
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--padding-default);
+}
+
 // Floating helper text shown while a draw tool is active. Non-interactive so it
 // never eats map clicks.
 .draw-hint {
