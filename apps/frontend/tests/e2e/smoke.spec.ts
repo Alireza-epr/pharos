@@ -35,7 +35,7 @@ const eventsProgressBody = (): string => {
       type: 'step',
       id: EQueryStepId.fetchProvider,
       status: EQueryStepStatus.success,
-      meta: { count },
+      meta: { count, rejected: 0 },
     },
     {
       type: 'step',

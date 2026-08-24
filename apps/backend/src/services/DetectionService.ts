@@ -1,4 +1,9 @@
-import { IConfigJSON, IEventSchema } from '@packages/types';
+import {
+  IConfigJSON,
+  IEventDetection,
+  IEventSchema,
+  IRejectedEventSchema,
+} from '@packages/types';
 import { config } from '../config/api';
 import { createSortedEventSchemas } from '../pipeline/schema/main';
 import { getEntriesFrom4wingsResponse, log } from '../helpers/utils/backendUtils';
@@ -6,6 +11,7 @@ import { ELogType } from '../helpers/types/generalTypes';
 import { readBathymetryTiles } from '../helpers/utils/datasetUtils';
 import { report_response } from '../helpers/fixtures/samples';
 import { getDetectionRepository } from '../repositories/detection';
+import { groupByRejection } from '@packages/utils';
 
 /**
  * The detection service: obtains canonical SAR detections from a provider.
@@ -31,7 +37,8 @@ const ensureDatasetsLoaded = async (): Promise<void> => {
 
 /**
  * Fetch detections for a query and return them as fully enriched canonical
- * events.
+ * events, split into `valid`/`rejected` (an entry that failed schema
+ * enrichment) so callers can report both -- see `IEventDetection`.
  *
  * - With a configured `DETECTION_TOKEN` this is the live path: fetch via the provider
  *   repository, normalise the 4Wings response, and run enrichment.
@@ -41,13 +48,15 @@ const ensureDatasetsLoaded = async (): Promise<void> => {
  */
 export const getDetections = async (
   a_Config: IConfigJSON,
-): Promise<IEventSchema[]> => {
+): Promise<IEventDetection> => {
   if (!config.auth.detection_token) {
     log(
-      '[detection] DETECTION_TOKEN not set - serving bundled sample detections (dev path)',
+      '[detection] DETECTION_TOKEN not set - offline serving',
       ELogType.warn,
     );
-    return report_response.data as IEventSchema[];
+    return groupByRejection(
+      report_response.data as (IEventSchema | IRejectedEventSchema)[],
+    );
   }
 
   await ensureDatasetsLoaded();
@@ -56,8 +65,8 @@ export const getDetections = async (
   const entriesMap = getEntriesFrom4wingsResponse(a_Config, response);
   const entries = Array.from(entriesMap).flatMap(([, list]) => list);
 
-  if (entries.length === 0) return [];
+  if (entries.length === 0) return { valid: [], rejected: [] };
 
   const events = await createSortedEventSchemas(a_Config, entries);
-  return events.filter((event): event is IEventSchema => !event.rejected);
+  return groupByRejection(events);
 };

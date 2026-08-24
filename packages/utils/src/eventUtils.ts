@@ -1,5 +1,6 @@
 import {
   IConfigJSON,
+  IEventDetection,
   IEventSchema,
   IRejectedEventSchema,
   ISortOption,
@@ -103,3 +104,15 @@ export const stripHiddenConfiguration = (a_Configurations: IConfigJSON[]) => {
 
   return filteredConfiguration;
 };
+
+export const groupByRejection = (
+  a_Events: (IEventSchema | IRejectedEventSchema)[],
+): IEventDetection =>
+  a_Events.reduce<IEventDetection>(
+    (acc, curr) => {
+      if (curr.rejected) acc.rejected.push(curr);
+      else acc.valid.push(curr);
+      return acc;
+    },
+    { valid: [], rejected: [] },
+  );

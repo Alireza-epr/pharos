@@ -554,7 +554,7 @@ lets the frontend render a live step-by-step checklist (see `EQueryStepId` /
 #### Step line
 
 ```json
-{ "type": "step", "id": "fetch-provider", "status": "success", "meta": { "count": 812 } }
+{ "type": "step", "id": "fetch-provider", "status": "success", "meta": { "count": 812, "rejected": 3 } }
 ```
 
 | Field  | Description                                                                 | Format |
@@ -575,13 +575,21 @@ run; every other step always runs.
 | - | ------------------- | ----------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
 | 1 | `validate`          | Always                                    | never                                                  | —                                               |
 | 2 | `cache-check`       | `cache` enabled                           | `cache` disabled (`cache_disabled`)                    | `{ daysCached, daysTotal }`                     |
-| 3 | `fetch-provider`    | `cache` disabled, or enabled with a miss  | `cache` enabled and fully covered (`fully_cached`)     | `{ count }`                                     |
+| 3 | `fetch-provider`    | `cache` disabled, or enabled with a miss  | `cache` enabled and fully covered (`fully_cached`)     | `{ count, rejected }`                           |
 | 4 | `write-cache`       | `cache` enabled with a miss               | `cache` disabled, or enabled and fully covered         | `{ partitions, days }`                          |
 | 5 | `read-cache`        | `cache` enabled                           | `cache` disabled (`cache_disabled`)                    | `{ count }`                                     |
 | 6 | `filter-scope`      | Always                                    | never                                                  | `{ valid, total }`                              |
 | 7 | `filter-predicates` | Always                                    | never                                                  | `{ matched, total }`                            |
 | 8 | `hotspots`          | Always                                    | never                                                  | `{ count }`                                     |
 | 9 | `paginate`          | Always                                    | never                                                  | `{ pageSize, total, currentPage, totalPages }`  |
+
+`fetch-provider`'s `count` is detections that passed schema enrichment;
+`rejected` is detections the provider returned that failed it (e.g.
+malformed entries) and were dropped before anything downstream sees them —
+distinct from `filter-scope`'s `valid`/`total`, which is about AOI/date-range
+membership, not schema validity. A query can come back with `count: 0` and
+`rejected > 0`, meaning the provider did return detections but none of them
+were usable — worth surfacing as distinct from a genuine empty result.
 
 #### Result line
 
