@@ -102,6 +102,14 @@ Users should ensure that the selected data is appropriate for their temporal and
 
 AIS information is primarily **broadcast automatically** by a vessel’s transponder, including position, speed, and heading. Some fields, such as vessel name, type, or cargo, are **manually entered** by the crew and may contain errors. While most AIS signals are reliable, they can be affected by GPS inaccuracies or, in rare cases, intentional manipulation. This is why unmatched or missing positions in the pipeline should not be interpreted as system errors or claims.
 
+The same caveat extends to vessel identity/registry data (see
+[vessel-identity.md](./tech/vessel-identity.md)) surfaced for a matched
+detection: fields such as registry ownership are themselves self-reported
+or registry-sourced upstream, not independently verified by this system,
+and can change over time (ownership transfers, re-flagging, etc.). This
+data is shown for context only and is never used to infer risk or intent -
+see the same document's explicit non-goals.
+
 ---
 
 ## 7. Summary

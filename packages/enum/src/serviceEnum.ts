@@ -2,6 +2,10 @@ export enum EDetectionRepository {
   gfw = "gfw",
 }
 
+export enum EVesselRepository {
+  gfw = "gfw",
+}
+
 export enum EServingRepository {
   parquet = "parquet",
 }

@@ -5,11 +5,16 @@ import {
   EFetchMethods,
   ELogType,
   ERegionsRoutes,
+  EVesselsRoutes,
 } from '@packages/enum';
 import {
   IConfigJSON,
   IEventSchema,
   IResponse,
+  IVesselListAPIResponse,
+  IVesselListURLParams,
+  IVesselSearchAPIResponse,
+  IVesselSearchURLParams,
   TBodyParams_export,
   TQueryProgressMessage,
   TRegionGeometry,
@@ -260,6 +265,119 @@ export const useFetchRegionGeometry = () => {
         const message = err instanceof Error ? err.message : String(err);
         log_frontend(
           `[useFetchRegionGeometry] Error: ${message}`,
+          ELogType.error,
+          '3',
+        );
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url],
+  );
+
+  return { response, loading, error, execute };
+};
+
+// The backend currently forwards GFW's whole raw response (limit/since/
+// total/metadata, not just entries) -- see vessels.controllers.ts's own
+// comment. Typed here to match that, rather than the app's generic
+// IResponse<T> envelope which doesn't have room for total/since/metadata.
+export type TVesselSearchResponse = IVesselSearchAPIResponse & {
+  success: boolean;
+  error?: string[];
+};
+
+// Search vessel identities (GFW Vessels API, via GET /v1/vessels/search).
+// A plain GET-with-query-params request, same shape as useFetchRegions --
+// unlike useFetchEvents there's no progress stream to read, since the
+// backend does no caching/scoring pipeline for this endpoint.
+export const useFetchVessels = () => {
+  const url = `${BASE_URL}${EBaseRoutes.vessels}${EVesselsRoutes.search}`;
+  const [response, setResponse] = useState<TVesselSearchResponse | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const execute = useCallback(
+    async (a_Params: IVesselSearchURLParams) => {
+      const searchParams = new URLSearchParams(
+        Object.entries(a_Params).reduce<Record<string, string>>(
+          (acc, [key, value]) => {
+            if (value !== undefined) acc[key] = String(value);
+            return acc;
+          },
+          {},
+        ),
+      );
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetchWithAuth(`${url}?${searchParams.toString()}`, {
+          method: EFetchMethods.get,
+        });
+        const json: TVesselSearchResponse = await res.json();
+        setResponse(json);
+        return json;
+      } catch (err: any) {
+        const message = err instanceof Error ? err.message : String(err);
+        log_frontend(
+          `[useFetchVessels] Error: ${message}`,
+          ELogType.error,
+          '3',
+        );
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url],
+  );
+
+  return { response, loading, error, execute };
+};
+
+// Same shape as TVesselSearchResponse -- the backend forwards this endpoint's
+// whole raw reply too (see vessels.controllers.ts's vesselListController).
+export type TVesselListResponse = IVesselListAPIResponse & {
+  success: boolean;
+  error?: string[];
+};
+
+// Fetch vessel identities by known id(s) (GFW Vessels API, via
+// GET /v1/vessels -- list by IDs, not /vessels/search). Used by the Detail
+// panel to enrich a matched event with its vessel's identity, on demand.
+export const useFetchVesselsByIds = () => {
+  const url = `${BASE_URL}${EBaseRoutes.vessels}`;
+  const [response, setResponse] = useState<TVesselListResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const execute = useCallback(
+    async (a_Params: IVesselListURLParams) => {
+      const searchParams = new URLSearchParams(
+        Object.entries(a_Params).reduce<Record<string, string>>(
+          (acc, [key, value]) => {
+            if (value !== undefined) acc[key] = String(value);
+            return acc;
+          },
+          {},
+        ),
+      );
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetchWithAuth(`${url}?${searchParams.toString()}`, {
+          method: EFetchMethods.get,
+        });
+        const json: TVesselListResponse = await res.json();
+        setResponse(json);
+        return json;
+      } catch (err: any) {
+        const message = err instanceof Error ? err.message : String(err);
+        log_frontend(
+          `[useFetchVesselsByIds] Error: ${message}`,
           ELogType.error,
           '3',
         );

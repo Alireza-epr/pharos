@@ -6,6 +6,8 @@ import {
   ERegionBufferUnits,
   ESpatialResolution,
   ETemporalResolution,
+  EVesselMatchField,
+  EVesselSearchInclude,
 } from '@packages/enum';
 
 export const sort_field_options = [
@@ -40,3 +42,8 @@ export const bufferOperationOptions: IDropdownOption<ERegionBufferOperations>[] 
   Object.values(ERegionBufferOperations).map((v) => ({ label: v, value: v }));
 export const bufferUnitOptions: IDropdownOption<ERegionBufferUnits>[] =
   Object.values(ERegionBufferUnits).map((v) => ({ label: v, value: v }));
+
+export const vesselMatchFieldOptions: IDropdownOption<EVesselMatchField>[] =
+  Object.values(EVesselMatchField).map((v) => ({ label: v, value: v }));
+export const vesselIncludeOptions: IDropdownOption<EVesselSearchInclude>[] =
+  Object.values(EVesselSearchInclude).map((v) => ({ label: v, value: v }));

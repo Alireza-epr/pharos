@@ -14,6 +14,11 @@ import {
   ESpeedRange,
   ETemporalResolution,
   EVessleType,
+  EVesselDataset,
+  EVesselInclude,
+  EVesselMatchField,
+  EVesselRegistryInfoData,
+  EVesselSearchInclude,
 } from "@packages/enum";
 import { IGeometry } from "./geoJSONTypes";
 
@@ -352,3 +357,161 @@ export type TDatasetSpeedFilter = `speed in (${string})`;
 export type TDatasetGearTypeFilter = `geartype in (${string})`;
 export type T4wingsSource = `${E4wingsDatasets}:${TDatasetVersion}`;
 export type TEventSource = `${EEventDatasets}:${TDatasetVersion}`;
+
+export type TVesselMatchFieldKey = `match-fields[${number}]`;
+export type TVesselIncludeKey = `includes[${number}]`;
+
+export interface IVesselSearchURLParams {
+  since?: string;
+  limit?: number;
+  query?: string;
+  where?: string;
+  binary?: boolean;
+  [key: TSourceKey]: EVesselDataset | string | number | boolean | undefined;
+  [key: TVesselMatchFieldKey]: EVesselMatchField | string | undefined;
+  [key: TVesselIncludeKey]: EVesselSearchInclude | string | undefined;
+}
+
+export interface IVesselRegistryExtraField {
+  registrySource?: string;
+  iuuStatus?: unknown;
+  hasComplianceInfo?: unknown;
+  images?: unknown;
+  operator?: unknown;
+  builtYear?: unknown;
+  depthM?: unknown;
+}
+
+export interface IVesselRegistryInfo {
+  id?: string;
+  sourceCode?: string[];
+  ssvid?: string;
+  flag?: string;
+  shipname?: string;
+  nShipname?: string;
+  callsign?: string;
+  imo?: string;
+  latestVesselInfo?: boolean;
+  transmissionDateFrom?: string;
+  transmissionDateTo?: string;
+  geartypes?: string[];
+  lengthM?: number;
+  tonnageGt?: number;
+  vesselInfoReference?: string;
+  extraFields?: IVesselRegistryExtraField[];
+}
+
+export interface IVesselRegistryOwner {
+  name?: string;
+  flag?: string;
+  ssvid?: string;
+  sourceCode?: string[];
+  dateFrom?: string;
+  dateTo?: string;
+}
+
+export interface IVesselRegistryPublicAuthorization {
+  dateFrom?: string;
+  dateTo?: string;
+  ssvid?: string;
+  sourceCode?: string[];
+}
+
+export interface IVesselSourceType {
+  name?: string;
+  source?: string;
+  yearFrom?: number;
+  yearTo?: number;
+}
+
+export interface IVesselCombinedSourceInfo {
+  vesselId?: string;
+  geartypes?: IVesselSourceType[];
+  shiptypes?: IVesselSourceType[];
+}
+
+export interface IVesselSelfReportedInfo {
+  id?: string;
+  ssvid?: string;
+  shipname?: string;
+  nShipname?: string;
+  flag?: string;
+  callsign?: string;
+  imo?: string;
+  messagesCounter?: number;
+  positionsCounter?: number;
+  sourceCode?: string[];
+  matchFields?: string;
+  transmissionDateFrom?: string;
+  transmissionDateTo?: string;
+}
+
+export interface IVesselMatchCriteriaMatch {
+  property?: string;
+  value?: string;
+}
+
+/** Present when `includes` requests MATCH_CRITERIA (the store's default) --
+ * explains which field(s) the query actually matched on. */
+export interface IVesselMatchCriteria {
+  latestVesselInfo?: boolean;
+  matches?: IVesselMatchCriteriaMatch[];
+  period?: { dateFrom?: string; dateTo?: string };
+  property?: string;
+  reference?: string;
+  source?: string;
+}
+
+/** One vessel identity record, as returned by search/list/detail. */
+export interface IVesselIdentity {
+  id?: string;
+  dataset?: string;
+  registryInfoTotalRecords?: number;
+  registryInfo?: IVesselRegistryInfo[];
+  registryOwners?: IVesselRegistryOwner[];
+  registryPublicAuthorizations?: IVesselRegistryPublicAuthorization[];
+  combinedSourcesInfo?: IVesselCombinedSourceInfo[];
+  selfReportedInfo?: IVesselSelfReportedInfo[];
+  matchCriteria?: IVesselMatchCriteria[];
+}
+
+/** GFW search vessel-identity metadata: how the query was interpreted, plus
+ * spell-correction suggestions when nothing matched well. */
+export interface IVesselSearchMetadata {
+  query?: string;
+  normalizedQuery?: string;
+  didYouMean?: Record<string, unknown>;
+}
+
+export interface IVesselSearchAPIResponse {
+  limit?: number;
+  since?: string | null;
+  total?: number;
+  entries: IVesselIdentity[];
+  metadata?: IVesselSearchMetadata;
+}
+
+
+export type TVesselIdKey = `ids[${number}]`;
+
+export interface IVesselListURLParams {
+  [key: TSourceKey]: EVesselDataset | string | undefined;
+  [key: TVesselIdKey]: string | undefined;
+  [key: TVesselIncludeKey]: EVesselInclude | string | undefined;
+  [key: TVesselMatchFieldKey]: EVesselMatchField | string | undefined;
+  "registries-info-data"?: EVesselRegistryInfoData | string;
+  binary?: boolean;
+}
+
+export interface IVesselListMetadata {
+  idsFound?: string[];
+  idsNotFound?: string[];
+}
+
+export interface IVesselListAPIResponse {
+  limit?: number | null;
+  since?: string | null;
+  total?: number;
+  entries: IVesselIdentity[];
+  metadata?: IVesselListMetadata;
+}

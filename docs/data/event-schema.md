@@ -60,7 +60,11 @@ Note: This property is available only in the public-global-sar-presence dataset.
   This value must be interpreted as a qualitative tier, not as a statistical probability or confidence score.
 
 - `raw_metadata` (object)  
-  Original entry record stored without modification.
+  Original entry record stored without modification. On a matched detection
+  this includes `vesselId` (GFW's internal vessel identity id), which the
+  Detail panel resolves on demand into a full vessel identity - see
+  [vessel-identity.md](../tech/vessel-identity.md). That resolved identity
+  is never written back onto this schema or persisted to the event cache.
 
 - `raw_event_metadata` (object)  
   Original event record stored without modification.

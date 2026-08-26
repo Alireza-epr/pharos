@@ -59,6 +59,7 @@
   "sidebar": {
     "tab": {
       "report": "Report",
+      "vessel": "Vessels",
       "hotspot": "Hotspot",
       "event": "Event"
     },
@@ -78,7 +79,8 @@
       "matchingStatus": "Matching Status",
       "datasetsFilter": "Dataset Filters",
       "exportImportConfig": "Export/Import Config",
-      "regionBuffer": "Region Buffer"
+      "regionBuffer": "Region Buffer",
+      "vesselSearch": "Vessel Search"
     },
     "title": {
       "geography": "Geography",
@@ -91,7 +93,8 @@
       "loadingRegions": "Loading regions...",
       "none": "None",
       "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
-      "rawQuery": "Enter raw query..."
+      "rawQuery": "Enter raw query...",
+      "vesselQuery": "MMSI, IMO, call sign, name..."
     },
     "label": {
       "runQuery": "Run Query",
@@ -146,7 +149,10 @@
       "importAllConfig": "Import All",
       "bufferOperation": "Buffer Operation",
       "bufferUnit": "Buffer Unit",
-      "bufferValue": "Buffer Value"
+      "bufferValue": "Buffer Value",
+      "vesselQuery": "Search",
+      "matchFields": "Match Fields",
+      "includes": "Include"
     },
     "text": {
       "orChooseEEZRegion": "or choose EEZ region",
@@ -156,7 +162,11 @@
       "zonalMinPoints": "Add at least 3 points to close the area.",
       "zonalHint": "Click to add points · double-click, Enter or right-click to finish · Esc to cancel",
       "pointHint": "Click on the map to place a point",
-      "regionsLoadFailed": "Could not load EEZ/MPA regions."
+      "regionsLoadFailed": "Could not load EEZ/MPA regions.",
+      "subVesselSearch": "Enter a search term to enable",
+      "noVesselResults": "No vessels found.",
+      "vesselResultsCount": "{{count}} vessel(s) found",
+      "unknownVessel": "Unknown vessel"
     },
     "caveat": {
       "apiInternalId": "API Internal ID",
@@ -165,7 +175,12 @@
     "hint": {
       "multipleSelect": "Hold Ctrl and click to select multiple",
       "highlightedDataset": "Highlighted datasets are active - some filters are shared across them",
-      "regionBuffer": "Grows or shrinks the EEZ/MPA boundary. Dissolve merges the buffer in; Difference keeps only the band; negative shrinks inward."
+      "regionBuffer": "Grows or shrinks the EEZ/MPA boundary. Dissolve merges the buffer in; Difference keeps only the band; negative shrinks inward.",
+      "vesselQuery": "At least 3 characters",
+      "rawQuery": "Advanced expression, e.g. flag = 'KOR'",
+      "matchFields": "Filters by match confidence (ALL = strongest)",
+      "includes": "Extra data attached to each result",
+      "limit": "Max results per page (1-50)"
     },
     "error": {
       "runQueryFailed": "Failed to fetch"
@@ -212,6 +227,7 @@
       "identification": "Identification",
       "locationAndTime": "Location & Time",
       "sourceAndDetection": "Source & Detection",
+      "vesselIdentity": "Vessel Identity",
       "scoring": "Scoring",
       "hotspotContext": "Hotspot Context",
       "contextLayers": "Context Layers",
@@ -231,14 +247,26 @@
       "runTime": "Run Time",
       "downloadConfig": "Download Config",
       "contextLayersDatasets": "Context Layer Datasets",
-      "downloadRawData": "Download Raw Data"
+      "downloadRawData": "Download Raw Data",
+      "shipName": "Ship Name",
+      "flag": "Flag",
+      "mmsi": "MMSI",
+      "imo": "IMO",
+      "callSign": "Call Sign",
+      "vesselType": "Vessel Type",
+      "gearType": "Gear Type",
+      "registryOwner": "Registry Owner",
+      "tonnageGt": "Tonnage (GT)",
+      "downloadVesselIdentity": "Download Vessel Identity"
     },
     "text": {
       "cellCenterCaveat": "cell center · not exact vessel position",
       "bucketStartCaveat": "bucket start · not exact detection time",
       "recurrenceVisibleCaveat": "{{visible}} of {{total}} unmatched recurring events shown · rest are on other pages",
       "nullProxy": "N/A",
-      "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators."
+      "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators.",
+      "vesselIdentityLoading": "Loading vessel identity…",
+      "vesselIdentityNotFound": "No vessel identity found for this detection."
     },
     "action": {
       "addToExport": "Add to Export",
@@ -251,8 +279,8 @@
     "empty": {
       "title": "No event to export",
       "body": "Add events to export list.",
-      "titleHotspot": "No hotspot to export",
-      "bodyHotspot": "Add hotspots to export list."
+      "titleVessel": "No vessel to export",
+      "bodyVessel": "Add vessels to export list."
     },
     "text": {
       "downloadNote": "Items zipped and downloaded"

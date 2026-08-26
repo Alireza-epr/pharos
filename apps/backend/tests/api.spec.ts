@@ -4,6 +4,8 @@ import {
   validateQueryParams,
   validateRegionGeometryQueryParams,
   validateRegionsQueryParams,
+  validateVesselListQueryParams,
+  validateVesselSearchQueryParams,
   validateViolation,
 } from '../src/helpers/utils/validationUtils';
 import { EContextLayers } from '@packages/enum';
@@ -36,8 +38,16 @@ import {
   invalidQuery_missing_required,
   invalidQuery_wrong_enum,
   invalidQuery_wrongTypes,
+  invalidVesselListQuery_missingIds,
+  invalidVesselListQuery_wrongRegistryInfoData,
+  invalidVesselSearchQuery_emptyIndexedValue,
+  invalidVesselSearchQuery_wrongTypes,
   validQueryParams,
   validQueryParams_2,
+  validVesselListQuery,
+  validVesselListQuery_multipleIds,
+  validVesselSearchQuery,
+  validVesselSearchQuery_whereOnly,
 } from './fixtures/queryParams.fixture';
 
 describe('validateBodyParams', () => {
@@ -295,6 +305,117 @@ describe('validateRegionGeometryQueryParams', () => {
 
     expect(result.isValid).toBe(false);
     expect(result.errors?.[0]?.field).toBe('query');
+  });
+});
+
+describe('validateVesselSearchQueryParams', () => {
+  it('accepts_a_valid_free_text_query', () => {
+    const result = validateVesselSearchQueryParams(validVesselSearchQuery);
+
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+  });
+
+  it('accepts_an_advanced_where_expression_without_a_free_text_query', () => {
+    const result = validateVesselSearchQueryParams(
+      validVesselSearchQuery_whereOnly,
+    );
+
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+  });
+
+  it('fail_when_query_is_not_an_object', () => {
+    const result = validateVesselSearchQueryParams(null);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.[0]?.field).toBe('query');
+  });
+
+  it('fail_when_types_are_invalid', () => {
+    const result = validateVesselSearchQueryParams(
+      invalidVesselSearchQuery_wrongTypes,
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'query')).toBe(true);
+    expect(result.errors?.some((e) => e.field === 'limit')).toBe(true);
+    expect(result.errors?.some((e) => e.field === 'binary')).toBe(true);
+  });
+
+  it('fail_when_an_indexed_datasets_value_is_an_empty_string', () => {
+    const result = validateVesselSearchQueryParams(
+      invalidVesselSearchQuery_emptyIndexedValue,
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'datasets[0]')).toBe(true);
+  });
+
+  it('accepts_indexed_match_fields_and_includes_keys', () => {
+    const result = validateVesselSearchQueryParams(validVesselSearchQuery);
+
+    const dynamicKeyErrors =
+      result.errors?.filter(
+        (e) =>
+          e.field.startsWith('match-fields[') || e.field.startsWith('includes['),
+      ) ?? [];
+
+    expect(dynamicKeyErrors.length).toBe(0);
+  });
+
+  it('does_not_require_a_free_text_query_or_since', () => {
+    // Both are optional -- an empty object plus a dataset is a legal request.
+    const result = validateVesselSearchQueryParams({
+      'datasets[0]': 'public-global-vessel-identity:latest',
+    });
+
+    expect(result.isValid).toBe(true);
+  });
+});
+
+describe('validateVesselListQueryParams', () => {
+  it('accepts_a_valid_single_id_lookup', () => {
+    const result = validateVesselListQueryParams(validVesselListQuery);
+
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+  });
+
+  it('accepts_multiple_indexed_ids', () => {
+    const result = validateVesselListQueryParams(
+      validVesselListQuery_multipleIds,
+    );
+
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toBeNull();
+  });
+
+  it('fail_when_query_is_not_an_object', () => {
+    const result = validateVesselListQueryParams(undefined);
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.[0]?.field).toBe('query');
+  });
+
+  it('fail_when_no_ids_are_supplied', () => {
+    const result = validateVesselListQueryParams(
+      invalidVesselListQuery_missingIds,
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors?.some((e) => e.field === 'ids')).toBe(true);
+  });
+
+  it('fail_when_registries_info_data_is_not_a_recognized_enum_value', () => {
+    const result = validateVesselListQueryParams(
+      invalidVesselListQuery_wrongRegistryInfoData,
+    );
+
+    expect(result.isValid).toBe(false);
+    expect(
+      result.errors?.some((e) => e.field === 'registries-info-data'),
+    ).toBe(true);
   });
 });
 
