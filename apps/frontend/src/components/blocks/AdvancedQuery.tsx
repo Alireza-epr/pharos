@@ -9,7 +9,7 @@ import {
   groupByOptions,
   spatialResolutionOptions,
 } from '../../helpers/fixtures/query';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -47,16 +47,12 @@ const AdvancedQuery = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidAdvancedQueryQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importAdvancedQueryConfig(data);
-    }, reportInvalid);
+    importSectionConfig(
+      'Advanced Query',
+      isValidAdvancedQueryQuery,
+      importAdvancedQueryConfig,
+      () => useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

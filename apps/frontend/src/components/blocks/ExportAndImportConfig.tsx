@@ -5,7 +5,8 @@ import { useTranslator } from '../../hooks/translator'
 import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils'
 import { buildConfig, importConfigWithRegionPreload, isValidConfig } from '../../helpers/utils/configUtils'
 import { useMessageStore } from '../../stores/messageStore'
-import { stripHiddenConfiguration } from '@packages/utils'
+import { ELogType } from '@packages/enum'
+import { log_frontend, stripHiddenConfiguration } from '@packages/utils'
 
 const ExportAndImportConfig = () => {
   const { t } = useTranslator()
@@ -20,16 +21,22 @@ const ExportAndImportConfig = () => {
     const reportInvalid = () =>
       useMessageStore.getState().setWarn(t('general.text.invalidImportFile'))
 
-    openJSONFile((data) => {
-      if (!isValidConfig(data)) {
+    openJSONFile(
+      (data) => {
+        if (!isValidConfig(data)) {
+          reportInvalid()
+          return
+        }
+        void importConfigWithRegionPreload(data)
+      },
+      (error) => {
+        log_frontend(
+          `[import:Config] failed to read/parse file: ${String(error)}`,
+          ELogType.error,
+        )
         reportInvalid()
-        return
-      }
-      // Same region-based-AOI race the URL sync path guards against (see
-      // importConfigWithRegionPreload) -- a file import can in principle
-      // land before AreaOfInterest's own region-list fetch has resolved too.
-      void importConfigWithRegionPreload(data)
-    }, reportInvalid)
+      },
+    )
   }
 
   return (

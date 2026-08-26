@@ -274,6 +274,9 @@
   },
   "queryProgress": {
     "title": "Abfrage läuft",
+    "error": {
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    },
     "status": {
       "pending": "Ausstehend",
       "running": "Läuft",

@@ -11,7 +11,7 @@ import {
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
 import { EContextLayers, EGeoJSONGeometryType } from '@packages/enum';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 import { useFetchRegions } from '../../hooks/fetch';
@@ -191,16 +191,9 @@ const AreaOfInterest = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidAOIQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importAOI(data);
-    }, reportInvalid);
+    importSectionConfig('Area of Interest', isValidAOIQuery, importAOI, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

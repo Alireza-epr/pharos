@@ -6,7 +6,7 @@ import { useTranslator } from '@/hooks/translator';
 import { useHotspotConfigStore } from '../../stores/hotspotConfigStore';
 import { EHotspotTimeBins } from '@packages/enum';
 import { IHotspotConfig } from '@packages/types';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidHotspotQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -38,16 +38,9 @@ const HotspotConfig = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidHotspotQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importHotspotConfig(data);
-    }, reportInvalid);
+    importSectionConfig('Hotspot Config', isValidHotspotQuery, importHotspotConfig, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

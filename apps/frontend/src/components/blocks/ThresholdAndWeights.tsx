@@ -5,7 +5,7 @@ import NumberInput from '../common/inputs/NumberInput';
 
 import { IConfigJSON } from '@packages/types';
 import { useThresholdStore } from '../../stores/thresholdStore';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidThresholdQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -31,16 +31,12 @@ const ThresholdAndWeights = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidThresholdQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importThresholdConfig(data);
-    }, reportInvalid);
+    importSectionConfig(
+      'Threshold & Weights',
+      isValidThresholdQuery,
+      importThresholdConfig,
+      () => useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

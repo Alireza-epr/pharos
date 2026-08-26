@@ -274,6 +274,9 @@
   },
   "queryProgress": {
     "title": "Running Query",
+    "error": {
+      "generic": "Something went wrong. Please try again."
+    },
     "status": {
       "pending": "Pending",
       "running": "Running",

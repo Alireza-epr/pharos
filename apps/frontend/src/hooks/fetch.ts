@@ -22,6 +22,7 @@ import { fetchWithAuth } from '../helpers/utils/apiUtils';
 import { IExportBlob } from '../helpers/types/generalTypes';
 import { useQueryProgressStore } from '../stores/queryProgressStore';
 import { useAOIStore } from '../stores/areaOfInterestStore';
+import { useTranslator } from './translator';
 
 const { BASE_URL } = getAPIConfig();
 
@@ -37,7 +38,7 @@ const readProgressStream = async (
   a_ApplyStep: ReturnType<typeof useQueryProgressStore.getState>['applyStep'],
 ): Promise<IResponse<IEventSchema> | undefined> => {
   const reader = a_Res.body?.getReader();
-  // No streaming body available (e.g. a test double) — fall back to a single parse.
+  // No streaming body available (e.g. a test double) - fall back to a single parse.
   if (!reader) return (await a_Res.json()) as IResponse<IEventSchema>;
 
   const decoder = new TextDecoder();
@@ -48,7 +49,7 @@ const readProgressStream = async (
     const message: TQueryProgressMessage<IEventSchema> = JSON.parse(a_Line);
     if (message.type === 'step') {
       // The backend only ever sends a short, generic message here (see
-      // events.controllers.ts) — full detail stays server-side, on purpose.
+      // events.controllers.ts) - full detail stays server-side, on purpose.
       // Still worth a console trace for anyone debugging with ?loglevel=3.
       if (message.status === 'error') {
         log_frontend(
@@ -87,6 +88,7 @@ export const useFetchEvents = () => {
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { t } = useTranslator();
   const startProgress = useQueryProgressStore((s) => s.start);
   const applyStep = useQueryProgressStore((s) => s.applyStep);
   const failProgress = useQueryProgressStore((s) => s.fail);
@@ -125,19 +127,19 @@ export const useFetchEvents = () => {
         log_frontend(`[useFetchEvents] Error: ${message}`, ELogType.error, '3');
         setError(err);
         // A failure here can happen before the server ever wrote a `step`
-        // line (network error, backend unreachable) — flag it on the
+        // line (network error, backend unreachable) - flag it on the
         // checklist too, or the modal would sit stuck at "pending" forever.
-        failProgress(message);
+        failProgress(t('queryProgress.error.generic'));
       } finally {
         setLoading(false);
-        // The request has settled one way or another — let ReportTab's Run
+        // The request has settled one way or another - let ReportTab's Run
         // Query button return to normal instead of staying in its "a run is
         // in flight" state. Deliberately independent of whether the progress
         // modal is currently open or closed (see queryProgressStore).
         finishProgress();
       }
     },
-    [url, startProgress, applyStep, failProgress, finishProgress],
+    [url, startProgress, applyStep, failProgress, finishProgress, t],
   );
 
   return { response, loading, error, execute };

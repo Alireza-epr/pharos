@@ -3,7 +3,7 @@ import { useTranslator } from '../../hooks/translator';
 import NumberInput from '../common/inputs/NumberInput';
 import Section from '../common/section/Section';
 import SectionItem from '../common/section/SectionItem';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidPaginationQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -23,16 +23,9 @@ const Pagination = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidPaginationQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importPagination(data);
-    }, reportInvalid);
+    importSectionConfig('Pagination', isValidPaginationQuery, importPagination, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

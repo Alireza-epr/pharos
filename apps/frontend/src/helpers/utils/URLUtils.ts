@@ -77,7 +77,10 @@ export const hydrateConfigFromURL = async (): Promise<THydrateResult> => {
   const raw = getURLParam<string>(EURLParams.config);
   if (raw === null) return 'absent';
 
+  log_frontend('[import:Config] phase: hydrating from URL config param', ELogType.info);
+
   const decoded = decodeJSONFromURL(raw);
+  // isValidConfig() itself traces which section(s) rejected
   if (!isValidConfig(decoded)) return 'invalid';
 
   await importConfigWithRegionPreload(decoded);

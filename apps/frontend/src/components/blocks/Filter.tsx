@@ -28,7 +28,7 @@ import {
   vessel_types_options,
 } from '../../helpers/fixtures/filters';
 import { TDatasetVersion } from '@packages/types';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
 import { isValidFilterQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -89,16 +89,9 @@ const Filter = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidFilterQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importFilterConfig(data);
-    }, reportInvalid);
+    importSectionConfig('Filter', isValidFilterQuery, importFilterConfig, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (

@@ -3,7 +3,7 @@ import SectionItem from '../common/section/SectionItem';
 import DateInput from '../common/inputs/DateInput';
 import { useTranslator } from '@/hooks/translator';
 import { useTimeRangeStore } from '@/stores/timeRangeStore';
-import { downloadJSON, openJSONFile } from '@/helpers/utils/downloadUtils';
+import { downloadJSON, importSectionConfig } from '@/helpers/utils/downloadUtils';
 import { isValidTimeRangeQuery } from '@/helpers/utils/validationUtils';
 import { useMessageStore } from '@/stores/messageStore';
 
@@ -26,16 +26,9 @@ const TimeRange = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidTimeRangeQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importTimeRange(data);
-    }, reportInvalid);
+    importSectionConfig('Time Range', isValidTimeRangeQuery, importTimeRange, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (
