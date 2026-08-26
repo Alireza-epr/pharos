@@ -5,7 +5,6 @@ import CheckboxInput from '../common/inputs/CheckboxInput';
 import { useTranslator } from '../../hooks/translator';
 import { useAdvancedQueryStore } from '../../stores/advancedQueryStore';
 import {
-  formatOptions,
   groupByOptions,
   spatialResolutionOptions,
 } from '../../helpers/fixtures/query';
@@ -16,15 +15,15 @@ import {
 import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
-export interface IAdvancedQueryProps {}
+export interface IAdvancedQueryProps { }
 
 const AdvancedQuery = () => {
   const spatialResolution = useAdvancedQueryStore((s) => s.spatialResolution);
   const setSpatialResolution = useAdvancedQueryStore(
     (s) => s.setSpatialResolution,
   );
-  const format = useAdvancedQueryStore((s) => s.format);
-  const setFormat = useAdvancedQueryStore((s) => s.setFormat);
+  /* const format = useAdvancedQueryStore((s) => s.format);
+  const setFormat = useAdvancedQueryStore((s) => s.setFormat); */
   const groupBy = useAdvancedQueryStore((s) => s.groupBy);
   const setGroupBy = useAdvancedQueryStore((s) => s.setGroupBy);
   /* const temporalResolution = useAdvancedQueryStore((s) => s.temporalResolution);
@@ -107,6 +106,7 @@ const AdvancedQuery = () => {
         />
       </SectionItem>
 
+      {/* 
       <SectionItem title={t('sidebar.label.format')} collapsible={false} tab>
         <DropdownInput
           value={format}
@@ -114,6 +114,7 @@ const AdvancedQuery = () => {
           onChange={setFormat}
         />
       </SectionItem>
+      */}
 
       <SectionItem title={t('sidebar.label.groupBy')} collapsible={false} tab>
         <DropdownInput

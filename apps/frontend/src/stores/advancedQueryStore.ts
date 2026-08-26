@@ -35,11 +35,11 @@ export const useAdvancedQueryStore = create<
               ? a_Value(state.spatialResolution)
               : a_Value,
         })),
-      setFormat: (a_Value) =>
+      /* setFormat: (a_Value) =>
         set((state) => ({
           format:
             typeof a_Value === 'function' ? a_Value(state.format) : a_Value,
-        })),
+        })), */
       setGroupBy: (a_Value) =>
         set((state) => ({
           groupBy:

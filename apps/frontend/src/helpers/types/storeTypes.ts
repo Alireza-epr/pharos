@@ -506,13 +506,13 @@ export interface IAdvancedQueryStoreActions {
           a_Prev: IAdvancedQueryStoreStates['spatialResolution'],
         ) => IAdvancedQueryStoreStates['spatialResolution']),
   ) => void;
-  setFormat: (
+  /* setFormat: (
     a_Value:
       | IAdvancedQueryStoreStates['format']
       | ((
           a_Prev: IAdvancedQueryStoreStates['format'],
         ) => IAdvancedQueryStoreStates['format']),
-  ) => void;
+  ) => void; */
   setGroupBy: (
     a_Value:
       | IAdvancedQueryStoreStates['groupBy']
