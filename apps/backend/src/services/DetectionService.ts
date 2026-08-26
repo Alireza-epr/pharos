@@ -6,7 +6,10 @@ import {
 } from '@packages/types';
 import { config } from '../config/api';
 import { createSortedEventSchemas } from '../pipeline/schema/main';
-import { getEntriesFrom4wingsResponse, log } from '../helpers/utils/backendUtils';
+import {
+  getEntriesFrom4wingsResponse,
+  log,
+} from '../helpers/utils/backendUtils';
 import { ELogType } from '../helpers/types/generalTypes';
 import { readBathymetryTiles } from '../helpers/utils/datasetUtils';
 import { report_response } from '../helpers/fixtures/samples';
@@ -50,10 +53,7 @@ export const getDetections = async (
   a_Config: IConfigJSON,
 ): Promise<IEventDetection> => {
   if (!config.auth.detection_token) {
-    log(
-      '[detection] DETECTION_TOKEN not set - offline serving',
-      ELogType.warn,
-    );
+    log('[detection] DETECTION_TOKEN not set - offline serving', ELogType.warn);
     return groupByRejection(
       report_response.data as (IEventSchema | IRejectedEventSchema)[],
     );

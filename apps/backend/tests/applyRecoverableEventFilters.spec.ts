@@ -98,7 +98,9 @@ describe('applyRecoverableEventFilters', () => {
       result.forEach((e) => {
         expect(e.raw_metadata?.geartype).toBe('CARGO');
       });
-      const expected = events.filter((e) => e.raw_metadata?.geartype === 'CARGO');
+      const expected = events.filter(
+        (e) => e.raw_metadata?.geartype === 'CARGO',
+      );
       expect(result).toHaveLength(expected.length);
     });
   });

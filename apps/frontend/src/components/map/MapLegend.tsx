@@ -45,7 +45,8 @@ const MapLegend = () => {
       label: `${t('general.label.aoi')} · ${t('general.label.zonal')}`,
     },
     {
-      show: aoiPoint || aoiFeature?.geometry.type === EGeoJSONGeometryType.Point,
+      show:
+        aoiPoint || aoiFeature?.geometry.type === EGeoJSONGeometryType.Point,
       swatch: mapLegendStyle.swatchAoiPoint,
       label: `${t('general.label.aoi')} · ${t('general.label.point')}`,
     },

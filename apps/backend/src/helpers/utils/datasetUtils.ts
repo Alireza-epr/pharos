@@ -73,7 +73,9 @@ export const readCoastlinePolylines = () => {
     ICoastlinePolylineProperties
   > = JSON.parse(
     fs.readFileSync(
-      withQualitySuffix('./data/coastline_polylines/coastline_polylines.geojson'),
+      withQualitySuffix(
+        './data/coastline_polylines/coastline_polylines.geojson',
+      ),
       'utf8',
     ),
   );

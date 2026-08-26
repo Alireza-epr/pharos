@@ -166,7 +166,11 @@ export const useFetchRegions = () => {
         return json;
       } catch (err: any) {
         const message = err instanceof Error ? err.message : String(err);
-        log_frontend(`[useFetchRegions] Error: ${message}`, ELogType.error, '3');
+        log_frontend(
+          `[useFetchRegions] Error: ${message}`,
+          ELogType.error,
+          '3',
+        );
         setError(err);
       } finally {
         setLoading(false);
@@ -217,7 +221,11 @@ export const loadRegionOptions = (
     })
     .catch((err: unknown) => {
       const message = err instanceof Error ? err.message : String(err);
-      log_frontend(`[loadRegionOptions] Error: ${message}`, ELogType.error, '3');
+      log_frontend(
+        `[loadRegionOptions] Error: ${message}`,
+        ELogType.error,
+        '3',
+      );
       // Failed, not just empty -- let a later call retry instead of caching
       // the failure forever.
       regionOptionsCache.delete(a_Dataset);

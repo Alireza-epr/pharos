@@ -76,7 +76,7 @@ export enum EThresholdConfig {
 export enum EHiddenConfig {
   gitCommitSHA = "gitCommitSHA",
   export = "export",
-  cache= "cache"
+  cache = "cache",
 }
 
 export enum EExportEvidence {
@@ -117,19 +117,19 @@ export type TLogType = (typeof ELogType)[keyof typeof ELogType];
 export const EURLParams = {
   loglevel: "loglevel",
   cache: "cache",
-  config: "config"
-} as const
-export type TURLSearchParams = typeof EURLParams[keyof typeof EURLParams]
+  config: "config",
+} as const;
+export type TURLSearchParams = (typeof EURLParams)[keyof typeof EURLParams];
 
 export const ECache = {
-  hit: 'hit',
-  miss: 'miss',
-  disabled: 'disabled'
-} as const
-export type TCache = typeof ECache[keyof typeof ECache]
+  hit: "hit",
+  miss: "miss",
+  disabled: "disabled",
+} as const;
+export type TCache = (typeof ECache)[keyof typeof ECache];
 
 export const ECacheStatus = {
-  enabled: 'enabled',
-  disabled: 'disabled'
-} as const
-export type TCacheStatus = typeof ECacheStatus[keyof typeof ECacheStatus]
+  enabled: "enabled",
+  disabled: "disabled",
+} as const;
+export type TCacheStatus = (typeof ECacheStatus)[keyof typeof ECacheStatus];

@@ -1,4 +1,9 @@
-import { IConfigJSON, IEventSchema, IServedEvents, IStepReporter } from '@packages/types';
+import {
+  IConfigJSON,
+  IEventSchema,
+  IServedEvents,
+  IStepReporter,
+} from '@packages/types';
 import { sortEventSchema } from '@packages/utils';
 import {
   ECache,
@@ -80,7 +85,7 @@ export const getServedEvents = async (
 
   let cache: TCache = ECache.disabled;
 
-  if(a_Config.cache && a_Config.cache === cache){
+  if (a_Config.cache && a_Config.cache === cache) {
     a_Report?.skipped(EQueryStepId.cacheCheck, EQuerySkipReason.cacheDisabled);
 
     a_Report?.running(EQueryStepId.fetchProvider);
@@ -110,7 +115,7 @@ export const getServedEvents = async (
     return { events: sorted, cache };
   }
 
-  cache = ECache.hit
+  cache = ECache.hit;
 
   const dates = enumerateDates(range);
   const partitions = resolvePartitions(a_Config);
@@ -138,7 +143,9 @@ export const getServedEvents = async (
   const missingDates =
     cellList.length === 0
       ? dates
-      : dates.filter((date) => !hasCoverage(manifest, date, queryKey, cellList));
+      : dates.filter(
+          (date) => !hasCoverage(manifest, date, queryKey, cellList),
+        );
 
   a_Report?.success(EQueryStepId.cacheCheck, {
     daysCached: dates.length - missingDates.length,
@@ -187,7 +194,10 @@ export const getServedEvents = async (
     for (const event of fetched) {
       const date = getEventDate(event);
       if (!missing.has(date)) continue;
-      const partition = partitionKey(partitionForEvent(event), optionsSignature);
+      const partition = partitionKey(
+        partitionForEvent(event),
+        optionsSignature,
+      );
       const dayMap = buckets.get(date) ?? new Map<string, IEventSchema[]>();
       const list = dayMap.get(partition) ?? [];
       list.push(event);

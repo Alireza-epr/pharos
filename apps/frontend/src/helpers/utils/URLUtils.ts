@@ -1,5 +1,9 @@
 import { ELogType, EURLParams } from '@packages/enum';
-import { getURLParam, log_frontend, stripHiddenConfiguration } from '@packages/utils';
+import {
+  getURLParam,
+  log_frontend,
+  stripHiddenConfiguration,
+} from '@packages/utils';
 import { THydrateResult } from '../types/URLTypes';
 import { importConfigWithRegionPreload, isValidConfig } from './configUtils';
 import { IConfigJSON } from '@packages/types';
@@ -77,7 +81,10 @@ export const hydrateConfigFromURL = async (): Promise<THydrateResult> => {
   const raw = getURLParam<string>(EURLParams.config);
   if (raw === null) return 'absent';
 
-  log_frontend('[import:Config] phase: hydrating from URL config param', ELogType.info);
+  log_frontend(
+    '[import:Config] phase: hydrating from URL config param',
+    ELogType.info,
+  );
 
   const decoded = decodeJSONFromURL(raw);
   // isValidConfig() itself traces which section(s) rejected

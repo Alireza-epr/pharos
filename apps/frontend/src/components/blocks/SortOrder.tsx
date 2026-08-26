@@ -6,7 +6,10 @@ import { useTranslator } from '../../hooks/translator';
 import { useSortOrderStore } from '../../stores/sortOrderStore';
 import { sort_field_options } from '../../helpers/fixtures/query';
 import { ISortOption } from '@packages/types';
-import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '../../helpers/utils/downloadUtils';
 import { isValidSortOrderQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -28,8 +31,12 @@ const SortOrder = () => {
   };
 
   const handleImport = () => {
-    importSectionConfig('Sort Order', isValidSortOrderQuery, importSortOrder, () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    importSectionConfig(
+      'Sort Order',
+      isValidSortOrderQuery,
+      importSortOrder,
+      () =>
+        useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
     );
   };
 

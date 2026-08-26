@@ -13,7 +13,10 @@ describe('fetchWithRetry', () => {
   });
 
   it('rethrows_an_abort_error_immediately_without_retrying', async () => {
-    const abortError = new DOMException('The operation was aborted.', 'AbortError');
+    const abortError = new DOMException(
+      'The operation was aborted.',
+      'AbortError',
+    );
     const fetchMock = jest.fn().mockRejectedValue(abortError);
     global.fetch = fetchMock as unknown as typeof fetch;
 
@@ -32,7 +35,9 @@ describe('fetchWithRetry', () => {
     const fetchMock = jest.fn().mockResolvedValue(response);
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await expect(fetchWithRetry('https://example.com', {}, 3, 1)).rejects.toBeDefined();
+    await expect(
+      fetchWithRetry('https://example.com', {}, 3, 1),
+    ).rejects.toBeDefined();
     expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 

@@ -8,9 +8,8 @@ export enum EBaseRoutes {
 }
 
 export enum ERegionsRoutes {
-  geometry = "/geometry"
+  geometry = "/geometry",
 }
-
 
 export enum ESystemRoutes {
   health = "/health",
@@ -26,4 +25,3 @@ export enum EAuthRoutes {
 export enum EExportsRoutes {
   events = "/events",
 }
-

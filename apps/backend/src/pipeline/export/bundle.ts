@@ -9,7 +9,7 @@ import {
   featureFromEvents,
   formatTimestamp,
   getGitCommitSHA,
-  hashString
+  hashString,
 } from '../../helpers/utils/backendUtils';
 import { featureFromHotspot } from '../aggregate/hotspots';
 import { getStats } from '../aggregate/stats';
@@ -30,7 +30,11 @@ import {
   TValidationSample,
 } from '../../helpers/types/validationTypes';
 import { writeZip } from './zip';
-import { deepSortObject, getExportId, stripHiddenConfiguration } from '@packages/utils';
+import {
+  deepSortObject,
+  getExportId,
+  stripHiddenConfiguration,
+} from '@packages/utils';
 
 export const evidenceExport = async (
   a_Config: IConfigJSON,

@@ -9,7 +9,10 @@ import {
   groupByOptions,
   spatialResolutionOptions,
 } from '../../helpers/fixtures/query';
-import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '../../helpers/utils/downloadUtils';
 import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -51,7 +54,8 @@ const AdvancedQuery = () => {
       'Advanced Query',
       isValidAdvancedQueryQuery,
       importAdvancedQueryConfig,
-      () => useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+      () =>
+        useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
     );
   };
 

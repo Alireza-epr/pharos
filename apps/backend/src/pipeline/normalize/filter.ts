@@ -38,7 +38,9 @@ export const applyRecoverableEventFilters = (
   if (vesselTypeFilter && vesselTypeFilter.length > 0) {
     const vesselTypes = new Set(vesselTypeFilter);
     filteredEvents = filteredEvents.filter((e) =>
-      vesselTypes.has(e.raw_metadata?.vesselType as (typeof vesselTypeFilter)[number]),
+      vesselTypes.has(
+        e.raw_metadata?.vesselType as (typeof vesselTypeFilter)[number],
+      ),
     );
   }
 
@@ -46,7 +48,9 @@ export const applyRecoverableEventFilters = (
   if (geartypeFilter && geartypeFilter.length > 0) {
     const geartypes = new Set(geartypeFilter);
     filteredEvents = filteredEvents.filter((e) =>
-      geartypes.has(e.raw_metadata?.geartype as (typeof geartypeFilter)[number]),
+      geartypes.has(
+        e.raw_metadata?.geartype as (typeof geartypeFilter)[number],
+      ),
     );
   }
 
@@ -170,8 +174,8 @@ export const applyFilter = (
         event.context_layers.Bathymetry.enrichments[0]?.value,
       );
 
-      if(Number.isNaN(bathymetry)){
-        return true
+      if (Number.isNaN(bathymetry)) {
+        return true;
       }
 
       return !Number.isNaN(bathymetry) && bathymetry >= min;
@@ -186,8 +190,8 @@ export const applyFilter = (
         event.context_layers.Bathymetry.enrichments[0]?.value,
       );
 
-      if(Number.isNaN(bathymetry)){
-        return true
+      if (Number.isNaN(bathymetry)) {
+        return true;
       }
 
       return !Number.isNaN(bathymetry) && bathymetry <= max;

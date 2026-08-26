@@ -24,7 +24,8 @@ export const regionsController = (a_Req: Request, a_Res: Response) => {
   }
 
   const dataset = query.dataset as EContextLayers;
-  const featureCollection: TRegionOptionFeature | undefined = getRegionOptions(dataset);
+  const featureCollection: TRegionOptionFeature | undefined =
+    getRegionOptions(dataset);
 
   if (!featureCollection) {
     return controllerResponse(a_Res, EStatusCode.BAD_REQUEST_400, {

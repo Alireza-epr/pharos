@@ -87,7 +87,7 @@ export const buildConfig = (): IConfigJSON => {
       ...urlParams,
     },
     ...bodyParams_base,
-    cache: getURLParam<TCacheStatus>(EURLParams.cache) ?? ECacheStatus.enabled
+    cache: getURLParam<TCacheStatus>(EURLParams.cache) ?? ECacheStatus.enabled,
   };
 
   const config: IConfigJSON =
@@ -119,7 +119,9 @@ const aoiQueryFromConfig = (a_Config: IConfigJSON): TAOIQuery => {
   // directly on geojson — a file predating that convention simply won't
   // have it, which degrades gracefully to a plain Zonal-shaped polygon.
   return {
-    body_params: { geojson: { ...geojson, properties: geojson.properties ?? null } },
+    body_params: {
+      geojson: { ...geojson, properties: geojson.properties ?? null },
+    },
   };
 };
 
@@ -160,7 +162,10 @@ export const isValidConfig = (a_Data: unknown): a_Data is IConfigJSON => {
     ['pagination', isValidPaginationQuery({ pagination: config.pagination })],
     [
       'filter',
-      isValidFilterQuery({ filter: config.filter, url_params: config.url_params }),
+      isValidFilterQuery({
+        filter: config.filter,
+        url_params: config.url_params,
+      }),
     ],
     ['threshold', isValidThresholdQuery({ threshold: config.threshold })],
     ['hotspot', isValidHotspotQuery({ hotspot: config.hotspot })],
@@ -188,7 +193,10 @@ export const importConfig = (a_Config: IConfigJSON): void => {
     useAOIStore.getState().importAOI(aoiQuery);
     log_frontend('[import:Config] phase: AOI applied', ELogType.info);
   } else {
-    log_frontend('[import:Config] phase: no AOI in config, skipped', ELogType.info);
+    log_frontend(
+      '[import:Config] phase: no AOI in config, skipped',
+      ELogType.info,
+    );
   }
 
   useTimeRangeStore.getState().importTimeRange(a_Config.url_params);
@@ -247,10 +255,16 @@ export const importConfigWithRegionPreload = async (
       : undefined;
 
   if (dataset === ERegionDatasets.eez) {
-    log_frontend('[import:Config] phase: preloading EEZ region options', ELogType.info);
+    log_frontend(
+      '[import:Config] phase: preloading EEZ region options',
+      ELogType.info,
+    );
     await loadRegionOptions(EContextLayers.eez);
   } else if (dataset === ERegionDatasets.mpa) {
-    log_frontend('[import:Config] phase: preloading MPA region options', ELogType.info);
+    log_frontend(
+      '[import:Config] phase: preloading MPA region options',
+      ELogType.info,
+    );
     await loadRegionOptions(EContextLayers.mpa);
   }
 

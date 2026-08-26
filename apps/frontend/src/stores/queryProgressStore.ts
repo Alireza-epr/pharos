@@ -19,7 +19,8 @@ export const useQueryProgressStore = create<
       steps: initialSteps(),
     },
     (set) => ({
-      start: () => set({ isOpen: true, isRunning: true, steps: initialSteps() }),
+      start: () =>
+        set({ isOpen: true, isRunning: true, steps: initialSteps() }),
       applyStep: (a_Message) =>
         set((state) => ({
           steps: state.steps.map((step) =>
@@ -50,7 +51,11 @@ export const useQueryProgressStore = create<
           return {
             steps: state.steps.map((step) =>
               step.id === target.id
-                ? { id: step.id, status: EQueryStepStatus.error, error: a_Error }
+                ? {
+                    id: step.id,
+                    status: EQueryStepStatus.error,
+                    error: a_Error,
+                  }
                 : step,
             ),
           };

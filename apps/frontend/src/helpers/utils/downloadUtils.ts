@@ -53,7 +53,7 @@ export const openJSONFile = (
   input.click();
 };
 
-export const importSectionConfig = <T,>(
+export const importSectionConfig = <T>(
   a_Label: string,
   a_Validate: (a_Data: unknown) => a_Data is T,
   a_Apply: (a_Data: T) => void,

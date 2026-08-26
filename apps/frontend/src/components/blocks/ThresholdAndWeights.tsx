@@ -5,7 +5,10 @@ import NumberInput from '../common/inputs/NumberInput';
 
 import { IConfigJSON } from '@packages/types';
 import { useThresholdStore } from '../../stores/thresholdStore';
-import { downloadJSON, importSectionConfig } from '../../helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '../../helpers/utils/downloadUtils';
 import { isValidThresholdQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -35,7 +38,8 @@ const ThresholdAndWeights = () => {
       'Threshold & Weights',
       isValidThresholdQuery,
       importThresholdConfig,
-      () => useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+      () =>
+        useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
     );
   };
 
@@ -77,7 +81,11 @@ const ThresholdAndWeights = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.title.scoreTiers')} collapsible={false} tab>
+      <SectionItem
+        title={t('sidebar.title.scoreTiers')}
+        collapsible={false}
+        tab
+      >
         <NumberInput
           direction="row"
           label={t('sidebar.label.lowTriageThr')}

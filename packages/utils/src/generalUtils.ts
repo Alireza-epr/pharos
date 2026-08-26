@@ -1,4 +1,10 @@
-import { ELogType, EPastTime, EURLParams, TLogType, TURLSearchParams } from "@packages/enum";
+import {
+  ELogType,
+  EPastTime,
+  EURLParams,
+  TLogType,
+  TURLSearchParams,
+} from "@packages/enum";
 import { IPastTime } from "@packages/types";
 
 export const log_frontend = (
@@ -212,7 +218,7 @@ export const darkenHexColor = (a_Hex: string, a_Percent: number) => {
 export const getURLParam = <T>(a_String: TURLSearchParams): T | null => {
   const params =
     typeof window !== "undefined"
-    ? new URLSearchParams(window.location.search)
-    : new URLSearchParams();
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
   return params.get(a_String) as T | null;
-}
+};

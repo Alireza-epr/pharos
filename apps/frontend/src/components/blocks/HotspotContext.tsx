@@ -39,9 +39,9 @@ const HotspotContext = (props: IHotspotContextProps) => {
   const recurrenceCaveat =
     visibleRecurrenceCount < hotspot.signals.recurrence_count
       ? t('detailPanel.text.recurrenceVisibleCaveat', {
-        visible: String(visibleRecurrenceCount),
-        total: String(hotspot.signals.recurrence_count),
-      })
+          visible: String(visibleRecurrenceCount),
+          total: String(hotspot.signals.recurrence_count),
+        })
       : undefined;
 
   return (

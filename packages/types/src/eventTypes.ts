@@ -87,7 +87,6 @@ export interface IServedEvents {
   cache: TCache;
 }
 
-
 export interface IEventHotspot {
   cell_id: string;
   signals: IEventHotspotSignal;

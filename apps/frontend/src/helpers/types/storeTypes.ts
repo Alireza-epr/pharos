@@ -171,12 +171,12 @@ export interface IFilterStoreStates {
 
 export type TFilterURLParams = Omit<
   I4wingsReportPostURLParams,
-  | "format"
-  | "spatial-resolution"
-  | "group-by"
-  | "temporal-resolution"
-  | "date-range"
-  | "spatial-aggregation"
+  | 'format'
+  | 'spatial-resolution'
+  | 'group-by'
+  | 'temporal-resolution'
+  | 'date-range'
+  | 'spatial-aggregation'
 >;
 
 export interface IFilterQuery extends Pick<IConfigBase, 'filter'> {
@@ -572,7 +572,7 @@ export interface IQueryProgressStoreStates {
   isOpen: boolean;
   /** True from `start()` until the request settles (success or error) — see `finish()`. */
   isRunning: boolean;
-  steps: Omit<IQueryProgressStepMessage, "type">[];
+  steps: Omit<IQueryProgressStepMessage, 'type'>[];
 }
 
 export interface IQueryProgressStoreActions {
@@ -593,13 +593,27 @@ export interface IQueryProgressStoreActions {
 }
 
 export interface IMessageStoreStates {
-  info: string | null
-  warn: string | null
-  error: string | null
+  info: string | null;
+  warn: string | null;
+  error: string | null;
 }
 
 export interface IMessageStoreActions {
-  setMessage: ( a_Value: IMessageStoreStates['info'] | ((a_Prev: IMessageStoreStates['info']) => IMessageStoreStates['info']) ) => void;
-  setWarn: ( a_Value: IMessageStoreStates['warn'] | ((a_Prev: IMessageStoreStates['warn']) => IMessageStoreStates['warn']) ) => void;
-  setError: ( a_Value: IMessageStoreStates['error'] | ((a_Prev: IMessageStoreStates['error']) => IMessageStoreStates['error']) ) => void;
+  setMessage: (
+    a_Value:
+      | IMessageStoreStates['info']
+      | ((a_Prev: IMessageStoreStates['info']) => IMessageStoreStates['info']),
+  ) => void;
+  setWarn: (
+    a_Value:
+      | IMessageStoreStates['warn']
+      | ((a_Prev: IMessageStoreStates['warn']) => IMessageStoreStates['warn']),
+  ) => void;
+  setError: (
+    a_Value:
+      | IMessageStoreStates['error']
+      | ((
+          a_Prev: IMessageStoreStates['error'],
+        ) => IMessageStoreStates['error']),
+  ) => void;
 }

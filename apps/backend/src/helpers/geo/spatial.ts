@@ -11,12 +11,7 @@ import {
   booleanPointInPolygon,
 } from '@turf/turf';
 import { point } from '@turf/helpers';
-import {
-  cellToBoundary,
-  gridDisk,
-  latLngToCell,
-  polygonToCells,
-} from 'h3-js';
+import { cellToBoundary, gridDisk, latLngToCell, polygonToCells } from 'h3-js';
 import { readEEZPolygons, readMPAPolygons } from '../utils/datasetUtils';
 import { log } from '../utils/backendUtils';
 import { ELogType } from '../types/generalTypes';
@@ -76,7 +71,13 @@ export const findEEZById = (a_RegionId: string): TFeature | null => {
   const eez = readEEZPolygons().features.find(
     (f) => String(f.properties.MRGID) === a_RegionId,
   );
-  return eez ? { type: 'Feature', geometry: eez.geometry, properties: {id: a_RegionId, label: eez.properties.GEONAME} } : null;
+  return eez
+    ? {
+        type: 'Feature',
+        geometry: eez.geometry,
+        properties: { id: a_RegionId, label: eez.properties.GEONAME },
+      }
+    : null;
 };
 
 /** The MPA feature whose SITE_ID / SITE_PID matches the requested region id. */
@@ -86,7 +87,13 @@ export const findMPAById = (a_RegionId: string): TFeature | null => {
       String(f.properties.SITE_ID) === a_RegionId ||
       String(f.properties.SITE_PID) === a_RegionId,
   );
-  return mpa ? { type: 'Feature', geometry: mpa.geometry, properties: {id: a_RegionId, label: mpa.properties.NAME_ENG} } : null;
+  return mpa
+    ? {
+        type: 'Feature',
+        geometry: mpa.geometry,
+        properties: { id: a_RegionId, label: mpa.properties.NAME_ENG },
+      }
+    : null;
 };
 
 /**
@@ -156,7 +163,10 @@ export const resolvePartitions = (a_Config: IConfigJSON): string[] => {
     intersecting.add(String(feature.properties.MRGID));
     if (
       !fullyContained &&
-      containsAOI({ type: 'Feature', geometry: feature.geometry, properties: {} }, aoi)
+      containsAOI(
+        { type: 'Feature', geometry: feature.geometry, properties: {} },
+        aoi,
+      )
     ) {
       fullyContained = true;
     }
@@ -223,7 +233,11 @@ export const getAOIH3Cells = (
         sumLon += lon ?? 0;
         sumLat += lat ?? 0;
       }
-      const cell = latLngToCell(sumLat / ring.length, sumLon / ring.length, a_Resolution);
+      const cell = latLngToCell(
+        sumLat / ring.length,
+        sumLon / ring.length,
+        a_Resolution,
+      );
       cells.add(cell);
       for (const neighbour of gridDisk(cell, 1)) cells.add(neighbour);
     }

@@ -99,8 +99,13 @@ export const getEventDate = (a_Event: IEventSchema): string =>
  * keep them in sync if the query grammar changes). Returns `[]` when the field
  * isn't present.
  */
-const parseInClauseValues = (a_Expression: string, a_Field: string): string[] => {
-  const match = a_Expression.match(new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`));
+const parseInClauseValues = (
+  a_Expression: string,
+  a_Field: string,
+): string[] => {
+  const match = a_Expression.match(
+    new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`),
+  );
   if (!match?.[1]) return [];
   return match[1]
     .split(',')
@@ -118,7 +123,9 @@ const filterExpressionOf = (a_Config: IConfigJSON): string => {
 };
 
 /** Every `datasets[i]` value on the request. */
-const datasetsOf = (a_Config: IConfigJSON): IPartitionFetchOptions['datasets'] => {
+const datasetsOf = (
+  a_Config: IConfigJSON,
+): IPartitionFetchOptions['datasets'] => {
   const urlParams = a_Config.url_params as unknown as Record<string, unknown>;
   return Object.entries(urlParams)
     .filter(([key]) => /^datasets\[\d+\]$/.test(key))
@@ -131,10 +138,15 @@ const datasetsOf = (a_Config: IConfigJSON): IPartitionFetchOptions['datasets'] =
  * build the miss-fetch request; `matched`/`flag`/`vessel_type`/`geartype`/
  * `vessel_id` are deliberately not read here (see {@link recoverableEventFilters}).
  */
-export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOptions => {
+export const partitionFetchOptions = (
+  a_Config: IConfigJSON,
+): IPartitionFetchOptions => {
   const expression = filterExpressionOf(a_Config);
   const [distance] = parseInClauseValues(expression, 'distance_from_port_km');
-  const [neuralVesselType] = parseInClauseValues(expression, 'neural_vessel_type');
+  const [neuralVesselType] = parseInClauseValues(
+    expression,
+    'neural_vessel_type',
+  );
   const speed = parseInClauseValues(expression, 'speed');
 
   const urlParams = a_Config.url_params;
@@ -147,10 +159,13 @@ export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOpt
   return {
     datasets: datasetsOf(a_Config),
     ...(distance !== undefined && {
-      distance_from_port_km: Number(distance) as IPartitionFetchOptions['distance_from_port_km'],
+      distance_from_port_km: Number(
+        distance,
+      ) as IPartitionFetchOptions['distance_from_port_km'],
     }),
     ...(neuralVesselType !== undefined && {
-      neural_vessel_type: neuralVesselType as IPartitionFetchOptions['neural_vessel_type'],
+      neural_vessel_type:
+        neuralVesselType as IPartitionFetchOptions['neural_vessel_type'],
     }),
     ...(speed.length > 0 && {
       speed: speed as IPartitionFetchOptions['speed'],
@@ -174,7 +189,9 @@ export const partitionFetchOptions = (a_Config: IConfigJSON): IPartitionFetchOpt
  * see {@link IRecoverableEventFilters}. Applied at read time
  * (`applyRecoverableEventFilters`) instead of gating the partition cache.
  */
-export const recoverableEventFilters = (a_Config: IConfigJSON): IRecoverableEventFilters => {
+export const recoverableEventFilters = (
+  a_Config: IConfigJSON,
+): IRecoverableEventFilters => {
   const expression = filterExpressionOf(a_Config);
   const [matched] = parseInClauseValues(expression, 'matched');
   const flag = parseInClauseValues(expression, 'flag');
@@ -247,9 +264,15 @@ export const sanitizeFetchUrlParams = <T extends Record<string, unknown>>(
  * physical partition files of two requests whose fetch-scoping options differ
  * (see `partitionKey`).
  */
-export const partitionOptionsSignature = (a_Options: IPartitionFetchOptions): string =>
+export const partitionOptionsSignature = (
+  a_Options: IPartitionFetchOptions,
+): string =>
   createHash('sha256')
-    .update(JSON.stringify(deepSortObject(a_Options as unknown as Record<string, unknown>)))
+    .update(
+      JSON.stringify(
+        deepSortObject(a_Options as unknown as Record<string, unknown>),
+      ),
+    )
     .digest('hex')
     .slice(0, 12);
 
@@ -260,8 +283,10 @@ export const partitionOptionsSignature = (a_Options: IPartitionFetchOptions): st
  * nesting the signature as a sub-directory keeps the common case (default
  * options) at a stable, predictable path.
  */
-export const partitionKey = (a_Region: string, a_OptionsSignature: string): string =>
-  `${a_Region}/opts=${a_OptionsSignature}`;
+export const partitionKey = (
+  a_Region: string,
+  a_OptionsSignature: string,
+): string => `${a_Region}/opts=${a_OptionsSignature}`;
 
 /**
  * A stable cache key for the **non-spatial, non-temporal** shape of a

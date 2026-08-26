@@ -1,5 +1,9 @@
 import { Response } from 'express';
-import { EQueryStepStatus, TQueryStepId, TQuerySkipReason } from '@packages/enum';
+import {
+  EQueryStepStatus,
+  TQueryStepId,
+  TQuerySkipReason,
+} from '@packages/enum';
 import {
   IQueryProgressStepMessage,
   IResponse,
@@ -77,7 +81,9 @@ export class ProgressStream implements IStepReporter {
 
   result<T>(a_Payload: IResponse<T>) {
     if (this.res.writableEnded || this.res.destroyed) return;
-    this.res.write(JSON.stringify({ type: 'result', payload: a_Payload }) + '\n');
+    this.res.write(
+      JSON.stringify({ type: 'result', payload: a_Payload }) + '\n',
+    );
     this.res.end();
   }
 }

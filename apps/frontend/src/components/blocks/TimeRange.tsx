@@ -3,7 +3,10 @@ import SectionItem from '../common/section/SectionItem';
 import DateInput from '../common/inputs/DateInput';
 import { useTranslator } from '@/hooks/translator';
 import { useTimeRangeStore } from '@/stores/timeRangeStore';
-import { downloadJSON, importSectionConfig } from '@/helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '@/helpers/utils/downloadUtils';
 import { isValidTimeRangeQuery } from '@/helpers/utils/validationUtils';
 import { useMessageStore } from '@/stores/messageStore';
 
@@ -26,8 +29,12 @@ const TimeRange = () => {
   };
 
   const handleImport = () => {
-    importSectionConfig('Time Range', isValidTimeRangeQuery, importTimeRange, () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    importSectionConfig(
+      'Time Range',
+      isValidTimeRangeQuery,
+      importTimeRange,
+      () =>
+        useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
     );
   };
 
@@ -40,10 +47,10 @@ const TimeRange = () => {
       onExport={handleExport}
       onImport={handleImport}
     >
-      <SectionItem title={t('general.label.from')} tab >
+      <SectionItem title={t('general.label.from')} tab>
         <DateInput value={dateFrom} max={dateTo} onChange={setDateFrom} />
       </SectionItem>
-      <SectionItem title={t('general.label.to')} tab >
+      <SectionItem title={t('general.label.to')} tab>
         <DateInput value={dateTo} min={dateFrom} onChange={setDateTo} />
       </SectionItem>
     </Section>

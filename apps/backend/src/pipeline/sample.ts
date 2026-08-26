@@ -360,10 +360,12 @@ if (args.includes('--main')) {
     throw new Error(`Config file not found: ${configPath}`);
   }
 
-  config = config.output ? config : {
-    ...config,
-    output: "data/out/pilot/",
-  }
+  config = config.output
+    ? config
+    : {
+        ...config,
+        output: 'data/out/pilot/',
+      };
 
   main(config).catch(console.error);
 } else if (args.includes('--validation')) {

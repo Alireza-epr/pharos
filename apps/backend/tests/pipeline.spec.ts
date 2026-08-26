@@ -649,7 +649,10 @@ describe('stampRunMetadata', () => {
     };
     const currentRequestMetadata = await generateRunMetadata([sarConfig]);
 
-    const [result] = stampRunMetadata([staleCachedEvent], currentRequestMetadata);
+    const [result] = stampRunMetadata(
+      [staleCachedEvent],
+      currentRequestMetadata,
+    );
 
     expect(result!.run_metadata).toBe(currentRequestMetadata);
     expect(result!.run_metadata).not.toEqual(staleCachedEvent.run_metadata);

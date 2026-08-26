@@ -104,7 +104,9 @@ describe('nonSpatialQueryKey', () => {
         'date-range': '2026-01-01T00:00:00Z,2026-01-02T00:00:00Z',
       },
     } as unknown as IConfigJSON;
-    expect(nonSpatialQueryKey(baseConfig)).toBe(nonSpatialQueryKey(otherWindow));
+    expect(nonSpatialQueryKey(baseConfig)).toBe(
+      nonSpatialQueryKey(otherWindow),
+    );
   });
 
   it('is_independent_of_the_AOI_geometry_so_a_different_box_can_reuse_the_cache', () => {
@@ -188,7 +190,9 @@ describe('nonSpatialQueryKey', () => {
         'filters[0]': "speed in ('<2')",
       },
     } as unknown as IConfigJSON;
-    expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withSpeed));
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withSpeed),
+    );
   });
 
   it('changes_when_temporal_resolution_changes', () => {
@@ -238,7 +242,9 @@ describe('nonSpatialQueryKey', () => {
         'group-by': 'VESSEL_ID',
       },
     } as unknown as IConfigJSON;
-    expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withGroupBy));
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withGroupBy),
+    );
   });
 
   it('changes_when_format_changes', () => {
@@ -249,7 +255,9 @@ describe('nonSpatialQueryKey', () => {
         format: 'CSV',
       },
     } as unknown as IConfigJSON;
-    expect(nonSpatialQueryKey(baseConfig)).not.toBe(nonSpatialQueryKey(withCsvFormat));
+    expect(nonSpatialQueryKey(baseConfig)).not.toBe(
+      nonSpatialQueryKey(withCsvFormat),
+    );
   });
 });
 
@@ -384,7 +392,9 @@ describe('sanitizeFetchUrlParams', () => {
         "matched in ('false') AND neural_vessel_type in ('Likely fishing') AND flag in ('FRA')",
     });
 
-    expect(sanitized['filters[0]']).toBe("neural_vessel_type in ('Likely fishing')");
+    expect(sanitized['filters[0]']).toBe(
+      "neural_vessel_type in ('Likely fishing')",
+    );
   });
 
   it('drops_the_filters_key_entirely_when_every_clause_is_recoverable', () => {

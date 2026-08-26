@@ -237,18 +237,26 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
 
       const lines: string[] = [
         `<strong class="${popupStyle.popupId}">${
-          a_Matched ? tRef.current('general.label.matched') : tRef.current('general.label.unmatched')
+          a_Matched
+            ? tRef.current('general.label.matched')
+            : tRef.current('general.label.unmatched')
         }</strong>`,
       ];
 
       const score = event?.scoring.triage_score;
       const uncertainty = event?.scoring.uncertainty_score;
       if (typeof score === 'number') {
-        lines.push(line(`${tRef.current('sidebar.label.triageScore')}: ${score.toFixed(2)}`));
+        lines.push(
+          line(
+            `${tRef.current('sidebar.label.triageScore')}: ${score.toFixed(2)}`,
+          ),
+        );
       }
       if (typeof uncertainty === 'number') {
         lines.push(
-          line(`${tRef.current('sidebar.label.uncertaintyScore')}: ${uncertainty.toFixed(2)}`),
+          line(
+            `${tRef.current('sidebar.label.uncertaintyScore')}: ${uncertainty.toFixed(2)}`,
+          ),
         );
       }
 

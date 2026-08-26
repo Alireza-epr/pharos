@@ -79,7 +79,7 @@ export const createCSVRows = (a_Events: IEventSchema[]) => {
       event.context_layers.MPA.enrichments.length > 0
         ? event.context_layers.MPA.enrichments.map((e) => e.label).join(', ')
         : undefined;
-    const bathymetry = event.context_layers.Bathymetry.enrichments
+    const bathymetry = event.context_layers.Bathymetry.enrichments;
     return {
       event_id: event.event_id,
       timestamp_utc: event.timestamp_utc,
@@ -89,7 +89,10 @@ export const createCSVRows = (a_Events: IEventSchema[]) => {
       confidence_proxy: event.confidence_proxy ?? null,
       confidence_tier: event.confidence_tier,
       distance_to_coast_km: event.distance_to_coast_km,
-      bathymetry_m: bathymetry.length > 0 ? event.context_layers.Bathymetry.enrichments[0].value : "N/A",
+      bathymetry_m:
+        bathymetry.length > 0
+          ? event.context_layers.Bathymetry.enrichments[0].value
+          : 'N/A',
       triage_score: event.scoring.triage_score ?? null,
       uncertainty_score: event.scoring.uncertainty_score ?? null,
       mpa,

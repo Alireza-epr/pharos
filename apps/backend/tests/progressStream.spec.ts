@@ -1,6 +1,10 @@
 import { Response } from 'express';
 import { ProgressStream } from '../src/helpers/utils/progressStream';
-import { EQueryStepId, EQuerySkipReason, EQueryStepStatus } from '@packages/enum';
+import {
+  EQueryStepId,
+  EQuerySkipReason,
+  EQueryStepStatus,
+} from '@packages/enum';
 
 // A minimal stand-in for Express's Response: just enough surface for
 // ProgressStream (writeHead/write/on/end, plus the writableEnded/destroyed
