@@ -2,6 +2,8 @@ import { IDropdownOption } from '@/components/common/inputs/DropdownInput';
 import {
   EFormat,
   EGroupBy,
+  ERegionBufferOperations,
+  ERegionBufferUnits,
   ESpatialResolution,
   ETemporalResolution,
 } from '@packages/enum';
@@ -33,3 +35,8 @@ export const groupByOptions: IDropdownOption<EGroupBy>[] = Object.values(
 ).map((v) => ({ label: v, value: v }));
 export const temporalResolutionOptions: IDropdownOption<ETemporalResolution>[] =
   Object.values(ETemporalResolution).map((v) => ({ label: v, value: v }));
+
+export const bufferOperationOptions: IDropdownOption<ERegionBufferOperations>[] =
+  Object.values(ERegionBufferOperations).map((v) => ({ label: v, value: v }));
+export const bufferUnitOptions: IDropdownOption<ERegionBufferUnits>[] =
+  Object.values(ERegionBufferUnits).map((v) => ({ label: v, value: v }));

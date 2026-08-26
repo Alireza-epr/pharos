@@ -24,6 +24,8 @@ import {
   EFormat,
   EGroupBy,
   EHotspotTimeBins,
+  ERegionBufferOperations,
+  ERegionBufferUnits,
   ERegionDatasets,
   ESpatialResolution,
   ETemporalResolution,
@@ -348,11 +350,17 @@ export interface IAOIStoreStates {
   // chain -- see useAOIRegionBoundary.
   eezGeometries: TRegionGeometry[];
   mpaGeometries: TRegionGeometry[];
+  bufferOperation: ERegionBufferOperations;
+  bufferUnit: ERegionBufferUnits;
+  bufferValue: number;
 }
 
 export interface IAOIRegionProperties {
   'region-dataset': ERegionDatasets;
   'region-id': string;
+  'buffer-operation'?: ERegionBufferOperations;
+  'buffer-unit'?: ERegionBufferUnits;
+  'buffer-value'?: string;
 }
 
 export interface IAOIPointProperties {
@@ -439,6 +447,27 @@ export interface IAOIStoreActions {
       | ((
           a_Prev: IAOIStoreStates['mpaGeometries'],
         ) => IAOIStoreStates['mpaGeometries']),
+  ) => void;
+  setBufferOperation: (
+    a_Value:
+      | IAOIStoreStates['bufferOperation']
+      | ((
+          a_Prev: IAOIStoreStates['bufferOperation'],
+        ) => IAOIStoreStates['bufferOperation']),
+  ) => void;
+  setBufferUnit: (
+    a_Value:
+      | IAOIStoreStates['bufferUnit']
+      | ((
+          a_Prev: IAOIStoreStates['bufferUnit'],
+        ) => IAOIStoreStates['bufferUnit']),
+  ) => void;
+  setBufferValue: (
+    a_Value:
+      | IAOIStoreStates['bufferValue']
+      | ((
+          a_Prev: IAOIStoreStates['bufferValue'],
+        ) => IAOIStoreStates['bufferValue']),
   ) => void;
   getAOI: () => TAOIQuery;
   importAOI: (a_Data: TAOIQuery) => void;

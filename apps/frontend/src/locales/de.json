@@ -80,7 +80,8 @@
       "advancedQuery": "Erweiterte Abfrage",
       "matchingStatus": "Matching-Status",
       "datasetsFilter": "Datensatzfilter",
-      "exportImportConfig": "Konfiguration exportieren/importieren"
+      "exportImportConfig": "Konfiguration exportieren/importieren",
+      "regionBuffer": "Regionspuffer"
     },
     "title": {
       "geography": "Geografie",
@@ -145,7 +146,10 @@
       "highConfTierWeight": "Hohe Konfid.-Stufe",
       "radiusKm": "Radius (km)",
       "exportAllConfig": "Alle exportieren",
-      "importAllConfig": "Alle importieren"
+      "importAllConfig": "Alle importieren",
+      "bufferOperation": "Pufferoperation",
+      "bufferUnit": "Puffereinheit",
+      "bufferValue": "Pufferwert"
     },
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
@@ -163,7 +167,8 @@
     },
     "hint": {
       "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
-      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv - einige Filter werden gemeinsam genutzt"
+      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv - einige Filter werden gemeinsam genutzt",
+      "regionBuffer": "Erweitert oder verkleinert die EEZ-/MPA-Grenze. „Dissolve“ verschmilzt den Puffer; „Difference“ behält nur das Band; negativ verkleinert nach innen."
     }
   },
   "map": {

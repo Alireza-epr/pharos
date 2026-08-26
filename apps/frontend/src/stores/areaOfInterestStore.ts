@@ -6,7 +6,12 @@ import {
   IAOIStoreStates,
   TAOIQuery,
 } from '../helpers/types/storeTypes';
-import { ERegionDatasets, EGeoJSONGeometryType } from '@packages/enum';
+import {
+  ERegionBufferOperations,
+  ERegionBufferUnits,
+  ERegionDatasets,
+  EGeoJSONGeometryType,
+} from '@packages/enum';
 
 /**
  * Minimum (and default) radius, in km, for the point tool's circular AOI. The
@@ -31,6 +36,9 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
       mpaActive: undefined as IAOIStoreStates['mpaActive'],
       eezGeometries: [] as IAOIStoreStates['eezGeometries'],
       mpaGeometries: [] as IAOIStoreStates['mpaGeometries'],
+      bufferOperation: ERegionBufferOperations.DISSOLVE,
+      bufferUnit: ERegionBufferUnits.NAUTICALMILES,
+      bufferValue: 0,
     },
     (set, get) => ({
       setZonal: (a_Value) =>
@@ -87,16 +95,45 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
               ? a_Value(state.mpaGeometries)
               : a_Value,
         })),
+      setBufferOperation: (a_Value) =>
+        set((state) => ({
+          bufferOperation:
+            typeof a_Value === 'function'
+              ? a_Value(state.bufferOperation)
+              : a_Value,
+        })),
+      setBufferUnit: (a_Value) =>
+        set((state) => ({
+          bufferUnit:
+            typeof a_Value === 'function' ? a_Value(state.bufferUnit) : a_Value,
+        })),
+      setBufferValue: (a_Value) =>
+        set((state) => ({
+          bufferValue:
+            typeof a_Value === 'function'
+              ? a_Value(state.bufferValue)
+              : a_Value,
+        })),
       // Mirrors literally where this AOI lives in IConfigJSON: a named region
       // is a url_params fragment; a drawn Zonal/Point polygon is a
       // body_params.geojson fragment — never a synthetic envelope of our own.
       getAOI: (): TAOIQuery => {
-        const { eezActive, mpaActive, feature } = get();
+        const { eezActive, mpaActive, feature, bufferOperation, bufferUnit, bufferValue } =
+          get();
+        const bufferParams =
+          bufferValue !== 0
+            ? {
+                'buffer-operation': bufferOperation,
+                'buffer-unit': bufferUnit,
+                'buffer-value': String(bufferValue),
+              }
+            : {};
         if (eezActive)
           return {
             url_params: {
               'region-dataset': ERegionDatasets.eez,
               'region-id': eezActive.properties.id,
+              ...bufferParams,
             },
           };
         if (mpaActive)
@@ -104,6 +141,7 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             url_params: {
               'region-dataset': ERegionDatasets.mpa,
               'region-id': mpaActive.properties.id,
+              ...bufferParams,
             },
           };
         if (!feature) return null;
@@ -147,8 +185,13 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
         const { eezOptions, mpaOptions } = get();
 
         if (a_Data && 'url_params' in a_Data) {
-          const { 'region-dataset': dataset, 'region-id': id } =
-            a_Data.url_params;
+          const {
+            'region-dataset': dataset,
+            'region-id': id,
+            'buffer-operation': bufferOperation,
+            'buffer-unit': bufferUnit,
+            'buffer-value': bufferValue,
+          } = a_Data.url_params;
           const isEEZ = dataset === ERegionDatasets.eez;
           const options = isEEZ ? eezOptions : mpaOptions;
           const active = options.find((o) => o.properties.id === id);
@@ -158,6 +201,9 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             feature: null,
             eezActive: isEEZ ? active : undefined,
             mpaActive: isEEZ ? undefined : active,
+            bufferOperation: bufferOperation ?? ERegionBufferOperations.DISSOLVE,
+            bufferUnit: bufferUnit ?? ERegionBufferUnits.NAUTICALMILES,
+            bufferValue: bufferValue ? Number(bufferValue) : 0,
           });
           return;
         }
@@ -183,6 +229,9 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
               radius: Math.max(AOI_RADIUS_MIN_KM, properties.radius),
               eezActive: undefined,
               mpaActive: undefined,
+              bufferOperation: ERegionBufferOperations.DISSOLVE,
+              bufferUnit: ERegionBufferUnits.NAUTICALMILES,
+              bufferValue: 0,
             });
             return;
           }
@@ -192,6 +241,9 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             feature: { type: 'Feature', geometry, properties: null },
             eezActive: undefined,
             mpaActive: undefined,
+            bufferOperation: ERegionBufferOperations.DISSOLVE,
+            bufferUnit: ERegionBufferUnits.NAUTICALMILES,
+            bufferValue: 0,
           });
           return;
         }
@@ -202,6 +254,9 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
           feature: null,
           eezActive: undefined,
           mpaActive: undefined,
+          bufferOperation: ERegionBufferOperations.DISSOLVE,
+          bufferUnit: ERegionBufferUnits.NAUTICALMILES,
+          bufferValue: 0,
         });
       },
     }),

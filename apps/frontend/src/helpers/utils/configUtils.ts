@@ -107,9 +107,25 @@ export const buildConfig = (): IConfigJSON => {
 
 const aoiQueryFromConfig = (a_Config: IConfigJSON): TAOIQuery => {
   if (a_Config.method === EFetchMethods.get) {
-    const { 'region-dataset': dataset, 'region-id': id } = a_Config.url_params;
+    const {
+      'region-dataset': dataset,
+      'region-id': id,
+      'buffer-operation': bufferOperation,
+      'buffer-unit': bufferUnit,
+      'buffer-value': bufferValue,
+    } = a_Config.url_params;
     if (!dataset || !id) return null;
-    return { url_params: { 'region-dataset': dataset, 'region-id': id } };
+    return {
+      url_params: {
+        'region-dataset': dataset,
+        'region-id': id,
+        ...(bufferOperation !== undefined && {
+          'buffer-operation': bufferOperation,
+        }),
+        ...(bufferUnit !== undefined && { 'buffer-unit': bufferUnit }),
+        ...(bufferValue !== undefined && { 'buffer-value': bufferValue }),
+      },
+    };
   }
   const geojson = a_Config.body_params.geojson as
     | (IGeometry & { properties?: IAOIPointProperties | null })
