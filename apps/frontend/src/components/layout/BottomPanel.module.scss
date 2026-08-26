@@ -85,8 +85,8 @@
   overflow-wrap: break-word;
   vertical-align: top;
   background: var(--theme-bg-button);
-  border-bottom: var(--border-width-sm) solid var(--theme-text-primary);;
-  border-right: var(--border-width-sm) solid var(--theme-text-primary);;
+  border-bottom: var(--border-width-sm) solid var(--theme-text-primary);
+  border-right: var(--border-width-sm) solid var(--theme-text-primary);
   font-family: var(--font-family-header);
   position: sticky;
   top: 0;
@@ -94,7 +94,7 @@
 }
 
 .th:last-of-type {
-  border-right: none
+  border-right: none;
 }
 
 .th-sortable {
@@ -129,10 +129,9 @@
     background: var(--theme-tr-hover);
   }
 
-  &[data-selected='true'] td { 
+  &[data-selected='true'] td {
     font-weight: var(--font-weight-bold);
   }
-  
 }
 
 .tr-selected {

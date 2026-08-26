@@ -31,7 +31,11 @@ const RunMetadata = (props: IRunMetadataBlockProps) => {
         />
       </SectionItem>
 
-      <SectionItem title={t('detailPanel.label.config')} collapsible={false} tab>
+      <SectionItem
+        title={t('detailPanel.label.config')}
+        collapsible={false}
+        tab
+      >
         <SectionInputGroup direction="column">
           <TextInput
             value={shortenText(run_metadata.config_hash, 16)}

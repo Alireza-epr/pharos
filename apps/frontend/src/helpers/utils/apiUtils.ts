@@ -37,7 +37,9 @@ const requestRefresh = async (): Promise<string | null> => {
       const body = (await res.json().catch(() => null)) as {
         error?: string[];
       } | null;
-      const expired = !!body?.error?.includes(EResponseError.RefreshTokenExpired);
+      const expired = !!body?.error?.includes(
+        EResponseError.RefreshTokenExpired,
+      );
       setError(
         expired ? EResponseError.RefreshTokenExpired : EResponseError.Failed,
       );

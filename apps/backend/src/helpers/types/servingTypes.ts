@@ -25,7 +25,8 @@ export interface ITimeRange {
 
 // refetch triggers
 export interface IPartitionFetchOptions
-  extends Partial<Pick<IFishingEffortFilters, 'distance_from_port_km'>>,
+  extends
+    Partial<Pick<IFishingEffortFilters, 'distance_from_port_km'>>,
     Partial<Pick<ISARVesselDetectionsFilters, 'neural_vessel_type'>>,
     Partial<
       Pick<
@@ -59,8 +60,9 @@ export interface IPartitionFetchOptions
  * three filter interfaces declares the field non-optional, so the element
  * type itself doesn't carry a spurious `| undefined`.
  */
-export interface IRecoverableEventFilters
-  extends Partial<Pick<ISARVesselDetectionsFilters, 'matched'>> {
+export interface IRecoverableEventFilters extends Partial<
+  Pick<ISARVesselDetectionsFilters, 'matched'>
+> {
   flag?: IFishingEffortFilters['flag'][];
   vessel_type?: IAISVesselPresenceFilters['vessel_type'][];
   geartype?: IFishingEffortFilters['geartype'][];

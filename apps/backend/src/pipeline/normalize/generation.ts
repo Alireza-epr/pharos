@@ -292,10 +292,12 @@ export const generateScoring = (
   ) {
     importance_score += 0.4; // high-risk combo
   }
-  
-  const bathymetry = a_EventSchema.context_layers.Bathymetry.enrichments
+
+  const bathymetry = a_EventSchema.context_layers.Bathymetry.enrichments;
   const { isShallowWater, isFishingZone, isDeepWater } = vesselZone(
-    bathymetry.length > 0 ? a_EventSchema.context_layers.Bathymetry.enrichments[0].value : undefined ,
+    bathymetry.length > 0
+      ? a_EventSchema.context_layers.Bathymetry.enrichments[0].value
+      : undefined,
   );
 
   // 1. Fishing-relevant zone (core maritime activity zone)

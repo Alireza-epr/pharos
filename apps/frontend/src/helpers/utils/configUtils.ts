@@ -3,6 +3,7 @@ import {
   EContextLayers,
   ECacheStatus,
   EFetchMethods,
+  ELogType,
   ERegionDatasets,
   EURLParams,
   TCacheStatus,
@@ -29,7 +30,7 @@ import {
   isValidThresholdQuery,
   isValidTimeRangeQuery,
 } from './validationUtils';
-import { getURLParam } from '@packages/utils';
+import { getURLParam, log_frontend } from '@packages/utils';
 
 export const buildConfig = (): IConfigJSON => {
   const aoi = useAOIStore.getState().getAOI();
@@ -86,7 +87,7 @@ export const buildConfig = (): IConfigJSON => {
       ...urlParams,
     },
     ...bodyParams_base,
-    cache: getURLParam<TCacheStatus>(EURLParams.cache) ?? ECacheStatus.enabled
+    cache: getURLParam<TCacheStatus>(EURLParams.cache) ?? ECacheStatus.enabled,
   };
 
   const config: IConfigJSON =
@@ -118,7 +119,9 @@ const aoiQueryFromConfig = (a_Config: IConfigJSON): TAOIQuery => {
   // directly on geojson — a file predating that convention simply won't
   // have it, which degrades gracefully to a plain Zonal-shaped polygon.
   return {
-    body_params: { geojson: { ...geojson, properties: geojson.properties ?? null } },
+    body_params: {
+      geojson: { ...geojson, properties: geojson.properties ?? null },
+    },
   };
 };
 
@@ -129,54 +132,107 @@ export const isValidConfig = (a_Data: unknown): a_Data is IConfigJSON => {
     !('method' in a_Data) ||
     !('url_params' in a_Data)
   ) {
+    log_frontend(
+      '[import:Config] invalid — missing method/url_params',
+      ELogType.warn,
+    );
     return false;
   }
   const config = a_Data as IConfigJSON;
+  const rawMethod = (a_Data as { method?: unknown }).method;
   if (
     config.method !== EFetchMethods.get &&
     config.method !== EFetchMethods.post
   ) {
+    log_frontend(
+      `[import:Config] invalid — unrecognized method "${String(rawMethod)}"`,
+      ELogType.warn,
+    );
     return false;
   }
-  return (
-    isValidAOIQuery(aoiQueryFromConfig(config)) &&
-    isValidTimeRangeQuery(config.url_params) &&
-    isValidAdvancedQueryQuery({ url_params: config.url_params }) &&
-    isValidSortOrderQuery({ sort: config.sort }) &&
-    isValidPaginationQuery({ pagination: config.pagination }) &&
-    isValidFilterQuery({
-      filter: config.filter,
-      url_params: config.url_params,
-    }) &&
-    isValidThresholdQuery({ threshold: config.threshold }) &&
-    isValidHotspotQuery({ hotspot: config.hotspot })
-  );
+
+  const sectionChecks: [string, boolean][] = [
+    ['AOI', isValidAOIQuery(aoiQueryFromConfig(config))],
+    ['time range', isValidTimeRangeQuery(config.url_params)],
+    [
+      'advanced query',
+      isValidAdvancedQueryQuery({ url_params: config.url_params }),
+    ],
+    ['sort order', isValidSortOrderQuery({ sort: config.sort })],
+    ['pagination', isValidPaginationQuery({ pagination: config.pagination })],
+    [
+      'filter',
+      isValidFilterQuery({
+        filter: config.filter,
+        url_params: config.url_params,
+      }),
+    ],
+    ['threshold', isValidThresholdQuery({ threshold: config.threshold })],
+    ['hotspot', isValidHotspotQuery({ hotspot: config.hotspot })],
+  ];
+
+  const invalidSections = sectionChecks
+    .filter(([, isValid]) => !isValid)
+    .map(([name]) => name);
+
+  if (invalidSections.length > 0) {
+    log_frontend(
+      `[import:Config] invalid params in: ${invalidSections.join(', ')}`,
+      ELogType.warn,
+    );
+    return false;
+  }
+
+  log_frontend('[import:Config] all sections valid', ELogType.info);
+  return true;
 };
 
 export const importConfig = (a_Config: IConfigJSON): void => {
   const aoiQuery = aoiQueryFromConfig(a_Config);
-  if (aoiQuery) useAOIStore.getState().importAOI(aoiQuery);
+  if (aoiQuery) {
+    useAOIStore.getState().importAOI(aoiQuery);
+    log_frontend('[import:Config] phase: AOI applied', ELogType.info);
+  } else {
+    log_frontend(
+      '[import:Config] phase: no AOI in config, skipped',
+      ELogType.info,
+    );
+  }
 
   useTimeRangeStore.getState().importTimeRange(a_Config.url_params);
+  log_frontend('[import:Config] phase: time range applied', ELogType.info);
+
   useAdvancedQueryStore
     .getState()
     .importAdvancedQueryConfig({ url_params: a_Config.url_params });
+  log_frontend('[import:Config] phase: advanced query applied', ELogType.info);
+
   useSortOrderStore.getState().importSortOrder({ sort: a_Config.sort });
+  log_frontend('[import:Config] phase: sort order applied', ELogType.info);
+
   usePaginationStore
     .getState()
     .importPagination({ pagination: a_Config.pagination });
+  log_frontend('[import:Config] phase: pagination applied', ELogType.info);
+
   useFilterStore.getState().importFilterConfig({
     filter: a_Config.filter,
     url_params: a_Config.url_params,
   });
+  log_frontend('[import:Config] phase: filter applied', ELogType.info);
+
   useThresholdStore
     .getState()
     .importThresholdConfig({ threshold: a_Config.threshold });
+  log_frontend('[import:Config] phase: threshold applied', ELogType.info);
+
   useHotspotConfigStore
     .getState()
     .importHotspotConfig({ hotspot: a_Config.hotspot });
+  log_frontend('[import:Config] phase: hotspot applied', ELogType.info);
 
   useConfigStore.getState().setConfig(a_Config);
+  log_frontend('[import:Config] done', ELogType.info);
 };
 
 /**
@@ -199,8 +255,16 @@ export const importConfigWithRegionPreload = async (
       : undefined;
 
   if (dataset === ERegionDatasets.eez) {
+    log_frontend(
+      '[import:Config] phase: preloading EEZ region options',
+      ELogType.info,
+    );
     await loadRegionOptions(EContextLayers.eez);
   } else if (dataset === ERegionDatasets.mpa) {
+    log_frontend(
+      '[import:Config] phase: preloading MPA region options',
+      ELogType.info,
+    );
     await loadRegionOptions(EContextLayers.mpa);
   }
 

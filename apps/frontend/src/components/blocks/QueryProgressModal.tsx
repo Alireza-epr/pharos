@@ -1,4 +1,8 @@
-import { EQueryStepStatus, TQueryStepId, TQueryStepStatus } from '@packages/enum';
+import {
+  EQueryStepStatus,
+  TQueryStepId,
+  TQueryStepStatus,
+} from '@packages/enum';
 import Modal from '../common/Modal';
 import { useTranslator } from '../../hooks/translator';
 import { useQueryProgressStore } from '../../stores/queryProgressStore';
@@ -35,7 +39,12 @@ const QueryProgressModal = () => {
   const close = useQueryProgressStore((s) => s.close);
 
   return (
-    <Modal open={isOpen} onClose={close} title={t('queryProgress.title')} size="small">
+    <Modal
+      open={isOpen}
+      onClose={close}
+      title={t('queryProgress.title')}
+      size="small"
+    >
       <ol className={` ${queryProgressStyle.list}`}>
         {steps.map((step) => {
           const key = STEP_KEY[step.id];
@@ -43,16 +52,23 @@ const QueryProgressModal = () => {
           // check can't verify these — correctness is guaranteed by construction
           // instead (every id/status pair above has a matching en.json/de.json entry).
           const label = t(`queryProgress.step.${key}.label` as TTranslationKey);
-          const statusLabel = t(`queryProgress.status.${step.status}` as TTranslationKey);
+          const statusLabel = t(
+            `queryProgress.status.${step.status}` as TTranslationKey,
+          );
 
           let detail: string | undefined;
           if (step.status === EQueryStepStatus.success && step.meta) {
             const vars = Object.fromEntries(
               Object.entries(step.meta).map(([k, v]) => [k, String(v)]),
             );
-            detail = t(`queryProgress.step.${key}.detail` as TTranslationKey, vars);
+            detail = t(
+              `queryProgress.step.${key}.detail` as TTranslationKey,
+              vars,
+            );
           } else if (step.status === EQueryStepStatus.skipped && step.reason) {
-            detail = t(`queryProgress.skipReason.${step.reason}` as TTranslationKey);
+            detail = t(
+              `queryProgress.skipReason.${step.reason}` as TTranslationKey,
+            );
           } else if (step.status === EQueryStepStatus.error && step.error) {
             detail = step.error;
           }
@@ -65,7 +81,10 @@ const QueryProgressModal = () => {
               data-status={step.status}
               aria-label={`${label} — ${statusLabel}`}
             >
-              <span className={` ${queryProgressStyle.icon}`} aria-hidden="true">
+              <span
+                className={` ${queryProgressStyle.icon}`}
+                aria-hidden="true"
+              >
                 {step.status === EQueryStepStatus.running ? (
                   <span className={` ${queryProgressStyle.spinner}`} />
                 ) : (

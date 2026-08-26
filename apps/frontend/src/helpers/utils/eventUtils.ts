@@ -17,7 +17,9 @@ export const isHotspotSibling = (
   a_Active: IEventSchema | null,
 ): boolean => {
   if (!a_Active || a_Event.event_id === a_Active.event_id) return false;
-  return !!a_Active.hotspot && a_Event.hotspot?.cell_id === a_Active.hotspot.cell_id;
+  return (
+    !!a_Active.hotspot && a_Event.hotspot?.cell_id === a_Active.hotspot.cell_id
+  );
 };
 
 /**

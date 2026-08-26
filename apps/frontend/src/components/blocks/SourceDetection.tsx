@@ -17,7 +17,7 @@ const SourceDetection = (props: ISourceDetectionBlockProps) => {
       title={t('detailPanel.title.sourceAndDetection')}
       collapsible={false}
     >
-      <SectionItem title={t('detailPanel.label.dataset')} tab >
+      <SectionItem title={t('detailPanel.label.dataset')} tab>
         <TextInput readOnly copiable value={event.source} />
       </SectionItem>
       <SectionItem title={t('bottomPanel.column.confidenceTier')} tab>

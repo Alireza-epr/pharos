@@ -8,7 +8,7 @@ import { useAOIStore } from '@/stores/areaOfInterestStore';
 import { useMessageStore } from '@/stores/messageStore';
 import { useTranslator } from '@/hooks/translator';
 import type { TAOIFeature } from '@/helpers/types/storeTypes';
-import useAOIDrawStyle from "./useAOIDraw.module.scss"
+import useAOIDrawStyle from './useAOIDraw.module.scss';
 
 /**
  * Interactive Area-of-Interest drawing on the MapLibre map. Kept as its own
@@ -109,7 +109,9 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
     const endPoint = () => useAOIStore.getState().setPoint(false);
     const getRadius = () => useAOIStore.getState().radius;
     const warnMinPoints = () =>
-      useMessageStore.getState().setWarn(tRef.current('sidebar.text.zonalMinPoints'));
+      useMessageStore
+        .getState()
+        .setWarn(tRef.current('sidebar.text.zonalMinPoints'));
 
     // ---- source / layers ---------------------------------------------------
     const addSourceAndLayers = () => {

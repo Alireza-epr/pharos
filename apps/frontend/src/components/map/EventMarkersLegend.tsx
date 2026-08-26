@@ -39,12 +39,20 @@ const EventMarkersLegend = () => {
   const items = [
     {
       show: hasMatched,
-      icon: <span className={`${eventLegendStyle.dot} ${eventLegendStyle.dotMatched}`} />,
+      icon: (
+        <span
+          className={`${eventLegendStyle.dot} ${eventLegendStyle.dotMatched}`}
+        />
+      ),
       label: t('general.label.matched'),
     },
     {
       show: hasUnmatched,
-      icon: <span className={`${eventLegendStyle.dot} ${eventLegendStyle.dotUnmatched}`} />,
+      icon: (
+        <span
+          className={`${eventLegendStyle.dot} ${eventLegendStyle.dotUnmatched}`}
+        />
+      ),
       label: t('general.label.unmatched'),
     },
     {
@@ -69,8 +77,12 @@ const EventMarkersLegend = () => {
       show: hasAnyDot,
       icon: (
         <span className={eventLegendStyle.sizePair}>
-          <span className={`${eventLegendStyle.dotOutline} ${eventLegendStyle.sizeSmall}`} />
-          <span className={`${eventLegendStyle.dotOutline} ${eventLegendStyle.sizeLarge}`} />
+          <span
+            className={`${eventLegendStyle.dotOutline} ${eventLegendStyle.sizeSmall}`}
+          />
+          <span
+            className={`${eventLegendStyle.dotOutline} ${eventLegendStyle.sizeLarge}`}
+          />
         </span>
       ),
       label: t('general.label.triagePriority'),
@@ -95,7 +107,10 @@ const EventMarkersLegend = () => {
   if (items.length === 0) return null;
 
   return (
-    <div className={eventLegendStyle.wrapper} data-testid="event-markers-legend">
+    <div
+      className={eventLegendStyle.wrapper}
+      data-testid="event-markers-legend"
+    >
       {items.map((item) => (
         <div className={eventLegendStyle.item} key={item.label}>
           {item.icon}

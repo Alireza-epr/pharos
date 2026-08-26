@@ -11,7 +11,10 @@ import {
   useAOIStore,
 } from '../../stores/areaOfInterestStore';
 import { EContextLayers, EGeoJSONGeometryType } from '@packages/enum';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '../../helpers/utils/downloadUtils';
 import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 import { useFetchRegions } from '../../hooks/fetch';
@@ -109,7 +112,8 @@ const AreaOfInterest = () => {
   // A drawn AOI lives in `feature` (a standard GeoJSON Feature); its geometry
   // type tells us which tool owns it (tools are mutually exclusive and clear
   // each other's geometry).
-  const zonalHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Polygon;
+  const zonalHasFeature =
+    feature?.geometry.type === EGeoJSONGeometryType.Polygon;
   const pointHasFeature = feature?.geometry.type === EGeoJSONGeometryType.Point;
 
   const handleZonalClick = () => {
@@ -175,12 +179,18 @@ const AreaOfInterest = () => {
   // once per fetch rather than re-mapping on every render.
   const eezDropdownOptions = useMemo<IDropdownOption<string>[]>(
     () =>
-      eezOptions.map((o) => ({ value: o.properties.id, label: o.properties.title })),
+      eezOptions.map((o) => ({
+        value: o.properties.id,
+        label: o.properties.title,
+      })),
     [eezOptions],
   );
   const mpaDropdownOptions = useMemo<IDropdownOption<string>[]>(
     () =>
-      mpaOptions.map((o) => ({ value: o.properties.id, label: o.properties.title })),
+      mpaOptions.map((o) => ({
+        value: o.properties.id,
+        label: o.properties.title,
+      })),
     [mpaOptions],
   );
 
@@ -191,16 +201,9 @@ const AreaOfInterest = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidAOIQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importAOI(data);
-    }, reportInvalid);
+    importSectionConfig('Area of Interest', isValidAOIQuery, importAOI, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (
@@ -213,7 +216,7 @@ const AreaOfInterest = () => {
       onExport={handleExport}
       onImport={handleImport}
     >
-      <SectionItem title={t('sidebar.titles.drawOnMap')} tab >
+      <SectionItem title={t('sidebar.titles.drawOnMap')} tab>
         <SectionInputGroup>
           <ButtonInput
             label={
@@ -246,7 +249,7 @@ const AreaOfInterest = () => {
         )}
       </SectionItem>
 
-      <SectionItem title={t('sidebar.text.orChooseEEZRegion')} tab >
+      <SectionItem title={t('sidebar.text.orChooseEEZRegion')} tab>
         <DropdownInput
           placeholder={
             eezFetch.loading
@@ -264,7 +267,7 @@ const AreaOfInterest = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.text.orChooseMPARegion')} tab >
+      <SectionItem title={t('sidebar.text.orChooseMPARegion')} tab>
         <DropdownInput
           placeholder={
             mpaFetch.loading

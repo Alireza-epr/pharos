@@ -68,7 +68,9 @@ export const getMinimumDistanceFromPorts = (a_Value: string) => {
 };
 
 const parseInClause = (a_Expression: string, a_Field: string): string[] => {
-  const match = a_Expression.match(new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`));
+  const match = a_Expression.match(
+    new RegExp(`\\b${a_Field}\\b in \\(([^)]*)\\)`),
+  );
   if (!match || !match[1]) return [];
   return match[1]
     .split(',')

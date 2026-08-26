@@ -88,7 +88,10 @@ const SearchableSelect = <T extends string | number>(
   useEffect(() => {
     if (!isOpen) return;
     const onDocMouseDown = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
         setQuery('');
       }
@@ -175,7 +178,9 @@ const SearchableSelect = <T extends string | number>(
               role="option"
               aria-selected={opt.value === props.value}
               className={`font-size-xs ${dropdownInputStyle.comboboxOption} ${
-                i === highlighted ? dropdownInputStyle.comboboxOptionHighlighted : ''
+                i === highlighted
+                  ? dropdownInputStyle.comboboxOptionHighlighted
+                  : ''
               }`}
               // mousedown (not click), with preventDefault, fires before the
               // input would blur -- so picking an option never races the
@@ -190,7 +195,9 @@ const SearchableSelect = <T extends string | number>(
             </li>
           ))}
           {truncatedCount > 0 && (
-            <li className={`font-size-xs ${dropdownInputStyle.comboboxTruncated}`}>
+            <li
+              className={`font-size-xs ${dropdownInputStyle.comboboxTruncated}`}
+            >
               {t('general.text.moreMatchesRefine', {
                 count: String(truncatedCount),
               })}

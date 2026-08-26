@@ -1,4 +1,8 @@
-import { TQueryStepId, TQueryStepStatus, TQuerySkipReason } from "@packages/enum";
+import {
+  TQueryStepId,
+  TQueryStepStatus,
+  TQuerySkipReason,
+} from "@packages/enum";
 import { IResponse } from "./controllerTypes";
 
 export interface IQueryProgressStepMessage {

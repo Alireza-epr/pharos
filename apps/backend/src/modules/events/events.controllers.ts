@@ -21,7 +21,10 @@ import {
   rescoreEvents,
   stampRunMetadata,
 } from '../../pipeline/normalize/generation';
-import { applyFilter, applyRecoverableEventFilters } from '../../pipeline/normalize/filter';
+import {
+  applyFilter,
+  applyRecoverableEventFilters,
+} from '../../pipeline/normalize/filter';
 import { recoverableEventFilters } from '../../helpers/utils/servingUtils';
 import {
   enrichEventsWithHotspots,
@@ -82,7 +85,7 @@ export const eventsController = async (
       filter,
       pagination,
       gitCommitSHA: a_Req.gitCommitSHA,
-      cache
+      cache,
     };
 
     const configs: IConfigJSON = !body.body_params

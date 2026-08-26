@@ -28,7 +28,10 @@ import {
   vessel_types_options,
 } from '../../helpers/fixtures/filters';
 import { TDatasetVersion } from '@packages/types';
-import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
+import {
+  downloadJSON,
+  importSectionConfig,
+} from '../../helpers/utils/downloadUtils';
 import { isValidFilterQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
@@ -89,16 +92,9 @@ const Filter = () => {
   };
 
   const handleImport = () => {
-    const reportInvalid = () =>
-      useMessageStore.getState().setWarn(t('general.text.invalidImportFile'));
-
-    openJSONFile((data) => {
-      if (!isValidFilterQuery(data)) {
-        reportInvalid();
-        return;
-      }
-      importFilterConfig(data);
-    }, reportInvalid);
+    importSectionConfig('Filter', isValidFilterQuery, importFilterConfig, () =>
+      useMessageStore.getState().setWarn(t('general.text.invalidImportFile')),
+    );
   };
 
   return (
@@ -110,7 +106,7 @@ const Filter = () => {
       onExport={handleExport}
       onImport={handleImport}
     >
-      <SectionItem title={t('sidebar.label.datasets')} collapsible={false} tab >
+      <SectionItem title={t('sidebar.label.datasets')} collapsible={false} tab>
         {(
           Object.entries(filtersUI.datasets) as [
             E4wingsDatasets,
@@ -119,7 +115,7 @@ const Filter = () => {
         ).map(([key], index) => {
           return (
             <SectionInputGroup direction="row" tab key={index}>
-              <div style={{width: "70%"}}>
+              <div style={{ width: '70%' }}>
                 <CheckboxInput
                   label={E4wingsDatasetsUI[key]}
                   checked={filtersUI.datasets[key].active}
@@ -136,7 +132,7 @@ const Filter = () => {
                   }
                 />
               </div>
-              <div style={{width: "30%", display: "flex" }}>
+              <div style={{ width: '30%', display: 'flex' }}>
                 <DropdownInput
                   options={dataset_version_options}
                   value={filtersUI.datasets[key].version}
@@ -305,7 +301,11 @@ const Filter = () => {
         </SectionItem>
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.triageScore')} collapsible={false} tab >
+      <SectionItem
+        title={t('sidebar.label.triageScore')}
+        collapsible={false}
+        tab
+      >
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
@@ -372,7 +372,11 @@ const Filter = () => {
         </SectionInputGroup>
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.bathymetry')} collapsible={false} tab>
+      <SectionItem
+        title={t('sidebar.label.bathymetry')}
+        collapsible={false}
+        tab
+      >
         <SectionInputGroup direction="row">
           <NumberInput
             label={t('general.label.min')}
@@ -398,7 +402,11 @@ const Filter = () => {
         />
       </SectionItem>
 
-      <SectionItem title={t('sidebar.label.contextZone')} collapsible={false} tab>
+      <SectionItem
+        title={t('sidebar.label.contextZone')}
+        collapsible={false}
+        tab
+      >
         <SectionInputGroup direction="column">
           <CheckboxInput
             label={t('sidebar.label.insideEezOnly')}

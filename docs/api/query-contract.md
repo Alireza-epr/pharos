@@ -343,7 +343,7 @@ Example:
 | datasets[i]         | Indexed dataset identifier(s) to query (e.g. `datasets[0]`, `datasets[1]`)     | True     | string                                                               | query      |
 | filters[i]          | Indexed filter expression(s) applied to the upstream query (e.g. `filters[0]`) | False    | string                                                               | query      |
 | format              | Output format of the upstream report                                           | True     | Enum: ['CSV', 'TIF', 'JSON']                                         | query      |
-| temporal-resolution | Time aggregation granularity of the report                                     | True     | Enum: ['HOURLY', 'DAILY', 'MONTHLY', 'YEARLY', 'ENTIRE']             | query      |
+| temporal-resolution | Time aggregation granularity of the report                                     | True     | Enum: ['HOURLY', 'DAILY', 'MONTHLY', 'YEARLY', 'ENTIRE']¹            | query      |
 | spatial-resolution  | Spatial granularity of the report                                              | False    | Enum: ['LOW', 'HIGH']                                                | query      |
 | group-by            | Field used to group report results                                             | False    | Enum: ['VESSEL_ID', 'FLAG', 'GEARTYPE', 'FLAGANDGEARTYPE', 'MMSI']   | query      |
 | spatial-aggregation | Whether to spatially aggregate report results                                  | False    | boolean                                                              | query      |
@@ -352,6 +352,15 @@ Example:
 | buffer-operation    | Operation applied to region buffering logic (if used)                          | False    | string                                                               | query      |
 | buffer-unit         | Unit used for buffer distance calculation                                      | False    | Enum: ['MILES', 'NAUTICALMILES', 'KILOMETERS', 'RADIANS', 'DEGREES'] | query      |
 | buffer-value        | Numeric buffer distance applied to region                                      | False    | string                                                               | query      |
+
+¹ The upstream 4wings API accepts all five values, but the app currently
+locks every request to `HOURLY` . The
+reason isn't just format: at `MONTHLY`/`YEARLY`/`ENTIRE`, the provider's
+`date` field stops being a per-row instant and becomes a period aggregate
+(a count over the whole bucket, per GFW's own field docs), which doesn't fit
+`IEventSchema`'s one-detection-at-one-point-in-time model - the day
+partition dimension, hotspot time bucketing, and map pins all assume a
+single instant per event. 
 
 ---
 
@@ -546,7 +555,7 @@ The response is a **newline-delimited JSON (NDJSON) stream**
 line per checklist step as the request works through it, followed by exactly
 one `result` line carrying the same envelope this endpoint used to return in
 a single response. The HTTP status is committed to `200` the moment the
-stream opens — before the outcome is known — so **`payload.success` in the
+stream opens - before the outcome is known - so **`payload.success` in the
 final `result` line, not the HTTP status code, is the real outcome**. This
 lets the frontend render a live step-by-step checklist (see `EQueryStepId` /
 `QUERY_STEP_ORDER` in `@packages/enum`) while the request is still in flight.
@@ -566,14 +575,14 @@ lets the frontend render a live step-by-step checklist (see `EQueryStepId` /
 | reason | Why a `skipped` step didn't run: `cache_disabled` \| `fully_cached`          | string |
 | error  | Failure detail (present on `error`)                                          | string |
 
-The checklist is a fixed, ordered list — the same steps every run, in this
+The checklist is a fixed, ordered list - the same steps every run, in this
 order. Whether the cache-related steps run or resolve straight to `skipped`
 depends on the query's `cache` flag and the cache hit/miss outcome for that
 run; every other step always runs.
 
 | # | id                  | Runs                                     | `skipped` when                                     | `meta` on success                          |
 | - | ------------------- | ----------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
-| 1 | `validate`          | Always                                    | never                                                  | —                                               |
+| 1 | `validate`          | Always                                    | never                                                  | -                                               |
 | 2 | `cache-check`       | `cache` enabled                           | `cache` disabled (`cache_disabled`)                    | `{ daysCached, daysTotal }`                     |
 | 3 | `fetch-provider`    | `cache` disabled, or enabled with a miss  | `cache` enabled and fully covered (`fully_cached`)     | `{ count, rejected }`                           |
 | 4 | `write-cache`       | `cache` enabled with a miss               | `cache` disabled, or enabled and fully covered         | `{ partitions, days }`                          |
@@ -585,11 +594,11 @@ run; every other step always runs.
 
 `fetch-provider`'s `count` is detections that passed schema enrichment;
 `rejected` is detections the provider returned that failed it (e.g.
-malformed entries) and were dropped before anything downstream sees them —
+malformed entries) and were dropped before anything downstream sees them -
 distinct from `filter-scope`'s `valid`/`total`, which is about AOI/date-range
 membership, not schema validity. A query can come back with `count: 0` and
 `rejected > 0`, meaning the provider did return detections but none of them
-were usable — worth surfacing as distinct from a genuine empty result.
+were usable - worth surfacing as distinct from a genuine empty result.
 
 #### Result line
 
@@ -597,7 +606,7 @@ were usable — worth surfacing as distinct from a genuine empty result.
 { "type": "result", "payload": { "success": true, "metadata": {}, "pagination": {}, "stats": {}, "entries": [] } }
 ```
 
-`payload` is the envelope described below — identical to what this endpoint
+`payload` is the envelope described below - identical to what this endpoint
 used to return as its entire body.
 
 | Field                                     | Description                                                                                                      | Format  |
@@ -667,7 +676,7 @@ used to return as its entire body.
 - Filtering matched events must be specified in the URL query parameters using the filters[0] key.
   `Example: filters[0]=matched='false'`
 - When `cache` is enabled, `filters[i]` predicates split into two groups with
-  different caching behavior — see "Partition fetch options" in
+  different caching behavior - see "Partition fetch options" in
   `docs/tech/serving-strategy.md`:
   - `matched`, `flag`, `vessel_type`, `geartype`, `vessel_id` are recoverable
     from a cached event and are applied at read time; changing only one of
@@ -675,7 +684,7 @@ used to return as its entire body.
     used.
   - `distance_from_port_km`, `neural_vessel_type`, `speed`, and dataset
     selection (`datasets[i]`) are not recoverable from a cached event, so they
-    scope the partition itself — changing one of these fetches and caches
+    scope the partition itself - changing one of these fetches and caches
     separately from other combinations.
   - This split doesn't apply when `cache` is disabled: every `filters[i]`
     predicate is forwarded to the provider as given, on every request.
@@ -765,7 +774,7 @@ On success the endpoint streams a binary ZIP archive (not a JSON envelope). The 
 #### Example: Success Response (200 OK)
 
 ```
-Binary ZIP archive (application/zip) — see Content-Disposition for the file name
+Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 ```
 
 ---
@@ -793,7 +802,7 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 **GET** `/regions`
 
 **Description:**
-`Returns the selectable EEZ or MPA region options for building an Area of Interest query — one entry per region with its id, title, bounding box, and a centroid point (not the real boundary geometry).`
+`Returns the selectable EEZ or MPA region options for building an Area of Interest query - one entry per region with its id, title, bounding box, and a centroid point (not the real boundary geometry).`
 
 **Authentication:**
 `Bearer access token required`
@@ -849,7 +858,7 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 ### 4. Errors
 
 - `400 Bad Request` – `dataset` is missing or not a recognized value
-- `400 Bad Request` – `dataset` is a recognized value with no region list to serve (e.g. `Bathymetry` — it has no selectable regions)
+- `400 Bad Request` – `dataset` is a recognized value with no region list to serve (e.g. `Bathymetry` - it has no selectable regions)
 - `401 Unauthorized` – Missing, invalid, or expired access token
 
 ---
@@ -857,9 +866,9 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 ### 5. Notes
 
 - `dataset` uses the same `EEZ` / `MPA` values as the `region-dataset` field on [Events Report](#events-report); the `id` returned here is the same `region-id` that endpoint accepts
-- Each feature's `geometry` is a cheap centroid point, not the real boundary polygon — the MPA dataset alone is 17,000+ features, so shipping full boundaries would be a much larger payload than a dropdown or a "zoom the map to this region" use case needs. `bbox` is what a client fits/zooms the map to; the centroid is enough to place a marker or fly to a point
+- Each feature's `geometry` is a cheap centroid point, not the real boundary polygon - the MPA dataset alone is 17,000+ features, so shipping full boundaries would be a much larger payload than a dropdown or a "zoom the map to this region" use case needs. `bbox` is what a client fits/zooms the map to; the centroid is enough to place a marker or fly to a point
 - A small share of the source EEZ/MPA data (an overlapping-claim EEZ, and roughly a fifth of MPA sites) has no boundary geometry recorded upstream; those entries are silently excluded rather than returned with a broken bbox/centroid
-- Options for a dataset are computed once per server process and memoized — repeat requests are served from the cached list, not recomputed
+- Options for a dataset are computed once per server process and memoized - repeat requests are served from the cached list, not recomputed
 
 ---
 
@@ -868,7 +877,7 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 **GET** `/regions/geometry`
 
 **Description:**
-`Returns a single EEZ or MPA feature's real boundary polygon, looked up by id — unlike Regions above, which lists every option in a dataset with only a centroid and bbox. Used to draw a specific event's region context on the map, so the response is always exactly one feature, never a whole dataset.`
+`Returns a single EEZ or MPA feature's real boundary polygon, looked up by id - unlike Regions above, which lists every option in a dataset with only a centroid and bbox. Used to draw a specific event's region context on the map, so the response is always exactly one feature, never a whole dataset.`
 
 **Authentication:**
 `Bearer access token required`
@@ -925,7 +934,7 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 
 - `400 Bad Request` – `dataset` or `id` is missing
 - `400 Bad Request` – `dataset` is not a recognized value
-- `400 Bad Request` – `dataset` is a recognized value with no boundary geometry to look up (e.g. `Bathymetry` — it's a point-sampled depth reading, not a region)
+- `400 Bad Request` – `dataset` is a recognized value with no boundary geometry to look up (e.g. `Bathymetry` - it's a point-sampled depth reading, not a region)
 - `400 Bad Request` – no region with the given `id` exists in that dataset
 - `401 Unauthorized` – Missing, invalid, or expired access token
 
@@ -933,7 +942,7 @@ Binary ZIP archive (application/zip) — see Content-Disposition for the file na
 
 ### 5. Notes
 
-- Unlike [Regions](#regions), this endpoint never returns more than one feature — it's a lookup by a specific id, not a list, so there's no whole-dataset payload risk to guard against
+- Unlike [Regions](#regions), this endpoint never returns more than one feature - it's a lookup by a specific id, not a list, so there's no whole-dataset payload risk to guard against
 - `properties` is always an empty object; identifying metadata (`id`, `title`) lives on the [Regions](#regions) list entries, not here
 - Intended caller: a client that already has a region id from elsewhere (e.g. an event's `context_layers` enrichment) and wants that one boundary to draw, not the full selectable list
 

@@ -14,8 +14,8 @@ export interface IButtonInputProps {
   title?: string;
   className?: string | undefined;
   icon?: boolean;
-  hint?: string
-  caveat?: string
+  hint?: string;
+  caveat?: string;
 }
 
 const ButtonInput = (props: IButtonInputProps) => {

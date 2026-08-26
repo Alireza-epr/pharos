@@ -204,9 +204,9 @@ export const useFilterStore = create<IFilterStoreStates & IFilterStoreActions>(
         return { filter, url_params };
       },
       importFilterConfig: (a_Data: IFilterQuery) => {
-        const filtersUI = buildFilterUI(a_Data.url_params)
-        return set({ filter: a_Data.filter, filtersUI})
-      }
+        const filtersUI = buildFilterUI(a_Data.url_params);
+        return set({ filter: a_Data.filter, filtersUI });
+      },
     }),
   ),
 );

@@ -136,8 +136,12 @@ const ExportTab = () => {
           <ButtonInput
             label={t('general.label.export')}
             onClick={handleExportClick}
-            disabled={selectedEvents.length === 0 || loading || !config 
-              || Object.entries(exportConfig).filter(([_, v]) => v).length === 0 }
+            disabled={
+              selectedEvents.length === 0 ||
+              loading ||
+              !config ||
+              Object.entries(exportConfig).filter(([_, v]) => v).length === 0
+            }
             loading={loading}
           />
           <ButtonInput

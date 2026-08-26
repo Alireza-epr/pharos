@@ -45,8 +45,7 @@ export const useThresholdStore = create<
       getThresholdConfig: (): IThresholdQuery => ({
         threshold: get().threshold,
       }),
-      importThresholdConfig: (a_Data) =>
-        set({ threshold: a_Data.threshold }),
+      importThresholdConfig: (a_Data) => set({ threshold: a_Data.threshold }),
     }),
   ),
 );

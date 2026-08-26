@@ -45,13 +45,13 @@ export const useAdvancedQueryStore = create<
           groupBy:
             typeof a_Value === 'function' ? a_Value(state.groupBy) : a_Value,
         })),
-      setTemporalResolution: (a_Value) =>
+      /* setTemporalResolution: (a_Value) =>
         set((state) => ({
           temporalResolution:
             typeof a_Value === 'function'
               ? a_Value(state.temporalResolution)
               : a_Value,
-        })),
+        })), */
       setSpatialAggregation: (a_Value) =>
         set((state) => ({
           spatialAggregation:
@@ -88,7 +88,7 @@ export const useAdvancedQueryStore = create<
             default_spatialResolution,
           format: a_Data.url_params.format,
           groupBy: a_Data.url_params['group-by'] ?? default_groupBy,
-          temporalResolution: a_Data.url_params['temporal-resolution'],
+          temporalResolution: ETemporalResolution.HOURLY,
           spatialAggregation: a_Data.url_params['spatial-aggregation'] ?? false,
         }),
     }),

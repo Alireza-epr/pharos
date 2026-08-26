@@ -3,10 +3,10 @@ export enum EDetectionRepository {
 }
 
 export enum EServingRepository {
-  parquet = 'parquet',
+  parquet = "parquet",
 }
 
 export enum EContextDatasetQuality {
-  simplified = 'simplified',
-  full = 'full',
+  simplified = "simplified",
+  full = "full",
 }

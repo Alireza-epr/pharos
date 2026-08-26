@@ -1,4 +1,5 @@
-import { getLocaleISOString } from '@packages/utils';
+import { ELogType } from '@packages/enum';
+import { getLocaleISOString, log_frontend } from '@packages/utils';
 
 export const downloadJSON = (a_Data: Record<any, any>, a_Filename: string) => {
   const blob = new Blob([JSON.stringify(a_Data, null, 2)], {
@@ -50,4 +51,30 @@ export const openJSONFile = (
     reader.readAsText(file);
   };
   input.click();
+};
+
+export const importSectionConfig = <T>(
+  a_Label: string,
+  a_Validate: (a_Data: unknown) => a_Data is T,
+  a_Apply: (a_Data: T) => void,
+  a_OnInvalid: () => void,
+): void => {
+  openJSONFile(
+    (data) => {
+      if (!a_Validate(data)) {
+        log_frontend(`[import:${a_Label}] invalid params`, ELogType.warn);
+        a_OnInvalid();
+        return;
+      }
+      a_Apply(data);
+      log_frontend(`[import:${a_Label}] applied`, ELogType.info);
+    },
+    (error) => {
+      log_frontend(
+        `[import:${a_Label}] failed to read/parse file: ${String(error)}`,
+        ELogType.error,
+      );
+      a_OnInvalid();
+    },
+  );
 };

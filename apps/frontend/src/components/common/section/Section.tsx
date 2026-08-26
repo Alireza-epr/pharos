@@ -7,10 +7,10 @@ export interface ISectionProps {
   collapsible?: boolean;
   children: ReactNode;
   testId?: string;
-  showImport?: boolean
-  showExport?: boolean
-  onImport?: () => void
-  onExport?: () => void
+  showImport?: boolean;
+  showExport?: boolean;
+  onImport?: () => void;
+  onExport?: () => void;
 }
 
 const Section = (props: ISectionProps) => {
@@ -18,14 +18,14 @@ const Section = (props: ISectionProps) => {
   const [open, setOpen] = useState(props.collapsible);
 
   const handleImport = (e: MouseEvent) => {
-    e.stopPropagation()
-    if(props.onImport) props.onImport()
-  }
+    e.stopPropagation();
+    if (props.onImport) props.onImport();
+  };
 
   const handleExport = (e: MouseEvent) => {
-    e.stopPropagation()
-    if(props.onExport) props.onExport()
-  }
+    e.stopPropagation();
+    if (props.onExport) props.onExport();
+  };
 
   return (
     <div className={` ${sectionStyle.wrapper}`}>

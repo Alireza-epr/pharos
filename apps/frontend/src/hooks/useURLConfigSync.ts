@@ -10,7 +10,10 @@ import { usePaginationStore } from '../stores/paginationStore';
 import { useAdvancedQueryStore } from '../stores/advancedQueryStore';
 import { useMessageStore } from '../stores/messageStore';
 import { useTranslator } from './translator';
-import { hydrateConfigFromURL, syncConfigToURL } from '@/helpers/utils/URLUtils';
+import {
+  hydrateConfigFromURL,
+  syncConfigToURL,
+} from '@/helpers/utils/URLUtils';
 
 /**
  * Applies a `config` URL param (if present) to every section's store,

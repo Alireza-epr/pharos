@@ -45,7 +45,10 @@ const ContextLayersBlock = (props: IContextLayersBlockProps) => {
   const showOnMapToggle: Partial<
     Record<EContextLayers, { checked: boolean; onChange: (v: boolean) => void }>
   > = {
-    [EContextLayers.eez]: { checked: eezBoundaries, onChange: setEezBoundaries },
+    [EContextLayers.eez]: {
+      checked: eezBoundaries,
+      onChange: setEezBoundaries,
+    },
     [EContextLayers.mpa]: { checked: mpaZones, onChange: setMpaZones },
   };
 

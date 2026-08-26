@@ -6,12 +6,19 @@
 // needs no running API: only the calls the happy path makes are mocked.
 import { test, expect, type Page } from 'playwright/test';
 import { readFileSync } from 'node:fs';
-import { EQueryStepId, EQueryStepStatus, EQuerySkipReason } from '@packages/enum';
+import {
+  EQueryStepId,
+  EQueryStepStatus,
+  EQuerySkipReason,
+} from '@packages/enum';
 
 // A fixed detections payload (real canonical events sliced from the backend
 // fixtures) returned for the "Run Query" call.
 const eventsResponse = JSON.parse(
-  readFileSync(new URL('./fixtures/eventsResponse.json', import.meta.url), 'utf-8'),
+  readFileSync(
+    new URL('./fixtures/eventsResponse.json', import.meta.url),
+    'utf-8',
+  ),
 ) as { entries: { event_id: string }[] };
 
 // POST /v1/events streams its progress as NDJSON (see docs/api/query-contract.md):
@@ -22,15 +29,27 @@ const eventsResponse = JSON.parse(
 const eventsProgressBody = (): string => {
   const count = eventsResponse.entries.length;
   const lines: Record<string, unknown>[] = [
-    { type: 'step', id: EQueryStepId.validate, status: EQueryStepStatus.running },
-    { type: 'step', id: EQueryStepId.validate, status: EQueryStepStatus.success },
+    {
+      type: 'step',
+      id: EQueryStepId.validate,
+      status: EQueryStepStatus.running,
+    },
+    {
+      type: 'step',
+      id: EQueryStepId.validate,
+      status: EQueryStepStatus.success,
+    },
     {
       type: 'step',
       id: EQueryStepId.cacheCheck,
       status: EQueryStepStatus.skipped,
       reason: EQuerySkipReason.cacheDisabled,
     },
-    { type: 'step', id: EQueryStepId.fetchProvider, status: EQueryStepStatus.running },
+    {
+      type: 'step',
+      id: EQueryStepId.fetchProvider,
+      status: EQueryStepStatus.running,
+    },
     {
       type: 'step',
       id: EQueryStepId.fetchProvider,
@@ -49,28 +68,44 @@ const eventsProgressBody = (): string => {
       status: EQueryStepStatus.skipped,
       reason: EQuerySkipReason.cacheDisabled,
     },
-    { type: 'step', id: EQueryStepId.filterScope, status: EQueryStepStatus.running },
+    {
+      type: 'step',
+      id: EQueryStepId.filterScope,
+      status: EQueryStepStatus.running,
+    },
     {
       type: 'step',
       id: EQueryStepId.filterScope,
       status: EQueryStepStatus.success,
       meta: { valid: count, total: count },
     },
-    { type: 'step', id: EQueryStepId.filterPredicates, status: EQueryStepStatus.running },
+    {
+      type: 'step',
+      id: EQueryStepId.filterPredicates,
+      status: EQueryStepStatus.running,
+    },
     {
       type: 'step',
       id: EQueryStepId.filterPredicates,
       status: EQueryStepStatus.success,
       meta: { matched: count, total: count },
     },
-    { type: 'step', id: EQueryStepId.hotspots, status: EQueryStepStatus.running },
+    {
+      type: 'step',
+      id: EQueryStepId.hotspots,
+      status: EQueryStepStatus.running,
+    },
     {
       type: 'step',
       id: EQueryStepId.hotspots,
       status: EQueryStepStatus.success,
       meta: { count: 0 },
     },
-    { type: 'step', id: EQueryStepId.paginate, status: EQueryStepStatus.running },
+    {
+      type: 'step',
+      id: EQueryStepId.paginate,
+      status: EQueryStepStatus.running,
+    },
     {
       type: 'step',
       id: EQueryStepId.paginate,
@@ -94,7 +129,10 @@ const regionsResponse = (a_Dataset: 'EEZ' | 'MPA') => ({
   entries: [
     {
       type: 'Feature',
-      properties: { id: `${a_Dataset.toLowerCase()}-1`, title: `Test ${a_Dataset} Region` },
+      properties: {
+        id: `${a_Dataset.toLowerCase()}-1`,
+        title: `Test ${a_Dataset} Region`,
+      },
       bbox: [14.0, 55.0, 15.0, 56.0],
       geometry: { type: 'Point', coordinates: [14.5, 55.5] },
     },
@@ -186,15 +224,16 @@ test.describe('UI_smoke', () => {
     // 4b) The step-by-step progress modal walks through the checklist —
     // including a couple of steps skipped because caching was off for this
     // run — and stays open until the user dismisses it.
-    await expect(page.getByTestId('query-progress-step-paginate')).toHaveAttribute(
-      'data-status',
-      'success',
-    );
-    await expect(page.getByTestId('query-progress-step-cache-check')).toHaveAttribute(
-      'data-status',
-      'skipped',
-    );
-    await page.screenshot({ path: './test-artifacts/query-progress-modal.png', fullPage: true });
+    await expect(
+      page.getByTestId('query-progress-step-paginate'),
+    ).toHaveAttribute('data-status', 'success');
+    await expect(
+      page.getByTestId('query-progress-step-cache-check'),
+    ).toHaveAttribute('data-status', 'skipped');
+    await page.screenshot({
+      path: './test-artifacts/query-progress-modal.png',
+      fullPage: true,
+    });
     await page.getByTestId('modal-close-button').click();
     await expect(page.getByTestId('modal-close-button')).toBeHidden();
 
@@ -209,7 +248,9 @@ test.describe('UI_smoke', () => {
     // the panel against the row we actually clicked (not the fixture order):
     // capture the row's truncated event id (shortenText(id, 10) -> "<10 chars>...").
     const firstRow = rows.first();
-    const rowIdPrefix = (await firstRow.getByTestId('detection-row-id').innerText())
+    const rowIdPrefix = (
+      await firstRow.getByTestId('detection-row-id').innerText()
+    )
       .trim()
       .replace(/\.\.\.$/, '');
     expect(rowIdPrefix.length).toBeGreaterThan(0);
@@ -223,7 +264,10 @@ test.describe('UI_smoke', () => {
     );
 
     // Capture a screenshot of the final state as evidence of the happy path.
-    await page.screenshot({ path: './test-artifacts/ui-smoke.png', fullPage: true });
+    await page.screenshot({
+      path: './test-artifacts/ui-smoke.png',
+      fullPage: true,
+    });
   });
 
   test('close_progress_modal_before_it_finishes_reopens_without_starting_a_second_request', async ({
@@ -274,10 +318,9 @@ test.describe('UI_smoke', () => {
     // Let the stalled response resolve — once the run actually finishes, the
     // button returns to a normal, re-clickable "Run Query".
     releaseResponse();
-    await expect(page.getByTestId('query-progress-step-paginate')).toHaveAttribute(
-      'data-status',
-      'success',
-    );
+    await expect(
+      page.getByTestId('query-progress-step-paginate'),
+    ).toHaveAttribute('data-status', 'success');
     await expect(runQuery).toHaveText('Run Query');
     await expect(runQuery).toBeEnabled();
   });

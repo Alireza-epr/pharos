@@ -99,9 +99,7 @@ export const isValidSortOrderQuery = (
   );
 };
 
-export const isValidFilterQuery = (
-  a_Data: unknown,
-): a_Data is IFilterQuery => {
+export const isValidFilterQuery = (a_Data: unknown): a_Data is IFilterQuery => {
   if (!isObject(a_Data)) return false;
   const { filter, url_params } = a_Data;
   return isObject(filter) && isObject(url_params);

@@ -29,7 +29,7 @@ const MapErrorFallback = (props: IMapErrorFallbackProps) => {
           onClick={props.onRetry}
           size="sm"
         />
-      </div> 
+      </div>
     </div>
   );
 };

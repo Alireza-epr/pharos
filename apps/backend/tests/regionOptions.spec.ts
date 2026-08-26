@@ -35,8 +35,12 @@ const featuresOf = (a_Dataset: EContextLayers.eez | EContextLayers.mpa) =>
 
 describe('getRegionOptions', () => {
   it('returns_a_GeoJSON_FeatureCollection_for_eez_and_mpa', () => {
-    expect(getRegionOptions(EContextLayers.eez)?.type).toBe('FeatureCollection');
-    expect(getRegionOptions(EContextLayers.mpa)?.type).toBe('FeatureCollection');
+    expect(getRegionOptions(EContextLayers.eez)?.type).toBe(
+      'FeatureCollection',
+    );
+    expect(getRegionOptions(EContextLayers.mpa)?.type).toBe(
+      'FeatureCollection',
+    );
   });
 
   it('returns_undefined_for_an_unsupported_dataset', () => {
@@ -62,7 +66,9 @@ describe('getRegionOptions', () => {
     );
 
     expect(capDesTroisFourches).toBeDefined();
-    expect(capDesTroisFourches!.properties.title).toBe('Cap des trois Fourches');
+    expect(capDesTroisFourches!.properties.title).toBe(
+      'Cap des trois Fourches',
+    );
     expect(capDesTroisFourches!.geometry).toEqual(mockCentroidGeometry);
     expect(capDesTroisFourches!.bbox).toEqual([1, 2, 3, 4]);
   });
