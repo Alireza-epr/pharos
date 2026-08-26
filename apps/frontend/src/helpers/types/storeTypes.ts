@@ -520,13 +520,13 @@ export interface IAdvancedQueryStoreActions {
           a_Prev: IAdvancedQueryStoreStates['groupBy'],
         ) => IAdvancedQueryStoreStates['groupBy']),
   ) => void;
-  setTemporalResolution: (
+  /* setTemporalResolution: (
     a_Value:
       | IAdvancedQueryStoreStates['temporalResolution']
       | ((
           a_Prev: IAdvancedQueryStoreStates['temporalResolution'],
         ) => IAdvancedQueryStoreStates['temporalResolution']),
-  ) => void;
+  ) => void; */
   setSpatialAggregation: (
     a_Value:
       | IAdvancedQueryStoreStates['spatialAggregation']

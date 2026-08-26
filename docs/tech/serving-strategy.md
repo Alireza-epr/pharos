@@ -67,8 +67,9 @@ events/
 > one of the [partition fetch options](#partition-fetch-options) shares this
 > one path, so the common case's layout looks the same as before this
 > dimension existed. A request that *does* change one of them — including
-> just switching `temporal-resolution` from HOURLY to DAILY — gets its own
+<!-- > just switching `temporal-resolution` from HOURLY to DAILY — gets its own -->
 > sibling directory instead of sharing — or corrupting — this one.
+
 
 ---
 

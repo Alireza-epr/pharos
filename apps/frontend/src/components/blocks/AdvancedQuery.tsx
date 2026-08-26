@@ -8,7 +8,6 @@ import {
   formatOptions,
   groupByOptions,
   spatialResolutionOptions,
-  temporalResolutionOptions,
 } from '../../helpers/fixtures/query';
 import { downloadJSON, openJSONFile } from '../../helpers/utils/downloadUtils';
 import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
@@ -25,10 +24,10 @@ const AdvancedQuery = () => {
   const setFormat = useAdvancedQueryStore((s) => s.setFormat);
   const groupBy = useAdvancedQueryStore((s) => s.groupBy);
   const setGroupBy = useAdvancedQueryStore((s) => s.setGroupBy);
-  const temporalResolution = useAdvancedQueryStore((s) => s.temporalResolution);
+  /* const temporalResolution = useAdvancedQueryStore((s) => s.temporalResolution);
   const setTemporalResolution = useAdvancedQueryStore(
     (s) => s.setTemporalResolution,
-  );
+  ); */
   const spatialAggregation = useAdvancedQueryStore((s) => s.spatialAggregation);
   const setSpatialAggregation = useAdvancedQueryStore(
     (s) => s.setSpatialAggregation,
@@ -69,6 +68,7 @@ const AdvancedQuery = () => {
       onExport={handleExport}
       onImport={handleImport}
     >
+      {/* 
       <SectionItem
         title={t('sidebar.label.temporalResolution')}
         collapsible={false}
@@ -80,6 +80,7 @@ const AdvancedQuery = () => {
           onChange={setTemporalResolution}
         />
       </SectionItem>
+      */}
 
       <SectionItem
         title={t('sidebar.label.spatialResolution')}
