@@ -10,3 +10,5 @@ AIS data is commonly used to show vessel locations, but sometimes AIS messages a
 4. **As an analyst**, I can compare SAR detections with AIS presence data for the same region and time window.
 5. **As an analyst**, I can view recent position reports for a selected vessel, when such information is available, to support a basic comparison with detections.
 6. **As a reviewer**, I can export the retrieved detections together with query parameters (area, time range) for documentation or further analysis.
+7. **As an analyst**, I can search vessel identity dataset directly - by name, MMSI, IMO, call sign, or an advanced expression - independent of any SAR detection, and export the vessels I select.
+8. **As an analyst**, viewing a matched detection's detail, I can see the vessel's registered identity (name, flag, registry ownership, vessel/gear type) resolved from its matched vessel id, without that data ever affecting the detection's triage score.

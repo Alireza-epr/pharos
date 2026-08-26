@@ -2,8 +2,12 @@ import { IDropdownOption } from '@/components/common/inputs/DropdownInput';
 import {
   EFormat,
   EGroupBy,
+  ERegionBufferOperations,
+  ERegionBufferUnits,
   ESpatialResolution,
   ETemporalResolution,
+  EVesselMatchField,
+  EVesselSearchInclude,
 } from '@packages/enum';
 
 export const sort_field_options = [
@@ -33,3 +37,13 @@ export const groupByOptions: IDropdownOption<EGroupBy>[] = Object.values(
 ).map((v) => ({ label: v, value: v }));
 export const temporalResolutionOptions: IDropdownOption<ETemporalResolution>[] =
   Object.values(ETemporalResolution).map((v) => ({ label: v, value: v }));
+
+export const bufferOperationOptions: IDropdownOption<ERegionBufferOperations>[] =
+  Object.values(ERegionBufferOperations).map((v) => ({ label: v, value: v }));
+export const bufferUnitOptions: IDropdownOption<ERegionBufferUnits>[] =
+  Object.values(ERegionBufferUnits).map((v) => ({ label: v, value: v }));
+
+export const vesselMatchFieldOptions: IDropdownOption<EVesselMatchField>[] =
+  Object.values(EVesselMatchField).map((v) => ({ label: v, value: v }));
+export const vesselIncludeOptions: IDropdownOption<EVesselSearchInclude>[] =
+  Object.values(EVesselSearchInclude).map((v) => ({ label: v, value: v }));

@@ -10,6 +10,8 @@ import {
   IHotspotConfig,
   IQueryProgressStepMessage,
   ISortOption,
+  IVesselIdentity,
+  IVesselSearchURLParams,
   T4wingsSource,
   TExportConfig,
   TFilterKey,
@@ -24,9 +26,14 @@ import {
   EFormat,
   EGroupBy,
   EHotspotTimeBins,
+  ERegionBufferOperations,
+  ERegionBufferUnits,
   ERegionDatasets,
   ESpatialResolution,
   ETemporalResolution,
+  EVesselDataset,
+  EVesselMatchField,
+  EVesselSearchInclude,
 } from '@packages/enum';
 
 export interface IAppStoreStates {
@@ -348,11 +355,17 @@ export interface IAOIStoreStates {
   // chain -- see useAOIRegionBoundary.
   eezGeometries: TRegionGeometry[];
   mpaGeometries: TRegionGeometry[];
+  bufferOperation: ERegionBufferOperations;
+  bufferUnit: ERegionBufferUnits;
+  bufferValue: number;
 }
 
 export interface IAOIRegionProperties {
   'region-dataset': ERegionDatasets;
   'region-id': string;
+  'buffer-operation'?: ERegionBufferOperations;
+  'buffer-unit'?: ERegionBufferUnits;
+  'buffer-value'?: string;
 }
 
 export interface IAOIPointProperties {
@@ -440,6 +453,27 @@ export interface IAOIStoreActions {
           a_Prev: IAOIStoreStates['mpaGeometries'],
         ) => IAOIStoreStates['mpaGeometries']),
   ) => void;
+  setBufferOperation: (
+    a_Value:
+      | IAOIStoreStates['bufferOperation']
+      | ((
+          a_Prev: IAOIStoreStates['bufferOperation'],
+        ) => IAOIStoreStates['bufferOperation']),
+  ) => void;
+  setBufferUnit: (
+    a_Value:
+      | IAOIStoreStates['bufferUnit']
+      | ((
+          a_Prev: IAOIStoreStates['bufferUnit'],
+        ) => IAOIStoreStates['bufferUnit']),
+  ) => void;
+  setBufferValue: (
+    a_Value:
+      | IAOIStoreStates['bufferValue']
+      | ((
+          a_Prev: IAOIStoreStates['bufferValue'],
+        ) => IAOIStoreStates['bufferValue']),
+  ) => void;
   getAOI: () => TAOIQuery;
   importAOI: (a_Data: TAOIQuery) => void;
 }
@@ -506,13 +540,13 @@ export interface IAdvancedQueryStoreActions {
           a_Prev: IAdvancedQueryStoreStates['spatialResolution'],
         ) => IAdvancedQueryStoreStates['spatialResolution']),
   ) => void;
-  setFormat: (
+  /* setFormat: (
     a_Value:
       | IAdvancedQueryStoreStates['format']
       | ((
           a_Prev: IAdvancedQueryStoreStates['format'],
         ) => IAdvancedQueryStoreStates['format']),
-  ) => void;
+  ) => void; */
   setGroupBy: (
     a_Value:
       | IAdvancedQueryStoreStates['groupBy']
@@ -615,5 +649,144 @@ export interface IMessageStoreActions {
       | ((
           a_Prev: IMessageStoreStates['error'],
         ) => IMessageStoreStates['error']),
+  ) => void;
+}
+
+// Vessel search config -- the Vessel tab's analogue of AdvancedQuery/Filter
+// for the Report tab, but for GET /vessels/search's own (much smaller)
+// parameter set rather than 4Wings'. `datasets`/`matchFields`/`includes`
+// stay arrays (mirroring the 4Wings `datasets[]` shape) even though GFW
+// currently allows only one legal dataset value, so a second one is a
+// config change, not a UI rewrite, if the provider ever adds one.
+export interface IVesselSearchStoreStates {
+  query: string;
+  where: string;
+  datasets: EVesselDataset[];
+  matchFields: EVesselMatchField[];
+  includes: EVesselSearchInclude[];
+  limit: number;
+}
+
+export interface IVesselSearchStoreActions {
+  setQuery: (
+    a_Value:
+      | IVesselSearchStoreStates['query']
+      | ((
+          a_Prev: IVesselSearchStoreStates['query'],
+        ) => IVesselSearchStoreStates['query']),
+  ) => void;
+  setWhere: (
+    a_Value:
+      | IVesselSearchStoreStates['where']
+      | ((
+          a_Prev: IVesselSearchStoreStates['where'],
+        ) => IVesselSearchStoreStates['where']),
+  ) => void;
+  setMatchFields: (
+    a_Value:
+      | IVesselSearchStoreStates['matchFields']
+      | ((
+          a_Prev: IVesselSearchStoreStates['matchFields'],
+        ) => IVesselSearchStoreStates['matchFields']),
+  ) => void;
+  setIncludes: (
+    a_Value:
+      | IVesselSearchStoreStates['includes']
+      | ((
+          a_Prev: IVesselSearchStoreStates['includes'],
+        ) => IVesselSearchStoreStates['includes']),
+  ) => void;
+  setLimit: (
+    a_Value:
+      | IVesselSearchStoreStates['limit']
+      | ((
+          a_Prev: IVesselSearchStoreStates['limit'],
+        ) => IVesselSearchStoreStates['limit']),
+  ) => void;
+  /** Builds the exact GET /vessels/search query params -- indexed-array
+   * fields (`datasets[n]`, `match-fields[n]`, `includes[n]`) included. */
+  getVesselSearchParams: () => IVesselSearchURLParams;
+}
+
+// Vessel search results -- the Vessel tab's analogue of eventStore, holding
+// whatever the last search returned plus which record is selected.
+//
+// Pagination here is GFW's own forward-only scroll cursor (`since`), not
+// the Report tab's offset-based paging: the *same* `since` token is reused
+// for every subsequent page (GFW's response echoes it back unchanged --
+// confirmed live, it's an Elasticsearch scroll id under the hood), and
+// there's no backward cursor at all. So "Prev" is answered from `pages`
+// (every page already fetched this search, cached client-side) rather than
+// a server round-trip, and "has more" is inferred by comparing how many
+// entries have been fetched so far against `total` -- GFW doesn't send an
+// explicit end-of-results flag either.
+export interface IVesselStoreStates {
+  vessels: IVesselIdentity[];
+  activeVessel: IVesselIdentity | null;
+  // The Vessel tab's analogue of eventStore's selectedEvents -- vessels
+  // added to the export list from any search, not just the currently
+  // displayed page, so this persists independently of `vessels`/`pages`.
+  selectedVessels: IVesselIdentity[];
+  pages: IVesselIdentity[][];
+  pageIndex: number;
+  since: string | null;
+  total: number | null;
+  // The exact params the current scroll session was started with -- reused
+  // (with `since` merged in) for every "next" fetch instead of rebuilding
+  // from the live search form, since editing the form mid-scroll must not
+  // silently change the query a stale `since` token is still scoped to.
+  lastParams: IVesselSearchURLParams | null;
+}
+
+export interface IVesselStoreActions {
+  setVessels: (
+    a_Value:
+      | IVesselStoreStates['vessels']
+      | ((
+          a_Prev: IVesselStoreStates['vessels'],
+        ) => IVesselStoreStates['vessels']),
+  ) => void;
+  setActiveVessel: (
+    a_Value:
+      | IVesselStoreStates['activeVessel']
+      | ((
+          a_Prev: IVesselStoreStates['activeVessel'],
+        ) => IVesselStoreStates['activeVessel']),
+  ) => void;
+  setSelectedVessels: (
+    a_Value:
+      | IVesselStoreStates['selectedVessels']
+      | ((
+          a_Prev: IVesselStoreStates['selectedVessels'],
+        ) => IVesselStoreStates['selectedVessels']),
+  ) => void;
+  setPages: (
+    a_Value:
+      | IVesselStoreStates['pages']
+      | ((a_Prev: IVesselStoreStates['pages']) => IVesselStoreStates['pages']),
+  ) => void;
+  setPageIndex: (
+    a_Value:
+      | IVesselStoreStates['pageIndex']
+      | ((
+          a_Prev: IVesselStoreStates['pageIndex'],
+        ) => IVesselStoreStates['pageIndex']),
+  ) => void;
+  setSince: (
+    a_Value:
+      | IVesselStoreStates['since']
+      | ((a_Prev: IVesselStoreStates['since']) => IVesselStoreStates['since']),
+  ) => void;
+  setTotal: (
+    a_Value:
+      | IVesselStoreStates['total']
+      | ((a_Prev: IVesselStoreStates['total']) => IVesselStoreStates['total']),
+  ) => void;
+  setLastParams: (
+    a_Value:
+      | IVesselStoreStates['lastParams']
+      | ((
+          a_Prev: IVesselStoreStates['lastParams'],
+        ) => IVesselStoreStates['lastParams']),
   ) => void;
 }

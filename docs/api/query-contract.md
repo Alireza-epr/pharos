@@ -43,6 +43,8 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Events Export](#events-export)
 - [Regions](#regions)
 - [Regions Geometry](#regions-geometry)
+- [Vessels Search](#vessels-search)
+- [Vessels List by IDs](#vessels-list-by-ids)
 
 ---
 
@@ -945,6 +947,185 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 - Unlike [Regions](#regions), this endpoint never returns more than one feature - it's a lookup by a specific id, not a list, so there's no whole-dataset payload risk to guard against
 - `properties` is always an empty object; identifying metadata (`id`, `title`) lives on the [Regions](#regions) list entries, not here
 - Intended caller: a client that already has a region id from elsewhere (e.g. an event's `context_layers` enrichment) and wants that one boundary to draw, not the full selectable list
+
+---
+
+## Vessels Search
+
+**GET** `/vessels/search`
+
+**Description:**
+`Searches Global Fishing Watch's vessel identity dataset by free text or an advanced expression - a different GFW resource from Events Report above (vessel identity records, not gridded SAR/AIS detections). A near-direct pass-through to the provider: unlike Events Report there is no caching, scoring, or hotspot pipeline here.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter        | Description                                                                 | Required | Format                                              | Param Type |
+| ----------------- | ---------------------------------------------------------------------------- | -------- | ---------------------------------------------------- | ---------- |
+| query             | Free-text search (MMSI, IMO, call sign, or name). GFW requires 3+ characters | False    | string                                               | query      |
+| where             | Advanced query expression, e.g. `flag = 'KOR'`                               | False    | string                                               | query      |
+| datasets[i]       | Indexed dataset identifier(s), e.g. `datasets[0]`                            | True     | Enum: `['public-global-vessel-identity:latest']`     | query      |
+| match-fields[i]   | Indexed match-confidence filter(s), e.g. `match-fields[0]`                   | False    | Enum: `['ALL', 'SEVERAL_FIELDS', 'NO_MATCH']`         | query      |
+| includes[i]       | Indexed extra-data selector(s), e.g. `includes[0]`                           | False    | Enum: `['OWNERSHIP', 'AUTHORIZATIONS', 'MATCH_CRITERIA']` | query  |
+| limit             | Max results to return                                                        | False    | number (1-50, default 20)                            | query      |
+| since             | Cursor token to fetch the next page (see Notes)                              | False    | string                                               | query      |
+| binary            | Whether the provider should respond in binary (protobuf)                     | False    | boolean                                              | query      |
+
+---
+
+### 2. Request - Body
+
+```json
+{}
+```
+
+---
+
+### 3. Response
+
+The backend currently forwards GFW's whole raw reply rather than curating it down to `entries` - this is deliberate for now (see Notes), not an oversight.
+
+| Field    | Description                                                          | Format  |
+| -------- | ---------------------------------------------------------------------- | ------- |
+| success  | Request status                                                        | boolean |
+| entries  | Vessel identity records. See [event-schema.md](../data/event-schema.md)'s `raw_metadata.vesselId` note for how this connects to a matched detection | array   |
+| total    | Total number of matching vessels (can exceed `entries.length`)        | number  |
+| limit    | Page size actually used                                               | number  |
+| since    | Cursor token - reuse it as the next request's `since` to page forward | string or null |
+| metadata | `{ query, normalizedQuery, didYouMean }` - GFW's own query interpretation and spell-correction suggestions | object |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "limit": 2,
+  "since": "FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gB...",
+  "total": 374,
+  "entries": [
+    {
+      "dataset": "public-global-vessel-identity:v4.0",
+      "selfReportedInfo": [{ "shipname": "SEA HUNTER", "ssvid": "503707100" }],
+      "combinedSourcesInfo": [{ "shiptypes": [{ "name": "PASSENGER" }] }]
+    }
+  ],
+  "metadata": {
+    "query": "sea",
+    "normalizedQuery": "SEA",
+    "didYouMean": {}
+  }
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Invalid or missing query parameters (e.g. no `datasets[i]`)
+- `401 Unauthorized` – Missing, invalid, or expired access token
+- `500 Internal Server Error` – Unexpected failure (e.g. upstream provider error)
+
+---
+
+### 5. Notes
+
+- `datasets[i]` is required - GFW rejects the request with a `422` if it's missing, even though the app currently only offers one legal value (`public-global-vessel-identity:latest`)
+- **Pagination is a forward-only scroll cursor, not offset-based.** Confirmed against the live API: the `since` token GFW returns is reused unchanged for every subsequent page (it's an Elasticsearch scroll id under the hood) - there is no backward cursor at all. The frontend answers "previous page" from an in-memory cache of already-fetched pages rather than a second request; "has more" is inferred by comparing how many entries have been fetched so far against `total`, since GFW sends no explicit end-of-results flag
+- `match-fields[i]` filters the *result set* by how confidently each record matched the query - it does not change how many candidates exist to filter from
+- `includes[i]` only changes how much data is attached to each result, never which vessels are returned or how many
+- This endpoint has no caching, scoring, or context-layer enrichment - unlike Events Report, a vessel identity record is returned close to as the provider sent it
+
+---
+
+## Vessels List by IDs
+
+**GET** `/vessels`
+
+**Description:**
+`Looks up vessel identity records by a known set of vessel ids - a different GFW endpoint from Vessels Search above (no query/matching involved). Used by the frontend's Detail panel to resolve a matched detection's raw_metadata.vesselId into a full vessel identity, on demand.`
+
+**Authentication:**
+`Bearer access token required`
+
+---
+
+### 1. Request - URL Parameters
+
+| Parameter             | Description                                                | Required | Format                                            | Param Type |
+| ---------------------- | ------------------------------------------------------------ | -------- | ---------------------------------------------------- | ---------- |
+| ids[i]                 | Indexed vessel id(s) to look up, e.g. `ids[0]`               | True     | string                                               | query      |
+| datasets[i]            | Indexed dataset identifier(s), e.g. `datasets[0]`             | True     | Enum: `['public-global-vessel-identity:latest']`     | query      |
+| registries-info-data   | How much registry data to include                            | False    | Enum: `['NONE', 'DELTA', 'ALL']`                     | query      |
+| includes[i]            | Indexed extra-data selector(s), e.g. `includes[0]`            | False    | Enum: `['POTENTIAL_RELATED_SELF_REPORTED_INFO']`     | query      |
+| match-fields[i]        | Indexed match-confidence filter(s)                            | False    | Enum: `['ALL', 'SEVERAL_FIELDS', 'NO_MATCH']`         | query      |
+| binary                 | Whether the provider should respond in binary (protobuf)     | False    | boolean                                              | query      |
+
+---
+
+### 2. Request - Body
+
+```json
+{}
+```
+
+---
+
+### 3. Response
+
+Same whole-raw-reply forwarding as [Vessels Search](#vessels-search) - see that section's Response note.
+
+| Field    | Description                                                        | Format  |
+| -------- | --------------------------------------------------------------------- | ------- |
+| success  | Request status                                                       | boolean |
+| entries  | Vessel identity records, one per resolvable id                      | array   |
+| total    | Number of records returned                                          | number  |
+| metadata | `{ idsFound, idsNotFound }` - which requested ids actually resolved | object  |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "limit": null,
+  "since": null,
+  "total": 1,
+  "metadata": {
+    "idsFound": ["2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf"],
+    "idsNotFound": []
+  },
+  "entries": [
+    {
+      "dataset": "public-global-vessel-identity:v4.0",
+      "registryOwners": [{ "name": "MOLS LINIEN", "flag": "DNK" }],
+      "selfReportedInfo": [{ "shipname": "HAMMERSHUS", "ssvid": "219026000" }]
+    }
+  ]
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – No `ids[i]` supplied, or other invalid query parameters
+- `401 Unauthorized` – Missing, invalid, or expired access token
+- `500 Internal Server Error` – Unexpected failure (e.g. upstream provider error)
+
+---
+
+### 5. Notes
+
+- `metadata.idsFound`/`idsNotFound` is a different shape from Vessels Search's `metadata` (`query`/`normalizedQuery`/`didYouMean`) - confirmed against the live API, not documented consistently by the provider
+- Fetched vessel identities are never written back onto the event schema and never feed `triage_score`/`uncertainty_score` - purely contextual display data for the Detail panel, cached client-side only for the lifetime of that view
+- No pagination concerns the way Vessels Search has - this is a direct lookup by known ids, not a query with a result set to page through
 
 ---
 

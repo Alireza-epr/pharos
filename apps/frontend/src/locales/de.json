@@ -59,6 +59,7 @@
   "sidebar": {
     "tab": {
       "report": "Bericht",
+      "vessel": "Schiffe",
       "hotspot": "Hotspot",
       "event": "Ereignis"
     },
@@ -80,7 +81,9 @@
       "advancedQuery": "Erweiterte Abfrage",
       "matchingStatus": "Matching-Status",
       "datasetsFilter": "Datensatzfilter",
-      "exportImportConfig": "Konfiguration exportieren/importieren"
+      "exportImportConfig": "Konfiguration exportieren/importieren",
+      "regionBuffer": "Regionspuffer",
+      "vesselSearch": "Schiffssuche"
     },
     "title": {
       "geography": "Geografie",
@@ -93,7 +96,8 @@
       "loadingRegions": "Regionen werden geladen...",
       "none": "Keine",
       "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
-      "rawQuery": "Freie Abfrage eingeben..."
+      "rawQuery": "Freie Abfrage eingeben...",
+      "vesselQuery": "MMSI, IMO, Rufzeichen, Name..."
     },
     "label": {
       "runQuery": "Abfrage starten",
@@ -145,7 +149,13 @@
       "highConfTierWeight": "Hohe Konfid.-Stufe",
       "radiusKm": "Radius (km)",
       "exportAllConfig": "Alle exportieren",
-      "importAllConfig": "Alle importieren"
+      "importAllConfig": "Alle importieren",
+      "bufferOperation": "Pufferoperation",
+      "bufferUnit": "Puffereinheit",
+      "bufferValue": "Pufferwert",
+      "vesselQuery": "Suche",
+      "matchFields": "Übereinstimmungsfelder",
+      "includes": "Einschließen"
     },
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
@@ -155,7 +165,11 @@
       "zonalMinPoints": "Fügen Sie mindestens 3 Punkte hinzu, um das Gebiet zu schließen.",
       "zonalHint": "Klicken zum Hinzufügen · Doppelklick, Enter oder Rechtsklick zum Abschließen · Esc zum Abbrechen",
       "pointHint": "Klicken Sie auf die Karte, um einen Punkt zu setzen",
-      "regionsLoadFailed": "EEZ-/MPA-Regionen konnten nicht geladen werden."
+      "regionsLoadFailed": "EEZ-/MPA-Regionen konnten nicht geladen werden.",
+      "subVesselSearch": "Suchbegriff eingeben zum Aktivieren",
+      "noVesselResults": "Keine Schiffe gefunden.",
+      "vesselResultsCount": "{{count}} Schiff(e) gefunden",
+      "unknownVessel": "Unbekanntes Schiff"
     },
     "caveat": {
       "apiInternalId": "API-interne ID",
@@ -163,7 +177,13 @@
     },
     "hint": {
       "multipleSelect": "Strg gedrückt halten und klicken für Mehrfachauswahl",
-      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv - einige Filter werden gemeinsam genutzt"
+      "highlightedDataset": "Hervorgehobene Datensätze sind aktiv - einige Filter werden gemeinsam genutzt",
+      "regionBuffer": "Erweitert oder verkleinert die EEZ-/MPA-Grenze. „Dissolve“ verschmilzt den Puffer; „Difference“ behält nur das Band; negativ verkleinert nach innen.",
+      "vesselQuery": "Mindestens 3 Zeichen",
+      "rawQuery": "Erweiterter Ausdruck, z. B. flag = 'KOR'",
+      "matchFields": "Filtert nach Übereinstimmungsgrad (ALL = stärkste)",
+      "includes": "Zusätzliche Daten je Ergebnis",
+      "limit": "Max. Ergebnisse pro Seite (1-50)"
     }
   },
   "map": {
@@ -207,6 +227,7 @@
       "identification": "Identifikation",
       "locationAndTime": "Ort & Zeit",
       "sourceAndDetection": "Quelle & Detektion",
+      "vesselIdentity": "Schiffsidentität",
       "scoring": "Bewertung",
       "hotspotContext": "Hotspot-Kontext",
       "contextLayers": "Kontextebenen",
@@ -226,14 +247,26 @@
       "runTime": "Laufzeit",
       "downloadConfig": "Konfiguration herunterladen",
       "contextLayersDatasets": "Kontextebenen-Datensätze",
-      "downloadRawData": "Rohdaten herunterladen"
+      "downloadRawData": "Rohdaten herunterladen",
+      "shipName": "Schiffsname",
+      "flag": "Flagge",
+      "mmsi": "MMSI",
+      "imo": "IMO",
+      "callSign": "Rufzeichen",
+      "vesselType": "Schiffstyp",
+      "gearType": "Gerätetyp",
+      "registryOwner": "Registrierter Eigentümer",
+      "tonnageGt": "Tonnage (BRZ)",
+      "downloadVesselIdentity": "Schiffsidentität herunterladen"
     },
     "text": {
       "cellCenterCaveat": "Zellenzentrum · keine exakte Schiffsposition",
       "bucketStartCaveat": "Bucket-Start · keine exakte Detektionszeit",
       "recurrenceVisibleCaveat": "{{visible}} von {{total}} nicht zugeordneten wiederkehrenden Ereignissen sichtbar · Rest auf anderen Seiten",
       "nullProxy": "n. v.",
-      "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren."
+      "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren.",
+      "vesselIdentityLoading": "Schiffsidentität wird geladen…",
+      "vesselIdentityNotFound": "Keine Schiffsidentität für diese Detektion gefunden."
     },
     "action": {
       "addToExport": "Zum Export hinzufügen",
@@ -246,8 +279,8 @@
     "empty": {
       "title": "Kein Ereignis zum Exportieren",
       "body": "Fügen Sie Ereignisse zur Exportliste hinzu.",
-      "titleHotspot": "Kein Hotspot zum Exportieren",
-      "bodyHotspot": "Fügen Sie Hotspots zur Exportliste hinzu."
+      "titleVessel": "Kein Schiff zum Exportieren",
+      "bodyVessel": "Fügen Sie Schiffe zur Exportliste hinzu."
     },
     "text": {
       "downloadNote": "Elemente werden gezippt und heruntergeladen"

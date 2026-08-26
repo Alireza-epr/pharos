@@ -379,3 +379,29 @@ export enum EContextLayers {
   bathymetry = "Bathymetry",
   //rfmo = 'RFMO',
 }
+
+export enum EVesselDataset {
+  vesselIdentity = "public-global-vessel-identity:latest",
+}
+
+export enum EVesselMatchField {
+  SEVERAL_FIELDS = "SEVERAL_FIELDS",
+  NO_MATCH = "NO_MATCH",
+  ALL = "ALL",
+}
+
+export enum EVesselSearchInclude {
+  OWNERSHIP = "OWNERSHIP",
+  AUTHORIZATIONS = "AUTHORIZATIONS",
+  MATCH_CRITERIA = "MATCH_CRITERIA",
+}
+
+export enum EVesselInclude {
+  POTENTIAL_RELATED_SELF_REPORTED_INFO = "POTENTIAL_RELATED_SELF_REPORTED_INFO",
+}
+
+export enum EVesselRegistryInfoData {
+  NONE = "NONE",
+  DELTA = "DELTA",
+  ALL = "ALL",
+}

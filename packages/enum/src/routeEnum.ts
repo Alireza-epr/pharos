@@ -5,10 +5,15 @@ export enum EBaseRoutes {
   hotspots = "/hotspots",
   exports = "/exports",
   regions = "/regions",
+  vessels = "/vessels",
 }
 
 export enum ERegionsRoutes {
   geometry = "/geometry",
+}
+
+export enum EVesselsRoutes {
+  search = "/search",
 }
 
 export enum ESystemRoutes {

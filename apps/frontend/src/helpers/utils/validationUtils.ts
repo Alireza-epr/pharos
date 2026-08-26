@@ -1,5 +1,10 @@
 import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
-import { ERegionDatasets, EHotspotTimeBins } from '@packages/enum';
+import {
+  ERegionBufferOperations,
+  ERegionBufferUnits,
+  ERegionDatasets,
+  EHotspotTimeBins,
+} from '@packages/enum';
 import {
   IAdvancedQueryQuery,
   IFilterQuery,
@@ -24,7 +29,15 @@ export const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
       isObject(url_params) &&
       isString(url_params['region-id']) &&
       (url_params['region-dataset'] === ERegionDatasets.eez ||
-        url_params['region-dataset'] === ERegionDatasets.mpa)
+        url_params['region-dataset'] === ERegionDatasets.mpa) &&
+      (url_params['buffer-operation'] === undefined ||
+        Object.values(ERegionBufferOperations).includes(
+          url_params['buffer-operation'],
+        )) &&
+      (url_params['buffer-unit'] === undefined ||
+        Object.values(ERegionBufferUnits).includes(url_params['buffer-unit'])) &&
+      (url_params['buffer-value'] === undefined ||
+        isString(url_params['buffer-value']))
     );
   }
 

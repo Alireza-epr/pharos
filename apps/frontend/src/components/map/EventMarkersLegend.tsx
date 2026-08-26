@@ -96,7 +96,6 @@ const EventMarkersLegend = () => {
       show: selectedEvents.length > 0,
       icon: (
         <span className={eventLegendStyle.badgeIcon}>
-          <span className={eventLegendStyle.dotOutline} />
           <span className={eventLegendStyle.badgeMark} />
         </span>
       ),

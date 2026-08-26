@@ -19,6 +19,10 @@ import { isValidAOIQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 import { useFetchRegions } from '../../hooks/fetch';
 import { useSyncRegionGeometry } from '../../hooks/useSyncRegionGeometry';
+import {
+  bufferOperationOptions,
+  bufferUnitOptions,
+} from '../../helpers/fixtures/query';
 
 export const EAreaOfInterestTools = {
   zonal: 'zonal',
@@ -55,6 +59,13 @@ const AreaOfInterest = () => {
 
   const setEezGeometries = useAOIStore((s) => s.setEezGeometries);
   const setMpaGeometries = useAOIStore((s) => s.setMpaGeometries);
+
+  const bufferOperation = useAOIStore((s) => s.bufferOperation);
+  const setBufferOperation = useAOIStore((s) => s.setBufferOperation);
+  const bufferUnit = useAOIStore((s) => s.bufferUnit);
+  const setBufferUnit = useAOIStore((s) => s.setBufferUnit);
+  const bufferValue = useAOIStore((s) => s.bufferValue);
+  const setBufferValue = useAOIStore((s) => s.setBufferValue);
 
   const getAOI = useAOIStore((s) => s.getAOI);
   const importAOI = useAOIStore((s) => s.importAOI);
@@ -193,6 +204,7 @@ const AreaOfInterest = () => {
       })),
     [mpaOptions],
   );
+  const bufferEnabled = Boolean(eezActive || mpaActive);
 
   const handleExport = () => {
     const aoi = getAOI();
@@ -283,6 +295,37 @@ const AreaOfInterest = () => {
           clearLabel={t('general.label.clear')}
           testId="mpa-select"
         />
+      </SectionItem>
+
+      <SectionItem
+        title={t('sidebar.titles.regionBuffer')}
+        hint={t('sidebar.hint.regionBuffer')}
+        tab
+      >
+        <SectionItem title={t('sidebar.label.bufferOperation')} tab>
+          <DropdownInput
+            disabled={!bufferEnabled}
+            value={bufferOperation}
+            options={bufferOperationOptions}
+            onChange={setBufferOperation}
+          />
+        </SectionItem>
+        <SectionItem title={t('sidebar.label.bufferUnit')} tab>
+          <DropdownInput
+            disabled={!bufferEnabled}
+            value={bufferUnit}
+            options={bufferUnitOptions}
+            onChange={setBufferUnit}
+          />
+        </SectionItem>
+        <SectionItem title={t('sidebar.label.bufferValue')} tab>
+          <NumberInput
+            value={bufferValue}
+            onChange={setBufferValue}
+            disabled={!bufferEnabled}
+            step={1}
+          />
+        </SectionItem>
       </SectionItem>
     </Section>
   );

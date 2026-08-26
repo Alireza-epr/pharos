@@ -18,6 +18,7 @@ import {
   EThresholdConfig,
   ETemporalResolution,
   EViolationError,
+  EVesselRegistryInfoData,
 } from '@packages/enum';
 import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
 import { addError, validateRequiredObject } from './controllerUtils';
@@ -271,6 +272,88 @@ export const validateRegionGeometryQueryParams = (
 };
 
 /* =========================================================
+ * VESSEL SEARCH QUERY VALIDATOR (GET /v1/vessels/search)
+ * =======================================================*/
+
+export const validateVesselSearchQueryParams = (
+  a_Query: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Query)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.QUERY_NOT_OBJECT,
+          field: 'query',
+        },
+      ],
+    };
+  }
+
+  validateString(a_Query.since, 'since', errors);
+  validateNumber(a_Query.limit, 'limit', errors);
+  validateString(a_Query.query, 'query', errors);
+  validateString(a_Query.where, 'where', errors);
+  validateBoolean(a_Query.binary, 'binary', errors);
+
+  validateDynamicKeys(a_Query, 'datasets[', errors);
+  validateDynamicKeys(a_Query, 'match-fields[', errors);
+  validateDynamicKeys(a_Query, 'includes[', errors);
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/* =========================================================
+ * VESSEL LIST QUERY VALIDATOR (GET /v1/vessels)
+ * =======================================================*/
+
+export const validateVesselListQueryParams = (
+  a_Query: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Query)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.QUERY_NOT_OBJECT,
+          field: 'query',
+        },
+      ],
+    };
+  }
+
+  validateEnum(
+    a_Query['registries-info-data'],
+    REGISTRY_INFO_DATA,
+    'registries-info-data',
+    errors,
+  );
+  validateBoolean(a_Query.binary, 'binary', errors);
+
+  validateDynamicKeys(a_Query, 'datasets[', errors);
+  validateDynamicKeys(a_Query, 'ids[', errors);
+  validateDynamicKeys(a_Query, 'match-fields[', errors);
+  validateDynamicKeys(a_Query, 'includes[', errors);
+
+  // At least one id is required -- there's nothing to look up otherwise.
+  if (!Object.keys(a_Query).some((k) => k.startsWith('ids['))) {
+    addError(errors, EResponseError.REQUIRED_FIELD_MISSING, 'ids');
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/* =========================================================
  * HELPERS
  * =======================================================*/
 
@@ -286,6 +369,7 @@ const SPATIAL_RESOLUTION = Object.values(ESpatialResolution);
 const FORMAT = Object.values(EFormat);
 const GROUP_BY = Object.values(EGroupBy);
 const TEMPORAL_RESOLUTION = Object.values(ETemporalResolution);
+const REGISTRY_INFO_DATA = Object.values(EVesselRegistryInfoData);
 
 /* =========================================================
  * GEOJSON VALIDATION
@@ -653,11 +737,16 @@ const validateDynamicKeys = (
 
     const a_Value = a_Query[a_Key];
 
-    if (a_Prefix === 'datasets[') {
-      validateString(a_Value, a_Key, a_Errors, true);
-    }
-
-    if (a_Prefix === 'filters[') {
+    // Every indexed-array param so far (4Wings' datasets[]/filters[],
+    // Vessels' datasets[]/match-fields[]/includes[]/ids[]) is a required
+    // string -- one shared check for all of them.
+    if (
+      a_Prefix === 'datasets[' ||
+      a_Prefix === 'filters[' ||
+      a_Prefix === 'match-fields[' ||
+      a_Prefix === 'includes[' ||
+      a_Prefix === 'ids['
+    ) {
       validateString(a_Value, a_Key, a_Errors, true);
     }
   });
