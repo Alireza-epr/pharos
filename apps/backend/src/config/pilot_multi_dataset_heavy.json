@@ -58,5 +58,9 @@
       "direction": "desc"
     }
   ],
-  "filter": {}
+  "filter": {},
+  "pagination": {
+    "limit": 100,
+    "offset": 0
+  }
 }

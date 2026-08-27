@@ -20,4 +20,16 @@ export const config: IBackendConfig = {
     refresh_token_expiry: '7d',
   },
   port: parseInt(process.env.PORT || '1370', 10),
+  detection_provider_timeout_ms: parseInt(
+    process.env.DETECTION_PROVIDER_TIMEOUT_MS || '30000',
+    10,
+  ),
+  detection_provider_retries: parseInt(
+    process.env.DETECTION_PROVIDER_RETRIES || '5',
+    10,
+  ),
+  detection_provider_retry_delay_ms: parseInt(
+    process.env.DETECTION_PROVIDER_RETRY_DELAY_MS || '200',
+    10,
+  ),
 };

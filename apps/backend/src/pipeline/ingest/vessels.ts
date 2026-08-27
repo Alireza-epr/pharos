@@ -39,8 +39,9 @@ const fetchVesselsGFW = async <T>(
           'Content-Type': 'application/json',
         },
       },
-      5,
-      200,
+      config.detection_provider_retries,
+      config.detection_provider_retry_delay_ms,
+      config.detection_provider_timeout_ms,
     );
 
     if (!res.ok) {
