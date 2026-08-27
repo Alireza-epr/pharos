@@ -105,8 +105,8 @@ Read via `t('a.b.c')` from `useTranslator()`. Maintenance rules (enforced, not o
 ## Commit & branch conventions
 Commits follow **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`, `build:`, `test:`, `style:`, `refactor:`, `perf:`) — keep new commits consistent with the existing history. Work happens on feature branches off `develop`; PRs target `master` (which runs `pr-checks.yml` and deploys on merge). The `/format-and-push` and `/git-commit-formatter` skills exist to normalize messages into this style.
 
-## Docker (from `infrastructure/`)
-`cp .env.example .env && docker-compose up --build` → backend `:1370`, frontend `:5173` (frontend waits on backend health).
+## Docker
+Both apps' `.env` are gitignored and read from the build context, so create them from their `.env.example` first: `cp apps/backend/.env.example apps/backend/.env` (fill in `DETECTION_TOKEN`/`JWT_SECRET`) and `cp apps/frontend/src/.env.example apps/frontend/src/.env`. Then, from `infrastructure/`: `docker-compose up --build` → backend `:1370`, frontend `:5173` (frontend waits on backend health).
 
 ## Project notes
 - Personal planning/AI-leverage notes live under `docs/planning/` and `docs/knowledge/`, which are **git-ignored** — they won't appear in `git status` or a fresh clone, so check the working tree before assuming they're absent. Proposals are versioned at repo root (`Proposal_V3.md`, `Proposal_V4.md`); when asked to "update the proposal," create the next version rather than overwriting.

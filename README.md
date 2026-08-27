@@ -64,12 +64,14 @@ npm run setup:data
 
 For more information, please refer to [the runbook](docs/runbook.md).
 
-Important: Set `DETECTION_TOKEN` — the detection-provider API token. In this iteration the provider is Global Fishing Watch, so obtain the token from the GFW API Token page
+Important: Set `DETECTION_TOKEN` - the detection-provider API token. In this iteration the provider is Global Fishing Watch, so obtain the token from the GFW API Token page
 and place it in a .env file inside the apps/backend directory. A .env.example file is provided for reference. For more information, see the API documentation https://globalfishingwatch.org/our-apis/tokens
 
 Set a JWT_SECRET in the same apps/backend/.env file. It is used to sign and verify authentication tokens (access + refresh), so it must be a long, random, secret string and must never be committed. Generate one locally with `node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"` (or `openssl rand -base64 48`).
 
 In CI, the values are supplied via GitHub Actions; the secret keys must match the local secret keys. Use a different secret per environment.
+
+Set `VITE_CARTO_API_KEY` in `apps/frontend/src/.env` (a `.env.example` is provided for reference) - CARTO requires a free key for its basemap tiles (fair-use cap: 5M requests/month); without it, map tiles render watermarked "API KEY REQUIRED" instead of the real basemap. Request one at https://carto.com/basemaps/apikey. In production this must be set as a build-time environment variable on the frontend host, since Vite bakes it in at build time.
 
 ---
 
@@ -83,10 +85,16 @@ See the [authentication guide](docs/api/authentication.md) for the full login fl
 
 ## Docker
 
-From `infrastructure/` folder:
+Each app's `.env` is gitignored and read directly from the build context, so create both from their `.env.example` first (fill in `DETECTION_TOKEN`/`JWT_SECRET` in the backend one — see above):
 
 ```bash
-cp .env.example .env
+cp apps/backend/.env.example apps/backend/.env
+cp apps/frontend/src/.env.example apps/frontend/src/.env
+```
+
+Then, from `infrastructure/`:
+
+```bash
 docker-compose up --build
 ```
 

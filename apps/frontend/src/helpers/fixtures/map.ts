@@ -34,11 +34,13 @@ const CARTO_SLUG: Record<TTheme, string> = {
 // placeholder, so they're listed out.
 const SUBDOMAINS = ['a', 'b', 'c', 'd'];
 
+const CARTO_API_KEY = import.meta.env.VITE_CARTO_API_KEY as string | undefined;
+
 const getTiles = (a_Theme: TTheme) =>
-  SUBDOMAINS.map(
-    (s) =>
-      `https://${s}.basemaps.cartocdn.com/${CARTO_SLUG[a_Theme]}/{z}/{x}/{y}.png`,
-  );
+  SUBDOMAINS.map((s) => {
+    const url = `https://${s}.basemaps.cartocdn.com/${CARTO_SLUG[a_Theme]}/{z}/{x}/{y}.png`;
+    return CARTO_API_KEY ? `${url}?key=${CARTO_API_KEY}` : url;
+  });
 
 /**
  * Lightweight raster-only basemap, themed from the app store. A muted, clean
@@ -48,9 +50,9 @@ const getTiles = (a_Theme: TTheme) =>
  *
  * Raster (not vector) keeps things minimal: a single source, no sprite/glyph
  * resources to download. CARTO bakes labels into the tiles, so we fetch nothing
- * extra for them. No API key required — CARTO's public basemap CDN. Attribution
- * for both OSM data and CARTO styling is mandatory; for a hard production SLA /
- * high traffic, register a CARTO account.
+ * extra for them. Requires VITE_CARTO_API_KEY (see getTiles above) — CARTO
+ * retired anonymous access to this CDN. Attribution for both OSM data and
+ * CARTO styling remains mandatory regardless of key.
  *
  * Pure function of `theme` so callers can re-theme the live map on toggle (see
  * MapCanvas) rather than freezing the basemap at module-load time.
