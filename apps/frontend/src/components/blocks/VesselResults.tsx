@@ -6,7 +6,8 @@ import {
 } from '../../helpers/utils/vesselUtils';
 import ButtonInput from '../common/inputs/ButtonInput';
 import Section from '../common/section/Section';
-import vesselResultsStyle from './VesselResults.module.scss';
+import List from '../common/List';
+import ListItem from '../common/ListItem';
 
 export interface IVesselResultsProps {}
 
@@ -23,9 +24,15 @@ const VesselResults = () => {
   const selectedVessels = useVesselStore((s) => s.selectedVessels);
   const setSelectedVessels = useVesselStore((s) => s.setSelectedVessels);
 
-  if (vessels.length === 0) {
+  const hasResults = vessels.length > 0;
+
+  if (!hasResults) {
     return (
-      <Section title={t('sidebar.titles.vesselResults')} collapsible={false}>
+      <Section
+        key="empty"
+        title={t('sidebar.titles.vesselResults')}
+        collapsible={false}
+      >
         <span className="font-size-xs font-light font-family-header sub-text">
           {t('sidebar.text.noVesselResults')}
         </span>
@@ -34,8 +41,8 @@ const VesselResults = () => {
   }
 
   return (
-    <Section title={t('sidebar.titles.vesselResults')} collapsible={false}>
-      <div className={vesselResultsStyle.list} data-testid="vessel-results-list">
+    <Section key="results" title={t('sidebar.titles.vesselResults')} collapsible>
+      <List testId="vessel-results-list">
         <span className="font-size-xs font-light font-family-header sub-text">
           {t('sidebar.text.vesselResultsCount', { count: String(vessels.length) })}
         </span>
@@ -65,28 +72,18 @@ const VesselResults = () => {
           };
 
           return (
-            <div
+            <ListItem
               key={vesselKey ?? index}
-              className={`hover active font-family-tech ${vesselResultsStyle.row}`}
-              data-active={isActive}
-              data-testid="vessel-result-row"
+              title={fields.shipName ?? t('sidebar.text.unknownVessel')}
+              subtitle={
+                subtitleParts.length > 0
+                  ? subtitleParts.join(' · ')
+                  : undefined
+              }
+              active={isActive}
               onClick={() => setActiveVessel(isActive ? null : vessel)}
-            >
-              <div className={vesselResultsStyle.rowText}>
-                <span
-                  className={`font-size-sm font-bold truncate ${vesselResultsStyle.title}`}
-                >
-                  {fields.shipName ?? t('sidebar.text.unknownVessel')}
-                </span>
-                {subtitleParts.length > 0 && (
-                  <span
-                    className={`font-size-xs truncate ${vesselResultsStyle.subtitle}`}
-                  >
-                    {subtitleParts.join(' · ')}
-                  </span>
-                )}
-              </div>
-              <div onClick={(e) => e.stopPropagation()}>
+              testId="vessel-result-row"
+              action={
                 <ButtonInput
                   active={isExported}
                   icon
@@ -100,11 +97,11 @@ const VesselResults = () => {
                   onClick={handleExportToggle}
                   testId="vessel-result-export"
                 />
-              </div>
-            </div>
+              }
+            />
           );
         })}
-      </div>
+      </List>
     </Section>
   );
 };

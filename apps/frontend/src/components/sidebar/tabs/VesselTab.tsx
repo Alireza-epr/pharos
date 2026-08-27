@@ -10,6 +10,7 @@ import { useVesselStore } from '../../../stores/vesselStore';
 import { useFetchVessels } from '../../../hooks/fetch';
 import { log_frontend } from '@packages/utils';
 import { buildVesselSearchConfig } from '../../../helpers/utils/vesselConfigUtils';
+import { syncVesselSearchConfigToURL } from '../../../helpers/utils/URLUtils';
 import {
   getVesselPaginationState,
   isVesselSearchReady,
@@ -48,6 +49,7 @@ const VesselTab = () => {
     if (!canSearch || loading) return;
     setActiveVessel(null);
     const config = buildVesselSearchConfig();
+    syncVesselSearchConfigToURL(config);
     // Same mechanism as ReportTab's own `log_frontend({ config: {...} })` --
     // only prints with ?loglevel=3, logs exactly what's being sent.
     log_frontend({ config: { ...config } });
@@ -106,8 +108,8 @@ const VesselTab = () => {
     <>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         <VesselSearch />
-        <VesselExportAndImportConfig />
         <VesselResults />
+        <VesselExportAndImportConfig />
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">

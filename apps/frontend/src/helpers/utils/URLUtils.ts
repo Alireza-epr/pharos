@@ -6,7 +6,9 @@ import {
 } from '@packages/utils';
 import { THydrateResult } from '../types/URLTypes';
 import { importConfigWithRegionPreload, isValidConfig } from './configUtils';
-import { IConfigJSON } from '@packages/types';
+import { isValidVesselConfigJSON } from './validationUtils';
+import { IConfigJSON, IVesselConfigJSON } from '@packages/types';
+import { useVesselSearchStore } from '../../stores/vesselSearchStore';
 
 /**
  * Generic helpers for round-tripping a JSON-serializable value through a
@@ -91,5 +93,30 @@ export const hydrateConfigFromURL = async (): Promise<THydrateResult> => {
   if (!isValidConfig(decoded)) return 'invalid';
 
   await importConfigWithRegionPreload(decoded);
+  return 'hydrated';
+};
+
+export const syncVesselSearchConfigToURL = (a_Config: IVesselConfigJSON): void => {
+  const json = encodeJSONForURL(a_Config);
+  if (json === null) return;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set(EURLParams.vesselConfig, json);
+  window.history.replaceState(null, '', url.toString());
+};
+
+export const hydrateVesselSearchConfigFromURL = (): THydrateResult => {
+  const raw = getURLParam<string>(EURLParams.vesselConfig);
+  if (raw === null) return 'absent';
+
+  log_frontend(
+    '[import:VesselConfig] phase: hydrating from URL vesselConfig param',
+    ELogType.info,
+  );
+
+  const decoded = decodeJSONFromURL(raw);
+  if (!isValidVesselConfigJSON(decoded)) return 'invalid';
+
+  useVesselSearchStore.getState().importVesselSearchParams(decoded.url_params);
   return 'hydrated';
 };

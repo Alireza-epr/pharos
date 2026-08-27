@@ -4,6 +4,8 @@ import {
   TQueryStepStatus,
 } from '@packages/enum';
 import Modal from '../common/Modal';
+import List from '../common/List';
+import ListItem from '../common/ListItem';
 import { useTranslator } from '../../hooks/translator';
 import { useQueryProgressStore } from '../../stores/queryProgressStore';
 import { TTranslationKey } from '../../helpers/types/translationTypes';
@@ -45,12 +47,9 @@ const QueryProgressModal = () => {
       title={t('queryProgress.title')}
       size="small"
     >
-      <ol className={` ${queryProgressStyle.list}`}>
+      <List>
         {steps.map((step) => {
           const key = STEP_KEY[step.id];
-          // Dynamically composed from STEP_KEY/step.status, so t()'s static key
-          // check can't verify these — correctness is guaranteed by construction
-          // instead (every id/status pair above has a matching en.json/de.json entry).
           const label = t(`queryProgress.step.${key}.label` as TTranslationKey);
           const statusLabel = t(
             `queryProgress.status.${step.status}` as TTranslationKey,
@@ -74,45 +73,29 @@ const QueryProgressModal = () => {
           }
 
           return (
-            <li
+            <ListItem
               key={step.id}
-              className={`${queryProgressStyle.row} ${queryProgressStyle[step.status] ?? ''}`}
-              data-testid={`query-progress-step-${step.id}`}
-              data-status={step.status}
-              aria-label={`${label} — ${statusLabel}`}
-            >
-              <span
-                className={` ${queryProgressStyle.icon}`}
-                aria-hidden="true"
-              >
-                {step.status === EQueryStepStatus.running ? (
-                  <span className={` ${queryProgressStyle.spinner}`} />
-                ) : (
-                  STATUS_GLYPH[step.status]
-                )}
-              </span>
-              <span className={` ${queryProgressStyle.text}`}>
-                <span
-                  className={`font-size-sm font-family-header ${queryProgressStyle.label ?? ''}`}
-                >
-                  {label}
+              mode="plain"
+              title={label}
+              subtitle={detail}
+              testId={`query-progress-step-${step.id}`}
+              attributes={{
+                'data-status': step.status,
+                'aria-label': `${label} — ${statusLabel}`,
+              }}
+              prepend={
+                <span className={queryProgressStyle.icon} aria-hidden="true">
+                  {step.status === EQueryStepStatus.running ? (
+                    <span className={queryProgressStyle.spinner} />
+                  ) : (
+                    STATUS_GLYPH[step.status]
+                  )}
                 </span>
-                {detail && (
-                  <span
-                    className={
-                      step.status === EQueryStepStatus.error
-                        ? `font-size-xs error`
-                        : `font-size-xs font-light ${queryProgressStyle.detail ?? ''}`
-                    }
-                  >
-                    {detail}
-                  </span>
-                )}
-              </span>
-            </li>
+              }
+            />
           );
         })}
-      </ol>
+      </List>
     </Modal>
   );
 };
