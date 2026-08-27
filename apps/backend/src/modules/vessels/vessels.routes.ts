@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.use(authMiddleware);
 router.use(rateLimitMiddleware);
-router.get(`${EVesselsRoutes.search}`, vesselSearchController);
-router.get('/', vesselListController);
+router.post(`${EVesselsRoutes.search}`, vesselSearchController);
+router.post('/', vesselListController);
 
 export default router;

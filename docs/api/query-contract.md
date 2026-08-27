@@ -952,7 +952,7 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 
 ## Vessels Search
 
-**GET** `/vessels/search`
+**POST** `/vessels/search`
 
 **Description:**
 `Searches Global Fishing Watch's vessel identity dataset by free text or an advanced expression - a different GFW resource from Events Report above (vessel identity records, not gridded SAR/AIS detections). A near-direct pass-through to the provider: unlike Events Report there is no caching, scoring, or hotspot pipeline here.`
@@ -979,8 +979,20 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 
 ### 2. Request - Body
 
+The Vessel tab's analogue of Events Report's body above (`IVesselConfigJSON`), kept to just these two fields - a vessel search carries no triage/hotspot/threshold/sort/pagination config to add. `url_params` (the table above) still travels in the query string, same split as Events Report.
+
+| Key    | Description                                          | Required | Format         | Param Type |
+| ------ | ----------------------------------------------------- | -------- | -------------- | ---------- |
+| url    | Upstream Vessels API search endpoint used as the data source | False | string  | body       |
+| method | HTTP method used for the upstream request - GFW's vessel search is GET-only, so this is always `GET` | False | Enum: ['GET'] | body |
+
+Default:
+
 ```json
-{}
+{
+  "url": "https://gateway.api.globalfishingwatch.org/v3/vessels/search",
+  "method": "GET"
+}
 ```
 
 ---
@@ -1040,12 +1052,14 @@ The backend currently forwards GFW's whole raw reply rather than curating it dow
 - `match-fields[i]` filters the *result set* by how confidently each record matched the query - it does not change how many candidates exist to filter from
 - `includes[i]` only changes how much data is attached to each result, never which vessels are returned or how many
 - This endpoint has no caching, scoring, or context-layer enrichment - unlike Events Report, a vessel identity record is returned close to as the provider sent it
+- Body `method` is always forced to `GET` server-side regardless of what's sent - GFW's vessel search has exactly one legal method, so unlike Events Report's `method` (which branches per-request on whether `body_params` is present) there's nothing to branch on
+- Body `url` is trusted as sent, same as Events Report's own `URL` field - not validated or defaulted server-side
 
 ---
 
 ## Vessels List by IDs
 
-**GET** `/vessels`
+**POST** `/vessels`
 
 **Description:**
 `Looks up vessel identity records by a known set of vessel ids - a different GFW endpoint from Vessels Search above (no query/matching involved). Used by the frontend's Detail panel to resolve a matched detection's raw_metadata.vesselId into a full vessel identity, on demand.`
@@ -1070,8 +1084,20 @@ The backend currently forwards GFW's whole raw reply rather than curating it dow
 
 ### 2. Request - Body
 
+Same `IVesselListConfigJSON` shape as [Vessels Search](#vessels-search)'s own `IVesselConfigJSON` body above - `url`/`method`, `url_params` still in the query string.
+
+| Key    | Description                                                   | Required | Format        | Param Type |
+| ------ | --------------------------------------------------------------- | -------- | ------------- | ---------- |
+| url    | Upstream Vessels API list-by-IDs endpoint used as the data source | False | string     | body       |
+| method | HTTP method used for the upstream request - GFW's vessel list is GET-only, so this is always `GET` | False | Enum: ['GET'] | body |
+
+Default:
+
 ```json
-{}
+{
+  "url": "https://gateway.api.globalfishingwatch.org/v3/vessels",
+  "method": "GET"
+}
 ```
 
 ---
@@ -1126,6 +1152,7 @@ Same whole-raw-reply forwarding as [Vessels Search](#vessels-search) - see that 
 - `metadata.idsFound`/`idsNotFound` is a different shape from Vessels Search's `metadata` (`query`/`normalizedQuery`/`didYouMean`) - confirmed against the live API, not documented consistently by the provider
 - Fetched vessel identities are never written back onto the event schema and never feed `triage_score`/`uncertainty_score` - purely contextual display data for the Detail panel, cached client-side only for the lifetime of that view
 - No pagination concerns the way Vessels Search has - this is a direct lookup by known ids, not a query with a result set to page through
+- Body `method`/`url` trust rules are the same as [Vessels Search](#vessels-search)'s own Notes: `method` is always forced to `GET` server-side, `url` is trusted as sent
 
 ---
 

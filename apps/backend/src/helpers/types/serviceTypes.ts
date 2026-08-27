@@ -1,10 +1,10 @@
 import {
   IConfigJSON,
   IEventSchema,
+  IVesselConfigJSON,
   IVesselListAPIResponse,
-  IVesselListURLParams,
+  IVesselListConfigJSON,
   IVesselSearchAPIResponse,
-  IVesselSearchURLParams,
 } from '@packages/types';
 import { ICoverageManifest } from './servingTypes';
 
@@ -51,14 +51,15 @@ export interface IDetectionRepository<T> {
 /**
  * Repository contract for the Vessels API provider. Similar spirit to
  * {@link IDetectionRepository} -- hides one provider's syntax behind generic
- * verbs -- but takes plain params rather than a full {@link IConfigJSON}
- * (vessel search/list have no triage/hotspot/threshold config to carry).
- * Two verbs, not one generic `T`, since search and list-by-ids are distinct
- * GFW endpoints with distinct request/response shapes.
+ * verbs, each taking a full config (url/method included) the same way
+ * `fetch` takes a full {@link IConfigJSON}: `search` takes
+ * {@link IVesselConfigJSON}, `list` takes {@link IVesselListConfigJSON}. Two
+ * verbs, not one generic `T`, since search and list-by-ids are distinct GFW
+ * endpoints with distinct request/response shapes.
  */
 export interface IVesselRepository {
   /** Search the provider's vessel identity records for a query. */
-  search(a_Params: IVesselSearchURLParams): Promise<IVesselSearchAPIResponse>;
+  search(a_Config: IVesselConfigJSON): Promise<IVesselSearchAPIResponse>;
   /** Fetch vessel identity records for a known set of vessel ids. */
-  list(a_Params: IVesselListURLParams): Promise<IVesselListAPIResponse>;
+  list(a_Config: IVesselListConfigJSON): Promise<IVesselListAPIResponse>;
 }

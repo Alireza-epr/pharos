@@ -1,14 +1,29 @@
+import { EFetchMethods } from '@packages/enum';
+import { IVesselConfigJSON, IVesselListConfigJSON } from '@packages/types';
 import {
   listVesselsGFW,
   searchVesselsGFW,
 } from '../src/pipeline/ingest/vessels';
 
-// searchVesselsGFW/listVesselsGFW are the two Vessels API pass-through calls
-// (GET /vessels/search, GET /vessels -- list by ids) -- same fetchWithRetry
-// + URLSearchParams shape as detectionGFW's own 4Wings call, just against a
-// different GFW path per verb. Mocked at global.fetch, same as
-// fetchWithRetry.spec.ts, rather than mocking fetchWithRetry itself, so a
-// real (small) retry/error-wrapping path is still exercised.
+const SEARCH_URL = 'https://gateway.api.globalfishingwatch.org/v3/vessels/search';
+const LIST_URL = 'https://gateway.api.globalfishingwatch.org/v3/vessels';
+
+const buildSearchConfig = (
+  a_UrlParams: IVesselConfigJSON['url_params'],
+): IVesselConfigJSON => ({
+  url: SEARCH_URL,
+  method: EFetchMethods.get,
+  url_params: a_UrlParams,
+});
+
+const buildListConfig = (
+  a_UrlParams: IVesselListConfigJSON['url_params'],
+): IVesselListConfigJSON => ({
+  url: LIST_URL,
+  method: EFetchMethods.get,
+  url_params: a_UrlParams,
+});
+
 describe('searchVesselsGFW', () => {
   const originalFetch = global.fetch;
 
@@ -17,24 +32,26 @@ describe('searchVesselsGFW', () => {
     jest.clearAllMocks();
   });
 
-  it('requests_the_vessels_search_path_with_the_given_params_url_encoded', async () => {
+  it('requests_the_configured_url_with_the_given_params_url_encoded', async () => {
     const fetchMock = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ entries: [] }),
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await searchVesselsGFW({
-      query: 'sea hunter',
-      limit: 5,
-      'datasets[0]': 'public-global-vessel-identity:latest' as any,
-    });
+    await searchVesselsGFW(
+      buildSearchConfig({
+        query: 'sea hunter',
+        limit: 5,
+        'datasets[0]': 'public-global-vessel-identity:latest' as any,
+      }),
+    );
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [url, init] = fetchMock.mock.calls[0];
 
     expect(String(url)).toBe(
-      'https://gateway.api.globalfishingwatch.org/v3/vessels/search?query=sea+hunter&limit=5&datasets%5B0%5D=public-global-vessel-identity%3Alatest',
+      `${SEARCH_URL}?query=sea+hunter&limit=5&datasets%5B0%5D=public-global-vessel-identity%3Alatest`,
     );
     expect(init.method).toBe('GET');
     expect(init.headers.Authorization).toMatch(/^Bearer /);
@@ -47,11 +64,13 @@ describe('searchVesselsGFW', () => {
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await searchVesselsGFW({
-      query: 'sea',
-      where: undefined,
-      since: undefined,
-    } as any);
+    await searchVesselsGFW(
+      buildSearchConfig({
+        query: 'sea',
+        where: undefined,
+        since: undefined,
+      }),
+    );
 
     const [url] = fetchMock.mock.calls[0];
     expect(String(url)).not.toContain('where');
@@ -66,7 +85,7 @@ describe('searchVesselsGFW', () => {
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    const result = await searchVesselsGFW({ query: 'sea' } as any);
+    const result = await searchVesselsGFW(buildSearchConfig({ query: 'sea' }));
 
     expect(result).toEqual(payload);
   });
@@ -83,9 +102,9 @@ describe('searchVesselsGFW', () => {
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await expect(searchVesselsGFW({ query: 'sea' } as any)).rejects.toThrow(
-      '[vesselsGFW] Error:',
-    );
+    await expect(
+      searchVesselsGFW(buildSearchConfig({ query: 'sea' })),
+    ).rejects.toThrow('[vesselsGFW] Error:');
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });
@@ -98,22 +117,22 @@ describe('listVesselsGFW', () => {
     jest.clearAllMocks();
   });
 
-  it('requests_the_vessels_root_path_not_the_search_path', async () => {
+  it('requests_the_configured_url_not_the_search_path', async () => {
     const fetchMock = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ entries: [] }),
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await listVesselsGFW({
-      'ids[0]': '2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf',
-      'datasets[0]': 'public-global-vessel-identity:latest',
-    } as any);
+    await listVesselsGFW(
+      buildListConfig({
+        'ids[0]': '2cb75b670-08a6-fc17-8fd9-5d9d10a0fbdf',
+        'datasets[0]': 'public-global-vessel-identity:latest',
+      } as any),
+    );
 
     const [url] = fetchMock.mock.calls[0];
-    expect(String(url)).toContain(
-      'https://gateway.api.globalfishingwatch.org/v3/vessels?',
-    );
+    expect(String(url)).toContain(`${LIST_URL}?`);
     expect(String(url)).not.toContain('/vessels/search');
     expect(String(url)).toContain('ids%5B0%5D=2cb75b670');
   });
@@ -129,7 +148,9 @@ describe('listVesselsGFW', () => {
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    const result = await listVesselsGFW({ 'ids[0]': 'x' } as any);
+    const result = await listVesselsGFW(
+      buildListConfig({ 'ids[0]': 'x' } as any),
+    );
 
     expect(result).toEqual(payload);
   });
@@ -142,9 +163,9 @@ describe('listVesselsGFW', () => {
     });
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    await expect(listVesselsGFW({ 'ids[0]': 'x' } as any)).rejects.toThrow(
-      '[vesselsGFW] Error:',
-    );
+    await expect(
+      listVesselsGFW(buildListConfig({ 'ids[0]': 'x' } as any)),
+    ).rejects.toThrow('[vesselsGFW] Error:');
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

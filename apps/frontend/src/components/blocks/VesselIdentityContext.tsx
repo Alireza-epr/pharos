@@ -11,17 +11,13 @@ import {
   getVesselDisplayFields,
   getVesselKey,
 } from '../../helpers/utils/vesselUtils';
+import { buildVesselListConfig } from '../../helpers/utils/vesselConfigUtils';
 import { downloadJSON } from '../../helpers/utils/downloadUtils';
 
 export interface IVesselIdentityContextProps {
   event: IEventSchema;
 }
 
-// Shown only for a matched detection whose raw_metadata carries a resolvable
-// vesselId -- fetches (and caches, see useVesselIdentity) that vessel's full
-// identity from GFW on demand, purely for display: this never feeds
-// triage_score/uncertainty_score, and nothing here is persisted back onto
-// the event.
 const VesselIdentityContext = (props: IVesselIdentityContextProps) => {
   const { t } = useTranslator();
   const vesselId = props.event.raw_metadata.vesselId;
@@ -108,11 +104,8 @@ const VesselIdentityContext = (props: IVesselIdentityContextProps) => {
         <ButtonInput
           label={t('detailPanel.label.downloadConfig')}
           onClick={() =>
-            // The exact GET /vessels params sent to GFW for this vessel --
-            // same "download config" idea as RunMetadata.tsx's button, just
-            // for the request this section itself made.
             downloadJSON(
-              buildVesselIdentityRequestParams(vesselId),
+              buildVesselListConfig(buildVesselIdentityRequestParams(vesselId)),
               `vessel_identity_config_${fields.shipName ?? getVesselKey(vessel) ?? vesselId}`,
             )
           }

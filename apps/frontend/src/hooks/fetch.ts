@@ -11,10 +11,10 @@ import {
   IConfigJSON,
   IEventSchema,
   IResponse,
+  IVesselConfigJSON,
   IVesselListAPIResponse,
-  IVesselListURLParams,
+  IVesselListConfigJSON,
   IVesselSearchAPIResponse,
-  IVesselSearchURLParams,
   TBodyParams_export,
   TQueryProgressMessage,
   TRegionGeometry,
@@ -288,10 +288,12 @@ export type TVesselSearchResponse = IVesselSearchAPIResponse & {
   error?: string[];
 };
 
-// Search vessel identities (GFW Vessels API, via GET /v1/vessels/search).
-// A plain GET-with-query-params request, same shape as useFetchRegions --
-// unlike useFetchEvents there's no progress stream to read, since the
-// backend does no caching/scoring pipeline for this endpoint.
+// Search vessel identities (GFW Vessels API, via POST /v1/vessels/search).
+// Same url_params-in-query/rest-in-body split as useFetchEvents -- carrying
+// IVesselConfigJSON's much smaller body (url/method) instead of
+// IConfigJSON's full report config -- unlike useFetchEvents there's still
+// no progress stream to read, since the backend does no caching/scoring
+// pipeline for this endpoint.
 export const useFetchVessels = () => {
   const url = `${BASE_URL}${EBaseRoutes.vessels}${EVesselsRoutes.search}`;
   const [response, setResponse] = useState<TVesselSearchResponse | null>(
@@ -301,9 +303,10 @@ export const useFetchVessels = () => {
   const [error, setError] = useState(null);
 
   const execute = useCallback(
-    async (a_Params: IVesselSearchURLParams) => {
+    async (a_Config: IVesselConfigJSON) => {
+      const { url_params, ...rest } = a_Config;
       const searchParams = new URLSearchParams(
-        Object.entries(a_Params).reduce<Record<string, string>>(
+        Object.entries(url_params).reduce<Record<string, string>>(
           (acc, [key, value]) => {
             if (value !== undefined) acc[key] = String(value);
             return acc;
@@ -311,12 +314,20 @@ export const useFetchVessels = () => {
           {},
         ),
       );
+      const options = {
+        method: EFetchMethods.post,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(rest),
+      };
       try {
         setLoading(true);
         setError(null);
-        const res = await fetchWithAuth(`${url}?${searchParams.toString()}`, {
-          method: EFetchMethods.get,
-        });
+        const res = await fetchWithAuth(
+          `${url}?${searchParams.toString()}`,
+          options,
+        );
         const json: TVesselSearchResponse = await res.json();
         setResponse(json);
         return json;
@@ -346,8 +357,10 @@ export type TVesselListResponse = IVesselListAPIResponse & {
 };
 
 // Fetch vessel identities by known id(s) (GFW Vessels API, via
-// GET /v1/vessels -- list by IDs, not /vessels/search). Used by the Detail
+// POST /v1/vessels -- list by IDs, not /vessels/search). Used by the Detail
 // panel to enrich a matched event with its vessel's identity, on demand.
+// Same url_params-in-query/rest-in-body split as useFetchVessels -- carrying
+// IVesselListConfigJSON's url/method in the body.
 export const useFetchVesselsByIds = () => {
   const url = `${BASE_URL}${EBaseRoutes.vessels}`;
   const [response, setResponse] = useState<TVesselListResponse | null>(null);
@@ -355,9 +368,10 @@ export const useFetchVesselsByIds = () => {
   const [error, setError] = useState(null);
 
   const execute = useCallback(
-    async (a_Params: IVesselListURLParams) => {
+    async (a_Config: IVesselListConfigJSON) => {
+      const { url_params, ...rest } = a_Config;
       const searchParams = new URLSearchParams(
-        Object.entries(a_Params).reduce<Record<string, string>>(
+        Object.entries(url_params).reduce<Record<string, string>>(
           (acc, [key, value]) => {
             if (value !== undefined) acc[key] = String(value);
             return acc;
@@ -365,12 +379,20 @@ export const useFetchVesselsByIds = () => {
           {},
         ),
       );
+      const options = {
+        method: EFetchMethods.post,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(rest),
+      };
       try {
         setLoading(true);
         setError(null);
-        const res = await fetchWithAuth(`${url}?${searchParams.toString()}`, {
-          method: EFetchMethods.get,
-        });
+        const res = await fetchWithAuth(
+          `${url}?${searchParams.toString()}`,
+          options,
+        );
         const json: TVesselListResponse = await res.json();
         setResponse(json);
         return json;

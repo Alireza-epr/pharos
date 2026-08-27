@@ -706,6 +706,7 @@ export interface IVesselSearchStoreActions {
   /** Builds the exact GET /vessels/search query params -- indexed-array
    * fields (`datasets[n]`, `match-fields[n]`, `includes[n]`) included. */
   getVesselSearchParams: () => IVesselSearchURLParams;
+  importVesselSearchParams: (a_Params: IVesselSearchURLParams) => void;
 }
 
 // Vessel search results -- the Vessel tab's analogue of eventStore, holding

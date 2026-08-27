@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import { IVesselSearchURLParams } from '@packages/types';
-import { EVesselDataset, EVesselSearchInclude } from '@packages/enum';
+import { EVesselDataset, EVesselMatchField, EVesselSearchInclude } from '@packages/enum';
 import {
   IVesselSearchStoreActions,
   IVesselSearchStoreStates,
@@ -21,6 +21,27 @@ const toIndexedParams = (
     acc[`${a_Prefix}[${index}]`] = value;
     return acc;
   }, {});
+
+// The reverse of toIndexedParams() -- pulls `${a_Prefix}[n]` keys back out
+// of a wire-format params object into a plain array, in index order.
+// Tolerant of gaps/out-of-order keys (an imported file could be hand-edited)
+// rather than assuming a clean 0..n-1 run the way toIndexedParams() produces.
+const fromIndexedParams = (
+  a_Prefix: string,
+  a_Params: Record<string, unknown>,
+): string[] => {
+  const pattern = new RegExp(`^${a_Prefix}\\[(\\d+)\\]$`);
+  return Object.keys(a_Params)
+    .flatMap((key) => {
+      const match = key.match(pattern);
+      const value = a_Params[key];
+      return match && typeof value === 'string'
+        ? [{ index: Number(match[1]), value }]
+        : [];
+    })
+    .sort((a, b) => a.index - b.index)
+    .map((entry) => entry.value);
+};
 
 export const useVesselSearchStore = create<
   IVesselSearchStoreStates & IVesselSearchStoreActions
@@ -84,6 +105,22 @@ export const useVesselSearchStore = create<
           ...toIndexedParams('match-fields', matchFields),
           ...toIndexedParams('includes', includes),
         };
+      },
+      importVesselSearchParams: (a_Params: IVesselSearchURLParams) => {
+        const params = a_Params as unknown as Record<string, unknown>;
+        set({
+          query: a_Params.query ?? '',
+          where: a_Params.where ?? '',
+          matchFields: fromIndexedParams(
+            'match-fields',
+            params,
+          ) as EVesselMatchField[],
+          includes: fromIndexedParams(
+            'includes',
+            params,
+          ) as EVesselSearchInclude[],
+          limit: a_Params.limit ?? DEFAULT_LIMIT,
+        });
       },
     }),
   ),

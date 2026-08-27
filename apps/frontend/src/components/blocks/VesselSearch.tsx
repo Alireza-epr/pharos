@@ -38,7 +38,7 @@ const VesselSearch = () => {
   const hasWhere = where.trim() !== '';
 
   return (
-    <Section title={t('sidebar.titles.vesselSearch')}>
+    <Section title={t('sidebar.titles.vesselSearch')} collapsible={false}>
       <SectionItem
         title={t('sidebar.label.vesselQuery')}
         hint={t('sidebar.hint.vesselQuery')}
