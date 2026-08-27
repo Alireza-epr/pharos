@@ -34,6 +34,9 @@ const VesselSearch = () => {
   const limit = useVesselSearchStore((s) => s.limit);
   const setLimit = useVesselSearchStore((s) => s.setLimit);
 
+  const hasQuery = query.trim() !== '';
+  const hasWhere = where.trim() !== '';
+
   return (
     <Section title={t('sidebar.titles.vesselSearch')}>
       <SectionItem
@@ -45,6 +48,7 @@ const VesselSearch = () => {
           value={query}
           onChange={setQuery}
           placeholder={t('sidebar.placeholder.vesselQuery')}
+          disabled={hasWhere}
           testId="vessel-query-input"
         />
       </SectionItem>
@@ -58,6 +62,7 @@ const VesselSearch = () => {
           value={where}
           onChange={setWhere}
           placeholder={t('sidebar.placeholder.rawQuery')}
+          disabled={hasQuery}
           testId="vessel-where-input"
         />
       </SectionItem>
@@ -74,6 +79,7 @@ const VesselSearch = () => {
           onClear={() => setMatchFields([])}
           clearLabel={t('general.label.clear')}
           hint={t('sidebar.hint.multipleSelect')}
+          disabled={hasWhere}
           multiple
         />
       </SectionItem>

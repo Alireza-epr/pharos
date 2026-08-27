@@ -74,4 +74,33 @@ describe('getVesselSearchParams', () => {
 
     expect(params.limit).toBe(50);
   });
+
+  it('clears_where_when_a_non_empty_query_is_written', () => {
+    useVesselSearchStore.getState().setWhere("flag = 'KOR'");
+
+    useVesselSearchStore.getState().setQuery('sea hunter');
+
+    expect(useVesselSearchStore.getState().where).toBe('');
+    expect(useVesselSearchStore.getState().query).toBe('sea hunter');
+  });
+
+  it('clears_query_and_match_fields_when_a_non_empty_where_is_written', () => {
+    useVesselSearchStore.getState().setQuery('sea hunter');
+    useVesselSearchStore.getState().setMatchFields([EVesselMatchField.ALL]);
+
+    useVesselSearchStore.getState().setWhere("flag = 'KOR'");
+
+    expect(useVesselSearchStore.getState().query).toBe('');
+    expect(useVesselSearchStore.getState().matchFields).toEqual([]);
+    expect(useVesselSearchStore.getState().where).toBe("flag = 'KOR'");
+  });
+
+  it('does_not_clear_query_when_where_is_set_back_to_empty', () => {
+    useVesselSearchStore.getState().setWhere("flag = 'KOR'");
+    useVesselSearchStore.getState().setQuery('sea hunter');
+
+    useVesselSearchStore.getState().setWhere('');
+
+    expect(useVesselSearchStore.getState().query).toBe('sea hunter');
+  });
 });
