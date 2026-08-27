@@ -6,10 +6,6 @@ import {
   IVesselStoreStates,
 } from '../helpers/types/storeTypes';
 
-// Mirrors eventStore.ts: holds whatever the last search returned, plus
-// which record is currently selected -- extended with GFW's scroll-cursor
-// pagination state (see the doc comment on IVesselStoreStates for why it's
-// shaped the way it is, unlike the Report tab's offset-based paginationStore).
 export const useVesselStore = create<IVesselStoreStates & IVesselStoreActions>(
   combine(
     {
