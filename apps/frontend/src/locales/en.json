@@ -80,7 +80,8 @@
       "datasetsFilter": "Dataset Filters",
       "exportImportConfig": "Export/Import Config",
       "regionBuffer": "Region Buffer",
-      "vesselSearch": "Vessel Search"
+      "vesselSearch": "Vessel Search",
+      "vesselResults": "Vessel Results"
     },
     "title": {
       "geography": "Geography",

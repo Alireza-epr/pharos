@@ -1,5 +1,6 @@
 import sidebarStyle from '../Sidebar.module.scss';
 import VesselSearch from '../../blocks/VesselSearch';
+import VesselExportAndImportConfig from '../../blocks/VesselExportAndImportConfig';
 import VesselResults from '../../blocks/VesselResults';
 import ButtonInput from '../../common/inputs/ButtonInput';
 import SectionInputGroup from '../../common/section/SectionInputGroup';
@@ -8,6 +9,7 @@ import { useVesselSearchStore } from '../../../stores/vesselSearchStore';
 import { useVesselStore } from '../../../stores/vesselStore';
 import { useFetchVessels } from '../../../hooks/fetch';
 import { log_frontend } from '@packages/utils';
+import { buildVesselSearchConfig } from '../../../helpers/utils/vesselConfigUtils';
 import {
   getVesselPaginationState,
   isVesselSearchReady,
@@ -17,9 +19,6 @@ const VesselTab = () => {
   const { t } = useTranslator();
   const { loading, error, execute } = useFetchVessels();
 
-  const getVesselSearchParams = useVesselSearchStore(
-    (s) => s.getVesselSearchParams,
-  );
   const query = useVesselSearchStore((s) => s.query);
   const where = useVesselSearchStore((s) => s.where);
 
@@ -48,11 +47,11 @@ const VesselTab = () => {
   const handleRunSearch = async () => {
     if (!canSearch || loading) return;
     setActiveVessel(null);
-    const params = getVesselSearchParams();
+    const config = buildVesselSearchConfig();
     // Same mechanism as ReportTab's own `log_frontend({ config: {...} })` --
     // only prints with ?loglevel=3, logs exactly what's being sent.
-    log_frontend({ config: { ...params } });
-    const response = await execute(params);
+    log_frontend({ config: { ...config } });
+    const response = await execute(config);
     if (!response) return;
     log_frontend({ response: { ...response } });
 
@@ -62,7 +61,7 @@ const VesselTab = () => {
       setVessels(response.entries);
       setSince(response.since ?? null);
       setTotal(response.total ?? null);
-      setLastParams(params);
+      setLastParams(config.url_params);
     }
   };
 
@@ -87,9 +86,9 @@ const VesselTab = () => {
     if (!since || !lastParams) return;
     // Reuse the scroll session's original params -- editing the search
     // form mid-scroll must not change what a stale `since` token resumes.
-    const params = { ...lastParams, since };
-    log_frontend({ config: { ...params } });
-    const response = await execute(params);
+    const config = buildVesselSearchConfig({ ...lastParams, since });
+    log_frontend({ config: { ...config } });
+    const response = await execute(config);
     if (!response) return;
     log_frontend({ response: { ...response } });
 
@@ -107,6 +106,7 @@ const VesselTab = () => {
     <>
       <div className={`scrollbar ${sidebarStyle.scrollArea}`}>
         <VesselSearch />
+        <VesselExportAndImportConfig />
         <VesselResults />
       </div>
       <div className={` ${sidebarStyle.footer}`}>

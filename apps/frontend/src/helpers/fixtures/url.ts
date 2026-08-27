@@ -21,10 +21,10 @@ export const globalfishingwatch = {
     },
     vessels: {
       endpoints: {
-        filteredByIds: 'https://gateway.api.globalfishingwatch.org/v3/vessels?',
+        filteredByIds: 'https://gateway.api.globalfishingwatch.org/v3/vessels',
         filteredById: 'https://gateway.api.globalfishingwatch.org/v3/vessels/',
         filteredByQuery:
-          'https://gateway.api.globalfishingwatch.org/v3/vessels/search?',
+          'https://gateway.api.globalfishingwatch.org/v3/vessels/search',
       },
       datasets: {
         vesselIdentity: 'public-global-vessel-identity:latest',

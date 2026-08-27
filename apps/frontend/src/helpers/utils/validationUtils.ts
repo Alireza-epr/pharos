@@ -3,8 +3,10 @@ import {
   ERegionBufferOperations,
   ERegionBufferUnits,
   ERegionDatasets,
+  EFetchMethods,
   EHotspotTimeBins,
 } from '@packages/enum';
+import { IVesselConfigJSON, IVesselSearchURLParams } from '@packages/types';
 import {
   IAdvancedQueryQuery,
   IFilterQuery,
@@ -139,6 +141,39 @@ export const isValidHotspotQuery = (
     resolution >= 0 &&
     resolution <= 15 &&
     (timeBin === EHotspotTimeBins.DAILY || timeBin === EHotspotTimeBins.HOURLY)
+  );
+};
+
+// The wire-format params getVesselSearchParams() sends (and
+// IVesselConfigJSON.url_params carries) -- `datasets[i]`/`match-fields[i]`/
+// `includes[i]` are indexed keys, not checked field-by-field here, same
+// looseness as isValidFilterQuery/isValidAOIQuery above.
+export const isValidVesselSearchURLParams = (
+  a_Data: unknown,
+): a_Data is IVesselSearchURLParams => {
+  if (!isObject(a_Data)) return false;
+  const { query, where, limit, binary } = a_Data;
+  return (
+    (query === undefined || isString(query)) &&
+    (where === undefined || isString(where)) &&
+    (limit === undefined || isNumber(limit)) &&
+    (binary === undefined || isBoolean(binary))
+  );
+};
+
+// The Vessel tab's own export/import config -- see
+// VesselExportAndImportConfig.tsx. `method` has exactly one legal value
+// (GFW's vessel search is GET-only), same invariant the type itself
+// enforces at compile time.
+export const isValidVesselConfigJSON = (
+  a_Data: unknown,
+): a_Data is IVesselConfigJSON => {
+  if (!isObject(a_Data)) return false;
+  const { url, method, url_params } = a_Data;
+  return (
+    isString(url) &&
+    method === EFetchMethods.get &&
+    isValidVesselSearchURLParams(url_params)
   );
 };
 

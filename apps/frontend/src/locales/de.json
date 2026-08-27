@@ -83,7 +83,8 @@
       "datasetsFilter": "Datensatzfilter",
       "exportImportConfig": "Konfiguration exportieren/importieren",
       "regionBuffer": "Regionspuffer",
-      "vesselSearch": "Schiffssuche"
+      "vesselSearch": "Schiffssuche",
+      "vesselResults": "Schiffssuchergebnisse"
     },
     "title": {
       "geography": "Geografie",

@@ -104,3 +104,70 @@ describe('getVesselSearchParams', () => {
     expect(useVesselSearchStore.getState().query).toBe('sea hunter');
   });
 });
+
+describe('importVesselSearchParams', () => {
+  afterEach(() => {
+    useVesselSearchStore.setState(DEFAULT_STATE, true);
+  });
+
+  it('parses_indexed_match_fields_and_includes_keys_back_into_arrays', () => {
+    useVesselSearchStore.getState().importVesselSearchParams({
+      query: '',
+      where: "flag = 'KOR'",
+      limit: 10,
+      'match-fields[0]': EVesselMatchField.ALL,
+      'match-fields[1]': EVesselMatchField.NO_MATCH,
+      'includes[0]': EVesselSearchInclude.OWNERSHIP,
+    });
+
+    const state = useVesselSearchStore.getState();
+
+    expect(state.where).toBe("flag = 'KOR'");
+    expect(state.query).toBe('');
+    expect(state.matchFields).toEqual([
+      EVesselMatchField.ALL,
+      EVesselMatchField.NO_MATCH,
+    ]);
+    expect(state.includes).toEqual([EVesselSearchInclude.OWNERSHIP]);
+    expect(state.limit).toBe(10);
+  });
+
+  it('never_touches_the_fixed_datasets_field', () => {
+    useVesselSearchStore.getState().importVesselSearchParams({
+      'datasets[0]': 'something-else' as any,
+    });
+
+    expect(useVesselSearchStore.getState().datasets).toEqual([
+      EVesselDataset.vesselIdentity,
+    ]);
+  });
+
+  it('defaults_query_where_and_limit_when_absent_from_the_imported_params', () => {
+    useVesselSearchStore.getState().setQuery('sea hunter');
+    useVesselSearchStore.getState().setLimit(50);
+
+    useVesselSearchStore.getState().importVesselSearchParams({});
+
+    const state = useVesselSearchStore.getState();
+    expect(state.query).toBe('');
+    expect(state.where).toBe('');
+    expect(state.limit).toBe(20);
+    expect(state.matchFields).toEqual([]);
+    expect(state.includes).toEqual([]);
+  });
+
+  it('round_trips_through_getVesselSearchParams', () => {
+    useVesselSearchStore.getState().setQuery('sea hunter');
+    useVesselSearchStore.getState().setMatchFields([EVesselMatchField.ALL]);
+    useVesselSearchStore.getState().setLimit(35);
+    const params = useVesselSearchStore.getState().getVesselSearchParams();
+
+    useVesselSearchStore.setState(DEFAULT_STATE, true);
+    useVesselSearchStore.getState().importVesselSearchParams(params);
+
+    const state = useVesselSearchStore.getState();
+    expect(state.query).toBe('sea hunter');
+    expect(state.matchFields).toEqual([EVesselMatchField.ALL]);
+    expect(state.limit).toBe(35);
+  });
+});

@@ -19,7 +19,11 @@ Full request/response contracts: [query-contract.md](../api/query-contract.md#ve
 
 A left-sidebar tab, next to Report, for searching GFW's vessel identity
 dataset directly - independent of any SAR detection. Backed by
-`GET /vessels/search`.
+`POST /vessels/search`, sent as an `IVesselConfigJSON` - the Vessel tab's
+analogue of the Report tab's `IConfigJSON` (`url`/`method`/`url_params`,
+built by `buildVesselSearchConfig()`; see
+[query-contract.md](../api/query-contract.md#vessels-search) for the
+request shape).
 
 ### Query fields
 
@@ -104,9 +108,12 @@ A matched detection's raw 4Wings entry already carries GFW's internal
 vessel id (`event.raw_metadata.vesselId` - see
 [event-schema.md](../data/event-schema.md)'s `raw_metadata` note). The
 Detail panel resolves that id into a full vessel identity on demand, via
-`GET /vessels` (list by ids) - a **different** GFW endpoint from the Vessel
+`POST /vessels` (list by ids) - a **different** GFW endpoint from the Vessel
 tab's search, with its own response `metadata` shape
 (`idsFound`/`idsNotFound`, not `query`/`normalizedQuery`/`didYouMean`).
+Same `IVesselListConfigJSON` request pattern as the Vessel tab's own
+`IVesselConfigJSON` (`buildVesselListConfig()`, see
+[query-contract.md](../api/query-contract.md#vessels-list-by-ids)).
 
 Shown as a new **Vessel Identity** section in the Detail panel, between
 Source & Detection and Scoring (`VesselIdentityContext.tsx`) - only when

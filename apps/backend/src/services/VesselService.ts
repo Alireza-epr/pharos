@@ -1,8 +1,8 @@
 import {
+  IVesselConfigJSON,
   IVesselListAPIResponse,
-  IVesselListURLParams,
+  IVesselListConfigJSON,
   IVesselSearchAPIResponse,
-  IVesselSearchURLParams,
 } from '@packages/types';
 import { config } from '../config/api';
 import { log } from '../helpers/utils/backendUtils';
@@ -33,14 +33,14 @@ const vesselRepository = getVesselRepository();
  *   `getDetections` has `report_response` (see DetectionService.ts).
  */
 export const searchVessels = async (
-  a_Params: IVesselSearchURLParams,
+  a_Config: IVesselConfigJSON,
 ): Promise<IVesselSearchAPIResponse> => {
   if (!config.auth.detection_token) {
     log('[vessel] DETECTION_TOKEN not set - offline serving', ELogType.warn);
     return { entries: [] };
   }
 
-  return vesselRepository.search(a_Params);
+  return vesselRepository.search(a_Config);
 };
 
 /**
@@ -49,12 +49,12 @@ export const searchVessels = async (
  * fallback as `searchVessels`.
  */
 export const getVesselsByIds = async (
-  a_Params: IVesselListURLParams,
+  a_Config: IVesselListConfigJSON,
 ): Promise<IVesselListAPIResponse> => {
   if (!config.auth.detection_token) {
     log('[vessel] DETECTION_TOKEN not set - offline serving', ELogType.warn);
     return { entries: [] };
   }
 
-  return vesselRepository.list(a_Params);
+  return vesselRepository.list(a_Config);
 };

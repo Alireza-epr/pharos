@@ -2,6 +2,7 @@ import {
   E4wingsDatasets,
   EEventDatasets,
   EEventType,
+  EFetchMethods,
   EFormat,
   EGearType,
   EGroupBy,
@@ -372,6 +373,14 @@ export interface IVesselSearchURLParams {
   [key: TVesselIncludeKey]: EVesselSearchInclude | string | undefined;
 }
 
+export interface IVesselConfigJSON {
+  /** Upstream Vessels API endpoint this request targets. */
+  url: string;
+  /** GFW's vessel search endpoint is GET-only -- always this one value. */
+  method: EFetchMethods.get;
+  url_params: IVesselSearchURLParams;
+}
+
 export interface IVesselRegistryExtraField {
   registrySource?: string;
   iuuStatus?: unknown;
@@ -501,6 +510,12 @@ export interface IVesselListURLParams {
   [key: TVesselMatchFieldKey]: EVesselMatchField | string | undefined;
   "registries-info-data"?: EVesselRegistryInfoData | string;
   binary?: boolean;
+}
+
+export interface IVesselListConfigJSON {
+  url: string;
+  method: EFetchMethods.get;
+  url_params: IVesselListURLParams;
 }
 
 export interface IVesselListMetadata {
