@@ -44,13 +44,19 @@ export const useVesselSearchStore = create<
     },
     (set, get) => ({
       setQuery: (a_Value) =>
-        set((state) => ({
-          query: typeof a_Value === 'function' ? a_Value(state.query) : a_Value,
-        })),
+        set((state) => {
+          const query =
+            typeof a_Value === 'function' ? a_Value(state.query) : a_Value;
+          return query === '' ? { query } : { query, where: '' };
+        }),
       setWhere: (a_Value) =>
-        set((state) => ({
-          where: typeof a_Value === 'function' ? a_Value(state.where) : a_Value,
-        })),
+        set((state) => {
+          const where =
+            typeof a_Value === 'function' ? a_Value(state.where) : a_Value;
+          return where === ''
+            ? { where }
+            : { where, query: '', matchFields: [] };
+        }),
       setMatchFields: (a_Value) =>
         set((state) => ({
           matchFields:

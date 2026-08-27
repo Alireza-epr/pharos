@@ -26,7 +26,6 @@
 .row-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--padding-default-half);
   min-width: 0;
   flex: 1;
@@ -34,8 +33,10 @@
 
 .title {
   color: var(--theme-text-primary);
+  min-width: 0;
 }
 
 .subtitle {
   color: var(--theme-text-secondary);
+  min-width: 0;
 }

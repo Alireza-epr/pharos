@@ -66,6 +66,10 @@ jobs:
         run: npm test
 
       # ----- Frontend checks -----
+      - name: Create .env file for CI
+        working-directory: apps/frontend
+        run: cp src/.env.example src/.env
+
       - name: Run Frontend Type Check
         working-directory: apps/frontend
         run: npm run typecheck
