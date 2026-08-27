@@ -62,8 +62,8 @@ npm run setup:data               # downloads bathymetry rasters (Windows shell s
 
 ## Backend architecture
 
-- `src/core/server.ts` — Express bootstrap: middleware chain (CORS check → json → request/response loggers → CORS → attach start-time/git-SHA), then routes mounted under `/v1` by `EBaseRoutes` (`system`, `auth`, `events`, `exports`).
-- `src/modules/<name>/` — feature slice: `*.routes.ts` + `*.controllers.ts`. System routes are unauthenticated; others sit behind auth.
+- `src/core/server.ts` — Express bootstrap: middleware chain (CORS check → json → request/response loggers → CORS → attach start-time/git-SHA), then routes mounted under `/v1` by `EBaseRoutes` (`system`, `auth`, `events`, `exports`, `regions`, `vessels`).
+- `src/modules/<name>/` — feature slice: `*.routes.ts` + `*.controllers.ts`. System routes are unauthenticated; others sit behind auth. `regions` serves EEZ/MPA/coastline boundary geometry (context-layer map toggles); `vessels` wraps the GFW Vessels API for the Vessel tab's search and on-demand vessel-identity enrichment.
 - `src/services/` — `IOService` (parquet/file IO), `RouteService`, `GenericComService`.
 - `src/pipeline/` — staged offline flow: `ingest → normalize → features → aggregate → schema → export` (+ `validation`).
 - Helpers under `src/helpers/{utils,types,enum,fixtures}`; `typeRoots` includes `src/helpers/types` so ambient types resolve there.
