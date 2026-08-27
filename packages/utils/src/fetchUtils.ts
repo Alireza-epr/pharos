@@ -6,12 +6,20 @@ export const fetchWithRetry = async (
   a_Init: RequestInit | undefined,
   a_Retries: number,
   a_Delay: number,
+  a_TimeoutMs?: number,
 ): Promise<Response> => {
   let currentDelay = a_Delay;
 
   for (let attempt = 1; attempt <= a_Retries; attempt++) {
     try {
-      const response = await fetch(a_URL, a_Init);
+      const timeoutSignal = a_TimeoutMs
+        ? AbortSignal.timeout(a_TimeoutMs)
+        : undefined;
+      const signal =
+        timeoutSignal && a_Init?.signal
+          ? AbortSignal.any([a_Init.signal, timeoutSignal])
+          : (timeoutSignal ?? a_Init?.signal);
+      const response = await fetch(a_URL, { ...a_Init, signal });
 
       if (!response.ok) {
         const txt = await response.text();

@@ -51,4 +51,21 @@ describe('fetchWithRetry', () => {
     );
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
+
+  it('gives_up_on_a_request_that_never_responds_once_the_timeout_elapses', async () => {
+    const fetchMock = jest.fn(
+      (_url: unknown, init?: RequestInit) =>
+        new Promise((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () =>
+            reject(init.signal!.reason),
+          );
+        }),
+    );
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    await expect(
+      fetchWithRetry('https://example.com', {}, 1, 1, 10),
+    ).rejects.toBeDefined();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
 });

@@ -12,7 +12,7 @@ import {
 } from '@packages/enum';
 import { fetchWithRetry, log_frontend } from '@packages/utils';
 
-const { BASE_URL, RETRIES, RETRY_DELAY } = getAPIConfig();
+const { BASE_URL, RETRIES, RETRY_DELAY, REQUEST_TIMEOUT_MS } = getAPIConfig();
 
 // A single refresh can be shared across concurrent (in-flight) requests so a
 // burst of 401s triggers only one /auth/refresh call.
@@ -96,12 +96,24 @@ export const fetchWithAuth = async (
 
   const token = useLoginStore.getState().accessToken;
   try {
-    return await fetchWithRetry(a_URL, withAuth(token), RETRIES, RETRY_DELAY);
+    return await fetchWithRetry(
+      a_URL,
+      withAuth(token),
+      RETRIES,
+      RETRY_DELAY,
+      REQUEST_TIMEOUT_MS,
+    );
   } catch (err) {
     if (String(err).includes('401')) {
       const newToken = await refreshAccessToken();
       if (newToken)
-        return fetchWithRetry(a_URL, withAuth(newToken), RETRIES, RETRY_DELAY);
+        return fetchWithRetry(
+          a_URL,
+          withAuth(newToken),
+          RETRIES,
+          RETRY_DELAY,
+          REQUEST_TIMEOUT_MS,
+        );
     }
     throw err;
   }

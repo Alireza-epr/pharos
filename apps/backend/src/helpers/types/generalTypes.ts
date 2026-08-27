@@ -14,6 +14,9 @@ export interface IBackendConfig {
     refresh_token_expiry: string; // Refresh token expiration time
   };
   port: number;
+  detection_provider_timeout_ms: number;
+  detection_provider_retries: number;
+  detection_provider_retry_delay_ms: number;
 }
 
 export enum ELogType {
