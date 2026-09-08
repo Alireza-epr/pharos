@@ -6,6 +6,7 @@ import {
   EConfidenceTiers,
   EGeoJSONGeometryType,
   EHiddenConfig,
+  TCache,
 } from '@packages/enum';
 import {
   IConfigJSON,
@@ -24,6 +25,7 @@ import {
   stripHiddenConfiguration,
 } from '@packages/utils';
 import {
+  getCacheFromEvents,
   getContextLayersFromEvents,
   getSourcesFromEvents,
   hashString,
@@ -122,6 +124,7 @@ export const generateRunMetadata = async (
   a_Events?: IEventSchema[],
   a_Start?: string,
   a_End?: string,
+  a_Cache?: TCache,
 ): Promise<IRunMetadata> => {
   const canonicalObject = deepSortObject(
     stripHiddenConfiguration(a_Configurations),
@@ -149,6 +152,11 @@ export const generateRunMetadata = async (
     execution_duration_sec: execution_duration_ms
       ? Number((execution_duration_ms / 1000).toFixed(3))
       : undefined,
+    cache:
+      a_Cache ??
+      (a_Events && a_Events.length > 0
+        ? getCacheFromEvents(a_Events) || undefined
+        : undefined),
   };
 };
 

@@ -7,19 +7,30 @@ import path from 'path';
 import JSZip from 'jszip';
 import parquet from 'parquetjs';
 
+// JSZip stamps each entry's local file header with `date` (default:
+// `new Date()`), which is otherwise the one thing that makes two exports of
+// byte-identical content produce different ZIP bytes. Pin it so the archive
+// is a pure function of its contents, not of when it happened to be built —
+// see the export-bundle determinism test in `tests/exportBundle.spec.ts`.
+const ZIP_ENTRY_DATE = new Date(0);
+
 export const writeZip = async (a_OutputPath: string, a_Files: IZipFile[]) => {
   const zip = new JSZip();
 
   for (const file of a_Files) {
     if (file.name.endsWith('.json')) {
-      zip.file(file.name, JSON.stringify(file.content, null, 2));
+      zip.file(file.name, JSON.stringify(file.content, null, 2), {
+        date: ZIP_ENTRY_DATE,
+      });
     } else if (file.name.endsWith('.geojson')) {
       const featureCollection = {
         type: 'FeatureCollection',
         features: file.content,
       };
 
-      zip.file(file.name, JSON.stringify(featureCollection, null, 2));
+      zip.file(file.name, JSON.stringify(featureCollection, null, 2), {
+        date: ZIP_ENTRY_DATE,
+      });
     } else if (file.name.endsWith('.csv')) {
       const csvGroups = file.content as ICSVGroup<any>[][];
 
@@ -36,7 +47,7 @@ export const writeZip = async (a_OutputPath: string, a_Files: IZipFile[]) => {
         csvStrings.push(thisCSVString + '\n\n');
       }
 
-      zip.file(file.name, csvStrings.join(' '));
+      zip.file(file.name, csvStrings.join(' '), { date: ZIP_ENTRY_DATE });
     } else if (file.name.endsWith('.parquet')) {
       const { data, schema } = file.content as {
         data: { [key: string]: any }[];
@@ -45,7 +56,7 @@ export const writeZip = async (a_OutputPath: string, a_Files: IZipFile[]) => {
 
       const buffer = await parquetBuffer(data, schema);
 
-      zip.file(file.name, buffer);
+      zip.file(file.name, buffer, { date: ZIP_ENTRY_DATE });
     } else {
       throw new Error(`[writeZip] Unsupported file type: ${file.name}`);
     }
