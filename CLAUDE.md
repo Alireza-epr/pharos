@@ -60,6 +60,17 @@ npm run pipeline:validation
 npm run setup:data               # downloads bathymetry rasters (Windows shell syntax in the script)
 ```
 
+### QA agent
+`apps/backend/src/tools/qa_agent` runs a pipeline config, checks the output files exist and match the canonical event shape, and writes a Markdown quality summary (counts, unmatched fraction, missingness, top hotspot cells, validation-sample stratum/blank-label counts) to `apps/backend/reports/qa_<timestamp>.md` — **CI-artifact only, never committed** (`reports/` is gitignored).
+
+```bash
+npm run qa:agent               # pilot.json
+npm run qa:agent:unmatched     # pilot_unmatched.json
+npm run qa:agent:validation    # validation-pilot.json, --mode validation
+```
+
+Runs in CI (`pr-checks.yml`) after the backend unit tests, uploaded as a build artifact; `continue-on-error: true` since it's observability, not a merge gate.
+
 ## Backend architecture
 
 - `src/core/server.ts` — Express bootstrap: middleware chain (CORS check → json → request/response loggers → CORS → attach start-time/git-SHA), then routes mounted under `/v1` by `EBaseRoutes` (`system`, `auth`, `events`, `exports`, `regions`, `vessels`).
@@ -100,7 +111,7 @@ Read via `t('a.b.c')` from `useTranslator()`. Maintenance rules (enforced, not o
 
 ## CI / definition of done
 
-`.github/workflows/pr-checks.yml` runs on PRs to `master` and gates merge. Before pushing, mirror it locally — backend **lint, typecheck, build + health-check smoke (`/v1/system/health`), unit tests**; frontend **typecheck, lint, lint:style, unit tests, Playwright e2e**. Deploy happens on merge to `master`. OpenAPI is generated/linted by separate workflows (`generate-openapi.yaml`, `lint-openapi.yaml`; spec rules in `.spectral.yaml`).
+`.github/workflows/pr-checks.yml` runs on PRs to `master` and gates merge. Before pushing, mirror it locally — backend **lint, typecheck, build + health-check smoke (`/v1/system/health`), unit tests**; frontend **typecheck, lint, lint:style, unit tests, Playwright e2e**. The QA agent also runs there (uploads a report artifact) but is `continue-on-error: true` — it doesn't gate merge, so it's not part of the local mirror. Deploy happens on merge to `master`. OpenAPI is generated/linted by separate workflows (`generate-openapi.yaml`, `lint-openapi.yaml`; spec rules in `.spectral.yaml`).
 
 ## Commit & branch conventions
 Commits follow **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`, `build:`, `test:`, `style:`, `refactor:`, `perf:`) — keep new commits consistent with the existing history. Work happens on feature branches off `develop`; PRs target `master` (which runs `pr-checks.yml` and deploys on merge). The `/format-and-push` and `/git-commit-formatter` skills exist to normalize messages into this style.

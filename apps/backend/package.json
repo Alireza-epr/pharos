@@ -14,6 +14,7 @@
     "start": "node dist/src/core/server.js",
     "pipeline:sample": "tsc && node dist/src/pipeline/sample.js --main",
     "pipeline:validation": "tsc && node dist/src/pipeline/sample.js --validation",
+    "qa:agent": "tsc && node dist/src/tools/qa_agent/index.js",
     "lint": "eslint ./**/*.{ts,js}",
     "format": "prettier --write ./**/*.{ts,js,json,md}",
     "typecheck": "tsc --noEmit",

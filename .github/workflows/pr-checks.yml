@@ -65,6 +65,19 @@ jobs:
         working-directory: apps/backend
         run: npm test
 
+      - name: Run QA agent
+        working-directory: apps/backend
+        run: npm run qa:agent -- --config src/config/pilot.json
+        continue-on-error: true
+
+      - name: Upload QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report
+          path: apps/backend/reports/qa_*.md
+          if-no-files-found: warn
+
       # ----- Frontend checks -----
       - name: Create .env file for CI
         working-directory: apps/frontend
