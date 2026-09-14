@@ -91,7 +91,9 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
     let lastApplied: TAOIFeature | null = null;
     let lastClick = { t: 0, x: 0, y: 0 };
 
-    const teal = readToken('--color-accent-teal4', '#2bb3a3');
+    // A distinct blue, not a step of the teal ramp -- teal4 used to read too
+    // similarly to the teal2 matched-vessel markers (see useEventMarkers.ts).
+    const blue = readToken('--color-accent-blue4', '#6ba8ff');
     const orange = readToken('--color-alert-orange4', '#e8833a');
 
     // ---- store access (setters/values are stable via getState) -------------
@@ -127,7 +129,7 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
           type: 'fill',
           source: SRC,
           filter: ['==', ['get', 'kind'], KIND.zonalFill],
-          paint: { 'fill-color': teal, 'fill-opacity': 0.15 },
+          paint: { 'fill-color': blue, 'fill-opacity': 0.15 },
         });
       }
       if (!map.getLayer(L_ZONAL_LINE)) {
@@ -136,7 +138,7 @@ export const useAOIDraw = (a_Map: maplibregl.Map | null) => {
           type: 'line',
           source: SRC,
           filter: ['==', ['get', 'kind'], KIND.zonalLine],
-          paint: { 'line-color': teal, 'line-width': 2 },
+          paint: { 'line-color': blue, 'line-width': 2 },
         });
       }
       if (!map.getLayer(L_POINT_FILL)) {

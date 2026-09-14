@@ -39,7 +39,7 @@ export const useAOIRegionBoundary = (a_Map: maplibregl.Map | null) => {
 
     // Same token/fallback as the Zonal AOI fill in useAOIDraw -- keep in
     // sync if that color ever changes.
-    const green = readToken('--color-accent-teal4', '#2bb3a3');
+    const blue = readToken('--color-accent-blue4', '#6ba8ff');
 
     const addSourceAndLayers = () => {
       if (!map.getSource(SRC)) {
@@ -53,7 +53,7 @@ export const useAOIRegionBoundary = (a_Map: maplibregl.Map | null) => {
           id: L_FILL,
           type: 'fill',
           source: SRC,
-          paint: { 'fill-color': green, 'fill-opacity': 0.15 },
+          paint: { 'fill-color': blue, 'fill-opacity': 0.15 },
         });
       }
       if (!map.getLayer(L_LINE)) {
@@ -61,7 +61,7 @@ export const useAOIRegionBoundary = (a_Map: maplibregl.Map | null) => {
           id: L_LINE,
           type: 'line',
           source: SRC,
-          paint: { 'line-color': green, 'line-width': 2 },
+          paint: { 'line-color': blue, 'line-width': 2 },
         });
       }
     };
