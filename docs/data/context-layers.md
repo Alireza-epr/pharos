@@ -8,6 +8,8 @@ All datasets are version pinned to ensure deterministic results.
 
 Each of the three keeps its unsimplified original alongside it in the same folder (`eez_polygons.full.geojson`, `mpa_polygons.full.geojson`, `coastline_polylines.full.geojson`). Set `CONTEXT_DATASET_QUALITY=full` (default is `simplified`) to serve those instead - only do this on a host with enough RAM to hold them.
 
+**Available for every event, matched or unmatched.** EEZ/MPA/Bathymetry enrichment (`pipeline/schema/main.ts`) runs unconditionally on every event during schema generation, before `matched_flag` is even branched on anywhere downstream - so an AIS-unmatched detection carries exactly the same context-layer data as a matched one. This is deliberate, not incidental: these layers exist to help a reviewer interpret an *unmatched* detection (is it inside an MPA? in shallow water consistent with fishing?), so gating them on a successful AIS match would defeat their purpose. This is a different rule from two other enrichments that share the same "additional context" role but are each restricted to one side of the match: **Vessel Identity** (`vessels` module) only has anything to look up for a *matched* detection - unmatched has no AIS-derived vessel ID to query - and **Hotspot context** (`pipeline/aggregate/hotspots.ts`) is computed *only* for unmatched events, since it exists specifically to surface unmatched recurrence.
+
 Feature extraction is implemented in:
 
 rootDir = apps/backend/src/pipeline/features/

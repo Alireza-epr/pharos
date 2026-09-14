@@ -1,7 +1,8 @@
 # UI Usage Notes
 
-Three independent topics live here: accessibility/keyboard reachability,
-in-context help/caveats, and the map's clustering behavior.
+Five independent topics live here: accessibility/keyboard reachability,
+in-context help/caveats, query history, config import/export, and the map's
+clustering behavior.
 
 ## Accessibility & Keyboard Reachability
 
@@ -136,6 +137,59 @@ than inventing new wording - one canonical sentence, surfaced in two
 places. This is UI-only; the export bundle's file set is unchanged (the
 canonical, fuller version of this caveat lives in `docs/limitations.md`
 for anyone reading the repo).
+
+---
+
+## History (`HistoryTab.tsx`)
+
+The right drawer's third tab, alongside Detail and Export. Two sections,
+**Report** and **Vessels**, styled the same as `ExportTab` - one entry per
+query/search that actually ran in that tab, success or failure, newest
+first. Each entry shows a timestamp and either a result count
+(`{{count}} result(s)`) or a `Query failed` subtitle, the latter colored via
+the same global `error` class the rest of the app uses for failure text
+(`ReportTab`/`VesselTab`/`ExportTab` all use it too - one consistent "this
+went wrong" color, not a one-off here).
+
+**Apply** restores that entry's query config and its captured result set
+with no re-fetch of the underlying detections/vessels - the result was
+saved alongside the query the moment it originally ran, so replaying it is
+a pure state write (`applyHistoryEntry`, `helpers/utils/historyUtils.ts`).
+The one exception: a Report-tab entry whose AOI used an EEZ/MPA region
+dropdown does trigger one network call on Apply - reloading that dropdown's
+option list (`GET /v1/regions`) so the restored selector has something to
+render/edit - but this is populating a picker, not re-running the query.
+
+`Clear` empties the whole history store (both sections at once) from one
+footer button; there's no per-entry delete.
+
+---
+
+## Import / export configuration
+
+Two independent layers, both plain JSON-file round-trips
+(`downloadJSON`/`openJSONFile`) with no server involvement:
+
+- **Whole-query config** - one `Section` per tab (`ExportAndImportConfig.tsx`
+  for Report, `VesselExportAndImportConfig.tsx` for Vessel Search). Export
+  downloads the entire current config as one JSON file (hidden run-only
+  fields like `gitCommitSHA`/`export`/`cache` stripped first via
+  `stripHiddenConfiguration`); import validates the file's shape and, if
+  valid, replaces the whole config (`caveat` on the Import button warns
+  this before the fact). This is the same `config_json` shape an export
+  bundle records in its `run_metadata.json` (master-plan 3.8) - a
+  downloaded config and a bundle's recorded config are interchangeable.
+- **Per-section config** - `Section`'s own `showImport`/`showExport` props
+  (a ↧/↥ icon pair next to a section's title) let AOI, Time Range,
+  Threshold & Weights, Sort Order, Pagination, Hotspot Config, Filter, and
+  Advanced Query each export/import just their own slice of the config,
+  independent of the rest - for sharing or reusing one part of a query
+  setup without overwriting everything else.
+
+Both layers report an invalid/unreadable file through the same
+`general.text.invalidImportFile` warning rather than failing silently;
+whole-config import additionally re-triggers the EEZ/MPA region-list
+preload described above under History, for the same reason.
 
 ---
 
