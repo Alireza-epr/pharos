@@ -341,11 +341,11 @@ test.describe('UI_smoke', () => {
     await expect(aoiHeader).toHaveAttribute('aria-expanded', 'true');
 
     // 2) The EEZ combobox (DropdownInput's SearchableSelect) is keyboard-
-    // operable end to end: Enter opens it, Enter again commits the
+    // operable end to end: focusing it already opens it (onFocus triggers
+    // openWithFreshQuery -- no key needed to open), then Enter commits the
     // highlighted (first, by default) option.
     const eezInput = page.getByTestId('eez-select');
     await eezInput.focus();
-    await page.keyboard.press('Enter');
     await expect(page.getByRole('option').first()).toBeVisible();
     await page.keyboard.press('Enter');
     await expect(eezInput).not.toHaveValue('');

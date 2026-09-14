@@ -21,6 +21,18 @@ const Modal = (props: IModalProps) => {
   const { t } = useTranslator();
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
+  const wasOpen = useRef(false);
+
+  // Captured during render, not in an effect: some triggers (e.g. Report
+  // tab's Run Query button) disable themselves the instant the modal opens,
+  // and a disabled element is auto-blurred by the browser as part of that
+  // same commit -- by the time any effect ran, `document.activeElement`
+  // would already be wrong (blurred to <body>). Render happens before that
+  // commit, so it still sees whatever was genuinely focused beforehand.
+  if (props.open && !wasOpen.current) {
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+  }
+  wasOpen.current = props.open;
 
   // Escape closes; Tab/Shift+Tab wraps within the dialog instead of escaping
   // to whatever's behind it (a keyboard user must never be able to tab onto
@@ -59,7 +71,6 @@ const Modal = (props: IModalProps) => {
   // silently lost on both ends of the interaction.
   useEffect(() => {
     if (!props.open) return;
-    previouslyFocused.current = document.activeElement as HTMLElement | null;
     dialogRef.current?.focus();
 
     return () => previouslyFocused.current?.focus();
