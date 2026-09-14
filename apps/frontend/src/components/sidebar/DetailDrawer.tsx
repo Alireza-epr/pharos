@@ -6,6 +6,7 @@ import { useDetailStore } from '@/stores/detailStore';
 import SidebarToggleInput from '../common/inputs/SidebarToggleInput';
 import DetailTab from './tabs/DetailTab';
 import ExportTab from './tabs/ExportTab';
+import HistoryTab from './tabs/HistoryTab';
 import SectionInputGroup from '../common/section/SectionInputGroup';
 
 const DetailDrawer = () => {
@@ -36,10 +37,18 @@ const DetailDrawer = () => {
           onClick={() => setActiveTab(EDetailTab.export)}
           size="sm"
         />
+        <ButtonInput
+          label={t('detailPanel.tab.history')}
+          active={activeTab === EDetailTab.history}
+          onClick={() => setActiveTab(EDetailTab.history)}
+          size="sm"
+          testId="detail-tab-history"
+        />
       </SectionInputGroup>
 
       {activeTab === EDetailTab.detail && <DetailTab />}
       {activeTab === EDetailTab.export && <ExportTab />}
+      {activeTab === EDetailTab.history && <HistoryTab />}
     </div>
   );
 };

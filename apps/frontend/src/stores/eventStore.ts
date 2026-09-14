@@ -12,6 +12,7 @@ export const useEventStore = create<IEventStoreStates & IEventStoreActions>(
       events: [] as IEventStoreStates['events'],
       activeEvent: null as IEventStoreStates['activeEvent'],
       selectedEvents: [] as IEventStoreStates['selectedEvents'],
+      pagination: null as IEventStoreStates['pagination'],
     },
     (set) => ({
       setActiveEvent: (a_Value) =>
@@ -31,6 +32,13 @@ export const useEventStore = create<IEventStoreStates & IEventStoreActions>(
           selectedEvents:
             typeof a_Value === 'function'
               ? a_Value(state.selectedEvents)
+              : a_Value,
+        })),
+      setPagination: (a_Value) =>
+        set((state) => ({
+          pagination:
+            typeof a_Value === 'function'
+              ? a_Value(state.pagination)
               : a_Value,
         })),
     }),

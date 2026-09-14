@@ -4,6 +4,11 @@ import listItemStyle from './ListItem.module.scss';
 export interface IListItemProps {
   title: string;
   subtitle?: string | undefined;
+  // Same convention as the rest of the app's error text (ReportTab,
+  // VesselTab, ExportTab all conditionally add the global `error` class) --
+  // exposed here so a row's subtitle (e.g. a failed history entry) can use
+  // it too.
+  subtitleError?: boolean;
   active?: boolean;
   onClick?: () => void;
   prepend?: ReactNode;
@@ -39,7 +44,7 @@ const ListItem = (props: IListItemProps) => {
         </span>
         {props.subtitle && (
           <span
-            className={`font-size-xs truncate ${listItemStyle.subtitle}`}
+            className={`font-size-xs truncate ${listItemStyle.subtitle} ${props.subtitleError ? 'error' : ''}`}
           >
             {props.subtitle}
           </span>

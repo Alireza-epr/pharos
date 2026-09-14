@@ -218,7 +218,8 @@
   },
   "detailPanel": {
     "tab": {
-      "detail": "Detail"
+      "detail": "Detail",
+      "history": "History"
     },
     "empty": {
       "title": "No event to display",
@@ -274,6 +275,21 @@
       "removeFromExport": "Remove from Export",
       "next": "Next ›",
       "prev": "‹ Previous"
+    }
+  },
+  "historyPanel": {
+    "empty": {
+      "title": "No Report history yet",
+      "body": "Run a query in the Report tab and it will show up here.",
+      "titleVessel": "No Vessel history yet",
+      "bodyVessel": "Run a search in the Vessels tab and it will show up here."
+    },
+    "subtitle": {
+      "resultCount": "{{count}} result(s)",
+      "failed": "Query failed"
+    },
+    "action": {
+      "apply": "Apply"
     }
   },
   "exportPanel": {

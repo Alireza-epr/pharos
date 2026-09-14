@@ -218,7 +218,8 @@
   },
   "detailPanel": {
     "tab": {
-      "detail": "Detail"
+      "detail": "Detail",
+      "history": "Verlauf"
     },
     "empty": {
       "title": "Kein Ereignis zum Anzeigen",
@@ -274,6 +275,21 @@
       "removeFromExport": "Aus Export entfernen",
       "next": "Weiter ›",
       "prev": "‹ Zurück"
+    }
+  },
+  "historyPanel": {
+    "empty": {
+      "title": "Noch kein Report-Verlauf",
+      "body": "Führen Sie eine Abfrage im Report-Tab aus, dann erscheint sie hier.",
+      "titleVessel": "Noch kein Vessel-Verlauf",
+      "bodyVessel": "Führen Sie eine Suche im Vessels-Tab aus, dann erscheint sie hier."
+    },
+    "subtitle": {
+      "resultCount": "{{count}} Ergebnis(se)",
+      "failed": "Abfrage fehlgeschlagen"
+    },
+    "action": {
+      "apply": "Anwenden"
     }
   },
   "exportPanel": {
