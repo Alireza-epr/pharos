@@ -375,7 +375,7 @@ test.describe('UI_smoke', () => {
     await expect(rows).toHaveCount(eventsResponse.entries.length);
 
     const idHeader = page.getByRole('columnheader', {
-      name: /Detection ID/i,
+      name: /Event ID/i,
     });
     await idHeader.focus();
     await expect(idHeader).not.toHaveAttribute('aria-sort');
