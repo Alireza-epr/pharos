@@ -189,8 +189,15 @@ On a miss (any requested day whose cells aren't all covered):
    (`applyRecoverableEventFilters`), filter, and return.
 
 A second identical **or zoomed-in** request finds its cells covered and is a
-**pure cache hit** (no provider call). The hit/miss outcome is logged; surfacing
-it in the response payload is owned by the response-cache work (master-plan 2.2).
+**pure cache hit** (no provider call). The hit/miss/disabled outcome is
+logged and also carried in the response payload as `run_metadata.cache`
+(`generateRunMetadata`, `ECache`) - on every events response and in the
+export bundle's `run_metadata.json` - and surfaced live to the analyst by
+the query-progress modal ("checking cache coverage", "N/N day(s) cached").
+This is the resolution of a dedicated response-cache layer (master-plan
+2.2): a keyed LRU with its own eviction policy was decided against, since
+this coverage-manifest-backed signal already answers "was this served from
+cache" without one.
 
 > Region partitions (files) and coverage (cells) are **separate dimensions**:
 > regions decide *which file* an event is stored in/read from; cells decide

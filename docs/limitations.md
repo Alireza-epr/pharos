@@ -13,6 +13,16 @@ https://globalfishingwatch.org/our-apis/documentation#data-caveat
 
 The `unmatched` tag is used as a **triage indicator only** and must not be interpreted as a claim or conclusion.
 
+> This is the single source of truth for that caveat. It's echoed - never
+> reworded to say something different - at the two points in the running UI
+> where an analyst is looking at unmatched results: the Detail drawer's
+> per-event footer, and a standing banner above the results table (one
+> shared locale string, `detailPanel.text.dataLimitationBody`, surfaced in
+> both places rather than two separately-worded copies). There is currently
+> no bundle README to echo it a third time - the export ZIP's file set is
+> `canonicalSchema.json`/`events.csv`/parquet/`stats.json`/hotspots/
+> `run_metadata.json` only, no free-text file.
+
 - The tag originates from the **initial data provided by upstream sources (iteration 1)** and is not the result of additional classification, manipulation, or inference performed within this system
 - It indicates that a SAR detection could not be associated with an AIS record under the given conditions
 - It does not imply illegal activity, suspicious behavior, or the presence of a “dark vessel”

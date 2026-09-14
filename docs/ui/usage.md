@@ -1,4 +1,10 @@
-# UI Usage - Accessibility & Keyboard Reachability
+# UI Usage Notes
+
+Five independent topics live here: accessibility/keyboard reachability,
+in-context help/caveats, query history, config import/export, and the map's
+clustering behavior.
+
+## Accessibility & Keyboard Reachability
 
 Scope: the core analyst loop - left sidebar (Report / Vessels / Event tabs),
 the results table (`BottomPanel`), the right drawer (Detail / Export /
@@ -100,3 +106,115 @@ drives the same happy path as the mouse-based smoke test - expand the AOI
 section, pick an EEZ, run the query, inspect the progress modal's focus
 trap, sort a column, select a detection row - using only `Tab`/`Enter`/
 `Escape`, never `.click()`.
+
+---
+
+## In-context help, hints & caveats
+
+Two mechanisms, both reusing existing UI primitives rather than adding new
+ones:
+
+**Hints on score, uncertainty & reason codes.** `SectionItem`'s existing
+`hint`/`caveat` props (an ℹ/⚠ glyph next to a label, native `title`
+tooltip on hover) now cover the Detail drawer's Scoring block: the triage
+score and uncertainty score fields each explain in one sentence what the
+0-1 number means and, just as importantly, what it *isn't* ("not a
+probability or risk score"). Every raw reason-code chip
+(`bathymetry_shallow_eez_hotspot` and friends) gets the same treatment via
+a new `titleFor` prop on `ChipGroupInput` backed by
+`reasonCodeHint()` (`helpers/utils/eventUtils.ts`) - one short explanation
+per `EReasonCodesStatic` value, plus the two `missing_required_*_field:`
+template variants (field name interpolated in). Shared by both places a raw
+reason code renders as a chip: the Scoring block's read-only display and
+Filter's include/exclude pickers.
+
+**Standing "unmatched is triage, not a claim" caveat near the results.**
+`BottomPanel` (the detections table, in both its normal and maximized/modal
+form) now always shows a small ⚠-prefixed line above the table whenever
+there are events to show, reusing the same copy already shown per-event in
+the Detail drawer's footer (`detailPanel.text.dataLimitationBody`) rather
+than inventing new wording - one canonical sentence, surfaced in two
+places. This is UI-only; the export bundle's file set is unchanged (the
+canonical, fuller version of this caveat lives in `docs/limitations.md`
+for anyone reading the repo).
+
+---
+
+## History (`HistoryTab.tsx`)
+
+The right drawer's third tab, alongside Detail and Export. Two sections,
+**Report** and **Vessels**, styled the same as `ExportTab` - one entry per
+query/search that actually ran in that tab, success or failure, newest
+first. Each entry shows a timestamp and either a result count
+(`{{count}} result(s)`) or a `Query failed` subtitle, the latter colored via
+the same global `error` class the rest of the app uses for failure text
+(`ReportTab`/`VesselTab`/`ExportTab` all use it too - one consistent "this
+went wrong" color, not a one-off here).
+
+**Apply** restores that entry's query config and its captured result set
+with no re-fetch of the underlying detections/vessels - the result was
+saved alongside the query the moment it originally ran, so replaying it is
+a pure state write (`applyHistoryEntry`, `helpers/utils/historyUtils.ts`).
+The one exception: a Report-tab entry whose AOI used an EEZ/MPA region
+dropdown does trigger one network call on Apply - reloading that dropdown's
+option list (`GET /v1/regions`) so the restored selector has something to
+render/edit - but this is populating a picker, not re-running the query.
+
+`Clear` empties the whole history store (both sections at once) from one
+footer button; there's no per-entry delete.
+
+---
+
+## Import / export configuration
+
+Two independent layers, both plain JSON-file round-trips
+(`downloadJSON`/`openJSONFile`) with no server involvement:
+
+- **Whole-query config** - one `Section` per tab (`ExportAndImportConfig.tsx`
+  for Report, `VesselExportAndImportConfig.tsx` for Vessel Search). Export
+  downloads the entire current config as one JSON file (hidden run-only
+  fields like `gitCommitSHA`/`export`/`cache` stripped first via
+  `stripHiddenConfiguration`); import validates the file's shape and, if
+  valid, replaces the whole config (`caveat` on the Import button warns
+  this before the fact). This is the same `config_json` shape an export
+  bundle records in its `run_metadata.json` (master-plan 3.8) - a
+  downloaded config and a bundle's recorded config are interchangeable.
+- **Per-section config** - `Section`'s own `showImport`/`showExport` props
+  (a ↧/↥ icon pair next to a section's title) let AOI, Time Range,
+  Threshold & Weights, Sort Order, Pagination, Hotspot Config, Filter, and
+  Advanced Query each export/import just their own slice of the config,
+  independent of the rest - for sharing or reusing one part of a query
+  setup without overwriting everything else.
+
+Both layers report an invalid/unreadable file through the same
+`general.text.invalidImportFile` warning rather than failing silently;
+whole-config import additionally re-triggers the EEZ/MPA region-list
+preload described above under History, for the same reason.
+
+---
+
+## Map clustering (`useEventMarkers.ts`)
+
+Detections are drawn as a real MapLibre GL `circle` layer on a GeoJSON
+source, not individual DOM markers - which already gets two things for
+free, with no extra code: **hit-testing** (`map.on('click', layerId, ...)`
+uses MapLibre's own GPU-backed index, not a manual scan) and **viewport
+culling** (a GL layer only renders what's in view as a normal part of how
+it renders anything). The one actual gap was **clustering** - dozens of
+overlapping dots at low zoom turning into unreadable clutter.
+
+Fixed by turning on the GeoJSON source's built-in `cluster: true` option
+(`clusterMaxZoom`, `clusterRadius`) - `maplibre-gl` bundles `supercluster`
+internally for this, so it's a config flag, not a new dependency or a
+hand-rolled spatial index. Below `CLUSTER_MAX_ZOOM` (11 - at or below the
+map's own `maxZoom` of 12, so the tightest zoom always shows raw dots, never
+a cluster that can't split further), nearby dots merge into one bubble sized
+by count (`circle-radius` `step`d on `point_count`); clicking a bubble zooms
+in just enough to split it apart (`getClusterExpansionZoom`).
+
+**Deliberately no count label on the bubble.** A text label needs a
+`symbol` layer, which needs a `glyphs` URL in the map style to fetch font
+glyph ranges from - and the basemap style (`helpers/fixtures/map.ts`)
+intentionally sets none, to avoid an extra external resource dependency
+(same reason there are no vessel-type/gear icons on individual dots either).
+Cluster size is the only signal for "how many," not an exact count.

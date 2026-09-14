@@ -36,6 +36,15 @@
   gap: var(--padding-gap);
 }
 
+// Standing "unmatched is triage, not a claim" caveat -- deliberately its own
+// row under the header, not squeezed into .header's space-between flex line
+// alongside the filter/export buttons, so it can't get visually crowded out
+// as more header buttons are added later.
+.caveat-bar {
+  flex-shrink: 0;
+  padding: 0 var(--padding-default);
+}
+
 // ── Table container ───────────────────────────────────────────────────────────
 
 .table-wrap {

@@ -75,6 +75,16 @@
   height: 10px;
 }
 
+// Same --color-secondary-blue7 useEventMarkers fills a cluster bubble with --
+// a neutral, structural tone since a cluster mixes both matched/unmatched
+// dots and isn't a match-state color itself. Paired with .size-small/.size-
+// large (not .dot-outline's neutral ring) since a cluster bubble really is
+// filled, and the size step is the whole point being illustrated here.
+.dot-cluster {
+  border-radius: var(--radius-round);
+  background: var(--color-secondary-blue7);
+}
+
 .ring {
   flex-shrink: 0;
   width: 12px;

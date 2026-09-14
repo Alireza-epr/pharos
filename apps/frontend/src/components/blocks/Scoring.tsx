@@ -4,6 +4,7 @@ import { useTranslator } from '@/hooks/translator';
 import { IEventSchema } from '@packages/types';
 import SectionItem from '../common/section/SectionItem';
 import ChipGroupInput from '../common/inputs/ChipGroupInput';
+import { reasonCodeHint } from '@/helpers/utils/eventUtils';
 
 export interface IScoringBlockProps {
   event: IEventSchema;
@@ -15,10 +16,18 @@ const Scoring = (props: IScoringBlockProps) => {
 
   return (
     <Section title={t('detailPanel.title.scoring')} collapsible={false}>
-      <SectionItem title={t('sidebar.label.triageScore')} tab>
+      <SectionItem
+        title={t('sidebar.label.triageScore')}
+        hint={t('detailPanel.hint.triageScore')}
+        tab
+      >
         <BarInput label={''} value={scoring.triage_score} />
       </SectionItem>
-      <SectionItem title={t('sidebar.label.uncertaintyScore')} tab>
+      <SectionItem
+        title={t('sidebar.label.uncertaintyScore')}
+        hint={t('detailPanel.hint.uncertaintyScore')}
+        tab
+      >
         <BarInput label={''} value={scoring.uncertainty_score} />
       </SectionItem>
       <SectionItem
@@ -26,7 +35,11 @@ const Scoring = (props: IScoringBlockProps) => {
         collapsible={false}
         tab
       >
-        <ChipGroupInput values={scoring.reason_codes ?? []} readOnly />
+        <ChipGroupInput
+          values={scoring.reason_codes ?? []}
+          titleFor={(code) => reasonCodeHint(code, t)}
+          readOnly
+        />
       </SectionItem>
     </Section>
   );
