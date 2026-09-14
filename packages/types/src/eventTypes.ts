@@ -39,6 +39,7 @@ export interface IRunMetadata {
   dataset_version: string | undefined;
   context_layer_versions: string | undefined;
   execution_duration_sec: number | undefined;
+  cache: string | undefined;
 }
 
 export interface IScoring {

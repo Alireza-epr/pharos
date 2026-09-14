@@ -1,4 +1,4 @@
-import { Activity, ReactNode, useState } from 'react';
+import { Activity, KeyboardEvent, ReactNode, useState } from 'react';
 import sectionItemStyle from './SectionItem.module.scss';
 import { SectionLabelContext } from '../../../contexts/sectionLabelContext';
 
@@ -14,18 +14,27 @@ export interface ISectionItemProps {
 
 const SectionItem = (props: ISectionItemProps) => {
   const [open, setOpen] = useState(props.collapsible);
+  const isToggle = props.collapsible !== undefined;
+
+  const handleLabelKeyDown = (e: KeyboardEvent) => {
+    if (!isToggle) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setOpen((prev) => !prev);
+    }
+  };
 
   return (
     <div
-      className={` ${sectionItemStyle.wrapper} ${props.collapsible !== undefined ? sectionItemStyle.clickable : ''} ${props.tab ? 'margin-left' : ''}`}
+      className={` ${sectionItemStyle.wrapper} ${isToggle ? sectionItemStyle.clickable : ''} ${props.tab ? 'margin-left' : ''}`}
     >
       <span
-        onClick={
-          props.collapsible !== undefined
-            ? () => setOpen((prev) => !prev)
-            : undefined
-        }
-        className={`font-size-sm ${sectionItemStyle.label}`}
+        onClick={isToggle ? () => setOpen((prev) => !prev) : undefined}
+        onKeyDown={isToggle ? handleLabelKeyDown : undefined}
+        role={isToggle ? 'button' : undefined}
+        tabIndex={isToggle ? 0 : undefined}
+        aria-expanded={isToggle ? open : undefined}
+        className={`${isToggle ? 'focus' : ''} font-size-sm ${sectionItemStyle.label}`}
       >
         <span
           className={`${sectionItemStyle.titleText} truncate active`}

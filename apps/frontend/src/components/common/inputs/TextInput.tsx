@@ -100,7 +100,7 @@ const TextInput = (props: ITextInputProps) => {
     <div className={textInputStyle.wrapper}>
       {input}
       <button
-        className={`hover disabled font-size-xs  ${textInputStyle.copyButton}`}
+        className={`hover disabled focus font-size-xs  ${textInputStyle.copyButton}`}
         type="button"
         onClick={handleCopy}
         disabled={props.disabled}

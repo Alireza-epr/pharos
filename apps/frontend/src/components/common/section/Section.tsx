@@ -1,4 +1,4 @@
-import { ReactNode, useState, Activity, MouseEvent } from 'react';
+import { ReactNode, useState, Activity, MouseEvent, KeyboardEvent } from 'react';
 import sectionStyle from './Section.module.scss';
 import { useTranslator } from '../../../hooks/translator';
 
@@ -27,15 +27,26 @@ const Section = (props: ISectionProps) => {
     if (props.onExport) props.onExport();
   };
 
+  const isToggle = props.collapsible !== undefined;
+
+  const handleHeaderKeyDown = (e: KeyboardEvent) => {
+    if (!isToggle) return;
+    // Space's default is scrolling the page -- suppress it like a real button.
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setOpen((prev) => !prev);
+    }
+  };
+
   return (
     <div className={` ${sectionStyle.wrapper}`}>
       <div
-        className={`${sectionStyle.header} ${props.collapsible !== undefined ? sectionStyle.clickable : ''}`}
-        onClick={
-          props.collapsible !== undefined
-            ? () => setOpen((prev) => !prev)
-            : undefined
-        }
+        className={`${isToggle ? 'focus' : ''} ${sectionStyle.header} ${isToggle ? sectionStyle.clickable : ''}`}
+        onClick={isToggle ? () => setOpen((prev) => !prev) : undefined}
+        onKeyDown={isToggle ? handleHeaderKeyDown : undefined}
+        role={isToggle ? 'button' : undefined}
+        tabIndex={isToggle ? 0 : undefined}
+        aria-expanded={isToggle ? open : undefined}
         data-testid={props.testId}
       >
         <span className={`font-size-xs ${sectionStyle.title} truncate`}>
@@ -45,7 +56,7 @@ const Section = (props: ISectionProps) => {
           {props.showImport && (
             <button
               type="button"
-              className={`font-size-l ${sectionStyle.iconButton}`}
+              className={`focus font-size-l ${sectionStyle.iconButton}`}
               onClick={handleImport}
               title={t('general.label.import')}
               aria-label={t('general.label.import')}
@@ -56,7 +67,7 @@ const Section = (props: ISectionProps) => {
           {props.showExport && (
             <button
               type="button"
-              className={`font-size-l ${sectionStyle.iconButton}`}
+              className={`focus font-size-l ${sectionStyle.iconButton}`}
               onClick={handleExport}
               title={t('general.label.export')}
               aria-label={t('general.label.export')}

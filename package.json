@@ -38,6 +38,9 @@
     "pipeline:sample:unmatched": "npm --prefix apps/backend run pipeline:sample -- --config src/config/pilot_unmatched.json",
     "pipeline:sample:heavy": "npm --prefix apps/backend run pipeline:sample -- --config src/config/pilot_heavy.json",
     "pipeline:validation": "npm --prefix apps/backend run pipeline:validation -- --config src/config/validation-pilot.json",
+    "qa:agent": "npm --prefix apps/backend run qa:agent -- --config src/config/pilot.json",
+    "qa:agent:unmatched": "npm --prefix apps/backend run qa:agent -- --config src/config/pilot_unmatched.json",
+    "qa:agent:validation": "npm --prefix apps/backend run qa:agent -- --config src/config/validation-pilot.json --mode validation",
     "setup:data": "mkdir apps\\backend\\data\\bathymetry_rasters && curl -L https://pharos-bathymetry-bucket.s3.eu-central-1.amazonaws.com/bathymetry_rasters.zip -o bathymetry_rasters.zip && tar -xf bathymetry_rasters.zip -C app/backend/data/bathymetry_rasters/ && del bathymetry_rasters.zip"
   },
   "devDependencies": {

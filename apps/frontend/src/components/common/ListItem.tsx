@@ -1,9 +1,14 @@
-import { MouseEvent, ReactNode } from 'react';
+import { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import listItemStyle from './ListItem.module.scss';
 
 export interface IListItemProps {
   title: string;
   subtitle?: string | undefined;
+  // Same convention as the rest of the app's error text (ReportTab,
+  // VesselTab, ExportTab all conditionally add the global `error` class) --
+  // exposed here so a row's subtitle (e.g. a failed history entry) can use
+  // it too.
+  subtitleError?: boolean;
   active?: boolean;
   onClick?: () => void;
   prepend?: ReactNode;
@@ -15,17 +20,29 @@ export interface IListItemProps {
 
 const ListItem = (props: IListItemProps) => {
   const mode = props.mode ?? 'card';
+  const isClickable = !!props.onClick;
 
   const handleActionClick = (e: MouseEvent) => {
     e.stopPropagation();
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (!props.onClick) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      props.onClick();
+    }
+  };
+
   return (
     <div
-      className={`${props.onClick ? 'hover' : ''} active font-family-tech ${listItemStyle.row} ${mode === 'plain' ? listItemStyle.plain : ''} ${props.onClick ? listItemStyle.clickable : ''}`}
+      className={`${isClickable ? 'hover focus' : ''} active font-family-tech ${listItemStyle.row} ${mode === 'plain' ? listItemStyle.plain : ''} ${isClickable ? listItemStyle.clickable : ''}`}
       data-active={props.active}
       data-testid={props.testId}
       onClick={props.onClick}
+      onKeyDown={isClickable ? handleKeyDown : undefined}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
       {...props.attributes}
     >
       {props.prepend && (
@@ -39,7 +56,7 @@ const ListItem = (props: IListItemProps) => {
         </span>
         {props.subtitle && (
           <span
-            className={`font-size-xs truncate ${listItemStyle.subtitle}`}
+            className={`font-size-xs truncate ${listItemStyle.subtitle} ${props.subtitleError ? 'error' : ''}`}
           >
             {props.subtitle}
           </span>

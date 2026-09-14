@@ -44,6 +44,7 @@ export const evidenceExport = async (
   a_Zipped: boolean = false,
   a_Log: boolean = false,
   a_User: string = '',
+  a_EndTime?: string,
 ): Promise<IExportBuffer> => {
   const gitCommitSHA = await getGitCommitSHA();
   const zipFiles: IZipFile[] = [];
@@ -148,7 +149,7 @@ export const evidenceExport = async (
   }
 
   if (a_Config.export?.['run_metadata.json']) {
-    const end = formatTimestamp();
+    const end = a_EndTime ?? formatTimestamp();
 
     const run_metadata = await generateRunMetadata(
       [{ ...a_Config, gitCommitSHA }],

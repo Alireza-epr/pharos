@@ -31,11 +31,23 @@
 
   // Accent Colors
   --color-accent-teal1: #0a8f87; // Focused icon, tags (darkest for strong focus)
-  --color-accent-teal2: #19aea4; // Active states, success labels (dark but vibrant)
+  --color-accent-teal2: #19aea4; // Active states, success labels (dark but vibrant) - also: matched-vessel markers (useEventMarkers.ts)
   --color-accent-teal3: #2ec4b6; // Base accent color (success labels, buttons)
   --color-accent-teal4: #55d1c9; // Button hover (lighter hover effect)
   --color-accent-teal5: #8de3dc; // Background tint for success (light success backgrounds)
   --color-accent-teal6: #c5f1ef; // Very light success background (subtle background tint)
+
+  // Accent Colors - Blue (kept out of the teal ramp on purpose: the AOI
+  // shape - Zonal/Point draw, the selected EEZ/MPA region boundary, and their
+  // map-legend swatches - used to reuse teal4, which reads too similarly to
+  // the teal2 used for matched-vessel markers. Distinct hue, not just a
+  // different step of the same one.)
+  --color-accent-blue1: #0b5fb8; // Focused icon, tags (darkest for strong focus)
+  --color-accent-blue2: #1f7ae0; // Active states (dark but vibrant)
+  --color-accent-blue3: #3b8eff; // Base accent color
+  --color-accent-blue4: #6ba8ff; // AOI shape fill/line/vertex + its legend swatches (useAOIDraw.ts, useAOIRegionBoundary.ts, MapLegend.module.scss)
+  --color-accent-blue5: #a3c7ff; // Background tint (light backgrounds)
+  --color-accent-blue6: #d6e6ff; // Very light background tint
 
   // Alert Colors
   --color-alert-orange1: #b76a00; // Strong alerts or labels (darkest, strongest emphasis)

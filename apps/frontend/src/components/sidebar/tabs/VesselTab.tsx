@@ -15,6 +15,8 @@ import {
   getVesselPaginationState,
   isVesselSearchReady,
 } from '../../../helpers/utils/vesselUtils';
+import { useHistoryStore } from '../../../stores/historyStore';
+import { ESidebarTab } from '../../../helpers/enum/storeEnum';
 
 const VesselTab = () => {
   const { t } = useTranslator();
@@ -35,6 +37,7 @@ const VesselTab = () => {
   const setTotal = useVesselStore((s) => s.setTotal);
   const lastParams = useVesselStore((s) => s.lastParams);
   const setLastParams = useVesselStore((s) => s.setLastParams);
+  const addHistoryEntry = useHistoryStore((s) => s.addEntry);
 
   const canSearch = isVesselSearchReady(query, where);
 
@@ -54,17 +57,38 @@ const VesselTab = () => {
     // only prints with ?loglevel=3, logs exactly what's being sent.
     log_frontend({ config: { ...config } });
     const response = await execute(config);
-    if (!response) return;
-    log_frontend({ response: { ...response } });
+    const success = Boolean(response?.success && response.entries);
+    const entries = success ? (response!.entries ?? []) : [];
 
-    if (response.success && response.entries) {
-      setPages([response.entries]);
+    if (response) log_frontend({ response: { ...response } });
+
+    if (success) {
+      setPages([entries]);
       setPageIndex(0);
-      setVessels(response.entries);
-      setSince(response.since ?? null);
-      setTotal(response.total ?? null);
+      setVessels(entries);
+      setSince(response!.since ?? null);
+      setTotal(response!.total ?? null);
       setLastParams(config.url_params);
     }
+
+    // Every run attempt is recorded -- success or not -- so a failed/empty
+    // search is still visible (and revisitable) in the History tab.
+    addHistoryEntry({
+      id: crypto.randomUUID(),
+      tab: ESidebarTab.vessel,
+      timestamp: new Date().toISOString(),
+      success,
+      resultCount: entries.length,
+      config: config.url_params,
+      result: {
+        vessels: entries,
+        pages: success ? [entries] : [],
+        pageIndex: 0,
+        since: success ? (response!.since ?? null) : null,
+        total: success ? (response!.total ?? null) : null,
+        lastParams: success ? config.url_params : null,
+      },
+    });
   };
 
   const handlePrevClick = () => {

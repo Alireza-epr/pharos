@@ -8,6 +8,7 @@ import {
   IFilteringParamsUI,
   IGeometry,
   IHotspotConfig,
+  IPagination,
   IQueryProgressStepMessage,
   ISortOption,
   IVesselIdentity,
@@ -129,6 +130,11 @@ export interface IEventStoreStates {
   events: IEventSchema[];
   activeEvent: IEventSchema | null;
   selectedEvents: IEventSchema[];
+  // The last events response's pagination (nextOffset/prevOffset/...) --
+  // lives here rather than local component state so a history-tab "apply"
+  // (see IHistoryEntry) can restore it without re-fetching, and Report tab's
+  // prev/next buttons keep working after that restore.
+  pagination: IPagination | null;
 }
 export interface IEventStoreActions {
   setEvents: (
@@ -149,6 +155,13 @@ export interface IEventStoreActions {
       | ((
           a_Prev: IEventStoreStates['selectedEvents'],
         ) => IEventStoreStates['selectedEvents']),
+  ) => void;
+  setPagination: (
+    a_Value:
+      | IEventStoreStates['pagination']
+      | ((
+          a_Prev: IEventStoreStates['pagination'],
+        ) => IEventStoreStates['pagination']),
   ) => void;
 }
 
@@ -790,4 +803,50 @@ export interface IVesselStoreActions {
           a_Prev: IVesselStoreStates['lastParams'],
         ) => IVesselStoreStates['lastParams']),
   ) => void;
+}
+
+// The History tab (right-side drawer) caches a query + its result together,
+// per originating left-sidebar tab, so "Apply" can restore both without a
+// backend fetch. Only report/vessel produce entries today -- the Event tab
+// has no query/results mechanism yet (see Sidebar.tsx).
+export interface IReportHistoryResult {
+  events: IEventSchema[];
+  pagination: IPagination | null;
+}
+
+export interface IVesselHistoryResult {
+  vessels: IVesselIdentity[];
+  pages: IVesselIdentity[][];
+  pageIndex: number;
+  since: string | null;
+  total: number | null;
+  lastParams: IVesselSearchURLParams | null;
+}
+
+export type IHistoryEntry =
+  | {
+      id: string;
+      tab: 'report';
+      timestamp: string;
+      success: boolean;
+      resultCount: number;
+      config: IConfigJSON;
+      result: IReportHistoryResult;
+    }
+  | {
+      id: string;
+      tab: 'vessel';
+      timestamp: string;
+      success: boolean;
+      resultCount: number;
+      config: IVesselSearchURLParams;
+      result: IVesselHistoryResult;
+    };
+
+export interface IHistoryStoreStates {
+  entries: IHistoryEntry[];
+}
+export interface IHistoryStoreActions {
+  addEntry: (a_Entry: IHistoryEntry) => void;
+  clearHistory: () => void;
 }

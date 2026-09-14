@@ -60,6 +60,17 @@ npm run pipeline:validation
 npm run setup:data               # downloads bathymetry rasters (Windows shell syntax in the script)
 ```
 
+### QA agent
+`apps/backend/src/tools/qa_agent` runs a pipeline config, checks the output files exist and match the canonical event shape, and writes a Markdown quality summary (counts, unmatched fraction, missingness, top hotspot cells, validation-sample stratum/blank-label counts) to `apps/backend/reports/qa_<timestamp>.md` — **CI-artifact only, never committed** (`reports/` is gitignored).
+
+```bash
+npm run qa:agent               # pilot.json
+npm run qa:agent:unmatched     # pilot_unmatched.json
+npm run qa:agent:validation    # validation-pilot.json, --mode validation
+```
+
+Runs in CI (`pr-checks.yml`) after the backend unit tests, uploaded as a build artifact; `continue-on-error: true` since it's observability, not a merge gate.
+
 ## Backend architecture
 
 - `src/core/server.ts` — Express bootstrap: middleware chain (CORS check → json → request/response loggers → CORS → attach start-time/git-SHA), then routes mounted under `/v1` by `EBaseRoutes` (`system`, `auth`, `events`, `exports`, `regions`, `vessels`).
@@ -89,8 +100,14 @@ Backend issues a short-lived **access** JWT and a long-lived **refresh** JWT, bo
 
 ### Styling conventions
 - SCSS modules only; class names are **kebab-case in `.scss`, camelCase in TSX** (`.badge-matched` → `style.badgeMatched`).
-- **Never hardcode colors/sizes** — use CSS variables/design tokens: `--theme-*` (bg/text/border), `--padding-*`, `--radius-sm|md`, color ramps `--color-primary-purple*`, `--color-accent-teal*`, `--color-alert-orange*`.
+- **Never hardcode colors/sizes** — use CSS variables/design tokens: `--theme-*` (bg/text/border), `--padding-*`, `--radius-sm|md`, color ramps `--color-primary-purple*`, `--color-accent-teal*`, `--color-accent-blue*`, `--color-alert-orange*`. Teal and blue are deliberately separate accent hues (not two steps of one ramp) — teal2 is the matched-vessel marker color, so anything meaning "the AOI shape" (Zonal/Point draw, selected EEZ/MPA boundary, their legend swatches) uses blue4 instead, to stay visually distinct.
 - Use global utility classes for typography/state (`font-size-*`, `font-family-header|tech`, `font-*` weights, `scrollbar`, `hover/active/disabled/focus`) rather than re-declaring them.
+
+### Accessibility
+Every interactive control must be keyboard-reachable and operable, not just clickable — full focus-order/shortcuts reference in `docs/ui/usage.md`. Conventions for new controls:
+- A clickable non-native element (a `<div>`/`<span>` standing in for a button — a disclosure header, a list row) needs `role="button"`, `tabIndex={0}`, and `onKeyDown` handling `Enter`/`Space` (see `Section`, `SectionItem`, `ListItem`). If the element already has a meaningful native role worth keeping (a `<tr>`/`<th>` in a real `<table>`), don't override it with `role="button"` — just add `tabIndex`/`onKeyDown` (and `aria-selected`/`aria-sort` as appropriate) alongside the native role, as `BottomPanel` does.
+- `ButtonInput` derives an icon-only button's `aria-label` from its `title` automatically (`icon` + `title` is enough — no separate `ariaLabel` needed unless the tooltip text and accessible name should genuinely differ).
+- Add the global `.focus` utility class (a `:focus-visible` outline, not a custom style) to any new custom-styled interactive element's `className` — it's the one consistent focus ring across the app.
 
 ### i18n (`apps/frontend/src/locales/{en,de}.json`)
 Read via `t('a.b.c')` from `useTranslator()`. Maintenance rules (enforced, not optional):
@@ -100,7 +117,7 @@ Read via `t('a.b.c')` from `useTranslator()`. Maintenance rules (enforced, not o
 
 ## CI / definition of done
 
-`.github/workflows/pr-checks.yml` runs on PRs to `master` and gates merge. Before pushing, mirror it locally — backend **lint, typecheck, build + health-check smoke (`/v1/system/health`), unit tests**; frontend **typecheck, lint, lint:style, unit tests, Playwright e2e**. Deploy happens on merge to `master`. OpenAPI is generated/linted by separate workflows (`generate-openapi.yaml`, `lint-openapi.yaml`; spec rules in `.spectral.yaml`).
+`.github/workflows/pr-checks.yml` runs on PRs to `master` and gates merge. Before pushing, mirror it locally — backend **lint, typecheck, build + health-check smoke (`/v1/system/health`), unit tests**; frontend **typecheck, lint, lint:style, unit tests, Playwright e2e**. The QA agent also runs there (uploads a report artifact) but is `continue-on-error: true` — it doesn't gate merge, so it's not part of the local mirror. Deploy happens on merge to `master`. OpenAPI is generated/linted by separate workflows (`generate-openapi.yaml`, `lint-openapi.yaml`; spec rules in `.spectral.yaml`).
 
 ## Commit & branch conventions
 Commits follow **Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`, `build:`, `test:`, `style:`, `refactor:`, `perf:`) — keep new commits consistent with the existing history. Work happens on feature branches off `develop`; PRs target `master` (which runs `pr-checks.yml` and deploys on merge). The `/format-and-push` and `/git-commit-formatter` skills exist to normalize messages into this style.

@@ -163,7 +163,9 @@ Configured in
 ## 8. CI reference
 
 The PR check job (Ubuntu, Node from `.nvmrc`) runs, in order: install → build
-shared packages → backend lint, typecheck, startup smoke, unit tests → frontend
+shared packages → backend lint, typecheck, startup smoke, unit tests → **QA
+agent** (runs the pipeline, uploads `apps/backend/reports/qa_*.md` as a build
+artifact; `continue-on-error: true`, so it never fails the job) → frontend
 typecheck, lint, style lint, unit tests → install Chromium → frontend E2E. If
 all the commands in [section 3](#3-run-everything) pass locally, the PR should be
-green.
+green — the QA agent's report is informational only and isn't part of that gate.

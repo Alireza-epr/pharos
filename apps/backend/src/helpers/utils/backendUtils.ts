@@ -172,6 +172,15 @@ export const getSourcesFromEvents = (a_Events: IEventSchema[]) => {
     .join(', ');
 };
 
+export const getCacheFromEvents = (a_Events: IEventSchema[]) => {
+  const cacheStates = new Set<string>();
+  for (const event of a_Events) {
+    const cache = event.run_metadata?.cache;
+    if (cache) cacheStates.add(cache);
+  }
+  return Array.from(cacheStates).join(', ');
+};
+
 export const getContextLayersFromEvents = (a_Events: IEventSchema[]) => {
   const allLayers = new Set<string>();
   for (const event of deepSortObject(a_Events)) {

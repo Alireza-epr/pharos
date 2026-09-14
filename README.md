@@ -72,6 +72,7 @@ ingest → normalize → features → aggregate → schema → export
 - Config export/import and URL-synced state for the Report and Vessel tabs (shareable, restorable views)
 - Evidence-bundle export (ZIP) with scores, reason codes, and enriched context; a separate vessel-identity JSON export
 - JWT-based authentication (access + refresh) gating all non-system endpoints
+- Keyboard-accessible core loop - every control reachable and operable via keyboard alone, a consistent visible focus ring, `aria-label`s on icon-only controls ([docs/ui/usage.md](docs/ui/usage.md))
 
 ---
 
@@ -135,6 +136,8 @@ Common scripts (from repo root):
 | `npm run pipeline:sample:unmatched` / `:heavy` | Same pipeline against alternate fixture configs |
 | `npm run pipeline:validation` | Run the validation pipeline stage |
 | `npm run setup:data` | Download bathymetry rasters (GEBCO) - Windows shell syntax in the script |
+| `npm run qa:agent` | Run the pipeline against `pilot.json`, then write a data-quality summary to `apps/backend/reports/qa_<timestamp>.md` (CI-artifact only, never committed) |
+| `npm run qa:agent:unmatched` / `:validation` | Same QA agent, against the unmatched-heavy or validation pipeline config |
 
 Per-app variants exist as `frontend:*` / `backend:*` (e.g. `npm run frontend:typecheck`). See [the runbook](docs/runbook.md) for full setup and troubleshooting steps.
 
@@ -189,12 +192,13 @@ apps/
   backend/          # Node.js + Express API and the offline data pipeline
     src/modules/      # feature slices: system, auth, events, exports, regions, vessels
     src/pipeline/      # ingest -> normalize -> features -> aggregate -> schema -> export (+ validation)
+    src/tools/qa_agent/ # runs the pipeline, checks its output, writes reports/qa_<timestamp>.md
   frontend/         # React 19 + Vite + Zustand UI
     src/stores/        # one Zustand store per concern
     src/components/    # layout, map, sidebar, table, blocks, common
 
 packages/           # @packages/{enum,types,utils} - shared code, built before either app
-docs/               # specs, runbook, API/auth docs, data provenance and limitations
+docs/               # specs, runbook, API/auth docs, data provenance and limitations, UI/accessibility notes
 infrastructure/     # Docker + OpenAPI generation scripts
 ```
 
@@ -257,8 +261,9 @@ Full detail: [docs/limitations.md](docs/limitations.md). In summary:
 
 1. Install dependencies and build shared packages
 2. **Backend** - lint, typecheck, build + a health-check smoke test (`/v1/system/health`), unit tests
-3. **Frontend** - typecheck, lint, stylelint, unit tests, Playwright e2e
-4. Deploy on merge into `master`
+3. **QA agent** - runs the pipeline and uploads its data-quality report as a build artifact (non-blocking)
+4. **Frontend** - typecheck, lint, stylelint, unit tests, Playwright e2e
+5. Deploy on merge into `master`
 
 ---
 

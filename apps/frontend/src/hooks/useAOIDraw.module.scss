@@ -1,6 +1,6 @@
 // Drag handles rendered as MapLibre DOM markers by useAOIDraw. Kept here (not
 // inline styles) so they use design tokens like the rest of the app. Colours
-// intentionally mirror the map layer paints: teal for zonal vertices, orange
+// intentionally mirror the map layer paints: blue for zonal vertices, orange
 // for the point centre.
 
 .vertex-handle,
@@ -18,7 +18,7 @@
 }
 
 .vertex-handle {
-  background: var(--color-accent-teal4);
+  background: var(--color-accent-blue4);
 }
 
 .point-handle {

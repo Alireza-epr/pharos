@@ -65,6 +65,40 @@ const BottomPanel = () => {
     }
   };
 
+  // A sortable column header -- <th onClick> alone isn't keyboard-operable,
+  // so this centralises the tabIndex/onKeyDown/aria-sort additions instead
+  // of repeating them across every column below. Deliberately no
+  // role="button" override, same call as the row below: a <th> already has
+  // a meaningful native role (columnheader) for table navigation, and
+  // aria-sort is the correct way to expose "this one's sortable/active" --
+  // overriding the role would throw that navigation away for no benefit.
+  const sortableHeader = (a_Field: string, a_Label: string) => {
+    const active = sorts.find((s) => s.sortBy === a_Field);
+    return (
+      <th
+        className={`focus font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${active ? bottomPanelStyle.thActive : ''}`}
+        onClick={() => handleSortChange(a_Field)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleSortChange(a_Field);
+          }
+        }}
+        tabIndex={0}
+        aria-sort={
+          active
+            ? active.direction === 'asc'
+              ? 'ascending'
+              : 'descending'
+            : undefined
+        }
+      >
+        {a_Label}
+        {sortIndicator(a_Field)}
+      </th>
+    );
+  };
+
   const handleExportClick = (a_EventId: string) => {
     const event = selectedEvents.find((e) => e.event_id === a_EventId);
     if (!event) {
@@ -82,85 +116,35 @@ const BottomPanel = () => {
       <thead>
         <tr>
           <th className={`font-size-xs ${bottomPanelStyle.th}`}>#</th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'event_id') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('event_id')}
-          >
-            {t('bottomPanel.column.detectionId')}
-            {sortIndicator('event_id')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'lon') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('lon')}
-          >
-            {t('bottomPanel.column.longitude')}
-            {sortIndicator('lon')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'lat') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('lat')}
-          >
-            {t('bottomPanel.column.latitude')}
-            {sortIndicator('lat')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'distance_to_coast_km') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('distance_to_coast_km')}
-          >
-            {t('sidebar.label.distanceToCoast')}
-            {sortIndicator('distance_to_coast_km')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'context_layers.Bathymetry.enrichments[0].value') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() =>
-              handleSortChange('context_layers.Bathymetry.enrichments[0].value')
-            }
-          >
-            {t('sidebar.label.bathymetry')}
-            {sortIndicator('context_layers.Bathymetry.enrichments[0].value')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'timestamp_utc') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('timestamp_utc')}
-          >
-            {t('bottomPanel.column.timestamp')}
-            {sortIndicator('timestamp_utc')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'confidence_proxy') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('confidence_proxy')}
-          >
-            {t('bottomPanel.column.confidenceProxy')}
-            {sortIndicator('confidence_proxy')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'scoring.triage_score') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('scoring.triage_score')}
-          >
-            {t('sidebar.label.triageScore')}
-            {sortIndicator('scoring.triage_score')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'scoring.uncertainty_score') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('scoring.uncertainty_score')}
-          >
-            {t('sidebar.label.uncertaintyScore')}
-            {sortIndicator('scoring.uncertainty_score')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'confidence_tier') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('confidence_tier')}
-          >
-            {t('bottomPanel.column.confidenceTier')}
-            {sortIndicator('confidence_tier')}
-          </th>
-          <th
-            className={`font-size-xs ${bottomPanelStyle.th} ${bottomPanelStyle.thSortable} ${sorts.some((s) => s.sortBy === 'matched_flag') ? bottomPanelStyle.thActive : ''}`}
-            onClick={() => handleSortChange('matched_flag')}
-          >
-            {t('sidebar.titles.matchingStatus')}
-            {sortIndicator('matched_flag')}
-          </th>
+          {sortableHeader('event_id', t('bottomPanel.column.detectionId'))}
+          {sortableHeader('lon', t('bottomPanel.column.longitude'))}
+          {sortableHeader('lat', t('bottomPanel.column.latitude'))}
+          {sortableHeader(
+            'distance_to_coast_km',
+            t('sidebar.label.distanceToCoast'),
+          )}
+          {sortableHeader(
+            'context_layers.Bathymetry.enrichments[0].value',
+            t('sidebar.label.bathymetry'),
+          )}
+          {sortableHeader('timestamp_utc', t('bottomPanel.column.timestamp'))}
+          {sortableHeader(
+            'confidence_proxy',
+            t('bottomPanel.column.confidenceProxy'),
+          )}
+          {sortableHeader(
+            'scoring.triage_score',
+            t('sidebar.label.triageScore'),
+          )}
+          {sortableHeader(
+            'scoring.uncertainty_score',
+            t('sidebar.label.uncertaintyScore'),
+          )}
+          {sortableHeader(
+            'confidence_tier',
+            t('bottomPanel.column.confidenceTier'),
+          )}
+          {sortableHeader('matched_flag', t('sidebar.titles.matchingStatus'))}
           <th className={`font-size-xs ${bottomPanelStyle.th}`}>
             {t('bottomPanel.column.actions')}
           </th>
@@ -175,10 +159,18 @@ const BottomPanel = () => {
           return (
             <tr
               key={event.event_id}
-              className={`${bottomPanelStyle.tr} ${isSelected ? bottomPanelStyle.trSelected : ''}`}
+              className={`focus ${bottomPanelStyle.tr} ${isSelected ? bottomPanelStyle.trSelected : ''}`}
               data-testid="detection-row"
               data-selected={isSelected}
+              aria-selected={isSelected}
+              tabIndex={0}
               onClick={() => setActiveEvent(isSelected ? null : event)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setActiveEvent(isSelected ? null : event);
+                }
+              }}
             >
               <td className={`font-size-xs ${bottomPanelStyle.tdMuted}`}>
                 {index + 1}

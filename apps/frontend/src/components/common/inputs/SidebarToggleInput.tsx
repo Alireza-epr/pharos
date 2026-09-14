@@ -17,7 +17,7 @@ const SidebarToggleInput = (props: ISidebarToggleInputProps) => {
 
   return (
     <button
-      className={`hover ${sidebarToggleInputStyle.wrapper} ${props.className ?? ''}`}
+      className={`hover focus ${sidebarToggleInputStyle.wrapper} ${props.className ?? ''}`}
       onClick={props.onClick}
       title={label}
       aria-label={label}

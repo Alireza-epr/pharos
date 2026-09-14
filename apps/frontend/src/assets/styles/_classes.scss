@@ -153,10 +153,14 @@ body {
   }
 }
 
+// One consistent visible focus indicator for every interactive element
+// (buttons, inputs, clickable rows/chips) -- :focus-visible so it only shows
+// for keyboard focus, not every mouse click. Outline+offset works regardless
+// of whether the element itself has a border (unlike a border-color swap).
 .focus {
-  &:focus {
-    outline: none;
-    border-color: var(--color-primary-purple6);
+  &:focus-visible {
+    outline: var(--border-width-md) solid var(--color-primary-purple6);
+    outline-offset: 2px;
   }
 }
 

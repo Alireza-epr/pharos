@@ -104,7 +104,10 @@ export const eventsController = async (
     // polygon/H3/time. Replaces the previous in-memory fixture path. Reports
     // its own sub-steps (cache-check/fetch-provider/write-cache/read-cache/
     // filter-scope) straight into `stream`.
-    const { events: servedEvents } = await getServedEvents(configs, stream);
+    const { events: servedEvents, cache: cacheStatus } = await getServedEvents(
+      configs,
+      stream,
+    );
 
     // A cached event's `scoring` reflects whatever `threshold` was active on
     // the request that originally populated its partition — recompute it for
@@ -174,6 +177,7 @@ export const eventsController = async (
       enrichedEvents,
       a_Req.start_time,
       end,
+      cacheStatus,
     );
 
     // A cached event's own `run_metadata` still describes whichever request

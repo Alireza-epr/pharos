@@ -324,4 +324,81 @@ test.describe('UI_smoke', () => {
     await expect(runQuery).toHaveText('Run Query');
     await expect(runQuery).toBeEnabled();
   });
+
+  test('keyboard_only_walkthrough_reaches_and_operates_the_core_controls', async ({
+    page,
+  }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    // 1) The AOI section starts collapsed. Its header is a real disclosure
+    // widget (Section.tsx): focusable, and Enter toggles it via aria-expanded
+    // -- not just a mouse target.
+    const aoiHeader = page.getByTestId('aoi-section-header');
+    await aoiHeader.focus();
+    await expect(aoiHeader).toBeFocused();
+    await expect(aoiHeader).toHaveAttribute('aria-expanded', 'false');
+    await page.keyboard.press('Enter');
+    await expect(aoiHeader).toHaveAttribute('aria-expanded', 'true');
+
+    // 2) The EEZ combobox (DropdownInput's SearchableSelect) is keyboard-
+    // operable end to end: focusing it already opens it (onFocus triggers
+    // openWithFreshQuery -- no key needed to open), then Enter commits the
+    // highlighted (first, by default) option.
+    const eezInput = page.getByTestId('eez-select');
+    await eezInput.focus();
+    await expect(page.getByRole('option').first()).toBeVisible();
+    await page.keyboard.press('Enter');
+    await expect(eezInput).not.toHaveValue('');
+
+    // 3) Run the query without ever touching the mouse.
+    const runQuery = page.getByTestId('run-query-button');
+    await runQuery.focus();
+    await expect(runQuery).toBeEnabled();
+    const eventsCall = page.waitForResponse('**/events*');
+    await page.keyboard.press('Enter');
+    await eventsCall;
+
+    // 4) Opening the progress modal must move focus into it (Modal.tsx) --
+    // a keyboard user must never be left focused on a now-hidden trigger --
+    // and Escape must close it and hand focus back to that trigger.
+    const modalClose = page.getByTestId('modal-close-button');
+    await expect(modalClose).toBeVisible();
+    await expect(page.locator('[role="dialog"]')).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(modalClose).toBeHidden();
+    await expect(runQuery).toBeFocused();
+
+    // 5) The detections list rendered. A sortable column header is
+    // keyboard-operable (BottomPanel.tsx): Enter toggles aria-sort exactly
+    // like clicking it would.
+    const rows = page.getByTestId('detection-row');
+    await expect(rows).toHaveCount(eventsResponse.entries.length);
+
+    const idHeader = page.getByRole('columnheader', {
+      name: /Event ID/i,
+    });
+    await idHeader.focus();
+    await expect(idHeader).not.toHaveAttribute('aria-sort');
+    await page.keyboard.press('Enter');
+    await expect(idHeader).toHaveAttribute('aria-sort', 'ascending');
+
+    // 6) A detection row is keyboard-focusable and Enter selects it, exactly
+    // like the mouse-driven smoke test's click does — this is the "results
+    // list" step of the plan's required sidebar -> results -> details chain.
+    const firstRow = rows.first();
+    const rowIdPrefix = (
+      await firstRow.getByTestId('detection-row-id').innerText()
+    )
+      .trim()
+      .replace(/\.\.\.$/, '');
+    expect(rowIdPrefix.length).toBeGreaterThan(0);
+
+    await firstRow.focus();
+    await expect(firstRow).toBeFocused();
+    await page.keyboard.press('Enter');
+
+    await expect(page.getByTestId('detail-event-id')).toHaveValue(
+      new RegExp('^' + rowIdPrefix),
+    );
+  });
 });

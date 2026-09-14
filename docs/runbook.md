@@ -122,6 +122,18 @@ src/config/pilot.json
 src/config/pilot_unmatched.json
 ```
 
+### 3b. QA Agent
+
+`npm run qa:agent` runs the pipeline for a config (same `--config` convention as above), then checks its output files exist, spot-checks the canonical event shape, and writes a Markdown quality summary — event counts, unmatched fraction, missingness, top hotspot cells, and (in `--mode validation`) validation-sample stratum counts + a check that labels are still blank.
+
+```bash
+npm run qa:agent               # pilot.json
+npm run qa:agent:unmatched     # pilot_unmatched.json
+npm run qa:agent:validation    # validation-pilot.json, --mode validation
+```
+
+The report lands at `apps/backend/reports/qa_<timestamp>.md` — **local scratch / CI artifact only, never committed** (`reports/` is gitignored). It also runs automatically in CI after the backend unit tests and is uploaded as a build artifact.
+
 ---
 
 ## 4. Dataset Setup (Bathymetry Rasters)

@@ -16,22 +16,26 @@ import { useAOIStore } from '../../../stores/areaOfInterestStore';
 import { useConfigStore } from '../../../stores/configStore';
 import Pagination from '../../blocks/Pagination';
 import { usePaginationStore } from '../../../stores/paginationStore';
-import { useEffect } from 'react';
 import { log_frontend } from '@packages/utils';
 import ExportAndImportConfig from '../../../components/blocks/ExportAndImportConfig';
 import QueryProgressModal from '../../../components/blocks/QueryProgressModal';
 import { useQueryProgressStore } from '../../../stores/queryProgressStore';
+import { useHistoryStore } from '../../../stores/historyStore';
+import { ESidebarTab } from '../../../helpers/enum/storeEnum';
 import { buildConfig } from '../../../helpers/utils/configUtils';
 import { syncConfigToURL } from '../../../helpers/utils/URLUtils';
 
 const ReportTab = () => {
-  const { response, error, execute } = useFetchEvents();
+  const { error, execute } = useFetchEvents();
   const { t } = useTranslator();
 
   const setEvents = useEventStore((s) => s.setEvents);
+  const setPagination = useEventStore((s) => s.setPagination);
+  const pagination = useEventStore((s) => s.pagination);
   const setConfig = useConfigStore((s) => s.setConfig);
   const setSorts = useBottomStore((s) => s.setSorts);
   const setOffset = usePaginationStore((s) => s.setOffset);
+  const addHistoryEntry = useHistoryStore((s) => s.addEntry);
 
   const hasAOI = useAOIStore((s) =>
     Boolean(s.eezActive || s.mpaActive || s.feature),
@@ -50,7 +54,7 @@ const ReportTab = () => {
   // config is built, so a next/prev click re-runs the full query (there's
   // no separate "just fetch this page" endpoint) with every other filter
   // left untouched and only the offset advanced/retreated.
-  const runQuery = (offsetOverride?: number) => {
+  const runQuery = async (offsetOverride?: number) => {
     if (!hasAOI) return;
     if (offsetOverride !== undefined) setOffset(offsetOverride);
     const config = buildConfig();
@@ -68,7 +72,29 @@ const ReportTab = () => {
 
     log_frontend({ config: { ...config } });
     setConfig(config);
-    execute(config);
+    const result = await execute(config);
+
+    const success = Boolean(result?.success);
+    const entries = success ? (result?.entries ?? []) : [];
+    const resultPagination = success ? (result?.pagination ?? null) : null;
+
+    if (success) {
+      setEvents(entries);
+      setPagination(resultPagination);
+    }
+
+    // Every run attempt is recorded -- success or not -- so a failed/empty
+    // query is still visible (and revisitable) in the History tab, not just
+    // successful ones. See historyUtils.ts for how "Apply" restores this.
+    addHistoryEntry({
+      id: crypto.randomUUID(),
+      tab: ESidebarTab.report,
+      timestamp: new Date().toISOString(),
+      success,
+      resultCount: entries.length,
+      config,
+      result: { events: entries, pagination: resultPagination },
+    });
   };
 
   const handleRunQueryClick = () => {
@@ -82,36 +108,25 @@ const ReportTab = () => {
       return;
     }
 
-    runQuery();
+    void runQuery();
   };
 
   // The backend hands back nextOffset/prevOffset (null once there's no
   // further page in that direction) alongside every page of results — see
-  // events.controllers.ts. Drive the buttons off the most recent response
-  // rather than re-deriving page bounds on the frontend.
-  const pagination = response?.pagination;
+  // events.controllers.ts. Driven off eventStore rather than local hook
+  // state so it also reflects a result restored from History (no fetch).
   const nextOffset = pagination?.nextOffset;
   const prevOffset = pagination?.prevOffset;
 
   const handlePrevClick = () => {
     if (isRunning || prevOffset == null) return;
-    runQuery(prevOffset);
+    void runQuery(prevOffset);
   };
 
   const handleNextClick = () => {
     if (isRunning || nextOffset == null) return;
-    runQuery(nextOffset);
+    void runQuery(nextOffset);
   };
-
-  useEffect(() => {
-    if (response) {
-      if (response.success) {
-        if (response.entries) {
-          setEvents(response.entries);
-        }
-      }
-    }
-  }, [response]);
 
   return (
     <>
