@@ -35,7 +35,8 @@
     },
     "action": {
       "copy": "Copy",
-      "close": "Close"
+      "close": "Close",
+      "remove": "Remove"
     },
     "text": {
       "invalidImportFile": "Invalid or unreadable import file.",
@@ -65,7 +66,8 @@
     },
     "action": {
       "collapse": "Hide sidebar",
-      "expand": "Show sidebar"
+      "expand": "Show sidebar",
+      "toggleSortDirection": "Toggle sort direction"
     },
     "titles": {
       "areaOfInterest": "Area of Interest",

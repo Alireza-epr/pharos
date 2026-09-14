@@ -212,6 +212,8 @@ const SearchableSelect = <T extends string | number>(
 const DropdownInput = <T extends string | number>(
   props: IDropdownInputProps<T>,
 ) => {
+  const { t } = useTranslator();
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (props.multiple) {
       props.onChange(
@@ -267,10 +269,11 @@ const DropdownInput = <T extends string | number>(
       )}
       {props.onClear && (
         <button
-          className={`font-size-sm ${dropdownInputStyle.clearButton}`}
+          className={`focus font-size-sm ${dropdownInputStyle.clearButton}`}
           type="button"
           onClick={props.onClear}
           disabled={isEmpty}
+          aria-label={props.clearLabel ?? t('general.label.clear')}
         >
           {props.clearLabel ?? '×'}
         </button>

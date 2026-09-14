@@ -72,6 +72,7 @@ ingest → normalize → features → aggregate → schema → export
 - Config export/import and URL-synced state for the Report and Vessel tabs (shareable, restorable views)
 - Evidence-bundle export (ZIP) with scores, reason codes, and enriched context; a separate vessel-identity JSON export
 - JWT-based authentication (access + refresh) gating all non-system endpoints
+- Keyboard-accessible core loop - every control reachable and operable via keyboard alone, a consistent visible focus ring, `aria-label`s on icon-only controls ([docs/ui/usage.md](docs/ui/usage.md))
 
 ---
 
@@ -197,7 +198,7 @@ apps/
     src/components/    # layout, map, sidebar, table, blocks, common
 
 packages/           # @packages/{enum,types,utils} - shared code, built before either app
-docs/               # specs, runbook, API/auth docs, data provenance and limitations
+docs/               # specs, runbook, API/auth docs, data provenance and limitations, UI/accessibility notes
 infrastructure/     # Docker + OpenAPI generation scripts
 ```
 

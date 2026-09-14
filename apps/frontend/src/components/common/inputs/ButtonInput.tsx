@@ -16,17 +16,21 @@ export interface IButtonInputProps {
   icon?: boolean;
   hint?: string;
   caveat?: string;
+  ariaLabel?: string;
 }
 
 const ButtonInput = (props: IButtonInputProps) => {
+  const ariaLabel = props.ariaLabel ?? (props.icon ? props.title : undefined);
+
   return (
     <button
-      className={`hover disabled active font-size-xs  ${buttonInputStyle.wrapper} ${props.icon ? buttonInputStyle.iconButton : ''} ${props.className ?? ''}`}
+      className={`hover disabled active focus font-size-xs  ${buttonInputStyle.wrapper} ${props.icon ? buttonInputStyle.iconButton : ''} ${props.className ?? ''}`}
       data-active={props.active}
       data-readonly={props.readOnly}
       //data-size={props.size}
       data-testid={props.testId}
       title={props.title}
+      aria-label={ariaLabel}
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
     >

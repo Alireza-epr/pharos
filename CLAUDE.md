@@ -100,8 +100,14 @@ Backend issues a short-lived **access** JWT and a long-lived **refresh** JWT, bo
 
 ### Styling conventions
 - SCSS modules only; class names are **kebab-case in `.scss`, camelCase in TSX** (`.badge-matched` → `style.badgeMatched`).
-- **Never hardcode colors/sizes** — use CSS variables/design tokens: `--theme-*` (bg/text/border), `--padding-*`, `--radius-sm|md`, color ramps `--color-primary-purple*`, `--color-accent-teal*`, `--color-alert-orange*`.
+- **Never hardcode colors/sizes** — use CSS variables/design tokens: `--theme-*` (bg/text/border), `--padding-*`, `--radius-sm|md`, color ramps `--color-primary-purple*`, `--color-accent-teal*`, `--color-accent-blue*`, `--color-alert-orange*`. Teal and blue are deliberately separate accent hues (not two steps of one ramp) — teal2 is the matched-vessel marker color, so anything meaning "the AOI shape" (Zonal/Point draw, selected EEZ/MPA boundary, their legend swatches) uses blue4 instead, to stay visually distinct.
 - Use global utility classes for typography/state (`font-size-*`, `font-family-header|tech`, `font-*` weights, `scrollbar`, `hover/active/disabled/focus`) rather than re-declaring them.
+
+### Accessibility
+Every interactive control must be keyboard-reachable and operable, not just clickable — full focus-order/shortcuts reference in `docs/ui/usage.md`. Conventions for new controls:
+- A clickable non-native element (a `<div>`/`<span>` standing in for a button — a disclosure header, a list row) needs `role="button"`, `tabIndex={0}`, and `onKeyDown` handling `Enter`/`Space` (see `Section`, `SectionItem`, `ListItem`). If the element already has a meaningful native role worth keeping (a `<tr>`/`<th>` in a real `<table>`), don't override it with `role="button"` — just add `tabIndex`/`onKeyDown` (and `aria-selected`/`aria-sort` as appropriate) alongside the native role, as `BottomPanel` does.
+- `ButtonInput` derives an icon-only button's `aria-label` from its `title` automatically (`icon` + `title` is enough — no separate `ariaLabel` needed unless the tooltip text and accessible name should genuinely differ).
+- Add the global `.focus` utility class (a `:focus-visible` outline, not a custom style) to any new custom-styled interactive element's `className` — it's the one consistent focus ring across the app.
 
 ### i18n (`apps/frontend/src/locales/{en,de}.json`)
 Read via `t('a.b.c')` from `useTranslator()`. Maintenance rules (enforced, not optional):

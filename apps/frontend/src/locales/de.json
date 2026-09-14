@@ -35,7 +35,8 @@
     },
     "action": {
       "copy": "Kopieren",
-      "close": "Schließen"
+      "close": "Schließen",
+      "remove": "Entfernen"
     },
     "text": {
       "invalidImportFile": "Ungültige oder nicht lesbare Importdatei.",
@@ -65,7 +66,8 @@
     },
     "action": {
       "collapse": "Seitenleiste ausblenden",
-      "expand": "Seitenleiste einblenden"
+      "expand": "Seitenleiste einblenden",
+      "toggleSortDirection": "Sortierrichtung umschalten"
     },
     "error": {
       "runQueryFailed": "Abfrage fehlgeschlagen. Bitte erneut versuchen."

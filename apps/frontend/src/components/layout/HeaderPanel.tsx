@@ -1,3 +1,4 @@
+import { KeyboardEvent } from 'react';
 import { useAppStore } from '../../stores/appStore';
 import headerPanelStyle from './HeaderPanel.module.scss';
 import { ETheme } from '../../helpers/enum/storeEnum';
@@ -27,6 +28,22 @@ const HeaderPanel = () => {
     setLanguage(language === ELanguage.en ? ELanguage.de : ELanguage.en);
   };
 
+  // These three chips are <span>s, not <button>s (keeps the exact existing
+  // visual styling, which assumes a plain inline element), so they need the
+  // same manual role/tabIndex/keydown treatment as ListItem/Section's
+  // disclosure header rather than getting it for free.
+  const asKeyboardButton = (a_OnActivate: () => void) => ({
+    role: 'button' as const,
+    tabIndex: 0,
+    onClick: a_OnActivate,
+    onKeyDown: (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        a_OnActivate();
+      }
+    },
+  });
+
   return (
     <div className={` ${headerPanelStyle.wrapper}`}>
       <div className={` ${headerPanelStyle.logoWrapper}`}>
@@ -46,22 +63,22 @@ const HeaderPanel = () => {
           {backendStatus ? t('header.label.online') : t('header.label.offline')}
         </span>
         <span
-          className={`font-size-xs ${headerPanelStyle.chip}`}
-          onClick={toggleLanguage}
+          className={`focus font-size-xs ${headerPanelStyle.chip}`}
+          {...asKeyboardButton(toggleLanguage)}
         >
           {t('header.label.language')}
         </span>
         <span
-          className={`font-size-xs ${headerPanelStyle.chip}`}
-          onClick={toggleTheme}
+          className={`focus font-size-xs ${headerPanelStyle.chip}`}
+          {...asKeyboardButton(toggleTheme)}
         >
           {theme === ETheme.dark
             ? t('header.label.light')
             : t('header.label.dark')}
         </span>
         <span
-          className={`font-size-xs ${headerPanelStyle.chip}`}
-          onClick={logout}
+          className={`focus font-size-xs ${headerPanelStyle.chip}`}
+          {...asKeyboardButton(logout)}
         >
           {t('login.logout')}
         </span>
