@@ -35,6 +35,21 @@ const EventMarkersLegend = () => {
   const hasDimmed = visible.some((e) =>
     isEventDimmed(e, activeEvent, exportedIds),
   );
+  // useEventMarkers only clusters when 2+ drawn dots are near each other at
+  // the current zoom, and neither "near each other" nor "current zoom" is
+  // state this component has -- clustering happens inside MapLibre/
+  // supercluster, not a store. Rather than plumb that through, this uses the
+  // same total-drawn-dot count useEventMarkers itself unions (visible +
+  // export list, deduped) as a cheap proxy: 2+ dots is a necessary condition
+  // for a cluster to ever appear, even though it isn't sufficient (e.g.
+  // zoomed past CLUSTER_MAX_ZOOM, or dots too far apart). Consistent with
+  // this legend's general "explain only what's on screen" rule in spirit,
+  // if not to the pixel.
+  const drawnIds = new Set([
+    ...visible.map((e) => e.event_id),
+    ...selectedEvents.map((e) => e.event_id),
+  ]);
+  const hasClusters = drawnIds.size > 1;
 
   const items = [
     {
@@ -86,6 +101,20 @@ const EventMarkersLegend = () => {
         </span>
       ),
       label: t('general.label.triagePriority'),
+    },
+    {
+      show: hasClusters,
+      icon: (
+        <span className={eventLegendStyle.sizePair}>
+          <span
+            className={`${eventLegendStyle.dotCluster} ${eventLegendStyle.sizeSmall}`}
+          />
+          <span
+            className={`${eventLegendStyle.dotCluster} ${eventLegendStyle.sizeLarge}`}
+          />
+        </span>
+      ),
+      label: t('general.label.clusteredDetections'),
     },
     {
       show: !!activeEvent,

@@ -33,6 +33,17 @@ import popupStyle from './useEventMarkers.module.scss';
  * dimension reads well as a shape at this cardinality anyway; both show in
  * the hover popup instead.
  *
+ * Below CLUSTER_MAX_ZOOM, nearby dots merge into a cluster bubble (a plain
+ * GeoJSON source `cluster: true` option -- maplibre-gl bundles supercluster
+ * for this, no separate dependency or hand-rolled spatial index needed).
+ * Size-only, no count label: same "no glyph resources" constraint above
+ * rules out a text symbol layer, since the basemap style sets no `glyphs`
+ * URL for MapLibre to fetch font ranges from. Clicking a cluster zooms in
+ * just enough to split it apart. Individual click/hover hit-testing and
+ * "what's in view" are already effectively indexed for free by using a real
+ * GL circle layer with layer-scoped events (`map.on(event, layerId, ...)`)
+ * instead of per-event DOM markers -- clustering was the one actual gap.
+ *
  * Kept as its own module (only imported by the already-lazy MapCanvas), same
  * pattern as useAOIDraw / useHotspotBoundary / useRegionBoundary.
  */
@@ -41,12 +52,22 @@ const SRC = 'event-markers-src';
 const L_DOTS = 'event-markers-dots';
 const L_SELECTED = 'event-markers-selected-ring';
 const L_EXPORTED = 'event-markers-exported-badge';
+const L_CLUSTERS = 'event-markers-clusters';
 
 const MIN_RADIUS_PX = 5;
 const MAX_RADIUS_PX = 9;
 const SELECTED_RING_RADIUS_PX = 13;
 const EXPORT_BADGE_RADIUS_PX = 3;
 const EXPORT_BADGE_OFFSET_PX: [number, number] = [7, -7];
+// Below this zoom, nearby dots merge into one cluster bubble instead of
+// rendering individually -- keeps hundreds of overlapping dots from turning
+// into unreadable clutter (and unusably slow hit-testing) when zoomed out.
+// <= initialView.maxZoom (12) so the tightest zoom always shows raw dots,
+// never a cluster that can't break apart any further.
+const CLUSTER_MAX_ZOOM = 11;
+const CLUSTER_RADIUS_PX = 50;
+// count >= threshold -> radius, first entry is the below-10 default.
+const CLUSTER_RADIUS_STEPS = [14, 10, 20, 50, 26] as const;
 // A null/missing triage score renders at this fixed point on the 0-1 scale
 // -- a deliberately neutral mid-size, not the smallest or largest dot, so
 // "no score yet" doesn't read as "definitely low priority".
@@ -78,12 +99,35 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
     const selectedRingColor = readToken('--color-primary-purple6', '#6c5dd3');
     const exportBadgeColor = readToken('--color-primary-purple8', '#aca0fc');
     const haloColor = readToken('--theme-bg-card', '#1a1b2b');
+    // A neutral tone, deliberately not the teal/orange match-state colors
+    // (a cluster mixes both) and not the accent-blue reserved for the AOI
+    // shape -- the "secondary" ramp is otherwise only used for UI chrome, so
+    // it's free for a structural map element like this.
+    const clusterColor = readToken('--color-secondary-blue7', '#747a9a');
 
     const addSourceAndLayers = () => {
       if (!map.getSource(SRC)) {
         map.addSource(SRC, {
           type: 'geojson',
           data: { type: 'FeatureCollection', features: [] },
+          cluster: true,
+          clusterMaxZoom: CLUSTER_MAX_ZOOM,
+          clusterRadius: CLUSTER_RADIUS_PX,
+        });
+      }
+      if (!map.getLayer(L_CLUSTERS)) {
+        map.addLayer({
+          id: L_CLUSTERS,
+          type: 'circle',
+          source: SRC,
+          filter: ['has', 'point_count'],
+          paint: {
+            'circle-radius': ['step', ['get', 'point_count'], ...CLUSTER_RADIUS_STEPS],
+            'circle-color': clusterColor,
+            'circle-opacity': 0.75,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': haloColor,
+          },
         });
       }
       if (!map.getLayer(L_DOTS)) {
@@ -91,6 +135,9 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
           id: L_DOTS,
           type: 'circle',
           source: SRC,
+          // Clustered points are drawn by L_CLUSTERS instead -- without this
+          // filter they'd render twice once clustering groups them.
+          filter: ['!', ['has', 'point_count']],
           paint: {
             'circle-radius': [
               'interpolate',
@@ -299,6 +346,25 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
       popup.remove();
     };
 
+    // ---- clusters ---------------------------------------------------------
+    // Clicking a cluster bubble zooms in just enough to split it apart,
+    // rather than selecting anything -- there's no single event to select.
+    const onClusterClick = async (e: maplibregl.MapLayerMouseEvent) => {
+      const feature = e.features?.[0];
+      const clusterId = feature?.properties?.cluster_id as number | undefined;
+      if (clusterId === undefined || feature?.geometry.type !== 'Point') return;
+
+      const src = map.getSource(SRC) as maplibregl.GeoJSONSource;
+      const expansionZoom = await src.getClusterExpansionZoom(clusterId);
+      map.easeTo({
+        center: feature.geometry.coordinates as [number, number],
+        zoom: expansionZoom,
+      });
+    };
+
+    const onClusterMouseEnter = () => setCursor('pointer');
+    const onClusterMouseLeave = () => setCursor('');
+
     // A theme toggle calls map.setStyle(), which wipes every custom source
     // and layer. Re-add and repaint whenever a new style finishes loading.
     const onStyleData = () => {
@@ -312,6 +378,9 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
     map.on('click', L_DOTS, onClick);
     map.on('mouseenter', L_DOTS, onMouseEnter);
     map.on('mouseleave', L_DOTS, onMouseLeave);
+    map.on('click', L_CLUSTERS, onClusterClick);
+    map.on('mouseenter', L_CLUSTERS, onClusterMouseEnter);
+    map.on('mouseleave', L_CLUSTERS, onClusterMouseLeave);
     render();
 
     const unsubEvents = useEventStore.subscribe((cur, prev) => {
@@ -335,8 +404,11 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
       map.off('click', L_DOTS, onClick);
       map.off('mouseenter', L_DOTS, onMouseEnter);
       map.off('mouseleave', L_DOTS, onMouseLeave);
+      map.off('click', L_CLUSTERS, onClusterClick);
+      map.off('mouseenter', L_CLUSTERS, onClusterMouseEnter);
+      map.off('mouseleave', L_CLUSTERS, onClusterMouseLeave);
       setCursor('');
-      [L_DOTS, L_SELECTED, L_EXPORTED].forEach((id) => {
+      [L_DOTS, L_SELECTED, L_EXPORTED, L_CLUSTERS].forEach((id) => {
         if (map.getLayer(id)) map.removeLayer(id);
       });
       if (map.getSource(SRC)) map.removeSource(SRC);

@@ -1,4 +1,9 @@
-# UI Usage - Accessibility & Keyboard Reachability
+# UI Usage Notes
+
+Two independent topics live here: accessibility/keyboard reachability
+(below), and the map's clustering behavior (at the end).
+
+## Accessibility & Keyboard Reachability
 
 Scope: the core analyst loop - left sidebar (Report / Vessels / Event tabs),
 the results table (`BottomPanel`), the right drawer (Detail / Export /
@@ -100,3 +105,31 @@ drives the same happy path as the mouse-based smoke test - expand the AOI
 section, pick an EEZ, run the query, inspect the progress modal's focus
 trap, sort a column, select a detection row - using only `Tab`/`Enter`/
 `Escape`, never `.click()`.
+
+---
+
+## Map clustering (`useEventMarkers.ts`)
+
+Detections are drawn as a real MapLibre GL `circle` layer on a GeoJSON
+source, not individual DOM markers - which already gets two things for
+free, with no extra code: **hit-testing** (`map.on('click', layerId, ...)`
+uses MapLibre's own GPU-backed index, not a manual scan) and **viewport
+culling** (a GL layer only renders what's in view as a normal part of how
+it renders anything). The one actual gap was **clustering** - dozens of
+overlapping dots at low zoom turning into unreadable clutter.
+
+Fixed by turning on the GeoJSON source's built-in `cluster: true` option
+(`clusterMaxZoom`, `clusterRadius`) - `maplibre-gl` bundles `supercluster`
+internally for this, so it's a config flag, not a new dependency or a
+hand-rolled spatial index. Below `CLUSTER_MAX_ZOOM` (11 - at or below the
+map's own `maxZoom` of 12, so the tightest zoom always shows raw dots, never
+a cluster that can't split further), nearby dots merge into one bubble sized
+by count (`circle-radius` `step`d on `point_count`); clicking a bubble zooms
+in just enough to split it apart (`getClusterExpansionZoom`).
+
+**Deliberately no count label on the bubble.** A text label needs a
+`symbol` layer, which needs a `glyphs` URL in the map style to fetch font
+glyph ranges from - and the basemap style (`helpers/fixtures/map.ts`)
+intentionally sets none, to avoid an extra external resource dependency
+(same reason there are no vessel-type/gear icons on individual dots either).
+Cluster size is the only signal for "how many," not an exact count.

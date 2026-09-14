@@ -26,6 +26,7 @@
       "maximize": "Maximieren",
       "import": "Importieren",
       "triagePriority": "Triage-Priorität",
+      "clusteredDetections": "Gruppierte Detektionen",
       "inExportList": "In Exportliste",
       "outsideHotspotGroup": "Außerhalb der Hotspot-Gruppe",
       "name": "Name",
