@@ -1,7 +1,7 @@
 # UI Usage Notes
 
-Two independent topics live here: accessibility/keyboard reachability
-(below), and the map's clustering behavior (at the end).
+Three independent topics live here: accessibility/keyboard reachability,
+in-context help/caveats, and the map's clustering behavior.
 
 ## Accessibility & Keyboard Reachability
 
@@ -105,6 +105,37 @@ drives the same happy path as the mouse-based smoke test - expand the AOI
 section, pick an EEZ, run the query, inspect the progress modal's focus
 trap, sort a column, select a detection row - using only `Tab`/`Enter`/
 `Escape`, never `.click()`.
+
+---
+
+## In-context help, hints & caveats
+
+Two mechanisms, both reusing existing UI primitives rather than adding new
+ones:
+
+**Hints on score, uncertainty & reason codes.** `SectionItem`'s existing
+`hint`/`caveat` props (an ℹ/⚠ glyph next to a label, native `title`
+tooltip on hover) now cover the Detail drawer's Scoring block: the triage
+score and uncertainty score fields each explain in one sentence what the
+0-1 number means and, just as importantly, what it *isn't* ("not a
+probability or risk score"). Every raw reason-code chip
+(`bathymetry_shallow_eez_hotspot` and friends) gets the same treatment via
+a new `titleFor` prop on `ChipGroupInput` backed by
+`reasonCodeHint()` (`helpers/utils/eventUtils.ts`) - one short explanation
+per `EReasonCodesStatic` value, plus the two `missing_required_*_field:`
+template variants (field name interpolated in). Shared by both places a raw
+reason code renders as a chip: the Scoring block's read-only display and
+Filter's include/exclude pickers.
+
+**Standing "unmatched is triage, not a claim" caveat near the results.**
+`BottomPanel` (the detections table, in both its normal and maximized/modal
+form) now always shows a small ⚠-prefixed line above the table whenever
+there are events to show, reusing the same copy already shown per-event in
+the Detail drawer's footer (`detailPanel.text.dataLimitationBody`) rather
+than inventing new wording - one canonical sentence, surfaced in two
+places. This is UI-only; the export bundle's file set is unchanged (the
+canonical, fuller version of this caveat lives in `docs/limitations.md`
+for anyone reading the repo).
 
 ---
 

@@ -34,6 +34,7 @@ import {
 } from '../../helpers/utils/downloadUtils';
 import { isValidFilterQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
+import { reasonCodeHint } from '../../helpers/utils/eventUtils';
 
 export interface IFilterProps {}
 
@@ -431,6 +432,7 @@ const Filter = () => {
           active={(filter.reason_codes_include ?? []) as EReasonCodesStatic[]}
           onToggle={(code) => toggleReasonCode(EInclusionMode.include, code)}
           variant={EInclusionMode.include}
+          titleFor={(code) => reasonCodeHint(code, t)}
         />
       </SectionItem>
 
@@ -444,6 +446,7 @@ const Filter = () => {
           active={(filter.reason_codes_exclude ?? []) as EReasonCodesStatic[]}
           onToggle={(code) => toggleReasonCode(EInclusionMode.exclude, code)}
           variant={EInclusionMode.exclude}
+          titleFor={(code) => reasonCodeHint(code, t)}
         />
       </SectionItem>
     </Section>

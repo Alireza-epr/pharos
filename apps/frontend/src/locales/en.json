@@ -44,6 +44,27 @@
       "invalidURLConfig": "Invalid or unreadable configuration in the URL.",
       "noMatchesFound": "No matches found.",
       "moreMatchesRefine": "+{{count}} more - refine your search"
+    },
+    "reasonCode": {
+      "nearCoast": "Detection lies close to the coastline.",
+      "lowConfidenceProxy": "The provider's confidence proxy for this detection is below the low-confidence threshold.",
+      "missingConfidenceProxy": "The provider did not supply a confidence proxy for this detection.",
+      "insideEez": "Detection falls inside an Exclusive Economic Zone (EEZ).",
+      "insideMpa": "Detection falls inside a Marine Protected Area (MPA).",
+      "unmatchedToPublicAis": "No matching record was found in the public AIS data used - not a claim that the vessel was hiding.",
+      "matchedToPublicAis": "A matching record was found in the public AIS data used.",
+      "noisyVessel": "The vessel's AIS track shows unusually erratic movement.",
+      "bathymetryFishingZone": "Water depth here is typical of fishing activity.",
+      "bathymetryShallowEezHotspot": "Shallow-water hotspot inside an EEZ.",
+      "bathymetryMpaShallowZone": "Shallow-water zone inside a Marine Protected Area.",
+      "bathymetryCargoAnomalyZone": "Water depth here is atypical for expected cargo-vessel activity.",
+      "bathymetryDeepMpa": "Deep-water zone inside a Marine Protected Area.",
+      "lowConfidenceTier": "Overall confidence tier for this detection is low.",
+      "mediumConfidenceTier": "Overall confidence tier for this detection is medium.",
+      "highConfidenceTier": "Overall confidence tier for this detection is high.",
+      "invalidThresholdConfig": "One or more threshold values in this run's config were invalid.",
+      "missingRequiredField": "Required field missing from the source record: {{field}}",
+      "missingRequiredThresholdField": "Required threshold config field missing: {{field}}"
     }
   },
   "header": {
@@ -237,6 +258,10 @@
       "hotspotContext": "Hotspot Context",
       "contextLayers": "Context Layers",
       "runMetadata": "Run Metadata"
+    },
+    "hint": {
+      "triageScore": "A 0-1 score for prioritizing which detections to inspect first - not a probability or a risk score.",
+      "uncertaintyScore": "A 0-1 score for how uncertain this detection's scoring inputs are - not a measure of confidence in wrongdoing."
     },
     "label": {
       "gridCellCenter": "Grid Cell Center",

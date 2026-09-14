@@ -261,6 +261,14 @@ const BottomPanel = () => {
     </table>
   );
 
+  const caveatBar = (
+    <div className={bottomPanelStyle.caveatBar}>
+      <span className={`font-size-xs caveat`}>
+        ⚠ {t('detailPanel.text.dataLimitationBody')}
+      </span>
+    </div>
+  );
+
   const emptyState = (
     <div className={` ${bottomPanelStyle.emptyState}`}>
       <span className={`font-size-sm font-bold font-family-header`}>
@@ -322,6 +330,8 @@ const BottomPanel = () => {
         )}
       </div>
 
+      {events.length > 0 && caveatBar}
+
       <div className={`scrollbar ${bottomPanelStyle.tableWrap}`}>
         {events.length === 0 ? emptyState : detectionsTable}
       </div>
@@ -331,6 +341,7 @@ const BottomPanel = () => {
         onClose={() => setMaximized(false)}
         title={`${t('bottomPanel.title.detections')}${events.length > 0 ? ` (${events.length})` : ''}`}
       >
+        {caveatBar}
         {detectionsTable}
       </Modal>
     </div>

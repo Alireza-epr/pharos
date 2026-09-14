@@ -44,6 +44,27 @@
       "invalidURLConfig": "Ungültige oder nicht lesbare Konfiguration in der URL.",
       "noMatchesFound": "Keine Treffer gefunden.",
       "moreMatchesRefine": "+{{count}} weitere - Suche eingrenzen"
+    },
+    "reasonCode": {
+      "nearCoast": "Die Erfassung liegt nahe der Küstenlinie.",
+      "lowConfidenceProxy": "Der Konfidenz-Proxy des Anbieters für diese Erfassung liegt unter dem Schwellenwert für niedrige Konfidenz.",
+      "missingConfidenceProxy": "Der Anbieter hat keinen Konfidenz-Proxy für diese Erfassung geliefert.",
+      "insideEez": "Die Erfassung liegt innerhalb einer ausschließlichen Wirtschaftszone (AWZ).",
+      "insideMpa": "Die Erfassung liegt innerhalb eines Meeresschutzgebiets (MPA).",
+      "unmatchedToPublicAis": "In den verwendeten öffentlichen AIS-Daten wurde kein passender Eintrag gefunden - keine Aussage, dass sich das Schiff verborgen hat.",
+      "matchedToPublicAis": "In den verwendeten öffentlichen AIS-Daten wurde ein passender Eintrag gefunden.",
+      "noisyVessel": "Der AIS-Track des Schiffs zeigt ungewöhnlich unruhige Bewegungen.",
+      "bathymetryFishingZone": "Die Wassertiefe hier ist typisch für Fischereiaktivität.",
+      "bathymetryShallowEezHotspot": "Flachwasser-Hotspot innerhalb einer AWZ.",
+      "bathymetryMpaShallowZone": "Flachwasserzone innerhalb eines Meeresschutzgebiets.",
+      "bathymetryCargoAnomalyZone": "Die Wassertiefe hier ist untypisch für erwartete Frachtschiffsaktivität.",
+      "bathymetryDeepMpa": "Tiefwasserzone innerhalb eines Meeresschutzgebiets.",
+      "lowConfidenceTier": "Die Gesamtkonfidenzstufe dieser Erfassung ist niedrig.",
+      "mediumConfidenceTier": "Die Gesamtkonfidenzstufe dieser Erfassung ist mittel.",
+      "highConfidenceTier": "Die Gesamtkonfidenzstufe dieser Erfassung ist hoch.",
+      "invalidThresholdConfig": "Ein oder mehrere Schwellenwerte in der Konfiguration dieses Laufs waren ungültig.",
+      "missingRequiredField": "Erforderliches Feld im Quelldatensatz fehlt: {{field}}",
+      "missingRequiredThresholdField": "Erforderliches Feld in der Schwellenwert-Konfiguration fehlt: {{field}}"
     }
   },
   "header": {
@@ -237,6 +258,10 @@
       "hotspotContext": "Hotspot-Kontext",
       "contextLayers": "Kontextebenen",
       "runMetadata": "Lauf-Metadaten"
+    },
+    "hint": {
+      "triageScore": "Ein Score von 0-1 zur Priorisierung, welche Erfassungen zuerst geprüft werden - keine Wahrscheinlichkeits- oder Risikobewertung.",
+      "uncertaintyScore": "Ein Score von 0-1 dafür, wie unsicher die Eingaben dieser Bewertung sind - kein Maß für die Wahrscheinlichkeit eines Fehlverhaltens."
     },
     "label": {
       "gridCellCenter": "Rasterzellen-Zentrum",
