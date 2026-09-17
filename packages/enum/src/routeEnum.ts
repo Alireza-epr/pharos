@@ -6,6 +6,7 @@ export enum EBaseRoutes {
   exports = "/exports",
   regions = "/regions",
   vessels = "/vessels",
+  mcp = "/mcp",
 }
 
 export enum ERegionsRoutes {

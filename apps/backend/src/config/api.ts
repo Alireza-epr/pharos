@@ -18,6 +18,7 @@ export const config: IBackendConfig = {
     jwt_secret: process.env.JWT_SECRET ?? '',
     jwt_expiry: '1h',
     refresh_token_expiry: '7d',
+    mcp_shared_secret: process.env.MCP_SHARED_SECRET ?? '',
   },
   port: parseInt(process.env.PORT || '1370', 10),
   detection_provider_timeout_ms: parseInt(
