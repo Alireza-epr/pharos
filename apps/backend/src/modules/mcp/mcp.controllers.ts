@@ -9,9 +9,22 @@ import { buildPharosMcpServer } from './mcp.server';
 
 const BEARER_PREFIX = 'Bearer ';
 
+// token -> label, built once from config.auth.mcp_api_keys (label -> token,
+// the natural shape for a human editing the MCP_API_KEYS env var) rather
+// than re-inverting it on every request.
+const keysByToken: Record<string, string> = Object.fromEntries(
+  Object.entries(config.auth.mcp_api_keys).map(([label, token]) => [
+    token,
+    label,
+  ]),
+);
+
 // A dedicated check, not the user-facing authMiddleware -- an AI agent
-// isn't a logged-in browser user with a JWT, it's a single shared secret
-// for this learning-spike stage (see mcp_shared_secret in generalTypes.ts).
+// isn't a logged-in browser user with a JWT. Each agent/person gets its own
+// named key (MCP_API_KEYS) instead of one secret everyone shares: one can
+// be revoked (delete its entry, restart) without touching anyone else's.
+// Still a stand-in for real OAuth 2.1 -- see mcp_api_keys in
+// generalTypes.ts for why that's deliberately not built yet.
 export const mcpAuthMiddleware = (
   a_Req: Request,
   a_Res: Response,
@@ -22,15 +35,17 @@ export const mcpAuthMiddleware = (
     ? authHeader.slice(BEARER_PREFIX.length)
     : undefined;
 
-  const expected = config.auth.mcp_shared_secret;
-  if (!expected || !token || token !== expected) {
-    log('[MCP] Rejected request: missing/invalid bearer token', ELogType.error);
+  const label = token ? keysByToken[token] : undefined;
+  if (!label) {
+    log('[MCP] Rejected request: missing/invalid API key', ELogType.error);
     return controllerResponse(a_Res, EStatusCode.UNAUTHORIZED_401, {
       success: false,
       error: [EResponseError.InvalidOrExpiredToken],
     });
   }
 
+  a_Req.mcpKeyLabel = label;
+  log(`[MCP] Authenticated request from "${label}"`, ELogType.success);
   return a_Next();
 };
 

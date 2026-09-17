@@ -10,6 +10,9 @@ declare global {
       start_time?: string;
       gitCommitSHA?: string;
       user?: TDecoded;
+      // Which MCP_API_KEYS label authenticated this request (see
+      // mcpAuthMiddleware) -- set for /v1/mcp only.
+      mcpKeyLabel?: string;
     }
   }
 }
