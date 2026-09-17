@@ -73,6 +73,33 @@ ingest → normalize → features → aggregate → schema → export
 - Evidence-bundle export (ZIP) with scores, reason codes, and enriched context; a separate vessel-identity JSON export
 - JWT-based authentication (access + refresh) gating all non-system endpoints
 - Keyboard-accessible core loop - every control reachable and operable via keyboard alone, a consistent visible focus ring, `aria-label`s on icon-only controls ([docs/ui/usage.md](docs/ui/usage.md))
+- **An MCP server** (`POST /v1/mcp`) exposing Pharos as tools to any AI agent, not just the web UI - see [Connect Your Own AI Agent](#connect-your-own-ai-agent-mcp) below
+
+---
+
+## Connect Your Own AI Agent (MCP)
+
+Pharos isn't only a web app you click through - it's also a live **[MCP](https://modelcontextprotocol.io) (Model Context Protocol) server**. Any MCP-compatible AI client - Claude Code, Claude Desktop, or an agent you build yourself - can connect to it directly and query real Pharos data conversationally, instead of a human driving the UI by hand. Ask it something like *"check Pharos for unmatched detections in the Baltic Sea last week"* and it runs a real query against the live backend and answers in plain language, scores and all.
+
+**What it is, concretely:** the same `POST /v1/events` the web app itself calls, wrapped as an MCP tool - no second implementation of the query/scoring logic, no mocked data. Two tools are exposed today:
+
+| Tool | What it does |
+| --- | --- |
+| `pharos_health` | Connectivity/build check - confirms the server is reachable and reports which commit is running |
+| `run_query` | Runs a real SAR-detection query - bounding box, date range, matched/unmatched filter - and returns detections with their triage/uncertainty scores |
+
+**How to use it:**
+
+1. **Get an API key.** Ask the maintainer for one.
+2. **Point your MCP client at the live server**, sending the key as a Bearer token:
+
+   Claude Code:
+   ```bash
+   claude mcp add --transport http pharos https://pharos-kqxq.onrender.com/v1/mcp \
+     --header "Authorization: Bearer <your-token>"
+   ```
+3. **Ask it something real** - e.g. *"Check Pharos for unmatched detections in the Baltic Sea in the first week of December 2025."*
+
 
 ---
 
@@ -151,7 +178,7 @@ Set `JWT_SECRET` in the same `apps/backend/.env` file. It signs and verifies aut
 
 Set `VITE_CARTO_API_KEY` in `apps/frontend/src/.env` (a `.env.example` is provided for reference) - CARTO requires a free key for its basemap tiles (fair-use cap: 5M requests/month); without it, map tiles render watermarked "API KEY REQUIRED" instead of the real basemap. Request one at https://carto.com/basemaps/apikey. In production this must be set as a build-time environment variable on the frontend host, since Vite bakes it in at build time.
 
-Other backend variables (see `apps/backend/.env.example`) include CORS configuration, detection-provider timeout/retry tuning, and `CONTEXT_DATASET_QUALITY` (`simplified` by default, `full` if the host has enough RAM - see [Data Sources & Licenses](#data-sources--licenses)). Other frontend variables (see `apps/frontend/src/.env.example`) include the API base URL/retry tuning and the initial map view (default centre: Strait of Hormuz).
+Other backend variables (see `apps/backend/.env.example`) include CORS configuration, detection-provider timeout/retry tuning, `CONTEXT_DATASET_QUALITY` (`simplified` by default, `full` if the host has enough RAM - see [Data Sources & Licenses](#data-sources--licenses)), and `MCP_API_KEYS` (per-agent API keys for the MCP endpoint - see [Authentication](#authentication)). Other frontend variables (see `apps/frontend/src/.env.example`) include the API base URL/retry tuning and the initial map view (default centre: Strait of Hormuz).
 
 ---
 
@@ -159,7 +186,9 @@ Other backend variables (see `apps/backend/.env.example`) include CORS configura
 
 The app requires login. The backend issues a short-lived **access token** and a long-lived **refresh token** (JWT, signed with `JWT_SECRET`); the frontend stores them, attaches the access token to API requests, and refreshes it automatically when it expires. Protected endpoints such as `/v1/events` reject requests without a valid access token.
 
-See the [authentication guide](docs/api/authentication.md) for the full login flow.
+The MCP endpoint (`POST /v1/mcp`) uses a separate scheme: a static per-agent API key (`MCP_API_KEYS`), not a login session - see [Connect Your Own AI Agent](#connect-your-own-ai-agent-mcp) for what it's for and how to use it.
+
+See the [authentication guide](docs/api/authentication.md) for the full login flow and the MCP key scheme.
 
 ---
 

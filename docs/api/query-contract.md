@@ -45,6 +45,7 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Regions Geometry](#regions-geometry)
 - [Vessels Search](#vessels-search)
 - [Vessels List by IDs](#vessels-list-by-ids)
+- [MCP Tool Server](#mcp-tool-server)
 
 ---
 
@@ -1153,6 +1154,79 @@ Same whole-raw-reply forwarding as [Vessels Search](#vessels-search) - see that 
 - Fetched vessel identities are never written back onto the event schema and never feed `triage_score`/`uncertainty_score` - purely contextual display data for the Detail panel, cached client-side only for the lifetime of that view
 - No pagination concerns the way Vessels Search has - this is a direct lookup by known ids, not a query with a result set to page through
 - Body `method`/`url` trust rules are the same as [Vessels Search](#vessels-search)'s own Notes: `method` is always forced to `GET` server-side, `url` is trusted as sent
+
+---
+
+## MCP Tool Server
+
+**POST** `/mcp`
+
+**Description:**
+`A Model Context Protocol (MCP) server exposed over Streamable HTTP, letting an AI agent call Pharos as a set of tools instead of a human using the web UI. Speaks JSON-RPC 2.0, not this document's usual {success, ...} envelope.`
+
+**Authentication:**
+`Bearer API key (MCP_API_KEYS) - a separate scheme from the access-token flow above; see the authentication documentation`
+
+---
+
+### 1. Request - URL Parameters
+
+None.
+
+---
+
+### 2. Request - Body
+
+A single JSON-RPC 2.0 request object. The two methods a client actually needs:
+
+| Method | Purpose |
+| ------ | ------- |
+| `tools/list` | Returns the available tools and their input schemas |
+| `tools/call` | Runs one named tool with the given arguments |
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": { "name": "run_query", "arguments": { "matched": false } }
+}
+```
+
+---
+
+### 3. Response
+
+A single JSON-RPC 2.0 response, delivered over the Streamable HTTP transport (a `text/event-stream` body carrying one `event: message` line per reply, not a plain JSON body).
+
+| Field           | Description                                                              | Format |
+| --------------- | ------------------------------------------------------------------------- | ------ |
+| result.content  | One or more `{ type: "text", text: "..." }` blocks - the tool's own output as a string, not a fixed schema | array |
+
+---
+
+#### Example: Success Response
+
+```
+event: message
+data: {"result":{"content":[{"type":"text","text":"{...tool output...}"}]},"jsonrpc":"2.0","id":1}
+```
+
+---
+
+### 4. Errors
+
+- `401 Unauthorized` – missing or invalid API key
+- `405 Method Not Allowed` – `GET`/`DELETE` (this server runs stateless, so there is no session to resume or terminate)
+- A tool-level failure (e.g. the internal query call failing) still returns `200` with a JSON-RPC result whose `content` explains the failure, or `isError: true` set - the transport succeeded even though the tool didn't
+
+---
+
+### 5. Notes
+
+- Two tools today: `pharos_health` (connectivity/build check, no input) and `run_query` (calls this same backend's real Events Report endpoint internally over a loopback HTTP request - no duplicated query/scoring logic; see its exact input fields via `tools/list` rather than duplicating them here, since the tool's own schema is the source of truth)
+- Stateless: every request gets a fresh MCP server + transport, so nothing is remembered between calls - no `mcp-session-id` header is ever set
+- Full auth model (why per-agent keys, how to add/revoke one, why not OAuth yet): see the [authentication documentation](./authentication.md)
 
 ---
 

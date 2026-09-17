@@ -13,11 +13,13 @@ export interface IBackendConfig {
     jwt_expiry: string; // JWT expiration time
     refresh_token_expiry: string; // Refresh token expiration time
     // Separate from the user-facing JWT flow above -- an AI agent isn't a
-    // logged-in browser user, so the MCP route checks a single shared
-    // secret (a bearer token) instead. A learning-spike-grade stand-in for
-    // real OAuth 2.1, which is what the MCP spec expects in production
-    // (see docs/knowledge/mcp-notes.md).
-    mcp_shared_secret: string;
+    // logged-in browser user, so the MCP route checks a per-agent API key
+    // instead: label -> token (e.g. { "alireza-desktop": "...",
+    // "friend-test": "..." }). Adding/removing one is an env-var edit, not
+    // a code change. Still a stand-in for real OAuth 2.1 -- the MCP spec's
+    // actual production answer, deliberately parked until there are real
+    // external users to justify it (see docs/knowledge/mcp-notes.md).
+    mcp_api_keys: Record<string, string>;
   };
   port: number;
   detection_provider_timeout_ms: number;

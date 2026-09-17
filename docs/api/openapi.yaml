@@ -29,6 +29,7 @@ tags:
   - name: Events
   - name: Exports
   - name: Regions
+  - name: MCP
 
 paths:
   /system/health:
@@ -460,6 +461,97 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+  /mcp:
+    post:
+      tags: [MCP]
+      summary: MCP tool server (JSON-RPC over Streamable HTTP)
+      description: >
+        A Model Context Protocol (MCP) server letting an AI agent call Pharos
+        as a set of tools instead of a human using the web UI. Speaks
+        JSON-RPC 2.0 over the MCP "Streamable HTTP" transport -- request and
+        response bodies here are the JSON-RPC envelope, not this API's usual
+        `{success, ...}` shape, and a successful transport call can still
+        carry a tool-level failure inside `result.content`/`isError`.
+        Requires a per-agent API key (see the mcpApiKey security scheme),
+        not a login-session access token. Stateless: every request is
+        served by a fresh server instance, so no session id is ever issued.
+        The two methods a client actually needs are `tools/list` (discover
+        the available tools and their input schemas) and `tools/call` (run
+        one, e.g. `run_query`, which itself calls this API's own
+        `POST /events` internally). Full reference:
+        docs/api/query-contract.md#mcp-tool-server.
+      operationId: postMcp
+      security:
+        - mcpApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/McpJsonRpcRequest"
+      responses:
+        "200":
+          description: >
+            A JSON-RPC 2.0 response, delivered as a Streamable HTTP body
+            (`text/event-stream`, one `event: message` line carrying the
+            JSON-RPC reply) rather than a plain `application/json` payload.
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/McpJsonRpcResponse"
+        "401":
+          description: Missing or invalid MCP API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: >
+            GET/DELETE are not supported -- this server is stateless, so
+            there is no session to resume (GET, normally an SSE stream) or
+            terminate (DELETE).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/McpJsonRpcErrorResponse"
+    get:
+      tags: [MCP]
+      summary: Not supported (stateless server has no session to resume)
+      description: >
+        GET is normally how an MCP client resumes a server-initiated SSE
+        stream on a stateful server. This server runs stateless (a fresh
+        instance per request, no session id ever issued), so there is
+        nothing to resume -- always answers 405, by design, not as an
+        unimplemented gap.
+      operationId: getMcp
+      security:
+        - mcpApiKey: []
+      responses:
+        "405":
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/McpJsonRpcErrorResponse"
+    delete:
+      tags: [MCP]
+      summary: Not supported (stateless server has no session to terminate)
+      description: >
+        DELETE is normally how an MCP client explicitly terminates a
+        session. This server runs stateless (a fresh instance per request,
+        no session id ever issued), so there is no session to terminate --
+        always answers 405, by design, not as an unimplemented gap.
+      operationId: deleteMcp
+      security:
+        - mcpApiKey: []
+      responses:
+        "405":
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/McpJsonRpcErrorResponse"
+
 components:
   securitySchemes:
     bearerAuth:
@@ -467,6 +559,16 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: JWT access token obtained from /auth/login or /auth/refresh.
+
+    mcpApiKey:
+      type: http
+      scheme: bearer
+      description: >
+        A static, long-lived per-agent API key (not a JWT) -- one of the
+        token values in the backend's MCP_API_KEYS env var (a
+        label -> token JSON map, one entry per person/agent). Distinct
+        from bearerAuth: no login, no expiry, no refresh; revoking one
+        agent's access is deleting its entry and restarting the server.
 
   schemas:
 
@@ -916,3 +1018,79 @@ components:
         message:
           type: string
           description: Human-readable error message
+
+    McpJsonRpcRequest:
+      type: object
+      description: >
+        A JSON-RPC 2.0 request. `params` varies by method -- e.g. for
+        `tools/call` it's `{ name: string, arguments: object }`, where
+        `arguments` matches whichever tool's own input schema (discoverable
+        via a prior `tools/list` call).
+      required: [jsonrpc, method]
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+        method:
+          type: string
+          enum: ["initialize", "tools/list", "tools/call"]
+        params:
+          type: object
+          additionalProperties: true
+
+    McpJsonRpcResponse:
+      type: object
+      description: >
+        A JSON-RPC 2.0 response. Exactly one of `result`/`error` is present.
+        For `tools/call`, `result.content` is the tool's own output as one
+        or more `{ type: "text", text: string }` blocks -- a free-form
+        string, not a fixed per-tool schema -- and `result.isError: true`
+        marks a tool-level failure that still succeeded at the transport
+        level (HTTP 200).
+      required: [jsonrpc, id]
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        id:
+          nullable: true
+          oneOf:
+            - type: string
+            - type: integer
+        result:
+          type: object
+          additionalProperties: true
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+
+    McpJsonRpcErrorResponse:
+      type: object
+      description: >
+        The JSON-RPC-shaped error body this endpoint sends on failure --
+        deliberately not ErrorResponse's `{success, error}` shape, since an
+        MCP client expects a JSON-RPC envelope even on failure.
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        id:
+          nullable: true
+          oneOf:
+            - type: string
+            - type: integer
