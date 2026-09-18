@@ -1,4 +1,3 @@
-import { EVessleType } from '@packages/enum';
 import { I4wingsEntry, T4wingsSource } from '@packages/types';
 
 export const isMatchedCase = (a_4wingsEntry: I4wingsEntry) => {
@@ -70,12 +69,6 @@ export const isISO8601Timestamp = (a_Value: string): boolean => {
 
 export const isValidDate = (a_DateStr: string) => {
   return /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(a_DateStr);
-};
-
-export const isVesselTypeValid = (a_VesselType: string): boolean => {
-  if (typeof a_VesselType !== 'string') return false;
-  const normalized = a_VesselType.trim().toUpperCase() as EVessleType;
-  return Object.values(EVessleType).includes(normalized);
 };
 
 export const is4wingsSource = (a_Value: string): a_Value is T4wingsSource => {

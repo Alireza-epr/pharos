@@ -338,77 +338,6 @@ export const api4wingsResponse_bad_coordinates: any = {
   ],
 };
 
-export const api4wingsResponse_bad_vessel_type: any = {
-  total: 1,
-  limit: null,
-  offset: null,
-  nextOffset: null,
-  metadata: {},
-  entries: [
-    {
-      'public-global-sar-presence:v3.0': [
-        {
-          callsign: 'V2OW7',
-          dataset: 'public-global-vessel-identity:v3.0',
-          date: '2025-12-04 16:00',
-          detections: 1,
-          entryTimestamp: '2025-12-04T16:53:26Z',
-          exitTimestamp: '2025-12-04T16:53:26Z',
-          firstTransmissionDate: '2012-01-02T16:28:28Z',
-          flag: 'ATG',
-          geartype: 'CARGO',
-          imo: '9287807',
-          lastTransmissionDate: '2026-02-25T23:56:08Z',
-          lat: '55.22',
-          lon: 14.40999984741211,
-          mmsi: '305773000',
-          shipName: 'VOHBURG',
-          vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
-          vesselType: 'UNKNOWN',
-        },
-        {
-          callsign: 'V2OW7',
-          dataset: 'public-global-vessel-identity:v3.0',
-          date: '2025-12-04 16:00',
-          detections: 1,
-          entryTimestamp: '2025-12-04T16:53:26Z',
-          exitTimestamp: '2025-12-04T16:53:26Z',
-          firstTransmissionDate: '2012-01-02T16:28:28Z',
-          flag: 'ATG',
-          geartype: 'CARGO',
-          imo: '9287807',
-          lastTransmissionDate: '2026-02-25T23:56:08Z',
-          lat: 55.22,
-          lon: NaN,
-          mmsi: '305773000',
-          shipName: 'VOHBURG',
-          vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
-          vesselType: 2,
-        },
-        {
-          callsign: 'V2OW7',
-          dataset: 'public-global-vessel-identity:v3.0',
-          date: '2025-12-04 16:00',
-          detections: 1,
-          entryTimestamp: '2025-12-04T16:53:26Z',
-          exitTimestamp: '2025-12-04T16:53:26Z',
-          firstTransmissionDate: '2012-01-02T16:28:28Z',
-          flag: 'ATG',
-          geartype: 'CARGO',
-          imo: '9287807',
-          lastTransmissionDate: '2026-02-25T23:56:08Z',
-          lat: 91,
-          lon: 20,
-          mmsi: '305773000',
-          shipName: 'VOHBURG',
-          vesselId: '369fc1e02-2678-b669-af58-b2f3ae66a515',
-          vesselType: 'CARGOS',
-        },
-      ],
-    },
-  ],
-};
-
 export const api4wingsResponse_bad_date: any = {
   total: 1,
   limit: null,
@@ -1338,9 +1267,6 @@ export const api4wingsResponse_mixed_accepted_rejected: I4wingsAPIResponse = {
   entries: [
     {
       'public-global-sar-presence:v3.0': [
-        api4wingsResponse_bad_vessel_type.entries[0][
-          'public-global-sar-presence:v3.0'
-        ][0],
         api4wingsResponse_bad_coordinates.entries[0][
           'public-global-sar-presence:v3.0'
         ][0],

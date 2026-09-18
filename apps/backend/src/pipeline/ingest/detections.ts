@@ -52,6 +52,11 @@ export const detectionGFW = async <T>(a_Config: IConfigJSON) => {
       ELogType.info,
       150,
     );
+    log(
+      '[detectionGFW] Raw entries ' +
+        JSON.stringify((results as { entries?: unknown }).entries),
+      ELogType.info,
+    );
 
     return results;
   } catch (error) {

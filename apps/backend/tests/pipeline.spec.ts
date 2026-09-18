@@ -56,7 +56,6 @@ import {
   api4wingsResponse_bad_coordinates,
   api4wingsResponse_bad_date,
   api4wingsResponse_bad_multi,
-  api4wingsResponse_bad_vessel_type,
   api4wingsResponse_mixed_accepted_rejected,
   api4wingsResponse_multi_dataset,
   apiEventResponse_no_entry,
@@ -747,10 +746,10 @@ describe('createEventSchema', () => {
     }
   });
 
-  it('should_return_rejected_event_schema_for_not_valid_vessel_type', async () => {
+  it('should_accept_an_entry_with_an_unlisted_vessel_type', async () => {
     const entriesMap = getEntriesFrom4wingsResponse(
       sarConfig,
-      api4wingsResponse_bad_vessel_type,
+      api4wingsResponse,
     );
     const entries = Array.from(entriesMap).flatMap(
       ([source, entries]) => entries,
@@ -758,11 +757,11 @@ describe('createEventSchema', () => {
     if (!entries) return;
 
     for (const entry of entries) {
-      const eventSchema = await createEventSchema(sarConfig, entry);
-      expect(eventSchema.rejected).toBe(true);
-      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
-        ERejectedEventSchemaReasons.notValidVesselType,
-      );
+      const eventSchema = await createEventSchema(sarConfig, {
+        ...entry,
+        vesselType: 'INSUFFICIENT_DATA',
+      });
+      expect(eventSchema.rejected).toBe(false);
     }
   });
 
@@ -806,9 +805,6 @@ describe('createEventSchema', () => {
       );
       expect((eventSchema as IRejectedEventSchema).reasons).toContain(
         ERejectedEventSchemaReasons.notValidTimestamp,
-      );
-      expect((eventSchema as IRejectedEventSchema).reasons).toContain(
-        ERejectedEventSchemaReasons.notValidVesselType,
       );
     }
   });
@@ -876,7 +872,7 @@ describe('sortEventSchema', () => {
       events.push(eventSchema);
     }
     const sorted = sortEventSchema(events);
-    expect(sorted).toHaveLength(7);
+    expect(sorted).toHaveLength(6);
 
     const firstRejectedIndex = sorted.findIndex((e) => e.rejected === true);
 
@@ -894,7 +890,7 @@ describe('sortEventSchema', () => {
     const rejected = sorted.filter((e) => e.rejected);
 
     expect(accepted).toHaveLength(3);
-    expect(rejected).toHaveLength(4);
+    expect(rejected).toHaveLength(3);
 
     expect(sorted.every((e) => e.version === '1.0.0')).toBe(true);
     expect(sorted.every((e) => e.raw_metadata)).toBe(true);
@@ -904,7 +900,6 @@ describe('sortEventSchema', () => {
       false,
       false,
       false,
-      true,
       true,
       true,
       true,

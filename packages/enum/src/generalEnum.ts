@@ -26,7 +26,6 @@ export type EReasonCodes =
 export enum ERejectedEventSchemaReasons {
   notValidCoordinates = "Not Valid Coordinates",
   notValidTimestamp = "Not Valid Timestamp",
-  notValidVesselType = "Not Valid Vessel Type",
 }
 
 export enum EGeoCoordinate {

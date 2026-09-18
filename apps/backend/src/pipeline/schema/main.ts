@@ -14,7 +14,6 @@ import {
   isMatchedCase,
   isValidCoordinate,
   isValidDate,
-  isVesselTypeValid,
 } from '../normalize/validation';
 import {
   generateConfidence,
@@ -58,11 +57,6 @@ export const createEventSchema = async (
   const validTimestamp = isValidDate(a_4wingsEntry.date);
   if (!validTimestamp) {
     rejected_reasons.push(ERejectedEventSchemaReasons.notValidTimestamp);
-  }
-
-  const validVesselType = isVesselTypeValid(a_4wingsEntry.vesselType);
-  if (!validVesselType) {
-    rejected_reasons.push(ERejectedEventSchemaReasons.notValidVesselType);
   }
 
   const timestamp_utc = getISO8601(a_4wingsEntry.date);

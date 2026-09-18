@@ -33,6 +33,7 @@ export enum EVessleType {
   "Other Non Fishing" = "OTHER_NON_FISHING",
   Discrepancy = "DISCREPANCY",
   NotApplicable = "",
+  "Insufficient data" = "INSUFFICIENT_DATA",
   NA = "NA",
 }
 
