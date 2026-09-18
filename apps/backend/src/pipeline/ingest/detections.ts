@@ -52,11 +52,18 @@ export const detectionGFW = async <T>(a_Config: IConfigJSON) => {
       ELogType.info,
       150,
     );
-    log(
-      '[detectionGFW] Raw entries ' +
-        JSON.stringify((results as { entries?: unknown }).entries),
-      ELogType.info,
+    const groups =
+      (results as { entries?: Record<string, unknown>[] }).entries ?? [];
+    const entryCount = groups.reduce(
+      (sum, group) =>
+        sum +
+        Object.values(group).reduce<number>(
+          (s, list) => s + (Array.isArray(list) ? list.length : 0),
+          0,
+        ),
+      0,
     );
+    log(`[detectionGFW] Raw entry count ${entryCount}`, ELogType.info);
 
     return results;
   } catch (error) {
