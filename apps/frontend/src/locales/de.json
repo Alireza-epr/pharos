@@ -381,6 +381,78 @@
     "genericError": "Etwas ist schiefgelaufen, bitte melden Sie sich erneut an",
     "logout": "Abmelden"
   },
+  "welcome": {
+    "title": "Willkommen bei PHAROS",
+    "subtitle": "AIS-SAR-Abgleich für maritime Triage",
+    "intro": "PHAROS ruft Sentinel-1-SAR-Schiffsdetektionen ab und gleicht jede mit den öffentlich verfügbaren AIS-Daten ab, die der Detektionsanbieter verwendet.",
+    "term": {
+      "matching": {
+        "description": "Jede Erfassung wird als mit den öffentlich verfügbaren AIS-Daten des Detektionsanbieters übereinstimmend oder nicht übereinstimmend markiert. Nicht zugeordnet bedeutet, dass kein öffentlicher Datensatz gefunden wurde, nicht, dass ein Schiff bestätigt „dunkel“ oder illegal ist."
+      },
+      "triage": {
+        "description": "Ein Score von 0-1 zur Priorisierung, welche nicht zugeordneten Erfassungen zuerst geprüft werden - niemals eine Wahrscheinlichkeit oder Risikobewertung."
+      },
+      "contextLayers": {
+        "description": "AWZ-, MPA- und Bathymetrie-Grenzen, dargestellt auf der Karte neben jeder ausgewählten Erfassung."
+      },
+      "vesselInfo": {
+        "title": "Schiffsidentität & -ereignisse",
+        "description": "On-Demand-Abfrage der Identität eines zugeordneten Schiffs - Name, Flagge, MMSI/IMO, Typ - sowie seiner Begegnungen, Verweilphasen, Hafenbesuche, Fischereiaktivitäten und AIS-Lücken, durchsuchbar im Ereignis-Tab."
+      },
+      "mcpServer": {
+        "title": "MCP-Server",
+        "description": "Ein Model-Context-Protocol-Tool-Server, über den ein KI-Agent PHAROS direkt abfragen kann - abgesichert durch agentenspezifische API-Schlüssel, unabhängig von Benutzeranmeldungen."
+      },
+      "export": {
+        "title": "Nachweisexport",
+        "description": "Stellen Sie ausgewählte Erfassungen zu einem herunterladbaren Paket für Überprüfung und Validierung zusammen."
+      }
+    },
+    "step": {
+      "aoi": {
+        "title": "Interessengebiet festlegen",
+        "description": "Zeichnen Sie eine Form auf der Karte oder wählen Sie eine AWZ-/MPA-Region."
+      },
+      "timeRange": {
+        "title": "Zeitraum festlegen",
+        "description": "Wählen Sie den abzufragenden Datumsbereich."
+      },
+      "runQuery": {
+        "title": "Abfrage ausführen",
+        "description": "Schwellenwerte, Gewichtungen und Filter anpassen, dann ausführen."
+      },
+      "inspect": {
+        "title": "Ergebnisse prüfen",
+        "description": "Zugeordnete/nicht zugeordnete Erfassungen, Scores und Reason Codes auf der Karte und in der Liste prüfen."
+      },
+      "export": {
+        "title": "Ergebnisse exportieren",
+        "description": "Erfassungen zur Exportliste hinzufügen und das gezippte Paket herunterladen."
+      }
+    },
+    "property": {
+      "secure": {
+        "title": "Sicher",
+        "description": "JWT-abgesicherte Sitzungen und agentenspezifische API-Schlüssel halten den Zugriff begrenzt und widerrufbar."
+      },
+      "traceable": {
+        "title": "Nachvollziehbar",
+        "description": "Jeder Score wird mit Reason Codes und Lauf-Metadaten bis zu seinen Eingaben zurückverfolgbar geliefert."
+      },
+      "flexible": {
+        "title": "Flexibel",
+        "description": "Konfigurierbare Schwellenwerte, Filter und exportierbare/importierbare Abfragekonfigurationen."
+      },
+      "lightweight": {
+        "title": "Schlank",
+        "description": "Eine schlanke Durchleitung über offene Datensätze und die GFW-API - nichts Schweres zu betreiben."
+      }
+    },
+    "disclaimer": "PHAROS beansprucht keine Erkennung „dunkler“ Schiffe, leitet keine Absicht ab und bietet keine Echtzeitüberwachung - es ist ausschließlich ein Werkzeug für Triage und Inspektion.",
+    "action": {
+      "getStarted": "Los geht's"
+    }
+  },
   "queryProgress": {
     "title": "Abfrage läuft",
     "error": {

@@ -2,7 +2,10 @@ import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 import { useGfwEventStore } from '@/stores/gfwEventStore';
-import { getEventDisplayFields, getEventKey } from '@/helpers/utils/gfwEventUtils';
+import {
+  getEventDisplayFields,
+  getEventKey,
+} from '@/helpers/utils/gfwEventUtils';
 import { useTranslator } from './translator';
 // Reused as-is: MapLibre's own popup DOM chrome is styled globally
 // (:global() selectors), not per-hook, so a second copy of those rules
@@ -109,7 +112,10 @@ export const useGfwEventMarkers = (a_Map: maplibregl.Map | null) => {
         return {
           type: 'Feature',
           properties: { event_key: eventKey, active: eventKey === activeKey },
-          geometry: { type: 'Point', coordinates: [event.position.lon, event.position.lat] },
+          geometry: {
+            type: 'Point',
+            coordinates: [event.position.lon, event.position.lat],
+          },
         };
       });
     };
@@ -135,7 +141,9 @@ export const useGfwEventMarkers = (a_Map: maplibregl.Map | null) => {
       const found = events.find((ev) => getEventKey(ev) === eventKey) ?? null;
       useGfwEventStore
         .getState()
-        .setActiveEvent(activeEvent && getEventKey(activeEvent) === eventKey ? null : found);
+        .setActiveEvent(
+          activeEvent && getEventKey(activeEvent) === eventKey ? null : found,
+        );
     };
 
     // ---- hover popup ----------------------------------------------------
@@ -174,7 +182,8 @@ export const useGfwEventMarkers = (a_Map: maplibregl.Map | null) => {
       setCursor('pointer');
       const feature = e.features?.[0];
       const eventKey = feature?.properties?.event_key as string | undefined;
-      if (!feature?.geometry || feature.geometry.type !== 'Point' || !eventKey) return;
+      if (!feature?.geometry || feature.geometry.type !== 'Point' || !eventKey)
+        return;
 
       popup
         .setLngLat(feature.geometry.coordinates as [number, number])

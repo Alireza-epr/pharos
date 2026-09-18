@@ -1,4 +1,8 @@
-import { EVesselDataset, EVesselMatchField, EVesselSearchInclude } from '@packages/enum';
+import {
+  EVesselDataset,
+  EVesselMatchField,
+  EVesselSearchInclude,
+} from '@packages/enum';
 import { useVesselSearchStore } from '../src/stores/vesselSearchStore';
 
 const DEFAULT_STATE = useVesselSearchStore.getState();

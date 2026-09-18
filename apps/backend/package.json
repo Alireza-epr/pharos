@@ -4,7 +4,7 @@
   "main": "dist/core/server.js",
   "author": "Alireza Almer <alireza.almer@gmail.com>",
   "description": "Pharos API and data pipeline",
-  "license": "ISC",
+  "license": "MIT",
   "directories": {
     "test": "tests"
   },

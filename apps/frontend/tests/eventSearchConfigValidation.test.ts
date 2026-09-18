@@ -61,9 +61,9 @@ describe('isValidEventConfigJSON', () => {
   });
 
   it('rejects_a_method_other_than_POST', () => {
-    expect(
-      isValidEventConfigJSON({ ...VALID_CONFIG, method: 'GET' }),
-    ).toBe(false);
+    expect(isValidEventConfigJSON({ ...VALID_CONFIG, method: 'GET' })).toBe(
+      false,
+    );
   });
 
   it('rejects_a_missing_method', () => {

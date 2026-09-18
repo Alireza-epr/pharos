@@ -1,6 +1,11 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { EContextLayers, EFetchMethods, EGeoJSONGeometryType, ERegionDatasets } from '@packages/enum';
+import {
+  EContextLayers,
+  EFetchMethods,
+  EGeoJSONGeometryType,
+  ERegionDatasets,
+} from '@packages/enum';
 import { config } from '../../../config/api';
 import { generateToken } from '../../../helpers/utils/tokenUtils';
 import { ERequestUserRole } from '../../../helpers/enum/tokenEnum';
@@ -89,7 +94,10 @@ const resolveRegionId = async (
     );
     payload = await res.json();
   } catch (err) {
-    return { ok: false, message: `Could not load the ${label} region list: ${String(err)}` };
+    return {
+      ok: false,
+      message: `Could not load the ${label} region list: ${String(err)}`,
+    };
   }
 
   if (!payload?.success) {
@@ -122,7 +130,11 @@ const resolveRegionId = async (
     };
   }
 
-  return { ok: true, id: matches[0].properties.id, title: matches[0].properties.title };
+  return {
+    ok: true,
+    id: matches[0].properties.id,
+    title: matches[0].properties.title,
+  };
 };
 
 /**
@@ -181,12 +193,14 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
                 type: z.literal('region'),
                 region_type: z
                   .enum(['eez', 'mpa'])
-                  .describe('"eez" for a country\'s waters, "mpa" for a named Marine Protected Area.'),
+                  .describe(
+                    '"eez" for a country\'s waters, "mpa" for a named Marine Protected Area.',
+                  ),
                 region_name: z
                   .string()
                   .describe(
                     'The region\'s name, or a close match (e.g. "Iran" for the ' +
-                      'Islamic Republic of Iran\'s EEZ) - a name, never a ' +
+                      "Islamic Republic of Iran's EEZ) - a name, never a " +
                       'database id. It is looked up against the real dataset ' +
                       'by name; an ambiguous or unmatched name is reported back ' +
                       'as an error rather than guessed.',
@@ -194,14 +208,22 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
               })
               .describe(
                 'A named Exclusive Economic Zone or Marine Protected Area. ' +
-                  'Use this when the request names a country\'s waters or a ' +
+                  "Use this when the request names a country's waters or a " +
                   'specific protected area, rather than a landmark with no ' +
                   'formal boundary.',
               ),
           ])
-          .describe('The area to query - either a bounding box or a named EEZ/MPA region.'),
-        date_from: z.string().optional().describe('Start date, YYYY-MM-DD. Defaults to 7 days ago.'),
-        date_to: z.string().optional().describe('End date, YYYY-MM-DD. Defaults to today.'),
+          .describe(
+            'The area to query - either a bounding box or a named EEZ/MPA region.',
+          ),
+        date_from: z
+          .string()
+          .optional()
+          .describe('Start date, YYYY-MM-DD. Defaults to 7 days ago.'),
+        date_to: z
+          .string()
+          .optional()
+          .describe('End date, YYYY-MM-DD. Defaults to today.'),
         matched: z
           .boolean()
           .optional()
@@ -214,7 +236,9 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
           .min(1)
           .max(MAX_LIMIT)
           .optional()
-          .describe(`Max detections to return (default ${DEFAULT_LIMIT}, max ${MAX_LIMIT}).`),
+          .describe(
+            `Max detections to return (default ${DEFAULT_LIMIT}, max ${MAX_LIMIT}).`,
+          ),
       },
     },
     async (args) => {
@@ -234,16 +258,29 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
         role: ERequestUserRole.readOnly,
       });
 
-      let bodyParams: { geojson?: unknown; region?: { dataset: ERegionDatasets; id: string } };
+      let bodyParams: {
+        geojson?: unknown;
+        region?: { dataset: ERegionDatasets; id: string };
+      };
       let resolvedRegionTitle: string | undefined;
 
       if (args.aoi.type === 'region') {
-        const resolved = await resolveRegionId(args.aoi.region_type, args.aoi.region_name, token);
+        const resolved = await resolveRegionId(
+          args.aoi.region_type,
+          args.aoi.region_name,
+          token,
+        );
         if (!resolved.ok) {
-          return { content: [{ type: 'text', text: resolved.message }], isError: true };
+          return {
+            content: [{ type: 'text', text: resolved.message }],
+            isError: true,
+          };
         }
         bodyParams = {
-          region: { dataset: REGION_DATASET_BY_REGION_TYPE[args.aoi.region_type], id: resolved.id },
+          region: {
+            dataset: REGION_DATASET_BY_REGION_TYPE[args.aoi.region_type],
+            id: resolved.id,
+          },
         };
         resolvedRegionTitle = resolved.title;
       } else {
@@ -300,7 +337,12 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
         if (!payload || payload.success !== true) {
           const message = payload?.error ?? `HTTP ${res.status}`;
           return {
-            content: [{ type: 'text', text: `Query failed: ${JSON.stringify(message)}` }],
+            content: [
+              {
+                type: 'text',
+                text: `Query failed: ${JSON.stringify(message)}`,
+              },
+            ],
             isError: true,
           };
         }
@@ -310,7 +352,7 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
             '"unmatched" = not matched to the public AIS data the provider ' +
             'used - a triage signal only, not a claim of illegal activity.',
           ...(resolvedRegionTitle && { region: resolvedRegionTitle }),
-          total: payload.pagination?.total ?? (payload.entries?.length ?? 0),
+          total: payload.pagination?.total ?? payload.entries?.length ?? 0,
           returned: payload.entries?.length ?? 0,
           cache: payload.metadata?.cache,
           detections: (payload.entries ?? []).map((a_Event: any) => ({

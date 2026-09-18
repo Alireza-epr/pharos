@@ -381,6 +381,78 @@
     "genericError": "Something went wrong, please try logging in again",
     "logout": "Logout"
   },
+  "welcome": {
+    "title": "Welcome to PHAROS",
+    "subtitle": "AIS-SAR alignment for maritime triage",
+    "intro": "PHAROS retrieves Sentinel-1 SAR vessel detections and checks each one against the publicly available AIS data used by the detection provider.",
+    "term": {
+      "matching": {
+        "description": "Every detection is flagged as matched or unmatched against the publicly available AIS data used by the detection provider. Unmatched means no public record was found, not a confirmed dark or illegal vessel."
+      },
+      "triage": {
+        "description": "A 0-1 score for prioritizing which unmatched detections to inspect first - never a probability or a risk indicator."
+      },
+      "contextLayers": {
+        "description": "EEZ, MPA, and bathymetry boundaries drawn on the map alongside each selected detection."
+      },
+      "vesselInfo": {
+        "title": "Vessel Identity & Events",
+        "description": "On-demand lookup of a matched detection's vessel - name, flag, MMSI/IMO, type - plus its encounters, loitering, port visits, fishing activity, and AIS gaps, searchable in the Event tab."
+      },
+      "mcpServer": {
+        "title": "MCP Server",
+        "description": "A Model Context Protocol tool server so an AI agent can query PHAROS directly - gated by per-agent API keys, independent of user logins."
+      },
+      "export": {
+        "title": "Evidence Export",
+        "description": "Bundle selected detections into a downloadable package for review and validation."
+      }
+    },
+    "step": {
+      "aoi": {
+        "title": "Set an Area of Interest",
+        "description": "Draw a shape on the map or pick an EEZ/MPA region."
+      },
+      "timeRange": {
+        "title": "Set a time range",
+        "description": "Choose the date window to query."
+      },
+      "runQuery": {
+        "title": "Run the query",
+        "description": "Tune thresholds, weights, and filters, then run it."
+      },
+      "inspect": {
+        "title": "Inspect results",
+        "description": "Review matched/unmatched detections, scores, and reason codes on the map and in the list."
+      },
+      "export": {
+        "title": "Export the results",
+        "description": "Add detections to your export list, then download the zipped bundle."
+      }
+    },
+    "property": {
+      "secure": {
+        "title": "Secure",
+        "description": "JWT-gated sessions and per-agent API keys keep access scoped and revocable."
+      },
+      "traceable": {
+        "title": "Traceable",
+        "description": "Every score ships with reason codes and run metadata back to its inputs."
+      },
+      "flexible": {
+        "title": "Flexible",
+        "description": "Configurable thresholds, filters, and exportable/importable query configs."
+      },
+      "lightweight": {
+        "title": "Lightweight",
+        "description": "A thin pass-through over open datasets and the GFW API - nothing heavy to run."
+      }
+    },
+    "disclaimer": "PHAROS does not claim dark-vessel detection, infer intent, or provide real-time monitoring - it's a tool for triage and inspection only.",
+    "action": {
+      "getStarted": "Get Started"
+    }
+  },
   "queryProgress": {
     "title": "Running Query",
     "error": {

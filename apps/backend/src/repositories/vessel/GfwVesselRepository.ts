@@ -4,7 +4,10 @@ import {
   IVesselListConfigJSON,
   IVesselSearchAPIResponse,
 } from '@packages/types';
-import { listVesselsGFW, searchVesselsGFW } from '../../pipeline/ingest/vessels';
+import {
+  listVesselsGFW,
+  searchVesselsGFW,
+} from '../../pipeline/ingest/vessels';
 import { IVesselRepository } from '../../helpers/types/serviceTypes';
 
 /**

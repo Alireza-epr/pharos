@@ -299,9 +299,7 @@ export type TVesselSearchResponse = IVesselSearchAPIResponse & {
 // pipeline for this endpoint.
 export const useFetchVessels = () => {
   const url = `${BASE_URL}${EBaseRoutes.vessels}${EVesselsRoutes.search}`;
-  const [response, setResponse] = useState<TVesselSearchResponse | null>(
-    null,
-  );
+  const [response, setResponse] = useState<TVesselSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -491,9 +489,7 @@ export type TEventSearchResponse = IEventSearchAPIResponse & {
 // pipeline for this endpoint either.
 export const useFetchGfwEvents = () => {
   const url = `${BASE_URL}${EBaseRoutes.events}${EEventsRoutes.search}`;
-  const [response, setResponse] = useState<TEventSearchResponse | null>(
-    null,
-  );
+  const [response, setResponse] = useState<TEventSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

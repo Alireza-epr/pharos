@@ -112,10 +112,11 @@ export const getAllEventDatasetSources = (): TEventSource[] =>
  * used to keep the Event tab's search form in sync with a query that
  * bypassed it (DetailEvents.tsx), so opening that tab afterward shows a
  * form that actually reproduces what's on screen. */
-export const buildAllDatasetsActive = (): IGfwEventSearchStoreStates['datasets'] =>
-  Object.fromEntries(
-    Object.values(EEventDatasets).map((ds) => [
-      ds,
-      { active: true, version: ALL_DATASETS_VERSION },
-    ]),
-  ) as IGfwEventSearchStoreStates['datasets'];
+export const buildAllDatasetsActive =
+  (): IGfwEventSearchStoreStates['datasets'] =>
+    Object.fromEntries(
+      Object.values(EEventDatasets).map((ds) => [
+        ds,
+        { active: true, version: ALL_DATASETS_VERSION },
+      ]),
+    ) as IGfwEventSearchStoreStates['datasets'];

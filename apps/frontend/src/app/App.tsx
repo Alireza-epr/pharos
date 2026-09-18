@@ -23,6 +23,7 @@ import {
   useSyncEventSearchConfigToURL,
 } from '../hooks/useEventURLConfigSync';
 import Login from '../components/layout/Login';
+import WelcomeModal from '../components/layout/WelcomeModal';
 import { useDetailStore } from '../stores/detailStore';
 
 export interface IAppProps {}
@@ -57,6 +58,8 @@ const App = () => {
 
   return (
     <div className={` ${appStyle.layout}`}>
+      <WelcomeModal />
+
       <header>
         <HeaderPanel />
       </header>

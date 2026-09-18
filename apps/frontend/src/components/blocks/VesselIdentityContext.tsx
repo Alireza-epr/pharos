@@ -88,7 +88,7 @@ const VesselIdentityContext = (props: IVesselIdentityContextProps) => {
           <TextInput readOnly copiable value={String(tonnageGt)} />
         </SectionItem>
       )}
-      <SectionInputGroup direction='column'>
+      <SectionInputGroup direction="column">
         <ButtonInput
           label={t('detailPanel.label.downloadVesselIdentity')}
           onClick={() =>

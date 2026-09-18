@@ -20,10 +20,7 @@ export const useHistoryStore = create<
       (set) => ({
         addEntry: (a_Entry) =>
           set((state) => ({
-            entries: [a_Entry, ...state.entries].slice(
-              0,
-              MAX_HISTORY_ENTRIES,
-            ),
+            entries: [a_Entry, ...state.entries].slice(0, MAX_HISTORY_ENTRIES),
           })),
         clearHistory: () => set({ entries: [] }),
       }),

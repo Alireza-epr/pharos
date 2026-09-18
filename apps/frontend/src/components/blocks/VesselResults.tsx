@@ -41,10 +41,16 @@ const VesselResults = () => {
   }
 
   return (
-    <Section key="results" title={t('sidebar.titles.vesselResults')} collapsible>
+    <Section
+      key="results"
+      title={t('sidebar.titles.vesselResults')}
+      collapsible
+    >
       <List testId="vessel-results-list">
         <span className="font-size-xs font-light font-family-header sub-text">
-          {t('sidebar.text.vesselResultsCount', { count: String(vessels.length) })}
+          {t('sidebar.text.vesselResultsCount', {
+            count: String(vessels.length),
+          })}
         </span>
         {vessels.map((vessel, index) => {
           const fields = getVesselDisplayFields(vessel);
@@ -76,9 +82,7 @@ const VesselResults = () => {
               key={vesselKey ?? index}
               title={fields.shipName ?? t('sidebar.text.unknownVessel')}
               subtitle={
-                subtitleParts.length > 0
-                  ? subtitleParts.join(' · ')
-                  : undefined
+                subtitleParts.length > 0 ? subtitleParts.join(' · ') : undefined
               }
               active={isActive}
               onClick={() => setActiveVessel(isActive ? null : vessel)}

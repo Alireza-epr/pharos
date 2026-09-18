@@ -33,7 +33,13 @@ const page = (count: number): TGlobalEvent[] =>
     },
     vessel: { id: 'v', name: 'V', ssvid: '1' },
     encounter: {
-      vessel: { id: 'v2', flag: 'ESP', name: 'V2', type: 'carrier', ssvid: '2' },
+      vessel: {
+        id: 'v2',
+        flag: 'ESP',
+        name: 'V2',
+        type: 'carrier',
+        ssvid: '2',
+      },
       medianDistanceKilometers: 1,
       medianSpeedKnots: 1,
       type: 'FISHING-CARRIER',

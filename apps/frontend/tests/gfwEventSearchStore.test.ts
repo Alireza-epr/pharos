@@ -36,7 +36,9 @@ describe('getEventBodyParams', () => {
   });
 
   it('splits_the_comma_separated_vessels_field_into_an_array_trimmed', () => {
-    useGfwEventSearchStore.getState().setVessels(' vessel-a, vessel-b ,,vessel-c ');
+    useGfwEventSearchStore
+      .getState()
+      .setVessels(' vessel-a, vessel-b ,,vessel-c ');
 
     const body = useGfwEventSearchStore.getState().getEventBodyParams();
 
@@ -68,7 +70,9 @@ describe('getEventBodyParams', () => {
   });
 
   it('includes_vessel_types_when_set', () => {
-    useGfwEventSearchStore.getState().setVesselTypes([EEventVesselType.Carrier]);
+    useGfwEventSearchStore
+      .getState()
+      .setVesselTypes([EEventVesselType.Carrier]);
 
     const body = useGfwEventSearchStore.getState().getEventBodyParams();
 

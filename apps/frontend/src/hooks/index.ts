@@ -6,7 +6,7 @@ export const getAPIConfig = () => {
   const HEALTH_POLL_MS = Number(
     import.meta.env.VITE_API_HEALTH_POLL_MS ?? 30000,
   );
-   const REQUEST_TIMEOUT_MS = Number(
+  const REQUEST_TIMEOUT_MS = Number(
     import.meta.env.VITE_API_REQUEST_TIMEOUT_MS ?? 30000,
   );
 

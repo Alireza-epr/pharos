@@ -1,0 +1,193 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default);
+  padding: var(--padding-default);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-half);
+}
+
+.banner-frame {
+  width: 100%;
+  max-width: 170px;
+  margin: var(--no-margin) auto;
+}
+
+.subtitle {
+  margin: var(--no-margin);
+  color: var(--theme-text-muted);
+  text-align: center;
+}
+
+.intro {
+  margin: var(--no-margin);
+  color: var(--theme-text-secondary);
+}
+
+// Term glossary -- one tile per domain concept, same card look ListItem
+// uses (theme-bg-panel + theme-border) so it reads as part of the app.
+// Fixed 3 columns (6 terms -> a clean 2-row grid) rather than auto-fill, so
+// it doesn't reflow to 2 or 4 columns as the portrait dialog's width varies.
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--padding-default);
+}
+
+.term-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-default-half);
+  padding: var(--padding-default);
+  border: var(--border-width-sm) solid var(--theme-border);
+  border-radius: var(--radius-sm);
+  background: var(--theme-bg-panel);
+}
+
+// Icon + title on one line, description below -- same header shape reused
+// for step-header and property-header below.
+.term-header {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default-half);
+}
+
+// Fixed-size box (same shape as .step-number's circle below) rather than a
+// bare font-size on the emoji glyph -- emoji glyphs each carry their own
+// intrinsic proportions, so at a shared font-size some render visibly
+// bigger/smaller and off-baseline from one another. Confining every icon to
+// the same box and centering it inside makes all 6 line up identically
+// regardless of glyph.
+.term-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.term-label {
+  color: var(--theme-text-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.term-description {
+  color: var(--theme-text-secondary);
+}
+
+// Numbered workflow -- the Report tab's own AOI -> time range -> run ->
+// results -> export order. Flexbox-wrap instead of a grid so a trailing,
+// less-than-a-full-row of steps (4 and 5, on 3 columns) centers itself
+// instead of hugging the left edge with dangling empty grid cells.
+.step-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--padding-default);
+  margin: var(--no-margin);
+  padding: var(--no-padding);
+  list-style: none;
+}
+
+.step-item {
+  display: flex;
+  flex: 0 1 9.5rem;
+  flex-direction: column;
+  gap: var(--padding-default-half);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default-half);
+}
+
+.step-number {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-round);
+  background: var(--color-primary-purple6);
+  color: var(--text-dark-bg-primary);
+  font-family: var(--font-family-header);
+}
+
+.step-title {
+  color: var(--theme-text-primary);
+}
+
+.step-description {
+  color: var(--theme-text-secondary);
+}
+
+// Property tags -- secure/traceable/flexible/lightweight, styled as
+// compact accent-colored pills rather than full cards. Fixed 2x2 grid.
+.property-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--padding-default-half);
+}
+
+.property-tag {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-gap);
+  padding: var(--padding-default-half) var(--padding-default);
+  border: var(--border-width-sm) solid var(--color-accent-teal1);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-teal6);
+}
+
+.property-header {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-default-half);
+}
+
+.property-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.property-label {
+  color: var(--color-accent-teal1);
+}
+
+.property-description {
+  color: var(--text-light-bg-secondary);
+}
+
+.disclaimer {
+  margin: var(--no-margin);
+  color: var(--theme-text-muted);
+  text-align: center;
+}
+
+// Rendered via Modal's "footer" prop -- outside ".body"'s scroll area
+// entirely, so it's always visible without any risk of overlapping
+// scrolled content (see Modal.module.scss's ".footer").
+.actions {
+  display: flex;
+  width: 100%;
+}
+
+.actions > * {
+  flex: 1;
+}

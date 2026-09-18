@@ -50,6 +50,7 @@ export interface IAppStoreStates {
   theme: TTheme;
   language: TLanguage;
   backendStatus: boolean;
+  hasSeenWelcome: boolean;
 }
 export interface IAppStoreActions {
   setTheme: (
@@ -68,6 +69,13 @@ export interface IAppStoreActions {
       | ((
           a_Prev: IAppStoreStates['backendStatus'],
         ) => IAppStoreStates['backendStatus']),
+  ) => void;
+  setHasSeenWelcome: (
+    a_Value:
+      | IAppStoreStates['hasSeenWelcome']
+      | ((
+          a_Prev: IAppStoreStates['hasSeenWelcome'],
+        ) => IAppStoreStates['hasSeenWelcome']),
   ) => void;
 }
 export interface ISidebarStoreStates {
@@ -815,7 +823,10 @@ export interface IVesselStoreActions {
 }
 
 export interface IGfwEventSearchStoreStates {
-  datasets: Record<EEventDatasets, { active: boolean; version: TDatasetVersion }>;
+  datasets: Record<
+    EEventDatasets,
+    { active: boolean; version: TDatasetVersion }
+  >;
   vessels: string;
   confidences: TEventConfidence[];
   encounterTypes: TEventEncounterType[];
@@ -993,7 +1004,9 @@ export interface IGfwEventStoreActions {
   setTotal: (
     a_Value:
       | IGfwEventStoreStates['total']
-      | ((a_Prev: IGfwEventStoreStates['total']) => IGfwEventStoreStates['total']),
+      | ((
+          a_Prev: IGfwEventStoreStates['total'],
+        ) => IGfwEventStoreStates['total']),
   ) => void;
   setLastParams: (
     a_Value:

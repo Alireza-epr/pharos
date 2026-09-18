@@ -122,7 +122,11 @@ export const useEventMarkers = (a_Map: maplibregl.Map | null) => {
           source: SRC,
           filter: ['has', 'point_count'],
           paint: {
-            'circle-radius': ['step', ['get', 'point_count'], ...CLUSTER_RADIUS_STEPS],
+            'circle-radius': [
+              'step',
+              ['get', 'point_count'],
+              ...CLUSTER_RADIUS_STEPS,
+            ],
             'circle-color': clusterColor,
             'circle-opacity': 0.75,
             'circle-stroke-width': 1,

@@ -9,7 +9,6 @@ export interface IDetailEventsProps {
   event: IEventSchema;
 }
 
-
 const DetailEvents = (props: IDetailEventsProps) => {
   const { t } = useTranslator();
   const vesselId = props.event.raw_metadata.vesselId;

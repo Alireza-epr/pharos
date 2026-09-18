@@ -15,7 +15,10 @@ import {
   eventEncounterTypeOptions,
   eventVesselTypeOptions,
 } from '../../helpers/fixtures/query';
-import { dataset_version_options, flags_options } from '../../helpers/fixtures/filters';
+import {
+  dataset_version_options,
+  flags_options,
+} from '../../helpers/fixtures/filters';
 import { EEventDatasets, EEventDatasetsUI } from '@packages/enum';
 
 export interface IEventSearchProps {}
@@ -73,39 +76,46 @@ const EventSearch = () => {
         collapsible={false}
         tab
       >
-        {(Object.entries(datasets) as [EEventDatasets, (typeof datasets)[EEventDatasets]][]).map(
-          ([key], index) => (
-            <SectionInputGroup direction="row" tab key={index}>
-              <div style={{ width: '70%' }}>
-                <CheckboxInput
-                  label={EEventDatasetsUI[key]}
-                  checked={datasets[key].active}
-                  onChange={(v) =>
-                    setDatasets({
-                      ...datasets,
-                      [key]: { ...datasets[key], active: v },
-                    })
-                  }
-                />
-              </div>
-              <div style={{ width: '30%', display: 'flex' }}>
-                <DropdownInput
-                  options={dataset_version_options}
-                  value={datasets[key].version}
-                  onChange={(v) =>
-                    setDatasets({
-                      ...datasets,
-                      [key]: { ...datasets[key], version: v },
-                    })
-                  }
-                />
-              </div>
-            </SectionInputGroup>
-          ),
-        )}
+        {(
+          Object.entries(datasets) as [
+            EEventDatasets,
+            (typeof datasets)[EEventDatasets],
+          ][]
+        ).map(([key], index) => (
+          <SectionInputGroup direction="row" tab key={index}>
+            <div style={{ width: '70%' }}>
+              <CheckboxInput
+                label={EEventDatasetsUI[key]}
+                checked={datasets[key].active}
+                onChange={(v) =>
+                  setDatasets({
+                    ...datasets,
+                    [key]: { ...datasets[key], active: v },
+                  })
+                }
+              />
+            </div>
+            <div style={{ width: '30%', display: 'flex' }}>
+              <DropdownInput
+                options={dataset_version_options}
+                value={datasets[key].version}
+                onChange={(v) =>
+                  setDatasets({
+                    ...datasets,
+                    [key]: { ...datasets[key], version: v },
+                  })
+                }
+              />
+            </div>
+          </SectionInputGroup>
+        ))}
       </SectionItem>
 
-      <SectionItem title={t('sidebar.tab.vessel')} hint={t('sidebar.hint.eventVessels')} tab>
+      <SectionItem
+        title={t('sidebar.tab.vessel')}
+        hint={t('sidebar.hint.eventVessels')}
+        tab
+      >
         <TextInput
           value={vessels}
           onChange={setVessels}

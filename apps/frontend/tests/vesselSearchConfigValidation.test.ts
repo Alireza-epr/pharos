@@ -59,15 +59,13 @@ describe('isValidVesselConfigJSON', () => {
   });
 
   it('rejects_a_non_string_url', () => {
-    expect(isValidVesselConfigJSON({ ...VALID_CONFIG, url: 123 })).toBe(
-      false,
-    );
+    expect(isValidVesselConfigJSON({ ...VALID_CONFIG, url: 123 })).toBe(false);
   });
 
   it('rejects_a_method_other_than_GET', () => {
-    expect(
-      isValidVesselConfigJSON({ ...VALID_CONFIG, method: 'POST' }),
-    ).toBe(false);
+    expect(isValidVesselConfigJSON({ ...VALID_CONFIG, method: 'POST' })).toBe(
+      false,
+    );
   });
 
   it('rejects_a_missing_method', () => {
