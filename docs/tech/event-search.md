@@ -9,6 +9,13 @@ identity (Vessels API). This document covers the Events API endpoint Pharos
 integrates and the feature built on it: the **Event tab** (search),
 independent of the Report tab and the map.
 
+> **What is a GFW event?** the Events API lets you "retrieve vessel activity events
+> such as encounters, loitering, port visits, fishing events, and AIS off
+> (aka GAPs)." Each event is one occurrence GFW derives from a vessel's AIS
+> track over a start/end time window - not a raw AIS position, and not a
+> Pharos SAR detection (see "A note on naming" below) - classified into
+> exactly one of the five datasets the Datasets field lists.
+
 Full request/response contract:
 [query-contract.md](../api/query-contract.md#events-search) (`Events
 Search`).
@@ -203,16 +210,23 @@ too.
 
 ### Results and export
 
-Each result renders as a compact card (`EventResults.tsx`): vessel name ·
-event type, then flag / start time, drawn from the fields every
-`TGlobalEvent` variant carries in common (`IBaseEvent`) via
-`getEventDisplayFields()` in `gfwEventUtils.ts`. React keys use GFW's own
-event id (`IBaseEvent.id`) directly - unlike vessel identity, no
-multi-field fallback is needed (`getEventKey()`).
+Each result renders as a compact card (`EventList.tsx`, the row-rendering
+shared by `EventResults.tsx` and `DetailEvents.tsx` - see §2a): vessel name ·
+event type, then flag · a date-only "start - end" range (`getEventDateRangeLabel()`
+in `gfwEventUtils.ts` - a plain string slice off each ISO timestamp, not a
+`Date` parse/re-render, so it can't shift across a local-timezone midnight;
+collapses to one date when start and end land on the same day). A native
+tooltip on that subtitle (`ListItem`'s `subtitleHint`, `sidebar.hint.eventDateRange`)
+spells out that it's start/end, since the bare dates alone don't say so.
+Both fields come from `IBaseEvent`, common to every `TGlobalEvent` variant,
+via `getEventDisplayFields()`. React keys use GFW's own event id
+(`IBaseEvent.id`) directly - unlike vessel identity, no multi-field fallback
+is needed (`getEventKey()`).
 
 Clicking a result's export button (the "+") adds it to
 `gfwEventStore.selectedEvents` - the Export tab's **Event** section (see
-below), not an immediate download.
+below), not an immediate download. Next to it, "Go to" jumps the map to
+that event and selects it - see "Selecting a result" below.
 
 ### Showing results on the map
 
@@ -256,6 +270,12 @@ own behavior in `useEventMarkers.ts`:
   row in the list.
 - Clicking the already-active row or marker again deselects it (toggle,
   not one-way).
+- Each row also has a **"Go to"** button (`event-result-go-to`, next to the
+  export "+", in `EventList.tsx`) that always selects - unlike the row's own
+  click, it never toggles off - and pans the map to the event
+  (`gfwEventStore.flyToRequest`, a one-shot request `useGfwEventMarkers.ts`
+  reacts to by calling `map.flyTo()`, zooming in to at least `GO_TO_ZOOM`
+  (10) without ever zooming back out).
 
 The ring is a second circle layer in `useGfwEventMarkers.ts`
 (`gfw-event-markers-selected-ring`, filtered on each feature's `active`
@@ -264,6 +284,64 @@ property), styled identically to `useEventMarkers.ts`'s own selection ring
 row in `EventMarkersLegend.tsx` rather than each getting its own, since the
 ring means the same thing and looks the same regardless of which store
 triggered it.
+
+---
+
+## 2a. Detail tab: relevant events for a matched detection's vessel
+
+A matched SAR detection's Detail panel already shows `VesselIdentityContext`
+(that vessel's AIS identity, gated on `raw_metadata.vesselId`). Right below
+it, `DetailEvents.tsx` shows GFW events relevant to that same vessel -
+gated on the same `vesselId`, but backed by `gfwEventStore`, the *exact
+same store* the Event tab's own search/results/map already use, not a
+parallel one. Concretely:
+
+- `useVesselRelevantEvents.ts` fires whenever the Detail tab's selected
+  detection's `vesselId` changes: it clears whatever `gfwEventStore`
+  currently holds (a lingering manual Event tab search included, same
+  "clear before new results land" rule Run Query itself follows), then
+  fetches and replaces it with this vessel's events.
+- `DetailEvents.tsx` renders `EventList` - the row-rendering half of the
+  Event tab's own results list, extracted out of `EventResults.tsx` so both
+  can share it inside their own, differently-configured `Section`.
+  `DetailEvents.tsx`'s own box is titled "Events" (`sidebar.tab.event`,
+  reused rather than a duplicate-value key - the same text the sidebar tab
+  itself now uses) and **starts collapsed** even once data has arrived,
+  unlike `EventResults.tsx`'s own box, which still opens automatically the
+  first time it has something to show.
+- The query itself (`buildVesselRelevantEventsParams()` in
+  `eventConfigUtils.ts`) is fixed, not form-driven: every dataset
+  (`getAllEventDatasetSources()` - no per-dataset picker in the Detail
+  tab), this one vessel id, the shared date range (the same
+  `useTimeRangeStore` the Report/Event tabs already share), sorted
+  latest-first (`sort: '-start'`), capped at `DETAIL_EVENTS_LIMIT` (5) per
+  page. No AOI - a vessel id is already far more precise than a drawn
+  shape or region - and none of the Event tab form's other filters
+  (confidences/encounterTypes/vesselTypes/duration/flags).
+- The hook also syncs `gfwEventSearchStore`'s `datasets` (all active) and
+  `vessels` (this vessel id) - not the rest of the form - so opening the
+  Event tab afterward, or hitting its own Run Query, shows a form that
+  actually reproduces what's on screen instead of one that's silently out
+  of sync with the results.
+- Fetched events draw on the map immediately, exactly like the Event tab's
+  own results - `useGfwEventMarkers.ts` reads `gfwEventStore.events`
+  directly, no separate "show on map" step for either source.
+- No in-place pagination here - `useVesselRelevantEvents.ts` fetches only
+  the first page (`DETAIL_EVENTS_LIMIT`, 5). When `total` exceeds what's
+  shown (`getEventPaginationState()`'s `hasNext`), the box instead shows a
+  count message ("N more event(s) found - check the Events tab on the
+  left...", `detailPanel.text.moreRelevantEvents`) pointing at the Event
+  tab, whose own Prev/Next already continue this *exact* search - the hook
+  still sets `gfwEventStore.lastParams` on the initial fetch for exactly
+  this reason, even with no "More" button of its own to use it.
+
+Selecting a different matched detection (a new `vesselId`) re-runs the same
+replace-and-fetch cycle; deselecting, or selecting an unmatched detection
+(no `vesselId`), leaves whatever was last fetched in place rather than
+clearing it - there's nothing in `gfwEventStore` yet that distinguishes
+"populated by DetailEvents" from "populated by the Event tab's own search",
+so this mirrors every other on-demand enrichment in this codebase
+(`useVesselIdentity` doesn't clear itself on deselect either).
 
 ---
 

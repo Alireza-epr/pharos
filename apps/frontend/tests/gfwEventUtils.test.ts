@@ -1,6 +1,9 @@
 import { TGlobalEvent } from '@packages/types';
-import { EEventType } from '@packages/enum';
+import { EEventDatasets, EEventType } from '@packages/enum';
 import {
+  buildAllDatasetsActive,
+  getAllEventDatasetSources,
+  getEventDateRangeLabel,
   getEventDisplayFields,
   getEventKey,
 } from '../src/helpers/utils/gfwEventUtils';
@@ -62,6 +65,7 @@ describe('getEventDisplayFields', () => {
     expect(fields.flag).toBe('PAN');
     expect(fields.type).toBe(EEventType.gap);
     expect(fields.start).toBe('2026-01-01T00:00:00Z');
+    expect(fields.end).toBe('2026-01-01T01:00:00Z');
   });
 
   it('returns_undefined_vessel_name_when_the_vessel_has_none', () => {
@@ -79,5 +83,62 @@ describe('getEventKey', () => {
 
   it('gives_two_different_events_distinct_keys', () => {
     expect(getEventKey(gapEvent)).not.toBe(getEventKey(noVesselEvent));
+  });
+});
+
+describe('getAllEventDatasetSources', () => {
+  it('returns_one_versioned_source_per_EEventDatasets_value', () => {
+    const sources = getAllEventDatasetSources();
+
+    expect(sources).toHaveLength(Object.values(EEventDatasets).length);
+    Object.values(EEventDatasets).forEach((ds) => {
+      expect(sources).toContain(`${ds}:v3.0`);
+    });
+  });
+});
+
+describe('buildAllDatasetsActive', () => {
+  it('marks_every_dataset_active_at_the_same_version_getAllEventDatasetSources_uses', () => {
+    const datasets = buildAllDatasetsActive();
+
+    Object.values(EEventDatasets).forEach((ds) => {
+      expect(datasets[ds]).toEqual({ active: true, version: 'v3.0' });
+    });
+  });
+});
+
+describe('getEventDateRangeLabel', () => {
+  it('joins_the_date_only_portion_of_start_and_end_with_a_dash', () => {
+    expect(
+      getEventDateRangeLabel('2026-01-04T00:00:00Z', '2026-01-06T23:59:59Z'),
+    ).toBe('2026-01-04 - 2026-01-06');
+  });
+
+  it('drops_the_time_of_day_entirely', () => {
+    const label = getEventDateRangeLabel(
+      '2026-01-04T14:30:00Z',
+      '2026-01-04T18:45:00Z',
+    );
+
+    expect(label).not.toContain(':');
+  });
+
+  it('collapses_to_a_single_date_when_start_and_end_are_the_same_day', () => {
+    expect(
+      getEventDateRangeLabel('2026-01-04T02:00:00Z', '2026-01-04T04:00:00Z'),
+    ).toBe('2026-01-04');
+  });
+
+  it('falls_back_to_whichever_of_start_or_end_is_present', () => {
+    expect(getEventDateRangeLabel('2026-01-04T00:00:00Z', undefined)).toBe(
+      '2026-01-04',
+    );
+    expect(getEventDateRangeLabel(undefined, '2026-01-06T00:00:00Z')).toBe(
+      '2026-01-06',
+    );
+  });
+
+  it('returns_undefined_when_neither_is_present', () => {
+    expect(getEventDateRangeLabel(undefined, undefined)).toBeUndefined();
   });
 });

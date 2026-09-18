@@ -6,6 +6,7 @@ import { useAOIStore } from '../../stores/areaOfInterestStore';
 import { loadRegionOptions } from '../../hooks/fetch';
 import { globalfishingwatch } from '../fixtures/url';
 import { IEventSearchParams, TAOIQuery } from '../types/storeTypes';
+import { getAllEventDatasetSources } from './gfwEventUtils';
 
 /**
  * The Event tab's analogue of vesselConfigUtils.ts's buildVesselSearchConfig()
@@ -72,6 +73,29 @@ export const buildEventSearchConfig = (
       ...(sort !== '' && { sort }),
     },
     body_params,
+  };
+};
+
+export const DETAIL_EVENTS_LIMIT = 5;
+
+export const buildVesselRelevantEventsParams = (
+  a_VesselId: string,
+  a_Offset = 0,
+): IEventSearchParams => {
+  const { dateFrom, dateTo } = useTimeRangeStore.getState();
+
+  return {
+    url_params: {
+      limit: DETAIL_EVENTS_LIMIT,
+      offset: a_Offset,
+      sort: '-start',
+    },
+    body_params: {
+      datasets: getAllEventDatasetSources(),
+      vessels: [a_VesselId],
+      startDate: `${dateFrom}Z`,
+      endDate: `${dateTo}Z`,
+    },
   };
 };
 

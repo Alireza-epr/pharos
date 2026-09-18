@@ -219,7 +219,7 @@
       "matchFields": "Filters by match confidence (ALL = strongest)",
       "includes": "Extra data attached to each result",
       "limit": "Max results per page (1-50)",
-      "eventDatasets": "Select 1+ event types to search - required",
+      "eventDatasets": "A GFW event is a vessel activity record - encounters, loitering, port visits, fishing, or AIS gaps - derived from AIS tracks. Select 1+ event types to search - required",
       "eventVessels": "Comma-separated GFW vessel IDs, e.g. from a Vessel tab search (optional)",
       "eventConfidences": "Confidence tier (2-4) -- applies only to Port Visits events",
       "eventEncounterTypes": "Only applies when the Encounters dataset is selected",
@@ -228,7 +228,8 @@
       "eventUseReportAOI": "Sends the Report tab's drawn shape or selected EEZ/MPA region as this search's geometry/region -- a region's buffer settings don't carry over",
       "eventUseReportAOINoAOI": "Draw a shape or select an EEZ/MPA region on the Report tab to enable this",
       "eventSort": "+field or -field, e.g. +start (optional)",
-      "eventLimit": "Results per page (default 20)"
+      "eventLimit": "Results per page (default 20)",
+      "eventDateRange": "Start - end date"
     },
     "error": {
       "runQueryFailed": "Failed to fetch"
@@ -319,13 +320,16 @@
       "nullProxy": "N/A",
       "dataLimitationBody": "Unmatched ≠ illegal. Scores are not risk indicators.",
       "vesselIdentityLoading": "Loading vessel identity…",
-      "vesselIdentityNotFound": "No vessel identity found for this detection."
+      "vesselIdentityNotFound": "No vessel identity found for this detection.",
+      "relevantEventsLoading": "Loading relevant events…",
+      "moreRelevantEvents": "{{count}} more event(s) found - check the Events tab on the left, where you can use Next/Previous to page through this search"
     },
     "action": {
       "addToExport": "Add to Export",
       "removeFromExport": "Remove from Export",
       "next": "Next ›",
-      "prev": "‹ Previous"
+      "prev": "‹ Previous",
+      "goTo": "Go to"
     }
   },
   "historyPanel": {

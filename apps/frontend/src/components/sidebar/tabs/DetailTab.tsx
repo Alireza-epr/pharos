@@ -7,6 +7,7 @@ import Identification from '../../blocks/Identification';
 import LocationTimeBlock from '../../blocks/LocationTimeBlock';
 import SourceDetection from '../../blocks/SourceDetection';
 import VesselIdentityContext from '../../blocks/VesselIdentityContext';
+import DetailEvents from '../../blocks/DetailEvents';
 import Scoring from '../../blocks/Scoring';
 import HotspotContext from '../../blocks/HotspotContext';
 import ContextLayersBlock from '../../blocks/ContextLayersBlock';
@@ -71,6 +72,7 @@ const DetailTab = () => {
             <LocationTimeBlock event={activeEvent} />
             <SourceDetection event={activeEvent} />
             <VesselIdentityContext event={activeEvent} />
+            <DetailEvents event={activeEvent} />
             <Scoring event={activeEvent} />
             <HotspotContext event={activeEvent} />
             <ContextLayersBlock event={activeEvent} />

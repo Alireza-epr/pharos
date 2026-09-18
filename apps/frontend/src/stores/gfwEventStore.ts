@@ -18,12 +18,20 @@ export const useGfwEventStore = create<
       pageIndex: 0,
       total: null as IGfwEventStoreStates['total'],
       lastParams: null as IGfwEventStoreStates['lastParams'],
+      flyToRequest: null as IGfwEventStoreStates['flyToRequest'],
     },
     (set) => ({
       setEvents: (a_Value) =>
         set((state) => ({
           events:
             typeof a_Value === 'function' ? a_Value(state.events) : a_Value,
+        })),
+      setFlyToRequest: (a_Value) =>
+        set((state) => ({
+          flyToRequest:
+            typeof a_Value === 'function'
+              ? a_Value(state.flyToRequest)
+              : a_Value,
         })),
       setActiveEvent: (a_Value) =>
         set((state) => ({

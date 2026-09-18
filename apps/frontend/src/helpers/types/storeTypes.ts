@@ -944,6 +944,7 @@ export interface IGfwEventStoreStates {
   // rebuilding from the live search form, since editing the form mid-page
   // must not silently change the query already-fetched pages are scoped to.
   lastParams: IEventSearchParams | null;
+  flyToRequest: { lat: number; lon: number } | null;
 }
 
 export interface IGfwEventStoreActions {
@@ -953,6 +954,13 @@ export interface IGfwEventStoreActions {
       | ((
           a_Prev: IGfwEventStoreStates['events'],
         ) => IGfwEventStoreStates['events']),
+  ) => void;
+  setFlyToRequest: (
+    a_Value:
+      | IGfwEventStoreStates['flyToRequest']
+      | ((
+          a_Prev: IGfwEventStoreStates['flyToRequest'],
+        ) => IGfwEventStoreStates['flyToRequest']),
   ) => void;
   setActiveEvent: (
     a_Value:

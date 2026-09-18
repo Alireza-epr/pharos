@@ -186,6 +186,22 @@ const regionGeometryResponse = {
 // cascades into the same auto-logout.
 const vesselIdentityResponse = { success: true, entries: [] };
 
+// POST /v1/events/search -- same auto-fires-on-mount reasoning as the
+// vessels stub above, but for useVesselRelevantEvents.ts (DetailEvents.tsx)
+// instead of vessel identity. A default empty response here; tests that
+// care about actual relevant-events content register their own more
+// specific page.route() for this same pattern afterward, which Playwright
+// matches first (most-recently-registered route wins).
+const emptyEventsSearchResponse = {
+  success: true,
+  limit: 5,
+  offset: 0,
+  nextOffset: null,
+  total: 0,
+  metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+  entries: [],
+};
+
 const stubBackend = async (page: Page) => {
   await page.route('**/system/health*', (route) =>
     route.fulfill({ json: healthResponse }),
@@ -205,6 +221,9 @@ const stubBackend = async (page: Page) => {
   });
   await page.route('**/vessels*', (route) =>
     route.fulfill({ json: vesselIdentityResponse }),
+  );
+  await page.route('**/events/search*', (route) =>
+    route.fulfill({ json: emptyEventsSearchResponse }),
   );
 };
 
@@ -469,8 +488,8 @@ test.describe('UI_smoke', () => {
             {
               id: 'event-1',
               type: 'encounter',
-              start: '2026-01-01T00:00:00Z',
-              end: '2026-01-01T01:00:00Z',
+              start: '2026-01-01T14:30:00Z',
+              end: '2026-01-03T18:45:00Z',
               position: { lat: 55.26, lon: 14.11 },
               vessel: { id: 'v1', name: 'SEA HUNTER', ssvid: '503707100' },
               encounter: {
@@ -534,6 +553,12 @@ test.describe('UI_smoke', () => {
       'SEA HUNTER',
     );
 
+    // The subtitle shows the date-only start - end range, not the raw
+    // timestamps -- no time of day (no ':') even though start/end differ.
+    await expect(page.getByTestId('event-result-row')).toContainText(
+      '2026-01-01 - 2026-01-03',
+    );
+
     // Every result is drawn on the map as soon as the search returns -- no
     // separate "pin" step -- adding an "Event" swatch to the same legend box
     // that already explains Matched/Unmatched/Clustered, etc.
@@ -564,6 +589,22 @@ test.describe('UI_smoke', () => {
       'Selected',
     );
 
+    // "Go to" (next to the export "+") always selects -- unlike the row's
+    // own click, it never toggles off -- and pans the map to the event.
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Selected',
+    );
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+
     // Clear empties the list and the map together -- both read the same
     // gfwEventStore.events.
     await expect(clearButton).toBeEnabled();
@@ -573,5 +614,113 @@ test.describe('UI_smoke', () => {
     await expect(clearButton).toBeDisabled();
 
     expect(consoleErrors).toEqual([]);
+  });
+
+  test('detail_tab_shows_relevant_events_for_a_matched_detections_vessel', async ({
+    page,
+  }) => {
+    // total (7) exceeds what one page returns, so hasMore is true and the
+    // "check the Events tab" message renders with the correct remaining
+    // count (7 - 1 = 6).
+    const relevantEvent = {
+      id: 'relevant-event-1',
+      type: 'encounter',
+      start: '2026-01-02T00:00:00Z',
+      end: '2026-01-02T01:00:00Z',
+      position: { lat: 55.2, lon: 14.4 },
+      vessel: { id: 'v1', name: 'FIRST ENCOUNTER', ssvid: '111111111' },
+    };
+
+    const requestBodies: Record<string, unknown>[] = [];
+    await page.route('**/events/search*', (route) => {
+      requestBodies.push(JSON.parse(route.request().postData() ?? '{}'));
+      route.fulfill({
+        json: {
+          success: true,
+          limit: 5,
+          offset: 0,
+          nextOffset: 5,
+          total: 7,
+          metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+          entries: [relevantEvent],
+        },
+      });
+    });
+
+    const runQuery = await openReadyToQuery(page);
+    const eventsCall = page.waitForResponse('**/report*');
+    await runQuery.click();
+    await eventsCall;
+    await page.getByTestId('modal-close-button').click();
+
+    // The fixture's first entry (event_id starting "dfc71c0f4f") is the one
+    // matched detection whose raw_metadata.vesselId is known ahead of time
+    // -- located by that id rather than row position/sort order (the table
+    // sorts by triage_score by default, not fetch order), the gate
+    // DetailEvents.tsx itself needs (only a matched detection carries a
+    // vessel id).
+    const matchedRow = page
+      .getByTestId('detection-row')
+      .filter({ hasText: 'dfc71c0f4f' });
+    const relevantEventsCall = page.waitForResponse('**/events/search*');
+    await matchedRow.getByTestId('event-details-button').click();
+    await relevantEventsCall;
+
+    // The query is exactly what DetailEvents.tsx promises: every dataset,
+    // only this vessel, sorted latest-first, capped at 5 -- not the Event
+    // tab form's own filters. The frontend's own outbound envelope wraps
+    // the GFW filters in body_params (see useFetchGfwEvents' `rest` --
+    // {url, method, body_params} -- Pharos' backend forwards body_params
+    // on to GFW, it isn't flattened over the wire).
+    const firstBody = requestBodies[0]?.body_params as
+      | { vessels?: string[]; datasets?: unknown[] }
+      | undefined;
+    expect(firstBody?.vessels).toEqual([
+      '369fc1e02-2678-b669-af58-b2f3ae66a515',
+    ]);
+    expect(firstBody?.datasets?.length).toBe(5);
+
+    await expect(page.getByTestId('event-result-row')).toHaveCount(1);
+    await expect(page.getByTestId('event-result-row')).toContainText(
+      'FIRST ENCOUNTER',
+    );
+
+    // The section starts collapsed even though data already arrived, but
+    // the fetched event is already on the map regardless -- no separate
+    // "show on map" step, same as the Event tab's own results.
+    await expect(
+      page.getByTestId('detail-events-section-header'),
+    ).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Event',
+    );
+
+    // Expand the section to reach its row actions.
+    await page.getByTestId('detail-events-section-header').click();
+
+    // "Go to" selects the event (highlighted row + map ring) and pans the
+    // map there -- shared with the Event tab's own list (EventList.tsx).
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Selected',
+    );
+
+    // No in-place "More" here (removed) -- with 6 more events than the
+    // 5-per-page limit shows, DetailEvents.tsx instead points at the Event
+    // tab's own Prev/Next to continue this exact search.
+    await expect(page.getByTestId('detail-events-section-header')).toBeVisible();
+    await expect(page.getByText(/6 more event\(s\) found/)).toBeVisible();
+    await expect(page.getByText(/check the Events tab/)).toBeVisible();
+    await expect(page.getByTestId('detail-events-more-button')).toHaveCount(0);
+
+    // Renamed from "Event Results" (EventResults.tsx's own title) to just
+    // "Events" for this box.
+    await expect(
+      page.getByTestId('detail-events-section-header'),
+    ).toContainText('Events');
   });
 });

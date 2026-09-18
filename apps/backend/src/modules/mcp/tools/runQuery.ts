@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { EFetchMethods, EGeoJSONGeometryType } from '@packages/enum';
+import { EContextLayers, EFetchMethods, EGeoJSONGeometryType, ERegionDatasets } from '@packages/enum';
 import { config } from '../../../config/api';
 import { generateToken } from '../../../helpers/utils/tokenUtils';
 import { ERequestUserRole } from '../../../helpers/enum/tokenEnum';
@@ -11,10 +11,22 @@ import pilotConfig from '../../../config/pilot.json';
 const DEFAULT_LIMIT = 10;
 const MAX_LIMIT = 50;
 
-// Same small Baltic-Sea box as config/pilot.json's own default AOI -- a
-// sane, bounded default so a no-argument call is a real but modest live
-// query, not an accidental "the whole ocean" fetch against the provider.
-const DEFAULT_BBOX = { min_lon: 14.09, min_lat: 55.08, max_lon: 14.69, max_lat: 55.27 };
+type TRegionType = 'eez' | 'mpa';
+
+// /v1/regions (the name lookup) keys its `dataset` query param off
+// EContextLayers ("EEZ"/"MPA"); /v1/report's body_params.region keys its own
+// `dataset` off the differently-valued ERegionDatasets
+// ("public-eez-areas"/"public-mpa-all"). Two real enums for the same two
+// concepts -- this tool's `region_type` is the one string an agent supplies,
+// mapped to whichever of the two the call in question actually needs.
+const CONTEXT_LAYER_BY_REGION_TYPE: Record<TRegionType, EContextLayers> = {
+  eez: EContextLayers.eez,
+  mpa: EContextLayers.mpa,
+};
+const REGION_DATASET_BY_REGION_TYPE: Record<TRegionType, ERegionDatasets> = {
+  eez: ERegionDatasets.eez,
+  mpa: ERegionDatasets.mpa,
+};
 
 const toDateOnly = (a_Date: Date): string => a_Date.toISOString().slice(0, 10);
 
@@ -53,6 +65,66 @@ const parseResultLine = (a_Text: string): any | null => {
   return null;
 };
 
+type TResolveRegionResult =
+  | { ok: true; id: string; title: string }
+  | { ok: false; message: string };
+
+// Resolves a *name* to a real region id by actually searching /v1/regions --
+// never trusts an agent-supplied id, since an LLM has no legitimate way to
+// know Pharos's internal EEZ/MPA ids (arbitrary database keys, not public
+// knowledge) and would otherwise have to invent a plausible-looking one.
+const resolveRegionId = async (
+  a_RegionType: TRegionType,
+  a_RegionName: string,
+  a_Token: string,
+): Promise<TResolveRegionResult> => {
+  const dataset = CONTEXT_LAYER_BY_REGION_TYPE[a_RegionType];
+  const label = a_RegionType.toUpperCase();
+
+  let payload: any;
+  try {
+    const res = await fetch(
+      `http://127.0.0.1:${config.port}/v1/regions?dataset=${dataset}`,
+      { headers: { Authorization: `Bearer ${a_Token}` } },
+    );
+    payload = await res.json();
+  } catch (err) {
+    return { ok: false, message: `Could not load the ${label} region list: ${String(err)}` };
+  }
+
+  if (!payload?.success) {
+    return {
+      ok: false,
+      message: `Could not load the ${label} region list: ${JSON.stringify(payload?.error ?? 'unknown error')}`,
+    };
+  }
+
+  const needle = a_RegionName.trim().toLowerCase();
+  const matches = (payload.entries ?? []).filter((a_Entry: any) =>
+    String(a_Entry?.properties?.title ?? '')
+      .toLowerCase()
+      .includes(needle),
+  );
+
+  if (matches.length === 0) {
+    return {
+      ok: false,
+      message: `No ${label} region matched "${a_RegionName}". Try a shorter or differently-worded name (e.g. the country name alone).`,
+    };
+  }
+  if (matches.length > 1) {
+    const names = matches.slice(0, 10).map((a_M: any) => a_M.properties.title);
+    return {
+      ok: false,
+      message:
+        `"${a_RegionName}" matched ${matches.length} ${label} regions - be more ` +
+        `specific. Candidates: ${names.join(', ')}${matches.length > 10 ? ', ...' : ''}`,
+    };
+  }
+
+  return { ok: true, id: matches[0].properties.id, title: matches[0].properties.title };
+};
+
 /**
  * `run_query` -- calls this same backend's real `POST /v1/report`, the exact
  * endpoint the web UI itself calls, over a real loopback HTTP request. No
@@ -64,6 +136,13 @@ const parseResultLine = (a_Text: string): any | null => {
  * host, same port), it mints its own short-lived, read-only token via the
  * same `generateToken()` the real login flow uses, rather than inventing a
  * second auth mechanism or skipping auth internally.
+ *
+ * AOI: an agent can express the area two ways -- a raw bounding box (for a
+ * landmark/strait/canal with no formal boundary; the agent estimates it),
+ * or a named EEZ/MPA (for "a country's waters" / "a named protected area").
+ * The *name* is all the agent ever supplies for the second case -- the real
+ * id is resolved server-side against /v1/regions, never trusted from the
+ * agent, since an LLM has no way to actually know Pharos's internal ids.
  */
 export const registerRunQueryTool = (a_Server: McpServer) => {
   a_Server.registerTool(
@@ -81,10 +160,46 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
         'confirmed "dark vessel". Scores exist to prioritize review, not as ' +
         'risk indicators.',
       inputSchema: {
-        min_lon: z.number().optional().describe('Bounding box west edge (degrees). Defaults to the pilot AOI (Baltic Sea) if any bbox field is omitted.'),
-        min_lat: z.number().optional().describe('Bounding box south edge (degrees).'),
-        max_lon: z.number().optional().describe('Bounding box east edge (degrees).'),
-        max_lat: z.number().optional().describe('Bounding box north edge (degrees).'),
+        aoi: z
+          .union([
+            z
+              .object({
+                type: z.literal('bbox'),
+                min_lon: z.number().describe('West edge (degrees).'),
+                min_lat: z.number().describe('South edge (degrees).'),
+                max_lon: z.number().describe('East edge (degrees).'),
+                max_lat: z.number().describe('North edge (degrees).'),
+              })
+              .describe(
+                'A raw bounding box. Use this for a place with no formal ' +
+                  'EEZ/MPA boundary - a strait, canal, or other landmark ' +
+                  '(e.g. the Strait of Hormuz, the Suez Canal) - estimating ' +
+                  'reasonable coordinates yourself.',
+              ),
+            z
+              .object({
+                type: z.literal('region'),
+                region_type: z
+                  .enum(['eez', 'mpa'])
+                  .describe('"eez" for a country\'s waters, "mpa" for a named Marine Protected Area.'),
+                region_name: z
+                  .string()
+                  .describe(
+                    'The region\'s name, or a close match (e.g. "Iran" for the ' +
+                      'Islamic Republic of Iran\'s EEZ) - a name, never a ' +
+                      'database id. It is looked up against the real dataset ' +
+                      'by name; an ambiguous or unmatched name is reported back ' +
+                      'as an error rather than guessed.',
+                  ),
+              })
+              .describe(
+                'A named Exclusive Economic Zone or Marine Protected Area. ' +
+                  'Use this when the request names a country\'s waters or a ' +
+                  'specific protected area, rather than a landmark with no ' +
+                  'formal boundary.',
+              ),
+          ])
+          .describe('The area to query - either a bounding box or a named EEZ/MPA region.'),
         date_from: z.string().optional().describe('Start date, YYYY-MM-DD. Defaults to 7 days ago.'),
         date_to: z.string().optional().describe('End date, YYYY-MM-DD. Defaults to today.'),
         matched: z
@@ -108,20 +223,32 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
 
       const dateFrom = args.date_from ?? toDateOnly(weekAgo);
       const dateTo = args.date_to ?? toDateOnly(now);
-      const hasCustomBbox =
-        args.min_lon !== undefined ||
-        args.min_lat !== undefined ||
-        args.max_lon !== undefined ||
-        args.max_lat !== undefined;
-      const bbox = hasCustomBbox
-        ? {
-            min_lon: args.min_lon ?? DEFAULT_BBOX.min_lon,
-            min_lat: args.min_lat ?? DEFAULT_BBOX.min_lat,
-            max_lon: args.max_lon ?? DEFAULT_BBOX.max_lon,
-            max_lat: args.max_lat ?? DEFAULT_BBOX.max_lat,
-          }
-        : DEFAULT_BBOX;
       const limit = args.limit ?? DEFAULT_LIMIT;
+
+      // Read-only, short-lived, minted for this one internal call -- not a
+      // real login session (no AI agent has one). See doc comment above.
+      // Reused for both the /v1/regions lookup (region AOI only) and the
+      // /v1/report call below.
+      const token = generateToken({
+        username: 'mcp-agent',
+        role: ERequestUserRole.readOnly,
+      });
+
+      let bodyParams: { geojson?: unknown; region?: { dataset: ERegionDatasets; id: string } };
+      let resolvedRegionTitle: string | undefined;
+
+      if (args.aoi.type === 'region') {
+        const resolved = await resolveRegionId(args.aoi.region_type, args.aoi.region_name, token);
+        if (!resolved.ok) {
+          return { content: [{ type: 'text', text: resolved.message }], isError: true };
+        }
+        bodyParams = {
+          region: { dataset: REGION_DATASET_BY_REGION_TYPE[args.aoi.region_type], id: resolved.id },
+        };
+        resolvedRegionTitle = resolved.title;
+      } else {
+        bodyParams = { geojson: bboxToGeoJSON(args.aoi) };
+      }
 
       const urlParams = new URLSearchParams({
         format: 'JSON',
@@ -149,17 +276,10 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
       const body = {
         URL: pilotConfig.URL,
         method: EFetchMethods.post,
-        body_params: { geojson: bboxToGeoJSON(bbox) },
+        body_params: bodyParams,
         pagination: { limit, offset: 0 },
         cache: 'enabled',
       };
-
-      // Read-only, short-lived, minted for this one internal call -- not a
-      // real login session (no AI agent has one). See doc comment above.
-      const token = generateToken({
-        username: 'mcp-agent',
-        role: ERequestUserRole.readOnly,
-      });
 
       try {
         const res = await fetch(
@@ -189,6 +309,7 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
           note:
             '"unmatched" = not matched to the public AIS data the provider ' +
             'used - a triage signal only, not a claim of illegal activity.',
+          ...(resolvedRegionTitle && { region: resolvedRegionTitle }),
           total: payload.pagination?.total ?? (payload.entries?.length ?? 0),
           returned: payload.entries?.length ?? 0,
           cache: payload.metadata?.cache,

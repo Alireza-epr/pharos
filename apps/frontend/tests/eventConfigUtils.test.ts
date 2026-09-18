@@ -1,9 +1,10 @@
-import { EFetchMethods } from '@packages/enum';
+import { EEventDatasets, EFetchMethods } from '@packages/enum';
 import { useGfwEventSearchStore } from '../src/stores/gfwEventSearchStore';
 import { useAOIStore } from '../src/stores/areaOfInterestStore';
 import { useTimeRangeStore } from '../src/stores/timeRangeStore';
 import {
   buildEventSearchConfig,
+  buildVesselRelevantEventsParams,
   importEventAOIAndTimeRange,
 } from '../src/helpers/utils/eventConfigUtils';
 
@@ -73,6 +74,47 @@ describe('buildEventSearchConfig', () => {
     expect(config.body_params.endDate).toBe('2025-12-06T23:59:59Z');
 
     useTimeRangeStore.setState(DEFAULT_TIME_RANGE_STATE, true);
+  });
+});
+
+describe('buildVesselRelevantEventsParams', () => {
+  afterEach(() => {
+    useTimeRangeStore.setState(DEFAULT_TIME_RANGE_STATE, true);
+  });
+
+  it('sends_every_dataset_the_given_vessel_id_and_a_latest_first_sort_capped_at_5', () => {
+    const params = buildVesselRelevantEventsParams('vessel-1');
+
+    expect(params.url_params).toEqual({ limit: 5, offset: 0, sort: '-start' });
+    expect(params.body_params.vessels).toEqual(['vessel-1']);
+    expect(params.body_params.datasets).toHaveLength(
+      Object.values(EEventDatasets).length,
+    );
+  });
+
+  it('reads_the_shared_time_range_as_full_UTC_timestamps', () => {
+    useTimeRangeStore.getState().setDateFrom('2025-12-04T00:00:00');
+    useTimeRangeStore.getState().setDateTo('2025-12-06T23:59:59');
+
+    const params = buildVesselRelevantEventsParams('vessel-1');
+
+    expect(params.body_params.startDate).toBe('2025-12-04T00:00:00Z');
+    expect(params.body_params.endDate).toBe('2025-12-06T23:59:59Z');
+  });
+
+  it('merges_in_a_given_offset_for_the_More_button', () => {
+    const params = buildVesselRelevantEventsParams('vessel-1', 5);
+
+    expect(params.url_params.offset).toBe(5);
+  });
+
+  it('sends_no_AOI_or_form_filters', () => {
+    const params = buildVesselRelevantEventsParams('vessel-1');
+
+    expect(params.body_params.geometry).toBeUndefined();
+    expect(params.body_params.region).toBeUndefined();
+    expect(params.body_params.confidences).toBeUndefined();
+    expect(params.body_params.encounterTypes).toBeUndefined();
   });
 });
 

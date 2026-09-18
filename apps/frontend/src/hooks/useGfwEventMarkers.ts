@@ -10,17 +10,20 @@ import { useTranslator } from './translator';
 import popupStyle from './useEventMarkers.module.scss';
 
 /**
- * Draws every event currently in the Event tab's results list
- * (gfwEventStore.events) as a dot on the map -- as soon as a search returns,
- * with no separate "pin to map" step, and staying until the next search
- * replaces them (EventTab.tsx clears `events` immediately when a new Run
- * Query fires, same as the list). A separate, deliberately simple layer from
- * useEventMarkers.ts's SAR-detection dots: no clustering, no
- * matched/unmatched color split (GFW events have no such concept), no
- * triage-score radius. One fixed color (--color-primary-purple4, kept in
- * sync with EventMarkersLegend.tsx's own swatch) so a GFW event is visually
- * distinguishable from both the SAR/AIS detection dots (teal/orange) and the
- * AOI/EEZ/MPA shapes (blue family) it can appear alongside.
+ * Draws every event currently in gfwEventStore.events as a dot on the map --
+ * as soon as it's fetched, whether that's the Event tab's own Run
+ * Query/Prev/Next or DetailEvents.tsx's "relevant events" fetch
+ * (useVesselRelevantEvents.ts), no separate "pin to map"/"show on map" step
+ * either way, staying until the next fetch replaces them. Also reacts to
+ * gfwEventStore.flyToRequest -- EventList.tsx's "Go to" button (shared by
+ * both the Event tab and DetailEvents.tsx) pans the map here. A separate,
+ * deliberately simple layer from useEventMarkers.ts's SAR-detection dots: no
+ * clustering, no matched/unmatched color split (GFW events have no such
+ * concept), no triage-score radius. One fixed color (--color-primary-purple4,
+ * kept in sync with EventMarkersLegend.tsx's own swatch) so a GFW event is
+ * visually distinguishable from both the SAR/AIS detection dots
+ * (teal/orange) and the AOI/EEZ/MPA shapes (blue family) it can appear
+ * alongside.
  *
  * No on-map text label: MapCanvas's basemap style deliberately sets no
  * `glyphs` URL (see useEventMarkers.ts's own comment), so a text `symbol`
@@ -35,6 +38,9 @@ const L_SELECTED = 'gfw-event-markers-selected-ring';
 
 const RADIUS_PX = 6;
 const SELECTED_RING_RADIUS_PX = 13;
+// "Go to" zooms IN to at least this level (never out) -- close enough to
+// clearly single out one dot, short of MapCanvas's own maxZoom (12).
+const GO_TO_ZOOM = 10;
 
 const readToken = (a_Name: string, a_Fallback: string) => {
   const v = getComputedStyle(document.documentElement)
@@ -199,6 +205,12 @@ export const useGfwEventMarkers = (a_Map: maplibregl.Map | null) => {
     const unsubscribe = useGfwEventStore.subscribe((cur, prev) => {
       if (cur.events !== prev.events || cur.activeEvent !== prev.activeEvent) {
         render();
+      }
+      if (cur.flyToRequest && cur.flyToRequest !== prev.flyToRequest) {
+        map.flyTo({
+          center: [cur.flyToRequest.lon, cur.flyToRequest.lat],
+          zoom: Math.max(map.getZoom(), GO_TO_ZOOM),
+        });
       }
     });
 

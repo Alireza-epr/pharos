@@ -222,7 +222,7 @@
       "matchFields": "Filtert nach Übereinstimmungsgrad (ALL = stärkste)",
       "includes": "Zusätzliche Daten je Ergebnis",
       "limit": "Max. Ergebnisse pro Seite (1-50)",
-      "eventDatasets": "1+ Ereignistypen zum Suchen auswählen - erforderlich",
+      "eventDatasets": "Ein GFW-Ereignis ist ein aus AIS-Tracks abgeleiteter Schiffsaktivitätseintrag - Begegnungen, Verweilen, Hafenbesuche, Fischerei oder AIS-Lücken. 1+ Ereignistypen zum Suchen auswählen - erforderlich",
       "eventVessels": "Kommagetrennte GFW-Schiffs-IDs, z. B. aus einer Schiffssuche (optional)",
       "eventConfidences": "Konfidenzstufe (2-4) -- gilt nur für Hafenbesuche (Port Visits)",
       "eventEncounterTypes": "Nur relevant, wenn der Datensatz Begegnungen ausgewählt ist",
@@ -231,7 +231,8 @@
       "eventUseReportAOI": "Sendet die im Report-Tab gezeichnete Form oder ausgewählte AWZ/MPA-Region als Geometrie/Region dieser Suche -- Pufferzonen-Einstellungen werden nicht übernommen",
       "eventUseReportAOINoAOI": "Zeichnen Sie eine Form oder wählen Sie eine AWZ/MPA-Region im Report-Tab, um dies zu aktivieren",
       "eventSort": "+feld oder -feld, z. B. +start (optional)",
-      "eventLimit": "Ergebnisse pro Seite (Standard 20)"
+      "eventLimit": "Ergebnisse pro Seite (Standard 20)",
+      "eventDateRange": "Start- bis Enddatum"
     }
   },
   "map": {
@@ -319,13 +320,16 @@
       "nullProxy": "n. v.",
       "dataLimitationBody": "Nicht zugeordnet ≠ illegal. Scores sind keine Risikoindikatoren.",
       "vesselIdentityLoading": "Schiffsidentität wird geladen…",
-      "vesselIdentityNotFound": "Keine Schiffsidentität für diese Detektion gefunden."
+      "vesselIdentityNotFound": "Keine Schiffsidentität für diese Detektion gefunden.",
+      "relevantEventsLoading": "Relevante Ereignisse werden geladen…",
+      "moreRelevantEvents": "{{count}} weitere(s) Ereignis(se) gefunden - im Events-Tab links können Sie mit Weiter/Zurück durch diese Suche blättern"
     },
     "action": {
       "addToExport": "Zum Export hinzufügen",
       "removeFromExport": "Aus Export entfernen",
       "next": "Weiter ›",
-      "prev": "‹ Zurück"
+      "prev": "‹ Zurück",
+      "goTo": "Gehe zu"
     }
   },
   "historyPanel": {
