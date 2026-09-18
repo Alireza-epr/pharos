@@ -155,6 +155,22 @@ const seedAuthToken = () => {
   );
 };
 
+// Seeds appStore's persisted "app-settings" -> hasSeenWelcome: true so the
+// one-time welcome modal (WelcomeModal.tsx) doesn't cover the UI and
+// intercept clicks in tests that aren't about it -- same seeding pattern as
+// seedAuthToken above, mirroring zustand's persist envelope. The dedicated
+// welcome-modal test below deliberately omits this to exercise the
+// first-visit path.
+const seedWelcomeSeen = () => {
+  window.localStorage.setItem(
+    'app-settings',
+    JSON.stringify({
+      state: { hasSeenWelcome: true },
+      version: 0,
+    }),
+  );
+};
+
 // GET /v1/regions/geometry?dataset=...&id=... -- a *different*, more
 // specific endpoint from the regions list above (see ERegionsRoutes.geometry),
 // requested whenever a region's boundary needs drawing (map overlays,
@@ -264,6 +280,7 @@ const openReadyToQuery = async (page: Page) => {
 test.describe('UI_smoke', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(seedAuthToken); // bypass login before app scripts run
+    await page.addInitScript(seedWelcomeSeen); // skip the one-time welcome modal
     await stubBackend(page);
   });
 
@@ -722,5 +739,44 @@ test.describe('UI_smoke', () => {
     await expect(
       page.getByTestId('detail-events-section-header'),
     ).toContainText('Events');
+  });
+});
+
+test.describe('Welcome_modal', () => {
+  // Deliberately doesn't seed appStore's "hasSeenWelcome" (unlike the suite
+  // above) so the first-visit path is exercised.
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(seedAuthToken);
+    await stubBackend(page);
+  });
+
+  test('shows_once_on_first_visit_and_stays_dismissed_after_reload', async ({
+    page,
+  }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    // 1) A brand-new session sees the welcome modal on top of the app --
+    // it's a sibling overlay (Modal.tsx's portal), not a conditional render,
+    // so the run-query button underneath stays attached/visible in the DOM
+    // but is unclickable, blocked by the modal's full-screen backdrop.
+    const getStarted = page.getByTestId('welcome-get-started-button');
+    const runQuery = page.getByTestId('run-query-button');
+    await expect(getStarted).toBeVisible();
+    await expect(runQuery).toBeVisible();
+    await expect(
+      runQuery.click({ timeout: 500, trial: true }),
+    ).rejects.toThrow();
+
+    // 2) Dismissing it (either close affordance persists the same flag) --
+    // "Get Started" here -- reveals the app underneath immediately.
+    await getStarted.click();
+    await expect(getStarted).toBeHidden();
+    await expect(page.getByTestId('run-query-button')).toBeVisible();
+
+    // 3) The dismissal is persisted (appStore's zustand "app-settings" key),
+    // so reloading the same session never shows it again.
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.getByTestId('run-query-button')).toBeVisible();
+    await expect(getStarted).toHaveCount(0);
   });
 });

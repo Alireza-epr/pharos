@@ -11,6 +11,7 @@ export const useAppStore = create<IAppStoreStates & IAppStoreActions>()(
         theme: ETheme.light as IAppStoreStates['theme'],
         language: detectBrowserLanguage() as IAppStoreStates['language'],
         backendStatus: false,
+        hasSeenWelcome: false,
       },
       (set) => ({
         setTheme: (a_Value) =>
@@ -30,11 +31,22 @@ export const useAppStore = create<IAppStoreStates & IAppStoreActions>()(
                 ? a_Value(state.backendStatus)
                 : a_Value,
           })),
+        setHasSeenWelcome: (a_Value) =>
+          set((state) => ({
+            hasSeenWelcome:
+              typeof a_Value === 'function'
+                ? a_Value(state.hasSeenWelcome)
+                : a_Value,
+          })),
       }),
     ),
     {
       name: 'app-settings',
-      partialize: (s) => ({ theme: s.theme, language: s.language }),
+      partialize: (s) => ({
+        theme: s.theme,
+        language: s.language,
+        hasSeenWelcome: s.hasSeenWelcome,
+      }),
     },
   ),
 );

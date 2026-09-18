@@ -17,6 +17,7 @@
   height: 85vh;
   max-height: 85vh;
   box-sizing: border-box;
+  font-family: var(--font-family-base);
   background: var(--theme-bg-card);
   border: var(--border-width-sm) solid var(--theme-border);
   border-radius: var(--radius-md);
@@ -31,6 +32,13 @@
   max-width: 26rem;
   height: auto;
   max-height: 80vh;
+}
+
+.dialog.portrait {
+  width: min(90vw, 34rem);
+  max-width: 34rem;
+  height: 85vh;
+  max-height: 85vh;
 }
 
 .header {
@@ -72,4 +80,10 @@
   min-height: 0;
   overflow: auto;
   overflow-x: hidden;
+}
+
+.footer {
+  flex-shrink: 0;
+  padding: var(--padding-default-half) var(--padding-default);
+  border-top: var(--border-width-sm) solid var(--theme-border);
 }

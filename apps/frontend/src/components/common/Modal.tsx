@@ -8,8 +8,8 @@ export interface IModalProps {
   onClose: () => void;
   title?: string;
   children: ReactNode;
-  /** 'default' (90vw/85vh, e.g. the maximized detections table) or a small, content-sized centered box. */
-  size?: 'default' | 'small';
+  footer?: ReactNode;
+  size?: 'default' | 'portrait' | 'small';
 }
 
 // Same rough set most focus-trap implementations use -- good enough for the
@@ -82,7 +82,7 @@ const Modal = (props: IModalProps) => {
     <div className={` ${modalStyle.overlay}`} onClick={props.onClose}>
       <div
         ref={dialogRef}
-        className={`${modalStyle.dialog} ${props.size === 'small' ? modalStyle.small : ''}`}
+        className={`${modalStyle.dialog} ${props.size === 'small' ? modalStyle.small : ''} ${props.size === 'portrait' ? modalStyle.portrait : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label={props.title}
@@ -107,6 +107,9 @@ const Modal = (props: IModalProps) => {
           </button>
         </div>
         <div className={`scrollbar ${modalStyle.body}`}>{props.children}</div>
+        {props.footer && (
+          <div className={` ${modalStyle.footer}`}>{props.footer}</div>
+        )}
       </div>
     </div>,
     document.body,

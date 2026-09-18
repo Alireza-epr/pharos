@@ -50,6 +50,7 @@ export interface IAppStoreStates {
   theme: TTheme;
   language: TLanguage;
   backendStatus: boolean;
+  hasSeenWelcome: boolean;
 }
 export interface IAppStoreActions {
   setTheme: (
@@ -68,6 +69,13 @@ export interface IAppStoreActions {
       | ((
           a_Prev: IAppStoreStates['backendStatus'],
         ) => IAppStoreStates['backendStatus']),
+  ) => void;
+  setHasSeenWelcome: (
+    a_Value:
+      | IAppStoreStates['hasSeenWelcome']
+      | ((
+          a_Prev: IAppStoreStates['hasSeenWelcome'],
+        ) => IAppStoreStates['hasSeenWelcome']),
   ) => void;
 }
 export interface ISidebarStoreStates {
