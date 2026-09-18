@@ -58,9 +58,7 @@ export const useVesselStore = create<IVesselStoreStates & IVesselStoreActions>(
       setLastParams: (a_Value) =>
         set((state) => ({
           lastParams:
-            typeof a_Value === 'function'
-              ? a_Value(state.lastParams)
-              : a_Value,
+            typeof a_Value === 'function' ? a_Value(state.lastParams) : a_Value,
         })),
     }),
   ),

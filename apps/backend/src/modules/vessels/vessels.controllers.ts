@@ -57,7 +57,6 @@ export const vesselSearchController = async (
       ...result,
     } as IResponse<never>);
   } catch (error: any) {
-
     const detail = error?.message ?? String(error);
     log(`[vessels] Unexpected error: ${detail}`, ELogType.error, 2000);
 
@@ -67,7 +66,6 @@ export const vesselSearchController = async (
     });
   }
 };
-
 
 // POST /v1/vessels (list by IDs) -- same url_params-in-query/rest-in-body
 // split as vesselSearchController above, carrying IVesselListConfigJSON's

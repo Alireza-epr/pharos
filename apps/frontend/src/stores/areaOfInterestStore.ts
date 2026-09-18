@@ -118,8 +118,14 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
       // is a url_params fragment; a drawn Zonal/Point polygon is a
       // body_params.geojson fragment — never a synthetic envelope of our own.
       getAOI: (): TAOIQuery => {
-        const { eezActive, mpaActive, feature, bufferOperation, bufferUnit, bufferValue } =
-          get();
+        const {
+          eezActive,
+          mpaActive,
+          feature,
+          bufferOperation,
+          bufferUnit,
+          bufferValue,
+        } = get();
         const bufferParams =
           bufferValue !== 0
             ? {
@@ -201,7 +207,8 @@ export const useAOIStore = create<IAOIStoreStates & IAOIStoreActions>(
             feature: null,
             eezActive: isEEZ ? active : undefined,
             mpaActive: isEEZ ? undefined : active,
-            bufferOperation: bufferOperation ?? ERegionBufferOperations.DISSOLVE,
+            bufferOperation:
+              bufferOperation ?? ERegionBufferOperations.DISSOLVE,
             bufferUnit: bufferUnit ?? ERegionBufferUnits.NAUTICALMILES,
             bufferValue: bufferValue ? Number(bufferValue) : 0,
           });

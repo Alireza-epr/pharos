@@ -48,7 +48,8 @@ export const runPipeline = (
   a_ConfigPath: string,
   a_Mode: TQAAgentMode = 'main',
 ): string => {
-  const npmScript = a_Mode === 'validation' ? 'pipeline:validation' : 'pipeline:sample';
+  const npmScript =
+    a_Mode === 'validation' ? 'pipeline:validation' : 'pipeline:sample';
 
   execSync(`npm run ${npmScript} -- --config ${a_ConfigPath}`, {
     stdio: 'inherit',

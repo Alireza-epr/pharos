@@ -12,7 +12,6 @@ import ListItem from '../common/ListItem';
 
 export interface IEventListProps {}
 
-
 const EventList = () => {
   const { t } = useTranslator();
   const events = useGfwEventStore((s) => s.events);
@@ -69,7 +68,9 @@ const EventList = () => {
             subtitle={
               subtitleParts.length > 0 ? subtitleParts.join(' · ') : undefined
             }
-            subtitleHint={dateRange ? t('sidebar.hint.eventDateRange') : undefined}
+            subtitleHint={
+              dateRange ? t('sidebar.hint.eventDateRange') : undefined
+            }
             active={isActive}
             onClick={() => setActiveEvent(isActive ? null : event)}
             testId="event-result-row"

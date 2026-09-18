@@ -439,7 +439,11 @@ const validateEnumArray = <T extends readonly string[]>(
   }
   a_Value.forEach((item, index) => {
     if (!a_Allowed.includes(item)) {
-      addError(a_Errors, EResponseError.INVALID_ENUM_VALUE, `${a_Field}[${index}]`);
+      addError(
+        a_Errors,
+        EResponseError.INVALID_ENUM_VALUE,
+        `${a_Field}[${index}]`,
+      );
     }
   });
 };
@@ -472,7 +476,12 @@ export const validateEventSearchBodyParams = (
   validateStringArray(a_Body.vessels, 'vessels', errors);
   validateString(a_Body.startDate, 'startDate', errors);
   validateString(a_Body.endDate, 'endDate', errors);
-  validateEnumArray(a_Body.confidences, EVENT_CONFIDENCES, 'confidences', errors);
+  validateEnumArray(
+    a_Body.confidences,
+    EVENT_CONFIDENCES,
+    'confidences',
+    errors,
+  );
   validateEnumArray(
     a_Body.encounterTypes,
     EVENT_ENCOUNTER_TYPES,

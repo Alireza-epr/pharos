@@ -45,8 +45,14 @@ export const useVesselRelevantEvents = (a_VesselId: string | undefined) => {
     if (!a_VesselId) return;
     let cancelled = false;
 
-    const { setEvents, setActiveEvent, setPages, setPageIndex, setTotal, setLastParams } =
-      useGfwEventStore.getState();
+    const {
+      setEvents,
+      setActiveEvent,
+      setPages,
+      setPageIndex,
+      setTotal,
+      setLastParams,
+    } = useGfwEventStore.getState();
 
     setActiveEvent(null);
     setEvents([]);

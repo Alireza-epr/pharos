@@ -37,9 +37,7 @@ export const useEventStore = create<IEventStoreStates & IEventStoreActions>(
       setPagination: (a_Value) =>
         set((state) => ({
           pagination:
-            typeof a_Value === 'function'
-              ? a_Value(state.pagination)
-              : a_Value,
+            typeof a_Value === 'function' ? a_Value(state.pagination) : a_Value,
         })),
     }),
   ),

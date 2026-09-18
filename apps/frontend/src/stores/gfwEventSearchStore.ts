@@ -124,7 +124,10 @@ export const useGfwEventSearchStore = create<
 
         const activeDatasets = Object.entries(datasets)
           .filter(([, v]) => v.active)
-          .map(([ds, v]) => `${ds}:${v.version}` as IEventPostBodyParams['datasets'][number]);
+          .map(
+            ([ds, v]) =>
+              `${ds}:${v.version}` as IEventPostBodyParams['datasets'][number],
+          );
 
         const vesselIds = parseCommaList(vessels);
         const vesselGroupIds = parseCommaList(vesselGroups);

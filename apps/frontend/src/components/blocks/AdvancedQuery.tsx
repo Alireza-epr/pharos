@@ -15,7 +15,7 @@ import {
 import { isValidAdvancedQueryQuery } from '../../helpers/utils/validationUtils';
 import { useMessageStore } from '../../stores/messageStore';
 
-export interface IAdvancedQueryProps { }
+export interface IAdvancedQueryProps {}
 
 const AdvancedQuery = () => {
   const spatialResolution = useAdvancedQueryStore((s) => s.spatialResolution);

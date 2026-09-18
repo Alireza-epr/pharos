@@ -823,7 +823,10 @@ export interface IVesselStoreActions {
 }
 
 export interface IGfwEventSearchStoreStates {
-  datasets: Record<EEventDatasets, { active: boolean; version: TDatasetVersion }>;
+  datasets: Record<
+    EEventDatasets,
+    { active: boolean; version: TDatasetVersion }
+  >;
   vessels: string;
   confidences: TEventConfidence[];
   encounterTypes: TEventEncounterType[];
@@ -1001,7 +1004,9 @@ export interface IGfwEventStoreActions {
   setTotal: (
     a_Value:
       | IGfwEventStoreStates['total']
-      | ((a_Prev: IGfwEventStoreStates['total']) => IGfwEventStoreStates['total']),
+      | ((
+          a_Prev: IGfwEventStoreStates['total'],
+        ) => IGfwEventStoreStates['total']),
   ) => void;
   setLastParams: (
     a_Value:

@@ -82,7 +82,10 @@ export const mcpPostController = async (a_Req: Request, a_Res: Response) => {
 // DELETE (session termination) -- reject both the same way the SDK's own
 // stateless example does, with a JSON-RPC-shaped error body (this is what
 // an MCP client expects here, not our app's normal {success, error} shape).
-export const mcpMethodNotAllowedController = (a_Req: Request, a_Res: Response) => {
+export const mcpMethodNotAllowedController = (
+  a_Req: Request,
+  a_Res: Response,
+) => {
   a_Res.status(405).json({
     jsonrpc: '2.0',
     error: { code: -32000, message: 'Method not allowed.' },

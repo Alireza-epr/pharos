@@ -28,7 +28,9 @@ describe('setDateFrom_and_setDateTo', () => {
 
   it('supports_the_updater_function_form', () => {
     useTimeRangeStore.getState().setDateFrom('2025-12-01T00:00');
-    useTimeRangeStore.getState().setDateFrom((prev) => prev.replace('2025', '2026'));
+    useTimeRangeStore
+      .getState()
+      .setDateFrom((prev) => prev.replace('2025', '2026'));
 
     expect(useTimeRangeStore.getState().dateFrom).toBe('2026-12-01T00:00:00');
   });
@@ -43,7 +45,9 @@ describe('getTimeRange', () => {
     useTimeRangeStore.getState().setDateFrom('2025-12-01T00:00');
     useTimeRangeStore.getState().setDateTo('2025-12-06T23:59');
 
-    const { 'date-range': dateRange } = useTimeRangeStore.getState().getTimeRange();
+    const { 'date-range': dateRange } = useTimeRangeStore
+      .getState()
+      .getTimeRange();
 
     expect(dateRange).toBe('2025-12-01T00:00:00Z,2025-12-06T23:59:00Z');
   });

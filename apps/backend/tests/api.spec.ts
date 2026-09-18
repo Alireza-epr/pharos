@@ -358,7 +358,8 @@ describe('validateVesselSearchQueryParams', () => {
     const dynamicKeyErrors =
       result.errors?.filter(
         (e) =>
-          e.field.startsWith('match-fields[') || e.field.startsWith('includes['),
+          e.field.startsWith('match-fields[') ||
+          e.field.startsWith('includes['),
       ) ?? [];
 
     expect(dynamicKeyErrors.length).toBe(0);
@@ -413,9 +414,9 @@ describe('validateVesselListQueryParams', () => {
     );
 
     expect(result.isValid).toBe(false);
-    expect(
-      result.errors?.some((e) => e.field === 'registries-info-data'),
-    ).toBe(true);
+    expect(result.errors?.some((e) => e.field === 'registries-info-data')).toBe(
+      true,
+    );
   });
 });
 

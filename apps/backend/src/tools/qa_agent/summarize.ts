@@ -17,7 +17,8 @@ export const summarizeStats = (a_Stats: IStats) => {
 export const topHotspots = (a_Hotspots: IHotspot[], a_N = 10): IHotspot[] =>
   [...a_Hotspots]
     .sort((a, b) => {
-      const byHighScore = b.count_high_score_unmatched - a.count_high_score_unmatched;
+      const byHighScore =
+        b.count_high_score_unmatched - a.count_high_score_unmatched;
       if (byHighScore !== 0) return byHighScore;
       return b.count_unmatched - a.count_unmatched;
     })

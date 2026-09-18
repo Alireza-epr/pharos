@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import { IVesselSearchURLParams } from '@packages/types';
-import { EVesselDataset, EVesselMatchField, EVesselSearchInclude } from '@packages/enum';
+import {
+  EVesselDataset,
+  EVesselMatchField,
+  EVesselSearchInclude,
+} from '@packages/enum';
 import {
   IVesselSearchStoreActions,
   IVesselSearchStoreStates,
@@ -52,7 +56,9 @@ export const useVesselSearchStore = create<
       where: '',
       // GFW currently allows only one legal dataset value -- fixed here
       // rather than exposed as a picker with nothing to actually choose.
-      datasets: [EVesselDataset.vesselIdentity] as IVesselSearchStoreStates['datasets'],
+      datasets: [
+        EVesselDataset.vesselIdentity,
+      ] as IVesselSearchStoreStates['datasets'],
       matchFields: [] as IVesselSearchStoreStates['matchFields'],
       // Mirrors the provider's own default includes (see the GFW client's
       // search_vessels()).
@@ -95,8 +101,7 @@ export const useVesselSearchStore = create<
           limit: typeof a_Value === 'function' ? a_Value(state.limit) : a_Value,
         })),
       getVesselSearchParams: (): IVesselSearchURLParams => {
-        const { query, where, datasets, matchFields, includes, limit } =
-          get();
+        const { query, where, datasets, matchFields, includes, limit } = get();
         return {
           limit,
           ...(query.trim() !== '' && { query: query.trim() }),

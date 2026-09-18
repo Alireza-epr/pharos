@@ -33,10 +33,20 @@ const TERM_TITLE_KEY: Record<(typeof TERM_KEYS)[number], TTranslationKey> = {
   export: 'welcome.term.export.title',
 };
 
+const STEP_KEYS = [
+  'aoi',
+  'timeRange',
+  'runQuery',
+  'inspect',
+  'export',
+] as const;
 
-const STEP_KEYS = ['aoi', 'timeRange', 'runQuery', 'inspect', 'export'] as const;
-
-const PROPERTY_KEYS = ['secure', 'traceable', 'flexible', 'lightweight'] as const;
+const PROPERTY_KEYS = [
+  'secure',
+  'traceable',
+  'flexible',
+  'lightweight',
+] as const;
 
 const PROPERTY_ICON: Record<(typeof PROPERTY_KEYS)[number], string> = {
   secure: '🔒',

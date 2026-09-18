@@ -30,9 +30,12 @@ describe('searchEventsGFW', () => {
     global.fetch = fetchMock as unknown as typeof fetch;
 
     await searchEventsGFW(
-      buildSearchConfig({ limit: 5, offset: 0 }, {
-        datasets: ['public-global-encounters-events:v3.0'] as any,
-      }),
+      buildSearchConfig(
+        { limit: 5, offset: 0 },
+        {
+          datasets: ['public-global-encounters-events:v3.0'] as any,
+        },
+      ),
     );
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -79,9 +82,12 @@ describe('searchEventsGFW', () => {
     global.fetch = fetchMock as unknown as typeof fetch;
 
     await searchEventsGFW(
-      buildSearchConfig({ limit: 5, offset: 0, sort: undefined }, {
-        datasets: ['public-global-encounters-events:v3.0'] as any,
-      }),
+      buildSearchConfig(
+        { limit: 5, offset: 0, sort: undefined },
+        {
+          datasets: ['public-global-encounters-events:v3.0'] as any,
+        },
+      ),
     );
 
     const [url] = fetchMock.mock.calls[0];
@@ -95,7 +101,11 @@ describe('searchEventsGFW', () => {
       limit: 5,
       offset: 0,
       nextOffset: null,
-      metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+      metadata: {
+        datasets: [],
+        vessels: [],
+        dateRange: { from: null, to: null },
+      },
     };
     const fetchMock = jest.fn().mockResolvedValue({
       ok: true,
@@ -104,9 +114,12 @@ describe('searchEventsGFW', () => {
     global.fetch = fetchMock as unknown as typeof fetch;
 
     const result = await searchEventsGFW(
-      buildSearchConfig({ limit: 5, offset: 0 }, {
-        datasets: ['public-global-encounters-events:v3.0'] as any,
-      }),
+      buildSearchConfig(
+        { limit: 5, offset: 0 },
+        {
+          datasets: ['public-global-encounters-events:v3.0'] as any,
+        },
+      ),
     );
 
     expect(result).toEqual(payload);
@@ -125,9 +138,12 @@ describe('searchEventsGFW', () => {
 
     await expect(
       searchEventsGFW(
-        buildSearchConfig({ limit: 5, offset: 0 }, {
-          datasets: ['public-global-encounters-events:v3.0'] as any,
-        }),
+        buildSearchConfig(
+          { limit: 5, offset: 0 },
+          {
+            datasets: ['public-global-encounters-events:v3.0'] as any,
+          },
+        ),
       ),
     ).rejects.toThrow('[eventsGFW] Error:');
     expect(fetchMock).toHaveBeenCalledTimes(1);

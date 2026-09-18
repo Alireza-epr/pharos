@@ -12,7 +12,10 @@ import SectionItem from '../../../components/common/section/SectionItem';
 import ChipGroupInput from '../../../components/common/inputs/ChipGroupInput';
 import { EExportEvidence } from '@packages/enum';
 import { TBodyParams_export } from '@packages/types';
-import { downloadFile, downloadJSON } from '../../../helpers/utils/downloadUtils';
+import {
+  downloadFile,
+  downloadJSON,
+} from '../../../helpers/utils/downloadUtils';
 import Section from '../../../components/common/section/Section';
 import { log_frontend } from '@packages/utils';
 import {
@@ -220,7 +223,9 @@ const ExportTab = () => {
             onClick={handleExportClick}
             disabled={
               loading ||
-              (!eventsExportReady && !vesselsExportReady && !gfwEventsExportReady)
+              (!eventsExportReady &&
+                !vesselsExportReady &&
+                !gfwEventsExportReady)
             }
             loading={loading}
           />

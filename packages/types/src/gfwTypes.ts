@@ -519,7 +519,6 @@ export interface IVesselSearchAPIResponse {
   metadata?: IVesselSearchMetadata;
 }
 
-
 export type TVesselIdKey = `ids[${number}]`;
 
 export interface IVesselListURLParams {

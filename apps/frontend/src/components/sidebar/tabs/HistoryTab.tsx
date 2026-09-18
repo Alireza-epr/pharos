@@ -29,8 +29,8 @@ const HistoryTab = () => {
           subtitle={
             entry.success
               ? t('historyPanel.subtitle.resultCount', {
-                count: String(entry.resultCount),
-              })
+                  count: String(entry.resultCount),
+                })
               : t('historyPanel.subtitle.failed')
           }
           subtitleError={!entry.success}
@@ -68,27 +68,27 @@ const HistoryTab = () => {
           {reportEntries.length > 0
             ? renderEntries(reportEntries)
             : renderEmpty(
-              t('historyPanel.empty.title'),
-              t('historyPanel.empty.body'),
-            )}
+                t('historyPanel.empty.title'),
+                t('historyPanel.empty.body'),
+              )}
         </Section>
 
         <Section title={t('sidebar.tab.vessel')} collapsible={false}>
           {vesselEntries.length > 0
             ? renderEntries(vesselEntries)
             : renderEmpty(
-              t('historyPanel.empty.titleVessel'),
-              t('historyPanel.empty.bodyVessel'),
-            )}
+                t('historyPanel.empty.titleVessel'),
+                t('historyPanel.empty.bodyVessel'),
+              )}
         </Section>
 
         <Section title={t('sidebar.tab.event')} collapsible={false}>
           {eventEntries.length > 0
             ? renderEntries(eventEntries)
             : renderEmpty(
-              t('historyPanel.empty.titleEvent'),
-              t('historyPanel.empty.bodyEvent'),
-            )}
+                t('historyPanel.empty.titleEvent'),
+                t('historyPanel.empty.bodyEvent'),
+              )}
         </Section>
       </div>
       <div className={` ${sidebarStyle.footer}`}>

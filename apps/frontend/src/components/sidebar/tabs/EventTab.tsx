@@ -92,7 +92,6 @@ const EventTab = () => {
     });
   };
 
-
   const handleClearResults = () => {
     setActiveEvent(null);
     setEvents([]);

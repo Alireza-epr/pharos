@@ -63,9 +63,7 @@ export const useGfwEventStore = create<
       setLastParams: (a_Value) =>
         set((state) => ({
           lastParams:
-            typeof a_Value === 'function'
-              ? a_Value(state.lastParams)
-              : a_Value,
+            typeof a_Value === 'function' ? a_Value(state.lastParams) : a_Value,
         })),
     }),
   ),

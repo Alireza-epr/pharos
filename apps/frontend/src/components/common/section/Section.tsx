@@ -1,4 +1,10 @@
-import { ReactNode, useState, Activity, MouseEvent, KeyboardEvent } from 'react';
+import {
+  ReactNode,
+  useState,
+  Activity,
+  MouseEvent,
+  KeyboardEvent,
+} from 'react';
 import sectionStyle from './Section.module.scss';
 import { useTranslator } from '../../../hooks/translator';
 

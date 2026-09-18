@@ -658,7 +658,11 @@ test.describe('UI_smoke', () => {
           offset: 0,
           nextOffset: 5,
           total: 7,
-          metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+          metadata: {
+            datasets: [],
+            vessels: [],
+            dateRange: { from: null, to: null },
+          },
           entries: [relevantEvent],
         },
       });
@@ -729,7 +733,9 @@ test.describe('UI_smoke', () => {
     // No in-place "More" here (removed) -- with 6 more events than the
     // 5-per-page limit shows, DetailEvents.tsx instead points at the Event
     // tab's own Prev/Next to continue this exact search.
-    await expect(page.getByTestId('detail-events-section-header')).toBeVisible();
+    await expect(
+      page.getByTestId('detail-events-section-header'),
+    ).toBeVisible();
     await expect(page.getByText(/6 more event\(s\) found/)).toBeVisible();
     await expect(page.getByText(/check the Events tab/)).toBeVisible();
     await expect(page.getByTestId('detail-events-more-button')).toHaveCount(0);

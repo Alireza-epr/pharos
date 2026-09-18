@@ -33,7 +33,11 @@ export const searchEvents = async (
   if (!config.auth.detection_token) {
     log('[event] DETECTION_TOKEN not set - offline serving', ELogType.warn);
     return {
-      metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+      metadata: {
+        datasets: [],
+        vessels: [],
+        dateRange: { from: null, to: null },
+      },
       limit: 0,
       offset: 0,
       nextOffset: null,

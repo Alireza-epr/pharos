@@ -22,7 +22,9 @@ import { IQASummary, TQAAgentMode } from '../../helpers/types/qaAgentTypes';
 const REPORTS_DIR = 'reports';
 
 const readJsonIfPresent = <T>(a_Path: string): T | null =>
-  fs.existsSync(a_Path) ? (JSON.parse(fs.readFileSync(a_Path, 'utf8')) as T) : null;
+  fs.existsSync(a_Path)
+    ? (JSON.parse(fs.readFileSync(a_Path, 'utf8')) as T)
+    : null;
 
 const buildSummary = (
   a_ConfigPath: string,
@@ -36,7 +38,9 @@ const buildSummary = (
   );
   const schemaCheck = events ? checkCanonicalSchemaShape(events) : null;
 
-  const rawStats = readJsonIfPresent<IStats>(path.join(a_OutputDir, 'stats.json'));
+  const rawStats = readJsonIfPresent<IStats>(
+    path.join(a_OutputDir, 'stats.json'),
+  );
   const stats = rawStats ? summarizeStats(rawStats) : null;
 
   const hotspotsGeoJSON = readJsonIfPresent<{
@@ -72,14 +76,22 @@ const main = () => {
   const configPath = configIndex !== -1 ? args[configIndex + 1] : undefined;
   const modeIndex = args.indexOf('--mode');
   const mode: TQAAgentMode =
-    modeIndex !== -1 && args[modeIndex + 1] === 'validation' ? 'validation' : 'main';
+    modeIndex !== -1 && args[modeIndex + 1] === 'validation'
+      ? 'validation'
+      : 'main';
 
   if (!configPath) {
-    log('[qa-agent] Usage: qa-agent --config <path> [--mode main|validation]', ELogType.error);
+    log(
+      '[qa-agent] Usage: qa-agent --config <path> [--mode main|validation]',
+      ELogType.error,
+    );
     process.exit(1);
   }
 
-  log(`[qa-agent] Running pipeline (mode: ${mode}) with config ${configPath}...`, ELogType.info);
+  log(
+    `[qa-agent] Running pipeline (mode: ${mode}) with config ${configPath}...`,
+    ELogType.info,
+  );
   const outputDir = runPipeline(configPath, mode);
 
   log(`[qa-agent] Summarising output in ${outputDir}...`, ELogType.info);
@@ -89,7 +101,10 @@ const main = () => {
   const reportPath = path.join(REPORTS_DIR, `qa_${getExportId()}.md`);
   fs.writeFileSync(reportPath, renderReport(summary), 'utf8');
 
-  log(`[qa-agent] Report written to ${path.resolve(reportPath)}`, ELogType.info);
+  log(
+    `[qa-agent] Report written to ${path.resolve(reportPath)}`,
+    ELogType.info,
+  );
 
   if (summary.fileCheck.missing.length > 0) {
     log(

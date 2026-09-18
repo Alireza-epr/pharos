@@ -27,9 +27,21 @@ const hotspot = (overrides: Partial<IHotspot>): IHotspot => ({
 
 describe('topHotspots', () => {
   it('ranks_by_high_score_unmatched_then_by_unmatched_count', () => {
-    const low = hotspot({ cell_id: 'low', count_high_score_unmatched: 0, count_unmatched: 1 });
-    const high = hotspot({ cell_id: 'high', count_high_score_unmatched: 2, count_unmatched: 0 });
-    const tieBreaker = hotspot({ cell_id: 'tie', count_high_score_unmatched: 0, count_unmatched: 5 });
+    const low = hotspot({
+      cell_id: 'low',
+      count_high_score_unmatched: 0,
+      count_unmatched: 1,
+    });
+    const high = hotspot({
+      cell_id: 'high',
+      count_high_score_unmatched: 2,
+      count_unmatched: 0,
+    });
+    const tieBreaker = hotspot({
+      cell_id: 'tie',
+      count_high_score_unmatched: 0,
+      count_unmatched: 5,
+    });
 
     const result = topHotspots([low, high, tieBreaker], 10);
 
@@ -37,7 +49,9 @@ describe('topHotspots', () => {
   });
 
   it('caps_the_result_at_n', () => {
-    const many = Array.from({ length: 15 }, (_, i) => hotspot({ cell_id: `cell-${i}` }));
+    const many = Array.from({ length: 15 }, (_, i) =>
+      hotspot({ cell_id: `cell-${i}` }),
+    );
     expect(topHotspots(many, 10)).toHaveLength(10);
   });
 
@@ -124,7 +138,10 @@ describe('summarizeStats', () => {
       count_total: 4,
       matching_stats: { matched: 3, unmatched: 1 },
       missingness: {} as any,
-      geo_sanity: { latitude: { min: 0, max: 0 }, longitude: { min: 0, max: 0 } },
+      geo_sanity: {
+        latitude: { min: 0, max: 0 },
+        longitude: { min: 0, max: 0 },
+      },
       time_range: { start: 'a', end: 'b' },
       mean_score: 0.5,
       mean_uncertainty: 0.5,
@@ -138,7 +155,10 @@ describe('summarizeStats', () => {
       count_total: 0,
       matching_stats: { matched: 0, unmatched: 0 },
       missingness: {} as any,
-      geo_sanity: { latitude: { min: 0, max: 0 }, longitude: { min: 0, max: 0 } },
+      geo_sanity: {
+        latitude: { min: 0, max: 0 },
+        longitude: { min: 0, max: 0 },
+      },
       time_range: { start: 'N/A', end: 'N/A' },
       mean_score: 0,
       mean_uncertainty: 0,
@@ -192,9 +212,7 @@ describe('checkCanonicalSchemaShape', () => {
     const { scoring, hotspot, ...incomplete } = completeEvent;
     const result = checkCanonicalSchemaShape([incomplete]);
 
-    expect(result.issues).toEqual([
-      expect.stringContaining('abc'),
-    ]);
+    expect(result.issues).toEqual([expect.stringContaining('abc')]);
     expect(result.issues[0]).toContain('scoring');
     expect(result.issues[0]).toContain('hotspot');
   });

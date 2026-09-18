@@ -5,7 +5,8 @@ import {
   searchVesselsGFW,
 } from '../src/pipeline/ingest/vessels';
 
-const SEARCH_URL = 'https://gateway.api.globalfishingwatch.org/v3/vessels/search';
+const SEARCH_URL =
+  'https://gateway.api.globalfishingwatch.org/v3/vessels/search';
 const LIST_URL = 'https://gateway.api.globalfishingwatch.org/v3/vessels';
 
 const buildSearchConfig = (
@@ -78,7 +79,9 @@ describe('searchVesselsGFW', () => {
   });
 
   it('returns_the_parsed_json_response_on_success', async () => {
-    const payload = { entries: [{ dataset: 'public-global-vessel-identity:v4.0' }] };
+    const payload = {
+      entries: [{ dataset: 'public-global-vessel-identity:v4.0' }],
+    };
     const fetchMock = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => payload,

@@ -43,7 +43,9 @@ export const isValidAOIQuery = (a_Data: unknown): a_Data is TAOIQuery => {
           url_params['buffer-operation'],
         )) &&
       (url_params['buffer-unit'] === undefined ||
-        Object.values(ERegionBufferUnits).includes(url_params['buffer-unit'])) &&
+        Object.values(ERegionBufferUnits).includes(
+          url_params['buffer-unit'],
+        )) &&
       (url_params['buffer-value'] === undefined ||
         isString(url_params['buffer-value']))
     );
