@@ -50,11 +50,12 @@ ingest → normalize → features → aggregate → schema → export
 
 ### Live app
 
-1. The frontend queries the backend (`/v1/events`) for a chosen AOI, date range, and filters.
+1. The frontend queries the backend (`/v1/report`) for a chosen AOI, date range, and filters.
 2. Results render on a MapLibre GL map and a sortable/filterable list, colour-coded by match status and confidence tier.
 3. Selecting an event opens a detail drawer with the scoring breakdown, reason codes, context layers, and - for matched detections - on-demand vessel identity enrichment via the Global Fishing Watch Vessels API.
 4. The Vessel tab supports standalone vessel search/lookup, independent of a specific detection.
-5. The Export tab bundles the current filtered/scored Report result set as a ZIP, and separately exports any added vessel identities as client-side JSON.
+5. The Event tab supports standalone search of GFW's Events API (encounters, loitering, port visits, AIS gaps, fishing events - `/v1/events/search`), independent of the Report tab and the map - see `docs/tech/event-search.md`.
+6. The Export tab bundles the current filtered/scored Report result set as a ZIP, and separately exports any added vessel identities or GFW events as client-side JSON.
 
 ---
 
@@ -81,7 +82,7 @@ ingest → normalize → features → aggregate → schema → export
 
 Pharos isn't only a web app you click through - it's also a live **[MCP](https://modelcontextprotocol.io) (Model Context Protocol) server**. Any MCP-compatible AI client - Claude Code, Claude Desktop, or an agent you build yourself - can connect to it directly and query real Pharos data conversationally, instead of a human driving the UI by hand. Ask it something like *"check Pharos for unmatched detections in the Baltic Sea last week"* and it runs a real query against the live backend and answers in plain language, scores and all.
 
-**What it is, concretely:** the same `POST /v1/events` the web app itself calls, wrapped as an MCP tool - no second implementation of the query/scoring logic, no mocked data. Two tools are exposed today:
+**What it is, concretely:** the same `POST /v1/report` the web app itself calls, wrapped as an MCP tool - no second implementation of the query/scoring logic, no mocked data. Two tools are exposed today:
 
 | Tool | What it does |
 | --- | --- |
@@ -184,7 +185,7 @@ Other backend variables (see `apps/backend/.env.example`) include CORS configura
 
 ## Authentication
 
-The app requires login. The backend issues a short-lived **access token** and a long-lived **refresh token** (JWT, signed with `JWT_SECRET`); the frontend stores them, attaches the access token to API requests, and refreshes it automatically when it expires. Protected endpoints such as `/v1/events` reject requests without a valid access token.
+The app requires login. The backend issues a short-lived **access token** and a long-lived **refresh token** (JWT, signed with `JWT_SECRET`); the frontend stores them, attaches the access token to API requests, and refreshes it automatically when it expires. Protected endpoints such as `/v1/report` reject requests without a valid access token.
 
 The MCP endpoint (`POST /v1/mcp`) uses a separate scheme: a static per-agent API key (`MCP_API_KEYS`), not a login session - see [Connect Your Own AI Agent](#connect-your-own-ai-agent-mcp) for what it's for and how to use it.
 

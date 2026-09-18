@@ -2,6 +2,7 @@ import {
   E4wingsDatasets,
   EEventDatasets,
   EEventType,
+  EEventVesselType,
   EFetchMethods,
   EFormat,
   EGearType,
@@ -128,62 +129,75 @@ export interface I4wingsEntry {
 }
 
 /**
- * Event - URL Parameters for both POST and GET requests
- * We recommend use the GET endpoint if you are using the API from a Web APP because you can take advantage of the Browser cache to improve the load speed
- * Offset into the search results, used for pagination. It starts at 0.
- * It is used in combination with the param “limit”, for example you send limit = 5 and you get in the response total vessels =10.
- * So, If you send offset =0 OR you don’t send it, you will get the first 5 results (first page).
- * Therefore, in order to get the second page, you need to send offset = 5 which is the position of the first element you want from the second page. Example: 5
+ * Event - the "get all events" endpoint is POST-only (confirmed against
+ * GFW's own maintained Python client, gfwapiclient -- there is no GET
+ * variant, unlike Vessels Search or the 4Wings report). These three fields
+ * are the only ones on the query string; every actual filter lives in the
+ * POST body (IEventPostBodyParams below).
  */
 export interface IEventPostURLParams {
-  limit: number;
-  offset: number;
-  sort?: `+${string}` | `-${string}`; // ascending + (ASC) or descending - (DESC)
+  limit?: number;
+  offset?: number;
+  sort?: string; // e.g. "+start" / "-start" -- "depends on the dataset" per GFW's own docstring, not a fixed field list
 }
 
-export interface IEventGetURLParams extends IEventPostURLParams {
-  [key: TSourceKey]: TEventSource;
-  [key: `vessels[${number}]`]: string;
-  types?: "ENCOUNTER" | "FISHING" | "LOITERING" | "GAP" | "PORT_VISIT";
-  "start-date"?: string;
-  "end-date"?: string;
-  "include-regions"?: boolean;
-  confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
-  "encounter-types"?:
-    | "FISHING-CARRIER"
-    | "FISHING-SUPPORT"
-    | "FISHING-BUNKER"
-    | "FISHING-FISHING"
-    | "FISHING-TANKER"
-    | "CARRIER-BUNKER"
-    | "BUNKER-SUPPORT";
-  "vessel-types"?: EVessleType;
+/** The 13 encounter sub-types GFW's Events API recognizes (both orderings
+ * of each pair, confirmed against gfwapiclient's EventEncounterType enum). */
+export type TEventEncounterType =
+  | "CARRIER-FISHING"
+  | "FISHING-CARRIER"
+  | "FISHING-SUPPORT"
+  | "SUPPORT-FISHING"
+  | "FISHING-BUNKER"
+  | "BUNKER-FISHING"
+  | "FISHING-FISHING"
+  | "FISHING-TANKER"
+  | "TANKER-FISHING"
+  | "CARRIER-BUNKER"
+  | "BUNKER-CARRIER"
+  | "SUPPORT-BUNKER"
+  | "BUNKER-SUPPORT";
+
+/** Port-visit confidence tier. Confirmed (gfwapiclient's EventConfidence
+ * enum, and GFW's own docs): this field is meaningful for port_visits
+ * events only -- sent regardless, but only port-visit results are actually
+ * affected by it. */
+export type TEventConfidence = "2" | "3" | "4";
+
+export interface IEventRegion {
+  dataset: string;
+  id: string;
 }
 
+/**
+ * Event - POST request body. `types` is deliberately not modeled here: each
+ * GFW event dataset is already type-specific (the encounters dataset only
+ * ever contains encounter events, etc.), so the Event tab's Datasets picker
+ * alone determines which event types are queried -- see EEventDatasetsUI.
+ * `region`/`geometry` are mutually exclusive AOI shapes, both optional (the
+ * Event tab is usable with neither, using date range + filters alone).
+ */
 export interface IEventPostBodyParams {
   datasets: TEventSource[];
-  vessels: string[];
-  types?: "ENCOUNTER" | "FISHING" | "LOITERING" | "GAP" | "PORT_VISIT";
+  vessels?: string[];
   startDate?: string;
   endDate?: string;
-  //"include-regions"?: boolean,
-  confidences?: string; // Possible values: 2, 3, 4 Example: 3,4
-  encounterTypes?:
-    | "FISHING-CARRIER"
-    | "FISHING-SUPPORT"
-    | "FISHING-BUNKER"
-    | "FISHING-FISHING"
-    | "FISHING-TANKER"
-    | "CARRIER-BUNKER"
-    | "BUNKER-SUPPORT";
-  duration?: number; // Minimum duration (greater than or equal to), in minutes, of the event. Example: 30
-  vesselTypes?: EVessleType[];
-  vesselGroups?: string[]; // Ids of the vessel groups. Must be an array Example: ['my-vessel-group']
-  flags?: string[]; // Flags of the vessels involved in the events, in ISO3. Must be an array. Example: ['ESP', 'FRA']
-  geometry?: IGeometry; // Region where the events happen.
-  region?: {};
-  "region.id"?: {};
-  "region.dataset"?: {};
+  confidences?: TEventConfidence[];
+  encounterTypes?: TEventEncounterType[];
+  duration?: number; // Minimum duration, in minutes, of the event
+  vesselTypes?: EEventVesselType[];
+  vesselGroups?: string[]; // GFW vessel-group ids
+  flags?: string[]; // ISO3 flag codes of the vessels involved
+  geometry?: IGeometry; // A drawn AOI polygon (Report tab's Zonal/Point tool)
+  region?: IEventRegion; // A named EEZ/MPA region (Report tab's region picker)
+}
+
+export interface IEventConfigJSON {
+  /** Upstream GFW Events API endpoint this request targets. */
+  url: string;
+  method: EFetchMethods.post;
+  url_params: IEventPostURLParams;
+  body_params: IEventPostBodyParams;
 }
 
 export interface IEventAPIResponse<T> {
@@ -347,6 +361,11 @@ export type TGlobalEvent =
   | IEncounterEvent
   | ILoiteringEvent
   | IPortVisitEvent;
+
+/** GET /v3/events response, typed for the Event tab's own search (any of
+ * the 5 event shapes may come back, since `datasets[]` can request more
+ * than one at once). */
+export type IEventSearchAPIResponse = IEventAPIResponse<TGlobalEvent>;
 
 export type TDatasetVersion = `v${number}.${number}`;
 export type TSourceKey = `datasets[${number}]`;

@@ -39,7 +39,7 @@ import {
 import { getServingRepository } from '../repositories/serving';
 
 /**
- * The serving service: the live, partitioned read path behind `POST /v1/events`.
+ * The serving service: the live, partitioned read path behind `POST /v1/report`.
  *
  * It owns only the **orchestration** — resolution → coverage policy →
  * cache-on-miss decision → filter → sort. All storage I/O is delegated to the

@@ -1,6 +1,8 @@
 import {
   IConfigJSON,
+  IEventConfigJSON,
   IEventSchema,
+  IEventSearchAPIResponse,
   IVesselConfigJSON,
   IVesselListAPIResponse,
   IVesselListConfigJSON,
@@ -62,4 +64,15 @@ export interface IVesselRepository {
   search(a_Config: IVesselConfigJSON): Promise<IVesselSearchAPIResponse>;
   /** Fetch vessel identity records for a known set of vessel ids. */
   list(a_Config: IVesselListConfigJSON): Promise<IVesselListAPIResponse>;
+}
+
+/**
+ * Repository contract for the GFW Events API provider (encounters/
+ * loitering/port-visits/gaps/fishing) -- same spirit as
+ * {@link IVesselRepository}, one verb since this feature only needs search
+ * (no separate list-by-ids endpoint the way vessels has).
+ */
+export interface IEventRepository {
+  /** Search the provider's behavioral-event records for a query. */
+  search(a_Config: IEventConfigJSON): Promise<IEventSearchAPIResponse>;
 }

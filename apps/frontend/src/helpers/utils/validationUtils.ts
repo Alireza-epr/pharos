@@ -6,7 +6,13 @@ import {
   EFetchMethods,
   EHotspotTimeBins,
 } from '@packages/enum';
-import { IVesselConfigJSON, IVesselSearchURLParams } from '@packages/types';
+import {
+  IEventConfigJSON,
+  IEventPostBodyParams,
+  IEventPostURLParams,
+  IVesselConfigJSON,
+  IVesselSearchURLParams,
+} from '@packages/types';
 import {
   IAdvancedQueryQuery,
   IFilterQuery,
@@ -174,6 +180,47 @@ export const isValidVesselConfigJSON = (
     isString(url) &&
     method === EFetchMethods.get &&
     isValidVesselSearchURLParams(url_params)
+  );
+};
+
+export const isValidEventSearchURLParams = (
+  a_Data: unknown,
+): a_Data is IEventPostURLParams => {
+  if (!isObject(a_Data)) return false;
+  const { limit, offset, sort } = a_Data;
+  return (
+    (limit === undefined || isNumber(limit)) &&
+    (offset === undefined || isNumber(offset)) &&
+    (sort === undefined || isString(sort))
+  );
+};
+
+const isValidEventSearchBodyParams = (
+  a_Data: unknown,
+): a_Data is IEventPostBodyParams => {
+  if (!isObject(a_Data)) return false;
+  const { datasets } = a_Data;
+  return (
+    Array.isArray(datasets) &&
+    datasets.length > 0 &&
+    datasets.every((d) => isString(d))
+  );
+};
+
+// The Event tab's own export/import config -- see
+// EventExportAndImportConfig.tsx. `method` has exactly one legal value
+// (GFW's Events API "get all events" endpoint is POST-only), same
+// invariant the type itself enforces at compile time.
+export const isValidEventConfigJSON = (
+  a_Data: unknown,
+): a_Data is IEventConfigJSON => {
+  if (!isObject(a_Data)) return false;
+  const { url, method, url_params, body_params } = a_Data;
+  return (
+    isString(url) &&
+    method === EFetchMethods.post &&
+    isValidEventSearchURLParams(url_params) &&
+    isValidEventSearchBodyParams(body_params)
   );
 };
 

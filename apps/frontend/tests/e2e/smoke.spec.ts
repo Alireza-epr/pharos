@@ -155,20 +155,76 @@ const seedAuthToken = () => {
   );
 };
 
+// GET /v1/regions/geometry?dataset=...&id=... -- a *different*, more
+// specific endpoint from the regions list above (see ERegionsRoutes.geometry),
+// requested whenever a region's boundary needs drawing (map overlays,
+// Detail-panel context layers). Without its own stub, this request falls
+// through Playwright's routing to the real network: harmless against a
+// clean environment (silently connection-refused, boundary just doesn't
+// draw) but a real, reachable local backend on the same host/port -- e.g.
+// from unrelated manual testing -- answers it for real, 401s on the smoke
+// test's fake token, and cascades into a genuine auto-logout that has
+// nothing to do with whatever the test was actually checking. Stubbing
+// this closes that gap regardless of what else happens to be running.
+const regionGeometryResponse = {
+  success: true,
+  entries: [
+    {
+      type: 'Feature',
+      properties: {},
+      geometry: { type: 'MultiPolygon', coordinates: [] },
+    },
+  ],
+};
+
+// POST /v1/vessels -- same base path for both the Vessel tab's own search
+// and useVesselIdentity's on-demand lookup (differing by body/params, not
+// sub-path). A matched detection's detail panel fires the identity lookup
+// automatically on mount (VesselIdentityContext.tsx) -- without this stub
+// it falls through to the real network exactly like the regions/geometry
+// gap above, and a reachable local backend answers it for real, 401s, and
+// cascades into the same auto-logout.
+const vesselIdentityResponse = { success: true, entries: [] };
+
+// POST /v1/events/search -- same auto-fires-on-mount reasoning as the
+// vessels stub above, but for useVesselRelevantEvents.ts (DetailEvents.tsx)
+// instead of vessel identity. A default empty response here; tests that
+// care about actual relevant-events content register their own more
+// specific page.route() for this same pattern afterward, which Playwright
+// matches first (most-recently-registered route wins).
+const emptyEventsSearchResponse = {
+  success: true,
+  limit: 5,
+  offset: 0,
+  nextOffset: null,
+  total: 0,
+  metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+  entries: [],
+};
+
 const stubBackend = async (page: Page) => {
   await page.route('**/system/health*', (route) =>
     route.fulfill({ json: healthResponse }),
   );
-  await page.route('**/events*', (route) =>
+  await page.route('**/report*', (route) =>
     route.fulfill({
       body: eventsProgressBody(),
       contentType: 'application/x-ndjson',
     }),
   );
+  await page.route('**/regions/geometry*', (route) =>
+    route.fulfill({ json: regionGeometryResponse }),
+  );
   await page.route('**/regions*', (route) => {
     const dataset = new URL(route.request().url()).searchParams.get('dataset');
     route.fulfill({ json: regionsResponse(dataset === 'MPA' ? 'MPA' : 'EEZ') });
   });
+  await page.route('**/vessels*', (route) =>
+    route.fulfill({ json: vesselIdentityResponse }),
+  );
+  await page.route('**/events/search*', (route) =>
+    route.fulfill({ json: emptyEventsSearchResponse }),
+  );
 };
 
 // Loads the app and satisfies the AOI requirement (picking the first EEZ) so
@@ -217,7 +273,7 @@ test.describe('UI_smoke', () => {
     const runQuery = await openReadyToQuery(page);
 
     // 4) Run the query and wait for the (mocked) events response.
-    const eventsCall = page.waitForResponse('**/events*');
+    const eventsCall = page.waitForResponse('**/report*');
     await runQuery.click();
     await eventsCall;
 
@@ -263,6 +319,14 @@ test.describe('UI_smoke', () => {
       new RegExp('^' + rowIdPrefix),
     );
 
+    // 7) Clear empties the results list (and the map, which reads the same
+    // eventStore.events) without touching the search form.
+    const clearButton = page.getByTestId('clear-results-button');
+    await expect(clearButton).toBeEnabled();
+    await clearButton.click();
+    await expect(rows).toHaveCount(0);
+    await expect(clearButton).toBeDisabled();
+
     // Capture a screenshot of the final state as evidence of the happy path.
     await page.screenshot({
       path: './test-artifacts/ui-smoke.png',
@@ -284,7 +348,7 @@ test.describe('UI_smoke', () => {
       releaseResponse = resolve;
     });
     let callCount = 0;
-    await page.route('**/events*', async (route) => {
+    await page.route('**/report*', async (route) => {
       callCount++;
       await responseGate;
       await route.fulfill({
@@ -354,7 +418,7 @@ test.describe('UI_smoke', () => {
     const runQuery = page.getByTestId('run-query-button');
     await runQuery.focus();
     await expect(runQuery).toBeEnabled();
-    const eventsCall = page.waitForResponse('**/events*');
+    const eventsCall = page.waitForResponse('**/report*');
     await page.keyboard.press('Enter');
     await eventsCall;
 
@@ -400,5 +464,263 @@ test.describe('UI_smoke', () => {
     await expect(page.getByTestId('detail-event-id')).toHaveValue(
       new RegExp('^' + rowIdPrefix),
     );
+  });
+
+  test('event_tab_search_renders_results_with_no_console_errors', async ({
+    page,
+  }) => {
+    // POST /v1/events/search -- a plain JSON response (no NDJSON progress
+    // stream, unlike the Report tab's /v1/report), matching TEventSearchResponse.
+    await page.route('**/events/search*', (route) =>
+      route.fulfill({
+        json: {
+          success: true,
+          limit: 20,
+          offset: 0,
+          nextOffset: null,
+          total: 1,
+          metadata: {
+            datasets: ['public-global-encounters-events:v3.0'],
+            vessels: [],
+            dateRange: { from: null, to: null },
+          },
+          entries: [
+            {
+              id: 'event-1',
+              type: 'encounter',
+              start: '2026-01-01T14:30:00Z',
+              end: '2026-01-03T18:45:00Z',
+              position: { lat: 55.26, lon: 14.11 },
+              vessel: { id: 'v1', name: 'SEA HUNTER', ssvid: '503707100' },
+              encounter: {
+                vessel: {
+                  id: 'v2',
+                  name: 'COLD CARRIER',
+                  flag: 'PAN',
+                  type: 'carrier',
+                  ssvid: '412345678',
+                },
+                medianDistanceKilometers: 0.4,
+                medianSpeedKnots: 1.1,
+                type: 'FISHING-CARRIER',
+              },
+            },
+          ],
+        },
+      }),
+    );
+
+    // Regression guard: this is exactly the kind of bug a real browser
+    // catches that typecheck/lint/unit tests don't -- e.g. the duplicate
+    // React key warning from two dropdown options sharing value: ''.
+    const consoleErrors: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') consoleErrors.push(msg.text());
+    });
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    await page.getByTestId('sidebar-tab-event').click();
+
+    const runQuery = page.getByTestId('event-search-button');
+    await expect(runQuery).toBeVisible();
+    // Datasets is required: the button stays disabled until one is checked.
+    await expect(runQuery).toBeDisabled();
+
+    // Event Search starts collapsed, same as the Report tab's AOI section --
+    // expand it, then its own nested "Datasets" field (same collapsed-by-
+    // default SectionItem shape as Filter.tsx's own Datasets block, which
+    // this mirrors), before the checkboxes inside are interactable.
+    await page.getByTestId('event-search-section-header').click();
+    await page.getByRole('button', { name: 'Datasets' }).click();
+
+    // CheckboxInput visually hides the real <input> off-canvas behind a
+    // custom styled box (a standard accessible-checkbox pattern) -- click
+    // the enclosing <label> instead, same as a real user clicking the
+    // visible box (native label/input association forwards the click).
+    await page.locator('label', { hasText: 'Encounters' }).click();
+    await expect(runQuery).toBeEnabled();
+
+    const clearButton = page.getByTestId('event-clear-button');
+    await expect(clearButton).toBeDisabled();
+
+    const eventsSearchCall = page.waitForResponse('**/events/search*');
+    await runQuery.click();
+    await eventsSearchCall;
+
+    await expect(page.getByTestId('event-result-row')).toHaveCount(1);
+    await expect(page.getByTestId('event-result-row')).toContainText(
+      'SEA HUNTER',
+    );
+
+    // The subtitle shows the date-only start - end range, not the raw
+    // timestamps -- no time of day (no ':') even though start/end differ.
+    await expect(page.getByTestId('event-result-row')).toContainText(
+      '2026-01-01 - 2026-01-03',
+    );
+
+    // Every result is drawn on the map as soon as the search returns -- no
+    // separate "pin" step -- adding an "Event" swatch to the same legend box
+    // that already explains Matched/Unmatched/Clustered, etc.
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Event',
+    );
+
+    // Selecting the row (list -> map half of the selection sync) rings its
+    // marker -- useGfwEventMarkers.ts's L_SELECTED layer, which shares the
+    // same legend row (and --color-primary-purple6 style) the SAR-detection
+    // selection ring already uses.
+    await expect(page.getByTestId('event-markers-legend')).not.toContainText(
+      'Selected',
+    );
+    await page.getByTestId('event-result-row').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Selected',
+    );
+
+    // Re-clicking the active row deselects it, same as re-clicking an
+    // active marker on the map.
+    await page.getByTestId('event-result-row').click();
+    await expect(page.getByTestId('event-markers-legend')).not.toContainText(
+      'Selected',
+    );
+
+    // "Go to" (next to the export "+") always selects -- unlike the row's
+    // own click, it never toggles off -- and pans the map to the event.
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Selected',
+    );
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+
+    // Clear empties the list and the map together -- both read the same
+    // gfwEventStore.events.
+    await expect(clearButton).toBeEnabled();
+    await clearButton.click();
+    await expect(page.getByTestId('event-result-row')).toHaveCount(0);
+    await expect(page.getByTestId('event-markers-legend')).not.toBeVisible();
+    await expect(clearButton).toBeDisabled();
+
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test('detail_tab_shows_relevant_events_for_a_matched_detections_vessel', async ({
+    page,
+  }) => {
+    // total (7) exceeds what one page returns, so hasMore is true and the
+    // "check the Events tab" message renders with the correct remaining
+    // count (7 - 1 = 6).
+    const relevantEvent = {
+      id: 'relevant-event-1',
+      type: 'encounter',
+      start: '2026-01-02T00:00:00Z',
+      end: '2026-01-02T01:00:00Z',
+      position: { lat: 55.2, lon: 14.4 },
+      vessel: { id: 'v1', name: 'FIRST ENCOUNTER', ssvid: '111111111' },
+    };
+
+    const requestBodies: Record<string, unknown>[] = [];
+    await page.route('**/events/search*', (route) => {
+      requestBodies.push(JSON.parse(route.request().postData() ?? '{}'));
+      route.fulfill({
+        json: {
+          success: true,
+          limit: 5,
+          offset: 0,
+          nextOffset: 5,
+          total: 7,
+          metadata: { datasets: [], vessels: [], dateRange: { from: null, to: null } },
+          entries: [relevantEvent],
+        },
+      });
+    });
+
+    const runQuery = await openReadyToQuery(page);
+    const eventsCall = page.waitForResponse('**/report*');
+    await runQuery.click();
+    await eventsCall;
+    await page.getByTestId('modal-close-button').click();
+
+    // The fixture's first entry (event_id starting "dfc71c0f4f") is the one
+    // matched detection whose raw_metadata.vesselId is known ahead of time
+    // -- located by that id rather than row position/sort order (the table
+    // sorts by triage_score by default, not fetch order), the gate
+    // DetailEvents.tsx itself needs (only a matched detection carries a
+    // vessel id).
+    const matchedRow = page
+      .getByTestId('detection-row')
+      .filter({ hasText: 'dfc71c0f4f' });
+    const relevantEventsCall = page.waitForResponse('**/events/search*');
+    await matchedRow.getByTestId('event-details-button').click();
+    await relevantEventsCall;
+
+    // The query is exactly what DetailEvents.tsx promises: every dataset,
+    // only this vessel, sorted latest-first, capped at 5 -- not the Event
+    // tab form's own filters. The frontend's own outbound envelope wraps
+    // the GFW filters in body_params (see useFetchGfwEvents' `rest` --
+    // {url, method, body_params} -- Pharos' backend forwards body_params
+    // on to GFW, it isn't flattened over the wire).
+    const firstBody = requestBodies[0]?.body_params as
+      | { vessels?: string[]; datasets?: unknown[] }
+      | undefined;
+    expect(firstBody?.vessels).toEqual([
+      '369fc1e02-2678-b669-af58-b2f3ae66a515',
+    ]);
+    expect(firstBody?.datasets?.length).toBe(5);
+
+    await expect(page.getByTestId('event-result-row')).toHaveCount(1);
+    await expect(page.getByTestId('event-result-row')).toContainText(
+      'FIRST ENCOUNTER',
+    );
+
+    // The section starts collapsed even though data already arrived, but
+    // the fetched event is already on the map regardless -- no separate
+    // "show on map" step, same as the Event tab's own results.
+    await expect(
+      page.getByTestId('detail-events-section-header'),
+    ).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Event',
+    );
+
+    // Expand the section to reach its row actions.
+    await page.getByTestId('detail-events-section-header').click();
+
+    // "Go to" selects the event (highlighted row + map ring) and pans the
+    // map there -- shared with the Event tab's own list (EventList.tsx).
+    await page.getByTestId('event-result-go-to').click();
+    await expect(page.getByTestId('event-result-row')).toHaveAttribute(
+      'data-active',
+      'true',
+    );
+    await expect(page.getByTestId('event-markers-legend')).toContainText(
+      'Selected',
+    );
+
+    // No in-place "More" here (removed) -- with 6 more events than the
+    // 5-per-page limit shows, DetailEvents.tsx instead points at the Event
+    // tab's own Prev/Next to continue this exact search.
+    await expect(page.getByTestId('detail-events-section-header')).toBeVisible();
+    await expect(page.getByText(/6 more event\(s\) found/)).toBeVisible();
+    await expect(page.getByText(/check the Events tab/)).toBeVisible();
+    await expect(page.getByTestId('detail-events-more-button')).toHaveCount(0);
+
+    // Renamed from "Event Results" (EventResults.tsx's own title) to just
+    // "Events" for this box.
+    await expect(
+      page.getByTestId('detail-events-section-header'),
+    ).toContainText('Events');
   });
 });

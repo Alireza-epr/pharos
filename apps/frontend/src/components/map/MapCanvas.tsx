@@ -10,6 +10,7 @@ import { useAOIRegionBoundary } from '@/hooks/useAOIRegionBoundary';
 import { useHotspotBoundary } from '@/hooks/useHotspotBoundary';
 import { useRegionBoundary } from '@/hooks/useRegionBoundary';
 import { useEventMarkers } from '@/hooks/useEventMarkers';
+import { useGfwEventMarkers } from '@/hooks/useGfwEventMarkers';
 import { useTranslator } from '@/hooks/translator';
 import MapLegend from './MapLegend';
 import EventMarkersLegend from './EventMarkersLegend';
@@ -41,6 +42,7 @@ const MapCanvas = () => {
   useHotspotBoundary(map);
   useRegionBoundary(map);
   useEventMarkers(map);
+  useGfwEventMarkers(map);
 
   useEffect(() => {
     if (!containerRef.current) return;

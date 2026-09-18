@@ -7,11 +7,12 @@ import { EResponseError, EStatusCode } from '@packages/enum';
 import { EBaseRoutes } from '@packages/enum';
 import systemRoutes from '../modules/system/system.routes';
 import authRoutes from '../modules/auth/auth.routes';
-import eventsRoutes from '../modules/events/events.routes';
+import reportRoutes from '../modules/report/report.routes';
 import exportsRoutes from '../modules/exports/exports.routes';
 import regionsRoutes from '../modules/regions/regions.routes';
 import vesselsRoutes from '../modules/vessels/vessels.routes';
 import mcpRoutes from '../modules/mcp/mcp.routes';
+import eventsRoutes from '../modules/events/events.routes';
 import { controllerResponse } from '../helpers/utils/controllerUtils';
 import { attachGitCommitSHA } from '../middlewares/gitMiddleware';
 import { attachStartTime } from '../middlewares/timeMiddleware';
@@ -51,8 +52,8 @@ const prependRoute = '/v1';
 app.use(prependRoute + EBaseRoutes.system, systemRoutes);
 // Auth
 app.use(prependRoute + EBaseRoutes.auth, authRoutes);
-// Events
-app.use(prependRoute + EBaseRoutes.events, eventsRoutes);
+// Report
+app.use(prependRoute + EBaseRoutes.report, reportRoutes);
 // Exports
 app.use(prependRoute + EBaseRoutes.exports, exportsRoutes);
 // Regions (EEZ/MPA option lists)
@@ -61,6 +62,8 @@ app.use(prependRoute + EBaseRoutes.regions, regionsRoutes);
 app.use(prependRoute + EBaseRoutes.vessels, vesselsRoutes);
 // MCP (master-plan 4.1) -- own shared-secret check, not the user JWT flow
 app.use(prependRoute + EBaseRoutes.mcp, mcpRoutes);
+// Events
+app.use(prependRoute + EBaseRoutes.events, eventsRoutes);
 
 // Not found handler
 app.use((req: Request, res: Response) => {

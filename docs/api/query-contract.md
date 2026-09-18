@@ -39,12 +39,13 @@ For more information, see the API documentation https://globalfishingwatch.org/o
 - [Authentication Login](#authentication-login)
 - [Authentication Refresh Token](#authentication-refresh-token)
 - [Authentication Token Check](#authentication-token-check)
-- [Events Report](#events-report)
+- [Report](#report)
 - [Events Export](#events-export)
 - [Regions](#regions)
 - [Regions Geometry](#regions-geometry)
 - [Vessels Search](#vessels-search)
 - [Vessels List by IDs](#vessels-list-by-ids)
+- [Events Search](#events-search)
 - [MCP Tool Server](#mcp-tool-server)
 
 ---
@@ -327,9 +328,14 @@ Example:
 
 ---
 
-## Events Report
+## Report
 
-**POST** `/events`
+**POST** `/report`
+
+_Renamed from `/events` -- the SAR-detection report query now lives at
+`/report` (matching the provider's own "report" terminology, see
+`I4wingsReportPostURLParams`), which frees `/events` for the GFW Events API
+proxy the Event tab uses (see [Events Search](#events-search))._
 
 **Description:**
 `Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.`
@@ -724,7 +730,7 @@ used to return as its entire body.
 
 | Key                             | Description                                                                                                                                         | Required | Format | Param Type |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | ---------- |
-| [config](#export-config-object) | Run configuration used to build the bundle and its run metadata. Same shape as the [Events Report](#events-report) body, plus an `export` selector. | True     | object | body       |
+| [config](#export-config-object) | Run configuration used to build the bundle and its run metadata. Same shape as the [Report](#report) body, plus an `export` selector. | True     | object | body       |
 | events                          | Canonical event records to include in the bundle                                                                                                    | True     | array  | body       |
 | hotspots                        | Hotspot records to include when hotspot files are selected                                                                                          | False    | array  | body       |
 
@@ -732,7 +738,7 @@ used to return as its entire body.
 
 #### Export Config Object
 
-The `config` object reuses the [Events Report](#events-report) request body (URL, method, body_params, filter, sort, hotspot, threshold, pagination) and adds an `export` object that selects which files are written into the archive.
+The `config` object reuses the [Report](#report) request body (URL, method, body_params, filter, sort, hotspot, threshold, pagination) and adds an `export` object that selects which files are written into the archive.
 
 - export
 
@@ -868,7 +874,7 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 
 ### 5. Notes
 
-- `dataset` uses the same `EEZ` / `MPA` values as the `region-dataset` field on [Events Report](#events-report); the `id` returned here is the same `region-id` that endpoint accepts
+- `dataset` uses the same `EEZ` / `MPA` values as the `region-dataset` field on [Report](#report); the `id` returned here is the same `region-id` that endpoint accepts
 - Each feature's `geometry` is a cheap centroid point, not the real boundary polygon - the MPA dataset alone is 17,000+ features, so shipping full boundaries would be a much larger payload than a dropdown or a "zoom the map to this region" use case needs. `bbox` is what a client fits/zooms the map to; the centroid is enough to place a marker or fly to a point
 - A small share of the source EEZ/MPA data (an overlapping-claim EEZ, and roughly a fifth of MPA sites) has no boundary geometry recorded upstream; those entries are silently excluded rather than returned with a broken bbox/centroid
 - Options for a dataset are computed once per server process and memoized - repeat requests are served from the cached list, not recomputed
@@ -956,7 +962,7 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 **POST** `/vessels/search`
 
 **Description:**
-`Searches Global Fishing Watch's vessel identity dataset by free text or an advanced expression - a different GFW resource from Events Report above (vessel identity records, not gridded SAR/AIS detections). A near-direct pass-through to the provider: unlike Events Report there is no caching, scoring, or hotspot pipeline here.`
+`Searches Global Fishing Watch's vessel identity dataset by free text or an advanced expression - a different GFW resource from Report above (vessel identity records, not gridded SAR/AIS detections). A near-direct pass-through to the provider: unlike Report there is no caching, scoring, or hotspot pipeline here.`
 
 **Authentication:**
 `Bearer access token required`
@@ -980,7 +986,7 @@ Binary ZIP archive (application/zip) - see Content-Disposition for the file name
 
 ### 2. Request - Body
 
-The Vessel tab's analogue of Events Report's body above (`IVesselConfigJSON`), kept to just these two fields - a vessel search carries no triage/hotspot/threshold/sort/pagination config to add. `url_params` (the table above) still travels in the query string, same split as Events Report.
+The Vessel tab's analogue of Report's body above (`IVesselConfigJSON`), kept to just these two fields - a vessel search carries no triage/hotspot/threshold/sort/pagination config to add. `url_params` (the table above) still travels in the query string, same split as Report.
 
 | Key    | Description                                          | Required | Format         | Param Type |
 | ------ | ----------------------------------------------------- | -------- | -------------- | ---------- |
@@ -1052,9 +1058,9 @@ The backend currently forwards GFW's whole raw reply rather than curating it dow
 - **Pagination is a forward-only scroll cursor, not offset-based.** Confirmed against the live API: the `since` token GFW returns is reused unchanged for every subsequent page (it's an Elasticsearch scroll id under the hood) - there is no backward cursor at all. The frontend answers "previous page" from an in-memory cache of already-fetched pages rather than a second request; "has more" is inferred by comparing how many entries have been fetched so far against `total`, since GFW sends no explicit end-of-results flag
 - `match-fields[i]` filters the *result set* by how confidently each record matched the query - it does not change how many candidates exist to filter from
 - `includes[i]` only changes how much data is attached to each result, never which vessels are returned or how many
-- This endpoint has no caching, scoring, or context-layer enrichment - unlike Events Report, a vessel identity record is returned close to as the provider sent it
-- Body `method` is always forced to `GET` server-side regardless of what's sent - GFW's vessel search has exactly one legal method, so unlike Events Report's `method` (which branches per-request on whether `body_params` is present) there's nothing to branch on
-- Body `url` is trusted as sent, same as Events Report's own `URL` field - not validated or defaulted server-side
+- This endpoint has no caching, scoring, or context-layer enrichment - unlike Report, a vessel identity record is returned close to as the provider sent it
+- Body `method` is always forced to `GET` server-side regardless of what's sent - GFW's vessel search has exactly one legal method, so unlike Report's `method` (which branches per-request on whether `body_params` is present) there's nothing to branch on
+- Body `url` is trusted as sent, same as Report's own `URL` field - not validated or defaulted server-side
 
 ---
 
@@ -1157,6 +1163,139 @@ Same whole-raw-reply forwarding as [Vessels Search](#vessels-search) - see that 
 
 ---
 
+## Events Search
+
+**POST** `/events/search`
+
+**Description:**
+`Searches Global Fishing Watch's Events API - encounters, loitering, port visits, AIS gaps, and fishing events. A different GFW resource from Report above (vessel-attributed behavioral events, not gridded SAR/AIS detections) and from Vessels Search (vessel identity, not activity). A near-direct pass-through to the provider: like Vessels Search there is no caching, scoring, or hotspot pipeline here. Backs the Event tab, independent of the Report tab / map, with an opt-in bridge to the Report tab's AOI (see Notes).`
+
+**Authentication:**
+`Bearer access token required`
+
+> **Corrected from an earlier draft of this doc:** the previous revision modeled this as a GET-style endpoint (query-string filters, `include-regions`, a single `types` value, `confidences` as a comma string). Checked against GFW's own maintained Python client (`gfwapiclient`, `resources/events/list/`) and corrected below: the "get all events" endpoint is **POST-only** - there is no GET variant at all, unlike Vessels Search - `limit`/`offset`/`sort` are the only query params, every filter is a POST-body field, several are arrays not scalars, and `include-regions` does not exist on this endpoint.
+
+---
+
+### 1. Request - URL Parameters
+
+Only pagination/sort travel in the query string - every filter is in the body (below).
+
+| Parameter | Description                                             | Required | Format                          | Param Type |
+| --------- | ---------------------------------------------------------- | -------- | ---------------------------------- | ---------- |
+| limit     | Max results to return                                       | False    | number (this app defaults to 20; GFW's own client defaults to 99999) | query |
+| offset    | Offset into the result set, for pagination                  | False    | number (default 0)                | query      |
+| sort      | Sort field, `+field` ascending or `-field` descending - "depends on the dataset" per GFW's own docstring | False | string | query |
+
+---
+
+### 2. Request - Body
+
+The Event tab's analogue of Vessels Search's body above, but carrying the actual filters (`IEventConfigJSON.body_params`) rather than just `url`/`method` - GFW's Events API puts every filter here, not in the query string.
+
+| Key            | Description                                                                     | Required | Format                                                              | Param Type |
+| -------------- | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------ | ---------- |
+| url            | Upstream Events API endpoint used as the data source                                | False    | string                                                                    | body       |
+| method         | HTTP method used for the upstream request - GFW's events endpoint is POST-only, so this is always `POST` | False | Enum: `['POST']`                                            | body       |
+| body_params.datasets | Event-dataset identifier(s) to search                                          | **True** | array of Enum values: `['public-global-fishing-events:v3.0', 'public-global-encounters-events:v3.0', 'public-global-loitering-events:v3.0', 'public-global-port-visits-events:v3.0', 'public-global-gaps-events:v3.0']` | body |
+| body_params.vessels | GFW vessel id(s) to restrict results to                                        | False    | array of string                                                          | body       |
+| body_params.startDate | Start of the date range, inclusive                                           | False    | string, full UTC ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`, e.g. `2025-12-04T00:00:00Z`) | body |
+| body_params.endDate | End of the date range, exclusive                                               | False    | string, full UTC ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`, e.g. `2025-12-06T23:59:59Z`) | body |
+| body_params.confidences | Confidence tier(s) - **applies only to port_visits events**, sent regardless of which datasets are selected | False | array of Enum: `['2', '3', '4']` | body |
+| body_params.encounterTypes | Encounter-type filter - only meaningful when the encounters dataset is selected | False | array of Enum: `['CARRIER-FISHING', 'FISHING-CARRIER', 'FISHING-SUPPORT', 'SUPPORT-FISHING', 'FISHING-BUNKER', 'BUNKER-FISHING', 'FISHING-FISHING', 'FISHING-TANKER', 'TANKER-FISHING', 'CARRIER-BUNKER', 'BUNKER-CARRIER', 'SUPPORT-BUNKER', 'BUNKER-SUPPORT']` | body |
+| body_params.duration | Minimum event duration, in minutes                                            | False    | number                                                                    | body       |
+| body_params.vesselTypes | Vessel-type filter                                                          | False    | array of Enum: `['BUNKER', 'CARGO', 'DISCREPANCY', 'CARRIER', 'FISHING', 'GEAR', 'OTHER', 'PASSENGER', 'SEISMIC_VESSEL', 'SUPPORT']` | body |
+| body_params.vesselGroups | GFW vessel-group id(s) to restrict results to                             | False    | array of string                                                          | body       |
+| body_params.flags | ISO3 flag code(s) of the vessels involved                                       | False    | array of string                                                          | body       |
+| body_params.geometry | A drawn AOI polygon (GeoJSON) - mutually exclusive with `region`, below       | False    | `{ type, coordinates }`                                                  | body       |
+| body_params.region | A named EEZ/MPA region - mutually exclusive with `geometry`, above; no buffer support (see Notes) | False | `{ dataset, id }` | body |
+
+`types` (GFW's own event-type filter, distinct from `datasets`) is deliberately not sent - each GFW event dataset is already type-specific (the encounters dataset only ever returns encounter events, etc.), so the Datasets field alone determines which event types are queried. See [event-search.md](../tech/event-search.md) for the "Author call" behind this.
+
+Default:
+
+```json
+{
+  "url": "https://gateway.api.globalfishingwatch.org/v3/events",
+  "method": "POST"
+}
+```
+
+---
+
+### 3. Response
+
+Same whole-raw-reply forwarding as [Vessels Search](#vessels-search) - see that section's Response note.
+
+| Field     | Description                                                              | Format  |
+| --------- | --------------------------------------------------------------------------- | ------- |
+| success   | Request status                                                              | boolean |
+| entries   | Event records (shape varies by `type` - fishing/encounter/loitering/port_visit/gap) | array   |
+| total     | Total number of matching events                                             | number  |
+| limit     | Page size actually used                                                     | number  |
+| offset    | Offset actually used                                                        | number  |
+| nextOffset | Offset for the next page, or `null` at the end of the result set           | number or null |
+| metadata  | `{ datasets, vessels, dateRange, encounterTypes?, geometry? }` - GFW's own echo of how the query was interpreted | object |
+
+---
+
+#### Example: Success Response (200 OK)
+
+```json
+{
+  "success": true,
+  "limit": 20,
+  "offset": 0,
+  "nextOffset": 20,
+  "total": 143,
+  "entries": [
+    {
+      "id": "3f9a2b1c-...",
+      "type": "encounter",
+      "start": "2026-01-14T02:11:00Z",
+      "end": "2026-01-14T04:47:00Z",
+      "position": { "lat": 55.26, "lon": 14.11 },
+      "vessel": { "id": "2cb75b67...", "name": "SEA HUNTER", "ssvid": "503707100" },
+      "encounter": {
+        "vessel": { "id": "8c73042...", "name": "COLD CARRIER", "flag": "PAN", "type": "carrier", "ssvid": "412345678" },
+        "medianDistanceKilometers": 0.4,
+        "medianSpeedKnots": 1.1,
+        "type": "FISHING-CARRIER"
+      }
+    }
+  ],
+  "metadata": {
+    "datasets": ["public-global-encounters-events:v3.0"],
+    "vessels": [],
+    "dateRange": { "from": null, "to": null }
+  }
+}
+```
+
+---
+
+### 4. Errors
+
+- `400 Bad Request` – Invalid or missing query/body parameters (e.g. no `body_params.datasets`)
+- `401 Unauthorized` – Missing, invalid, or expired access token
+- `500 Internal Server Error` – Unexpected failure (e.g. upstream provider error)
+
+---
+
+### 5. Notes
+
+- `body_params.datasets` is required - GFW's own contract, not just this app's choice; there is nothing to search without at least one event dataset selected. The Event tab's Run Query button gates on this alone (no date-range/vessel/region requirement) - an "Author call" made to mirror the Vessels tab's own minimal-gate precedent rather than add a second, app-specific restriction on top of GFW's. Date range is always sent regardless (see below), so it's never actually blank.
+- Date range is **not** a separate Event-tab field - `startDate`/`endDate` are read from the Report tab's own Time Range block (`useTimeRangeStore`, shared state, not a copy) every time a search runs, so it's always populated with that block's current value and can never be blank. Sent as a full UTC timestamp (`${dateFrom}Z`/`${dateTo}Z`), the exact same convention `useTimeRangeStore.getTimeRange()` already uses for the Report tab's own `date-range` param - not truncated to a bare date.
+- **AOI bridge (opt-in):** a "Use Report AOI" checkbox, disabled unless the Report tab currently has an AOI (drawn Zonal/Point shape, or a selected EEZ/MPA region) - same gate ReportTab.tsx uses for its own Run Query button. When checked, a drawn shape becomes `body_params.geometry`; a selected region becomes `body_params.region`. GFW's `region` has no buffer field, so a configured region buffer (buffer-operation/-unit/-value on the Report tab's AOI) does not carry over.
+- Pagination is plain offset/limit paging (`offset`/`limit`/`nextOffset`/`total`), unlike [Vessels Search](#vessels-search)'s forward-only scroll cursor - simpler: "next" is `offset + (sum of every page's own length so far)`, "prev" is answered from the same already-fetched-pages cache Vessels Search uses, for the same reason.
+- Every dataset id sent is pinned to `v3.0` by default (a per-dataset version picker is exposed, mirroring the Report tab's own Datasets Filter block) - matches the version already hardcoded elsewhere in this codebase (`samples.ts`, `filterStore.ts`).
+- This endpoint has no caching, scoring, or context-layer enrichment - unlike Report, an event record is returned close to as the provider sent it.
+- Body `method`/`url` trust rules are the same as [Vessels Search](#vessels-search)'s own Notes: `method` is always forced to `POST` server-side, `url` is trusted as sent.
+- **AOI and date range import/export fully replace, not merge:** since both are state shared with the Report tab, importing an Event Search Config file, applying an Event tab History entry, or hydrating from the `eventConfig` URL param all fully overwrite `useAOIStore`/`useTimeRangeStore` - including clearing the AOI entirely (and unchecking "Use Report AOI") when the imported config has neither `geometry` nor `region`, and **checking** "Use Report AOI" automatically when it has either - exactly like the Report tab's own import does for itself. See `importEventAOIAndTimeRange()` in [event-search.md](../tech/event-search.md).
+- The Export tab's Event section and the History tab's Event section both read/write this endpoint's records client-side only, same as Vessels Search's own sections - see [event-search.md](../tech/event-search.md).
+
+---
+
 ## MCP Tool Server
 
 **POST** `/mcp`
@@ -1224,7 +1363,7 @@ data: {"result":{"content":[{"type":"text","text":"{...tool output...}"}]},"json
 
 ### 5. Notes
 
-- Two tools today: `pharos_health` (connectivity/build check, no input) and `run_query` (calls this same backend's real Events Report endpoint internally over a loopback HTTP request - no duplicated query/scoring logic; see its exact input fields via `tools/list` rather than duplicating them here, since the tool's own schema is the source of truth)
+- Two tools today: `pharos_health` (connectivity/build check, no input) and `run_query` (calls this same backend's real Report endpoint internally over a loopback HTTP request - no duplicated query/scoring logic; see its exact input fields via `tools/list` rather than duplicating them here, since the tool's own schema is the source of truth)
 - Stateless: every request gets a fresh MCP server + transport, so nothing is remembered between calls - no `mcp-session-id` header is ever set
 - Full auth model (why per-agent keys, how to add/revoke one, why not OAuth yet): see the [authentication documentation](./authentication.md)
 

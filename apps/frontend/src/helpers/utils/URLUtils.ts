@@ -6,9 +6,11 @@ import {
 } from '@packages/utils';
 import { THydrateResult } from '../types/URLTypes';
 import { importConfigWithRegionPreload, isValidConfig } from './configUtils';
-import { isValidVesselConfigJSON } from './validationUtils';
-import { IConfigJSON, IVesselConfigJSON } from '@packages/types';
+import { isValidEventConfigJSON, isValidVesselConfigJSON } from './validationUtils';
+import { importEventAOIAndTimeRange } from './eventConfigUtils';
+import { IConfigJSON, IEventConfigJSON, IVesselConfigJSON } from '@packages/types';
 import { useVesselSearchStore } from '../../stores/vesselSearchStore';
+import { useGfwEventSearchStore } from '../../stores/gfwEventSearchStore';
 
 /**
  * Generic helpers for round-tripping a JSON-serializable value through a
@@ -118,5 +120,35 @@ export const hydrateVesselSearchConfigFromURL = (): THydrateResult => {
   if (!isValidVesselConfigJSON(decoded)) return 'invalid';
 
   useVesselSearchStore.getState().importVesselSearchParams(decoded.url_params);
+  return 'hydrated';
+};
+
+export const syncEventSearchConfigToURL = (a_Config: IEventConfigJSON): void => {
+  const json = encodeJSONForURL(a_Config);
+  if (json === null) return;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set(EURLParams.eventConfig, json);
+  window.history.replaceState(null, '', url.toString());
+};
+
+export const hydrateEventSearchConfigFromURL = async (): Promise<THydrateResult> => {
+  const raw = getURLParam<string>(EURLParams.eventConfig);
+  if (raw === null) return 'absent';
+
+  log_frontend(
+    '[import:EventConfig] phase: hydrating from URL eventConfig param',
+    ELogType.info,
+  );
+
+  const decoded = decodeJSONFromURL(raw);
+  if (!isValidEventConfigJSON(decoded)) return 'invalid';
+
+  useGfwEventSearchStore.getState().importEventSearchParams(decoded.body_params);
+  useGfwEventSearchStore.getState().setLimit(decoded.url_params.limit ?? 20);
+  useGfwEventSearchStore.getState().setSort(decoded.url_params.sort ?? '');
+  // AOI and date range are shared with the Report tab -- fully REPLACE
+  // them, same as the Report tab's own hydrateConfigFromURL does for itself.
+  await importEventAOIAndTimeRange(decoded.body_params);
   return 'hydrated';
 };

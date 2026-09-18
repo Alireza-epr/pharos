@@ -1,6 +1,7 @@
 import {
   EBaseRoutes,
   EContextLayers,
+  EEventsRoutes,
   EExportsRoutes,
   EFetchMethods,
   ELogType,
@@ -9,7 +10,9 @@ import {
 } from '@packages/enum';
 import {
   IConfigJSON,
+  IEventConfigJSON,
   IEventSchema,
+  IEventSearchAPIResponse,
   IResponse,
   IVesselConfigJSON,
   IVesselListAPIResponse,
@@ -87,7 +90,7 @@ const readProgressStream = async (
 };
 
 export const useFetchEvents = () => {
-  const url = `${BASE_URL}${EBaseRoutes.events}`;
+  const url = `${BASE_URL}${EBaseRoutes.report}`;
   const [response, setResponse] = useState<IResponse<IEventSchema> | null>(
     null,
   );
@@ -462,6 +465,75 @@ export const useFetchExportEvents = () => {
           '3',
         );
         setError(message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url],
+  );
+
+  return { response, loading, error, execute };
+};
+
+// Same shape as TVesselSearchResponse -- the backend forwards GFW's whole
+// raw Events-API response (limit/offset/nextOffset/total/metadata, not just
+// entries).
+export type TEventSearchResponse = IEventSearchAPIResponse & {
+  success: boolean;
+  error?: string[];
+};
+
+// Search GFW behavioral events (Events API, via POST /v1/events/search).
+// Same url_params-in-query/rest-in-body split as useFetchVessels -- carrying
+// IEventConfigJSON's body (url/method) instead of IVesselConfigJSON's --
+// unlike useFetchEvents (the Report tab's SAR-detection hook) there's no
+// progress stream to read, since the backend does no caching/scoring
+// pipeline for this endpoint either.
+export const useFetchGfwEvents = () => {
+  const url = `${BASE_URL}${EBaseRoutes.events}${EEventsRoutes.search}`;
+  const [response, setResponse] = useState<TEventSearchResponse | null>(
+    null,
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const execute = useCallback(
+    async (a_Config: IEventConfigJSON) => {
+      const { url_params, ...rest } = a_Config;
+      const searchParams = new URLSearchParams(
+        Object.entries(url_params).reduce<Record<string, string>>(
+          (acc, [key, value]) => {
+            if (value !== undefined) acc[key] = String(value);
+            return acc;
+          },
+          {},
+        ),
+      );
+      const options = {
+        method: EFetchMethods.post,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(rest),
+      };
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetchWithAuth(
+          `${url}?${searchParams.toString()}`,
+          options,
+        );
+        const json: TEventSearchResponse = await res.json();
+        setResponse(json);
+        return json;
+      } catch (err: any) {
+        const message = err instanceof Error ? err.message : String(err);
+        log_frontend(
+          `[useFetchGfwEvents] Error: ${message}`,
+          ELogType.error,
+          '3',
+        );
+        setError(err);
       } finally {
         setLoading(false);
       }

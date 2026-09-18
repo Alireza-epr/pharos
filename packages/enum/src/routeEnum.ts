@@ -1,12 +1,13 @@
 export enum EBaseRoutes {
   system = "/system",
   auth = "/auth",
-  events = "/events",
+  report = "/report",
   hotspots = "/hotspots",
   exports = "/exports",
   regions = "/regions",
   vessels = "/vessels",
   mcp = "/mcp",
+  events = "/events",
 }
 
 export enum ERegionsRoutes {
@@ -14,6 +15,10 @@ export enum ERegionsRoutes {
 }
 
 export enum EVesselsRoutes {
+  search = "/search",
+}
+
+export enum EEventsRoutes {
   search = "/search",
 }
 

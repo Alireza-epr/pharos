@@ -44,7 +44,7 @@ export const buildPharosMcpServer = (): McpServer => {
     },
   );
 
-  // The real one: calls this same backend's live POST /v1/events. See
+  // The real one: calls this same backend's live POST /v1/report. See
   // tools/runQuery.ts for why it's an internal HTTP call rather than a
   // second implementation of the serving path.
   registerRunQueryTool(server);

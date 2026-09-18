@@ -9,6 +9,7 @@ export interface IListItemProps {
   // exposed here so a row's subtitle (e.g. a failed history entry) can use
   // it too.
   subtitleError?: boolean;
+  subtitleHint?: string | undefined;
   active?: boolean;
   onClick?: () => void;
   prepend?: ReactNode;
@@ -57,6 +58,7 @@ const ListItem = (props: IListItemProps) => {
         {props.subtitle && (
           <span
             className={`font-size-xs truncate ${listItemStyle.subtitle} ${props.subtitleError ? 'error' : ''}`}
+            title={props.subtitleHint}
           >
             {props.subtitle}
           </span>

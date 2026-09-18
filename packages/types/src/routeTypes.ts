@@ -13,6 +13,7 @@ import {
 import {
   I4wingsReportGetURLParams,
   I4wingsReportPostURLParams,
+  IEventConfigJSON,
   IVesselConfigJSON,
   IVesselListConfigJSON,
   TDatasetVersion,
@@ -57,6 +58,8 @@ export type TBodyParams = Omit<IConfigJSON, "url_params">;
 export type TVesselBodyParams = Omit<IVesselConfigJSON, "url_params">;
 
 export type TVesselListBodyParams = Omit<IVesselListConfigJSON, "url_params">;
+
+export type TEventBodyParams = Omit<IEventConfigJSON, "url_params">;
 
 export type TURLParams = I4wingsReportGetURLParams | I4wingsReportPostURLParams;
 

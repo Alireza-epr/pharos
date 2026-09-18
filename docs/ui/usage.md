@@ -142,17 +142,17 @@ for anyone reading the repo).
 
 ## History (`HistoryTab.tsx`)
 
-The right drawer's third tab, alongside Detail and Export. Two sections,
-**Report** and **Vessels**, styled the same as `ExportTab` - one entry per
-query/search that actually ran in that tab, success or failure, newest
-first. Each entry shows a timestamp and either a result count
+The right drawer's third tab, alongside Detail and Export. Three sections,
+**Report**, **Vessels**, and **Event**, styled the same as `ExportTab` - one
+entry per query/search that actually ran in that tab, success or failure,
+newest first. Each entry shows a timestamp and either a result count
 (`{{count}} result(s)`) or a `Query failed` subtitle, the latter colored via
 the same global `error` class the rest of the app uses for failure text
 (`ReportTab`/`VesselTab`/`ExportTab` all use it too - one consistent "this
 went wrong" color, not a one-off here).
 
 **Apply** restores that entry's query config and its captured result set
-with no re-fetch of the underlying detections/vessels - the result was
+with no re-fetch of the underlying detections/vessels/events - the result was
 saved alongside the query the moment it originally ran, so replaying it is
 a pure state write (`applyHistoryEntry`, `helpers/utils/historyUtils.ts`).
 The one exception: a Report-tab entry whose AOI used an EEZ/MPA region
@@ -171,7 +171,8 @@ Two independent layers, both plain JSON-file round-trips
 (`downloadJSON`/`openJSONFile`) with no server involvement:
 
 - **Whole-query config** - one `Section` per tab (`ExportAndImportConfig.tsx`
-  for Report, `VesselExportAndImportConfig.tsx` for Vessel Search). Export
+  for Report, `VesselExportAndImportConfig.tsx` for Vessel Search,
+  `EventExportAndImportConfig.tsx` for Event Search). Export
   downloads the entire current config as one JSON file (hidden run-only
   fields like `gitCommitSHA`/`export`/`cache` stripped first via
   `stripHiddenConfiguration`); import validates the file's shape and, if

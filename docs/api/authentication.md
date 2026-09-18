@@ -18,7 +18,9 @@ Both tokens are signed with `JWT_SECRET` (see the README for how that secret is 
       └─> { accessToken, refreshToken }
 
 2. Call protected endpoints with the access token:
-      POST /v1/events  +  Authorization: Bearer <accessToken>
+      POST /v1/report  +  Authorization: Bearer <accessToken>
+      (every protected endpoint follows the same pattern -- /v1/events,
+      /v1/vessels/search, /v1/regions, etc.)
 
 3. Access token expired -> 401
       POST /v1/auth/refresh  { refreshToken }

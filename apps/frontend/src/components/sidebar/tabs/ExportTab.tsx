@@ -2,6 +2,7 @@ import sidebarStyle from '../Sidebar.module.scss';
 import { useTranslator } from '../../../hooks/translator';
 import { useEventStore } from '../../../stores/eventStore';
 import { useVesselStore } from '../../../stores/vesselStore';
+import { useGfwEventStore } from '../../../stores/gfwEventStore';
 import SectionInputGroup from '../../../components/common/section/SectionInputGroup';
 import ButtonInput from '../../../components/common/inputs/ButtonInput';
 import { useFetchExportEvents } from '../../../hooks/fetch';
@@ -18,6 +19,10 @@ import {
   getVesselDisplayFields,
   getVesselKey,
 } from '../../../helpers/utils/vesselUtils';
+import {
+  getEventDisplayFields,
+  getEventKey,
+} from '../../../helpers/utils/gfwEventUtils';
 
 const ExportTab = () => {
   const { t } = useTranslator();
@@ -30,21 +35,25 @@ const ExportTab = () => {
   const selectedVessels = useVesselStore((s) => s.selectedVessels);
   const setSelectedVessels = useVesselStore((s) => s.setSelectedVessels);
 
+  const selectedGfwEvents = useGfwEventStore((s) => s.selectedEvents);
+  const setSelectedGfwEvents = useGfwEventStore((s) => s.setSelectedEvents);
+
   const config = useConfigStore((s) => s.config);
   const setConfig = useConfigStore((s) => s.setConfig);
   const exportConfig = useConfigStore((s) => s.getExport());
 
   // The Report section still goes through the backend zip pipeline (it
   // needs `config` and at least one Include Files format checked --
-  // evidenceController rejects an empty events list outright). Vessels have
-  // no backend bundle format at all yet -- a vessel identity record is
-  // already fully present client-side, so its export is a plain JSON
+  // evidenceController rejects an empty events list outright). Vessels and
+  // GFW events both have no backend bundle format at all yet -- each record
+  // is already fully present client-side, so their export is a plain JSON
   // download of whatever's in the list, no format choice, no round-trip.
   const eventsExportReady =
     !!config &&
     selectedEvents.length > 0 &&
     Object.entries(exportConfig).filter(([, v]) => v).length > 0;
   const vesselsExportReady = selectedVessels.length > 0;
+  const gfwEventsExportReady = selectedGfwEvents.length > 0;
 
   const handleExportClick = async () => {
     if (eventsExportReady && config) {
@@ -62,6 +71,10 @@ const ExportTab = () => {
     if (vesselsExportReady) {
       downloadJSON(selectedVessels, 'vessels_export');
     }
+
+    if (gfwEventsExportReady) {
+      downloadJSON(selectedGfwEvents, 'events_export');
+    }
   };
 
   const handleRemoveClick = (a_EventId: string) => {
@@ -71,6 +84,12 @@ const ExportTab = () => {
   const handleRemoveVesselClick = (a_VesselKey: string | undefined) => {
     setSelectedVessels((prev) =>
       prev.filter((v) => getVesselKey(v) !== a_VesselKey),
+    );
+  };
+
+  const handleRemoveGfwEventClick = (a_EventKey: string) => {
+    setSelectedGfwEvents((prev) =>
+      prev.filter((e) => getEventKey(e) !== a_EventKey),
     );
   };
 
@@ -90,6 +109,7 @@ const ExportTab = () => {
   const handleClearClick = () => {
     setSelectedEvents([]);
     setSelectedVessels([]);
+    setSelectedGfwEvents([]);
   };
 
   return (
@@ -163,19 +183,55 @@ const ExportTab = () => {
             )}
           </SectionItem>
         </Section>
+
+        <Section title={t('sidebar.tab.event')} collapsible={false}>
+          <SectionItem title={t('general.label.list')} collapsible={false} tab>
+            {selectedGfwEvents.length > 0 ? (
+              selectedGfwEvents.map((event, index) => {
+                const eventKey = getEventKey(event);
+                const fields = getEventDisplayFields(event);
+                const label = `${fields.vesselName ?? t('sidebar.text.unknownVessel')} · ${fields.type}`;
+                return (
+                  <SortRowInput
+                    key={eventKey}
+                    rank={index + 1}
+                    value={label}
+                    onRemove={() => handleRemoveGfwEventClick(eventKey)}
+                  />
+                );
+              })
+            ) : (
+              <div className={` ${sidebarStyle.emptyState}`}>
+                <span className={`font-size-sm font-bold font-family-header`}>
+                  {t('exportPanel.empty.titleEvent')}
+                </span>
+                <span className={`font-size-xs font-light font-family-header`}>
+                  {t('exportPanel.empty.bodyEvent')}
+                </span>
+              </div>
+            )}
+          </SectionItem>
+        </Section>
       </div>
       <div className={` ${sidebarStyle.footer}`}>
         <SectionInputGroup direction="row">
           <ButtonInput
             label={t('general.label.export')}
             onClick={handleExportClick}
-            disabled={loading || (!eventsExportReady && !vesselsExportReady)}
+            disabled={
+              loading ||
+              (!eventsExportReady && !vesselsExportReady && !gfwEventsExportReady)
+            }
             loading={loading}
           />
           <ButtonInput
             label={t('general.label.clear')}
             onClick={handleClearClick}
-            disabled={selectedEvents.length === 0 && selectedVessels.length === 0}
+            disabled={
+              selectedEvents.length === 0 &&
+              selectedVessels.length === 0 &&
+              selectedGfwEvents.length === 0
+            }
           />
         </SectionInputGroup>
         <span

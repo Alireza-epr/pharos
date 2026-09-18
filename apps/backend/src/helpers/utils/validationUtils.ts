@@ -19,6 +19,7 @@ import {
   ETemporalResolution,
   EViolationError,
   EVesselRegistryInfoData,
+  EVessleType,
 } from '@packages/enum';
 import { isBoolean, isNumber, isObject, isString } from '@packages/utils';
 import { addError, validateRequiredObject } from './controllerUtils';
@@ -354,6 +355,155 @@ export const validateVesselListQueryParams = (
 };
 
 /* =========================================================
+ * EVENT SEARCH VALIDATORS (POST /v1/events/search)
+ * The "get all events" endpoint is POST-only: limit/offset/sort are the
+ * only query params (validateEventSearchQueryParams), every filter is a
+ * JSON body field (validateEventSearchBodyParams) -- confirmed against
+ * GFW's own maintained Python client, not the app's choice.
+ * =======================================================*/
+
+const EVENT_ENCOUNTER_TYPES = [
+  'CARRIER-FISHING',
+  'FISHING-CARRIER',
+  'FISHING-SUPPORT',
+  'SUPPORT-FISHING',
+  'FISHING-BUNKER',
+  'BUNKER-FISHING',
+  'FISHING-FISHING',
+  'FISHING-TANKER',
+  'TANKER-FISHING',
+  'CARRIER-BUNKER',
+  'BUNKER-CARRIER',
+  'SUPPORT-BUNKER',
+  'BUNKER-SUPPORT',
+] as const;
+
+const EVENT_CONFIDENCES = ['2', '3', '4'] as const;
+
+export const validateEventSearchQueryParams = (
+  a_Query: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Query)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.QUERY_NOT_OBJECT,
+          field: 'query',
+        },
+      ],
+    };
+  }
+
+  validateNumber(a_Query.limit, 'limit', errors);
+  validateNumber(a_Query.offset, 'offset', errors);
+  validateString(a_Query.sort, 'sort', errors);
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/** Every item of a_Value must be a string; adds one error per bad item. */
+const validateStringArray = (
+  a_Value: unknown,
+  a_Field: string,
+  a_Errors: IValidationError[],
+) => {
+  if (a_Value === undefined) return;
+  if (!Array.isArray(a_Value)) {
+    addError(a_Errors, EResponseError.INVALID_ARRAY, a_Field);
+    return;
+  }
+  a_Value.forEach((item, index) => {
+    if (!isString(item)) {
+      addError(a_Errors, EResponseError.INVALID_STRING, `${a_Field}[${index}]`);
+    }
+  });
+};
+
+/** Every item of a_Value must be a string drawn from a_Allowed. */
+const validateEnumArray = <T extends readonly string[]>(
+  a_Value: unknown,
+  a_Allowed: T,
+  a_Field: string,
+  a_Errors: IValidationError[],
+) => {
+  if (a_Value === undefined) return;
+  if (!Array.isArray(a_Value)) {
+    addError(a_Errors, EResponseError.INVALID_ARRAY, a_Field);
+    return;
+  }
+  a_Value.forEach((item, index) => {
+    if (!a_Allowed.includes(item)) {
+      addError(a_Errors, EResponseError.INVALID_ENUM_VALUE, `${a_Field}[${index}]`);
+    }
+  });
+};
+
+export const validateEventSearchBodyParams = (
+  a_Body: unknown,
+): IValidationResult => {
+  const errors: IValidationError[] = [];
+
+  if (!isObject(a_Body)) {
+    return {
+      isValid: false,
+      errors: [
+        {
+          message: EResponseError.BODY_NOT_OBJECT,
+          field: 'body',
+        },
+      ],
+    };
+  }
+
+  // Required -- GFW's own contract, not just this app's choice; there's
+  // nothing to search without at least one event dataset.
+  if (!Array.isArray(a_Body.datasets) || a_Body.datasets.length === 0) {
+    addError(errors, EResponseError.REQUIRED_FIELD_MISSING, 'datasets');
+  } else {
+    validateStringArray(a_Body.datasets, 'datasets', errors);
+  }
+
+  validateStringArray(a_Body.vessels, 'vessels', errors);
+  validateString(a_Body.startDate, 'startDate', errors);
+  validateString(a_Body.endDate, 'endDate', errors);
+  validateEnumArray(a_Body.confidences, EVENT_CONFIDENCES, 'confidences', errors);
+  validateEnumArray(
+    a_Body.encounterTypes,
+    EVENT_ENCOUNTER_TYPES,
+    'encounterTypes',
+    errors,
+  );
+  validateNumber(a_Body.duration, 'duration', errors);
+  validateEnumArray(a_Body.vesselTypes, VESSEL_TYPES, 'vesselTypes', errors);
+  validateStringArray(a_Body.vesselGroups, 'vesselGroups', errors);
+  validateStringArray(a_Body.flags, 'flags', errors);
+
+  if (a_Body.geometry !== undefined) {
+    validateGeoJSON(a_Body.geometry, errors);
+  }
+
+  if (a_Body.region !== undefined) {
+    if (!isObject(a_Body.region)) {
+      addError(errors, EResponseError.INVALID_OBJECT, 'region');
+    } else {
+      validateString(a_Body.region.dataset, 'region.dataset', errors, true);
+      validateString(a_Body.region.id, 'region.id', errors, true);
+    }
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors.length ? errors : null,
+  };
+};
+
+/* =========================================================
  * HELPERS
  * =======================================================*/
 
@@ -370,6 +520,7 @@ const FORMAT = Object.values(EFormat);
 const GROUP_BY = Object.values(EGroupBy);
 const TEMPORAL_RESOLUTION = Object.values(ETemporalResolution);
 const REGISTRY_INFO_DATA = Object.values(EVesselRegistryInfoData);
+const VESSEL_TYPES = Object.values(EVessleType);
 
 /* =========================================================
  * GEOJSON VALIDATION

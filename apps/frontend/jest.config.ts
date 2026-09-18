@@ -6,6 +6,7 @@ const config: Config = {
   // They use Playwright-only APIs (import.meta.url, etc.) that Jest's CommonJS
   // transform can't parse, so keep them out of the Jest run.
   testPathIgnorePatterns: ['<rootDir>/tests/e2e/'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup/jest.mocks.ts'],
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   transform: {

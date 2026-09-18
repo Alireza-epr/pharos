@@ -119,6 +119,7 @@ export const EURLParams = {
   cache: "cache",
   config: "config",
   vesselConfig: "vesselConfig",
+  eventConfig: "eventConfig",
 } as const;
 export type TURLSearchParams = (typeof EURLParams)[keyof typeof EURLParams];
 

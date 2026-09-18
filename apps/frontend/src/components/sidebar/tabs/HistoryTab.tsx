@@ -18,6 +18,7 @@ const HistoryTab = () => {
 
   const reportEntries = entries.filter((e) => e.tab === ESidebarTab.report);
   const vesselEntries = entries.filter((e) => e.tab === ESidebarTab.vessel);
+  const eventEntries = entries.filter((e) => e.tab === ESidebarTab.event);
 
   const renderEntries = (a_Entries: IHistoryEntry[]) => (
     <List testId="history-list">
@@ -78,6 +79,15 @@ const HistoryTab = () => {
             : renderEmpty(
               t('historyPanel.empty.titleVessel'),
               t('historyPanel.empty.bodyVessel'),
+            )}
+        </Section>
+
+        <Section title={t('sidebar.tab.event')} collapsible={false}>
+          {eventEntries.length > 0
+            ? renderEntries(eventEntries)
+            : renderEmpty(
+              t('historyPanel.empty.titleEvent'),
+              t('historyPanel.empty.bodyEvent'),
             )}
         </Section>
       </div>
