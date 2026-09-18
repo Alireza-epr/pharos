@@ -84,7 +84,7 @@
       "report": "Bericht",
       "vessel": "Schiffe",
       "hotspot": "Hotspot",
-      "event": "Ereignis"
+      "event": "Ereignisse"
     },
     "action": {
       "collapse": "Seitenleiste ausblenden",
@@ -108,7 +108,9 @@
       "exportImportConfig": "Konfiguration exportieren/importieren",
       "regionBuffer": "Regionspuffer",
       "vesselSearch": "Schiffssuche",
-      "vesselResults": "Schiffssuchergebnisse"
+      "vesselResults": "Schiffssuchergebnisse",
+      "eventSearch": "Ereignissuche",
+      "eventResults": "Ereignisergebnisse"
     },
     "title": {
       "geography": "Geografie",
@@ -122,7 +124,10 @@
       "none": "Keine",
       "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
       "rawQuery": "Freie Abfrage eingeben...",
-      "vesselQuery": "MMSI, IMO, Rufzeichen, Name..."
+      "vesselQuery": "MMSI, IMO, Rufzeichen, Name...",
+      "eventVessels": "z. B. 8c7304226-0b52-4c7d-8f00-6f3c9a8f0a11",
+      "eventVesselGroups": "z. B. my-vessel-group",
+      "eventSort": "+start"
     },
     "label": {
       "runQuery": "Abfrage starten",
@@ -180,13 +185,18 @@
       "bufferValue": "Pufferwert",
       "vesselQuery": "Suche",
       "matchFields": "Übereinstimmungsfelder",
-      "includes": "Einschließen"
+      "includes": "Einschließen",
+      "eventConfidences": "Konfidenz",
+      "eventEncounterTypes": "Begegnungstyp",
+      "eventVesselGroups": "Schiffsgruppen",
+      "eventDuration": "Min. Dauer (Minuten)",
+      "eventUseReportAOI": "Report-AOI verwenden",
+      "eventSort": "Sortierung"
     },
     "text": {
       "orChooseEEZRegion": "oder EEZ-Region auswählen",
       "orChooseMPARegion": "oder MPA-Region auswählen",
       "subRunQuery": "Gebiet & Datum ausfüllen zum Aktivieren",
-      "comingSoon": "Demnächst verfügbar",
       "zonalMinPoints": "Fügen Sie mindestens 3 Punkte hinzu, um das Gebiet zu schließen.",
       "zonalHint": "Klicken zum Hinzufügen · Doppelklick, Enter oder Rechtsklick zum Abschließen · Esc zum Abbrechen",
       "pointHint": "Klicken Sie auf die Karte, um einen Punkt zu setzen",
@@ -194,7 +204,10 @@
       "subVesselSearch": "Suchbegriff eingeben zum Aktivieren",
       "noVesselResults": "Keine Schiffe gefunden.",
       "vesselResultsCount": "{{count}} Schiff(e) gefunden",
-      "unknownVessel": "Unbekanntes Schiff"
+      "unknownVessel": "Unbekanntes Schiff",
+      "subEventSearch": "Mindestens einen Datensatz auswählen zum Aktivieren",
+      "noEventResults": "Keine Ereignisse gefunden.",
+      "eventResultsCount": "{{count}} Ereignis(se) gefunden"
     },
     "caveat": {
       "apiInternalId": "API-interne ID",
@@ -208,7 +221,17 @@
       "rawQuery": "Erweiterter Ausdruck, z. B. flag = 'KOR'",
       "matchFields": "Filtert nach Übereinstimmungsgrad (ALL = stärkste)",
       "includes": "Zusätzliche Daten je Ergebnis",
-      "limit": "Max. Ergebnisse pro Seite (1-50)"
+      "limit": "Max. Ergebnisse pro Seite (1-50)",
+      "eventDatasets": "1+ Ereignistypen zum Suchen auswählen - erforderlich",
+      "eventVessels": "Kommagetrennte GFW-Schiffs-IDs, z. B. aus einer Schiffssuche (optional)",
+      "eventConfidences": "Konfidenzstufe (2-4) -- gilt nur für Hafenbesuche (Port Visits)",
+      "eventEncounterTypes": "Nur relevant, wenn der Datensatz Begegnungen ausgewählt ist",
+      "eventVesselGroups": "Kommagetrennte GFW-Schiffsgruppen-IDs (optional)",
+      "eventDuration": "Minimale Ereignisdauer in Minuten (0 = kein Minimum)",
+      "eventUseReportAOI": "Sendet die im Report-Tab gezeichnete Form oder ausgewählte AWZ/MPA-Region als Geometrie/Region dieser Suche -- Pufferzonen-Einstellungen werden nicht übernommen",
+      "eventUseReportAOINoAOI": "Zeichnen Sie eine Form oder wählen Sie eine AWZ/MPA-Region im Report-Tab, um dies zu aktivieren",
+      "eventSort": "+feld oder -feld, z. B. +start (optional)",
+      "eventLimit": "Ergebnisse pro Seite (Standard 20)"
     }
   },
   "map": {
@@ -310,7 +333,9 @@
       "title": "Noch kein Report-Verlauf",
       "body": "Führen Sie eine Abfrage im Report-Tab aus, dann erscheint sie hier.",
       "titleVessel": "Noch kein Vessel-Verlauf",
-      "bodyVessel": "Führen Sie eine Suche im Vessels-Tab aus, dann erscheint sie hier."
+      "bodyVessel": "Führen Sie eine Suche im Vessels-Tab aus, dann erscheint sie hier.",
+      "titleEvent": "Noch kein Ereignis-Verlauf",
+      "bodyEvent": "Führen Sie eine Suche im Ereignis-Tab aus, dann erscheint sie hier."
     },
     "subtitle": {
       "resultCount": "{{count}} Ergebnis(se)",
@@ -325,7 +350,9 @@
       "title": "Kein Ereignis zum Exportieren",
       "body": "Fügen Sie Ereignisse zur Exportliste hinzu.",
       "titleVessel": "Kein Schiff zum Exportieren",
-      "bodyVessel": "Fügen Sie Schiffe zur Exportliste hinzu."
+      "bodyVessel": "Fügen Sie Schiffe zur Exportliste hinzu.",
+      "titleEvent": "Keine GFW-Ereignisse zum Exportieren",
+      "bodyEvent": "Fügen Sie Ereignisse aus dem Ereignis-Tab zur Exportliste hinzu."
     },
     "text": {
       "downloadNote": "Elemente werden gezippt und heruntergeladen"

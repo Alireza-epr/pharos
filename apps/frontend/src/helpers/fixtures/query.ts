@@ -1,5 +1,6 @@
 import { IDropdownOption } from '@/components/common/inputs/DropdownInput';
 import {
+  EEventVesselType,
   EFormat,
   EGroupBy,
   ERegionBufferOperations,
@@ -9,6 +10,7 @@ import {
   EVesselMatchField,
   EVesselSearchInclude,
 } from '@packages/enum';
+import { TEventConfidence, TEventEncounterType } from '@packages/types';
 
 export const sort_field_options = [
   { label: 'Triage Score', value: 'scoring.triage_score' },
@@ -47,3 +49,30 @@ export const vesselMatchFieldOptions: IDropdownOption<EVesselMatchField>[] =
   Object.values(EVesselMatchField).map((v) => ({ label: v, value: v }));
 export const vesselIncludeOptions: IDropdownOption<EVesselSearchInclude>[] =
   Object.values(EVesselSearchInclude).map((v) => ({ label: v, value: v }));
+
+const EVENT_ENCOUNTER_TYPES: TEventEncounterType[] = [
+  'CARRIER-FISHING',
+  'FISHING-CARRIER',
+  'FISHING-SUPPORT',
+  'SUPPORT-FISHING',
+  'FISHING-BUNKER',
+  'BUNKER-FISHING',
+  'FISHING-FISHING',
+  'FISHING-TANKER',
+  'TANKER-FISHING',
+  'CARRIER-BUNKER',
+  'BUNKER-CARRIER',
+  'SUPPORT-BUNKER',
+  'BUNKER-SUPPORT',
+];
+export const eventEncounterTypeOptions: IDropdownOption<TEventEncounterType>[] =
+  EVENT_ENCOUNTER_TYPES.map((v) => ({ label: v, value: v }));
+
+export const eventConfidenceOptions: IDropdownOption<TEventConfidence>[] = [
+  { label: '2', value: '2' },
+  { label: '3', value: '3' },
+  { label: '4', value: '4' },
+];
+
+export const eventVesselTypeOptions: IDropdownOption<EEventVesselType>[] =
+  Object.values(EEventVesselType).map((v) => ({ label: v, value: v }));

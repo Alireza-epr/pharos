@@ -25,6 +25,7 @@ const VesselTab = () => {
   const query = useVesselSearchStore((s) => s.query);
   const where = useVesselSearchStore((s) => s.where);
 
+  const vessels = useVesselStore((s) => s.vessels);
   const setVessels = useVesselStore((s) => s.setVessels);
   const setActiveVessel = useVesselStore((s) => s.setActiveVessel);
   const pages = useVesselStore((s) => s.pages);
@@ -51,6 +52,11 @@ const VesselTab = () => {
   const handleRunSearch = async () => {
     if (!canSearch || loading) return;
     setActiveVessel(null);
+    setVessels([]);
+    setPages([]);
+    setPageIndex(0);
+    setSince(null);
+    setTotal(null);
     const config = buildVesselSearchConfig();
     syncVesselSearchConfigToURL(config);
     // Same mechanism as ReportTab's own `log_frontend({ config: {...} })` --
@@ -89,6 +95,18 @@ const VesselTab = () => {
         lastParams: success ? config.url_params : null,
       },
     });
+  };
+
+  // Clears this tab's search result without touching the search form
+  // itself, same "results only" scope as HistoryTab's own Clear button.
+  const handleClearResults = () => {
+    setActiveVessel(null);
+    setVessels([]);
+    setPages([]);
+    setPageIndex(0);
+    setSince(null);
+    setTotal(null);
+    setLastParams(null);
   };
 
   const handlePrevClick = () => {
@@ -149,6 +167,12 @@ const VesselTab = () => {
             disabled={!canSearch || loading}
             loading={loading}
             testId="vessel-search-button"
+          />
+          <ButtonInput
+            label={t('general.label.clear')}
+            onClick={handleClearResults}
+            disabled={loading || vessels.length === 0}
+            testId="vessel-clear-button"
           />
           <ButtonInput
             label={t('detailPanel.action.next')}

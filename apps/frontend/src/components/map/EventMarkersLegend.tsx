@@ -1,6 +1,7 @@
 import eventLegendStyle from './EventMarkersLegend.module.scss';
 import { useTranslator } from '@/hooks/translator';
 import { useEventStore } from '@/stores/eventStore';
+import { useGfwEventStore } from '@/stores/gfwEventStore';
 import { useBottomStore } from '@/stores/bottomStore';
 import { getVisibleEvents } from '@/hooks/useVisibleEvents';
 import { isEventDimmed } from '@/helpers/utils/eventUtils';
@@ -9,13 +10,17 @@ export interface IEventMarkersLegendProps {}
 
 /**
  * A small key explaining how useEventMarkers draws detections -- fill
- * color, size, opacity, and the selection/export overlays. Kept as its own
- * box next to MapLegend rather than merged into it: MapLegend explains
- * *which layers* are on screen (swatch = a layer's color), this explains
- * *how one layer* (detections) encodes several things at once. Same "only
- * show what the map is actually doing right now" rule as MapLegend -- a row
- * only appears while its condition is true, so this never claims to explain
- * a dot that isn't drawn.
+ * color, size, opacity, and the selection/export overlays -- plus, as one
+ * more dot color alongside Matched/Unmatched, the separate marker layer
+ * useGfwEventMarkers.ts draws for the Event tab's own results (which
+ * shares this box's "selected" ring row, since both layers ring their
+ * active marker with the same --color-primary-purple6 style). Kept as
+ * its own box next to MapLegend rather than merged into it: MapLegend
+ * explains *which layers* are on screen (swatch = a layer's color), this
+ * explains *what a dot's own color/size/ring means*, detections and pinned
+ * GFW events both. Same "only show what the map is actually doing right
+ * now" rule as MapLegend -- a row only appears while its condition is true,
+ * so this never claims to explain a dot that isn't drawn.
  */
 const EventMarkersLegend = () => {
   const { t } = useTranslator();
@@ -25,6 +30,8 @@ const EventMarkersLegend = () => {
   const activeEvent = useEventStore((s) => s.activeEvent);
   const filter = useBottomStore((s) => s.filter);
   const sorts = useBottomStore((s) => s.sorts);
+  const gfwEvents = useGfwEventStore((s) => s.events);
+  const activeGfwEvent = useGfwEventStore((s) => s.activeEvent);
 
   const visible = getVisibleEvents(events, filter, sorts);
   const exportedIds = new Set(selectedEvents.map((e) => e.event_id));
@@ -69,6 +76,15 @@ const EventMarkersLegend = () => {
         />
       ),
       label: t('general.label.unmatched'),
+    },
+    {
+      show: gfwEvents.length > 0,
+      icon: (
+        <span
+          className={`${eventLegendStyle.dot} ${eventLegendStyle.dotGfwEvent}`}
+        />
+      ),
+      label: t('sidebar.tab.event'),
     },
     {
       // A dimmed marker keeps its real matched/unmatched hue on the map,
@@ -117,7 +133,7 @@ const EventMarkersLegend = () => {
       label: t('general.label.clusteredDetections'),
     },
     {
-      show: !!activeEvent,
+      show: !!activeEvent || !!activeGfwEvent,
       icon: <span className={eventLegendStyle.ring} />,
       label: t('bottomPanel.action.selected'),
     },

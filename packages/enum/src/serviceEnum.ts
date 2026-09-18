@@ -6,6 +6,10 @@ export enum EVesselRepository {
   gfw = "gfw",
 }
 
+export enum EEventRepository {
+  gfw = "gfw",
+}
+
 export enum EServingRepository {
   parquet = "parquet",
 }

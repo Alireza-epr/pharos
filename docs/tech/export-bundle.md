@@ -5,10 +5,13 @@
 This bundle contains a filtered and scored set of events enriched with geospatial context layers. Each event is evaluated using a rule-based scoring model producing a **triage score**, **uncertainty score**, and associated **reason codes**.
 
 > **Scope note:** this is the Export tab's **Report** section only. The
-> **Vessel** section (vessel identities added from the Vessel tab) exports
-> as a separate, client-side JSON download - it is not part of this ZIP
-> bundle, and `POST /exports/events` has no vessel schema anywhere in it.
-> See [vessel-identity.md](./vessel-identity.md#3-export-tab-report-vs-vessel-sections).
+> **Vessel** section (vessel identities added from the Vessel tab) and the
+> **Event** section (GFW events added from the Event tab) each export as
+> their own separate, client-side JSON download - neither is part of this
+> ZIP bundle, and `POST /exports/events` has no vessel or GFW-event schema
+> anywhere in it.
+> See [vessel-identity.md](./vessel-identity.md#3-export-tab-report-vs-vessel-sections)
+> and [event-search.md](./event-search.md#3-export-tab-report-vs-vessel-vs-event-sections).
 
 ---
 

@@ -11,7 +11,7 @@ import {
 } from '@packages/types';
 
 /**
- * Writes newline-delimited JSON (NDJSON) progress events for POST /v1/events
+ * Writes newline-delimited JSON (NDJSON) progress events for POST /v1/report
  * so the frontend can render a step-by-step checklist while the request is
  * still in flight. One line per `write*` call; `result()` is always the last
  * line and carries the same envelope `controllerResponse` would have sent in

@@ -311,6 +311,33 @@ export enum EEventDatasets {
   AISOffEvent = "public-global-gaps-events",
 }
 
+// Friendly event-type labels for EEventDatasets -- selecting "Loitering"
+// IS selecting the loitering dataset (each GFW event dataset is already
+// type-specific), so the Event tab's Datasets picker shows these labels
+// rather than the raw dataset id, same spirit as E4wingsDatasetsUI above.
+export const EEventDatasetsUI = {
+  [EEventDatasets.fishingEvent]: "Fishing",
+  [EEventDatasets.encountersEvent]: "Encounters",
+  [EEventDatasets.loiteringEvent]: "Loitering",
+  [EEventDatasets.portVisitsEvent]: "Port Visits",
+  [EEventDatasets.AISOffEvent]: "AIS Gaps",
+} as const;
+export type TEventDatasetsUI =
+  (typeof EEventDatasetsUI)[keyof typeof EEventDatasetsUI];
+
+export enum EEventVesselType {
+  Bunker = "BUNKER",
+  Cargo = "CARGO",
+  Discrepancy = "DISCREPANCY",
+  Carrier = "CARRIER",
+  Fishing = "FISHING",
+  Gear = "GEAR",
+  Other = "OTHER",
+  Passenger = "PASSENGER",
+  SeismicVessel = "SEISMIC_VESSEL",
+  Support = "SUPPORT",
+}
+
 export enum EContextLayerDatasets {
   eez = "public-eez-areas",
   mpa = "public-mpa-all",

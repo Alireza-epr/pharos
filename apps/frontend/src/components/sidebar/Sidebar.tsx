@@ -40,6 +40,7 @@ const Sidebar = () => {
           active={activeTab === ESidebarTab.event}
           onClick={() => setActiveTab(ESidebarTab.event)}
           size="sm"
+          testId="sidebar-tab-event"
         />
         <SidebarToggleInput
           collapsed={collapsed}

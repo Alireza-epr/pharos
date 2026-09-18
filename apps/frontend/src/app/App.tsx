@@ -18,6 +18,10 @@ import {
   useHydrateVesselSearchConfigFromURL,
   useSyncVesselSearchConfigToURL,
 } from '../hooks/useVesselURLConfigSync';
+import {
+  useHydrateEventSearchConfigFromURL,
+  useSyncEventSearchConfigToURL,
+} from '../hooks/useEventURLConfigSync';
 import Login from '../components/layout/Login';
 import { useDetailStore } from '../stores/detailStore';
 
@@ -45,6 +49,9 @@ const App = () => {
 
   useHydrateVesselSearchConfigFromURL(isAuthenticated);
   useSyncVesselSearchConfigToURL(isAuthenticated);
+
+  useHydrateEventSearchConfigFromURL(isAuthenticated);
+  useSyncEventSearchConfigToURL(isAuthenticated);
 
   if (!isAuthenticated) return <Login />;
 

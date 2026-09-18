@@ -36,7 +36,7 @@ const bboxToGeoJSON = (a_Box: {
   ],
 });
 
-// The NDJSON contract every /v1/events response uses (ProgressStream) --
+// The NDJSON contract every /v1/report response uses (ProgressStream) --
 // one line per query step, and always a final `{ type: 'result', payload }`
 // line carrying the same envelope controllerResponse would have sent in one
 // shot. This tool only wants that last line.
@@ -54,12 +54,12 @@ const parseResultLine = (a_Text: string): any | null => {
 };
 
 /**
- * `run_query` -- calls this same backend's real `POST /v1/events`, the exact
+ * `run_query` -- calls this same backend's real `POST /v1/report`, the exact
  * endpoint the web UI itself calls, over a real loopback HTTP request. No
  * duplicated query/scoring logic: this is a thin adapter, not a second
  * implementation of the serving path.
  *
- * Auth: `/v1/events` sits behind the user-facing JWT flow, which an AI agent
+ * Auth: `/v1/report` sits behind the user-facing JWT flow, which an AI agent
  * has no login session for. Since this call never leaves the process (same
  * host, same port), it mints its own short-lived, read-only token via the
  * same `generateToken()` the real login flow uses, rather than inventing a
@@ -72,7 +72,7 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
       title: 'Run a Pharos detection query',
       description:
         'Runs a real SAR-detection query against the live Pharos backend ' +
-        '(the same POST /v1/events endpoint the web UI calls -- a real ' +
+        '(the same POST /v1/report endpoint the web UI calls -- a real ' +
         'provider fetch on a cache miss, so this can take several seconds). ' +
         'Returns detections with their AIS match status and triage/' +
         'uncertainty scores. IMPORTANT: "unmatched" means not matched to ' +
@@ -163,7 +163,7 @@ export const registerRunQueryTool = (a_Server: McpServer) => {
 
       try {
         const res = await fetch(
-          `http://127.0.0.1:${config.port}/v1/events?${urlParams.toString()}`,
+          `http://127.0.0.1:${config.port}/v1/report?${urlParams.toString()}`,
           {
             method: 'POST',
             headers: {

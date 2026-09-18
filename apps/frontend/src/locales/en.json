@@ -84,7 +84,7 @@
       "report": "Report",
       "vessel": "Vessels",
       "hotspot": "Hotspot",
-      "event": "Event"
+      "event": "Events"
     },
     "action": {
       "collapse": "Hide sidebar",
@@ -105,7 +105,9 @@
       "exportImportConfig": "Export/Import Config",
       "regionBuffer": "Region Buffer",
       "vesselSearch": "Vessel Search",
-      "vesselResults": "Vessel Results"
+      "vesselResults": "Vessel Results",
+      "eventSearch": "Event Search",
+      "eventResults": "Event Results"
     },
     "title": {
       "geography": "Geography",
@@ -119,7 +121,10 @@
       "none": "None",
       "filterExpression": "'filters[0]': 'vessel_type in ('cargo')'",
       "rawQuery": "Enter raw query...",
-      "vesselQuery": "MMSI, IMO, call sign, name..."
+      "vesselQuery": "MMSI, IMO, call sign, name...",
+      "eventVessels": "e.g. 8c7304226-0b52-4c7d-8f00-6f3c9a8f0a11",
+      "eventVesselGroups": "e.g. my-vessel-group",
+      "eventSort": "+start"
     },
     "label": {
       "runQuery": "Run Query",
@@ -177,13 +182,18 @@
       "bufferValue": "Buffer Value",
       "vesselQuery": "Search",
       "matchFields": "Match Fields",
-      "includes": "Include"
+      "includes": "Include",
+      "eventConfidences": "Confidence",
+      "eventEncounterTypes": "Encounter Type",
+      "eventVesselGroups": "Vessel Groups",
+      "eventDuration": "Min. Duration (minutes)",
+      "eventUseReportAOI": "Use Report AOI",
+      "eventSort": "Sort"
     },
     "text": {
       "orChooseEEZRegion": "or choose EEZ region",
       "orChooseMPARegion": "or choose MPA region",
       "subRunQuery": "Fill area & date to enable",
-      "comingSoon": "Coming soon",
       "zonalMinPoints": "Add at least 3 points to close the area.",
       "zonalHint": "Click to add points · double-click, Enter or right-click to finish · Esc to cancel",
       "pointHint": "Click on the map to place a point",
@@ -191,7 +201,10 @@
       "subVesselSearch": "Enter a search term to enable",
       "noVesselResults": "No vessels found.",
       "vesselResultsCount": "{{count}} vessel(s) found",
-      "unknownVessel": "Unknown vessel"
+      "unknownVessel": "Unknown vessel",
+      "subEventSearch": "Select at least one dataset to enable",
+      "noEventResults": "No events found.",
+      "eventResultsCount": "{{count}} event(s) found"
     },
     "caveat": {
       "apiInternalId": "API Internal ID",
@@ -205,7 +218,17 @@
       "rawQuery": "Advanced expression, e.g. flag = 'KOR'",
       "matchFields": "Filters by match confidence (ALL = strongest)",
       "includes": "Extra data attached to each result",
-      "limit": "Max results per page (1-50)"
+      "limit": "Max results per page (1-50)",
+      "eventDatasets": "Select 1+ event types to search - required",
+      "eventVessels": "Comma-separated GFW vessel IDs, e.g. from a Vessel tab search (optional)",
+      "eventConfidences": "Confidence tier (2-4) -- applies only to Port Visits events",
+      "eventEncounterTypes": "Only applies when the Encounters dataset is selected",
+      "eventVesselGroups": "Comma-separated GFW vessel group IDs (optional)",
+      "eventDuration": "Minimum event duration, in minutes (0 = no minimum)",
+      "eventUseReportAOI": "Sends the Report tab's drawn shape or selected EEZ/MPA region as this search's geometry/region -- a region's buffer settings don't carry over",
+      "eventUseReportAOINoAOI": "Draw a shape or select an EEZ/MPA region on the Report tab to enable this",
+      "eventSort": "+field or -field, e.g. +start (optional)",
+      "eventLimit": "Results per page (default 20)"
     },
     "error": {
       "runQueryFailed": "Failed to fetch"
@@ -310,7 +333,9 @@
       "title": "No Report history yet",
       "body": "Run a query in the Report tab and it will show up here.",
       "titleVessel": "No Vessel history yet",
-      "bodyVessel": "Run a search in the Vessels tab and it will show up here."
+      "bodyVessel": "Run a search in the Vessels tab and it will show up here.",
+      "titleEvent": "No Event history yet",
+      "bodyEvent": "Run a search in the Event tab and it will show up here."
     },
     "subtitle": {
       "resultCount": "{{count}} result(s)",
@@ -325,7 +350,9 @@
       "title": "No event to export",
       "body": "Add events to export list.",
       "titleVessel": "No vessel to export",
-      "bodyVessel": "Add vessels to export list."
+      "bodyVessel": "Add vessels to export list.",
+      "titleEvent": "No GFW events to export",
+      "bodyEvent": "Add events from the Event tab to export list."
     },
     "text": {
       "downloadNote": "Items zipped and downloaded"

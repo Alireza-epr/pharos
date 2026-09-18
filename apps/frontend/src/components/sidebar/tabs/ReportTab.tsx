@@ -29,7 +29,9 @@ const ReportTab = () => {
   const { error, execute } = useFetchEvents();
   const { t } = useTranslator();
 
+  const events = useEventStore((s) => s.events);
   const setEvents = useEventStore((s) => s.setEvents);
+  const setActiveEvent = useEventStore((s) => s.setActiveEvent);
   const setPagination = useEventStore((s) => s.setPagination);
   const pagination = useEventStore((s) => s.pagination);
   const setConfig = useConfigStore((s) => s.setConfig);
@@ -56,7 +58,12 @@ const ReportTab = () => {
   // left untouched and only the offset advanced/retreated.
   const runQuery = async (offsetOverride?: number) => {
     if (!hasAOI) return;
-    if (offsetOverride !== undefined) setOffset(offsetOverride);
+    if (offsetOverride === undefined) {
+      setEvents([]);
+      setPagination(null);
+    } else {
+      setOffset(offsetOverride);
+    }
     const config = buildConfig();
 
     // useSyncConfigToURL already keeps the URL live-synced to every store
@@ -118,6 +125,12 @@ const ReportTab = () => {
   const nextOffset = pagination?.nextOffset;
   const prevOffset = pagination?.prevOffset;
 
+  const handleClearResults = () => {
+    setActiveEvent(null);
+    setEvents([]);
+    setPagination(null);
+  };
+
   const handlePrevClick = () => {
     if (isRunning || prevOffset == null) return;
     void runQuery(prevOffset);
@@ -165,6 +178,12 @@ const ReportTab = () => {
             disabled={isRunning ? isProgressOpen : !hasAOI}
             loading={isRunning && isProgressOpen}
             testId="run-query-button"
+          />
+          <ButtonInput
+            label={t('general.label.clear')}
+            onClick={handleClearResults}
+            disabled={isRunning || events.length === 0}
+            testId="clear-results-button"
           />
           <ButtonInput
             label={t('detailPanel.action.next')}

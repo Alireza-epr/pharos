@@ -26,7 +26,7 @@ servers:
 tags:
   - name: System
   - name: Auth
-  - name: Events
+  - name: Report
   - name: Exports
   - name: Regions
   - name: MCP
@@ -180,14 +180,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /events:
+  /report:
     post:
-      tags: [Events]
-      summary: Get events report
+      tags: [Report]
+      summary: Get SAR-detection report data
       description: >
         Returns filtered, sorted, and paginated event report data based on geospatial configuration, thresholds, and filtering rules.
         Requires a valid access token in the `Authorization: Bearer <accessToken>` header.
-      operationId: getEventsReport
+        Renamed from `/events` -- that path now serves the GFW Events API proxy (encounters/loitering/port-visits/gaps/fishing) instead, undocumented here for now, matching how `/vessels` search is also undocumented in this spec (see docs/api/query-contract.md's Events Search / Vessels Search sections for both).
+      operationId: getReport
       security:
         - bearerAuth: []
 
@@ -267,18 +268,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventsReportRequest"
+              $ref: "#/components/schemas/ReportRequest"
 
       responses:
         "200":
           description: >
             A newline-delimited JSON (NDJSON) progress stream, not a single JSON
             body: one `{ "type": "step", "id": ..., "status": ... }` line per
-            checklist step (see docs/api/query-contract.md, Events Report ->
+            checklist step (see docs/api/query-contract.md, Report ->
             Response), followed by exactly one
             `{ "type": "result", "payload": ... }` line whose `payload` is the
             same envelope this endpoint used to return in one shot
-            (`EventsReportResponse` on success, `ErrorResponse`-shaped on
+            (`ReportResponse` on success, `ErrorResponse`-shaped on
             failure). The HTTP status is committed to 200 the moment the
             stream opens, before the outcome is known, so `payload.success` in
             that final line — not this status code — is the real result; a
@@ -478,7 +479,7 @@ paths:
         The two methods a client actually needs are `tools/list` (discover
         the available tools and their input schemas) and `tools/call` (run
         one, e.g. `run_query`, which itself calls this API's own
-        `POST /events` internally). Full reference:
+        `POST /report` internally). Full reference:
         docs/api/query-contract.md#mcp-tool-server.
       operationId: postMcp
       security:
@@ -656,7 +657,7 @@ components:
         success:
           type: boolean
 
-    EventsReportRequest:
+    ReportRequest:
       type: object
       properties:
         URL:
@@ -768,7 +769,7 @@ components:
         high_triage_score_threshold:
           type: number
 
-    EventsReportResponse:
+    ReportResponse:
       type: object
       required: [success, pagination, entries]
       properties:
@@ -814,7 +815,7 @@ components:
 
     ExportConfig:
       allOf:
-        - $ref: "#/components/schemas/EventsReportRequest"
+        - $ref: "#/components/schemas/ReportRequest"
         - type: object
           properties:
             export:

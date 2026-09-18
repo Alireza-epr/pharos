@@ -2,6 +2,8 @@ import {
   I4wingsReportPostURLParams,
   IConfigBase,
   IConfigJSON,
+  IEventPostBodyParams,
+  IEventPostURLParams,
   IEventSchema,
   IFeature,
   IFilteringParams,
@@ -14,8 +16,12 @@ import {
   IVesselIdentity,
   IVesselSearchURLParams,
   T4wingsSource,
+  TDatasetVersion,
+  TEventConfidence,
+  TEventEncounterType,
   TExportConfig,
   TFilterKey,
+  TGlobalEvent,
   TRegionGeometry,
   TRegionOption,
   TSourceKey,
@@ -24,6 +30,9 @@ import { TDetailTab, TSidebarTab, TTheme } from '../enum/storeEnum';
 import { TLanguage } from '../enum/translationEnum';
 import {
   TMatchFilter,
+  ECountryFlag,
+  EEventDatasets,
+  EEventVesselType,
   EFormat,
   EGroupBy,
   EHotspotTimeBins,
@@ -805,10 +814,191 @@ export interface IVesselStoreActions {
   ) => void;
 }
 
+export interface IGfwEventSearchStoreStates {
+  datasets: Record<EEventDatasets, { active: boolean; version: TDatasetVersion }>;
+  vessels: string;
+  confidences: TEventConfidence[];
+  encounterTypes: TEventEncounterType[];
+  vesselTypes: EEventVesselType[];
+  vesselGroups: string;
+  flags: ECountryFlag[];
+  duration: number;
+  sort: string;
+  limit: number;
+  useReportAOI: boolean;
+}
+
+export interface IGfwEventSearchStoreActions {
+  setDatasets: (
+    a_Value:
+      | IGfwEventSearchStoreStates['datasets']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['datasets'],
+        ) => IGfwEventSearchStoreStates['datasets']),
+  ) => void;
+  setVessels: (
+    a_Value:
+      | IGfwEventSearchStoreStates['vessels']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['vessels'],
+        ) => IGfwEventSearchStoreStates['vessels']),
+  ) => void;
+  setConfidences: (
+    a_Value:
+      | IGfwEventSearchStoreStates['confidences']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['confidences'],
+        ) => IGfwEventSearchStoreStates['confidences']),
+  ) => void;
+  setEncounterTypes: (
+    a_Value:
+      | IGfwEventSearchStoreStates['encounterTypes']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['encounterTypes'],
+        ) => IGfwEventSearchStoreStates['encounterTypes']),
+  ) => void;
+  setVesselTypes: (
+    a_Value:
+      | IGfwEventSearchStoreStates['vesselTypes']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['vesselTypes'],
+        ) => IGfwEventSearchStoreStates['vesselTypes']),
+  ) => void;
+  setVesselGroups: (
+    a_Value:
+      | IGfwEventSearchStoreStates['vesselGroups']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['vesselGroups'],
+        ) => IGfwEventSearchStoreStates['vesselGroups']),
+  ) => void;
+  setFlags: (
+    a_Value:
+      | IGfwEventSearchStoreStates['flags']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['flags'],
+        ) => IGfwEventSearchStoreStates['flags']),
+  ) => void;
+  setDuration: (
+    a_Value:
+      | IGfwEventSearchStoreStates['duration']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['duration'],
+        ) => IGfwEventSearchStoreStates['duration']),
+  ) => void;
+  setSort: (
+    a_Value:
+      | IGfwEventSearchStoreStates['sort']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['sort'],
+        ) => IGfwEventSearchStoreStates['sort']),
+  ) => void;
+  setLimit: (
+    a_Value:
+      | IGfwEventSearchStoreStates['limit']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['limit'],
+        ) => IGfwEventSearchStoreStates['limit']),
+  ) => void;
+  setUseReportAOI: (
+    a_Value:
+      | IGfwEventSearchStoreStates['useReportAOI']
+      | ((
+          a_Prev: IGfwEventSearchStoreStates['useReportAOI'],
+        ) => IGfwEventSearchStoreStates['useReportAOI']),
+  ) => void;
+  /** Builds the POST body's filter fields from live store state --
+   * `datasets` resolved to versioned dataset ids, everything else passed
+   * through when non-empty. Does NOT include startDate/endDate (read from
+   * useTimeRangeStore by the caller) or geometry/region (resolved from
+   * useAOIStore by the caller when useReportAOI is set) -- both live in
+   * other stores, so building them here would risk a stale read. */
+  getEventBodyParams: () => IEventPostBodyParams;
+  importEventSearchParams: (a_Params: IEventPostBodyParams) => void;
+}
+
+// The exact request-shaped params a paging session was started with --
+// IEventConfigJSON minus `url`/`method` (which never change per-session).
+export interface IEventSearchParams {
+  url_params: IEventPostURLParams;
+  body_params: IEventPostBodyParams;
+}
+
+// Event search results -- the Event tab's analogue of vesselStore, holding
+// whatever the last search returned plus which record is selected.
+//
+// Pagination here is GFW's plain offset/limit paging (`nextOffset`/`total`
+// on the response), unlike the Vessel tab's forward-only scroll cursor --
+// simpler: "next" is just `offset + limit`, "prev" is `offset - limit`, both
+// answerable without a server round-trip once a page has been seen, using
+// the same already-fetched-pages cache shape vesselStore uses for the same
+// "don't re-fetch what's already in memory" reason.
+export interface IGfwEventStoreStates {
+  events: TGlobalEvent[];
+  activeEvent: TGlobalEvent | null;
+  selectedEvents: TGlobalEvent[];
+  pages: TGlobalEvent[][];
+  pageIndex: number;
+  total: number | null;
+  // The exact params the current paging session was started with -- reused
+  // (with `offset` merged in) for every "next"/"prev" fetch instead of
+  // rebuilding from the live search form, since editing the form mid-page
+  // must not silently change the query already-fetched pages are scoped to.
+  lastParams: IEventSearchParams | null;
+}
+
+export interface IGfwEventStoreActions {
+  setEvents: (
+    a_Value:
+      | IGfwEventStoreStates['events']
+      | ((
+          a_Prev: IGfwEventStoreStates['events'],
+        ) => IGfwEventStoreStates['events']),
+  ) => void;
+  setActiveEvent: (
+    a_Value:
+      | IGfwEventStoreStates['activeEvent']
+      | ((
+          a_Prev: IGfwEventStoreStates['activeEvent'],
+        ) => IGfwEventStoreStates['activeEvent']),
+  ) => void;
+  setSelectedEvents: (
+    a_Value:
+      | IGfwEventStoreStates['selectedEvents']
+      | ((
+          a_Prev: IGfwEventStoreStates['selectedEvents'],
+        ) => IGfwEventStoreStates['selectedEvents']),
+  ) => void;
+  setPages: (
+    a_Value:
+      | IGfwEventStoreStates['pages']
+      | ((
+          a_Prev: IGfwEventStoreStates['pages'],
+        ) => IGfwEventStoreStates['pages']),
+  ) => void;
+  setPageIndex: (
+    a_Value:
+      | IGfwEventStoreStates['pageIndex']
+      | ((
+          a_Prev: IGfwEventStoreStates['pageIndex'],
+        ) => IGfwEventStoreStates['pageIndex']),
+  ) => void;
+  setTotal: (
+    a_Value:
+      | IGfwEventStoreStates['total']
+      | ((a_Prev: IGfwEventStoreStates['total']) => IGfwEventStoreStates['total']),
+  ) => void;
+  setLastParams: (
+    a_Value:
+      | IGfwEventStoreStates['lastParams']
+      | ((
+          a_Prev: IGfwEventStoreStates['lastParams'],
+        ) => IGfwEventStoreStates['lastParams']),
+  ) => void;
+}
+
 // The History tab (right-side drawer) caches a query + its result together,
 // per originating left-sidebar tab, so "Apply" can restore both without a
-// backend fetch. Only report/vessel produce entries today -- the Event tab
-// has no query/results mechanism yet (see Sidebar.tsx).
+// backend fetch.
 export interface IReportHistoryResult {
   events: IEventSchema[];
   pagination: IPagination | null;
@@ -821,6 +1011,14 @@ export interface IVesselHistoryResult {
   since: string | null;
   total: number | null;
   lastParams: IVesselSearchURLParams | null;
+}
+
+export interface IGfwEventHistoryResult {
+  events: TGlobalEvent[];
+  pages: TGlobalEvent[][];
+  pageIndex: number;
+  total: number | null;
+  lastParams: IEventSearchParams | null;
 }
 
 export type IHistoryEntry =
@@ -841,6 +1039,15 @@ export type IHistoryEntry =
       resultCount: number;
       config: IVesselSearchURLParams;
       result: IVesselHistoryResult;
+    }
+  | {
+      id: string;
+      tab: 'event';
+      timestamp: string;
+      success: boolean;
+      resultCount: number;
+      config: IEventSearchParams;
+      result: IGfwEventHistoryResult;
     };
 
 export interface IHistoryStoreStates {
